@@ -14,7 +14,8 @@
     "contact-system/api": "@dev"
   },
   "require-dev": {
-    "symfony/debug-pack": "^1.0"
+    "symfony/debug-pack": "^1.0",
+    "symfony/maker-bundle": "^1.15"
   },
   "config": {
     "preferred-install": {
