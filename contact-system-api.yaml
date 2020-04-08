@@ -1,0 +1,1278 @@
+openapi: 3.0.0
+servers:
+  - url: "https://{subdomain}.mooneevalleyscouts.org.au/{version}"
+    variables:
+      subdomain:
+        description: "Subdomain, related to environment"
+        default: members
+        enum:
+          - stg-members
+          - members
+      version:
+        description: API Version
+        default: v1
+        enum:
+          - v1
+    description: Moonee Valley Contact System
+info:
+  description: This is the spec for the Constact system API
+  version: 1.0.0
+  title: Contact System API
+  termsOfService: ""
+  contact:
+    email: dirk@arends.com.au
+    name: Dirk Arends
+tags:
+  - name: groups
+    description: Everything you need to handle `groups`
+  - name: lists
+    description: Everything you need to handle `lists`
+  - name: members
+    description: Everything you need to handle `members`
+  - name: parents
+    description: Everything you need to handle `parents`
+  - name: roles
+    description: Everything you need to handle `roles`
+  - name: subsidiaries
+    description: Everything you need to handle `subsidiaries`
+  - name: sections
+    description: Everything you need to handle `sections`
+paths:
+  /members:
+    post:
+      tags:
+        - members
+      summary: Add a new pet to the store
+      description: ""
+      operationId: addMember
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Member"
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Member"
+    get:
+      summary: ""
+      description: ""
+      parameters: []
+      operationId: getMembers
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema:
+                title: Members
+                description: A list of members
+                type: object
+                properties:
+                  members:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/Member"
+                required:
+                  - members
+      tags:
+        - members
+  "/members/{memberId}":
+    get:
+      summary: ""
+      description: Get details for a member
+      parameters: []
+      operationId: getMemberById
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Member"
+              examples: {}
+      tags:
+        - members
+    put:
+      summary: ""
+      description: "Update a member's detail"
+      parameters: []
+      operationId: updateMemberById
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Member"
+      tags:
+        - members
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Member"
+    delete:
+      summary: ""
+      description: Delete a member
+      parameters: []
+      operationId: deleteMemberById
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Member"
+      tags:
+        - members
+    parameters:
+      - schema:
+          type: string
+        name: memberId
+        in: path
+        required: true
+  "/members/{memberId}/local":
+    put:
+      summary: Removes local marker to member
+      description: ""
+      parameters: []
+      operationId: addMemberLocalMarkerById
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - members
+    delete:
+      summary: ""
+      description: ""
+      parameters: []
+      operationId: removeMemberLocalMarkerById
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema: {}
+      tags:
+        - members
+    parameters:
+      - schema:
+          type: string
+        name: memberId
+        in: path
+        required: true
+  "/members/{memberId}/local/suggestions":
+    get:
+      summary: ""
+      description: ""
+      parameters: []
+      operationId: getMemberLocalMarkerSuggestionsById
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema:
+                type: array
+                description: TODO
+                items:
+                  $ref: "#/components/schemas/MemberSuggetion"
+      tags:
+        - members
+    parameters:
+      - schema:
+          type: string
+        name: memberId
+        in: path
+        required: true
+  "/members/{memberId}/merge_into/{mergeMemberId}":
+    post:
+      summary: ""
+      description: ""
+      parameters: []
+      operationId: mergeMember
+      tags:
+        - members
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    parameters:
+      - schema:
+          type: string
+        name: memberId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: mergeMemberId
+        in: path
+        required: true
+  /roles/custom:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - roles
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Role"
+      operationId: get-roles-custom
+    post:
+      summary: ""
+      operationId: post-roles-custom
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Role"
+      tags:
+        - roles
+  "/roles/custom/{customRoleId}":
+    parameters:
+      - schema:
+          type: string
+        name: customRoleId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - roles
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+      operationId: get-roles-custom-customRoleId
+    put:
+      summary: ""
+      operationId: put-roles-custom-customRoleId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Role"
+      tags:
+        - roles
+    delete:
+      summary: ""
+      operationId: delete-roles-custom-customRoleId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - roles
+  "/roles/custom/{customRoleId}/members":
+    parameters:
+      - schema:
+          type: string
+        name: customRoleId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - roles
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      operationId: get-roles-custom-customRoleId-members
+  /subsidiaries:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - subsidiaries
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Subsidiary"
+      operationId: get-subsidiaries
+      description: ""
+    post:
+      summary: ""
+      operationId: post-subsidiaries
+      responses:
+        "200":
+          description: OK
+      tags:
+        - subsidiaries
+  "/subsidiaries/{subsidiaryId}/members":
+    parameters:
+      - schema:
+          type: string
+        name: subsidiaryId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - subsidiaries
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      operationId: get-subsidiaries-subsidiaryId-members
+  "/subsidiaries/{subsidiaryId}":
+    parameters:
+      - schema:
+          type: string
+        name: subsidiaryId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - subsidiaries
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subsidiary"
+      operationId: get-subsidiaries-subsidiaryId
+    put:
+      summary: ""
+      operationId: put-subsidiaries-subsidiaryId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subsidiary"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Subsidiary"
+      tags:
+        - subsidiaries
+    delete:
+      summary: ""
+      operationId: delete-subsidiaries-subsidiaryId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - subsidiaries
+  "/subsidiaries/{subsidiaryId}/local":
+    parameters:
+      - schema:
+          type: string
+        name: subsidiaryId
+        in: path
+        required: true
+    put:
+      summary: ""
+      operationId: put-subsidiaries-subsidiaryId-local
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - subsidiaries
+    delete:
+      summary: ""
+      operationId: delete-subsidiaries-subsidiaryId-local
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - subsidiaries
+  /parents:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - parents
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MemberParent"
+      operationId: get-parents
+    post:
+      summary: ""
+      operationId: post-parents
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemberParent"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberParent"
+        description: ""
+      tags:
+        - parents
+  "/parents/{parentId}":
+    parameters:
+      - schema:
+          type: string
+        name: parentId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - parents
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemberParent"
+      operationId: get-parents-parentId
+    put:
+      summary: ""
+      operationId: put-parents-parentId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemberParent"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberParent"
+        description: ""
+      tags:
+        - parents
+    delete:
+      summary: ""
+      operationId: delete-parents-parentId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - parents
+  "/parents/{parentId}/members":
+    parameters:
+      - schema:
+          type: string
+        name: parentId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - parents
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      operationId: get-parents-parentId-members
+  /groups:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - groups
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Group"
+      operationId: get-groups
+      description: ""
+    post:
+      summary: ""
+      operationId: post-groups
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Group"
+      tags:
+        - groups
+  "/groups/{groupId}":
+    parameters:
+      - schema:
+          type: string
+        name: groupId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - parents
+      responses:
+        "200":
+          description: "OK  "
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+      operationId: get-groups-groupId
+    put:
+      summary: ""
+      operationId: put-groups-groupId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Group"
+      tags:
+        - parents
+    delete:
+      summary: ""
+      operationId: delete-groups-groupId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - parents
+  "/groups/{groupId}/local":
+    parameters:
+      - schema:
+          type: string
+        name: groupId
+        in: path
+        required: true
+    put:
+      summary: ""
+      operationId: put-groups-groupId-local
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - groups
+    delete:
+      summary: ""
+      operationId: delete-groups-groupId-local
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - groups
+  "/groups/{groupId}/members":
+    parameters:
+      - schema:
+          type: string
+        name: groupId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - groups
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      operationId: get-groups-groupId-members
+      description: ""
+  "/groups/{groupId}/sections":
+    parameters:
+      - schema:
+          type: string
+        name: groupId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - groups
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      operationId: get-groups-groupId-sections
+  /sections:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - sections
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Section"
+      operationId: get-sections
+    post:
+      summary: ""
+      operationId: post-sections
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Section"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Section"
+      tags:
+        - sections
+  "/sections/{sectionId}":
+    parameters:
+      - schema:
+          type: string
+        name: sectionId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - sections
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Section"
+      operationId: get-sections-sectionId
+    put:
+      summary: ""
+      operationId: put-sections-sectionId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Section"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Section"
+      tags:
+        - sections
+    delete:
+      summary: ""
+      operationId: delete-sections-sectionId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - sections
+  "/sections/{sectionId}/local":
+    parameters:
+      - schema:
+          type: string
+        name: sectionId
+        in: path
+        required: true
+    put:
+      summary: ""
+      operationId: put-sections-sectionId-local
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - sections
+    delete:
+      summary: ""
+      operationId: delete-sections-sectionId-local
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - sections
+  "/sections/{sectionId}/members":
+    parameters:
+      - schema:
+          type: string
+        name: sectionId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - sections
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      operationId: get-sections-sectionId-members
+  "/members/{memberId}/section":
+    parameters:
+      - schema:
+          type: string
+        name: memberId
+        in: path
+        required: true
+    put:
+      summary: ""
+      operationId: put-members-memberId-section
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sectionId:
+                  type: string
+        description: ""
+      tags:
+        - members
+    delete:
+      summary: ""
+      operationId: delete-members-memberId-section
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - members
+  "/members/{memberId}/group":
+    parameters:
+      - schema:
+          type: string
+        name: memberId
+        in: path
+        required: true
+    put:
+      summary: ""
+      operationId: put-members-memberId-group
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupId:
+                  type: string
+      tags:
+        - members
+  /lists:
+    get:
+      summary: Your GET endpoint
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/List"
+      operationId: get-lists
+      tags:
+        - lists
+    post:
+      summary: ""
+      operationId: post-lists
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/List"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/List"
+      tags:
+        - lists
+  "/lists/{listId}":
+    parameters:
+      - schema:
+          type: string
+        name: listId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - lists
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/List"
+      operationId: get-lists-listId
+    put:
+      summary: ""
+      operationId: put-lists-listId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/List"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/List"
+      tags:
+        - lists
+    delete:
+      summary: ""
+      operationId: delete-lists-listId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - lists
+  "/lists/{listId}/members":
+    parameters:
+      - schema:
+          type: string
+        name: listId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - lists
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      operationId: get-lists-listId-members
+  "/lists/{listId}/rules":
+    parameters:
+      - schema:
+          type: string
+        name: listId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - lists
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ListRule"
+      operationId: get-lists-listId-rules
+      description: ""
+    post:
+      summary: ""
+      operationId: post-lists-listId-rules
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListRule"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListRule"
+      tags:
+        - lists
+  "/lists/{listId}/rules/{ruleId}":
+    parameters:
+      - schema:
+          type: string
+        name: listId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: ruleId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - lists
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListRule"
+      operationId: get-lists-listId-rules-ruleId
+    put:
+      summary: ""
+      operationId: put-lists-listId-rules-ruleId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListRule"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListRule"
+      tags:
+        - lists
+    delete:
+      summary: ""
+      operationId: delete-lists-listId-rules-ruleId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - lists
+  /lists/types:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - lists
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ListType"
+      operationId: get-lists-types
+    post:
+      summary: ""
+      operationId: post-lists-types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListType"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListType"
+      tags:
+        - lists
+  "/lists/types/{listTypeId}":
+    parameters:
+      - schema:
+          type: string
+        name: listTypeId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - lists
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListType"
+      operationId: get-lists-types-listTypeId
+    put:
+      summary: ""
+      operationId: put-lists-types-listTypeId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListType"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListType"
+      tags:
+        - lists
+    delete:
+      summary: ""
+      operationId: delete-lists-types-listTypeId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - lists
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      description: ""
+      properties:
+        code:
+          format: int32
+          type: integer
+        type:
+          type: string
+        message:
+          type: string
+    Member:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          $ref: "#/components/schemas/Address"
+        phone:
+          type: string
+        sectionId:
+          type: string
+    MemberSuggetion:
+      title: MemberSuggetion
+      type: object
+      properties:
+        id:
+          type: string
+    Address:
+      title: Address
+      type: object
+      properties:
+        id:
+          type: string
+    Role:
+      title: Role
+      type: object
+      properties:
+        id:
+          type: string
+    Subsidiary:
+      title: Subsidiary
+      type: object
+      properties:
+        id:
+          type: string
+    MemberParent:
+      title: Parent
+      type: object
+      properties:
+        id:
+          type: string
+    Group:
+      title: Group
+      type: object
+      properties:
+        id:
+          type: string
+    Section:
+      title: Section
+      type: object
+      properties:
+        id:
+          type: string
+    List:
+      title: List
+      type: object
+      properties:
+        id:
+          type: string
+    ListRule:
+      title: ListRule
+      type: object
+      properties:
+        id:
+          type: string
+    ListType:
+      title: ListType
+      type: object
+      properties:
+        id:
+          type: string
+  requestBodies: {}
+  securitySchemes:
+    contact_auth:
+      type: apiKey
+      name: x-api-key
+      in: header
+  links: {}
+  callbacks: {}
+security:
+  - contact_auth: []
