@@ -13,11 +13,8 @@ class JmsSerializer implements SerializerInterface
 
     public function __construct()
     {
-        $naming_strategy = new SerializedNameAnnotationStrategy(new CamelCaseNamingStrategy());
-        $this->serializer = SerializerBuilder::create()
-            ->setDeserializationVisitor('json', new StrictJsonDeserializationVisitor($naming_strategy))
-            ->setDeserializationVisitor('xml', new XmlDeserializationVisitor($naming_strategy))
-            ->build();
+        // TODO: Workout how to specify naming strategy for JSON and XML           
+        $this->serializer = SerializerBuilder::create()->build();
     }
 
     public function serialize($data, $format)
@@ -28,7 +25,7 @@ class JmsSerializer implements SerializerInterface
     public function deserialize($data, $type, $format)
     {
         if ($format == 'string') {
-            return $this->deserializeString($data, $type);           
+            return $this->deserializeString($data, $type);
         }
 
         // If we end up here, let JMS serializer handle the deserialization

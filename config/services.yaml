@@ -25,3 +25,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    contact_system.controller.members:
+        class: App\Controller\MembersController
+        tags:
+            - { name: "open_api_server.api", api: "members" }
