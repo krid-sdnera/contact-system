@@ -51,11 +51,27 @@ class Member
 
     /**
      * @var string|null
-     * @SerializedName("name")
+     * @SerializedName("firstname")
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected $name;
+    protected $firstname;
+
+    /**
+     * @var string|null
+     * @SerializedName("lastname")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $lastname;
+
+    /**
+     * @var string|null
+     * @SerializedName("nickname")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $nickname;
 
     /**
      * @var OpenAPI\Server\Model\Address|null
@@ -66,32 +82,16 @@ class Member
     protected $address;
 
     /**
-     * @var string|null
-     * @SerializedName("phone")
-     * @Assert\Type("string")
-     * @Type("string")
-     */
-    protected $phone;
-
-    /**
-     * @var string|null
-     * @SerializedName("sectionId")
-     * @Assert\Type("string")
-     * @Type("string")
-     */
-    protected $sectionId;
-
-    /**
      * Constructor
      * @param mixed[] $data Associated array of property values initializing the model
      */
     public function __construct(array $data = null)
     {
         $this->id = isset($data['id']) ? $data['id'] : null;
-        $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->firstname = isset($data['firstname']) ? $data['firstname'] : null;
+        $this->lastname = isset($data['lastname']) ? $data['lastname'] : null;
+        $this->nickname = isset($data['nickname']) ? $data['nickname'] : null;
         $this->address = isset($data['address']) ? $data['address'] : null;
-        $this->phone = isset($data['phone']) ? $data['phone'] : null;
-        $this->sectionId = isset($data['sectionId']) ? $data['sectionId'] : null;
     }
 
     /**
@@ -119,25 +119,73 @@ class Member
     }
 
     /**
-     * Gets name.
+     * Gets firstname.
      *
      * @return string|null
      */
-    public function getName()
+    public function getFirstname()
     {
-        return $this->name;
+        return $this->firstname;
     }
 
     /**
-     * Sets name.
+     * Sets firstname.
      *
-     * @param string|null $name
+     * @param string|null $firstname
      *
      * @return $this
      */
-    public function setName($name = null)
+    public function setFirstname($firstname = null)
     {
-        $this->name = $name;
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Gets lastname.
+     *
+     * @return string|null
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Sets lastname.
+     *
+     * @param string|null $lastname
+     *
+     * @return $this
+     */
+    public function setLastname($lastname = null)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Gets nickname.
+     *
+     * @return string|null
+     */
+    public function getNickname()
+    {
+        return $this->nickname;
+    }
+
+    /**
+     * Sets nickname.
+     *
+     * @param string|null $nickname
+     *
+     * @return $this
+     */
+    public function setNickname($nickname = null)
+    {
+        $this->nickname = $nickname;
 
         return $this;
     }
@@ -162,54 +210,6 @@ class Member
     public function setAddress(Address $address = null): ?Address
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Gets phone.
-     *
-     * @return string|null
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * Sets phone.
-     *
-     * @param string|null $phone
-     *
-     * @return $this
-     */
-    public function setPhone($phone = null)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Gets sectionId.
-     *
-     * @return string|null
-     */
-    public function getSectionId()
-    {
-        return $this->sectionId;
-    }
-
-    /**
-     * Sets sectionId.
-     *
-     * @param string|null $sectionId
-     *
-     * @return $this
-     */
-    public function setSectionId($sectionId = null)
-    {
-        $this->sectionId = $sectionId;
 
         return $this;
     }

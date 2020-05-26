@@ -11,6 +11,8 @@ use OpenAPI\Server\Model\InlineObject1;
 use OpenAPI\Server\Model\Member;
 use OpenAPI\Server\Model\Members;
 
+use App\Entity;
+
 class MembersController extends AbstractController implements MembersApiInterface
 {
 
@@ -26,6 +28,22 @@ class MembersController extends AbstractController implements MembersApiInterfac
      */
     public function addMember(Member $member, &$responseCode, array &$responseHeaders)
     {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $product = new Entity\Member();
+        $product->setFirstname($member->getFirstname());
+        $product->setLastname($member->getLastname());
+        $product->setNickname($member->getNickname());
+        $product->setAddress((array) $member->getAddress());
+
+        // tell Doctrine you want to (eventually) save the Product (no queries yet)
+        $entityManager->persist($product);
+
+        // actually executes the queries (i.e. the INSERT query)
+        $entityManager->flush();
+
+        $member->setId($product->getId());
+        return $member;
     }
 
     /**
@@ -69,6 +87,8 @@ class MembersController extends AbstractController implements MembersApiInterfac
      */
     public function getMembers(&$responseCode, array &$responseHeaders)
     {
+        // Add db magic
+
         return new Members();
     }
 

@@ -14,6 +14,14 @@ servers:
         enum:
           - v1
     description: Moonee Valley Contact System
+  - url: "http://localhost:8000/api/{version}"
+    variables:
+      version:
+        description: API Version
+        default: v1
+        enum:
+          - v1
+    description: MVD CS Dev
 info:
   description: This is the spec for the Constact system API
   version: 1.0.0
@@ -42,7 +50,7 @@ paths:
     post:
       tags:
         - members
-      summary: Add a new pet to the store
+      summary: Create a member
       description: ""
       operationId: addMember
       requestBody:
@@ -61,7 +69,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Member"
     get:
-      summary: ""
+      summary: List all members
       description: ""
       parameters: []
       operationId: getMembers
@@ -87,7 +95,7 @@ paths:
         - members
   "/members/{memberId}":
     get:
-      summary: ""
+      summary: Get member
       description: Get details for a member
       parameters: []
       operationId: getMemberById
@@ -102,7 +110,7 @@ paths:
       tags:
         - members
     put:
-      summary: ""
+      summary: Update member
       description: "Update a member's detail"
       parameters: []
       operationId: updateMemberById
@@ -122,7 +130,7 @@ paths:
             schema:
               $ref: "#/components/schemas/Member"
     delete:
-      summary: ""
+      summary: Delete member
       description: Delete a member
       parameters: []
       operationId: deleteMemberById
@@ -143,7 +151,7 @@ paths:
         required: true
   "/members/{memberId}/local":
     put:
-      summary: Removes local marker to member
+      summary: Add local marker
       description: ""
       parameters: []
       operationId: addMemberLocalMarkerById
@@ -157,7 +165,7 @@ paths:
       tags:
         - members
     delete:
-      summary: ""
+      summary: Remove local marker
       description: ""
       parameters: []
       operationId: removeMemberLocalMarkerById
@@ -177,7 +185,7 @@ paths:
         required: true
   "/members/{memberId}/local/suggestions":
     get:
-      summary: ""
+      summary: Get member suggestions
       description: ""
       parameters: []
       operationId: getMemberLocalMarkerSuggestionsById
@@ -201,7 +209,7 @@ paths:
         required: true
   "/members/{memberId}/merge_into/{mergeMemberId}":
     post:
-      summary: ""
+      summary: Merge member
       description: ""
       parameters: []
       operationId: mergeMember
@@ -1198,14 +1206,14 @@ components:
       properties:
         id:
           type: string
-        name:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        nickname:
           type: string
         address:
           $ref: "#/components/schemas/Address"
-        phone:
-          type: string
-        sectionId:
-          type: string
     MemberSuggetion:
       title: MemberSuggetion
       type: object

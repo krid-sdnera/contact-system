@@ -4,18 +4,18 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addMember**](MembersApiInterface.md#addMember) | **POST** /members | Add a new pet to the store
-[**addMemberLocalMarkerById**](MembersApiInterface.md#addMemberLocalMarkerById) | **PUT** /members/{memberId}/local | Removes local marker to member
-[**deleteMemberById**](MembersApiInterface.md#deleteMemberById) | **DELETE** /members/{memberId} | 
+[**addMember**](MembersApiInterface.md#addMember) | **POST** /members | Create a member
+[**addMemberLocalMarkerById**](MembersApiInterface.md#addMemberLocalMarkerById) | **PUT** /members/{memberId}/local | Add local marker
+[**deleteMemberById**](MembersApiInterface.md#deleteMemberById) | **DELETE** /members/{memberId} | Delete member
 [**deleteMembersMemberIdSection**](MembersApiInterface.md#deleteMembersMemberIdSection) | **DELETE** /members/{memberId}/section | 
-[**getMemberById**](MembersApiInterface.md#getMemberById) | **GET** /members/{memberId} | 
-[**getMemberLocalMarkerSuggestionsById**](MembersApiInterface.md#getMemberLocalMarkerSuggestionsById) | **GET** /members/{memberId}/local/suggestions | 
-[**getMembers**](MembersApiInterface.md#getMembers) | **GET** /members | 
-[**mergeMember**](MembersApiInterface.md#mergeMember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | 
+[**getMemberById**](MembersApiInterface.md#getMemberById) | **GET** /members/{memberId} | Get member
+[**getMemberLocalMarkerSuggestionsById**](MembersApiInterface.md#getMemberLocalMarkerSuggestionsById) | **GET** /members/{memberId}/local/suggestions | Get member suggestions
+[**getMembers**](MembersApiInterface.md#getMembers) | **GET** /members | List all members
+[**mergeMember**](MembersApiInterface.md#mergeMember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
 [**putMembersMemberIdGroup**](MembersApiInterface.md#putMembersMemberIdGroup) | **PUT** /members/{memberId}/group | 
 [**putMembersMemberIdSection**](MembersApiInterface.md#putMembersMemberIdSection) | **PUT** /members/{memberId}/section | 
-[**removeMemberLocalMarkerById**](MembersApiInterface.md#removeMemberLocalMarkerById) | **DELETE** /members/{memberId}/local | 
-[**updateMemberById**](MembersApiInterface.md#updateMemberById) | **PUT** /members/{memberId} | 
+[**removeMemberLocalMarkerById**](MembersApiInterface.md#removeMemberLocalMarkerById) | **DELETE** /members/{memberId}/local | Remove local marker
+[**updateMemberById**](MembersApiInterface.md#updateMemberById) | **PUT** /members/{memberId} | Update member
 
 
 ## Service Declaration
@@ -33,7 +33,7 @@ services:
 ## **addMember**
 > OpenAPI\Server\Model\Member addMember($member)
 
-Add a new pet to the store
+Create a member
 
 ### Example Implementation
 ```php
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 ## **addMemberLocalMarkerById**
 > OpenAPI\Server\Model\ApiResponse addMemberLocalMarkerById($memberId)
 
-Removes local marker to member
+Add local marker
 
 ### Example Implementation
 ```php
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 ## **deleteMemberById**
 > OpenAPI\Server\Model\Member deleteMemberById($memberId)
 
-
+Delete member
 
 Delete a member
 
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 ## **getMemberById**
 > OpenAPI\Server\Model\Member getMemberById($memberId)
 
-
+Get member
 
 Get details for a member
 
@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
 ## **getMemberLocalMarkerSuggestionsById**
 > OpenAPI\Server\Model\MemberSuggetion getMemberLocalMarkerSuggestionsById($memberId)
 
-
+Get member suggestions
 
 ### Example Implementation
 ```php
@@ -397,7 +397,7 @@ Name | Type | Description  | Notes
 ## **getMembers**
 > OpenAPI\Server\Model\Members getMembers()
 
-
+List all members
 
 ### Example Implementation
 ```php
@@ -454,7 +454,7 @@ This endpoint does not need any parameter.
 ## **mergeMember**
 > OpenAPI\Server\Model\ApiResponse mergeMember($memberId, $mergeMemberId)
 
-
+Merge member
 
 ### Example Implementation
 ```php
@@ -637,7 +637,7 @@ Name | Type | Description  | Notes
 ## **removeMemberLocalMarkerById**
 > array removeMemberLocalMarkerById($memberId)
 
-
+Remove local marker
 
 ### Example Implementation
 ```php
@@ -697,7 +697,7 @@ Name | Type | Description  | Notes
 ## **updateMemberById**
 > OpenAPI\Server\Model\Member updateMemberById($memberId, $member)
 
-
+Update member
 
 Update a member's detail
 

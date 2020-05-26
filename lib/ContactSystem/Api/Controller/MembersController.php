@@ -58,7 +58,7 @@ class MembersController extends Controller
     /**
      * Operation addMember
      *
-     * Add a new pet to the store
+     * Create a member
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -150,7 +150,7 @@ class MembersController extends Controller
     /**
      * Operation addMemberLocalMarkerById
      *
-     * Removes local marker to member
+     * Add local marker
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -231,6 +231,8 @@ class MembersController extends Controller
 
     /**
      * Operation deleteMemberById
+     *
+     * Delete member
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -392,6 +394,8 @@ class MembersController extends Controller
     /**
      * Operation getMemberById
      *
+     * Get member
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -471,6 +475,8 @@ class MembersController extends Controller
 
     /**
      * Operation getMemberLocalMarkerSuggestionsById
+     *
+     * Get member suggestions
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -552,6 +558,8 @@ class MembersController extends Controller
     /**
      * Operation getMembers
      *
+     * List all members
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -617,6 +625,8 @@ class MembersController extends Controller
 
     /**
      * Operation mergeMember
+     *
+     * Merge member
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -900,6 +910,8 @@ class MembersController extends Controller
     /**
      * Operation removeMemberLocalMarkerById
      *
+     * Remove local marker
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -979,6 +991,8 @@ class MembersController extends Controller
 
     /**
      * Operation updateMemberById
+     *
+     * Update member
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.

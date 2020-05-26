@@ -60,7 +60,7 @@ interface MembersApiInterface
     /**
      * Operation addMember
      *
-     * Add a new pet to the store
+     * Create a member
      *
      * @param  OpenAPI\Server\Model\Member $member   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -74,7 +74,7 @@ interface MembersApiInterface
     /**
      * Operation addMemberLocalMarkerById
      *
-     * Removes local marker to member
+     * Add local marker
      *
      * @param  string $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -87,6 +87,8 @@ interface MembersApiInterface
 
     /**
      * Operation deleteMemberById
+     *
+     * Delete member
      *
      * @param  string $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -112,6 +114,8 @@ interface MembersApiInterface
     /**
      * Operation getMemberById
      *
+     * Get member
+     *
      * @param  string $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -123,6 +127,8 @@ interface MembersApiInterface
 
     /**
      * Operation getMemberLocalMarkerSuggestionsById
+     *
+     * Get member suggestions
      *
      * @param  string $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -136,6 +142,8 @@ interface MembersApiInterface
     /**
      * Operation getMembers
      *
+     * List all members
+     *
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
@@ -146,6 +154,8 @@ interface MembersApiInterface
 
     /**
      * Operation mergeMember
+     *
+     * Merge member
      *
      * @param  string $memberId   (required)
      * @param  string $mergeMemberId   (required)
@@ -186,6 +196,8 @@ interface MembersApiInterface
     /**
      * Operation removeMemberLocalMarkerById
      *
+     * Remove local marker
+     *
      * @param  string $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -197,6 +209,8 @@ interface MembersApiInterface
 
     /**
      * Operation updateMemberById
+     *
+     * Update member
      *
      * @param  string $memberId   (required)
      * @param  OpenAPI\Server\Model\Member $member   (optional)

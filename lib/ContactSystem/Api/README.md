@@ -146,18 +146,18 @@ Class | Method | HTTP request | Description
 *ListsApiInterface* | [**putListsListId**](Resources/docs/Api/ListsApiInterface.md#putlistslistid) | **PUT** /lists/{listId} | 
 *ListsApiInterface* | [**putListsListIdRulesRuleId**](Resources/docs/Api/ListsApiInterface.md#putlistslistidrulesruleid) | **PUT** /lists/{listId}/rules/{ruleId} | 
 *ListsApiInterface* | [**putListsTypesListTypeId**](Resources/docs/Api/ListsApiInterface.md#putliststypeslisttypeid) | **PUT** /lists/types/{listTypeId} | 
-*MembersApiInterface* | [**addMember**](Resources/docs/Api/MembersApiInterface.md#addmember) | **POST** /members | Add a new pet to the store
-*MembersApiInterface* | [**addMemberLocalMarkerById**](Resources/docs/Api/MembersApiInterface.md#addmemberlocalmarkerbyid) | **PUT** /members/{memberId}/local | Removes local marker to member
-*MembersApiInterface* | [**deleteMemberById**](Resources/docs/Api/MembersApiInterface.md#deletememberbyid) | **DELETE** /members/{memberId} | 
+*MembersApiInterface* | [**addMember**](Resources/docs/Api/MembersApiInterface.md#addmember) | **POST** /members | Create a member
+*MembersApiInterface* | [**addMemberLocalMarkerById**](Resources/docs/Api/MembersApiInterface.md#addmemberlocalmarkerbyid) | **PUT** /members/{memberId}/local | Add local marker
+*MembersApiInterface* | [**deleteMemberById**](Resources/docs/Api/MembersApiInterface.md#deletememberbyid) | **DELETE** /members/{memberId} | Delete member
 *MembersApiInterface* | [**deleteMembersMemberIdSection**](Resources/docs/Api/MembersApiInterface.md#deletemembersmemberidsection) | **DELETE** /members/{memberId}/section | 
-*MembersApiInterface* | [**getMemberById**](Resources/docs/Api/MembersApiInterface.md#getmemberbyid) | **GET** /members/{memberId} | 
-*MembersApiInterface* | [**getMemberLocalMarkerSuggestionsById**](Resources/docs/Api/MembersApiInterface.md#getmemberlocalmarkersuggestionsbyid) | **GET** /members/{memberId}/local/suggestions | 
-*MembersApiInterface* | [**getMembers**](Resources/docs/Api/MembersApiInterface.md#getmembers) | **GET** /members | 
-*MembersApiInterface* | [**mergeMember**](Resources/docs/Api/MembersApiInterface.md#mergemember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | 
+*MembersApiInterface* | [**getMemberById**](Resources/docs/Api/MembersApiInterface.md#getmemberbyid) | **GET** /members/{memberId} | Get member
+*MembersApiInterface* | [**getMemberLocalMarkerSuggestionsById**](Resources/docs/Api/MembersApiInterface.md#getmemberlocalmarkersuggestionsbyid) | **GET** /members/{memberId}/local/suggestions | Get member suggestions
+*MembersApiInterface* | [**getMembers**](Resources/docs/Api/MembersApiInterface.md#getmembers) | **GET** /members | List all members
+*MembersApiInterface* | [**mergeMember**](Resources/docs/Api/MembersApiInterface.md#mergemember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
 *MembersApiInterface* | [**putMembersMemberIdGroup**](Resources/docs/Api/MembersApiInterface.md#putmembersmemberidgroup) | **PUT** /members/{memberId}/group | 
 *MembersApiInterface* | [**putMembersMemberIdSection**](Resources/docs/Api/MembersApiInterface.md#putmembersmemberidsection) | **PUT** /members/{memberId}/section | 
-*MembersApiInterface* | [**removeMemberLocalMarkerById**](Resources/docs/Api/MembersApiInterface.md#removememberlocalmarkerbyid) | **DELETE** /members/{memberId}/local | 
-*MembersApiInterface* | [**updateMemberById**](Resources/docs/Api/MembersApiInterface.md#updatememberbyid) | **PUT** /members/{memberId} | 
+*MembersApiInterface* | [**removeMemberLocalMarkerById**](Resources/docs/Api/MembersApiInterface.md#removememberlocalmarkerbyid) | **DELETE** /members/{memberId}/local | Remove local marker
+*MembersApiInterface* | [**updateMemberById**](Resources/docs/Api/MembersApiInterface.md#updatememberbyid) | **PUT** /members/{memberId} | Update member
 *ParentsApiInterface* | [**deleteGroupsGroupId**](Resources/docs/Api/ParentsApiInterface.md#deletegroupsgroupid) | **DELETE** /groups/{groupId} | 
 *ParentsApiInterface* | [**deleteParentsParentId**](Resources/docs/Api/ParentsApiInterface.md#deleteparentsparentid) | **DELETE** /parents/{parentId} | 
 *ParentsApiInterface* | [**getGroupsGroupId**](Resources/docs/Api/ParentsApiInterface.md#getgroupsgroupid) | **GET** /groups/{groupId} | Your GET endpoint
