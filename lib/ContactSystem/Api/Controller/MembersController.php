@@ -580,10 +580,40 @@ class MembersController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
+        $sort = $request->query->get('sort');
+        $pageSize = $request->query->get('pageSize');
+        $page = $request->query->get('page');
 
         // Use the default value if no value was provided
 
+        // Deserialize the input values that needs it
+        try {
+            $sort = $this->deserialize($sort, 'string', 'string');
+            $pageSize = $this->deserialize($pageSize, 'int', 'string');
+            $page = $this->deserialize($page, 'int', 'string');
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
         // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($sort, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+        $asserts = [];
+        $asserts[] = new Assert\Type("int");
+        $response = $this->validate($pageSize, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+        $asserts = [];
+        $asserts[] = new Assert\Type("int");
+        $response = $this->validate($page, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
 
 
         try {
@@ -595,7 +625,7 @@ class MembersController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getMembers($responseCode, $responseHeaders);
+            $result = $handler->getMembers($sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'Default response';

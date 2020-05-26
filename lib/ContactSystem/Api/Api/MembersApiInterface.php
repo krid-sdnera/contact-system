@@ -144,13 +144,16 @@ interface MembersApiInterface
      *
      * List all members
      *
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\Members
      *
      */
-    public function getMembers(&$responseCode, array &$responseHeaders);
+    public function getMembers($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation mergeMember

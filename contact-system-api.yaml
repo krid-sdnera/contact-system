@@ -71,7 +71,19 @@ paths:
     get:
       summary: List all members
       description: ""
-      parameters: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
       operationId: getMembers
       responses:
         "200":
