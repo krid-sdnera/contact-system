@@ -37,7 +37,9 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Constraints as Assert;
 use OpenAPI\Server\Api\SectionsApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Section;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\SectionData;
+use OpenAPI\Server\Model\SectionInput;
 
 /**
  * SectionsController Class Doc Comment
@@ -161,22 +163,22 @@ class SectionsController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $section = $request->getContent();
+        $sectionInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
-            $section = $this->deserialize($section, 'OpenAPI\Server\Model\Section', $inputFormat);
+            $sectionInput = $this->deserialize($sectionInput, 'OpenAPI\Server\Model\SectionInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
 
         // Validate the input values
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Section");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\SectionInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($section, $asserts);
+        $response = $this->validate($sectionInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -191,7 +193,7 @@ class SectionsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->createSection($section, $responseCode, $responseHeaders);
+            $result = $handler->createSection($sectionInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -642,14 +644,14 @@ class SectionsController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $section = $request->getContent();
+        $sectionInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
             $sectionId = $this->deserialize($sectionId, 'string', 'string');
-            $section = $this->deserialize($section, 'OpenAPI\Server\Model\Section', $inputFormat);
+            $sectionInput = $this->deserialize($sectionInput, 'OpenAPI\Server\Model\SectionInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -663,9 +665,9 @@ class SectionsController extends Controller
             return $response;
         }
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Section");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\SectionInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($section, $asserts);
+        $response = $this->validate($sectionInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -680,7 +682,7 @@ class SectionsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateSectionById($sectionId, $section, $responseCode, $responseHeaders);
+            $result = $handler->updateSectionById($sectionId, $sectionInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

@@ -74,24 +74,9 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for addMember
-     *
-     * Add a new pet to the store.
-     *
-     */
-    public function testAddMember()
-    {
-        $client = static::createClient();
-
-        $path = '/members';
-
-        $crawler = $client->request('POST', $path);
-    }
-
-    /**
      * Test case for addMemberLocalMarkerById
      *
-     * Removes local marker to member.
+     * Add local marker.
      *
      */
     public function testAddMemberLocalMarkerById()
@@ -107,9 +92,24 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
+     * Test case for createMember
+     *
+     * Create a member.
+     *
+     */
+    public function testCreateMember()
+    {
+        $client = static::createClient();
+
+        $path = '/members';
+
+        $crawler = $client->request('POST', $path);
+    }
+
+    /**
      * Test case for deleteMemberById
      *
-     * .
+     * Delete member.
      *
      */
     public function testDeleteMemberById()
@@ -125,27 +125,9 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteMembersMemberIdSection
-     *
-     * .
-     *
-     */
-    public function testDeleteMembersMemberIdSection()
-    {
-        $client = static::createClient();
-
-        $path = '/members/{memberId}/section';
-        $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('DELETE', $path);
-    }
-
-    /**
      * Test case for getMemberById
      *
-     * .
+     * Get member.
      *
      */
     public function testGetMemberById()
@@ -163,7 +145,7 @@ class MembersApiInterfaceTest extends WebTestCase
     /**
      * Test case for getMemberLocalMarkerSuggestionsById
      *
-     * .
+     * Get member suggestions.
      *
      */
     public function testGetMemberLocalMarkerSuggestionsById()
@@ -181,7 +163,7 @@ class MembersApiInterfaceTest extends WebTestCase
     /**
      * Test case for getMembers
      *
-     * .
+     * List all members.
      *
      */
     public function testGetMembers()
@@ -196,7 +178,7 @@ class MembersApiInterfaceTest extends WebTestCase
     /**
      * Test case for mergeMember
      *
-     * .
+     * Merge member.
      *
      */
     public function testMergeMember()
@@ -215,45 +197,9 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for putMembersMemberIdGroup
-     *
-     * .
-     *
-     */
-    public function testPutMembersMemberIdGroup()
-    {
-        $client = static::createClient();
-
-        $path = '/members/{memberId}/group';
-        $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('PUT', $path);
-    }
-
-    /**
-     * Test case for putMembersMemberIdSection
-     *
-     * .
-     *
-     */
-    public function testPutMembersMemberIdSection()
-    {
-        $client = static::createClient();
-
-        $path = '/members/{memberId}/section';
-        $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('PUT', $path);
-    }
-
-    /**
      * Test case for removeMemberLocalMarkerById
      *
-     * .
+     * Remove local marker.
      *
      */
     public function testRemoveMemberLocalMarkerById()
@@ -269,9 +215,63 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for updateMemberById
+     * Test case for removeMemberSectionById
      *
      * .
+     *
+     */
+    public function testRemoveMemberSectionById()
+    {
+        $client = static::createClient();
+
+        $path = '/members/{memberId}/section';
+        $pattern = '{memberId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('DELETE', $path);
+    }
+
+    /**
+     * Test case for setMemberGroupById
+     *
+     * .
+     *
+     */
+    public function testSetMemberGroupById()
+    {
+        $client = static::createClient();
+
+        $path = '/members/{memberId}/group';
+        $pattern = '{memberId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('PUT', $path);
+    }
+
+    /**
+     * Test case for setMemberSectionById
+     *
+     * .
+     *
+     */
+    public function testSetMemberSectionById()
+    {
+        $client = static::createClient();
+
+        $path = '/members/{memberId}/section';
+        $pattern = '{memberId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('PUT', $path);
+    }
+
+    /**
+     * Test case for updateMemberById
+     *
+     * Update member.
      *
      */
     public function testUpdateMemberById()

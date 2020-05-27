@@ -30,7 +30,10 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Group;
+use OpenAPI\Server\Model\GroupData;
+use OpenAPI\Server\Model\GroupInput;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\SectionData;
 
 /**
  * GroupsApiInterface Interface Doc Comment
@@ -67,14 +70,14 @@ interface GroupsApiInterface
     /**
      * Operation createGroup
      *
-     * @param  OpenAPI\Server\Model\Group $group   (optional)
+     * @param  OpenAPI\Server\Model\GroupInput $groupInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Group
+     * @return OpenAPI\Server\Model\GroupData
      *
      */
-    public function createGroup(Group $group = null, &$responseCode, array &$responseHeaders);
+    public function createGroup(GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteGroupLocalMarkerById
@@ -97,7 +100,7 @@ interface GroupsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return string[]
+     * @return OpenAPI\Server\Model\MemberData[]
      *
      */
     public function getGroupMembersById($groupId, &$responseCode, array &$responseHeaders);
@@ -111,7 +114,7 @@ interface GroupsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return string[]
+     * @return OpenAPI\Server\Model\SectionData[]
      *
      */
     public function getGroupSectionsById($groupId, &$responseCode, array &$responseHeaders);
@@ -124,7 +127,7 @@ interface GroupsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Group[]
+     * @return OpenAPI\Server\Model\GroupData[]
      *
      */
     public function getGroups(&$responseCode, array &$responseHeaders);

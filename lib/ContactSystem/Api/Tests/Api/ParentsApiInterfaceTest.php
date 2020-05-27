@@ -74,12 +74,27 @@ class ParentsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteGroupsGroupId
+     * Test case for createParent
      *
      * .
      *
      */
-    public function testDeleteGroupsGroupId()
+    public function testCreateParent()
+    {
+        $client = static::createClient();
+
+        $path = '/parents';
+
+        $crawler = $client->request('POST', $path);
+    }
+
+    /**
+     * Test case for deleteGroupById
+     *
+     * .
+     *
+     */
+    public function testDeleteGroupById()
     {
         $client = static::createClient();
 
@@ -92,12 +107,12 @@ class ParentsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteParentsParentId
+     * Test case for deleteParentById
      *
      * .
      *
      */
-    public function testDeleteParentsParentId()
+    public function testDeleteParentById()
     {
         $client = static::createClient();
 
@@ -110,17 +125,53 @@ class ParentsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getGroupsGroupId
+     * Test case for getGroupById
      *
      * Your GET endpoint.
      *
      */
-    public function testGetGroupsGroupId()
+    public function testGetGroupById()
     {
         $client = static::createClient();
 
         $path = '/groups/{groupId}';
         $pattern = '{groupId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getParentById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetParentById()
+    {
+        $client = static::createClient();
+
+        $path = '/parents/{parentId}';
+        $pattern = '{parentId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getParentMembersById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetParentMembersById()
+    {
+        $client = static::createClient();
+
+        $path = '/parents/{parentId}/members';
+        $pattern = '{parentId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);
 
@@ -143,63 +194,12 @@ class ParentsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getParentsParentId
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetParentsParentId()
-    {
-        $client = static::createClient();
-
-        $path = '/parents/{parentId}';
-        $pattern = '{parentId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getParentsParentIdMembers
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetParentsParentIdMembers()
-    {
-        $client = static::createClient();
-
-        $path = '/parents/{parentId}/members';
-        $pattern = '{parentId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for postParents
+     * Test case for updateGroupById
      *
      * .
      *
      */
-    public function testPostParents()
-    {
-        $client = static::createClient();
-
-        $path = '/parents';
-
-        $crawler = $client->request('POST', $path);
-    }
-
-    /**
-     * Test case for putGroupsGroupId
-     *
-     * .
-     *
-     */
-    public function testPutGroupsGroupId()
+    public function testUpdateGroupById()
     {
         $client = static::createClient();
 
@@ -212,12 +212,12 @@ class ParentsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for putParentsParentId
+     * Test case for updateParentById
      *
      * .
      *
      */
-    public function testPutParentsParentId()
+    public function testUpdateParentById()
     {
         $client = static::createClient();
 

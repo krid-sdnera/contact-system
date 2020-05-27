@@ -74,12 +74,27 @@ class RolesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteRolesCustomCustomRoleId
+     * Test case for createCustomRole
      *
      * .
      *
      */
-    public function testDeleteRolesCustomCustomRoleId()
+    public function testCreateCustomRole()
+    {
+        $client = static::createClient();
+
+        $path = '/roles/custom';
+
+        $crawler = $client->request('POST', $path);
+    }
+
+    /**
+     * Test case for deleteCustomRoleById
+     *
+     * .
+     *
+     */
+    public function testDeleteCustomRoleById()
     {
         $client = static::createClient();
 
@@ -92,27 +107,12 @@ class RolesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getRolesCustom
+     * Test case for getCustomRoleById
      *
      * Your GET endpoint.
      *
      */
-    public function testGetRolesCustom()
-    {
-        $client = static::createClient();
-
-        $path = '/roles/custom';
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getRolesCustomCustomRoleId
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetRolesCustomCustomRoleId()
+    public function testGetCustomRoleById()
     {
         $client = static::createClient();
 
@@ -125,12 +125,12 @@ class RolesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getRolesCustomCustomRoleIdMembers
+     * Test case for getCustomRoleMembersById
      *
      * Your GET endpoint.
      *
      */
-    public function testGetRolesCustomCustomRoleIdMembers()
+    public function testGetCustomRoleMembersById()
     {
         $client = static::createClient();
 
@@ -143,27 +143,27 @@ class RolesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for postRolesCustom
+     * Test case for getCustomRoles
      *
-     * .
+     * Your GET endpoint.
      *
      */
-    public function testPostRolesCustom()
+    public function testGetCustomRoles()
     {
         $client = static::createClient();
 
         $path = '/roles/custom';
 
-        $crawler = $client->request('POST', $path);
+        $crawler = $client->request('GET', $path);
     }
 
     /**
-     * Test case for putRolesCustomCustomRoleId
+     * Test case for updateCustomRoleById
      *
      * .
      *
      */
-    public function testPutRolesCustomCustomRoleId()
+    public function testUpdateCustomRoleById()
     {
         $client = static::createClient();
 

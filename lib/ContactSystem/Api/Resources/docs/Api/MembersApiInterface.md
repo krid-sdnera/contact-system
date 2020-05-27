@@ -91,7 +91,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **createMember**
-> OpenAPI\Server\Model\Member createMember($member)
+> OpenAPI\Server\Model\MemberData createMember($memberInput)
 
 Create a member
 
@@ -120,7 +120,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#createMember
      */
-    public function createMember(Member $member)
+    public function createMember(MemberInput $memberInput)
     {
         // Implement the operation ...
     }
@@ -133,11 +133,11 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **member** | [**OpenAPI\Server\Model\Member**](../Model/Member.md)|  |
+ **memberInput** | [**OpenAPI\Server\Model\MemberInput**](../Model/MemberInput.md)|  |
 
 ### Return type
 
-[**OpenAPI\Server\Model\Member**](../Model/Member.md)
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
 
 ### Authorization
 
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **deleteMemberById**
-> OpenAPI\Server\Model\Member deleteMemberById($memberId)
+> OpenAPI\Server\Model\ApiResponse deleteMemberById($memberId)
 
 Delete member
 
@@ -199,7 +199,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\Member**](../Model/Member.md)
+[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
 
 ### Authorization
 
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getMemberById**
-> OpenAPI\Server\Model\Member getMemberById($memberId)
+> OpenAPI\Server\Model\MemberData getMemberById($memberId)
 
 Get member
 
@@ -261,7 +261,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\Member**](../Model/Member.md)
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
 
 ### Authorization
 
@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **removeMemberLocalMarkerById**
-> array removeMemberLocalMarkerById($memberId)
+> OpenAPI\Server\Model\ApiResponse removeMemberLocalMarkerById($memberId)
 
 Remove local marker
 
@@ -504,7 +504,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**array**
+[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
 
 ### Authorization
 
@@ -578,7 +578,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **setMemberGroupById**
-> OpenAPI\Server\Model\Group setMemberGroupById($memberId, $inlineObject1)
+> OpenAPI\Server\Model\GroupData setMemberGroupById($memberId, $groupInput)
 
 
 
@@ -607,7 +607,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#setMemberGroupById
      */
-    public function setMemberGroupById($memberId, InlineObject1 $inlineObject1 = null)
+    public function setMemberGroupById($memberId, GroupInput $groupInput = null)
     {
         // Implement the operation ...
     }
@@ -621,11 +621,11 @@ class MembersApi implements MembersApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **memberId** | **string**|  |
- **inlineObject1** | [**OpenAPI\Server\Model\InlineObject1**](../Model/InlineObject1.md)|  | [optional]
+ **groupInput** | [**OpenAPI\Server\Model\GroupInput**](../Model/GroupInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\Group**](../Model/Group.md)
+[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
 
 ### Authorization
 
@@ -639,7 +639,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **setMemberSectionById**
-> OpenAPI\Server\Model\ApiResponse setMemberSectionById($memberId, $inlineObject)
+> OpenAPI\Server\Model\ApiResponse setMemberSectionById($memberId, $sectionData)
 
 
 
@@ -668,7 +668,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#setMemberSectionById
      */
-    public function setMemberSectionById($memberId, InlineObject $inlineObject = null)
+    public function setMemberSectionById($memberId, array $sectionData = null)
     {
         // Implement the operation ...
     }
@@ -682,7 +682,7 @@ class MembersApi implements MembersApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **memberId** | **string**|  |
- **inlineObject** | [**OpenAPI\Server\Model\InlineObject**](../Model/InlineObject.md)|  | [optional]
+ **sectionData** | [**OpenAPI\Server\Model\SectionData**](../Model/SectionData.md)|  | [optional]
 
 ### Return type
 
@@ -700,7 +700,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateMemberById**
-> OpenAPI\Server\Model\Member updateMemberById($memberId, $member)
+> OpenAPI\Server\Model\MemberData updateMemberById($memberId, $memberInput)
 
 Update member
 
@@ -731,7 +731,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#updateMemberById
      */
-    public function updateMemberById($memberId, Member $member = null)
+    public function updateMemberById($memberId, MemberInput $memberInput = null)
     {
         // Implement the operation ...
     }
@@ -745,11 +745,11 @@ class MembersApi implements MembersApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **memberId** | **string**|  |
- **member** | [**OpenAPI\Server\Model\Member**](../Model/Member.md)|  | [optional]
+ **memberInput** | [**OpenAPI\Server\Model\MemberInput**](../Model/MemberInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\Member**](../Model/Member.md)
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
 
 ### Authorization
 

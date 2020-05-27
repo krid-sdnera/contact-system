@@ -30,8 +30,11 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Group;
-use OpenAPI\Server\Model\MemberParent;
+use OpenAPI\Server\Model\GroupData;
+use OpenAPI\Server\Model\GroupInput;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\MemberParentData;
+use OpenAPI\Server\Model\MemberParentInput;
 
 /**
  * ParentsApiInterface Interface Doc Comment
@@ -56,14 +59,14 @@ interface ParentsApiInterface
     /**
      * Operation createParent
      *
-     * @param  OpenAPI\Server\Model\MemberParent $memberParent   (optional)
+     * @param  OpenAPI\Server\Model\MemberParentInput $memberParentInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberParent
+     * @return OpenAPI\Server\Model\MemberParentData
      *
      */
-    public function createParent(MemberParent $memberParent = null, &$responseCode, array &$responseHeaders);
+    public function createParent(MemberParentInput $memberParentInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteGroupById
@@ -98,7 +101,7 @@ interface ParentsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Group
+     * @return OpenAPI\Server\Model\GroupData
      *
      */
     public function getGroupById($groupId, &$responseCode, array &$responseHeaders);
@@ -112,7 +115,7 @@ interface ParentsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberParent
+     * @return OpenAPI\Server\Model\MemberParentData
      *
      */
     public function getParentById($parentId, &$responseCode, array &$responseHeaders);
@@ -126,7 +129,7 @@ interface ParentsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return string[]
+     * @return OpenAPI\Server\Model\MemberData[]
      *
      */
     public function getParentMembersById($parentId, &$responseCode, array &$responseHeaders);
@@ -139,7 +142,7 @@ interface ParentsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberParent[]
+     * @return OpenAPI\Server\Model\MemberParentData[]
      *
      */
     public function getParents(&$responseCode, array &$responseHeaders);
@@ -148,25 +151,25 @@ interface ParentsApiInterface
      * Operation updateGroupById
      *
      * @param  string $groupId   (required)
-     * @param  OpenAPI\Server\Model\Group $group   (optional)
+     * @param  OpenAPI\Server\Model\GroupInput $groupInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Group
+     * @return OpenAPI\Server\Model\GroupData
      *
      */
-    public function updateGroupById($groupId, Group $group = null, &$responseCode, array &$responseHeaders);
+    public function updateGroupById($groupId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateParentById
      *
      * @param  string $parentId   (required)
-     * @param  OpenAPI\Server\Model\MemberParent $memberParent   (optional)
+     * @param  OpenAPI\Server\Model\MemberParentInput $memberParentInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberParent
+     * @return OpenAPI\Server\Model\MemberParentData
      *
      */
-    public function updateParentById($parentId, MemberParent $memberParent = null, &$responseCode, array &$responseHeaders);
+    public function updateParentById($parentId, MemberParentInput $memberParentInput = null, &$responseCode, array &$responseHeaders);
 }

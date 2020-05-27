@@ -37,8 +37,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Constraints as Assert;
 use OpenAPI\Server\Api\ParentsApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Group;
-use OpenAPI\Server\Model\MemberParent;
+use OpenAPI\Server\Model\GroupData;
+use OpenAPI\Server\Model\GroupInput;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\MemberParentData;
+use OpenAPI\Server\Model\MemberParentInput;
 
 /**
  * ParentsController Class Doc Comment
@@ -82,22 +85,22 @@ class ParentsController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $memberParent = $request->getContent();
+        $memberParentInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
-            $memberParent = $this->deserialize($memberParent, 'OpenAPI\Server\Model\MemberParent', $inputFormat);
+            $memberParentInput = $this->deserialize($memberParentInput, 'OpenAPI\Server\Model\MemberParentInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
 
         // Validate the input values
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\MemberParent");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\MemberParentInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($memberParent, $asserts);
+        $response = $this->validate($memberParentInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -112,7 +115,7 @@ class ParentsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->createParent($memberParent, $responseCode, $responseHeaders);
+            $result = $handler->createParent($memberParentInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -645,14 +648,14 @@ class ParentsController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $group = $request->getContent();
+        $groupInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
             $groupId = $this->deserialize($groupId, 'string', 'string');
-            $group = $this->deserialize($group, 'OpenAPI\Server\Model\Group', $inputFormat);
+            $groupInput = $this->deserialize($groupInput, 'OpenAPI\Server\Model\GroupInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -666,9 +669,9 @@ class ParentsController extends Controller
             return $response;
         }
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Group");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\GroupInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($group, $asserts);
+        $response = $this->validate($groupInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -683,7 +686,7 @@ class ParentsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateGroupById($groupId, $group, $responseCode, $responseHeaders);
+            $result = $handler->updateGroupById($groupId, $groupInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -742,14 +745,14 @@ class ParentsController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $memberParent = $request->getContent();
+        $memberParentInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
             $parentId = $this->deserialize($parentId, 'string', 'string');
-            $memberParent = $this->deserialize($memberParent, 'OpenAPI\Server\Model\MemberParent', $inputFormat);
+            $memberParentInput = $this->deserialize($memberParentInput, 'OpenAPI\Server\Model\MemberParentInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -763,9 +766,9 @@ class ParentsController extends Controller
             return $response;
         }
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\MemberParent");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\MemberParentInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($memberParent, $asserts);
+        $response = $this->validate($memberParentInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -780,7 +783,7 @@ class ParentsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateParentById($parentId, $memberParent, $responseCode, $responseHeaders);
+            $result = $handler->updateParentById($parentId, $memberParentInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

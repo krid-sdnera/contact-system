@@ -74,12 +74,45 @@ class SubsidiariesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteSubsidiariesSubsidiaryId
+     * Test case for addSubsidiaryLocalMarkerById
      *
      * .
      *
      */
-    public function testDeleteSubsidiariesSubsidiaryId()
+    public function testAddSubsidiaryLocalMarkerById()
+    {
+        $client = static::createClient();
+
+        $path = '/subsidiaries/{subsidiaryId}/local';
+        $pattern = '{subsidiaryId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('PUT', $path);
+    }
+
+    /**
+     * Test case for createSubsidiary
+     *
+     * .
+     *
+     */
+    public function testCreateSubsidiary()
+    {
+        $client = static::createClient();
+
+        $path = '/subsidiaries';
+
+        $crawler = $client->request('POST', $path);
+    }
+
+    /**
+     * Test case for deleteSubsidiaryById
+     *
+     * .
+     *
+     */
+    public function testDeleteSubsidiaryById()
     {
         $client = static::createClient();
 
@@ -92,30 +125,12 @@ class SubsidiariesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteSubsidiariesSubsidiaryIdLocal
+     * Test case for getSubsidiary
      *
-     * .
-     *
-     */
-    public function testDeleteSubsidiariesSubsidiaryIdLocal()
-    {
-        $client = static::createClient();
-
-        $path = '/subsidiaries/{subsidiaryId}/local';
-        $pattern = '{subsidiaryId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('DELETE', $path);
-    }
-
-    /**
-     * Test case for getSubsidiaries
-     *
-     * Your GET endpoint.
+     * Get Subsidiary.
      *
      */
-    public function testGetSubsidiaries()
+    public function testGetSubsidiary()
     {
         $client = static::createClient();
 
@@ -125,12 +140,12 @@ class SubsidiariesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getSubsidiariesSubsidiaryId
+     * Test case for getSubsidiaryById
      *
      * Your GET endpoint.
      *
      */
-    public function testGetSubsidiariesSubsidiaryId()
+    public function testGetSubsidiaryById()
     {
         $client = static::createClient();
 
@@ -143,12 +158,12 @@ class SubsidiariesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getSubsidiariesSubsidiaryIdMembers
+     * Test case for getSubsidiaryMembersById
      *
      * Your GET endpoint.
      *
      */
-    public function testGetSubsidiariesSubsidiaryIdMembers()
+    public function testGetSubsidiaryMembersById()
     {
         $client = static::createClient();
 
@@ -161,49 +176,34 @@ class SubsidiariesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for postSubsidiaries
+     * Test case for removeSubsidiaryLocalMarkerById
      *
      * .
      *
      */
-    public function testPostSubsidiaries()
-    {
-        $client = static::createClient();
-
-        $path = '/subsidiaries';
-
-        $crawler = $client->request('POST', $path);
-    }
-
-    /**
-     * Test case for putSubsidiariesSubsidiaryId
-     *
-     * .
-     *
-     */
-    public function testPutSubsidiariesSubsidiaryId()
-    {
-        $client = static::createClient();
-
-        $path = '/subsidiaries/{subsidiaryId}';
-        $pattern = '{subsidiaryId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('PUT', $path);
-    }
-
-    /**
-     * Test case for putSubsidiariesSubsidiaryIdLocal
-     *
-     * .
-     *
-     */
-    public function testPutSubsidiariesSubsidiaryIdLocal()
+    public function testRemoveSubsidiaryLocalMarkerById()
     {
         $client = static::createClient();
 
         $path = '/subsidiaries/{subsidiaryId}/local';
+        $pattern = '{subsidiaryId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('DELETE', $path);
+    }
+
+    /**
+     * Test case for updateSubsidiaryById
+     *
+     * .
+     *
+     */
+    public function testUpdateSubsidiaryById()
+    {
+        $client = static::createClient();
+
+        $path = '/subsidiaries/{subsidiaryId}';
         $pattern = '{subsidiaryId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);

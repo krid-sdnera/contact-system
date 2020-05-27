@@ -37,12 +37,13 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Constraints as Assert;
 use OpenAPI\Server\Api\MembersApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Group;
-use OpenAPI\Server\Model\InlineObject;
-use OpenAPI\Server\Model\InlineObject1;
-use OpenAPI\Server\Model\Member;
+use OpenAPI\Server\Model\GroupData;
+use OpenAPI\Server\Model\GroupInput;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\MemberInput;
 use OpenAPI\Server\Model\MemberSuggetion;
 use OpenAPI\Server\Model\Members;
+use OpenAPI\Server\Model\SectionData;
 
 /**
  * MembersController Class Doc Comment
@@ -170,13 +171,13 @@ class MembersController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $member = $request->getContent();
+        $memberInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
-            $member = $this->deserialize($member, 'OpenAPI\Server\Model\Member', $inputFormat);
+            $memberInput = $this->deserialize($memberInput, 'OpenAPI\Server\Model\MemberInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -184,9 +185,9 @@ class MembersController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Member");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\MemberInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($member, $asserts);
+        $response = $this->validate($memberInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -201,7 +202,7 @@ class MembersController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->createMember($member, $responseCode, $responseHeaders);
+            $result = $handler->createMember($memberInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -856,14 +857,14 @@ class MembersController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $inlineObject1 = $request->getContent();
+        $groupInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
             $memberId = $this->deserialize($memberId, 'string', 'string');
-            $inlineObject1 = $this->deserialize($inlineObject1, 'OpenAPI\Server\Model\InlineObject1', $inputFormat);
+            $groupInput = $this->deserialize($groupInput, 'OpenAPI\Server\Model\GroupInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -877,9 +878,9 @@ class MembersController extends Controller
             return $response;
         }
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\InlineObject1");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\GroupInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($inlineObject1, $asserts);
+        $response = $this->validate($groupInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -894,7 +895,7 @@ class MembersController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->setMemberGroupById($memberId, $inlineObject1, $responseCode, $responseHeaders);
+            $result = $handler->setMemberGroupById($memberId, $groupInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -953,14 +954,14 @@ class MembersController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $inlineObject = $request->getContent();
+        $sectionData = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
             $memberId = $this->deserialize($memberId, 'string', 'string');
-            $inlineObject = $this->deserialize($inlineObject, 'OpenAPI\Server\Model\InlineObject', $inputFormat);
+            $sectionData = $this->deserialize($sectionData, 'array<OpenAPI\Server\Model\SectionData>', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -974,9 +975,11 @@ class MembersController extends Controller
             return $response;
         }
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\InlineObject");
-        $asserts[] = new Assert\Valid();
-        $response = $this->validate($inlineObject, $asserts);
+        $asserts[] = new Assert\All([
+            new Assert\Type("OpenAPI\Server\Model\SectionData"),
+            new Assert\Valid(),
+        ]);
+        $response = $this->validate($sectionData, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -991,7 +994,7 @@ class MembersController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->setMemberSectionById($memberId, $inlineObject, $responseCode, $responseHeaders);
+            $result = $handler->setMemberSectionById($memberId, $sectionData, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -1052,14 +1055,14 @@ class MembersController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $member = $request->getContent();
+        $memberInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
             $memberId = $this->deserialize($memberId, 'string', 'string');
-            $member = $this->deserialize($member, 'OpenAPI\Server\Model\Member', $inputFormat);
+            $memberInput = $this->deserialize($memberInput, 'OpenAPI\Server\Model\MemberInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -1073,9 +1076,9 @@ class MembersController extends Controller
             return $response;
         }
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Member");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\MemberInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($member, $asserts);
+        $response = $this->validate($memberInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -1090,7 +1093,7 @@ class MembersController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateMemberById($memberId, $member, $responseCode, $responseHeaders);
+            $result = $handler->updateMemberById($memberId, $memberInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'Default response';

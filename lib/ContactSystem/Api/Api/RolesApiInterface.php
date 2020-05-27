@@ -30,7 +30,9 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Role;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\RoleData;
+use OpenAPI\Server\Model\RoleInput;
 
 /**
  * RolesApiInterface Interface Doc Comment
@@ -55,14 +57,14 @@ interface RolesApiInterface
     /**
      * Operation createCustomRole
      *
-     * @param  OpenAPI\Server\Model\Role $role   (optional)
+     * @param  OpenAPI\Server\Model\RoleInput $roleInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Role
+     * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function createCustomRole(Role $role = null, &$responseCode, array &$responseHeaders);
+    public function createCustomRole(RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteCustomRoleById
@@ -85,7 +87,7 @@ interface RolesApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Role
+     * @return OpenAPI\Server\Model\RoleData
      *
      */
     public function getCustomRoleById($customRoleId, &$responseCode, array &$responseHeaders);
@@ -99,7 +101,7 @@ interface RolesApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return string[]
+     * @return OpenAPI\Server\Model\MemberData[]
      *
      */
     public function getCustomRoleMembersById($customRoleId, &$responseCode, array &$responseHeaders);
@@ -112,7 +114,7 @@ interface RolesApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Role[]
+     * @return OpenAPI\Server\Model\RoleData[]
      *
      */
     public function getCustomRoles(&$responseCode, array &$responseHeaders);
@@ -121,12 +123,12 @@ interface RolesApiInterface
      * Operation updateCustomRoleById
      *
      * @param  string $customRoleId   (required)
-     * @param  OpenAPI\Server\Model\Role $role   (optional)
+     * @param  OpenAPI\Server\Model\RoleInput $roleInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Role
+     * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function updateCustomRoleById($customRoleId, Role $role = null, &$responseCode, array &$responseHeaders);
+    public function updateCustomRoleById($customRoleId, RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
 }

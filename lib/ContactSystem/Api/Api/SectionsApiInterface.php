@@ -30,7 +30,9 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Section;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\SectionData;
+use OpenAPI\Server\Model\SectionInput;
 
 /**
  * SectionsApiInterface Interface Doc Comment
@@ -67,14 +69,14 @@ interface SectionsApiInterface
     /**
      * Operation createSection
      *
-     * @param  OpenAPI\Server\Model\Section $section   (optional)
+     * @param  OpenAPI\Server\Model\SectionInput $sectionInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Section
+     * @return OpenAPI\Server\Model\SectionData
      *
      */
-    public function createSection(Section $section = null, &$responseCode, array &$responseHeaders);
+    public function createSection(SectionInput $sectionInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteSectionById
@@ -97,7 +99,7 @@ interface SectionsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Section
+     * @return OpenAPI\Server\Model\SectionData
      *
      */
     public function getSectionById($sectionId, &$responseCode, array &$responseHeaders);
@@ -111,7 +113,7 @@ interface SectionsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return string[]
+     * @return OpenAPI\Server\Model\MemberData[]
      *
      */
     public function getSectionMembersById($sectionId, &$responseCode, array &$responseHeaders);
@@ -124,7 +126,7 @@ interface SectionsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Section[]
+     * @return OpenAPI\Server\Model\SectionData[]
      *
      */
     public function getSections(&$responseCode, array &$responseHeaders);
@@ -145,12 +147,12 @@ interface SectionsApiInterface
      * Operation updateSectionById
      *
      * @param  string $sectionId   (required)
-     * @param  OpenAPI\Server\Model\Section $section   (optional)
+     * @param  OpenAPI\Server\Model\SectionInput $sectionInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Section
+     * @return OpenAPI\Server\Model\SectionData
      *
      */
-    public function updateSectionById($sectionId, Section $section = null, &$responseCode, array &$responseHeaders);
+    public function updateSectionById($sectionId, SectionInput $sectionInput = null, &$responseCode, array &$responseHeaders);
 }

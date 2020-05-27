@@ -74,12 +74,60 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteListsListId
+     * Test case for createList
      *
      * .
      *
      */
-    public function testDeleteListsListId()
+    public function testCreateList()
+    {
+        $client = static::createClient();
+
+        $path = '/lists';
+
+        $crawler = $client->request('POST', $path);
+    }
+
+    /**
+     * Test case for createListRuleById
+     *
+     * .
+     *
+     */
+    public function testCreateListRuleById()
+    {
+        $client = static::createClient();
+
+        $path = '/lists/{listId}/rules';
+        $pattern = '{listId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('POST', $path);
+    }
+
+    /**
+     * Test case for createListTypes
+     *
+     * .
+     *
+     */
+    public function testCreateListTypes()
+    {
+        $client = static::createClient();
+
+        $path = '/lists/types';
+
+        $crawler = $client->request('POST', $path);
+    }
+
+    /**
+     * Test case for deleteListById
+     *
+     * .
+     *
+     */
+    public function testDeleteListById()
     {
         $client = static::createClient();
 
@@ -92,12 +140,12 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteListsListIdRulesRuleId
+     * Test case for deleteListRuleById
      *
      * .
      *
      */
-    public function testDeleteListsListIdRulesRuleId()
+    public function testDeleteListRuleById()
     {
         $client = static::createClient();
 
@@ -113,12 +161,12 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteListsTypesListTypeId
+     * Test case for deleteListTypeById
      *
      * .
      *
      */
-    public function testDeleteListsTypesListTypeId()
+    public function testDeleteListTypeById()
     {
         $client = static::createClient();
 
@@ -128,6 +176,114 @@ class ListsApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
+    }
+
+    /**
+     * Test case for getListById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListById()
+    {
+        $client = static::createClient();
+
+        $path = '/lists/{listId}';
+        $pattern = '{listId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getListMembersById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListMembersById()
+    {
+        $client = static::createClient();
+
+        $path = '/lists/{listId}/members';
+        $pattern = '{listId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getListRuleById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListRuleById()
+    {
+        $client = static::createClient();
+
+        $path = '/lists/{listId}/rules/{ruleId}';
+        $pattern = '{listId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+        $pattern = '{ruleId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getListRulesById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListRulesById()
+    {
+        $client = static::createClient();
+
+        $path = '/lists/{listId}/rules';
+        $pattern = '{listId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getListTypeById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListTypeById()
+    {
+        $client = static::createClient();
+
+        $path = '/lists/types/{listTypeId}';
+        $pattern = '{listTypeId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getListTypes
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListTypes()
+    {
+        $client = static::createClient();
+
+        $path = '/lists/types';
+
+        $crawler = $client->request('GET', $path);
     }
 
     /**
@@ -146,168 +302,12 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getListsListId
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetListsListId()
-    {
-        $client = static::createClient();
-
-        $path = '/lists/{listId}';
-        $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getListsListIdMembers
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetListsListIdMembers()
-    {
-        $client = static::createClient();
-
-        $path = '/lists/{listId}/members';
-        $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getListsListIdRules
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetListsListIdRules()
-    {
-        $client = static::createClient();
-
-        $path = '/lists/{listId}/rules';
-        $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getListsListIdRulesRuleId
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetListsListIdRulesRuleId()
-    {
-        $client = static::createClient();
-
-        $path = '/lists/{listId}/rules/{ruleId}';
-        $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-        $pattern = '{ruleId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getListsTypes
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetListsTypes()
-    {
-        $client = static::createClient();
-
-        $path = '/lists/types';
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getListsTypesListTypeId
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetListsTypesListTypeId()
-    {
-        $client = static::createClient();
-
-        $path = '/lists/types/{listTypeId}';
-        $pattern = '{listTypeId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for postLists
+     * Test case for updateListById
      *
      * .
      *
      */
-    public function testPostLists()
-    {
-        $client = static::createClient();
-
-        $path = '/lists';
-
-        $crawler = $client->request('POST', $path);
-    }
-
-    /**
-     * Test case for postListsListIdRules
-     *
-     * .
-     *
-     */
-    public function testPostListsListIdRules()
-    {
-        $client = static::createClient();
-
-        $path = '/lists/{listId}/rules';
-        $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('POST', $path);
-    }
-
-    /**
-     * Test case for postListsTypes
-     *
-     * .
-     *
-     */
-    public function testPostListsTypes()
-    {
-        $client = static::createClient();
-
-        $path = '/lists/types';
-
-        $crawler = $client->request('POST', $path);
-    }
-
-    /**
-     * Test case for putListsListId
-     *
-     * .
-     *
-     */
-    public function testPutListsListId()
+    public function testUpdateListById()
     {
         $client = static::createClient();
 
@@ -320,12 +320,12 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for putListsListIdRulesRuleId
+     * Test case for updateListRuleById
      *
      * .
      *
      */
-    public function testPutListsListIdRulesRuleId()
+    public function testUpdateListRuleById()
     {
         $client = static::createClient();
 
@@ -341,12 +341,12 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for putListsTypesListTypeId
+     * Test case for updateListTypeById
      *
      * .
      *
      */
-    public function testPutListsTypesListTypeId()
+    public function testUpdateListTypeById()
     {
         $client = static::createClient();
 

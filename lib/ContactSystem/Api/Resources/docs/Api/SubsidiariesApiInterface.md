@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**addSubsidiaryLocalMarkerById**](SubsidiariesApiInterface.md#addSubsidiaryLocalMarkerById) | **PUT** /subsidiaries/{subsidiaryId}/local | 
 [**createSubsidiary**](SubsidiariesApiInterface.md#createSubsidiary) | **POST** /subsidiaries | 
 [**deleteSubsidiaryById**](SubsidiariesApiInterface.md#deleteSubsidiaryById) | **DELETE** /subsidiaries/{subsidiaryId} | 
-[**getSubsidiary**](SubsidiariesApiInterface.md#getSubsidiary) | **GET** /subsidiaries | Your GET endpoint
+[**getSubsidiary**](SubsidiariesApiInterface.md#getSubsidiary) | **GET** /subsidiaries | Get Subsidiary
 [**getSubsidiaryById**](SubsidiariesApiInterface.md#getSubsidiaryById) | **GET** /subsidiaries/{subsidiaryId} | Your GET endpoint
 [**getSubsidiaryMembersById**](SubsidiariesApiInterface.md#getSubsidiaryMembersById) | **GET** /subsidiaries/{subsidiaryId}/members | Your GET endpoint
 [**removeSubsidiaryLocalMarkerById**](SubsidiariesApiInterface.md#removeSubsidiaryLocalMarkerById) | **DELETE** /subsidiaries/{subsidiaryId}/local | 
@@ -204,9 +204,9 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getSubsidiary**
-> OpenAPI\Server\Model\Subsidiary getSubsidiary()
+> OpenAPI\Server\Model\SubsidiaryData getSubsidiary()
 
-Your GET endpoint
+Get Subsidiary
 
 ### Example Implementation
 ```php
@@ -247,7 +247,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**OpenAPI\Server\Model\Subsidiary**](../Model/Subsidiary.md)
+[**OpenAPI\Server\Model\SubsidiaryData**](../Model/SubsidiaryData.md)
 
 ### Authorization
 
@@ -261,7 +261,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getSubsidiaryById**
-> OpenAPI\Server\Model\Subsidiary getSubsidiaryById($subsidiaryId)
+> OpenAPI\Server\Model\SubsidiaryData getSubsidiaryById($subsidiaryId)
 
 Your GET endpoint
 
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\Subsidiary**](../Model/Subsidiary.md)
+[**OpenAPI\Server\Model\SubsidiaryData**](../Model/SubsidiaryData.md)
 
 ### Authorization
 
@@ -321,7 +321,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getSubsidiaryMembersById**
-> string getSubsidiaryMembersById($subsidiaryId)
+> OpenAPI\Server\Model\MemberData getSubsidiaryMembersById($subsidiaryId)
 
 Your GET endpoint
 
@@ -367,7 +367,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
 
 ### Authorization
 
@@ -441,7 +441,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateSubsidiaryById**
-> OpenAPI\Server\Model\Subsidiary updateSubsidiaryById($subsidiaryId, $subsidiary)
+> OpenAPI\Server\Model\SubsidiaryData updateSubsidiaryById($subsidiaryId, $subsidiaryInput)
 
 
 
@@ -470,7 +470,7 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     /**
      * Implementation of SubsidiariesApiInterface#updateSubsidiaryById
      */
-    public function updateSubsidiaryById($subsidiaryId, Subsidiary $subsidiary = null)
+    public function updateSubsidiaryById($subsidiaryId, SubsidiaryInput $subsidiaryInput = null)
     {
         // Implement the operation ...
     }
@@ -484,11 +484,11 @@ class SubsidiariesApi implements SubsidiariesApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **subsidiaryId** | **string**|  |
- **subsidiary** | [**OpenAPI\Server\Model\Subsidiary**](../Model/Subsidiary.md)|  | [optional]
+ **subsidiaryInput** | [**OpenAPI\Server\Model\SubsidiaryInput**](../Model/SubsidiaryInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\Subsidiary**](../Model/Subsidiary.md)
+[**OpenAPI\Server\Model\SubsidiaryData**](../Model/SubsidiaryData.md)
 
 ### Authorization
 

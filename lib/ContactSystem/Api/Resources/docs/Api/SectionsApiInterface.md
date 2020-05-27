@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **createSection**
-> OpenAPI\Server\Model\Section createSection($section)
+> OpenAPI\Server\Model\SectionData createSection($sectionInput)
 
 
 
@@ -116,7 +116,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#createSection
      */
-    public function createSection(Section $section = null)
+    public function createSection(SectionInput $sectionInput = null)
     {
         // Implement the operation ...
     }
@@ -129,11 +129,11 @@ class SectionsApi implements SectionsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **section** | [**OpenAPI\Server\Model\Section**](../Model/Section.md)|  | [optional]
+ **sectionInput** | [**OpenAPI\Server\Model\SectionInput**](../Model/SectionInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\Section**](../Model/Section.md)
+[**OpenAPI\Server\Model\SectionData**](../Model/SectionData.md)
 
 ### Authorization
 
@@ -207,7 +207,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getSectionById**
-> OpenAPI\Server\Model\Section getSectionById($sectionId)
+> OpenAPI\Server\Model\SectionData getSectionById($sectionId)
 
 Your GET endpoint
 
@@ -253,7 +253,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\Section**](../Model/Section.md)
+[**OpenAPI\Server\Model\SectionData**](../Model/SectionData.md)
 
 ### Authorization
 
@@ -267,7 +267,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getSectionMembersById**
-> string getSectionMembersById($sectionId)
+> OpenAPI\Server\Model\MemberData getSectionMembersById($sectionId)
 
 Your GET endpoint
 
@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
 
 ### Authorization
 
@@ -327,7 +327,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getSections**
-> OpenAPI\Server\Model\Section getSections()
+> OpenAPI\Server\Model\SectionData getSections()
 
 Your GET endpoint
 
@@ -370,7 +370,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**OpenAPI\Server\Model\Section**](../Model/Section.md)
+[**OpenAPI\Server\Model\SectionData**](../Model/SectionData.md)
 
 ### Authorization
 
@@ -444,7 +444,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateSectionById**
-> OpenAPI\Server\Model\Section updateSectionById($sectionId, $section)
+> OpenAPI\Server\Model\SectionData updateSectionById($sectionId, $sectionInput)
 
 
 
@@ -473,7 +473,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#updateSectionById
      */
-    public function updateSectionById($sectionId, Section $section = null)
+    public function updateSectionById($sectionId, SectionInput $sectionInput = null)
     {
         // Implement the operation ...
     }
@@ -487,11 +487,11 @@ class SectionsApi implements SectionsApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sectionId** | **string**|  |
- **section** | [**OpenAPI\Server\Model\Section**](../Model/Section.md)|  | [optional]
+ **sectionInput** | [**OpenAPI\Server\Model\SectionInput**](../Model/SectionInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\Section**](../Model/Section.md)
+[**OpenAPI\Server\Model\SectionData**](../Model/SectionData.md)
 
 ### Authorization
 

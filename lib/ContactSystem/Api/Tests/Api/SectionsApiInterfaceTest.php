@@ -74,12 +74,45 @@ class SectionsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteSectionsSectionId
+     * Test case for addSectionLocalMarkerById
      *
      * .
      *
      */
-    public function testDeleteSectionsSectionId()
+    public function testAddSectionLocalMarkerById()
+    {
+        $client = static::createClient();
+
+        $path = '/sections/{sectionId}/local';
+        $pattern = '{sectionId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('PUT', $path);
+    }
+
+    /**
+     * Test case for createSection
+     *
+     * .
+     *
+     */
+    public function testCreateSection()
+    {
+        $client = static::createClient();
+
+        $path = '/sections';
+
+        $crawler = $client->request('POST', $path);
+    }
+
+    /**
+     * Test case for deleteSectionById
+     *
+     * .
+     *
+     */
+    public function testDeleteSectionById()
     {
         $client = static::createClient();
 
@@ -92,21 +125,39 @@ class SectionsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteSectionsSectionIdLocal
+     * Test case for getSectionById
      *
-     * .
+     * Your GET endpoint.
      *
      */
-    public function testDeleteSectionsSectionIdLocal()
+    public function testGetSectionById()
     {
         $client = static::createClient();
 
-        $path = '/sections/{sectionId}/local';
+        $path = '/sections/{sectionId}';
         $pattern = '{sectionId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);
 
-        $crawler = $client->request('DELETE', $path);
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getSectionMembersById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetSectionMembersById()
+    {
+        $client = static::createClient();
+
+        $path = '/sections/{sectionId}/members';
+        $pattern = '{sectionId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
     }
 
     /**
@@ -125,85 +176,34 @@ class SectionsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getSectionsSectionId
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetSectionsSectionId()
-    {
-        $client = static::createClient();
-
-        $path = '/sections/{sectionId}';
-        $pattern = '{sectionId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getSectionsSectionIdMembers
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetSectionsSectionIdMembers()
-    {
-        $client = static::createClient();
-
-        $path = '/sections/{sectionId}/members';
-        $pattern = '{sectionId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for postSections
+     * Test case for removeSectionLocalMarkerById
      *
      * .
      *
      */
-    public function testPostSections()
-    {
-        $client = static::createClient();
-
-        $path = '/sections';
-
-        $crawler = $client->request('POST', $path);
-    }
-
-    /**
-     * Test case for putSectionsSectionId
-     *
-     * .
-     *
-     */
-    public function testPutSectionsSectionId()
-    {
-        $client = static::createClient();
-
-        $path = '/sections/{sectionId}';
-        $pattern = '{sectionId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('PUT', $path);
-    }
-
-    /**
-     * Test case for putSectionsSectionIdLocal
-     *
-     * .
-     *
-     */
-    public function testPutSectionsSectionIdLocal()
+    public function testRemoveSectionLocalMarkerById()
     {
         $client = static::createClient();
 
         $path = '/sections/{sectionId}/local';
+        $pattern = '{sectionId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('DELETE', $path);
+    }
+
+    /**
+     * Test case for updateSectionById
+     *
+     * .
+     *
+     */
+    public function testUpdateSectionById()
+    {
+        $client = static::createClient();
+
+        $path = '/sections/{sectionId}';
         $pattern = '{sectionId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);

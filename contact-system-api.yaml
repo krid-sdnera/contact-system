@@ -59,7 +59,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Member"
+              $ref: "#/components/schemas/MemberInput"
       parameters: []
       responses:
         "200":
@@ -67,7 +67,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Member"
+                $ref: "#/components/schemas/MemberData"
     get:
       summary: List all members
       description: ""
@@ -100,7 +100,7 @@ paths:
                     type: array
                     uniqueItems: true
                     items:
-                      $ref: "#/components/schemas/Member"
+                      $ref: "#/components/schemas/MemberData"
                 required:
                   - members
       tags:
@@ -117,8 +117,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Member"
-              examples: {}
+                $ref: "#/components/schemas/MemberData"
       tags:
         - members
     put:
@@ -132,7 +131,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Member"
+                $ref: "#/components/schemas/MemberData"
       tags:
         - members
       requestBody:
@@ -140,7 +139,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Member"
+              $ref: "#/components/schemas/MemberInput"
     delete:
       summary: Delete member
       description: Delete a member
@@ -152,7 +151,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Member"
+                $ref: "#/components/schemas/ApiResponse"
       tags:
         - members
     parameters:
@@ -186,7 +185,8 @@ paths:
           description: Default response
           content:
             application/json:
-              schema: {}
+              schema: 
+                $ref: "#/components/schemas/ApiResponse"
       tags:
         - members
     parameters:
@@ -256,9 +256,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Roles
                 type: array
                 items:
-                  $ref: "#/components/schemas/Role"
+                  $ref: "#/components/schemas/RoleData"
       operationId: getCustomRoles
     post:
       summary: ""
@@ -269,12 +270,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: "#/components/schemas/RoleData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Role"
+              $ref: "#/components/schemas/RoleInput"
       tags:
         - roles
   "/roles/custom/{customRoleId}":
@@ -294,7 +295,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: "#/components/schemas/RoleData"
       operationId: getCustomRoleById
     put:
       summary: ""
@@ -305,12 +306,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: "#/components/schemas/RoleData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Role"
+              $ref: "#/components/schemas/RoleInput"
       tags:
         - roles
     delete:
@@ -342,9 +343,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Members
                 type: array
                 items:
-                  type: string
+                  $ref: "#/components/schemas/MemberData"
       operationId: getCustomRoleMembersById
   /subsidiaries:
     get:
@@ -357,9 +359,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Subsidaries
                 type: array
                 items:
-                  $ref: "#/components/schemas/Subsidiary"
+                  $ref: "#/components/schemas/SubsidiaryData"
       operationId: getSubsidiary
       description: ""
     post:
@@ -387,9 +390,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Members
                 type: array
                 items:
-                  type: string
+                  $ref: "#/components/schemas/MemberData"
       operationId: getSubsidiaryMembersById
   "/subsidiaries/{subsidiaryId}":
     parameters:
@@ -408,7 +412,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Subsidiary"
+                $ref: "#/components/schemas/SubsidiaryData"
       operationId: getSubsidiaryById
     put:
       summary: ""
@@ -419,12 +423,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Subsidiary"
+                $ref: "#/components/schemas/SubsidiaryData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Subsidiary"
+              $ref: "#/components/schemas/SubsidiaryInput"
       tags:
         - subsidiaries
     delete:
@@ -481,9 +485,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Parents
                 type: array
                 items:
-                  $ref: "#/components/schemas/MemberParent"
+                  $ref: "#/components/schemas/MemberParentData"
       operationId: getParents
     post:
       summary: ""
@@ -494,12 +499,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberParent"
+                $ref: "#/components/schemas/MemberParentData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MemberParent"
+              $ref: "#/components/schemas/MemberParentInput"
         description: ""
       tags:
         - parents
@@ -520,7 +525,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberParent"
+                $ref: "#/components/schemas/MemberParentData"
       operationId: getParentById
     put:
       summary: ""
@@ -531,12 +536,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberParent"
+                $ref: "#/components/schemas/MemberParentData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MemberParent"
+              $ref: "#/components/schemas/MemberParentInput"
         description: ""
       tags:
         - parents
@@ -569,9 +574,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Members
                 type: array
                 items:
-                  type: string
+                  $ref: "#/components/schemas/MemberData"
       operationId: getParentMembersById
   /groups:
     get:
@@ -584,9 +590,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Groups
                 type: array
                 items:
-                  $ref: "#/components/schemas/Group"
+                  $ref: "#/components/schemas/GroupData"
       operationId: getGroups
       description: ""
     post:
@@ -598,12 +605,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Group"
+                $ref: "#/components/schemas/GroupData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Group"
+              $ref: "#/components/schemas/GroupInput"
       tags:
         - groups
   "/groups/{groupId}":
@@ -623,7 +630,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Group"
+                $ref: "#/components/schemas/GroupData"
       operationId: getGroupById
     put:
       summary: ""
@@ -634,12 +641,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Group"
+                $ref: "#/components/schemas/GroupData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Group"
+              $ref: "#/components/schemas/GroupInput"
       tags:
         - parents
     delete:
@@ -702,9 +709,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Members
                 type: array
                 items:
-                  type: string
+                  $ref: "#/components/schemas/MemberData"
       operationId: getGroupMembersById
       description: ""
   "/groups/{groupId}/sections":
@@ -724,9 +732,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Sections
                 type: array
                 items:
-                  type: string
+                  $ref: "#/components/schemas/SectionData"
       operationId: getGroupSectionsById
   /sections:
     get:
@@ -739,9 +748,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Sections
                 type: array
                 items:
-                  $ref: "#/components/schemas/Section"
+                  $ref: "#/components/schemas/SectionData"
       operationId: getSections
     post:
       summary: ""
@@ -752,12 +762,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Section"
+                $ref: "#/components/schemas/SectionData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Section"
+              $ref: "#/components/schemas/SectionInput"
       tags:
         - sections
   "/sections/{sectionId}":
@@ -777,7 +787,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Section"
+                $ref: "#/components/schemas/SectionData"
       operationId: getSectionById
     put:
       summary: ""
@@ -788,12 +798,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Section"
+                $ref: "#/components/schemas/SectionData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Section"
+              $ref: "#/components/schemas/SectionInput"
       tags:
         - sections
     delete:
@@ -856,9 +866,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Members
                 type: array
                 items:
-                  type: string
+                  $ref: "#/components/schemas/MemberData"
       operationId: getSectionMembersById
   "/members/{memberId}/section":
     parameters:
@@ -881,10 +892,10 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                sectionId:
-                  type: string
+              title: Sections
+              type: array
+              items:
+                $ref: "#/components/schemas/SectionData"
         description: ""
       tags:
         - members
@@ -916,15 +927,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Group"
+                $ref: "#/components/schemas/GroupData"
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                groupId:
-                  type: string
+              $ref: "#/components/schemas/GroupInput"
+
       tags:
         - members
   /lists:
@@ -1024,9 +1033,10 @@ paths:
           content:
             application/json:
               schema:
+                title: Members
                 type: array
                 items:
-                  type: string
+                  $ref: "#/components/schemas/MemberData"
       operationId: getListMembersById
   "/lists/{listId}/rules":
     parameters:
@@ -1203,8 +1213,9 @@ paths:
 components:
   schemas:
     ApiResponse:
+      title: ApiResponse
       type: object
-      description: ""
+      description: ''
       properties:
         code:
           format: int32
@@ -1213,7 +1224,20 @@ components:
           type: string
         message:
           type: string
-    Member:
+    MemberInput:
+      title: MemberInput
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        nickname:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressData'
+    MemberData:
+      title: MemberData
       type: object
       properties:
         id:
@@ -1225,48 +1249,100 @@ components:
         nickname:
           type: string
         address:
-          $ref: "#/components/schemas/Address"
+          $ref: '#/components/schemas/AddressData'
+        section:
+          $ref: '#/components/schemas/SectionData'
+        role:
+          $ref: '#/components/schemas/RoleData'
     MemberSuggetion:
       title: MemberSuggetion
       type: object
       properties:
         id:
           type: string
-    Address:
-      title: Address
+    AddressData:
+      title: AddressData
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postcode:
+          type: integer
+    RoleInput:
+      title: RoleInput
+      type: object
+      properties:
+        name:
+          type: string
+    RoleData:
+      title: RoleData
       type: object
       properties:
         id:
           type: string
-    Role:
-      title: Role
+        name:
+          type: string
+    SubsidiaryInput:
+      title: SubsidiaryInput
+      type: object
+      properties:
+        name:
+          type: string
+    SubsidiaryData:
+      title: SubsidiaryData
       type: object
       properties:
         id:
           type: string
-    Subsidiary:
-      title: Subsidiary
+        name:
+          type: string
+    MemberParentInput:
+      title: ParentInput
+      type: object
+      properties:
+        name:
+          type: string
+    MemberParentData:
+      title: ParentData
       type: object
       properties:
         id:
           type: string
-    MemberParent:
-      title: Parent
+        name:
+          type: string
+    GroupInput:
+      title: GroupInput
+      type: object
+      properties:
+        name:
+          type: string
+    GroupData:
+      title: GroupData
       type: object
       properties:
         id:
           type: string
-    Group:
-      title: Group
+        name:
+          type: string
+    SectionInput:
+      title: SectionInput
+      type: object
+      properties:
+        name:
+          type: string
+    SectionData:
+      title: SectionData
       type: object
       properties:
         id:
           type: string
-    Section:
-      title: Section
-      type: object
-      properties:
-        id:
+        name:
           type: string
     List:
       title: List

@@ -30,7 +30,9 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Subsidiary;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\SubsidiaryData;
+use OpenAPI\Server\Model\SubsidiaryInput;
 
 /**
  * SubsidiariesApiInterface Interface Doc Comment
@@ -90,12 +92,12 @@ interface SubsidiariesApiInterface
     /**
      * Operation getSubsidiary
      *
-     * Your GET endpoint
+     * Get Subsidiary
      *
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Subsidiary[]
+     * @return OpenAPI\Server\Model\SubsidiaryData[]
      *
      */
     public function getSubsidiary(&$responseCode, array &$responseHeaders);
@@ -109,7 +111,7 @@ interface SubsidiariesApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Subsidiary
+     * @return OpenAPI\Server\Model\SubsidiaryData
      *
      */
     public function getSubsidiaryById($subsidiaryId, &$responseCode, array &$responseHeaders);
@@ -123,7 +125,7 @@ interface SubsidiariesApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return string[]
+     * @return OpenAPI\Server\Model\MemberData[]
      *
      */
     public function getSubsidiaryMembersById($subsidiaryId, &$responseCode, array &$responseHeaders);
@@ -144,12 +146,12 @@ interface SubsidiariesApiInterface
      * Operation updateSubsidiaryById
      *
      * @param  string $subsidiaryId   (required)
-     * @param  OpenAPI\Server\Model\Subsidiary $subsidiary   (optional)
+     * @param  OpenAPI\Server\Model\SubsidiaryInput $subsidiaryInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Subsidiary
+     * @return OpenAPI\Server\Model\SubsidiaryData
      *
      */
-    public function updateSubsidiaryById($subsidiaryId, Subsidiary $subsidiary = null, &$responseCode, array &$responseHeaders);
+    public function updateSubsidiaryById($subsidiaryId, SubsidiaryInput $subsidiaryInput = null, &$responseCode, array &$responseHeaders);
 }

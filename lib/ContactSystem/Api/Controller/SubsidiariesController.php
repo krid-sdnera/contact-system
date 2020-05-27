@@ -37,7 +37,9 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Constraints as Assert;
 use OpenAPI\Server\Api\SubsidiariesApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Subsidiary;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\SubsidiaryData;
+use OpenAPI\Server\Model\SubsidiaryInput;
 
 /**
  * SubsidiariesController Class Doc Comment
@@ -269,7 +271,7 @@ class SubsidiariesController extends Controller
     /**
      * Operation getSubsidiary
      *
-     * Your GET endpoint
+     * Get Subsidiary
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -609,14 +611,14 @@ class SubsidiariesController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $subsidiary = $request->getContent();
+        $subsidiaryInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
             $subsidiaryId = $this->deserialize($subsidiaryId, 'string', 'string');
-            $subsidiary = $this->deserialize($subsidiary, 'OpenAPI\Server\Model\Subsidiary', $inputFormat);
+            $subsidiaryInput = $this->deserialize($subsidiaryInput, 'OpenAPI\Server\Model\SubsidiaryInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -630,9 +632,9 @@ class SubsidiariesController extends Controller
             return $response;
         }
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Subsidiary");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\SubsidiaryInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($subsidiary, $asserts);
+        $response = $this->validate($subsidiaryInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -647,7 +649,7 @@ class SubsidiariesController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateSubsidiaryById($subsidiaryId, $subsidiary, $responseCode, $responseHeaders);
+            $result = $handler->updateSubsidiaryById($subsidiaryId, $subsidiaryInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

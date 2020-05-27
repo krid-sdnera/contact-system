@@ -46,13 +46,13 @@ class Members
         /**
      * Array containg the list
      *
-     * @var OpenAPI\Server\Model\Member[]
+     * @var OpenAPI\Server\Model\MemberData[]
      * @SerializedName("members")
      * @Assert\NotNull()
      * @Assert\All({
-     *   @Assert\Type("OpenAPI\Server\Model\Member")
+     *   @Assert\Type("OpenAPI\Server\Model\MemberData")
      * })
-     * @Type("array<OpenAPI\Server\Model\Member>")
+     * @Type("array<OpenAPI\Server\Model\MemberData>")
      */
     protected $members;
 
@@ -68,7 +68,7 @@ class Members
     /**
      * Gets members.
      *
-     * @return OpenAPI\Server\Model\Member[]
+     * @return OpenAPI\Server\Model\MemberData[]
      */
     public function getMembers(): array
     {
@@ -78,7 +78,7 @@ class Members
     /**
      * Sets members.
      *
-     * @param OpenAPI\Server\Model\Member[] $members  Array containg the list
+     * @param OpenAPI\Server\Model\MemberData[] $members  Array containg the list
      *
      * @return $this
      */

@@ -25,7 +25,7 @@ services:
 ```
 
 ## **createCustomRole**
-> OpenAPI\Server\Model\Role createCustomRole($role)
+> OpenAPI\Server\Model\RoleData createCustomRole($roleInput)
 
 
 
@@ -54,7 +54,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#createCustomRole
      */
-    public function createCustomRole(Role $role = null)
+    public function createCustomRole(RoleInput $roleInput = null)
     {
         // Implement the operation ...
     }
@@ -67,11 +67,11 @@ class RolesApi implements RolesApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role** | [**OpenAPI\Server\Model\Role**](../Model/Role.md)|  | [optional]
+ **roleInput** | [**OpenAPI\Server\Model\RoleInput**](../Model/RoleInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\Role**](../Model/Role.md)
+[**OpenAPI\Server\Model\RoleData**](../Model/RoleData.md)
 
 ### Authorization
 
@@ -145,7 +145,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getCustomRoleById**
-> OpenAPI\Server\Model\Role getCustomRoleById($customRoleId)
+> OpenAPI\Server\Model\RoleData getCustomRoleById($customRoleId)
 
 Your GET endpoint
 
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\Role**](../Model/Role.md)
+[**OpenAPI\Server\Model\RoleData**](../Model/RoleData.md)
 
 ### Authorization
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getCustomRoleMembersById**
-> string getCustomRoleMembersById($customRoleId)
+> OpenAPI\Server\Model\MemberData getCustomRoleMembersById($customRoleId)
 
 Your GET endpoint
 
@@ -251,7 +251,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
 
 ### Authorization
 
@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getCustomRoles**
-> OpenAPI\Server\Model\Role getCustomRoles()
+> OpenAPI\Server\Model\RoleData getCustomRoles()
 
 Your GET endpoint
 
@@ -308,7 +308,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**OpenAPI\Server\Model\Role**](../Model/Role.md)
+[**OpenAPI\Server\Model\RoleData**](../Model/RoleData.md)
 
 ### Authorization
 
@@ -322,7 +322,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateCustomRoleById**
-> OpenAPI\Server\Model\Role updateCustomRoleById($customRoleId, $role)
+> OpenAPI\Server\Model\RoleData updateCustomRoleById($customRoleId, $roleInput)
 
 
 
@@ -351,7 +351,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#updateCustomRoleById
      */
-    public function updateCustomRoleById($customRoleId, Role $role = null)
+    public function updateCustomRoleById($customRoleId, RoleInput $roleInput = null)
     {
         // Implement the operation ...
     }
@@ -365,11 +365,11 @@ class RolesApi implements RolesApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **customRoleId** | **string**|  |
- **role** | [**OpenAPI\Server\Model\Role**](../Model/Role.md)|  | [optional]
+ **roleInput** | [**OpenAPI\Server\Model\RoleInput**](../Model/RoleInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\Role**](../Model/Role.md)
+[**OpenAPI\Server\Model\RoleData**](../Model/RoleData.md)
 
 ### Authorization
 

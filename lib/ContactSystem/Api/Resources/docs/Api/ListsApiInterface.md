@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getListMembersById**
-> string getListMembersById($listId)
+> OpenAPI\Server\Model\MemberData getListMembersById($listId)
 
 Your GET endpoint
 
@@ -503,7 +503,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
 
 ### Authorization
 

@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **createGroup**
-> OpenAPI\Server\Model\Group createGroup($group)
+> OpenAPI\Server\Model\GroupData createGroup($groupInput)
 
 
 
@@ -114,7 +114,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#createGroup
      */
-    public function createGroup(Group $group = null)
+    public function createGroup(GroupInput $groupInput = null)
     {
         // Implement the operation ...
     }
@@ -127,11 +127,11 @@ class GroupsApi implements GroupsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **group** | [**OpenAPI\Server\Model\Group**](../Model/Group.md)|  | [optional]
+ **groupInput** | [**OpenAPI\Server\Model\GroupInput**](../Model/GroupInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\Group**](../Model/Group.md)
+[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
 
 ### Authorization
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getGroupMembersById**
-> string getGroupMembersById($groupId)
+> OpenAPI\Server\Model\MemberData getGroupMembersById($groupId)
 
 Your GET endpoint
 
@@ -251,7 +251,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
 
 ### Authorization
 
@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getGroupSectionsById**
-> string getGroupSectionsById($groupId)
+> OpenAPI\Server\Model\SectionData getGroupSectionsById($groupId)
 
 Your GET endpoint
 
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+[**OpenAPI\Server\Model\SectionData**](../Model/SectionData.md)
 
 ### Authorization
 
@@ -325,7 +325,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getGroups**
-> OpenAPI\Server\Model\Group getGroups()
+> OpenAPI\Server\Model\GroupData getGroups()
 
 Your GET endpoint
 
@@ -368,7 +368,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**OpenAPI\Server\Model\Group**](../Model/Group.md)
+[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
 
 ### Authorization
 

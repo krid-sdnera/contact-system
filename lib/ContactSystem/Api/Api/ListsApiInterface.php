@@ -32,6 +32,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ListRule;
 use OpenAPI\Server\Model\ListType;
+use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\ModelList;
 
 /**
@@ -151,7 +152,7 @@ interface ListsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return string[]
+     * @return OpenAPI\Server\Model\MemberData[]
      *
      */
     public function getListMembersById($listId, &$responseCode, array &$responseHeaders);

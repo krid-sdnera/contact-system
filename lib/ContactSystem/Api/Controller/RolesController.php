@@ -37,7 +37,9 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Constraints as Assert;
 use OpenAPI\Server\Api\RolesApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Role;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\RoleData;
+use OpenAPI\Server\Model\RoleInput;
 
 /**
  * RolesController Class Doc Comment
@@ -81,22 +83,22 @@ class RolesController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $role = $request->getContent();
+        $roleInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
-            $role = $this->deserialize($role, 'OpenAPI\Server\Model\Role', $inputFormat);
+            $roleInput = $this->deserialize($roleInput, 'OpenAPI\Server\Model\RoleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
 
         // Validate the input values
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Role");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\RoleInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($role, $asserts);
+        $response = $this->validate($roleInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -111,7 +113,7 @@ class RolesController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->createCustomRole($role, $responseCode, $responseHeaders);
+            $result = $handler->createCustomRole($roleInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -482,14 +484,14 @@ class RolesController extends Controller
         $securitycontact_auth = $request->headers->get('x-api-key');
 
         // Read out all input parameter values into variables
-        $role = $request->getContent();
+        $roleInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
             $customRoleId = $this->deserialize($customRoleId, 'string', 'string');
-            $role = $this->deserialize($role, 'OpenAPI\Server\Model\Role', $inputFormat);
+            $roleInput = $this->deserialize($roleInput, 'OpenAPI\Server\Model\RoleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -503,9 +505,9 @@ class RolesController extends Controller
             return $response;
         }
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Role");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\RoleInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($role, $asserts);
+        $response = $this->validate($roleInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -520,7 +522,7 @@ class RolesController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateCustomRoleById($customRoleId, $role, $responseCode, $responseHeaders);
+            $result = $handler->updateCustomRoleById($customRoleId, $roleInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

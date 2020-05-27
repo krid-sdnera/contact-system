@@ -184,7 +184,7 @@ Class | Method | HTTP request | Description
 *SubsidiariesApiInterface* | [**addSubsidiaryLocalMarkerById**](Resources/docs/Api/SubsidiariesApiInterface.md#addsubsidiarylocalmarkerbyid) | **PUT** /subsidiaries/{subsidiaryId}/local | 
 *SubsidiariesApiInterface* | [**createSubsidiary**](Resources/docs/Api/SubsidiariesApiInterface.md#createsubsidiary) | **POST** /subsidiaries | 
 *SubsidiariesApiInterface* | [**deleteSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#deletesubsidiarybyid) | **DELETE** /subsidiaries/{subsidiaryId} | 
-*SubsidiariesApiInterface* | [**getSubsidiary**](Resources/docs/Api/SubsidiariesApiInterface.md#getsubsidiary) | **GET** /subsidiaries | Your GET endpoint
+*SubsidiariesApiInterface* | [**getSubsidiary**](Resources/docs/Api/SubsidiariesApiInterface.md#getsubsidiary) | **GET** /subsidiaries | Get Subsidiary
 *SubsidiariesApiInterface* | [**getSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#getsubsidiarybyid) | **GET** /subsidiaries/{subsidiaryId} | Your GET endpoint
 *SubsidiariesApiInterface* | [**getSubsidiaryMembersById**](Resources/docs/Api/SubsidiariesApiInterface.md#getsubsidiarymembersbyid) | **GET** /subsidiaries/{subsidiaryId}/members | Your GET endpoint
 *SubsidiariesApiInterface* | [**removeSubsidiaryLocalMarkerById**](Resources/docs/Api/SubsidiariesApiInterface.md#removesubsidiarylocalmarkerbyid) | **DELETE** /subsidiaries/{subsidiaryId}/local | 
@@ -193,21 +193,25 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [Address](Resources/docs/Model/Address.md)
+ - [AddressData](Resources/docs/Model/AddressData.md)
  - [ApiResponse](Resources/docs/Model/ApiResponse.md)
- - [Group](Resources/docs/Model/Group.md)
- - [InlineObject](Resources/docs/Model/InlineObject.md)
- - [InlineObject1](Resources/docs/Model/InlineObject1.md)
+ - [GroupData](Resources/docs/Model/GroupData.md)
+ - [GroupInput](Resources/docs/Model/GroupInput.md)
  - [ListRule](Resources/docs/Model/ListRule.md)
  - [ListType](Resources/docs/Model/ListType.md)
- - [Member](Resources/docs/Model/Member.md)
- - [MemberParent](Resources/docs/Model/MemberParent.md)
+ - [MemberData](Resources/docs/Model/MemberData.md)
+ - [MemberInput](Resources/docs/Model/MemberInput.md)
+ - [MemberParentData](Resources/docs/Model/MemberParentData.md)
+ - [MemberParentInput](Resources/docs/Model/MemberParentInput.md)
  - [MemberSuggetion](Resources/docs/Model/MemberSuggetion.md)
  - [Members](Resources/docs/Model/Members.md)
  - [ModelList](Resources/docs/Model/ModelList.md)
- - [Role](Resources/docs/Model/Role.md)
- - [Section](Resources/docs/Model/Section.md)
- - [Subsidiary](Resources/docs/Model/Subsidiary.md)
+ - [RoleData](Resources/docs/Model/RoleData.md)
+ - [RoleInput](Resources/docs/Model/RoleInput.md)
+ - [SectionData](Resources/docs/Model/SectionData.md)
+ - [SectionInput](Resources/docs/Model/SectionInput.md)
+ - [SubsidiaryData](Resources/docs/Model/SubsidiaryData.md)
+ - [SubsidiaryInput](Resources/docs/Model/SubsidiaryInput.md)
 
 
 ## Documentation For Authorization

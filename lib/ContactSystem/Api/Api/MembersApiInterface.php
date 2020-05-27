@@ -30,12 +30,13 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\Group;
-use OpenAPI\Server\Model\InlineObject;
-use OpenAPI\Server\Model\InlineObject1;
-use OpenAPI\Server\Model\Member;
+use OpenAPI\Server\Model\GroupData;
+use OpenAPI\Server\Model\GroupInput;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\MemberInput;
 use OpenAPI\Server\Model\MemberSuggetion;
 use OpenAPI\Server\Model\Members;
+use OpenAPI\Server\Model\SectionData;
 
 /**
  * MembersApiInterface Interface Doc Comment
@@ -76,14 +77,14 @@ interface MembersApiInterface
      *
      * Create a member
      *
-     * @param  OpenAPI\Server\Model\Member $member   (required)
+     * @param  OpenAPI\Server\Model\MemberInput $memberInput   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Member
+     * @return OpenAPI\Server\Model\MemberData
      *
      */
-    public function createMember(Member $member, &$responseCode, array &$responseHeaders);
+    public function createMember(MemberInput $memberInput, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteMemberById
@@ -94,7 +95,7 @@ interface MembersApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Member
+     * @return OpenAPI\Server\Model\ApiResponse
      *
      */
     public function deleteMemberById($memberId, &$responseCode, array &$responseHeaders);
@@ -108,7 +109,7 @@ interface MembersApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Member
+     * @return OpenAPI\Server\Model\MemberData
      *
      */
     public function getMemberById($memberId, &$responseCode, array &$responseHeaders);
@@ -167,7 +168,7 @@ interface MembersApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return array
+     * @return OpenAPI\Server\Model\ApiResponse
      *
      */
     public function removeMemberLocalMarkerById($memberId, &$responseCode, array &$responseHeaders);
@@ -188,27 +189,27 @@ interface MembersApiInterface
      * Operation setMemberGroupById
      *
      * @param  string $memberId   (required)
-     * @param  OpenAPI\Server\Model\InlineObject1 $inlineObject1   (optional)
+     * @param  OpenAPI\Server\Model\GroupInput $groupInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Group
+     * @return OpenAPI\Server\Model\GroupData
      *
      */
-    public function setMemberGroupById($memberId, InlineObject1 $inlineObject1 = null, &$responseCode, array &$responseHeaders);
+    public function setMemberGroupById($memberId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation setMemberSectionById
      *
      * @param  string $memberId   (required)
-     * @param  OpenAPI\Server\Model\InlineObject $inlineObject   (optional)
+     * @param  OpenAPI\Server\Model\SectionData[] $sectionData   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function setMemberSectionById($memberId, InlineObject $inlineObject = null, &$responseCode, array &$responseHeaders);
+    public function setMemberSectionById($memberId, array $sectionData = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateMemberById
@@ -216,12 +217,12 @@ interface MembersApiInterface
      * Update member
      *
      * @param  string $memberId   (required)
-     * @param  OpenAPI\Server\Model\Member $member   (optional)
+     * @param  OpenAPI\Server\Model\MemberInput $memberInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Member
+     * @return OpenAPI\Server\Model\MemberData
      *
      */
-    public function updateMemberById($memberId, Member $member = null, &$responseCode, array &$responseHeaders);
+    public function updateMemberById($memberId, MemberInput $memberInput = null, &$responseCode, array &$responseHeaders);
 }

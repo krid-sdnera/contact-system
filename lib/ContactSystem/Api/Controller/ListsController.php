@@ -39,6 +39,7 @@ use OpenAPI\Server\Api\ListsApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ListRule;
 use OpenAPI\Server\Model\ListType;
+use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\ModelList;
 
 /**

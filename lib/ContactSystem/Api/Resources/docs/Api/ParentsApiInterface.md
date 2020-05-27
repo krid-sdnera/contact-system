@@ -28,7 +28,7 @@ services:
 ```
 
 ## **createParent**
-> OpenAPI\Server\Model\MemberParent createParent($memberParent)
+> OpenAPI\Server\Model\MemberParentData createParent($memberParentInput)
 
 
 
@@ -57,7 +57,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#createParent
      */
-    public function createParent(MemberParent $memberParent = null)
+    public function createParent(MemberParentInput $memberParentInput = null)
     {
         // Implement the operation ...
     }
@@ -70,11 +70,11 @@ class ParentsApi implements ParentsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberParent** | [**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)|  | [optional]
+ **memberParentInput** | [**OpenAPI\Server\Model\MemberParentInput**](../Model/MemberParentInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)
+[**OpenAPI\Server\Model\MemberParentData**](../Model/MemberParentData.md)
 
 ### Authorization
 
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getGroupById**
-> OpenAPI\Server\Model\Group getGroupById($groupId)
+> OpenAPI\Server\Model\GroupData getGroupById($groupId)
 
 Your GET endpoint
 
@@ -254,7 +254,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\Group**](../Model/Group.md)
+[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
 
 ### Authorization
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getParentById**
-> OpenAPI\Server\Model\MemberParent getParentById($parentId)
+> OpenAPI\Server\Model\MemberParentData getParentById($parentId)
 
 Your GET endpoint
 
@@ -314,7 +314,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)
+[**OpenAPI\Server\Model\MemberParentData**](../Model/MemberParentData.md)
 
 ### Authorization
 
@@ -328,7 +328,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getParentMembersById**
-> string getParentMembersById($parentId)
+> OpenAPI\Server\Model\MemberData getParentMembersById($parentId)
 
 Your GET endpoint
 
@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
 
 ### Authorization
 
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getParents**
-> OpenAPI\Server\Model\MemberParent getParents()
+> OpenAPI\Server\Model\MemberParentData getParents()
 
 Your GET endpoint
 
@@ -431,7 +431,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)
+[**OpenAPI\Server\Model\MemberParentData**](../Model/MemberParentData.md)
 
 ### Authorization
 
@@ -445,7 +445,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateGroupById**
-> OpenAPI\Server\Model\Group updateGroupById($groupId, $group)
+> OpenAPI\Server\Model\GroupData updateGroupById($groupId, $groupInput)
 
 
 
@@ -474,7 +474,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#updateGroupById
      */
-    public function updateGroupById($groupId, Group $group = null)
+    public function updateGroupById($groupId, GroupInput $groupInput = null)
     {
         // Implement the operation ...
     }
@@ -488,11 +488,11 @@ class ParentsApi implements ParentsApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **groupId** | **string**|  |
- **group** | [**OpenAPI\Server\Model\Group**](../Model/Group.md)|  | [optional]
+ **groupInput** | [**OpenAPI\Server\Model\GroupInput**](../Model/GroupInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\Group**](../Model/Group.md)
+[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
 
 ### Authorization
 
@@ -506,7 +506,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateParentById**
-> OpenAPI\Server\Model\MemberParent updateParentById($parentId, $memberParent)
+> OpenAPI\Server\Model\MemberParentData updateParentById($parentId, $memberParentInput)
 
 
 
@@ -535,7 +535,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#updateParentById
      */
-    public function updateParentById($parentId, MemberParent $memberParent = null)
+    public function updateParentById($parentId, MemberParentInput $memberParentInput = null)
     {
         // Implement the operation ...
     }
@@ -549,11 +549,11 @@ class ParentsApi implements ParentsApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parentId** | **string**|  |
- **memberParent** | [**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)|  | [optional]
+ **memberParentInput** | [**OpenAPI\Server\Model\MemberParentInput**](../Model/MemberParentInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)
+[**OpenAPI\Server\Model\MemberParentData**](../Model/MemberParentData.md)
 
 ### Authorization
 
