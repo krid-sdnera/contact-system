@@ -4,15 +4,15 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteGroupsGroupId**](ParentsApiInterface.md#deleteGroupsGroupId) | **DELETE** /groups/{groupId} | 
-[**deleteParentsParentId**](ParentsApiInterface.md#deleteParentsParentId) | **DELETE** /parents/{parentId} | 
-[**getGroupsGroupId**](ParentsApiInterface.md#getGroupsGroupId) | **GET** /groups/{groupId} | Your GET endpoint
+[**createParent**](ParentsApiInterface.md#createParent) | **POST** /parents | 
+[**deleteGroupById**](ParentsApiInterface.md#deleteGroupById) | **DELETE** /groups/{groupId} | 
+[**deleteParentById**](ParentsApiInterface.md#deleteParentById) | **DELETE** /parents/{parentId} | 
+[**getGroupById**](ParentsApiInterface.md#getGroupById) | **GET** /groups/{groupId} | Your GET endpoint
+[**getParentById**](ParentsApiInterface.md#getParentById) | **GET** /parents/{parentId} | Your GET endpoint
+[**getParentMembersById**](ParentsApiInterface.md#getParentMembersById) | **GET** /parents/{parentId}/members | Your GET endpoint
 [**getParents**](ParentsApiInterface.md#getParents) | **GET** /parents | Your GET endpoint
-[**getParentsParentId**](ParentsApiInterface.md#getParentsParentId) | **GET** /parents/{parentId} | Your GET endpoint
-[**getParentsParentIdMembers**](ParentsApiInterface.md#getParentsParentIdMembers) | **GET** /parents/{parentId}/members | Your GET endpoint
-[**postParents**](ParentsApiInterface.md#postParents) | **POST** /parents | 
-[**putGroupsGroupId**](ParentsApiInterface.md#putGroupsGroupId) | **PUT** /groups/{groupId} | 
-[**putParentsParentId**](ParentsApiInterface.md#putParentsParentId) | **PUT** /parents/{parentId} | 
+[**updateGroupById**](ParentsApiInterface.md#updateGroupById) | **PUT** /groups/{groupId} | 
+[**updateParentById**](ParentsApiInterface.md#updateParentById) | **PUT** /parents/{parentId} | 
 
 
 ## Service Declaration
@@ -27,8 +27,8 @@ services:
     # ...
 ```
 
-## **deleteGroupsGroupId**
-> OpenAPI\Server\Model\ApiResponse deleteGroupsGroupId($groupId)
+## **createParent**
+> OpenAPI\Server\Model\MemberParent createParent($memberParent)
 
 
 
@@ -55,9 +55,69 @@ class ParentsApi implements ParentsApiInterface
     // ...
 
     /**
-     * Implementation of ParentsApiInterface#deleteGroupsGroupId
+     * Implementation of ParentsApiInterface#createParent
      */
-    public function deleteGroupsGroupId($groupId)
+    public function createParent(MemberParent $memberParent = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **memberParent** | [**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **deleteGroupById**
+> OpenAPI\Server\Model\ApiResponse deleteGroupById($groupId)
+
+
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/ParentsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\ParentsApiInterface;
+
+class ParentsApi implements ParentsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of ParentsApiInterface#deleteGroupById
+     */
+    public function deleteGroupById($groupId)
     {
         // Implement the operation ...
     }
@@ -87,8 +147,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **deleteParentsParentId**
-> OpenAPI\Server\Model\ApiResponse deleteParentsParentId($parentId)
+## **deleteParentById**
+> OpenAPI\Server\Model\ApiResponse deleteParentById($parentId)
 
 
 
@@ -115,9 +175,9 @@ class ParentsApi implements ParentsApiInterface
     // ...
 
     /**
-     * Implementation of ParentsApiInterface#deleteParentsParentId
+     * Implementation of ParentsApiInterface#deleteParentById
      */
-    public function deleteParentsParentId($parentId)
+    public function deleteParentById($parentId)
     {
         // Implement the operation ...
     }
@@ -147,8 +207,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getGroupsGroupId**
-> OpenAPI\Server\Model\Group getGroupsGroupId($groupId)
+## **getGroupById**
+> OpenAPI\Server\Model\Group getGroupById($groupId)
 
 Your GET endpoint
 
@@ -175,9 +235,9 @@ class ParentsApi implements ParentsApiInterface
     // ...
 
     /**
-     * Implementation of ParentsApiInterface#getGroupsGroupId
+     * Implementation of ParentsApiInterface#getGroupById
      */
-    public function getGroupsGroupId($groupId)
+    public function getGroupById($groupId)
     {
         // Implement the operation ...
     }
@@ -195,6 +255,126 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OpenAPI\Server\Model\Group**](../Model/Group.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getParentById**
+> OpenAPI\Server\Model\MemberParent getParentById($parentId)
+
+Your GET endpoint
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/ParentsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\ParentsApiInterface;
+
+class ParentsApi implements ParentsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of ParentsApiInterface#getParentById
+     */
+    public function getParentById($parentId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **parentId** | **string**|  |
+
+### Return type
+
+[**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getParentMembersById**
+> string getParentMembersById($parentId)
+
+Your GET endpoint
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/ParentsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\ParentsApiInterface;
+
+class ParentsApi implements ParentsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of ParentsApiInterface#getParentMembersById
+     */
+    public function getParentMembersById($parentId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **parentId** | **string**|  |
+
+### Return type
+
+**string**
 
 ### Authorization
 
@@ -264,128 +444,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getParentsParentId**
-> OpenAPI\Server\Model\MemberParent getParentsParentId($parentId)
-
-Your GET endpoint
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/ParentsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\ParentsApiInterface;
-
-class ParentsApi implements ParentsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of ParentsApiInterface#getParentsParentId
-     */
-    public function getParentsParentId($parentId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **parentId** | **string**|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **getParentsParentIdMembers**
-> string getParentsParentIdMembers($parentId)
-
-Your GET endpoint
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/ParentsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\ParentsApiInterface;
-
-class ParentsApi implements ParentsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of ParentsApiInterface#getParentsParentIdMembers
-     */
-    public function getParentsParentIdMembers($parentId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **parentId** | **string**|  |
-
-### Return type
-
-**string**
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **postParents**
-> OpenAPI\Server\Model\MemberParent postParents($memberParent)
+## **updateGroupById**
+> OpenAPI\Server\Model\Group updateGroupById($groupId, $group)
 
 
 
@@ -412,69 +472,9 @@ class ParentsApi implements ParentsApiInterface
     // ...
 
     /**
-     * Implementation of ParentsApiInterface#postParents
+     * Implementation of ParentsApiInterface#updateGroupById
      */
-    public function postParents(MemberParent $memberParent = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberParent** | [**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)|  | [optional]
-
-### Return type
-
-[**OpenAPI\Server\Model\MemberParent**](../Model/MemberParent.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **putGroupsGroupId**
-> OpenAPI\Server\Model\Group putGroupsGroupId($groupId, $group)
-
-
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/ParentsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\ParentsApiInterface;
-
-class ParentsApi implements ParentsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of ParentsApiInterface#putGroupsGroupId
-     */
-    public function putGroupsGroupId($groupId, Group $group = null)
+    public function updateGroupById($groupId, Group $group = null)
     {
         // Implement the operation ...
     }
@@ -505,8 +505,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **putParentsParentId**
-> OpenAPI\Server\Model\MemberParent putParentsParentId($parentId, $memberParent)
+## **updateParentById**
+> OpenAPI\Server\Model\MemberParent updateParentById($parentId, $memberParent)
 
 
 
@@ -533,9 +533,9 @@ class ParentsApi implements ParentsApiInterface
     // ...
 
     /**
-     * Implementation of ParentsApiInterface#putParentsParentId
+     * Implementation of ParentsApiInterface#updateParentById
      */
-    public function putParentsParentId($parentId, MemberParent $memberParent = null)
+    public function updateParentById($parentId, MemberParent $memberParent = null)
     {
         // Implement the operation ...
     }

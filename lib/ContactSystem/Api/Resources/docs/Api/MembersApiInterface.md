@@ -4,17 +4,17 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addMember**](MembersApiInterface.md#addMember) | **POST** /members | Create a member
 [**addMemberLocalMarkerById**](MembersApiInterface.md#addMemberLocalMarkerById) | **PUT** /members/{memberId}/local | Add local marker
+[**createMember**](MembersApiInterface.md#createMember) | **POST** /members | Create a member
 [**deleteMemberById**](MembersApiInterface.md#deleteMemberById) | **DELETE** /members/{memberId} | Delete member
-[**deleteMembersMemberIdSection**](MembersApiInterface.md#deleteMembersMemberIdSection) | **DELETE** /members/{memberId}/section | 
 [**getMemberById**](MembersApiInterface.md#getMemberById) | **GET** /members/{memberId} | Get member
 [**getMemberLocalMarkerSuggestionsById**](MembersApiInterface.md#getMemberLocalMarkerSuggestionsById) | **GET** /members/{memberId}/local/suggestions | Get member suggestions
 [**getMembers**](MembersApiInterface.md#getMembers) | **GET** /members | List all members
 [**mergeMember**](MembersApiInterface.md#mergeMember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
-[**putMembersMemberIdGroup**](MembersApiInterface.md#putMembersMemberIdGroup) | **PUT** /members/{memberId}/group | 
-[**putMembersMemberIdSection**](MembersApiInterface.md#putMembersMemberIdSection) | **PUT** /members/{memberId}/section | 
 [**removeMemberLocalMarkerById**](MembersApiInterface.md#removeMemberLocalMarkerById) | **DELETE** /members/{memberId}/local | Remove local marker
+[**removeMemberSectionById**](MembersApiInterface.md#removeMemberSectionById) | **DELETE** /members/{memberId}/section | 
+[**setMemberGroupById**](MembersApiInterface.md#setMemberGroupById) | **PUT** /members/{memberId}/group | 
+[**setMemberSectionById**](MembersApiInterface.md#setMemberSectionById) | **PUT** /members/{memberId}/section | 
 [**updateMemberById**](MembersApiInterface.md#updateMemberById) | **PUT** /members/{memberId} | Update member
 
 
@@ -29,66 +29,6 @@ services:
             - { name: "open_api_server.api", api: "members" }
     # ...
 ```
-
-## **addMember**
-> OpenAPI\Server\Model\Member addMember($member)
-
-Create a member
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/MembersApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\MembersApiInterface;
-
-class MembersApi implements MembersApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of MembersApiInterface#addMember
-     */
-    public function addMember(Member $member)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **member** | [**OpenAPI\Server\Model\Member**](../Model/Member.md)|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\Member**](../Model/Member.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **addMemberLocalMarkerById**
 > OpenAPI\Server\Model\ApiResponse addMemberLocalMarkerById($memberId)
@@ -150,6 +90,66 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+## **createMember**
+> OpenAPI\Server\Model\Member createMember($member)
+
+Create a member
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/MembersApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\MembersApiInterface;
+
+class MembersApi implements MembersApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of MembersApiInterface#createMember
+     */
+    public function createMember(Member $member)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **member** | [**OpenAPI\Server\Model\Member**](../Model/Member.md)|  |
+
+### Return type
+
+[**OpenAPI\Server\Model\Member**](../Model/Member.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 ## **deleteMemberById**
 > OpenAPI\Server\Model\Member deleteMemberById($memberId)
 
@@ -200,66 +200,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OpenAPI\Server\Model\Member**](../Model/Member.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **deleteMembersMemberIdSection**
-> OpenAPI\Server\Model\ApiResponse deleteMembersMemberIdSection($memberId)
-
-
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/MembersApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\MembersApiInterface;
-
-class MembersApi implements MembersApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of MembersApiInterface#deleteMembersMemberIdSection
-     */
-    public function deleteMembersMemberIdSection($memberId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
 
 ### Authorization
 
@@ -517,128 +457,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **putMembersMemberIdGroup**
-> OpenAPI\Server\Model\Group putMembersMemberIdGroup($memberId, $inlineObject1)
-
-
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/MembersApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\MembersApiInterface;
-
-class MembersApi implements MembersApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of MembersApiInterface#putMembersMemberIdGroup
-     */
-    public function putMembersMemberIdGroup($memberId, InlineObject1 $inlineObject1 = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
- **inlineObject1** | [**OpenAPI\Server\Model\InlineObject1**](../Model/InlineObject1.md)|  | [optional]
-
-### Return type
-
-[**OpenAPI\Server\Model\Group**](../Model/Group.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **putMembersMemberIdSection**
-> OpenAPI\Server\Model\ApiResponse putMembersMemberIdSection($memberId, $inlineObject)
-
-
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/MembersApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\MembersApiInterface;
-
-class MembersApi implements MembersApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of MembersApiInterface#putMembersMemberIdSection
-     */
-    public function putMembersMemberIdSection($memberId, InlineObject $inlineObject = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
- **inlineObject** | [**OpenAPI\Server\Model\InlineObject**](../Model/InlineObject.md)|  | [optional]
-
-### Return type
-
-[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 ## **removeMemberLocalMarkerById**
 > array removeMemberLocalMarkerById($memberId)
 
@@ -695,6 +513,188 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **removeMemberSectionById**
+> OpenAPI\Server\Model\ApiResponse removeMemberSectionById($memberId)
+
+
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/MembersApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\MembersApiInterface;
+
+class MembersApi implements MembersApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of MembersApiInterface#removeMemberSectionById
+     */
+    public function removeMemberSectionById($memberId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **memberId** | **string**|  |
+
+### Return type
+
+[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **setMemberGroupById**
+> OpenAPI\Server\Model\Group setMemberGroupById($memberId, $inlineObject1)
+
+
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/MembersApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\MembersApiInterface;
+
+class MembersApi implements MembersApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of MembersApiInterface#setMemberGroupById
+     */
+    public function setMemberGroupById($memberId, InlineObject1 $inlineObject1 = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **memberId** | **string**|  |
+ **inlineObject1** | [**OpenAPI\Server\Model\InlineObject1**](../Model/InlineObject1.md)|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\Group**](../Model/Group.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **setMemberSectionById**
+> OpenAPI\Server\Model\ApiResponse setMemberSectionById($memberId, $inlineObject)
+
+
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/MembersApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\MembersApiInterface;
+
+class MembersApi implements MembersApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of MembersApiInterface#setMemberSectionById
+     */
+    public function setMemberSectionById($memberId, InlineObject $inlineObject = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **memberId** | **string**|  |
+ **inlineObject** | [**OpenAPI\Server\Model\InlineObject**](../Model/InlineObject.md)|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

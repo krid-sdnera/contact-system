@@ -53,12 +53,287 @@ class ListsController extends Controller
 {
 
     /**
-     * Operation deleteListsListId
+     * Operation createList
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function deleteListsListIdAction(Request $request, $listId)
+    public function createListAction(Request $request)
+    {
+        // Make sure that the client is providing something that we can consume
+        $consumes = ['application/json'];
+        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
+        if (!in_array($inputFormat, $consumes)) {
+            // We can't consume the content that the client is sending us
+            return new Response('', 415);
+        }
+
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+        $modelList = $request->getContent();
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $modelList = $this->deserialize($modelList, 'OpenAPI\Server\Model\ModelList', $inputFormat);
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ModelList");
+        $asserts[] = new Assert\Valid();
+        $response = $this->validate($modelList, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->createList($modelList, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation createListRuleById
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function createListRuleByIdAction(Request $request, $listId)
+    {
+        // Make sure that the client is providing something that we can consume
+        $consumes = ['application/json'];
+        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
+        if (!in_array($inputFormat, $consumes)) {
+            // We can't consume the content that the client is sending us
+            return new Response('', 415);
+        }
+
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+        $listRule = $request->getContent();
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $listId = $this->deserialize($listId, 'string', 'string');
+            $listRule = $this->deserialize($listRule, 'OpenAPI\Server\Model\ListRule', $inputFormat);
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($listId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+        $asserts = [];
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ListRule");
+        $asserts[] = new Assert\Valid();
+        $response = $this->validate($listRule, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->createListRuleById($listId, $listRule, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation createListTypes
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function createListTypesAction(Request $request)
+    {
+        // Make sure that the client is providing something that we can consume
+        $consumes = ['application/json'];
+        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
+        if (!in_array($inputFormat, $consumes)) {
+            // We can't consume the content that the client is sending us
+            return new Response('', 415);
+        }
+
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+        $listType = $request->getContent();
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $listType = $this->deserialize($listType, 'OpenAPI\Server\Model\ListType', $inputFormat);
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ListType");
+        $asserts[] = new Assert\Valid();
+        $response = $this->validate($listType, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->createListTypes($listType, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation deleteListById
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function deleteListByIdAction(Request $request, $listId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -104,7 +379,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->deleteListsListId($listId, $responseCode, $responseHeaders);
+            $result = $handler->deleteListById($listId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -133,12 +408,12 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation deleteListsListIdRulesRuleId
+     * Operation deleteListRuleById
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function deleteListsListIdRulesRuleIdAction(Request $request, $listId, $ruleId)
+    public function deleteListRuleByIdAction(Request $request, $listId, $ruleId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -192,7 +467,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->deleteListsListIdRulesRuleId($listId, $ruleId, $responseCode, $responseHeaders);
+            $result = $handler->deleteListRuleById($listId, $ruleId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -221,12 +496,12 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation deleteListsTypesListTypeId
+     * Operation deleteListTypeById
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function deleteListsTypesListTypeIdAction(Request $request, $listTypeId)
+    public function deleteListTypeByIdAction(Request $request, $listTypeId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -272,7 +547,493 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->deleteListsTypesListTypeId($listTypeId, $responseCode, $responseHeaders);
+            $result = $handler->deleteListTypeById($listTypeId, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation getListById
+     *
+     * Your GET endpoint
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function getListByIdAction(Request $request, $listId)
+    {
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $listId = $this->deserialize($listId, 'string', 'string');
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($listId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->getListById($listId, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation getListMembersById
+     *
+     * Your GET endpoint
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function getListMembersByIdAction(Request $request, $listId)
+    {
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $listId = $this->deserialize($listId, 'string', 'string');
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($listId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->getListMembersById($listId, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation getListRuleById
+     *
+     * Your GET endpoint
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function getListRuleByIdAction(Request $request, $listId, $ruleId)
+    {
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $listId = $this->deserialize($listId, 'string', 'string');
+            $ruleId = $this->deserialize($ruleId, 'string', 'string');
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($listId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($ruleId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->getListRuleById($listId, $ruleId, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation getListRulesById
+     *
+     * Your GET endpoint
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function getListRulesByIdAction(Request $request, $listId)
+    {
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $listId = $this->deserialize($listId, 'string', 'string');
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($listId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->getListRulesById($listId, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation getListTypeById
+     *
+     * Your GET endpoint
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function getListTypeByIdAction(Request $request, $listTypeId)
+    {
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $listTypeId = $this->deserialize($listTypeId, 'string', 'string');
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($listTypeId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->getListTypeById($listTypeId, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation getListTypes
+     *
+     * Your GET endpoint
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function getListTypesAction(Request $request)
+    {
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+
+        // Use the default value if no value was provided
+
+        // Validate the input values
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->getListTypes($responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -369,773 +1130,12 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation getListsListId
-     *
-     * Your GET endpoint
+     * Operation updateListById
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getListsListIdAction(Request $request, $listId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $listId = $this->deserialize($listId, 'string', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($listId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->getListsListId($listId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation getListsListIdMembers
-     *
-     * Your GET endpoint
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function getListsListIdMembersAction(Request $request, $listId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $listId = $this->deserialize($listId, 'string', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($listId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->getListsListIdMembers($listId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation getListsListIdRules
-     *
-     * Your GET endpoint
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function getListsListIdRulesAction(Request $request, $listId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $listId = $this->deserialize($listId, 'string', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($listId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->getListsListIdRules($listId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation getListsListIdRulesRuleId
-     *
-     * Your GET endpoint
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function getListsListIdRulesRuleIdAction(Request $request, $listId, $ruleId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $listId = $this->deserialize($listId, 'string', 'string');
-            $ruleId = $this->deserialize($ruleId, 'string', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($listId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($ruleId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->getListsListIdRulesRuleId($listId, $ruleId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation getListsTypes
-     *
-     * Your GET endpoint
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function getListsTypesAction(Request $request)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Validate the input values
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->getListsTypes($responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation getListsTypesListTypeId
-     *
-     * Your GET endpoint
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function getListsTypesListTypeIdAction(Request $request, $listTypeId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $listTypeId = $this->deserialize($listTypeId, 'string', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($listTypeId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->getListsTypesListTypeId($listTypeId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation postLists
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function postListsAction(Request $request)
-    {
-        // Make sure that the client is providing something that we can consume
-        $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
-            // We can't consume the content that the client is sending us
-            return new Response('', 415);
-        }
-
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-        $modelList = $request->getContent();
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $modelList = $this->deserialize($modelList, 'OpenAPI\Server\Model\ModelList', $inputFormat);
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ModelList");
-        $asserts[] = new Assert\Valid();
-        $response = $this->validate($modelList, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->postLists($modelList, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation postListsListIdRules
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function postListsListIdRulesAction(Request $request, $listId)
-    {
-        // Make sure that the client is providing something that we can consume
-        $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
-            // We can't consume the content that the client is sending us
-            return new Response('', 415);
-        }
-
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-        $listRule = $request->getContent();
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $listId = $this->deserialize($listId, 'string', 'string');
-            $listRule = $this->deserialize($listRule, 'OpenAPI\Server\Model\ListRule', $inputFormat);
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($listId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-        $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ListRule");
-        $asserts[] = new Assert\Valid();
-        $response = $this->validate($listRule, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->postListsListIdRules($listId, $listRule, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation postListsTypes
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function postListsTypesAction(Request $request)
-    {
-        // Make sure that the client is providing something that we can consume
-        $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
-            // We can't consume the content that the client is sending us
-            return new Response('', 415);
-        }
-
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-        $listType = $request->getContent();
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $listType = $this->deserialize($listType, 'OpenAPI\Server\Model\ListType', $inputFormat);
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ListType");
-        $asserts[] = new Assert\Valid();
-        $response = $this->validate($listType, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->postListsTypes($listType, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation putListsListId
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function putListsListIdAction(Request $request, $listId)
+    public function updateListByIdAction(Request $request, $listId)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -1198,7 +1198,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->putListsListId($listId, $modelList, $responseCode, $responseHeaders);
+            $result = $handler->updateListById($listId, $modelList, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -1227,12 +1227,12 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation putListsListIdRulesRuleId
+     * Operation updateListRuleById
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function putListsListIdRulesRuleIdAction(Request $request, $listId, $ruleId)
+    public function updateListRuleByIdAction(Request $request, $listId, $ruleId)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -1303,7 +1303,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->putListsListIdRulesRuleId($listId, $ruleId, $listRule, $responseCode, $responseHeaders);
+            $result = $handler->updateListRuleById($listId, $ruleId, $listRule, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -1332,12 +1332,12 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation putListsTypesListTypeId
+     * Operation updateListTypeById
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function putListsTypesListTypeIdAction(Request $request, $listTypeId)
+    public function updateListTypeByIdAction(Request $request, $listTypeId)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -1400,7 +1400,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->putListsTypesListTypeId($listTypeId, $listType, $responseCode, $responseHeaders);
+            $result = $handler->updateListTypeById($listTypeId, $listType, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

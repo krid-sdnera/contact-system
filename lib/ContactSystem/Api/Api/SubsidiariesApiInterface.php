@@ -53,7 +53,7 @@ interface SubsidiariesApiInterface
     public function setcontact_auth($value);
 
     /**
-     * Operation deleteSubsidiariesSubsidiaryId
+     * Operation addSubsidiaryLocalMarkerById
      *
      * @param  string $subsidiaryId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -62,10 +62,21 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteSubsidiariesSubsidiaryId($subsidiaryId, &$responseCode, array &$responseHeaders);
+    public function addSubsidiaryLocalMarkerById($subsidiaryId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation deleteSubsidiariesSubsidiaryIdLocal
+     * Operation createSubsidiary
+     *
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return void
+     *
+     */
+    public function createSubsidiary(&$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation deleteSubsidiaryById
      *
      * @param  string $subsidiaryId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -74,10 +85,10 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteSubsidiariesSubsidiaryIdLocal($subsidiaryId, &$responseCode, array &$responseHeaders);
+    public function deleteSubsidiaryById($subsidiaryId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getSubsidiaries
+     * Operation getSubsidiary
      *
      * Your GET endpoint
      *
@@ -87,10 +98,10 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\Subsidiary[]
      *
      */
-    public function getSubsidiaries(&$responseCode, array &$responseHeaders);
+    public function getSubsidiary(&$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getSubsidiariesSubsidiaryId
+     * Operation getSubsidiaryById
      *
      * Your GET endpoint
      *
@@ -101,10 +112,10 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\Subsidiary
      *
      */
-    public function getSubsidiariesSubsidiaryId($subsidiaryId, &$responseCode, array &$responseHeaders);
+    public function getSubsidiaryById($subsidiaryId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getSubsidiariesSubsidiaryIdMembers
+     * Operation getSubsidiaryMembersById
      *
      * Your GET endpoint
      *
@@ -115,21 +126,22 @@ interface SubsidiariesApiInterface
      * @return string[]
      *
      */
-    public function getSubsidiariesSubsidiaryIdMembers($subsidiaryId, &$responseCode, array &$responseHeaders);
+    public function getSubsidiaryMembersById($subsidiaryId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation postSubsidiaries
+     * Operation removeSubsidiaryLocalMarkerById
      *
+     * @param  string $subsidiaryId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return void
+     * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function postSubsidiaries(&$responseCode, array &$responseHeaders);
+    public function removeSubsidiaryLocalMarkerById($subsidiaryId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation putSubsidiariesSubsidiaryId
+     * Operation updateSubsidiaryById
      *
      * @param  string $subsidiaryId   (required)
      * @param  OpenAPI\Server\Model\Subsidiary $subsidiary   (optional)
@@ -139,17 +151,5 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\Subsidiary
      *
      */
-    public function putSubsidiariesSubsidiaryId($subsidiaryId, Subsidiary $subsidiary = null, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation putSubsidiariesSubsidiaryIdLocal
-     *
-     * @param  string $subsidiaryId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
-     */
-    public function putSubsidiariesSubsidiaryIdLocal($subsidiaryId, &$responseCode, array &$responseHeaders);
+    public function updateSubsidiaryById($subsidiaryId, Subsidiary $subsidiary = null, &$responseCode, array &$responseHeaders);
 }

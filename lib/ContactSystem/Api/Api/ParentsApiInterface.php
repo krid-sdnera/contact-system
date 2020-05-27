@@ -54,7 +54,19 @@ interface ParentsApiInterface
     public function setcontact_auth($value);
 
     /**
-     * Operation deleteGroupsGroupId
+     * Operation createParent
+     *
+     * @param  OpenAPI\Server\Model\MemberParent $memberParent   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\MemberParent
+     *
+     */
+    public function createParent(MemberParent $memberParent = null, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation deleteGroupById
      *
      * @param  string $groupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -63,10 +75,10 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteGroupsGroupId($groupId, &$responseCode, array &$responseHeaders);
+    public function deleteGroupById($groupId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation deleteParentsParentId
+     * Operation deleteParentById
      *
      * @param  string $parentId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -75,10 +87,10 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteParentsParentId($parentId, &$responseCode, array &$responseHeaders);
+    public function deleteParentById($parentId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getGroupsGroupId
+     * Operation getGroupById
      *
      * Your GET endpoint
      *
@@ -89,7 +101,35 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\Group
      *
      */
-    public function getGroupsGroupId($groupId, &$responseCode, array &$responseHeaders);
+    public function getGroupById($groupId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getParentById
+     *
+     * Your GET endpoint
+     *
+     * @param  string $parentId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\MemberParent
+     *
+     */
+    public function getParentById($parentId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getParentMembersById
+     *
+     * Your GET endpoint
+     *
+     * @param  string $parentId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return string[]
+     *
+     */
+    public function getParentMembersById($parentId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getParents
@@ -105,47 +145,7 @@ interface ParentsApiInterface
     public function getParents(&$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getParentsParentId
-     *
-     * Your GET endpoint
-     *
-     * @param  string $parentId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\MemberParent
-     *
-     */
-    public function getParentsParentId($parentId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation getParentsParentIdMembers
-     *
-     * Your GET endpoint
-     *
-     * @param  string $parentId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return string[]
-     *
-     */
-    public function getParentsParentIdMembers($parentId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation postParents
-     *
-     * @param  OpenAPI\Server\Model\MemberParent $memberParent   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\MemberParent
-     *
-     */
-    public function postParents(MemberParent $memberParent = null, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation putGroupsGroupId
+     * Operation updateGroupById
      *
      * @param  string $groupId   (required)
      * @param  OpenAPI\Server\Model\Group $group   (optional)
@@ -155,10 +155,10 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\Group
      *
      */
-    public function putGroupsGroupId($groupId, Group $group = null, &$responseCode, array &$responseHeaders);
+    public function updateGroupById($groupId, Group $group = null, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation putParentsParentId
+     * Operation updateParentById
      *
      * @param  string $parentId   (required)
      * @param  OpenAPI\Server\Model\MemberParent $memberParent   (optional)
@@ -168,5 +168,5 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\MemberParent
      *
      */
-    public function putParentsParentId($parentId, MemberParent $memberParent = null, &$responseCode, array &$responseHeaders);
+    public function updateParentById($parentId, MemberParent $memberParent = null, &$responseCode, array &$responseHeaders);
 }

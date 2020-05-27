@@ -53,7 +53,19 @@ interface RolesApiInterface
     public function setcontact_auth($value);
 
     /**
-     * Operation deleteRolesCustomCustomRoleId
+     * Operation createCustomRole
+     *
+     * @param  OpenAPI\Server\Model\Role $role   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\Role
+     *
+     */
+    public function createCustomRole(Role $role = null, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation deleteCustomRoleById
      *
      * @param  string $customRoleId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -62,23 +74,10 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteRolesCustomCustomRoleId($customRoleId, &$responseCode, array &$responseHeaders);
+    public function deleteCustomRoleById($customRoleId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getRolesCustom
-     *
-     * Your GET endpoint
-     *
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\Role[]
-     *
-     */
-    public function getRolesCustom(&$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation getRolesCustomCustomRoleId
+     * Operation getCustomRoleById
      *
      * Your GET endpoint
      *
@@ -89,10 +88,10 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\Role
      *
      */
-    public function getRolesCustomCustomRoleId($customRoleId, &$responseCode, array &$responseHeaders);
+    public function getCustomRoleById($customRoleId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getRolesCustomCustomRoleIdMembers
+     * Operation getCustomRoleMembersById
      *
      * Your GET endpoint
      *
@@ -103,22 +102,23 @@ interface RolesApiInterface
      * @return string[]
      *
      */
-    public function getRolesCustomCustomRoleIdMembers($customRoleId, &$responseCode, array &$responseHeaders);
+    public function getCustomRoleMembersById($customRoleId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation postRolesCustom
+     * Operation getCustomRoles
      *
-     * @param  OpenAPI\Server\Model\Role $role   (optional)
+     * Your GET endpoint
+     *
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Role
+     * @return OpenAPI\Server\Model\Role[]
      *
      */
-    public function postRolesCustom(Role $role = null, &$responseCode, array &$responseHeaders);
+    public function getCustomRoles(&$responseCode, array &$responseHeaders);
 
     /**
-     * Operation putRolesCustomCustomRoleId
+     * Operation updateCustomRoleById
      *
      * @param  string $customRoleId   (required)
      * @param  OpenAPI\Server\Model\Role $role   (optional)
@@ -128,5 +128,5 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\Role
      *
      */
-    public function putRolesCustomCustomRoleId($customRoleId, Role $role = null, &$responseCode, array &$responseHeaders);
+    public function updateCustomRoleById($customRoleId, Role $role = null, &$responseCode, array &$responseHeaders);
 }

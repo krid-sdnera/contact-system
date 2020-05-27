@@ -52,7 +52,7 @@ paths:
         - members
       summary: Create a member
       description: ""
-      operationId: addMember
+      operationId: createMember
       requestBody:
         description: ""
         required: true
@@ -259,10 +259,10 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Role"
-      operationId: get-roles-custom
+      operationId: getCustomRoles
     post:
       summary: ""
-      operationId: post-roles-custom
+      operationId: createCustomRole
       responses:
         "200":
           description: OK
@@ -295,10 +295,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Role"
-      operationId: get-roles-custom-customRoleId
+      operationId: getCustomRoleById
     put:
       summary: ""
-      operationId: put-roles-custom-customRoleId
+      operationId: updateCustomRoleById
       responses:
         "200":
           description: OK
@@ -315,7 +315,7 @@ paths:
         - roles
     delete:
       summary: ""
-      operationId: delete-roles-custom-customRoleId
+      operationId: deleteCustomRoleById
       responses:
         "200":
           description: OK
@@ -345,10 +345,10 @@ paths:
                 type: array
                 items:
                   type: string
-      operationId: get-roles-custom-customRoleId-members
+      operationId: getCustomRoleMembersById
   /subsidiaries:
     get:
-      summary: Your GET endpoint
+      summary: Get Subsidiary
       tags:
         - subsidiaries
       responses:
@@ -360,11 +360,11 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Subsidiary"
-      operationId: get-subsidiaries
+      operationId: getSubsidiary
       description: ""
     post:
       summary: ""
-      operationId: post-subsidiaries
+      operationId: createSubsidiary
       responses:
         "200":
           description: OK
@@ -390,7 +390,7 @@ paths:
                 type: array
                 items:
                   type: string
-      operationId: get-subsidiaries-subsidiaryId-members
+      operationId: getSubsidiaryMembersById
   "/subsidiaries/{subsidiaryId}":
     parameters:
       - schema:
@@ -409,10 +409,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Subsidiary"
-      operationId: get-subsidiaries-subsidiaryId
+      operationId: getSubsidiaryById
     put:
       summary: ""
-      operationId: put-subsidiaries-subsidiaryId
+      operationId: updateSubsidiaryById
       responses:
         "200":
           description: OK
@@ -429,7 +429,7 @@ paths:
         - subsidiaries
     delete:
       summary: ""
-      operationId: delete-subsidiaries-subsidiaryId
+      operationId: deleteSubsidiaryById
       responses:
         "200":
           description: OK
@@ -448,7 +448,7 @@ paths:
         required: true
     put:
       summary: ""
-      operationId: put-subsidiaries-subsidiaryId-local
+      operationId: addSubsidiaryLocalMarkerById
       responses:
         "200":
           description: OK
@@ -460,7 +460,7 @@ paths:
         - subsidiaries
     delete:
       summary: ""
-      operationId: delete-subsidiaries-subsidiaryId-local
+      operationId: removeSubsidiaryLocalMarkerById
       responses:
         "200":
           description: OK
@@ -484,10 +484,10 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/MemberParent"
-      operationId: get-parents
+      operationId: getParents
     post:
       summary: ""
-      operationId: post-parents
+      operationId: createParent
       responses:
         "200":
           description: OK
@@ -521,10 +521,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MemberParent"
-      operationId: get-parents-parentId
+      operationId: getParentById
     put:
       summary: ""
-      operationId: put-parents-parentId
+      operationId: updateParentById
       responses:
         "200":
           description: OK
@@ -542,7 +542,7 @@ paths:
         - parents
     delete:
       summary: ""
-      operationId: delete-parents-parentId
+      operationId: deleteParentById
       responses:
         "200":
           description: OK
@@ -572,7 +572,7 @@ paths:
                 type: array
                 items:
                   type: string
-      operationId: get-parents-parentId-members
+      operationId: getParentMembersById
   /groups:
     get:
       summary: Your GET endpoint
@@ -587,11 +587,11 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Group"
-      operationId: get-groups
+      operationId: getGroups
       description: ""
     post:
       summary: ""
-      operationId: post-groups
+      operationId: createGroup
       responses:
         "200":
           description: OK
@@ -624,10 +624,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Group"
-      operationId: get-groups-groupId
+      operationId: getGroupById
     put:
       summary: ""
-      operationId: put-groups-groupId
+      operationId: updateGroupById
       responses:
         "200":
           description: OK
@@ -644,7 +644,7 @@ paths:
         - parents
     delete:
       summary: ""
-      operationId: delete-groups-groupId
+      operationId: deleteGroupById
       responses:
         "200":
           description: OK
@@ -663,7 +663,7 @@ paths:
         required: true
     put:
       summary: ""
-      operationId: put-groups-groupId-local
+      operationId: addGroupLocalMarkerById
       responses:
         "200":
           description: OK
@@ -675,7 +675,7 @@ paths:
         - groups
     delete:
       summary: ""
-      operationId: delete-groups-groupId-local
+      operationId: deleteGroupLocalMarkerById
       responses:
         "200":
           description: OK
@@ -705,7 +705,7 @@ paths:
                 type: array
                 items:
                   type: string
-      operationId: get-groups-groupId-members
+      operationId: getGroupMembersById
       description: ""
   "/groups/{groupId}/sections":
     parameters:
@@ -727,7 +727,7 @@ paths:
                 type: array
                 items:
                   type: string
-      operationId: get-groups-groupId-sections
+      operationId: getGroupSectionsById
   /sections:
     get:
       summary: Your GET endpoint
@@ -742,10 +742,10 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Section"
-      operationId: get-sections
+      operationId: getSections
     post:
       summary: ""
-      operationId: post-sections
+      operationId: createSection
       responses:
         "200":
           description: OK
@@ -778,10 +778,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Section"
-      operationId: get-sections-sectionId
+      operationId: getSectionById
     put:
       summary: ""
-      operationId: put-sections-sectionId
+      operationId: updateSectionById
       responses:
         "200":
           description: OK
@@ -798,7 +798,7 @@ paths:
         - sections
     delete:
       summary: ""
-      operationId: delete-sections-sectionId
+      operationId: deleteSectionById
       responses:
         "200":
           description: OK
@@ -817,7 +817,7 @@ paths:
         required: true
     put:
       summary: ""
-      operationId: put-sections-sectionId-local
+      operationId: addSectionLocalMarkerById
       responses:
         "200":
           description: OK
@@ -829,7 +829,7 @@ paths:
         - sections
     delete:
       summary: ""
-      operationId: delete-sections-sectionId-local
+      operationId: removeSectionLocalMarkerById
       responses:
         "200":
           description: OK
@@ -859,7 +859,7 @@ paths:
                 type: array
                 items:
                   type: string
-      operationId: get-sections-sectionId-members
+      operationId: getSectionMembersById
   "/members/{memberId}/section":
     parameters:
       - schema:
@@ -869,7 +869,7 @@ paths:
         required: true
     put:
       summary: ""
-      operationId: put-members-memberId-section
+      operationId: setMemberSectionById
       responses:
         "200":
           description: OK
@@ -890,7 +890,7 @@ paths:
         - members
     delete:
       summary: ""
-      operationId: delete-members-memberId-section
+      operationId: removeMemberSectionById
       responses:
         "200":
           description: OK
@@ -909,7 +909,7 @@ paths:
         required: true
     put:
       summary: ""
-      operationId: put-members-memberId-group
+      operationId: setMemberGroupById
       responses:
         "200":
           description: OK
@@ -939,12 +939,12 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/List"
-      operationId: get-lists
+      operationId: getLists
       tags:
         - lists
     post:
       summary: ""
-      operationId: post-lists
+      operationId: createList
       responses:
         "200":
           description: OK
@@ -977,10 +977,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/List"
-      operationId: get-lists-listId
+      operationId: getListById
     put:
       summary: ""
-      operationId: put-lists-listId
+      operationId: updateListById
       responses:
         "200":
           description: OK
@@ -997,7 +997,7 @@ paths:
         - lists
     delete:
       summary: ""
-      operationId: delete-lists-listId
+      operationId: deleteListById
       responses:
         "200":
           description: OK
@@ -1027,7 +1027,7 @@ paths:
                 type: array
                 items:
                   type: string
-      operationId: get-lists-listId-members
+      operationId: getListMembersById
   "/lists/{listId}/rules":
     parameters:
       - schema:
@@ -1048,11 +1048,11 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/ListRule"
-      operationId: get-lists-listId-rules
+      operationId: getListRulesById
       description: ""
     post:
       summary: ""
-      operationId: post-lists-listId-rules
+      operationId: createListRuleById
       responses:
         "200":
           description: OK
@@ -1090,10 +1090,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ListRule"
-      operationId: get-lists-listId-rules-ruleId
+      operationId: getListRuleById
     put:
       summary: ""
-      operationId: put-lists-listId-rules-ruleId
+      operationId: updateListRuleById
       responses:
         "200":
           description: OK
@@ -1110,7 +1110,7 @@ paths:
         - lists
     delete:
       summary: ""
-      operationId: delete-lists-listId-rules-ruleId
+      operationId: deleteListRuleById
       responses:
         "200":
           description: OK
@@ -1134,10 +1134,10 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/ListType"
-      operationId: get-lists-types
+      operationId: getListTypes
     post:
       summary: ""
-      operationId: post-lists-types
+      operationId: createListTypes
       responses:
         "200":
           description: OK
@@ -1170,10 +1170,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ListType"
-      operationId: get-lists-types-listTypeId
+      operationId: getListTypeById
     put:
       summary: ""
-      operationId: put-lists-types-listTypeId
+      operationId: updateListTypeById
       responses:
         "200":
           description: OK
@@ -1190,7 +1190,7 @@ paths:
         - lists
     delete:
       summary: ""
-      operationId: delete-lists-types-listTypeId
+      operationId: deleteListTypeById
       responses:
         "200":
           description: OK

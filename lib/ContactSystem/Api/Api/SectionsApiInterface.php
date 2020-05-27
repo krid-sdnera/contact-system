@@ -53,7 +53,7 @@ interface SectionsApiInterface
     public function setcontact_auth($value);
 
     /**
-     * Operation deleteSectionsSectionId
+     * Operation addSectionLocalMarkerById
      *
      * @param  string $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -62,10 +62,22 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteSectionsSectionId($sectionId, &$responseCode, array &$responseHeaders);
+    public function addSectionLocalMarkerById($sectionId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation deleteSectionsSectionIdLocal
+     * Operation createSection
+     *
+     * @param  OpenAPI\Server\Model\Section $section   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\Section
+     *
+     */
+    public function createSection(Section $section = null, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation deleteSectionById
      *
      * @param  string $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -74,7 +86,35 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteSectionsSectionIdLocal($sectionId, &$responseCode, array &$responseHeaders);
+    public function deleteSectionById($sectionId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getSectionById
+     *
+     * Your GET endpoint
+     *
+     * @param  string $sectionId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\Section
+     *
+     */
+    public function getSectionById($sectionId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getSectionMembersById
+     *
+     * Your GET endpoint
+     *
+     * @param  string $sectionId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return string[]
+     *
+     */
+    public function getSectionMembersById($sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSections
@@ -90,60 +130,7 @@ interface SectionsApiInterface
     public function getSections(&$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getSectionsSectionId
-     *
-     * Your GET endpoint
-     *
-     * @param  string $sectionId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\Section
-     *
-     */
-    public function getSectionsSectionId($sectionId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation getSectionsSectionIdMembers
-     *
-     * Your GET endpoint
-     *
-     * @param  string $sectionId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return string[]
-     *
-     */
-    public function getSectionsSectionIdMembers($sectionId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation postSections
-     *
-     * @param  OpenAPI\Server\Model\Section $section   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\Section
-     *
-     */
-    public function postSections(Section $section = null, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation putSectionsSectionId
-     *
-     * @param  string $sectionId   (required)
-     * @param  OpenAPI\Server\Model\Section $section   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\Section
-     *
-     */
-    public function putSectionsSectionId($sectionId, Section $section = null, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation putSectionsSectionIdLocal
+     * Operation removeSectionLocalMarkerById
      *
      * @param  string $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -152,5 +139,18 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function putSectionsSectionIdLocal($sectionId, &$responseCode, array &$responseHeaders);
+    public function removeSectionLocalMarkerById($sectionId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation updateSectionById
+     *
+     * @param  string $sectionId   (required)
+     * @param  OpenAPI\Server\Model\Section $section   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\Section
+     *
+     */
+    public function updateSectionById($sectionId, Section $section = null, &$responseCode, array &$responseHeaders);
 }

@@ -53,7 +53,7 @@ interface GroupsApiInterface
     public function setcontact_auth($value);
 
     /**
-     * Operation deleteGroupsGroupIdLocal
+     * Operation addGroupLocalMarkerById
      *
      * @param  string $groupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -62,7 +62,59 @@ interface GroupsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteGroupsGroupIdLocal($groupId, &$responseCode, array &$responseHeaders);
+    public function addGroupLocalMarkerById($groupId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation createGroup
+     *
+     * @param  OpenAPI\Server\Model\Group $group   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\Group
+     *
+     */
+    public function createGroup(Group $group = null, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation deleteGroupLocalMarkerById
+     *
+     * @param  string $groupId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\ApiResponse
+     *
+     */
+    public function deleteGroupLocalMarkerById($groupId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getGroupMembersById
+     *
+     * Your GET endpoint
+     *
+     * @param  string $groupId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return string[]
+     *
+     */
+    public function getGroupMembersById($groupId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getGroupSectionsById
+     *
+     * Your GET endpoint
+     *
+     * @param  string $groupId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return string[]
+     *
+     */
+    public function getGroupSectionsById($groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getGroups
@@ -76,56 +128,4 @@ interface GroupsApiInterface
      *
      */
     public function getGroups(&$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation getGroupsGroupIdMembers
-     *
-     * Your GET endpoint
-     *
-     * @param  string $groupId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return string[]
-     *
-     */
-    public function getGroupsGroupIdMembers($groupId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation getGroupsGroupIdSections
-     *
-     * Your GET endpoint
-     *
-     * @param  string $groupId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return string[]
-     *
-     */
-    public function getGroupsGroupIdSections($groupId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation postGroups
-     *
-     * @param  OpenAPI\Server\Model\Group $group   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\Group
-     *
-     */
-    public function postGroups(Group $group = null, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation putGroupsGroupIdLocal
-     *
-     * @param  string $groupId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
-     */
-    public function putGroupsGroupIdLocal($groupId, &$responseCode, array &$responseHeaders);
 }

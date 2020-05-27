@@ -3,11 +3,41 @@
 # Do not edit the class manually.
 
 # groups
-open_api_server_groups_deletegroupsgroupidlocal:
+open_api_server_groups_addgrouplocalmarkerbyid:
+    path:     /groups/{groupId}/local
+    methods:  [PUT]
+    defaults:
+        _controller: open_api_server.controller.groups:addGroupLocalMarkerByIdAction
+    requirements:
+        groupId: '[a-z0-9]+'
+
+open_api_server_groups_creategroup:
+    path:     /groups
+    methods:  [POST]
+    defaults:
+        _controller: open_api_server.controller.groups:createGroupAction
+
+open_api_server_groups_deletegrouplocalmarkerbyid:
     path:     /groups/{groupId}/local
     methods:  [DELETE]
     defaults:
-        _controller: open_api_server.controller.groups:deleteGroupsGroupIdLocalAction
+        _controller: open_api_server.controller.groups:deleteGroupLocalMarkerByIdAction
+    requirements:
+        groupId: '[a-z0-9]+'
+
+open_api_server_groups_getgroupmembersbyid:
+    path:     /groups/{groupId}/members
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.groups:getGroupMembersByIdAction
+    requirements:
+        groupId: '[a-z0-9]+'
+
+open_api_server_groups_getgroupsectionsbyid:
+    path:     /groups/{groupId}/sections
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.groups:getGroupSectionsByIdAction
     requirements:
         groupId: '[a-z0-9]+'
 
@@ -17,61 +47,98 @@ open_api_server_groups_getgroups:
     defaults:
         _controller: open_api_server.controller.groups:getGroupsAction
 
-open_api_server_groups_getgroupsgroupidmembers:
-    path:     /groups/{groupId}/members
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.groups:getGroupsGroupIdMembersAction
-    requirements:
-        groupId: '[a-z0-9]+'
-
-open_api_server_groups_getgroupsgroupidsections:
-    path:     /groups/{groupId}/sections
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.groups:getGroupsGroupIdSectionsAction
-    requirements:
-        groupId: '[a-z0-9]+'
-
-open_api_server_groups_postgroups:
-    path:     /groups
+# lists
+open_api_server_lists_createlist:
+    path:     /lists
     methods:  [POST]
     defaults:
-        _controller: open_api_server.controller.groups:postGroupsAction
+        _controller: open_api_server.controller.lists:createListAction
 
-open_api_server_groups_putgroupsgroupidlocal:
-    path:     /groups/{groupId}/local
-    methods:  [PUT]
+open_api_server_lists_createlistrulebyid:
+    path:     /lists/{listId}/rules
+    methods:  [POST]
     defaults:
-        _controller: open_api_server.controller.groups:putGroupsGroupIdLocalAction
-    requirements:
-        groupId: '[a-z0-9]+'
-
-# lists
-open_api_server_lists_deletelistslistid:
-    path:     /lists/{listId}
-    methods:  [DELETE]
-    defaults:
-        _controller: open_api_server.controller.lists:deleteListsListIdAction
+        _controller: open_api_server.controller.lists:createListRuleByIdAction
     requirements:
         listId: '[a-z0-9]+'
 
-open_api_server_lists_deletelistslistidrulesruleid:
+open_api_server_lists_createlisttypes:
+    path:     /lists/types
+    methods:  [POST]
+    defaults:
+        _controller: open_api_server.controller.lists:createListTypesAction
+
+open_api_server_lists_deletelistbyid:
+    path:     /lists/{listId}
+    methods:  [DELETE]
+    defaults:
+        _controller: open_api_server.controller.lists:deleteListByIdAction
+    requirements:
+        listId: '[a-z0-9]+'
+
+open_api_server_lists_deletelistrulebyid:
     path:     /lists/{listId}/rules/{ruleId}
     methods:  [DELETE]
     defaults:
-        _controller: open_api_server.controller.lists:deleteListsListIdRulesRuleIdAction
+        _controller: open_api_server.controller.lists:deleteListRuleByIdAction
     requirements:
         listId: '[a-z0-9]+'
         ruleId: '[a-z0-9]+'
 
-open_api_server_lists_deleteliststypeslisttypeid:
+open_api_server_lists_deletelisttypebyid:
     path:     /lists/types/{listTypeId}
     methods:  [DELETE]
     defaults:
-        _controller: open_api_server.controller.lists:deleteListsTypesListTypeIdAction
+        _controller: open_api_server.controller.lists:deleteListTypeByIdAction
     requirements:
         listTypeId: '[a-z0-9]+'
+
+open_api_server_lists_getlistbyid:
+    path:     /lists/{listId}
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.lists:getListByIdAction
+    requirements:
+        listId: '[a-z0-9]+'
+
+open_api_server_lists_getlistmembersbyid:
+    path:     /lists/{listId}/members
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.lists:getListMembersByIdAction
+    requirements:
+        listId: '[a-z0-9]+'
+
+open_api_server_lists_getlistrulebyid:
+    path:     /lists/{listId}/rules/{ruleId}
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.lists:getListRuleByIdAction
+    requirements:
+        listId: '[a-z0-9]+'
+        ruleId: '[a-z0-9]+'
+
+open_api_server_lists_getlistrulesbyid:
+    path:     /lists/{listId}/rules
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.lists:getListRulesByIdAction
+    requirements:
+        listId: '[a-z0-9]+'
+
+open_api_server_lists_getlisttypebyid:
+    path:     /lists/types/{listTypeId}
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.lists:getListTypeByIdAction
+    requirements:
+        listTypeId: '[a-z0-9]+'
+
+open_api_server_lists_getlisttypes:
+    path:     /lists/types
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.lists:getListTypesAction
 
 open_api_server_lists_getlists:
     path:     /lists
@@ -79,105 +146,32 @@ open_api_server_lists_getlists:
     defaults:
         _controller: open_api_server.controller.lists:getListsAction
 
-open_api_server_lists_getlistslistid:
+open_api_server_lists_updatelistbyid:
     path:     /lists/{listId}
-    methods:  [GET]
+    methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.lists:getListsListIdAction
+        _controller: open_api_server.controller.lists:updateListByIdAction
     requirements:
         listId: '[a-z0-9]+'
 
-open_api_server_lists_getlistslistidmembers:
-    path:     /lists/{listId}/members
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.lists:getListsListIdMembersAction
-    requirements:
-        listId: '[a-z0-9]+'
-
-open_api_server_lists_getlistslistidrules:
-    path:     /lists/{listId}/rules
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.lists:getListsListIdRulesAction
-    requirements:
-        listId: '[a-z0-9]+'
-
-open_api_server_lists_getlistslistidrulesruleid:
+open_api_server_lists_updatelistrulebyid:
     path:     /lists/{listId}/rules/{ruleId}
-    methods:  [GET]
+    methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.lists:getListsListIdRulesRuleIdAction
+        _controller: open_api_server.controller.lists:updateListRuleByIdAction
     requirements:
         listId: '[a-z0-9]+'
         ruleId: '[a-z0-9]+'
 
-open_api_server_lists_getliststypes:
-    path:     /lists/types
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.lists:getListsTypesAction
-
-open_api_server_lists_getliststypeslisttypeid:
-    path:     /lists/types/{listTypeId}
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.lists:getListsTypesListTypeIdAction
-    requirements:
-        listTypeId: '[a-z0-9]+'
-
-open_api_server_lists_postlists:
-    path:     /lists
-    methods:  [POST]
-    defaults:
-        _controller: open_api_server.controller.lists:postListsAction
-
-open_api_server_lists_postlistslistidrules:
-    path:     /lists/{listId}/rules
-    methods:  [POST]
-    defaults:
-        _controller: open_api_server.controller.lists:postListsListIdRulesAction
-    requirements:
-        listId: '[a-z0-9]+'
-
-open_api_server_lists_postliststypes:
-    path:     /lists/types
-    methods:  [POST]
-    defaults:
-        _controller: open_api_server.controller.lists:postListsTypesAction
-
-open_api_server_lists_putlistslistid:
-    path:     /lists/{listId}
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.lists:putListsListIdAction
-    requirements:
-        listId: '[a-z0-9]+'
-
-open_api_server_lists_putlistslistidrulesruleid:
-    path:     /lists/{listId}/rules/{ruleId}
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.lists:putListsListIdRulesRuleIdAction
-    requirements:
-        listId: '[a-z0-9]+'
-        ruleId: '[a-z0-9]+'
-
-open_api_server_lists_putliststypeslisttypeid:
+open_api_server_lists_updatelisttypebyid:
     path:     /lists/types/{listTypeId}
     methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.lists:putListsTypesListTypeIdAction
+        _controller: open_api_server.controller.lists:updateListTypeByIdAction
     requirements:
         listTypeId: '[a-z0-9]+'
 
 # members
-open_api_server_members_addmember:
-    path:     /members
-    methods:  [POST]
-    defaults:
-        _controller: open_api_server.controller.members:addMemberAction
-
 open_api_server_members_addmemberlocalmarkerbyid:
     path:     /members/{memberId}/local
     methods:  [PUT]
@@ -186,19 +180,17 @@ open_api_server_members_addmemberlocalmarkerbyid:
     requirements:
         memberId: '[a-z0-9]+'
 
+open_api_server_members_createmember:
+    path:     /members
+    methods:  [POST]
+    defaults:
+        _controller: open_api_server.controller.members:createMemberAction
+
 open_api_server_members_deletememberbyid:
     path:     /members/{memberId}
     methods:  [DELETE]
     defaults:
         _controller: open_api_server.controller.members:deleteMemberByIdAction
-    requirements:
-        memberId: '[a-z0-9]+'
-
-open_api_server_members_deletemembersmemberidsection:
-    path:     /members/{memberId}/section
-    methods:  [DELETE]
-    defaults:
-        _controller: open_api_server.controller.members:deleteMembersMemberIdSectionAction
     requirements:
         memberId: '[a-z0-9]+'
 
@@ -233,27 +225,35 @@ open_api_server_members_mergemember:
         memberId: '[a-z0-9]+'
         mergeMemberId: '[a-z0-9]+'
 
-open_api_server_members_putmembersmemberidgroup:
-    path:     /members/{memberId}/group
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.members:putMembersMemberIdGroupAction
-    requirements:
-        memberId: '[a-z0-9]+'
-
-open_api_server_members_putmembersmemberidsection:
-    path:     /members/{memberId}/section
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.members:putMembersMemberIdSectionAction
-    requirements:
-        memberId: '[a-z0-9]+'
-
 open_api_server_members_removememberlocalmarkerbyid:
     path:     /members/{memberId}/local
     methods:  [DELETE]
     defaults:
         _controller: open_api_server.controller.members:removeMemberLocalMarkerByIdAction
+    requirements:
+        memberId: '[a-z0-9]+'
+
+open_api_server_members_removemembersectionbyid:
+    path:     /members/{memberId}/section
+    methods:  [DELETE]
+    defaults:
+        _controller: open_api_server.controller.members:removeMemberSectionByIdAction
+    requirements:
+        memberId: '[a-z0-9]+'
+
+open_api_server_members_setmembergroupbyid:
+    path:     /members/{memberId}/group
+    methods:  [PUT]
+    defaults:
+        _controller: open_api_server.controller.members:setMemberGroupByIdAction
+    requirements:
+        memberId: '[a-z0-9]+'
+
+open_api_server_members_setmembersectionbyid:
+    path:     /members/{memberId}/section
+    methods:  [PUT]
+    defaults:
+        _controller: open_api_server.controller.members:setMemberSectionByIdAction
     requirements:
         memberId: '[a-z0-9]+'
 
@@ -266,29 +266,51 @@ open_api_server_members_updatememberbyid:
         memberId: '[a-z0-9]+'
 
 # parents
-open_api_server_parents_deletegroupsgroupid:
+open_api_server_parents_createparent:
+    path:     /parents
+    methods:  [POST]
+    defaults:
+        _controller: open_api_server.controller.parents:createParentAction
+
+open_api_server_parents_deletegroupbyid:
     path:     /groups/{groupId}
     methods:  [DELETE]
     defaults:
-        _controller: open_api_server.controller.parents:deleteGroupsGroupIdAction
+        _controller: open_api_server.controller.parents:deleteGroupByIdAction
     requirements:
         groupId: '[a-z0-9]+'
 
-open_api_server_parents_deleteparentsparentid:
+open_api_server_parents_deleteparentbyid:
     path:     /parents/{parentId}
     methods:  [DELETE]
     defaults:
-        _controller: open_api_server.controller.parents:deleteParentsParentIdAction
+        _controller: open_api_server.controller.parents:deleteParentByIdAction
     requirements:
         parentId: '[a-z0-9]+'
 
-open_api_server_parents_getgroupsgroupid:
+open_api_server_parents_getgroupbyid:
     path:     /groups/{groupId}
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.parents:getGroupsGroupIdAction
+        _controller: open_api_server.controller.parents:getGroupByIdAction
     requirements:
         groupId: '[a-z0-9]+'
+
+open_api_server_parents_getparentbyid:
+    path:     /parents/{parentId}
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.parents:getParentByIdAction
+    requirements:
+        parentId: '[a-z0-9]+'
+
+open_api_server_parents_getparentmembersbyid:
+    path:     /parents/{parentId}/members
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.parents:getParentMembersByIdAction
+    requirements:
+        parentId: '[a-z0-9]+'
 
 open_api_server_parents_getparents:
     path:     /parents
@@ -296,103 +318,103 @@ open_api_server_parents_getparents:
     defaults:
         _controller: open_api_server.controller.parents:getParentsAction
 
-open_api_server_parents_getparentsparentid:
-    path:     /parents/{parentId}
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.parents:getParentsParentIdAction
-    requirements:
-        parentId: '[a-z0-9]+'
-
-open_api_server_parents_getparentsparentidmembers:
-    path:     /parents/{parentId}/members
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.parents:getParentsParentIdMembersAction
-    requirements:
-        parentId: '[a-z0-9]+'
-
-open_api_server_parents_postparents:
-    path:     /parents
-    methods:  [POST]
-    defaults:
-        _controller: open_api_server.controller.parents:postParentsAction
-
-open_api_server_parents_putgroupsgroupid:
+open_api_server_parents_updategroupbyid:
     path:     /groups/{groupId}
     methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.parents:putGroupsGroupIdAction
+        _controller: open_api_server.controller.parents:updateGroupByIdAction
     requirements:
         groupId: '[a-z0-9]+'
 
-open_api_server_parents_putparentsparentid:
+open_api_server_parents_updateparentbyid:
     path:     /parents/{parentId}
     methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.parents:putParentsParentIdAction
+        _controller: open_api_server.controller.parents:updateParentByIdAction
     requirements:
         parentId: '[a-z0-9]+'
 
 # roles
-open_api_server_roles_deleterolescustomcustomroleid:
-    path:     /roles/custom/{customRoleId}
-    methods:  [DELETE]
-    defaults:
-        _controller: open_api_server.controller.roles:deleteRolesCustomCustomRoleIdAction
-    requirements:
-        customRoleId: '[a-z0-9]+'
-
-open_api_server_roles_getrolescustom:
-    path:     /roles/custom
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.roles:getRolesCustomAction
-
-open_api_server_roles_getrolescustomcustomroleid:
-    path:     /roles/custom/{customRoleId}
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.roles:getRolesCustomCustomRoleIdAction
-    requirements:
-        customRoleId: '[a-z0-9]+'
-
-open_api_server_roles_getrolescustomcustomroleidmembers:
-    path:     /roles/custom/{customRoleId}/members
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.roles:getRolesCustomCustomRoleIdMembersAction
-    requirements:
-        customRoleId: '[a-z0-9]+'
-
-open_api_server_roles_postrolescustom:
+open_api_server_roles_createcustomrole:
     path:     /roles/custom
     methods:  [POST]
     defaults:
-        _controller: open_api_server.controller.roles:postRolesCustomAction
+        _controller: open_api_server.controller.roles:createCustomRoleAction
 
-open_api_server_roles_putrolescustomcustomroleid:
+open_api_server_roles_deletecustomrolebyid:
+    path:     /roles/custom/{customRoleId}
+    methods:  [DELETE]
+    defaults:
+        _controller: open_api_server.controller.roles:deleteCustomRoleByIdAction
+    requirements:
+        customRoleId: '[a-z0-9]+'
+
+open_api_server_roles_getcustomrolebyid:
+    path:     /roles/custom/{customRoleId}
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.roles:getCustomRoleByIdAction
+    requirements:
+        customRoleId: '[a-z0-9]+'
+
+open_api_server_roles_getcustomrolemembersbyid:
+    path:     /roles/custom/{customRoleId}/members
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.roles:getCustomRoleMembersByIdAction
+    requirements:
+        customRoleId: '[a-z0-9]+'
+
+open_api_server_roles_getcustomroles:
+    path:     /roles/custom
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.roles:getCustomRolesAction
+
+open_api_server_roles_updatecustomrolebyid:
     path:     /roles/custom/{customRoleId}
     methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.roles:putRolesCustomCustomRoleIdAction
+        _controller: open_api_server.controller.roles:updateCustomRoleByIdAction
     requirements:
         customRoleId: '[a-z0-9]+'
 
 # sections
-open_api_server_sections_deletesectionssectionid:
-    path:     /sections/{sectionId}
-    methods:  [DELETE]
+open_api_server_sections_addsectionlocalmarkerbyid:
+    path:     /sections/{sectionId}/local
+    methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.sections:deleteSectionsSectionIdAction
+        _controller: open_api_server.controller.sections:addSectionLocalMarkerByIdAction
     requirements:
         sectionId: '[a-z0-9]+'
 
-open_api_server_sections_deletesectionssectionidlocal:
-    path:     /sections/{sectionId}/local
+open_api_server_sections_createsection:
+    path:     /sections
+    methods:  [POST]
+    defaults:
+        _controller: open_api_server.controller.sections:createSectionAction
+
+open_api_server_sections_deletesectionbyid:
+    path:     /sections/{sectionId}
     methods:  [DELETE]
     defaults:
-        _controller: open_api_server.controller.sections:deleteSectionsSectionIdLocalAction
+        _controller: open_api_server.controller.sections:deleteSectionByIdAction
+    requirements:
+        sectionId: '[a-z0-9]+'
+
+open_api_server_sections_getsectionbyid:
+    path:     /sections/{sectionId}
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.sections:getSectionByIdAction
+    requirements:
+        sectionId: '[a-z0-9]+'
+
+open_api_server_sections_getsectionmembersbyid:
+    path:     /sections/{sectionId}/members
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.sections:getSectionMembersByIdAction
     requirements:
         sectionId: '[a-z0-9]+'
 
@@ -402,102 +424,80 @@ open_api_server_sections_getsections:
     defaults:
         _controller: open_api_server.controller.sections:getSectionsAction
 
-open_api_server_sections_getsectionssectionid:
-    path:     /sections/{sectionId}
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.sections:getSectionsSectionIdAction
-    requirements:
-        sectionId: '[a-z0-9]+'
-
-open_api_server_sections_getsectionssectionidmembers:
-    path:     /sections/{sectionId}/members
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.sections:getSectionsSectionIdMembersAction
-    requirements:
-        sectionId: '[a-z0-9]+'
-
-open_api_server_sections_postsections:
-    path:     /sections
-    methods:  [POST]
-    defaults:
-        _controller: open_api_server.controller.sections:postSectionsAction
-
-open_api_server_sections_putsectionssectionid:
-    path:     /sections/{sectionId}
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.sections:putSectionsSectionIdAction
-    requirements:
-        sectionId: '[a-z0-9]+'
-
-open_api_server_sections_putsectionssectionidlocal:
+open_api_server_sections_removesectionlocalmarkerbyid:
     path:     /sections/{sectionId}/local
+    methods:  [DELETE]
+    defaults:
+        _controller: open_api_server.controller.sections:removeSectionLocalMarkerByIdAction
+    requirements:
+        sectionId: '[a-z0-9]+'
+
+open_api_server_sections_updatesectionbyid:
+    path:     /sections/{sectionId}
     methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.sections:putSectionsSectionIdLocalAction
+        _controller: open_api_server.controller.sections:updateSectionByIdAction
     requirements:
         sectionId: '[a-z0-9]+'
 
 # subsidiaries
-open_api_server_subsidiaries_deletesubsidiariessubsidiaryid:
-    path:     /subsidiaries/{subsidiaryId}
-    methods:  [DELETE]
-    defaults:
-        _controller: open_api_server.controller.subsidiaries:deleteSubsidiariesSubsidiaryIdAction
-    requirements:
-        subsidiaryId: '[a-z0-9]+'
-
-open_api_server_subsidiaries_deletesubsidiariessubsidiaryidlocal:
+open_api_server_subsidiaries_addsubsidiarylocalmarkerbyid:
     path:     /subsidiaries/{subsidiaryId}/local
-    methods:  [DELETE]
+    methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.subsidiaries:deleteSubsidiariesSubsidiaryIdLocalAction
+        _controller: open_api_server.controller.subsidiaries:addSubsidiaryLocalMarkerByIdAction
     requirements:
         subsidiaryId: '[a-z0-9]+'
 
-open_api_server_subsidiaries_getsubsidiaries:
-    path:     /subsidiaries
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.subsidiaries:getSubsidiariesAction
-
-open_api_server_subsidiaries_getsubsidiariessubsidiaryid:
-    path:     /subsidiaries/{subsidiaryId}
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.subsidiaries:getSubsidiariesSubsidiaryIdAction
-    requirements:
-        subsidiaryId: '[a-z0-9]+'
-
-open_api_server_subsidiaries_getsubsidiariessubsidiaryidmembers:
-    path:     /subsidiaries/{subsidiaryId}/members
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.subsidiaries:getSubsidiariesSubsidiaryIdMembersAction
-    requirements:
-        subsidiaryId: '[a-z0-9]+'
-
-open_api_server_subsidiaries_postsubsidiaries:
+open_api_server_subsidiaries_createsubsidiary:
     path:     /subsidiaries
     methods:  [POST]
     defaults:
-        _controller: open_api_server.controller.subsidiaries:postSubsidiariesAction
+        _controller: open_api_server.controller.subsidiaries:createSubsidiaryAction
 
-open_api_server_subsidiaries_putsubsidiariessubsidiaryid:
+open_api_server_subsidiaries_deletesubsidiarybyid:
     path:     /subsidiaries/{subsidiaryId}
-    methods:  [PUT]
+    methods:  [DELETE]
     defaults:
-        _controller: open_api_server.controller.subsidiaries:putSubsidiariesSubsidiaryIdAction
+        _controller: open_api_server.controller.subsidiaries:deleteSubsidiaryByIdAction
     requirements:
         subsidiaryId: '[a-z0-9]+'
 
-open_api_server_subsidiaries_putsubsidiariessubsidiaryidlocal:
+open_api_server_subsidiaries_getsubsidiary:
+    path:     /subsidiaries
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.subsidiaries:getSubsidiaryAction
+
+open_api_server_subsidiaries_getsubsidiarybyid:
+    path:     /subsidiaries/{subsidiaryId}
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.subsidiaries:getSubsidiaryByIdAction
+    requirements:
+        subsidiaryId: '[a-z0-9]+'
+
+open_api_server_subsidiaries_getsubsidiarymembersbyid:
+    path:     /subsidiaries/{subsidiaryId}/members
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.subsidiaries:getSubsidiaryMembersByIdAction
+    requirements:
+        subsidiaryId: '[a-z0-9]+'
+
+open_api_server_subsidiaries_removesubsidiarylocalmarkerbyid:
     path:     /subsidiaries/{subsidiaryId}/local
+    methods:  [DELETE]
+    defaults:
+        _controller: open_api_server.controller.subsidiaries:removeSubsidiaryLocalMarkerByIdAction
+    requirements:
+        subsidiaryId: '[a-z0-9]+'
+
+open_api_server_subsidiaries_updatesubsidiarybyid:
+    path:     /subsidiaries/{subsidiaryId}
     methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.subsidiaries:putSubsidiariesSubsidiaryIdLocalAction
+        _controller: open_api_server.controller.subsidiaries:updateSubsidiaryByIdAction
     requirements:
         subsidiaryId: '[a-z0-9]+'
 

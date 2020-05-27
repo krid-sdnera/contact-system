@@ -56,98 +56,6 @@ class MembersController extends Controller
 {
 
     /**
-     * Operation addMember
-     *
-     * Create a member
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function addMemberAction(Request $request)
-    {
-        // Make sure that the client is providing something that we can consume
-        $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
-            // We can't consume the content that the client is sending us
-            return new Response('', 415);
-        }
-
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-        $member = $request->getContent();
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $member = $this->deserialize($member, 'OpenAPI\Server\Model\Member', $inputFormat);
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Member");
-        $asserts[] = new Assert\Valid();
-        $response = $this->validate($member, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->addMember($member, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
      * Operation addMemberLocalMarkerById
      *
      * Add local marker
@@ -230,6 +138,98 @@ class MembersController extends Controller
     }
 
     /**
+     * Operation createMember
+     *
+     * Create a member
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function createMemberAction(Request $request)
+    {
+        // Make sure that the client is providing something that we can consume
+        $consumes = ['application/json'];
+        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
+        if (!in_array($inputFormat, $consumes)) {
+            // We can't consume the content that the client is sending us
+            return new Response('', 415);
+        }
+
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+        $member = $request->getContent();
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $member = $this->deserialize($member, 'OpenAPI\Server\Model\Member', $inputFormat);
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Member");
+        $asserts[] = new Assert\Valid();
+        $response = $this->validate($member, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->createMember($member, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
      * Operation deleteMemberById
      *
      * Delete member
@@ -292,86 +292,6 @@ class MembersController extends Controller
             switch ($responseCode) {
                 case 200:
                     $message = 'Default response';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation deleteMembersMemberIdSection
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function deleteMembersMemberIdSectionAction(Request $request, $memberId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($memberId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->deleteMembersMemberIdSection($memberId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
                     break;
             }
 
@@ -744,200 +664,6 @@ class MembersController extends Controller
     }
 
     /**
-     * Operation putMembersMemberIdGroup
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function putMembersMemberIdGroupAction(Request $request, $memberId)
-    {
-        // Make sure that the client is providing something that we can consume
-        $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
-            // We can't consume the content that the client is sending us
-            return new Response('', 415);
-        }
-
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-        $inlineObject1 = $request->getContent();
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
-            $inlineObject1 = $this->deserialize($inlineObject1, 'OpenAPI\Server\Model\InlineObject1', $inputFormat);
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($memberId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-        $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\InlineObject1");
-        $asserts[] = new Assert\Valid();
-        $response = $this->validate($inlineObject1, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->putMembersMemberIdGroup($memberId, $inlineObject1, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation putMembersMemberIdSection
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function putMembersMemberIdSectionAction(Request $request, $memberId)
-    {
-        // Make sure that the client is providing something that we can consume
-        $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
-            // We can't consume the content that the client is sending us
-            return new Response('', 415);
-        }
-
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-        $inlineObject = $request->getContent();
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
-            $inlineObject = $this->deserialize($inlineObject, 'OpenAPI\Server\Model\InlineObject', $inputFormat);
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($memberId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-        $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\InlineObject");
-        $asserts[] = new Assert\Valid();
-        $response = $this->validate($inlineObject, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->putMembersMemberIdSection($memberId, $inlineObject, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
      * Operation removeMemberLocalMarkerById
      *
      * Remove local marker
@@ -1000,6 +726,280 @@ class MembersController extends Controller
             switch ($responseCode) {
                 case 200:
                     $message = 'Default response';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation removeMemberSectionById
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function removeMemberSectionByIdAction(Request $request, $memberId)
+    {
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $memberId = $this->deserialize($memberId, 'string', 'string');
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($memberId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->removeMemberSectionById($memberId, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation setMemberGroupById
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function setMemberGroupByIdAction(Request $request, $memberId)
+    {
+        // Make sure that the client is providing something that we can consume
+        $consumes = ['application/json'];
+        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
+        if (!in_array($inputFormat, $consumes)) {
+            // We can't consume the content that the client is sending us
+            return new Response('', 415);
+        }
+
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+        $inlineObject1 = $request->getContent();
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $memberId = $this->deserialize($memberId, 'string', 'string');
+            $inlineObject1 = $this->deserialize($inlineObject1, 'OpenAPI\Server\Model\InlineObject1', $inputFormat);
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($memberId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+        $asserts = [];
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\InlineObject1");
+        $asserts[] = new Assert\Valid();
+        $response = $this->validate($inlineObject1, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->setMemberGroupById($memberId, $inlineObject1, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation setMemberSectionById
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function setMemberSectionByIdAction(Request $request, $memberId)
+    {
+        // Make sure that the client is providing something that we can consume
+        $consumes = ['application/json'];
+        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
+        if (!in_array($inputFormat, $consumes)) {
+            // We can't consume the content that the client is sending us
+            return new Response('', 415);
+        }
+
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+        $inlineObject = $request->getContent();
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $memberId = $this->deserialize($memberId, 'string', 'string');
+            $inlineObject = $this->deserialize($inlineObject, 'OpenAPI\Server\Model\InlineObject', $inputFormat);
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($memberId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+        $asserts = [];
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\InlineObject");
+        $asserts[] = new Assert\Valid();
+        $response = $this->validate($inlineObject, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->setMemberSectionById($memberId, $inlineObject, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
                     break;
             }
 

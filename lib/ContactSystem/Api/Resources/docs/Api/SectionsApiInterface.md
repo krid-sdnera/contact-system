@@ -4,14 +4,14 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteSectionsSectionId**](SectionsApiInterface.md#deleteSectionsSectionId) | **DELETE** /sections/{sectionId} | 
-[**deleteSectionsSectionIdLocal**](SectionsApiInterface.md#deleteSectionsSectionIdLocal) | **DELETE** /sections/{sectionId}/local | 
+[**addSectionLocalMarkerById**](SectionsApiInterface.md#addSectionLocalMarkerById) | **PUT** /sections/{sectionId}/local | 
+[**createSection**](SectionsApiInterface.md#createSection) | **POST** /sections | 
+[**deleteSectionById**](SectionsApiInterface.md#deleteSectionById) | **DELETE** /sections/{sectionId} | 
+[**getSectionById**](SectionsApiInterface.md#getSectionById) | **GET** /sections/{sectionId} | Your GET endpoint
+[**getSectionMembersById**](SectionsApiInterface.md#getSectionMembersById) | **GET** /sections/{sectionId}/members | Your GET endpoint
 [**getSections**](SectionsApiInterface.md#getSections) | **GET** /sections | Your GET endpoint
-[**getSectionsSectionId**](SectionsApiInterface.md#getSectionsSectionId) | **GET** /sections/{sectionId} | Your GET endpoint
-[**getSectionsSectionIdMembers**](SectionsApiInterface.md#getSectionsSectionIdMembers) | **GET** /sections/{sectionId}/members | Your GET endpoint
-[**postSections**](SectionsApiInterface.md#postSections) | **POST** /sections | 
-[**putSectionsSectionId**](SectionsApiInterface.md#putSectionsSectionId) | **PUT** /sections/{sectionId} | 
-[**putSectionsSectionIdLocal**](SectionsApiInterface.md#putSectionsSectionIdLocal) | **PUT** /sections/{sectionId}/local | 
+[**removeSectionLocalMarkerById**](SectionsApiInterface.md#removeSectionLocalMarkerById) | **DELETE** /sections/{sectionId}/local | 
+[**updateSectionById**](SectionsApiInterface.md#updateSectionById) | **PUT** /sections/{sectionId} | 
 
 
 ## Service Declaration
@@ -26,8 +26,8 @@ services:
     # ...
 ```
 
-## **deleteSectionsSectionId**
-> OpenAPI\Server\Model\ApiResponse deleteSectionsSectionId($sectionId)
+## **addSectionLocalMarkerById**
+> OpenAPI\Server\Model\ApiResponse addSectionLocalMarkerById($sectionId)
 
 
 
@@ -54,9 +54,9 @@ class SectionsApi implements SectionsApiInterface
     // ...
 
     /**
-     * Implementation of SectionsApiInterface#deleteSectionsSectionId
+     * Implementation of SectionsApiInterface#addSectionLocalMarkerById
      */
-    public function deleteSectionsSectionId($sectionId)
+    public function addSectionLocalMarkerById($sectionId)
     {
         // Implement the operation ...
     }
@@ -86,8 +86,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **deleteSectionsSectionIdLocal**
-> OpenAPI\Server\Model\ApiResponse deleteSectionsSectionIdLocal($sectionId)
+## **createSection**
+> OpenAPI\Server\Model\Section createSection($section)
 
 
 
@@ -114,9 +114,69 @@ class SectionsApi implements SectionsApiInterface
     // ...
 
     /**
-     * Implementation of SectionsApiInterface#deleteSectionsSectionIdLocal
+     * Implementation of SectionsApiInterface#createSection
      */
-    public function deleteSectionsSectionIdLocal($sectionId)
+    public function createSection(Section $section = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **section** | [**OpenAPI\Server\Model\Section**](../Model/Section.md)|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\Section**](../Model/Section.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **deleteSectionById**
+> OpenAPI\Server\Model\ApiResponse deleteSectionById($sectionId)
+
+
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/SectionsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\SectionsApiInterface;
+
+class SectionsApi implements SectionsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of SectionsApiInterface#deleteSectionById
+     */
+    public function deleteSectionById($sectionId)
     {
         // Implement the operation ...
     }
@@ -134,6 +194,126 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getSectionById**
+> OpenAPI\Server\Model\Section getSectionById($sectionId)
+
+Your GET endpoint
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/SectionsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\SectionsApiInterface;
+
+class SectionsApi implements SectionsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of SectionsApiInterface#getSectionById
+     */
+    public function getSectionById($sectionId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sectionId** | **string**|  |
+
+### Return type
+
+[**OpenAPI\Server\Model\Section**](../Model/Section.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getSectionMembersById**
+> string getSectionMembersById($sectionId)
+
+Your GET endpoint
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/SectionsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\SectionsApiInterface;
+
+class SectionsApi implements SectionsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of SectionsApiInterface#getSectionMembersById
+     */
+    public function getSectionMembersById($sectionId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sectionId** | **string**|  |
+
+### Return type
+
+**string**
 
 ### Authorization
 
@@ -203,128 +383,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getSectionsSectionId**
-> OpenAPI\Server\Model\Section getSectionsSectionId($sectionId)
-
-Your GET endpoint
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/SectionsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\SectionsApiInterface;
-
-class SectionsApi implements SectionsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of SectionsApiInterface#getSectionsSectionId
-     */
-    public function getSectionsSectionId($sectionId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sectionId** | **string**|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\Section**](../Model/Section.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **getSectionsSectionIdMembers**
-> string getSectionsSectionIdMembers($sectionId)
-
-Your GET endpoint
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/SectionsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\SectionsApiInterface;
-
-class SectionsApi implements SectionsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of SectionsApiInterface#getSectionsSectionIdMembers
-     */
-    public function getSectionsSectionIdMembers($sectionId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sectionId** | **string**|  |
-
-### Return type
-
-**string**
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **postSections**
-> OpenAPI\Server\Model\Section postSections($section)
+## **removeSectionLocalMarkerById**
+> OpenAPI\Server\Model\ApiResponse removeSectionLocalMarkerById($sectionId)
 
 
 
@@ -351,130 +411,9 @@ class SectionsApi implements SectionsApiInterface
     // ...
 
     /**
-     * Implementation of SectionsApiInterface#postSections
+     * Implementation of SectionsApiInterface#removeSectionLocalMarkerById
      */
-    public function postSections(Section $section = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **section** | [**OpenAPI\Server\Model\Section**](../Model/Section.md)|  | [optional]
-
-### Return type
-
-[**OpenAPI\Server\Model\Section**](../Model/Section.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **putSectionsSectionId**
-> OpenAPI\Server\Model\Section putSectionsSectionId($sectionId, $section)
-
-
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/SectionsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\SectionsApiInterface;
-
-class SectionsApi implements SectionsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of SectionsApiInterface#putSectionsSectionId
-     */
-    public function putSectionsSectionId($sectionId, Section $section = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sectionId** | **string**|  |
- **section** | [**OpenAPI\Server\Model\Section**](../Model/Section.md)|  | [optional]
-
-### Return type
-
-[**OpenAPI\Server\Model\Section**](../Model/Section.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **putSectionsSectionIdLocal**
-> OpenAPI\Server\Model\ApiResponse putSectionsSectionIdLocal($sectionId)
-
-
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/SectionsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\SectionsApiInterface;
-
-class SectionsApi implements SectionsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of SectionsApiInterface#putSectionsSectionIdLocal
-     */
-    public function putSectionsSectionIdLocal($sectionId)
+    public function removeSectionLocalMarkerById($sectionId)
     {
         // Implement the operation ...
     }
@@ -500,6 +439,67 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **updateSectionById**
+> OpenAPI\Server\Model\Section updateSectionById($sectionId, $section)
+
+
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/SectionsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\SectionsApiInterface;
+
+class SectionsApi implements SectionsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of SectionsApiInterface#updateSectionById
+     */
+    public function updateSectionById($sectionId, Section $section = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sectionId** | **string**|  |
+ **section** | [**OpenAPI\Server\Model\Section**](../Model/Section.md)|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\Section**](../Model/Section.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

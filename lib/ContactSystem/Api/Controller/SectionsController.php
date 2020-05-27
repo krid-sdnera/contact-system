@@ -51,12 +51,12 @@ class SectionsController extends Controller
 {
 
     /**
-     * Operation deleteSectionsSectionId
+     * Operation addSectionLocalMarkerById
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function deleteSectionsSectionIdAction(Request $request, $sectionId)
+    public function addSectionLocalMarkerByIdAction(Request $request, $sectionId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -102,7 +102,7 @@ class SectionsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->deleteSectionsSectionId($sectionId, $responseCode, $responseHeaders);
+            $result = $handler->addSectionLocalMarkerById($sectionId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -131,12 +131,101 @@ class SectionsController extends Controller
     }
 
     /**
-     * Operation deleteSectionsSectionIdLocal
+     * Operation createSection
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function deleteSectionsSectionIdLocalAction(Request $request, $sectionId)
+    public function createSectionAction(Request $request)
+    {
+        // Make sure that the client is providing something that we can consume
+        $consumes = ['application/json'];
+        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
+        if (!in_array($inputFormat, $consumes)) {
+            // We can't consume the content that the client is sending us
+            return new Response('', 415);
+        }
+
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+        $section = $request->getContent();
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $section = $this->deserialize($section, 'OpenAPI\Server\Model\Section', $inputFormat);
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Section");
+        $asserts[] = new Assert\Valid();
+        $response = $this->validate($section, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->createSection($section, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation deleteSectionById
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function deleteSectionByIdAction(Request $request, $sectionId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -182,7 +271,171 @@ class SectionsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->deleteSectionsSectionIdLocal($sectionId, $responseCode, $responseHeaders);
+            $result = $handler->deleteSectionById($sectionId, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation getSectionById
+     *
+     * Your GET endpoint
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function getSectionByIdAction(Request $request, $sectionId)
+    {
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $sectionId = $this->deserialize($sectionId, 'string', 'string');
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($sectionId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->getSectionById($sectionId, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation getSectionMembersById
+     *
+     * Your GET endpoint
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function getSectionMembersByIdAction(Request $request, $sectionId)
+    {
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-api-key');
+
+        // Read out all input parameter values into variables
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $sectionId = $this->deserialize($sectionId, 'string', 'string');
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($sectionId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->getSectionMembersById($sectionId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -279,14 +532,12 @@ class SectionsController extends Controller
     }
 
     /**
-     * Operation getSectionsSectionId
-     *
-     * Your GET endpoint
+     * Operation removeSectionLocalMarkerById
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getSectionsSectionIdAction(Request $request, $sectionId)
+    public function removeSectionLocalMarkerByIdAction(Request $request, $sectionId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -332,7 +583,7 @@ class SectionsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getSectionsSectionId($sectionId, $responseCode, $responseHeaders);
+            $result = $handler->removeSectionLocalMarkerById($sectionId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -361,183 +612,12 @@ class SectionsController extends Controller
     }
 
     /**
-     * Operation getSectionsSectionIdMembers
-     *
-     * Your GET endpoint
+     * Operation updateSectionById
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getSectionsSectionIdMembersAction(Request $request, $sectionId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $sectionId = $this->deserialize($sectionId, 'string', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($sectionId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->getSectionsSectionIdMembers($sectionId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation postSections
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function postSectionsAction(Request $request)
-    {
-        // Make sure that the client is providing something that we can consume
-        $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
-            // We can't consume the content that the client is sending us
-            return new Response('', 415);
-        }
-
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-        $section = $request->getContent();
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $section = $this->deserialize($section, 'OpenAPI\Server\Model\Section', $inputFormat);
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\Section");
-        $asserts[] = new Assert\Valid();
-        $response = $this->validate($section, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->postSections($section, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation putSectionsSectionId
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function putSectionsSectionIdAction(Request $request, $sectionId)
+    public function updateSectionByIdAction(Request $request, $sectionId)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -600,87 +680,7 @@ class SectionsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->putSectionsSectionId($sectionId, $section, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation putSectionsSectionIdLocal
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function putSectionsSectionIdLocalAction(Request $request, $sectionId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $sectionId = $this->deserialize($sectionId, 'string', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($sectionId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->putSectionsSectionIdLocal($sectionId, $responseCode, $responseHeaders);
+            $result = $handler->updateSectionById($sectionId, $section, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

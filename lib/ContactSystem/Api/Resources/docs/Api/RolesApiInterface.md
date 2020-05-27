@@ -4,12 +4,12 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteRolesCustomCustomRoleId**](RolesApiInterface.md#deleteRolesCustomCustomRoleId) | **DELETE** /roles/custom/{customRoleId} | 
-[**getRolesCustom**](RolesApiInterface.md#getRolesCustom) | **GET** /roles/custom | Your GET endpoint
-[**getRolesCustomCustomRoleId**](RolesApiInterface.md#getRolesCustomCustomRoleId) | **GET** /roles/custom/{customRoleId} | Your GET endpoint
-[**getRolesCustomCustomRoleIdMembers**](RolesApiInterface.md#getRolesCustomCustomRoleIdMembers) | **GET** /roles/custom/{customRoleId}/members | Your GET endpoint
-[**postRolesCustom**](RolesApiInterface.md#postRolesCustom) | **POST** /roles/custom | 
-[**putRolesCustomCustomRoleId**](RolesApiInterface.md#putRolesCustomCustomRoleId) | **PUT** /roles/custom/{customRoleId} | 
+[**createCustomRole**](RolesApiInterface.md#createCustomRole) | **POST** /roles/custom | 
+[**deleteCustomRoleById**](RolesApiInterface.md#deleteCustomRoleById) | **DELETE** /roles/custom/{customRoleId} | 
+[**getCustomRoleById**](RolesApiInterface.md#getCustomRoleById) | **GET** /roles/custom/{customRoleId} | Your GET endpoint
+[**getCustomRoleMembersById**](RolesApiInterface.md#getCustomRoleMembersById) | **GET** /roles/custom/{customRoleId}/members | Your GET endpoint
+[**getCustomRoles**](RolesApiInterface.md#getCustomRoles) | **GET** /roles/custom | Your GET endpoint
+[**updateCustomRoleById**](RolesApiInterface.md#updateCustomRoleById) | **PUT** /roles/custom/{customRoleId} | 
 
 
 ## Service Declaration
@@ -24,8 +24,8 @@ services:
     # ...
 ```
 
-## **deleteRolesCustomCustomRoleId**
-> OpenAPI\Server\Model\ApiResponse deleteRolesCustomCustomRoleId($customRoleId)
+## **createCustomRole**
+> OpenAPI\Server\Model\Role createCustomRole($role)
 
 
 
@@ -52,246 +52,9 @@ class RolesApi implements RolesApiInterface
     // ...
 
     /**
-     * Implementation of RolesApiInterface#deleteRolesCustomCustomRoleId
+     * Implementation of RolesApiInterface#createCustomRole
      */
-    public function deleteRolesCustomCustomRoleId($customRoleId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **customRoleId** | **string**|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **getRolesCustom**
-> OpenAPI\Server\Model\Role getRolesCustom()
-
-Your GET endpoint
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/RolesApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\RolesApiInterface;
-
-class RolesApi implements RolesApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of RolesApiInterface#getRolesCustom
-     */
-    public function getRolesCustom()
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**OpenAPI\Server\Model\Role**](../Model/Role.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **getRolesCustomCustomRoleId**
-> OpenAPI\Server\Model\Role getRolesCustomCustomRoleId($customRoleId)
-
-Your GET endpoint
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/RolesApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\RolesApiInterface;
-
-class RolesApi implements RolesApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of RolesApiInterface#getRolesCustomCustomRoleId
-     */
-    public function getRolesCustomCustomRoleId($customRoleId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **customRoleId** | **string**|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\Role**](../Model/Role.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **getRolesCustomCustomRoleIdMembers**
-> string getRolesCustomCustomRoleIdMembers($customRoleId)
-
-Your GET endpoint
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/RolesApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\RolesApiInterface;
-
-class RolesApi implements RolesApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of RolesApiInterface#getRolesCustomCustomRoleIdMembers
-     */
-    public function getRolesCustomCustomRoleIdMembers($customRoleId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **customRoleId** | **string**|  |
-
-### Return type
-
-**string**
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **postRolesCustom**
-> OpenAPI\Server\Model\Role postRolesCustom($role)
-
-
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/RolesApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\RolesApiInterface;
-
-class RolesApi implements RolesApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of RolesApiInterface#postRolesCustom
-     */
-    public function postRolesCustom(Role $role = null)
+    public function createCustomRole(Role $role = null)
     {
         // Implement the operation ...
     }
@@ -321,8 +84,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **putRolesCustomCustomRoleId**
-> OpenAPI\Server\Model\Role putRolesCustomCustomRoleId($customRoleId, $role)
+## **deleteCustomRoleById**
+> OpenAPI\Server\Model\ApiResponse deleteCustomRoleById($customRoleId)
 
 
 
@@ -349,9 +112,246 @@ class RolesApi implements RolesApiInterface
     // ...
 
     /**
-     * Implementation of RolesApiInterface#putRolesCustomCustomRoleId
+     * Implementation of RolesApiInterface#deleteCustomRoleById
      */
-    public function putRolesCustomCustomRoleId($customRoleId, Role $role = null)
+    public function deleteCustomRoleById($customRoleId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **customRoleId** | **string**|  |
+
+### Return type
+
+[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getCustomRoleById**
+> OpenAPI\Server\Model\Role getCustomRoleById($customRoleId)
+
+Your GET endpoint
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/RolesApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\RolesApiInterface;
+
+class RolesApi implements RolesApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of RolesApiInterface#getCustomRoleById
+     */
+    public function getCustomRoleById($customRoleId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **customRoleId** | **string**|  |
+
+### Return type
+
+[**OpenAPI\Server\Model\Role**](../Model/Role.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getCustomRoleMembersById**
+> string getCustomRoleMembersById($customRoleId)
+
+Your GET endpoint
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/RolesApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\RolesApiInterface;
+
+class RolesApi implements RolesApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of RolesApiInterface#getCustomRoleMembersById
+     */
+    public function getCustomRoleMembersById($customRoleId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **customRoleId** | **string**|  |
+
+### Return type
+
+**string**
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getCustomRoles**
+> OpenAPI\Server\Model\Role getCustomRoles()
+
+Your GET endpoint
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/RolesApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\RolesApiInterface;
+
+class RolesApi implements RolesApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of RolesApiInterface#getCustomRoles
+     */
+    public function getCustomRoles()
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**OpenAPI\Server\Model\Role**](../Model/Role.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **updateCustomRoleById**
+> OpenAPI\Server\Model\Role updateCustomRoleById($customRoleId, $role)
+
+
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/RolesApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\RolesApiInterface;
+
+class RolesApi implements RolesApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of RolesApiInterface#updateCustomRoleById
+     */
+    public function updateCustomRoleById($customRoleId, Role $role = null)
     {
         // Implement the operation ...
     }

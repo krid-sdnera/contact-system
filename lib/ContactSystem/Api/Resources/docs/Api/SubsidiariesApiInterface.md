@@ -4,14 +4,14 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteSubsidiariesSubsidiaryId**](SubsidiariesApiInterface.md#deleteSubsidiariesSubsidiaryId) | **DELETE** /subsidiaries/{subsidiaryId} | 
-[**deleteSubsidiariesSubsidiaryIdLocal**](SubsidiariesApiInterface.md#deleteSubsidiariesSubsidiaryIdLocal) | **DELETE** /subsidiaries/{subsidiaryId}/local | 
-[**getSubsidiaries**](SubsidiariesApiInterface.md#getSubsidiaries) | **GET** /subsidiaries | Your GET endpoint
-[**getSubsidiariesSubsidiaryId**](SubsidiariesApiInterface.md#getSubsidiariesSubsidiaryId) | **GET** /subsidiaries/{subsidiaryId} | Your GET endpoint
-[**getSubsidiariesSubsidiaryIdMembers**](SubsidiariesApiInterface.md#getSubsidiariesSubsidiaryIdMembers) | **GET** /subsidiaries/{subsidiaryId}/members | Your GET endpoint
-[**postSubsidiaries**](SubsidiariesApiInterface.md#postSubsidiaries) | **POST** /subsidiaries | 
-[**putSubsidiariesSubsidiaryId**](SubsidiariesApiInterface.md#putSubsidiariesSubsidiaryId) | **PUT** /subsidiaries/{subsidiaryId} | 
-[**putSubsidiariesSubsidiaryIdLocal**](SubsidiariesApiInterface.md#putSubsidiariesSubsidiaryIdLocal) | **PUT** /subsidiaries/{subsidiaryId}/local | 
+[**addSubsidiaryLocalMarkerById**](SubsidiariesApiInterface.md#addSubsidiaryLocalMarkerById) | **PUT** /subsidiaries/{subsidiaryId}/local | 
+[**createSubsidiary**](SubsidiariesApiInterface.md#createSubsidiary) | **POST** /subsidiaries | 
+[**deleteSubsidiaryById**](SubsidiariesApiInterface.md#deleteSubsidiaryById) | **DELETE** /subsidiaries/{subsidiaryId} | 
+[**getSubsidiary**](SubsidiariesApiInterface.md#getSubsidiary) | **GET** /subsidiaries | Your GET endpoint
+[**getSubsidiaryById**](SubsidiariesApiInterface.md#getSubsidiaryById) | **GET** /subsidiaries/{subsidiaryId} | Your GET endpoint
+[**getSubsidiaryMembersById**](SubsidiariesApiInterface.md#getSubsidiaryMembersById) | **GET** /subsidiaries/{subsidiaryId}/members | Your GET endpoint
+[**removeSubsidiaryLocalMarkerById**](SubsidiariesApiInterface.md#removeSubsidiaryLocalMarkerById) | **DELETE** /subsidiaries/{subsidiaryId}/local | 
+[**updateSubsidiaryById**](SubsidiariesApiInterface.md#updateSubsidiaryById) | **PUT** /subsidiaries/{subsidiaryId} | 
 
 
 ## Service Declaration
@@ -26,8 +26,8 @@ services:
     # ...
 ```
 
-## **deleteSubsidiariesSubsidiaryId**
-> OpenAPI\Server\Model\ApiResponse deleteSubsidiariesSubsidiaryId($subsidiaryId)
+## **addSubsidiaryLocalMarkerById**
+> OpenAPI\Server\Model\ApiResponse addSubsidiaryLocalMarkerById($subsidiaryId)
 
 
 
@@ -54,9 +54,9 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     // ...
 
     /**
-     * Implementation of SubsidiariesApiInterface#deleteSubsidiariesSubsidiaryId
+     * Implementation of SubsidiariesApiInterface#addSubsidiaryLocalMarkerById
      */
-    public function deleteSubsidiariesSubsidiaryId($subsidiaryId)
+    public function addSubsidiaryLocalMarkerById($subsidiaryId)
     {
         // Implement the operation ...
     }
@@ -86,8 +86,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **deleteSubsidiariesSubsidiaryIdLocal**
-> OpenAPI\Server\Model\ApiResponse deleteSubsidiariesSubsidiaryIdLocal($subsidiaryId)
+## **createSubsidiary**
+> createSubsidiary()
 
 
 
@@ -114,9 +114,66 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     // ...
 
     /**
-     * Implementation of SubsidiariesApiInterface#deleteSubsidiariesSubsidiaryIdLocal
+     * Implementation of SubsidiariesApiInterface#createSubsidiary
      */
-    public function deleteSubsidiariesSubsidiaryIdLocal($subsidiaryId)
+    public function createSubsidiary()
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **deleteSubsidiaryById**
+> OpenAPI\Server\Model\ApiResponse deleteSubsidiaryById($subsidiaryId)
+
+
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/SubsidiariesApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\SubsidiariesApiInterface;
+
+class SubsidiariesApi implements SubsidiariesApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of SubsidiariesApiInterface#deleteSubsidiaryById
+     */
+    public function deleteSubsidiaryById($subsidiaryId)
     {
         // Implement the operation ...
     }
@@ -146,8 +203,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getSubsidiaries**
-> OpenAPI\Server\Model\Subsidiary getSubsidiaries()
+## **getSubsidiary**
+> OpenAPI\Server\Model\Subsidiary getSubsidiary()
 
 Your GET endpoint
 
@@ -174,9 +231,9 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     // ...
 
     /**
-     * Implementation of SubsidiariesApiInterface#getSubsidiaries
+     * Implementation of SubsidiariesApiInterface#getSubsidiary
      */
-    public function getSubsidiaries()
+    public function getSubsidiary()
     {
         // Implement the operation ...
     }
@@ -203,8 +260,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getSubsidiariesSubsidiaryId**
-> OpenAPI\Server\Model\Subsidiary getSubsidiariesSubsidiaryId($subsidiaryId)
+## **getSubsidiaryById**
+> OpenAPI\Server\Model\Subsidiary getSubsidiaryById($subsidiaryId)
 
 Your GET endpoint
 
@@ -231,9 +288,9 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     // ...
 
     /**
-     * Implementation of SubsidiariesApiInterface#getSubsidiariesSubsidiaryId
+     * Implementation of SubsidiariesApiInterface#getSubsidiaryById
      */
-    public function getSubsidiariesSubsidiaryId($subsidiaryId)
+    public function getSubsidiaryById($subsidiaryId)
     {
         // Implement the operation ...
     }
@@ -263,8 +320,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getSubsidiariesSubsidiaryIdMembers**
-> string getSubsidiariesSubsidiaryIdMembers($subsidiaryId)
+## **getSubsidiaryMembersById**
+> string getSubsidiaryMembersById($subsidiaryId)
 
 Your GET endpoint
 
@@ -291,9 +348,9 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     // ...
 
     /**
-     * Implementation of SubsidiariesApiInterface#getSubsidiariesSubsidiaryIdMembers
+     * Implementation of SubsidiariesApiInterface#getSubsidiaryMembersById
      */
-    public function getSubsidiariesSubsidiaryIdMembers($subsidiaryId)
+    public function getSubsidiaryMembersById($subsidiaryId)
     {
         // Implement the operation ...
     }
@@ -323,8 +380,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **postSubsidiaries**
-> postSubsidiaries()
+## **removeSubsidiaryLocalMarkerById**
+> OpenAPI\Server\Model\ApiResponse removeSubsidiaryLocalMarkerById($subsidiaryId)
 
 
 
@@ -351,9 +408,9 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     // ...
 
     /**
-     * Implementation of SubsidiariesApiInterface#postSubsidiaries
+     * Implementation of SubsidiariesApiInterface#removeSubsidiaryLocalMarkerById
      */
-    public function postSubsidiaries()
+    public function removeSubsidiaryLocalMarkerById($subsidiaryId)
     {
         // Implement the operation ...
     }
@@ -363,11 +420,14 @@ class SubsidiariesApi implements SubsidiariesApiInterface
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **subsidiaryId** | **string**|  |
 
 ### Return type
 
-void (empty response body)
+[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
 
 ### Authorization
 
@@ -376,12 +436,12 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **putSubsidiariesSubsidiaryId**
-> OpenAPI\Server\Model\Subsidiary putSubsidiariesSubsidiaryId($subsidiaryId, $subsidiary)
+## **updateSubsidiaryById**
+> OpenAPI\Server\Model\Subsidiary updateSubsidiaryById($subsidiaryId, $subsidiary)
 
 
 
@@ -408,9 +468,9 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     // ...
 
     /**
-     * Implementation of SubsidiariesApiInterface#putSubsidiariesSubsidiaryId
+     * Implementation of SubsidiariesApiInterface#updateSubsidiaryById
      */
-    public function putSubsidiariesSubsidiaryId($subsidiaryId, Subsidiary $subsidiary = null)
+    public function updateSubsidiaryById($subsidiaryId, Subsidiary $subsidiary = null)
     {
         // Implement the operation ...
     }
@@ -437,66 +497,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **putSubsidiariesSubsidiaryIdLocal**
-> OpenAPI\Server\Model\ApiResponse putSubsidiariesSubsidiaryIdLocal($subsidiaryId)
-
-
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/SubsidiariesApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\SubsidiariesApiInterface;
-
-class SubsidiariesApi implements SubsidiariesApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of SubsidiariesApiInterface#putSubsidiariesSubsidiaryIdLocal
-     */
-    public function putSubsidiariesSubsidiaryIdLocal($subsidiaryId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **subsidiaryId** | **string**|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
