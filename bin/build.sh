@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -r lib/ContactSystem/Api/*
+
 yarn install
 yarn run generate-api
 

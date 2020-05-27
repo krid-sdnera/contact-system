@@ -120,16 +120,13 @@ interface MembersApiInterface
      * Get member suggestions
      *
      * @param  string $memberId   (required)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\MemberSuggetion[]
      *
      */
-    public function getMemberLocalMarkerSuggestionsById($memberId, $sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
+    public function getMemberLocalMarkerSuggestionsById($memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMembers

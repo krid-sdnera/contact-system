@@ -219,18 +219,6 @@ paths:
         name: memberId
         in: path
         required: true
-      - schema:
-          type: string
-        in: query
-        name: sort
-      - schema:
-          type: integer
-        in: query
-        name: pageSize
-      - schema:
-          type: integer
-        in: query
-        name: page
   "/members/{memberId}/merge_into/{mergeMemberId}":
     post:
       summary: Merge member

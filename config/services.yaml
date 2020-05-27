@@ -30,3 +30,9 @@ services:
         class: App\Controller\MembersController
         tags:
             - { name: "open_api_server.api", api: "members" }
+
+    contact_system.controller.sections:
+        class: App\Controller\SectionsController
+        tags:
+            - { name: "open_api_server.api", api: "sections" }
+            

@@ -11,10 +11,12 @@ use OpenAPI\Server\Api\MembersApiInterface;
 
 use OpenAPI\Server\Model\InlineObject;
 use OpenAPI\Server\Model\InlineObject1;
-use OpenAPI\Server\Model\Member;
-use OpenAPI\Server\Model\Members;
+use OpenAPI\Server\Model\MemberInput;
+use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\GroupInput;
+use OpenAPI\Server\Model\SectionInput;
 
-use App\Entity;
+use App\Entity\Member;
 use OpenAPI\Server\Model\ApiResponse;
 
 class MembersController extends AbstractController implements MembersApiInterface
@@ -25,35 +27,6 @@ class MembersController extends AbstractController implements MembersApiInterfac
      */
     public function setcontact_auth($value)
     {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addMember(Member $member, &$responseCode, array &$responseHeaders)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $product = new Entity\Member();
-        $product->setFirstname($member->getFirstname());
-        $product->setLastname($member->getLastname());
-        $product->setNickname($member->getNickname());
-        $product->setAddress((array) $member->getAddress());
-
-        // $errors = $validator->validate($product);
-        // if (count($errors) > 0) {
-        //     $responseCode = 400;
-        //     return (string) $errors;
-        // }
-
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($product);
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
-
-        $member->setId($product->getId());
-        return $member;
     }
 
     /**
@@ -72,10 +45,41 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
+    public function createMember(MemberInput $member, &$responseCode, array &$responseHeaders)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $newMember = new Member();
+        $newMember->setFirstname($member->getFirstname());
+        $newMember->setLastname($member->getLastname());
+        $newMember->setNickname($member->getNickname());
+        $newMember->setAddress([
+            'street1' => $member->getAddress()->getStreet1(),
+            'street2' => $member->getAddress()->getStreet2(),
+            'city' => $member->getAddress()->getCity(),
+            'state' => $member->getAddress()->getState(),
+            'postcode' => $member->getAddress()->getPostcode(),
+        ]);
+
+        // $errors = $validator->validate($product);
+        // if (count($errors) > 0) {
+        //     $responseCode = 400;
+        //     return (string) $errors;
+        // }
+
+        $entityManager->persist($newMember);
+        $entityManager->flush();
+
+        return $newMember;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function deleteMemberById($memberId, &$responseCode, array &$responseHeaders)
     {
         $member = $this->getDoctrine()
-            ->getRepository(Entity\Member::class)
+            ->getRepository(Member::class)
             ->find($memberId);
 
         if (!$member) {
@@ -101,23 +105,10 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
-    public function deleteMembersMemberIdSection($memberId, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getMemberById($memberId, &$responseCode, array &$responseHeaders)
     {
         $member = $this->getDoctrine()
-            ->getRepository(Entity\Member::class)
+            ->getRepository(Member::class)
             ->find($memberId);
 
         if (!$member) {
@@ -174,7 +165,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
 
         try {
             $members = $this->getDoctrine()
-                ->getRepository(Entity\Member::class)
+                ->getRepository(Member::class)
                 ->findBy([], $sortComputed, $limit, $offset);
         } catch (ORMException $e) {
             if (strpos($e->getMessage(), "Unrecognized field") === 0) {
@@ -210,32 +201,6 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
-    public function putMembersMemberIdGroup($memberId, InlineObject1 $inlineObject1 = null, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function putMembersMemberIdSection($memberId, InlineObject $inlineObject = null, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function removeMemberLocalMarkerById($memberId, &$responseCode, array &$responseHeaders)
     {
         $responseCode = 501;
@@ -249,12 +214,51 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
-    public function updateMemberById($memberId, Member $member = null, &$responseCode, array &$responseHeaders)
+    public function removeMemberSectionById($memberId, &$responseCode, array &$responseHeaders)
+    {
+        $responseCode = 501;
+        return new ApiResponse([
+            'code' => 501,
+            'type' => 'Not Implemented',
+            'message' => "This endpoint has not been implemented"
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setMemberGroupById($memberId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
+    {
+        $responseCode = 501;
+        return new ApiResponse([
+            'code' => 501,
+            'type' => 'Not Implemented',
+            'message' => "This endpoint has not been implemented"
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setMemberSectionById($memberId, array $sectionData = null, &$responseCode, array &$responseHeaders)
+    {
+        $responseCode = 501;
+        return new ApiResponse([
+            'code' => 501,
+            'type' => 'Not Implemented',
+            'message' => "This endpoint has not been implemented"
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateMemberById($memberId, MemberInput $member = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
         $memberToUpdate = $this->getDoctrine()
-            ->getRepository(Entity\Member::class)
+            ->getRepository(Member::class)
             ->find($memberId);
 
         if (!$memberToUpdate) {
@@ -269,7 +273,13 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $memberToUpdate->setFirstname($member->getFirstname());
         $memberToUpdate->setLastname($member->getLastname());
         $memberToUpdate->setNickname($member->getNickname());
-        $memberToUpdate->setAddress(['id' => $member->getAddress()->getId()]);
+        $memberToUpdate->setAddress([
+            'street1' => $member->getAddress()->getStreet1(),
+            'street2' => $member->getAddress()->getStreet2(),
+            'city' => $member->getAddress()->getCity(),
+            'state' => $member->getAddress()->getState(),
+            'postcode' => $member->getAddress()->getPostcode(),
+        ]);
 
         // $errors = $validator->validate($product);
         // if (count($errors) > 0) {
@@ -278,7 +288,6 @@ class MembersController extends AbstractController implements MembersApiInterfac
         // }
 
         $entityManager->persist($memberToUpdate);
-
         $entityManager->flush();
 
         return $memberToUpdate;
