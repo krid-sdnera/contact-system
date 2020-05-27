@@ -327,7 +327,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getSections**
-> OpenAPI\Server\Model\SectionData getSections()
+> OpenAPI\Server\Model\SectionData getSections($sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -356,7 +356,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#getSections
      */
-    public function getSections()
+    public function getSections($sort = null, $pageSize = null, $page = null)
     {
         // Implement the operation ...
     }
@@ -366,7 +366,12 @@ class SectionsApi implements SectionsApiInterface
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 

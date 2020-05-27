@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getCustomRoles**
-> OpenAPI\Server\Model\RoleData getCustomRoles()
+> OpenAPI\Server\Model\RoleData getCustomRoles($sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -294,7 +294,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#getCustomRoles
      */
-    public function getCustomRoles()
+    public function getCustomRoles($sort = null, $pageSize = null, $page = null)
     {
         // Implement the operation ...
     }
@@ -304,7 +304,12 @@ class RolesApi implements RolesApiInterface
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 

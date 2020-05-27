@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getParents**
-> OpenAPI\Server\Model\MemberParentData getParents()
+> OpenAPI\Server\Model\MemberParentData getParents($sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -417,7 +417,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#getParents
      */
-    public function getParents()
+    public function getParents($sort = null, $pageSize = null, $page = null)
     {
         // Implement the operation ...
     }
@@ -427,7 +427,12 @@ class ParentsApi implements ParentsApiInterface
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 

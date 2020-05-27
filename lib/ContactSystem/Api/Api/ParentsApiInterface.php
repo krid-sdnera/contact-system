@@ -139,13 +139,16 @@ interface ParentsApiInterface
      *
      * Your GET endpoint
      *
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\MemberParentData[]
      *
      */
-    public function getParents(&$responseCode, array &$responseHeaders);
+    public function getParents($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateGroupById

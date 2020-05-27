@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getMemberLocalMarkerSuggestionsById**
-> OpenAPI\Server\Model\MemberSuggetion getMemberLocalMarkerSuggestionsById($memberId)
+> OpenAPI\Server\Model\MemberSuggetion getMemberLocalMarkerSuggestionsById($memberId, $sort, $pageSize, $page)
 
 Get member suggestions
 
@@ -304,7 +304,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#getMemberLocalMarkerSuggestionsById
      */
-    public function getMemberLocalMarkerSuggestionsById($memberId)
+    public function getMemberLocalMarkerSuggestionsById($memberId, $sort = null, $pageSize = null, $page = null)
     {
         // Implement the operation ...
     }
@@ -318,6 +318,9 @@ class MembersApi implements MembersApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **memberId** | **string**|  |
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 

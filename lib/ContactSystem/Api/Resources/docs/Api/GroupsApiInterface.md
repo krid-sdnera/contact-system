@@ -325,7 +325,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getGroups**
-> OpenAPI\Server\Model\GroupData getGroups()
+> OpenAPI\Server\Model\GroupData getGroups($sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -354,7 +354,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#getGroups
      */
-    public function getGroups()
+    public function getGroups($sort = null, $pageSize = null, $page = null)
     {
         // Implement the operation ...
     }
@@ -364,7 +364,12 @@ class GroupsApi implements GroupsApiInterface
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 

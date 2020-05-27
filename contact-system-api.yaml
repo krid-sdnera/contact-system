@@ -219,6 +219,18 @@ paths:
         name: memberId
         in: path
         required: true
+      - schema:
+          type: string
+        in: query
+        name: sort
+      - schema:
+          type: integer
+        in: query
+        name: pageSize
+      - schema:
+          type: integer
+        in: query
+        name: page
   "/members/{memberId}/merge_into/{mergeMemberId}":
     post:
       summary: Merge member
@@ -261,6 +273,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/RoleData"
       operationId: getCustomRoles
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
     post:
       summary: ""
       operationId: createCustomRole
@@ -490,6 +515,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/MemberParentData"
       operationId: getParents
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
     post:
       summary: ""
       operationId: createParent
@@ -595,6 +633,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/GroupData"
       operationId: getGroups
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
       description: ""
     post:
       summary: ""
@@ -753,6 +804,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/SectionData"
       operationId: getSections
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
     post:
       summary: ""
       operationId: createSection
@@ -949,6 +1013,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/List"
       operationId: getLists
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
       tags:
         - lists
     post:
@@ -1145,6 +1222,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/ListType"
       operationId: getListTypes
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
     post:
       summary: ""
       operationId: createListTypes

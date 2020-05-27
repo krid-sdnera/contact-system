@@ -698,7 +698,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getListTypes**
-> OpenAPI\Server\Model\ListType getListTypes()
+> OpenAPI\Server\Model\ListType getListTypes($sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -727,7 +727,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListTypes
      */
-    public function getListTypes()
+    public function getListTypes($sort = null, $pageSize = null, $page = null)
     {
         // Implement the operation ...
     }
@@ -737,7 +737,12 @@ class ListsApi implements ListsApiInterface
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 
@@ -755,7 +760,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getLists**
-> OpenAPI\Server\Model\ModelList getLists()
+> OpenAPI\Server\Model\ModelList getLists($sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -784,7 +789,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getLists
      */
-    public function getLists()
+    public function getLists($sort = null, $pageSize = null, $page = null)
     {
         // Implement the operation ...
     }
@@ -794,7 +799,12 @@ class ListsApi implements ListsApiInterface
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 

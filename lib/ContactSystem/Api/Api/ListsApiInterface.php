@@ -205,26 +205,32 @@ interface ListsApiInterface
      *
      * Your GET endpoint
      *
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ListType[]
      *
      */
-    public function getListTypes(&$responseCode, array &$responseHeaders);
+    public function getListTypes($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getLists
      *
      * Your GET endpoint
      *
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ModelList[]
      *
      */
-    public function getLists(&$responseCode, array &$responseHeaders);
+    public function getLists($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateListById
