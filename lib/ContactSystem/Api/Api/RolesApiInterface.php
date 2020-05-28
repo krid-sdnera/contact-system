@@ -76,7 +76,7 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteCustomRoleById($customRoleId, &$responseCode, array &$responseHeaders);
+    public function deleteCustomRoleById(string $customRoleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getCustomRoleById
@@ -90,7 +90,7 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function getCustomRoleById($customRoleId, &$responseCode, array &$responseHeaders);
+    public function getCustomRoleById(string $customRoleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getCustomRoleMembersById
@@ -104,7 +104,7 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getCustomRoleMembersById($customRoleId, &$responseCode, array &$responseHeaders);
+    public function getCustomRoleMembersById(string $customRoleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getCustomRoles
@@ -120,7 +120,7 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\RoleData[]
      *
      */
-    public function getCustomRoles($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
+    public function getCustomRoles(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateCustomRoleById
@@ -133,5 +133,5 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function updateCustomRoleById($customRoleId, RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
+    public function updateCustomRoleById(string $customRoleId, RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
 }

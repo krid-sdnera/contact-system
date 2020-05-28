@@ -72,7 +72,7 @@ class SectionData
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -84,7 +84,7 @@ class SectionData
      *
      * @return $this
      */
-    public function setId($id = null)
+    public function setId(string $id = null): ?string
     {
         $this->id = $id;
 
@@ -96,7 +96,7 @@ class SectionData
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -108,7 +108,7 @@ class SectionData
      *
      * @return $this
      */
-    public function setName($name = null)
+    public function setName(string $name = null): ?string
     {
         $this->name = $name;
 

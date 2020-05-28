@@ -56,7 +56,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#addSectionLocalMarkerById
      */
-    public function addSectionLocalMarkerById($sectionId)
+    public function addSectionLocalMarkerById(string $sectionId)
     {
         // Implement the operation ...
     }
@@ -176,7 +176,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#deleteSectionById
      */
-    public function deleteSectionById($sectionId)
+    public function deleteSectionById(string $sectionId)
     {
         // Implement the operation ...
     }
@@ -236,7 +236,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#getSectionById
      */
-    public function getSectionById($sectionId)
+    public function getSectionById(string $sectionId)
     {
         // Implement the operation ...
     }
@@ -296,7 +296,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#getSectionMembersById
      */
-    public function getSectionMembersById($sectionId)
+    public function getSectionMembersById(string $sectionId)
     {
         // Implement the operation ...
     }
@@ -356,7 +356,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#getSections
      */
-    public function getSections($sort = null, $pageSize = null, $page = null)
+    public function getSections(string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -418,7 +418,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#removeSectionLocalMarkerById
      */
-    public function removeSectionLocalMarkerById($sectionId)
+    public function removeSectionLocalMarkerById(string $sectionId)
     {
         // Implement the operation ...
     }
@@ -478,7 +478,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#updateSectionById
      */
-    public function updateSectionById($sectionId, SectionInput $sectionInput = null)
+    public function updateSectionById(string $sectionId, SectionInput $sectionInput = null)
     {
         // Implement the operation ...
     }

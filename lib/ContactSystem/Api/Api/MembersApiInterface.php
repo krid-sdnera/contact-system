@@ -70,7 +70,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function addMemberLocalMarkerById($memberId, &$responseCode, array &$responseHeaders);
+    public function addMemberLocalMarkerById(string $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createMember
@@ -98,7 +98,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteMemberById($memberId, &$responseCode, array &$responseHeaders);
+    public function deleteMemberById(string $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMemberById
@@ -112,7 +112,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\MemberData
      *
      */
-    public function getMemberById($memberId, &$responseCode, array &$responseHeaders);
+    public function getMemberById(string $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMemberLocalMarkerSuggestionsById
@@ -126,7 +126,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\MemberSuggetion[]
      *
      */
-    public function getMemberLocalMarkerSuggestionsById($memberId, &$responseCode, array &$responseHeaders);
+    public function getMemberLocalMarkerSuggestionsById(string $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMembers
@@ -142,7 +142,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\Members
      *
      */
-    public function getMembers($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
+    public function getMembers(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation mergeMember
@@ -157,7 +157,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function mergeMember($memberId, $mergeMemberId, &$responseCode, array &$responseHeaders);
+    public function mergeMember(string $memberId, string $mergeMemberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation removeMemberLocalMarkerById
@@ -171,7 +171,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function removeMemberLocalMarkerById($memberId, &$responseCode, array &$responseHeaders);
+    public function removeMemberLocalMarkerById(string $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation removeMemberSectionById
@@ -183,7 +183,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function removeMemberSectionById($memberId, &$responseCode, array &$responseHeaders);
+    public function removeMemberSectionById(string $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation setMemberGroupById
@@ -196,7 +196,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\GroupData
      *
      */
-    public function setMemberGroupById($memberId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
+    public function setMemberGroupById(string $memberId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation setMemberSectionById
@@ -209,7 +209,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function setMemberSectionById($memberId, array $sectionData = null, &$responseCode, array &$responseHeaders);
+    public function setMemberSectionById(string $memberId, array $sectionData = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateMemberById
@@ -224,5 +224,5 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\MemberData
      *
      */
-    public function updateMemberById($memberId, MemberInput $memberInput = null, &$responseCode, array &$responseHeaders);
+    public function updateMemberById(string $memberId, MemberInput $memberInput = null, &$responseCode, array &$responseHeaders);
 }

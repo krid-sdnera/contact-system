@@ -65,7 +65,7 @@ interface GroupsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function addGroupLocalMarkerById($groupId, &$responseCode, array &$responseHeaders);
+    public function addGroupLocalMarkerById(string $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createGroup
@@ -89,7 +89,7 @@ interface GroupsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteGroupLocalMarkerById($groupId, &$responseCode, array &$responseHeaders);
+    public function deleteGroupLocalMarkerById(string $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getGroupMembersById
@@ -103,7 +103,7 @@ interface GroupsApiInterface
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getGroupMembersById($groupId, &$responseCode, array &$responseHeaders);
+    public function getGroupMembersById(string $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getGroupSectionsById
@@ -117,7 +117,7 @@ interface GroupsApiInterface
      * @return OpenAPI\Server\Model\SectionData[]
      *
      */
-    public function getGroupSectionsById($groupId, &$responseCode, array &$responseHeaders);
+    public function getGroupSectionsById(string $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getGroups
@@ -133,5 +133,5 @@ interface GroupsApiInterface
      * @return OpenAPI\Server\Model\GroupData[]
      *
      */
-    public function getGroups($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
+    public function getGroups(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 }

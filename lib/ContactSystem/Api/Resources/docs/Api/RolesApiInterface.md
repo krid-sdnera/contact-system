@@ -114,7 +114,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#deleteCustomRoleById
      */
-    public function deleteCustomRoleById($customRoleId)
+    public function deleteCustomRoleById(string $customRoleId)
     {
         // Implement the operation ...
     }
@@ -174,7 +174,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#getCustomRoleById
      */
-    public function getCustomRoleById($customRoleId)
+    public function getCustomRoleById(string $customRoleId)
     {
         // Implement the operation ...
     }
@@ -234,7 +234,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#getCustomRoleMembersById
      */
-    public function getCustomRoleMembersById($customRoleId)
+    public function getCustomRoleMembersById(string $customRoleId)
     {
         // Implement the operation ...
     }
@@ -294,7 +294,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#getCustomRoles
      */
-    public function getCustomRoles($sort = null, $pageSize = null, $page = null)
+    public function getCustomRoles(string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -356,7 +356,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#updateCustomRoleById
      */
-    public function updateCustomRoleById($customRoleId, RoleInput $roleInput = null)
+    public function updateCustomRoleById(string $customRoleId, RoleInput $roleInput = null)
     {
         // Implement the operation ...
     }

@@ -63,7 +63,7 @@ class ListType
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -75,7 +75,7 @@ class ListType
      *
      * @return $this
      */
-    public function setId($id = null)
+    public function setId(string $id = null): ?string
     {
         $this->id = $id;
 

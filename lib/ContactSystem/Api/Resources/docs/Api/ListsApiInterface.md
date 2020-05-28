@@ -124,7 +124,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#createListRuleById
      */
-    public function createListRuleById($listId, ListRule $listRule = null)
+    public function createListRuleById(string $listId, ListRule $listRule = null)
     {
         // Implement the operation ...
     }
@@ -245,7 +245,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#deleteListById
      */
-    public function deleteListById($listId)
+    public function deleteListById(string $listId)
     {
         // Implement the operation ...
     }
@@ -305,7 +305,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#deleteListRuleById
      */
-    public function deleteListRuleById($listId, $ruleId)
+    public function deleteListRuleById(string $listId, string $ruleId)
     {
         // Implement the operation ...
     }
@@ -366,7 +366,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#deleteListTypeById
      */
-    public function deleteListTypeById($listTypeId)
+    public function deleteListTypeById(string $listTypeId)
     {
         // Implement the operation ...
     }
@@ -426,7 +426,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListById
      */
-    public function getListById($listId)
+    public function getListById(string $listId)
     {
         // Implement the operation ...
     }
@@ -486,7 +486,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListMembersById
      */
-    public function getListMembersById($listId)
+    public function getListMembersById(string $listId)
     {
         // Implement the operation ...
     }
@@ -546,7 +546,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListRuleById
      */
-    public function getListRuleById($listId, $ruleId)
+    public function getListRuleById(string $listId, string $ruleId)
     {
         // Implement the operation ...
     }
@@ -607,7 +607,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListRulesById
      */
-    public function getListRulesById($listId)
+    public function getListRulesById(string $listId)
     {
         // Implement the operation ...
     }
@@ -667,7 +667,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListTypeById
      */
-    public function getListTypeById($listTypeId)
+    public function getListTypeById(string $listTypeId)
     {
         // Implement the operation ...
     }
@@ -727,7 +727,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListTypes
      */
-    public function getListTypes($sort = null, $pageSize = null, $page = null)
+    public function getListTypes(string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -789,7 +789,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getLists
      */
-    public function getLists($sort = null, $pageSize = null, $page = null)
+    public function getLists(string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -851,7 +851,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#updateListById
      */
-    public function updateListById($listId, ModelList $modelList = null)
+    public function updateListById(string $listId, ModelList $modelList = null)
     {
         // Implement the operation ...
     }
@@ -912,7 +912,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#updateListRuleById
      */
-    public function updateListRuleById($listId, $ruleId, ListRule $listRule = null)
+    public function updateListRuleById(string $listId, string $ruleId, ListRule $listRule = null)
     {
         // Implement the operation ...
     }
@@ -974,7 +974,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#updateListTypeById
      */
-    public function updateListTypeById($listTypeId, ListType $listType = null)
+    public function updateListTypeById(string $listTypeId, ListType $listType = null)
     {
         // Implement the operation ...
     }

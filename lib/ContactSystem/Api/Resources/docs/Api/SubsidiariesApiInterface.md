@@ -56,7 +56,7 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     /**
      * Implementation of SubsidiariesApiInterface#addSubsidiaryLocalMarkerById
      */
-    public function addSubsidiaryLocalMarkerById($subsidiaryId)
+    public function addSubsidiaryLocalMarkerById(string $subsidiaryId)
     {
         // Implement the operation ...
     }
@@ -173,7 +173,7 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     /**
      * Implementation of SubsidiariesApiInterface#deleteSubsidiaryById
      */
-    public function deleteSubsidiaryById($subsidiaryId)
+    public function deleteSubsidiaryById(string $subsidiaryId)
     {
         // Implement the operation ...
     }
@@ -290,7 +290,7 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     /**
      * Implementation of SubsidiariesApiInterface#getSubsidiaryById
      */
-    public function getSubsidiaryById($subsidiaryId)
+    public function getSubsidiaryById(string $subsidiaryId)
     {
         // Implement the operation ...
     }
@@ -350,7 +350,7 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     /**
      * Implementation of SubsidiariesApiInterface#getSubsidiaryMembersById
      */
-    public function getSubsidiaryMembersById($subsidiaryId)
+    public function getSubsidiaryMembersById(string $subsidiaryId)
     {
         // Implement the operation ...
     }
@@ -410,7 +410,7 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     /**
      * Implementation of SubsidiariesApiInterface#removeSubsidiaryLocalMarkerById
      */
-    public function removeSubsidiaryLocalMarkerById($subsidiaryId)
+    public function removeSubsidiaryLocalMarkerById(string $subsidiaryId)
     {
         // Implement the operation ...
     }
@@ -470,7 +470,7 @@ class SubsidiariesApi implements SubsidiariesApiInterface
     /**
      * Implementation of SubsidiariesApiInterface#updateSubsidiaryById
      */
-    public function updateSubsidiaryById($subsidiaryId, SubsidiaryInput $subsidiaryInput = null)
+    public function updateSubsidiaryById(string $subsidiaryId, SubsidiaryInput $subsidiaryInput = null)
     {
         // Implement the operation ...
     }

@@ -63,7 +63,7 @@ class SectionInput
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -75,7 +75,7 @@ class SectionInput
      *
      * @return $this
      */
-    public function setName($name = null)
+    public function setName(string $name = null): ?string
     {
         $this->name = $name;
 

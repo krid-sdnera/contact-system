@@ -81,7 +81,7 @@ class ApiResponse
      *
      * @return int|null
      */
-    public function getCode()
+    public function getCode(): ?int
     {
         return $this->code;
     }
@@ -93,7 +93,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setCode($code = null)
+    public function setCode(int $code = null): ?int
     {
         $this->code = $code;
 
@@ -105,7 +105,7 @@ class ApiResponse
      *
      * @return string|null
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -117,7 +117,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setType($type = null)
+    public function setType(string $type = null): ?string
     {
         $this->type = $type;
 
@@ -129,7 +129,7 @@ class ApiResponse
      *
      * @return string|null
      */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
@@ -141,7 +141,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setMessage($message = null)
+    public function setMessage(string $message = null): ?string
     {
         $this->message = $message;
 

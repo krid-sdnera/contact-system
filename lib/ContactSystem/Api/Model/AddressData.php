@@ -99,7 +99,7 @@ class AddressData
      *
      * @return string|null
      */
-    public function getStreet1()
+    public function getStreet1(): ?string
     {
         return $this->street1;
     }
@@ -111,7 +111,7 @@ class AddressData
      *
      * @return $this
      */
-    public function setStreet1($street1 = null)
+    public function setStreet1(string $street1 = null): ?string
     {
         $this->street1 = $street1;
 
@@ -123,7 +123,7 @@ class AddressData
      *
      * @return string|null
      */
-    public function getStreet2()
+    public function getStreet2(): ?string
     {
         return $this->street2;
     }
@@ -135,7 +135,7 @@ class AddressData
      *
      * @return $this
      */
-    public function setStreet2($street2 = null)
+    public function setStreet2(string $street2 = null): ?string
     {
         $this->street2 = $street2;
 
@@ -147,7 +147,7 @@ class AddressData
      *
      * @return string|null
      */
-    public function getCity()
+    public function getCity(): ?string
     {
         return $this->city;
     }
@@ -159,7 +159,7 @@ class AddressData
      *
      * @return $this
      */
-    public function setCity($city = null)
+    public function setCity(string $city = null): ?string
     {
         $this->city = $city;
 
@@ -171,7 +171,7 @@ class AddressData
      *
      * @return string|null
      */
-    public function getState()
+    public function getState(): ?string
     {
         return $this->state;
     }
@@ -183,7 +183,7 @@ class AddressData
      *
      * @return $this
      */
-    public function setState($state = null)
+    public function setState(string $state = null): ?string
     {
         $this->state = $state;
 
@@ -195,7 +195,7 @@ class AddressData
      *
      * @return int|null
      */
-    public function getPostcode()
+    public function getPostcode(): ?int
     {
         return $this->postcode;
     }
@@ -207,7 +207,7 @@ class AddressData
      *
      * @return $this
      */
-    public function setPostcode($postcode = null)
+    public function setPostcode(int $postcode = null): ?int
     {
         $this->postcode = $postcode;
 

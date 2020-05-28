@@ -54,7 +54,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#addGroupLocalMarkerById
      */
-    public function addGroupLocalMarkerById($groupId)
+    public function addGroupLocalMarkerById(string $groupId)
     {
         // Implement the operation ...
     }
@@ -174,7 +174,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#deleteGroupLocalMarkerById
      */
-    public function deleteGroupLocalMarkerById($groupId)
+    public function deleteGroupLocalMarkerById(string $groupId)
     {
         // Implement the operation ...
     }
@@ -234,7 +234,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#getGroupMembersById
      */
-    public function getGroupMembersById($groupId)
+    public function getGroupMembersById(string $groupId)
     {
         // Implement the operation ...
     }
@@ -294,7 +294,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#getGroupSectionsById
      */
-    public function getGroupSectionsById($groupId)
+    public function getGroupSectionsById(string $groupId)
     {
         // Implement the operation ...
     }
@@ -354,7 +354,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#getGroups
      */
-    public function getGroups($sort = null, $pageSize = null, $page = null)
+    public function getGroups(string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }

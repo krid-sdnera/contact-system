@@ -60,7 +60,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#addMemberLocalMarkerById
      */
-    public function addMemberLocalMarkerById($memberId)
+    public function addMemberLocalMarkerById(string $memberId)
     {
         // Implement the operation ...
     }
@@ -182,7 +182,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#deleteMemberById
      */
-    public function deleteMemberById($memberId)
+    public function deleteMemberById(string $memberId)
     {
         // Implement the operation ...
     }
@@ -244,7 +244,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#getMemberById
      */
-    public function getMemberById($memberId)
+    public function getMemberById(string $memberId)
     {
         // Implement the operation ...
     }
@@ -304,7 +304,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#getMemberLocalMarkerSuggestionsById
      */
-    public function getMemberLocalMarkerSuggestionsById($memberId)
+    public function getMemberLocalMarkerSuggestionsById(string $memberId)
     {
         // Implement the operation ...
     }
@@ -364,7 +364,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#getMembers
      */
-    public function getMembers($sort = null, $pageSize = null, $page = null)
+    public function getMembers(string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -426,7 +426,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#mergeMember
      */
-    public function mergeMember($memberId, $mergeMemberId)
+    public function mergeMember(string $memberId, string $mergeMemberId)
     {
         // Implement the operation ...
     }
@@ -487,7 +487,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#removeMemberLocalMarkerById
      */
-    public function removeMemberLocalMarkerById($memberId)
+    public function removeMemberLocalMarkerById(string $memberId)
     {
         // Implement the operation ...
     }
@@ -547,7 +547,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#removeMemberSectionById
      */
-    public function removeMemberSectionById($memberId)
+    public function removeMemberSectionById(string $memberId)
     {
         // Implement the operation ...
     }
@@ -607,7 +607,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#setMemberGroupById
      */
-    public function setMemberGroupById($memberId, GroupInput $groupInput = null)
+    public function setMemberGroupById(string $memberId, GroupInput $groupInput = null)
     {
         // Implement the operation ...
     }
@@ -668,7 +668,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#setMemberSectionById
      */
-    public function setMemberSectionById($memberId, array $sectionData = null)
+    public function setMemberSectionById(string $memberId, array $sectionData = null)
     {
         // Implement the operation ...
     }
@@ -731,7 +731,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#updateMemberById
      */
-    public function updateMemberById($memberId, MemberInput $memberInput = null)
+    public function updateMemberById(string $memberId, MemberInput $memberInput = null)
     {
         // Implement the operation ...
     }

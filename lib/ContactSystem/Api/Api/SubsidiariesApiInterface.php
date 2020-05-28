@@ -64,7 +64,7 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function addSubsidiaryLocalMarkerById($subsidiaryId, &$responseCode, array &$responseHeaders);
+    public function addSubsidiaryLocalMarkerById(string $subsidiaryId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createSubsidiary
@@ -87,7 +87,7 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteSubsidiaryById($subsidiaryId, &$responseCode, array &$responseHeaders);
+    public function deleteSubsidiaryById(string $subsidiaryId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSubsidiary
@@ -114,7 +114,7 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\SubsidiaryData
      *
      */
-    public function getSubsidiaryById($subsidiaryId, &$responseCode, array &$responseHeaders);
+    public function getSubsidiaryById(string $subsidiaryId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSubsidiaryMembersById
@@ -128,7 +128,7 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getSubsidiaryMembersById($subsidiaryId, &$responseCode, array &$responseHeaders);
+    public function getSubsidiaryMembersById(string $subsidiaryId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation removeSubsidiaryLocalMarkerById
@@ -140,7 +140,7 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function removeSubsidiaryLocalMarkerById($subsidiaryId, &$responseCode, array &$responseHeaders);
+    public function removeSubsidiaryLocalMarkerById(string $subsidiaryId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateSubsidiaryById
@@ -153,5 +153,5 @@ interface SubsidiariesApiInterface
      * @return OpenAPI\Server\Model\SubsidiaryData
      *
      */
-    public function updateSubsidiaryById($subsidiaryId, SubsidiaryInput $subsidiaryInput = null, &$responseCode, array &$responseHeaders);
+    public function updateSubsidiaryById(string $subsidiaryId, SubsidiaryInput $subsidiaryInput = null, &$responseCode, array &$responseHeaders);
 }

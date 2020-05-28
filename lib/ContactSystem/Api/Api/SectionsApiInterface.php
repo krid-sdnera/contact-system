@@ -64,7 +64,7 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function addSectionLocalMarkerById($sectionId, &$responseCode, array &$responseHeaders);
+    public function addSectionLocalMarkerById(string $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createSection
@@ -88,7 +88,7 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteSectionById($sectionId, &$responseCode, array &$responseHeaders);
+    public function deleteSectionById(string $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSectionById
@@ -102,7 +102,7 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\SectionData
      *
      */
-    public function getSectionById($sectionId, &$responseCode, array &$responseHeaders);
+    public function getSectionById(string $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSectionMembersById
@@ -116,7 +116,7 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getSectionMembersById($sectionId, &$responseCode, array &$responseHeaders);
+    public function getSectionMembersById(string $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSections
@@ -132,7 +132,7 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\SectionData[]
      *
      */
-    public function getSections($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
+    public function getSections(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation removeSectionLocalMarkerById
@@ -144,7 +144,7 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function removeSectionLocalMarkerById($sectionId, &$responseCode, array &$responseHeaders);
+    public function removeSectionLocalMarkerById(string $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateSectionById
@@ -157,5 +157,5 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\SectionData
      *
      */
-    public function updateSectionById($sectionId, SectionInput $sectionInput = null, &$responseCode, array &$responseHeaders);
+    public function updateSectionById(string $sectionId, SectionInput $sectionInput = null, &$responseCode, array &$responseHeaders);
 }

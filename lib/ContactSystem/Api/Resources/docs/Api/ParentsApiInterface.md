@@ -117,7 +117,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#deleteGroupById
      */
-    public function deleteGroupById($groupId)
+    public function deleteGroupById(string $groupId)
     {
         // Implement the operation ...
     }
@@ -177,7 +177,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#deleteParentById
      */
-    public function deleteParentById($parentId)
+    public function deleteParentById(string $parentId)
     {
         // Implement the operation ...
     }
@@ -237,7 +237,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#getGroupById
      */
-    public function getGroupById($groupId)
+    public function getGroupById(string $groupId)
     {
         // Implement the operation ...
     }
@@ -297,7 +297,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#getParentById
      */
-    public function getParentById($parentId)
+    public function getParentById(string $parentId)
     {
         // Implement the operation ...
     }
@@ -357,7 +357,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#getParentMembersById
      */
-    public function getParentMembersById($parentId)
+    public function getParentMembersById(string $parentId)
     {
         // Implement the operation ...
     }
@@ -417,7 +417,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#getParents
      */
-    public function getParents($sort = null, $pageSize = null, $page = null)
+    public function getParents(string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -479,7 +479,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#updateGroupById
      */
-    public function updateGroupById($groupId, GroupInput $groupInput = null)
+    public function updateGroupById(string $groupId, GroupInput $groupInput = null)
     {
         // Implement the operation ...
     }
@@ -540,7 +540,7 @@ class ParentsApi implements ParentsApiInterface
     /**
      * Implementation of ParentsApiInterface#updateParentById
      */
-    public function updateParentById($parentId, MemberParentInput $memberParentInput = null)
+    public function updateParentById(string $parentId, MemberParentInput $memberParentInput = null)
     {
         // Implement the operation ...
     }

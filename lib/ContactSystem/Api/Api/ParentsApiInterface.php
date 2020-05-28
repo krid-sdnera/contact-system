@@ -78,7 +78,7 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteGroupById($groupId, &$responseCode, array &$responseHeaders);
+    public function deleteGroupById(string $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteParentById
@@ -90,7 +90,7 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteParentById($parentId, &$responseCode, array &$responseHeaders);
+    public function deleteParentById(string $parentId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getGroupById
@@ -104,7 +104,7 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\GroupData
      *
      */
-    public function getGroupById($groupId, &$responseCode, array &$responseHeaders);
+    public function getGroupById(string $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getParentById
@@ -118,7 +118,7 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\MemberParentData
      *
      */
-    public function getParentById($parentId, &$responseCode, array &$responseHeaders);
+    public function getParentById(string $parentId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getParentMembersById
@@ -132,7 +132,7 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getParentMembersById($parentId, &$responseCode, array &$responseHeaders);
+    public function getParentMembersById(string $parentId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getParents
@@ -148,7 +148,7 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\MemberParentData[]
      *
      */
-    public function getParents($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
+    public function getParents(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateGroupById
@@ -161,7 +161,7 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\GroupData
      *
      */
-    public function updateGroupById($groupId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
+    public function updateGroupById(string $groupId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateParentById
@@ -174,5 +174,5 @@ interface ParentsApiInterface
      * @return OpenAPI\Server\Model\MemberParentData
      *
      */
-    public function updateParentById($parentId, MemberParentInput $memberParentInput = null, &$responseCode, array &$responseHeaders);
+    public function updateParentById(string $parentId, MemberParentInput $memberParentInput = null, &$responseCode, array &$responseHeaders);
 }

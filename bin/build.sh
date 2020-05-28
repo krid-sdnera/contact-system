@@ -5,8 +5,6 @@ rm -r lib/ContactSystem/Api/*
 yarn install
 yarn run generate-api
 
-sed -i '' -e 's/"name": "GIT_USER_ID\/GIT_REPO_ID"/"name": "contact-system\/api"/' lib/ContactSystem/Api/composer.json
-
 sed -i '' -e 's/"jms\/serializer-bundle": "^2.0"/"jms\/serializer-bundle": "^3.0"/' lib/ContactSystem/Api/composer.json
 sed -i '' -e 's/"symfony\/framework-bundle": "^3.3\|^4.1"/"symfony\/framework-bundle": "^3.3|^4.1|^5.0"/' lib/ContactSystem/Api/composer.json
 

@@ -4,7 +4,7 @@
   "author": "Dirk Arends <dirk@arends.com.au>",
   "license": "MIT",
   "scripts": {
-    "generate-api": "openapi-generator generate -i ./contact-system-api.yaml -g php-symfony -o ./lib/ContactSystem/Api"
+    "generate-api": "openapi-generator generate -i ./contact-system-api.yaml -g php-symfony -o ./lib/ContactSystem/Api --git-repo-id api --git-user-id contact-system --additional-properties=phpLegacySupport=false,composerProjectName=contact-system,composerVendorName=api"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0"

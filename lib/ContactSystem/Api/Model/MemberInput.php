@@ -90,7 +90,7 @@ class MemberInput
      *
      * @return string|null
      */
-    public function getFirstname()
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
@@ -102,7 +102,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setFirstname($firstname = null)
+    public function setFirstname(string $firstname = null): ?string
     {
         $this->firstname = $firstname;
 
@@ -114,7 +114,7 @@ class MemberInput
      *
      * @return string|null
      */
-    public function getLastname()
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
@@ -126,7 +126,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setLastname($lastname = null)
+    public function setLastname(string $lastname = null): ?string
     {
         $this->lastname = $lastname;
 
@@ -138,7 +138,7 @@ class MemberInput
      *
      * @return string|null
      */
-    public function getNickname()
+    public function getNickname(): ?string
     {
         return $this->nickname;
     }
@@ -150,7 +150,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setNickname($nickname = null)
+    public function setNickname(string $nickname = null): ?string
     {
         $this->nickname = $nickname;
 

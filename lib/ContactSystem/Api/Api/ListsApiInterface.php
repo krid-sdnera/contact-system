@@ -78,7 +78,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListRule
      *
      */
-    public function createListRuleById($listId, ListRule $listRule = null, &$responseCode, array &$responseHeaders);
+    public function createListRuleById(string $listId, ListRule $listRule = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createListTypes
@@ -102,7 +102,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteListById($listId, &$responseCode, array &$responseHeaders);
+    public function deleteListById(string $listId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteListRuleById
@@ -115,7 +115,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteListRuleById($listId, $ruleId, &$responseCode, array &$responseHeaders);
+    public function deleteListRuleById(string $listId, string $ruleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteListTypeById
@@ -127,7 +127,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteListTypeById($listTypeId, &$responseCode, array &$responseHeaders);
+    public function deleteListTypeById(string $listTypeId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListById
@@ -141,7 +141,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ModelList
      *
      */
-    public function getListById($listId, &$responseCode, array &$responseHeaders);
+    public function getListById(string $listId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListMembersById
@@ -155,7 +155,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getListMembersById($listId, &$responseCode, array &$responseHeaders);
+    public function getListMembersById(string $listId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListRuleById
@@ -170,7 +170,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListRule
      *
      */
-    public function getListRuleById($listId, $ruleId, &$responseCode, array &$responseHeaders);
+    public function getListRuleById(string $listId, string $ruleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListRulesById
@@ -184,7 +184,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListRule[]
      *
      */
-    public function getListRulesById($listId, &$responseCode, array &$responseHeaders);
+    public function getListRulesById(string $listId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListTypeById
@@ -198,7 +198,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListType
      *
      */
-    public function getListTypeById($listTypeId, &$responseCode, array &$responseHeaders);
+    public function getListTypeById(string $listTypeId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListTypes
@@ -214,7 +214,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListType[]
      *
      */
-    public function getListTypes($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
+    public function getListTypes(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getLists
@@ -230,7 +230,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ModelList[]
      *
      */
-    public function getLists($sort = null, $pageSize = null, $page = null, &$responseCode, array &$responseHeaders);
+    public function getLists(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateListById
@@ -243,7 +243,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ModelList
      *
      */
-    public function updateListById($listId, ModelList $modelList = null, &$responseCode, array &$responseHeaders);
+    public function updateListById(string $listId, ModelList $modelList = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateListRuleById
@@ -257,7 +257,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListRule
      *
      */
-    public function updateListRuleById($listId, $ruleId, ListRule $listRule = null, &$responseCode, array &$responseHeaders);
+    public function updateListRuleById(string $listId, string $ruleId, ListRule $listRule = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateListTypeById
@@ -270,5 +270,5 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListType
      *
      */
-    public function updateListTypeById($listTypeId, ListType $listType = null, &$responseCode, array &$responseHeaders);
+    public function updateListTypeById(string $listTypeId, ListType $listType = null, &$responseCode, array &$responseHeaders);
 }
