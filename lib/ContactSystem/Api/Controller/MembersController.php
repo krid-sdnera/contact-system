@@ -34,6 +34,7 @@ use JMS\Serializer\Exception\RuntimeException as SerializerRuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Constraints as Assert;
 use OpenAPI\Server\Api\MembersApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
@@ -78,7 +79,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
 
@@ -133,6 +134,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -168,7 +172,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
         $memberInput = $request->getContent();
@@ -225,6 +229,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -252,7 +259,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
 
@@ -307,6 +314,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -334,7 +344,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
 
@@ -389,6 +399,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -416,7 +429,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
 
@@ -471,6 +484,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -498,7 +514,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
         $sort = $request->query->get('sort');
@@ -569,6 +585,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -596,7 +615,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
 
@@ -659,6 +678,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -686,7 +708,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
 
@@ -741,6 +763,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -766,7 +791,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
 
@@ -821,6 +846,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -854,7 +882,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
         $groupInput = $request->getContent();
@@ -918,6 +946,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -951,7 +982,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
         $sectionData = $request->getContent();
@@ -1017,6 +1048,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
@@ -1052,7 +1086,7 @@ class MembersController extends Controller
         // Handle authentication
         // Authentication 'contact_auth' required
         // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-api-key');
+        $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
         $memberInput = $request->getContent();
@@ -1116,6 +1150,9 @@ class MembersController extends Controller
                     ]
                 )
             );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
         } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }

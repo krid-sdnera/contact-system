@@ -1444,7 +1444,7 @@ components:
   securitySchemes:
     contact_auth:
       type: apiKey
-      name: x-api-key
+      name: x-auth-token
       in: header
   links: {}
   callbacks: {}

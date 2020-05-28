@@ -220,7 +220,7 @@ Class | Method | HTTP request | Description
 ## contact_auth
 
 - **Type**: API key
-- **API key parameter name**: x-api-key
+- **API key parameter name**: x-auth-token
 - **Location**: HTTP header
 
 

@@ -147,6 +147,8 @@ class MembersController extends AbstractController implements MembersApiInterfac
         &$responseCode,
         array &$responseHeaders
     ) {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $sortComputed = [];
         if ($sort) {
             $parts = explode(':', $sort, 2);

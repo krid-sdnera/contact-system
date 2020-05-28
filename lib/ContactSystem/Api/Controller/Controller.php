@@ -32,6 +32,7 @@ namespace OpenAPI\Server\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use OpenAPI\Server\Service\SerializerInterface;
 use OpenAPI\Server\Service\ValidatorInterface;
 
