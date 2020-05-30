@@ -1,6 +1,6 @@
 <?php
 /**
- * MemberParentDataTest
+ * ContactDataTest
  *
  * PHP version 5
  *
@@ -30,16 +30,16 @@
 namespace OpenAPI\Server\Model;
 
 /**
- * MemberParentDataTest Class Doc Comment
+ * ContactDataTest Class Doc Comment
  *
  * @category    Class */
-// * @description MemberParentData
+// * @description ContactData
 /**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
  */
-class MemberParentDataTest extends \PHPUnit_Framework_TestCase
+class ContactDataTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -71,11 +71,11 @@ class MemberParentDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "MemberParentData"
+     * Test "ContactData"
      */
-    public function testMemberParentData()
+    public function testContactData()
     {
-        $testMemberParentData = new MemberParentData();
+        $testContactData = new ContactData();
     }
 
     /**
@@ -86,9 +86,72 @@ class MemberParentDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "name"
+     * Test attribute "firstname"
      */
-    public function testPropertyName()
+    public function testPropertyFirstname()
+    {
+    }
+
+    /**
+     * Test attribute "nickname"
+     */
+    public function testPropertyNickname()
+    {
+    }
+
+    /**
+     * Test attribute "lastname"
+     */
+    public function testPropertyLastname()
+    {
+    }
+
+    /**
+     * Test attribute "address"
+     */
+    public function testPropertyAddress()
+    {
+    }
+
+    /**
+     * Test attribute "phoneHome"
+     */
+    public function testPropertyPhoneHome()
+    {
+    }
+
+    /**
+     * Test attribute "phoneMobile"
+     */
+    public function testPropertyPhoneMobile()
+    {
+    }
+
+    /**
+     * Test attribute "phoneWork"
+     */
+    public function testPropertyPhoneWork()
+    {
+    }
+
+    /**
+     * Test attribute "gender"
+     */
+    public function testPropertyGender()
+    {
+    }
+
+    /**
+     * Test attribute "email"
+     */
+    public function testPropertyEmail()
+    {
+    }
+
+    /**
+     * Test attribute "occupation"
+     */
+    public function testPropertyOccupation()
     {
     }
 }

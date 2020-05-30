@@ -21,6 +21,15 @@ services:
         arguments:
             - '@validator'
 
+    open_api_server.controller.contacts:
+        class: OpenAPI\Server\Controller\ContactsController
+        calls:
+         - [setSerializer, ['@open_api_server.service.serializer']]
+         - [setValidator,  ['@open_api_server.service.validator']]
+         - [setApiServer,  ['@open_api_server.api.api_server']]
+        tags: ['controller.service_arguments']
+        autowire: true
+
     open_api_server.controller.groups:
         class: OpenAPI\Server\Controller\GroupsController
         calls:
@@ -41,15 +50,6 @@ services:
 
     open_api_server.controller.members:
         class: OpenAPI\Server\Controller\MembersController
-        calls:
-         - [setSerializer, ['@open_api_server.service.serializer']]
-         - [setValidator,  ['@open_api_server.service.validator']]
-         - [setApiServer,  ['@open_api_server.api.api_server']]
-        tags: ['controller.service_arguments']
-        autowire: true
-
-    open_api_server.controller.parents:
-        class: OpenAPI\Server\Controller\ParentsController
         calls:
          - [setSerializer, ['@open_api_server.service.serializer']]
          - [setValidator,  ['@open_api_server.service.validator']]

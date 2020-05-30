@@ -1,6 +1,6 @@
 <?php
 /**
- * MemberInput
+ * ContactInput
  *
  * PHP version 5
  *
@@ -34,12 +34,12 @@ use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
 
 /**
- * Class representing the MemberInput model.
+ * Class representing the ContactInput model.
  *
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-class MemberInput 
+class ContactInput 
 {
         /**
      * @var string
@@ -51,6 +51,14 @@ class MemberInput
     protected $firstname;
 
     /**
+     * @var string|null
+     * @SerializedName("nickname")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $nickname;
+
+    /**
      * @var string
      * @SerializedName("lastname")
      * @Assert\NotNull()
@@ -60,36 +68,12 @@ class MemberInput
     protected $lastname;
 
     /**
-     * @var string|null
-     * @SerializedName("nickname")
-     * @Assert\Type("string")
-     * @Type("string")
-     */
-    protected $nickname;
-
-    /**
      * @var OpenAPI\Server\Model\AddressData|null
      * @SerializedName("address")
      * @Assert\Type("OpenAPI\Server\Model\AddressData")
      * @Type("OpenAPI\Server\Model\AddressData")
      */
     protected $address;
-
-    /**
-     * @var \DateTime|null
-     * @SerializedName("dateOfBirth")
-     * @Assert\Date()
-     * @Type("DateTime")
-     */
-    protected $dateOfBirth;
-
-    /**
-     * @var string|null
-     * @SerializedName("membershipNumber")
-     * @Assert\Type("string")
-     * @Type("string")
-     */
-    protected $membershipNumber;
 
     /**
      * @var string|null
@@ -132,22 +116,29 @@ class MemberInput
     protected $email;
 
     /**
+     * @var string|null
+     * @SerializedName("occupation")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $occupation;
+
+    /**
      * Constructor
      * @param mixed[] $data Associated array of property values initializing the model
      */
     public function __construct(array $data = null)
     {
         $this->firstname = isset($data['firstname']) ? $data['firstname'] : null;
-        $this->lastname = isset($data['lastname']) ? $data['lastname'] : null;
         $this->nickname = isset($data['nickname']) ? $data['nickname'] : null;
+        $this->lastname = isset($data['lastname']) ? $data['lastname'] : null;
         $this->address = isset($data['address']) ? $data['address'] : null;
-        $this->dateOfBirth = isset($data['dateOfBirth']) ? $data['dateOfBirth'] : null;
-        $this->membershipNumber = isset($data['membershipNumber']) ? $data['membershipNumber'] : null;
         $this->phoneHome = isset($data['phoneHome']) ? $data['phoneHome'] : null;
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
         $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : null;
         $this->gender = isset($data['gender']) ? $data['gender'] : null;
         $this->email = isset($data['email']) ? $data['email'] : null;
+        $this->occupation = isset($data['occupation']) ? $data['occupation'] : null;
     }
 
     /**
@@ -170,30 +161,6 @@ class MemberInput
     public function setFirstname(string $firstname): string
     {
         $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    /**
-     * Gets lastname.
-     *
-     * @return string
-     */
-    public function getLastname(): string
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * Sets lastname.
-     *
-     * @param string $lastname
-     *
-     * @return $this
-     */
-    public function setLastname(string $lastname): string
-    {
-        $this->lastname = $lastname;
 
         return $this;
     }
@@ -223,6 +190,30 @@ class MemberInput
     }
 
     /**
+     * Gets lastname.
+     *
+     * @return string
+     */
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Sets lastname.
+     *
+     * @param string $lastname
+     *
+     * @return $this
+     */
+    public function setLastname(string $lastname): string
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
      * Gets address.
      *
      * @return OpenAPI\Server\Model\AddressData|null
@@ -242,54 +233,6 @@ class MemberInput
     public function setAddress(AddressData $address = null): ?AddressData
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Gets dateOfBirth.
-     *
-     * @return \DateTime|null
-     */
-    public function getDateOfBirth(): ?\DateTime
-    {
-        return $this->dateOfBirth;
-    }
-
-    /**
-     * Sets dateOfBirth.
-     *
-     * @param \DateTime|null $dateOfBirth
-     *
-     * @return $this
-     */
-    public function setDateOfBirth(\DateTime $dateOfBirth = null): ?\DateTime
-    {
-        $this->dateOfBirth = $dateOfBirth;
-
-        return $this;
-    }
-
-    /**
-     * Gets membershipNumber.
-     *
-     * @return string|null
-     */
-    public function getMembershipNumber(): ?string
-    {
-        return $this->membershipNumber;
-    }
-
-    /**
-     * Sets membershipNumber.
-     *
-     * @param string|null $membershipNumber
-     *
-     * @return $this
-     */
-    public function setMembershipNumber(string $membershipNumber = null): ?string
-    {
-        $this->membershipNumber = $membershipNumber;
 
         return $this;
     }
@@ -410,6 +353,30 @@ class MemberInput
     public function setEmail(string $email = null): ?string
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Gets occupation.
+     *
+     * @return string|null
+     */
+    public function getOccupation(): ?string
+    {
+        return $this->occupation;
+    }
+
+    /**
+     * Sets occupation.
+     *
+     * @param string|null $occupation
+     *
+     * @return $this
+     */
+    public function setOccupation(string $occupation = null): ?string
+    {
+        $this->occupation = $occupation;
 
         return $this;
     }

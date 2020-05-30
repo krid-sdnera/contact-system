@@ -80,6 +80,18 @@ interface GroupsApiInterface
     public function createGroup(GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
 
     /**
+     * Operation deleteGroupById
+     *
+     * @param  string $groupId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\ApiResponse
+     *
+     */
+    public function deleteGroupById(string $groupId, &$responseCode, array &$responseHeaders);
+
+    /**
      * Operation deleteGroupLocalMarkerById
      *
      * @param  string $groupId   (required)
@@ -90,6 +102,20 @@ interface GroupsApiInterface
      *
      */
     public function deleteGroupLocalMarkerById(string $groupId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getGroupById
+     *
+     * Your GET endpoint
+     *
+     * @param  string $groupId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\GroupData
+     *
+     */
+    public function getGroupById(string $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getGroupMembersById
@@ -134,4 +160,17 @@ interface GroupsApiInterface
      *
      */
     public function getGroups(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation updateGroupById
+     *
+     * @param  string $groupId   (required)
+     * @param  OpenAPI\Server\Model\GroupInput $groupInput   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\GroupData
+     *
+     */
+    public function updateGroupById(string $groupId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
 }

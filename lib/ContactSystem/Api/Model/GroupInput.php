@@ -42,8 +42,9 @@ use JMS\Serializer\Annotation\SerializedName;
 class GroupInput 
 {
         /**
-     * @var string|null
+     * @var string
      * @SerializedName("name")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
@@ -61,9 +62,9 @@ class GroupInput
     /**
      * Gets name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -71,11 +72,11 @@ class GroupInput
     /**
      * Sets name.
      *
-     * @param string|null $name
+     * @param string $name
      *
      * @return $this
      */
-    public function setName(string $name = null): ?string
+    public function setName(string $name): string
     {
         $this->name = $name;
 

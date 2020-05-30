@@ -91,4 +91,11 @@ class RoleDataTest extends \PHPUnit_Framework_TestCase
     public function testPropertyName()
     {
     }
+
+    /**
+     * Test attribute "section"
+     */
+    public function testPropertySection()
+    {
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ParentsController
+ * ContactsController
  * PHP version 5
  *
  * @category Class
@@ -36,32 +36,30 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Constraints as Assert;
-use OpenAPI\Server\Api\ParentsApiInterface;
+use OpenAPI\Server\Api\ContactsApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\GroupData;
-use OpenAPI\Server\Model\GroupInput;
+use OpenAPI\Server\Model\ContactData;
+use OpenAPI\Server\Model\ContactInput;
 use OpenAPI\Server\Model\MemberData;
-use OpenAPI\Server\Model\MemberParentData;
-use OpenAPI\Server\Model\MemberParentInput;
 
 /**
- * ParentsController Class Doc Comment
+ * ContactsController Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Server\Controller
  * @author   OpenAPI Generator team
  * @link     https://github.com/openapitools/openapi-generator
  */
-class ParentsController extends Controller
+class ContactsController extends Controller
 {
 
     /**
-     * Operation createParent
+     * Operation createContact
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function createParentAction(Request $request)
+    public function createContactAction(Request $request)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -86,22 +84,22 @@ class ParentsController extends Controller
         $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
-        $memberParentInput = $request->getContent();
+        $contactInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
-            $memberParentInput = $this->deserialize($memberParentInput, 'OpenAPI\Server\Model\MemberParentInput', $inputFormat);
+            $contactInput = $this->deserialize($contactInput, 'OpenAPI\Server\Model\ContactInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
 
         // Validate the input values
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\MemberParentInput");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ContactInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($memberParentInput, $asserts);
+        $response = $this->validate($contactInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -116,7 +114,7 @@ class ParentsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->createParent($memberParentInput, $responseCode, $responseHeaders);
+            $result = $handler->createContact($contactInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -148,12 +146,12 @@ class ParentsController extends Controller
     }
 
     /**
-     * Operation deleteGroupById
+     * Operation deleteContactById
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function deleteGroupByIdAction(Request $request, $groupId)
+    public function deleteContactByIdAction(Request $request, $contactId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -175,7 +173,7 @@ class ParentsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'string', 'string');
+            $contactId = $this->deserialize($contactId, 'string', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -184,7 +182,7 @@ class ParentsController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("string");
-        $response = $this->validate($groupId, $asserts);
+        $response = $this->validate($contactId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -199,7 +197,7 @@ class ParentsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->deleteGroupById($groupId, $responseCode, $responseHeaders);
+            $result = $handler->deleteContactById($contactId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -231,97 +229,14 @@ class ParentsController extends Controller
     }
 
     /**
-     * Operation deleteParentById
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function deleteParentByIdAction(Request $request, $parentId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-auth-token');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $parentId = $this->deserialize($parentId, 'string', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($parentId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->deleteParentById($parentId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (AccessDeniedException $accessDenied) {
-            // Fall through to Symfony Guard Authenticator by rethrowing
-            throw $accessDenied;
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation getGroupById
+     * Operation getContactById
      *
      * Your GET endpoint
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getGroupByIdAction(Request $request, $groupId)
+    public function getContactByIdAction(Request $request, $contactId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -343,7 +258,7 @@ class ParentsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'string', 'string');
+            $contactId = $this->deserialize($contactId, 'string', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -352,7 +267,7 @@ class ParentsController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("string");
-        $response = $this->validate($groupId, $asserts);
+        $response = $this->validate($contactId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -367,7 +282,7 @@ class ParentsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getGroupById($groupId, $responseCode, $responseHeaders);
+            $result = $handler->getContactById($contactId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -399,14 +314,14 @@ class ParentsController extends Controller
     }
 
     /**
-     * Operation getParentById
+     * Operation getContactMembersById
      *
      * Your GET endpoint
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getParentByIdAction(Request $request, $parentId)
+    public function getContactMembersByIdAction(Request $request, $contactId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -428,7 +343,7 @@ class ParentsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $parentId = $this->deserialize($parentId, 'string', 'string');
+            $contactId = $this->deserialize($contactId, 'string', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -437,7 +352,7 @@ class ParentsController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("string");
-        $response = $this->validate($parentId, $asserts);
+        $response = $this->validate($contactId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -452,7 +367,7 @@ class ParentsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getParentById($parentId, $responseCode, $responseHeaders);
+            $result = $handler->getContactMembersById($contactId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -484,99 +399,14 @@ class ParentsController extends Controller
     }
 
     /**
-     * Operation getParentMembersById
+     * Operation getContacts
      *
      * Your GET endpoint
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getParentMembersByIdAction(Request $request, $parentId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-auth-token');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $parentId = $this->deserialize($parentId, 'string', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($parentId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->getParentMembersById($parentId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (AccessDeniedException $accessDenied) {
-            // Fall through to Symfony Guard Authenticator by rethrowing
-            throw $accessDenied;
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation getParents
-     *
-     * Your GET endpoint
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function getParentsAction(Request $request)
+    public function getContactsAction(Request $request)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -638,7 +468,7 @@ class ParentsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getParents($sort, $pageSize, $page, $responseCode, $responseHeaders);
+            $result = $handler->getContacts($sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -670,12 +500,12 @@ class ParentsController extends Controller
     }
 
     /**
-     * Operation updateGroupById
+     * Operation updateContactById
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function updateGroupByIdAction(Request $request, $groupId)
+    public function updateContactByIdAction(Request $request, $contactId)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -700,14 +530,14 @@ class ParentsController extends Controller
         $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
-        $groupInput = $request->getContent();
+        $contactInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'string', 'string');
-            $groupInput = $this->deserialize($groupInput, 'OpenAPI\Server\Model\GroupInput', $inputFormat);
+            $contactId = $this->deserialize($contactId, 'string', 'string');
+            $contactInput = $this->deserialize($contactInput, 'OpenAPI\Server\Model\ContactInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -716,14 +546,14 @@ class ParentsController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("string");
-        $response = $this->validate($groupId, $asserts);
+        $response = $this->validate($contactId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\GroupInput");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ContactInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($groupInput, $asserts);
+        $response = $this->validate($contactInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -738,107 +568,7 @@ class ParentsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateGroupById($groupId, $groupInput, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (AccessDeniedException $accessDenied) {
-            // Fall through to Symfony Guard Authenticator by rethrowing
-            throw $accessDenied;
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation updateParentById
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function updateParentByIdAction(Request $request, $parentId)
-    {
-        // Make sure that the client is providing something that we can consume
-        $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
-            // We can't consume the content that the client is sending us
-            return new Response('', 415);
-        }
-
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-auth-token');
-
-        // Read out all input parameter values into variables
-        $memberParentInput = $request->getContent();
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $parentId = $this->deserialize($parentId, 'string', 'string');
-            $memberParentInput = $this->deserialize($memberParentInput, 'OpenAPI\Server\Model\MemberParentInput', $inputFormat);
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
-        $response = $this->validate($parentId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-        $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\MemberParentInput");
-        $asserts[] = new Assert\Valid();
-        $response = $this->validate($memberParentInput, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->updateParentById($parentId, $memberParentInput, $responseCode, $responseHeaders);
+            $result = $handler->updateContactById($contactId, $contactInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -871,10 +601,10 @@ class ParentsController extends Controller
 
     /**
      * Returns the handler for this API controller.
-     * @return ParentsApiInterface
+     * @return ContactsApiInterface
      */
     public function getApiHandler()
     {
-        return $this->apiServer->getApiHandler('parents');
+        return $this->apiServer->getApiHandler('contacts');
     }
 }

@@ -42,12 +42,22 @@ use JMS\Serializer\Annotation\SerializedName;
 class RoleInput 
 {
         /**
-     * @var string|null
+     * @var string
      * @SerializedName("name")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $name;
+
+    /**
+     * @var int
+     * @SerializedName("sectionId")
+     * @Assert\NotNull()
+     * @Assert\Type("int")
+     * @Type("int")
+     */
+    protected $sectionId;
 
     /**
      * Constructor
@@ -56,14 +66,15 @@ class RoleInput
     public function __construct(array $data = null)
     {
         $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->sectionId = isset($data['sectionId']) ? $data['sectionId'] : null;
     }
 
     /**
      * Gets name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -71,13 +82,37 @@ class RoleInput
     /**
      * Sets name.
      *
-     * @param string|null $name
+     * @param string $name
      *
      * @return $this
      */
-    public function setName(string $name = null): ?string
+    public function setName(string $name): string
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets sectionId.
+     *
+     * @return int
+     */
+    public function getSectionId(): int
+    {
+        return $this->sectionId;
+    }
+
+    /**
+     * Sets sectionId.
+     *
+     * @param int $sectionId
+     *
+     * @return $this
+     */
+    public function setSectionId(int $sectionId): int
+    {
+        $this->sectionId = $sectionId;
 
         return $this;
     }

@@ -2,6 +2,51 @@
 # https://github.com/openapitools/openapi-generator
 # Do not edit the class manually.
 
+# contacts
+open_api_server_contacts_createcontact:
+    path:     /contacts
+    methods:  [POST]
+    defaults:
+        _controller: open_api_server.controller.contacts:createContactAction
+
+open_api_server_contacts_deletecontactbyid:
+    path:     /contacts/{contactId}
+    methods:  [DELETE]
+    defaults:
+        _controller: open_api_server.controller.contacts:deleteContactByIdAction
+    requirements:
+        contactId: '[a-z0-9]+'
+
+open_api_server_contacts_getcontactbyid:
+    path:     /contacts/{contactId}
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.contacts:getContactByIdAction
+    requirements:
+        contactId: '[a-z0-9]+'
+
+open_api_server_contacts_getcontactmembersbyid:
+    path:     /contacts/{contactId}/members
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.contacts:getContactMembersByIdAction
+    requirements:
+        contactId: '[a-z0-9]+'
+
+open_api_server_contacts_getcontacts:
+    path:     /contacts
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.contacts:getContactsAction
+
+open_api_server_contacts_updatecontactbyid:
+    path:     /contacts/{contactId}
+    methods:  [PUT]
+    defaults:
+        _controller: open_api_server.controller.contacts:updateContactByIdAction
+    requirements:
+        contactId: '[a-z0-9]+'
+
 # groups
 open_api_server_groups_addgrouplocalmarkerbyid:
     path:     /groups/{groupId}/local
@@ -17,11 +62,27 @@ open_api_server_groups_creategroup:
     defaults:
         _controller: open_api_server.controller.groups:createGroupAction
 
+open_api_server_groups_deletegroupbyid:
+    path:     /groups/{groupId}
+    methods:  [DELETE]
+    defaults:
+        _controller: open_api_server.controller.groups:deleteGroupByIdAction
+    requirements:
+        groupId: '[a-z0-9]+'
+
 open_api_server_groups_deletegrouplocalmarkerbyid:
     path:     /groups/{groupId}/local
     methods:  [DELETE]
     defaults:
         _controller: open_api_server.controller.groups:deleteGroupLocalMarkerByIdAction
+    requirements:
+        groupId: '[a-z0-9]+'
+
+open_api_server_groups_getgroupbyid:
+    path:     /groups/{groupId}
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.groups:getGroupByIdAction
     requirements:
         groupId: '[a-z0-9]+'
 
@@ -46,6 +107,14 @@ open_api_server_groups_getgroups:
     methods:  [GET]
     defaults:
         _controller: open_api_server.controller.groups:getGroupsAction
+
+open_api_server_groups_updategroupbyid:
+    path:     /groups/{groupId}
+    methods:  [PUT]
+    defaults:
+        _controller: open_api_server.controller.groups:updateGroupByIdAction
+    requirements:
+        groupId: '[a-z0-9]+'
 
 # lists
 open_api_server_lists_createlist:
@@ -264,75 +333,6 @@ open_api_server_members_updatememberbyid:
         _controller: open_api_server.controller.members:updateMemberByIdAction
     requirements:
         memberId: '[a-z0-9]+'
-
-# parents
-open_api_server_parents_createparent:
-    path:     /parents
-    methods:  [POST]
-    defaults:
-        _controller: open_api_server.controller.parents:createParentAction
-
-open_api_server_parents_deletegroupbyid:
-    path:     /groups/{groupId}
-    methods:  [DELETE]
-    defaults:
-        _controller: open_api_server.controller.parents:deleteGroupByIdAction
-    requirements:
-        groupId: '[a-z0-9]+'
-
-open_api_server_parents_deleteparentbyid:
-    path:     /parents/{parentId}
-    methods:  [DELETE]
-    defaults:
-        _controller: open_api_server.controller.parents:deleteParentByIdAction
-    requirements:
-        parentId: '[a-z0-9]+'
-
-open_api_server_parents_getgroupbyid:
-    path:     /groups/{groupId}
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.parents:getGroupByIdAction
-    requirements:
-        groupId: '[a-z0-9]+'
-
-open_api_server_parents_getparentbyid:
-    path:     /parents/{parentId}
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.parents:getParentByIdAction
-    requirements:
-        parentId: '[a-z0-9]+'
-
-open_api_server_parents_getparentmembersbyid:
-    path:     /parents/{parentId}/members
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.parents:getParentMembersByIdAction
-    requirements:
-        parentId: '[a-z0-9]+'
-
-open_api_server_parents_getparents:
-    path:     /parents
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.parents:getParentsAction
-
-open_api_server_parents_updategroupbyid:
-    path:     /groups/{groupId}
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.parents:updateGroupByIdAction
-    requirements:
-        groupId: '[a-z0-9]+'
-
-open_api_server_parents_updateparentbyid:
-    path:     /parents/{parentId}
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.parents:updateParentByIdAction
-    requirements:
-        parentId: '[a-z0-9]+'
 
 # roles
 open_api_server_roles_createcustomrole:

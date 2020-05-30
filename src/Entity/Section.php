@@ -28,6 +28,12 @@ class Section
      */
     private $roles;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Group", inversedBy="sections")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $scoutGroup;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
@@ -77,6 +83,18 @@ class Section
                 $role->setSection(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getScoutGroup(): ?Group
+    {
+        return $this->scoutGroup;
+    }
+
+    public function setScoutGroup(?Group $scoutGroup): self
+    {
+        $this->scoutGroup = $scoutGroup;
 
         return $this;
     }

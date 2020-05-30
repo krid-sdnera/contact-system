@@ -722,7 +722,7 @@ Name | Type | Description  | Notes
 
 Update member
 
-Update a member's detail
+Update member
 
 ### Example Implementation
 ```php

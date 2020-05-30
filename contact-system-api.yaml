@@ -37,8 +37,8 @@ tags:
     description: Everything you need to handle `lists`
   - name: members
     description: Everything you need to handle `members`
-  - name: parents
-    description: Everything you need to handle `parents`
+  - name: contacts
+    description: Everything you need to handle `contacts`
   - name: roles
     description: Everything you need to handle `roles`
   - name: subsidiaries
@@ -122,7 +122,7 @@ paths:
         - members
     put:
       summary: Update member
-      description: "Update a member's detail"
+      description: "Update member"
       parameters: []
       operationId: updateMemberById
       responses:
@@ -185,7 +185,7 @@ paths:
           description: Default response
           content:
             application/json:
-              schema: 
+              schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - members
@@ -500,23 +500,23 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - subsidiaries
-  /parents:
+  /contacts:
     get:
       summary: Your GET endpoint
       description: Your GET endpoint
       tags:
-        - parents
+        - contacts
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                title: Parents
+                title: Contacts
                 type: array
                 items:
-                  $ref: "#/components/schemas/MemberParentData"
-      operationId: getParents
+                  $ref: "#/components/schemas/ContactData"
+      operationId: getContacts
       parameters:
         - schema:
             type: string
@@ -532,66 +532,66 @@ paths:
           name: page
     post:
       summary: ""
-      description: createParent
-      operationId: createParent
+      description: createContact
+      operationId: createContact
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberParentData"
+                $ref: "#/components/schemas/ContactData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MemberParentInput"
+              $ref: "#/components/schemas/ContactInput"
         description: ""
       tags:
-        - parents
-  "/parents/{parentId}":
+        - contacts
+  "/contacts/{contactId}":
     parameters:
       - schema:
           type: string
-        name: parentId
+        name: contactId
         in: path
         required: true
     get:
       summary: Your GET endpoint
-      description: getParentById
+      description: getContactById
       tags:
-        - parents
+        - contacts
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberParentData"
-      operationId: getParentById
+                $ref: "#/components/schemas/ContactData"
+      operationId: getContactById
     put:
       summary: ""
-      description: updateParentById
-      operationId: updateParentById
+      description: updateContactById
+      operationId: updateContactById
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberParentData"
+                $ref: "#/components/schemas/ContactData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MemberParentInput"
+              $ref: "#/components/schemas/ContactInput"
         description: ""
       tags:
-        - parents
+        - contacts
     delete:
       summary: ""
-      description: deleteParentById
-      operationId: deleteParentById
+      description: deleteContactById
+      operationId: deleteContactById
       responses:
         "200":
           description: OK
@@ -600,19 +600,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - parents
-  "/parents/{parentId}/members":
+        - contacts
+  "/contacts/{contactId}/members":
     parameters:
       - schema:
           type: string
-        name: parentId
+        name: contactId
         in: path
         required: true
     get:
       summary: Your GET endpoint
       description: Your GET endpoint
       tags:
-        - parents
+        - contacts
       responses:
         "200":
           description: OK
@@ -623,7 +623,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/MemberData"
-      operationId: getParentMembersById
+      operationId: getContactMembersById
   /groups:
     get:
       summary: Your GET endpoint
@@ -683,7 +683,7 @@ paths:
       summary: Your GET endpoint
       description: getGroupById
       tags:
-        - parents
+        - groups
       responses:
         "200":
           description: "OK  "
@@ -709,7 +709,7 @@ paths:
             schema:
               $ref: "#/components/schemas/GroupInput"
       tags:
-        - parents
+        - groups
     delete:
       summary: ""
       description: deleteGroupById
@@ -722,7 +722,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - parents
+        - groups
   "/groups/{groupId}/local":
     parameters:
       - schema:
@@ -1022,7 +1022,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/GroupInput"
-
       tags:
         - members
   /lists:
@@ -1345,7 +1344,7 @@ components:
     ApiResponse:
       title: ApiResponse
       type: object
-      description: ''
+      description: ""
       properties:
         code:
           format: int32
@@ -1365,7 +1364,25 @@ components:
         nickname:
           type: string
         address:
-          $ref: '#/components/schemas/AddressData'
+          $ref: "#/components/schemas/AddressData"
+        dateOfBirth:
+          type: string
+          format: date
+        membershipNumber:
+          type: string
+        phoneHome:
+          type: string
+        phoneMobile:
+          type: string
+        phoneWork:
+          type: string
+        gender:
+          type: string
+        email:
+          type: string
+      required:
+        - firstname
+        - lastname
     MemberData:
       title: MemberData
       type: object
@@ -1379,11 +1396,24 @@ components:
         nickname:
           type: string
         address:
-          $ref: '#/components/schemas/AddressData'
-        section:
-          $ref: '#/components/schemas/SectionData'
-        role:
-          $ref: '#/components/schemas/RoleData'
+          $ref: "#/components/schemas/AddressData"
+        dateOfBirth:
+          type: string
+          format: date
+        membershipNumber:
+          type: string
+        phoneHome:
+          type: string
+        phoneMobile:
+          type: string
+        phoneWork:
+          type: string
+        gender:
+          type: string
+      required:
+        - id
+        - firstname
+        - lastname
     MemberSuggetion:
       title: MemberSuggetion
       type: object
@@ -1403,13 +1433,18 @@ components:
         state:
           type: string
         postcode:
-          type: integer
+          type: string
     RoleInput:
       title: RoleInput
       type: object
       properties:
         name:
           type: string
+        sectionId:
+          type: integer
+      required:
+        - name
+        - sectionId
     RoleData:
       title: RoleData
       type: object
@@ -1418,6 +1453,12 @@ components:
           type: string
         name:
           type: string
+        section:
+          $ref: "#/components/schemas/SectionData"
+      required:
+        - id
+        - name
+        - section
     SubsidiaryInput:
       title: SubsidiaryInput
       type: object
@@ -1432,26 +1473,71 @@ components:
           type: string
         name:
           type: string
-    MemberParentInput:
-      title: ParentInput
+    ContactInput:
+      title: ContactInput
       type: object
       properties:
-        name:
+        firstname:
           type: string
-    MemberParentData:
-      title: ParentData
+        nickname:
+          type: string
+        lastname:
+          type: string
+        address:
+          $ref: "#/components/schemas/AddressData"
+        phoneHome:
+          type: string
+        phoneMobile:
+          type: string
+        phoneWork:
+          type: string
+        gender:
+          type: string
+        email:
+          type: string
+        occupation:
+          type: string
+      required:
+        - firstname
+        - lastname
+    ContactData:
+      title: ContactData
       type: object
       properties:
         id:
           type: string
-        name:
+        firstname:
           type: string
+        nickname:
+          type: string
+        lastname:
+          type: string
+        address:
+          $ref: "#/components/schemas/AddressData"
+        phoneHome:
+          type: string
+        phoneMobile:
+          type: string
+        phoneWork:
+          type: string
+        gender:
+          type: string
+        email:
+          type: string
+        occupation:
+          type: string
+      required:
+        - id
+        - firstname
+        - lastname
     GroupInput:
       title: GroupInput
       type: object
       properties:
         name:
           type: string
+      required:
+        - name
     GroupData:
       title: GroupData
       type: object
@@ -1460,12 +1546,20 @@ components:
           type: string
         name:
           type: string
+      required:
+        - id
+        - name
     SectionInput:
       title: SectionInput
       type: object
       properties:
         name:
           type: string
+        scoutGroupId:
+          type: integer
+      required:
+        - name
+        - scoutGroupId
     SectionData:
       title: SectionData
       type: object
@@ -1474,6 +1568,12 @@ components:
           type: string
         name:
           type: string
+        scoutGroup:
+          $ref: "#/components/schemas/GroupData"
+      required:
+        - id
+        - name
+        - scoutGroup
     List:
       title: List
       type: object

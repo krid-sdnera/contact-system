@@ -42,20 +42,31 @@ use JMS\Serializer\Annotation\SerializedName;
 class SectionData 
 {
         /**
-     * @var string|null
+     * @var string
      * @SerializedName("id")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $id;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("name")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $name;
+
+    /**
+     * @var OpenAPI\Server\Model\GroupData
+     * @SerializedName("scoutGroup")
+     * @Assert\NotNull()
+     * @Assert\Type("OpenAPI\Server\Model\GroupData")
+     * @Type("OpenAPI\Server\Model\GroupData")
+     */
+    protected $scoutGroup;
 
     /**
      * Constructor
@@ -65,14 +76,15 @@ class SectionData
     {
         $this->id = isset($data['id']) ? $data['id'] : null;
         $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->scoutGroup = isset($data['scoutGroup']) ? $data['scoutGroup'] : null;
     }
 
     /**
      * Gets id.
      *
-     * @return string|null
+     * @return string
      */
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
     }
@@ -80,11 +92,11 @@ class SectionData
     /**
      * Sets id.
      *
-     * @param string|null $id
+     * @param string $id
      *
      * @return $this
      */
-    public function setId(string $id = null): ?string
+    public function setId(string $id): string
     {
         $this->id = $id;
 
@@ -94,9 +106,9 @@ class SectionData
     /**
      * Gets name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -104,13 +116,37 @@ class SectionData
     /**
      * Sets name.
      *
-     * @param string|null $name
+     * @param string $name
      *
      * @return $this
      */
-    public function setName(string $name = null): ?string
+    public function setName(string $name): string
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets scoutGroup.
+     *
+     * @return OpenAPI\Server\Model\GroupData
+     */
+    public function getScoutGroup(): GroupData
+    {
+        return $this->scoutGroup;
+    }
+
+    /**
+     * Sets scoutGroup.
+     *
+     * @param OpenAPI\Server\Model\GroupData $scoutGroup
+     *
+     * @return $this
+     */
+    public function setScoutGroup(GroupData $scoutGroup): GroupData
+    {
+        $this->scoutGroup = $scoutGroup;
 
         return $this;
     }

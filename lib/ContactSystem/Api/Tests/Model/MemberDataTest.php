@@ -114,16 +114,44 @@ class MemberDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "section"
+     * Test attribute "dateOfBirth"
      */
-    public function testPropertySection()
+    public function testPropertyDateOfBirth()
     {
     }
 
     /**
-     * Test attribute "role"
+     * Test attribute "membershipNumber"
      */
-    public function testPropertyRole()
+    public function testPropertyMembershipNumber()
+    {
+    }
+
+    /**
+     * Test attribute "phoneHome"
+     */
+    public function testPropertyPhoneHome()
+    {
+    }
+
+    /**
+     * Test attribute "phoneMobile"
+     */
+    public function testPropertyPhoneMobile()
+    {
+    }
+
+    /**
+     * Test attribute "phoneWork"
+     */
+    public function testPropertyPhoneWork()
+    {
+    }
+
+    /**
+     * Test attribute "gender"
+     */
+    public function testPropertyGender()
     {
     }
 }

@@ -107,6 +107,24 @@ class GroupsApiInterfaceTest extends WebTestCase
     }
 
     /**
+     * Test case for deleteGroupById
+     *
+     * .
+     *
+     */
+    public function testDeleteGroupById()
+    {
+        $client = static::createClient();
+
+        $path = '/groups/{groupId}';
+        $pattern = '{groupId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('DELETE', $path);
+    }
+
+    /**
      * Test case for deleteGroupLocalMarkerById
      *
      * .
@@ -122,6 +140,24 @@ class GroupsApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
+    }
+
+    /**
+     * Test case for getGroupById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetGroupById()
+    {
+        $client = static::createClient();
+
+        $path = '/groups/{groupId}';
+        $pattern = '{groupId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
     }
 
     /**
@@ -173,6 +209,24 @@ class GroupsApiInterfaceTest extends WebTestCase
         $path = '/groups';
 
         $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for updateGroupById
+     *
+     * .
+     *
+     */
+    public function testUpdateGroupById()
+    {
+        $client = static::createClient();
+
+        $path = '/groups/{groupId}';
+        $pattern = '{groupId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('PUT', $path);
     }
 
     protected function genTestData($regexp)

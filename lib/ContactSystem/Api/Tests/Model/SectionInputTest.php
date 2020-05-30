@@ -84,4 +84,11 @@ class SectionInputTest extends \PHPUnit_Framework_TestCase
     public function testPropertyName()
     {
     }
+
+    /**
+     * Test attribute "scoutGroupId"
+     */
+    public function testPropertyScoutGroupId()
+    {
+    }
 }

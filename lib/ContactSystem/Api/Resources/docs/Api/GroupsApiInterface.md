@@ -6,10 +6,13 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addGroupLocalMarkerById**](GroupsApiInterface.md#addGroupLocalMarkerById) | **PUT** /groups/{groupId}/local | 
 [**createGroup**](GroupsApiInterface.md#createGroup) | **POST** /groups | 
+[**deleteGroupById**](GroupsApiInterface.md#deleteGroupById) | **DELETE** /groups/{groupId} | 
 [**deleteGroupLocalMarkerById**](GroupsApiInterface.md#deleteGroupLocalMarkerById) | **DELETE** /groups/{groupId}/local | 
+[**getGroupById**](GroupsApiInterface.md#getGroupById) | **GET** /groups/{groupId} | Your GET endpoint
 [**getGroupMembersById**](GroupsApiInterface.md#getGroupMembersById) | **GET** /groups/{groupId}/members | Your GET endpoint
 [**getGroupSectionsById**](GroupsApiInterface.md#getGroupSectionsById) | **GET** /groups/{groupId}/sections | Your GET endpoint
 [**getGroups**](GroupsApiInterface.md#getGroups) | **GET** /groups | Your GET endpoint
+[**updateGroupById**](GroupsApiInterface.md#updateGroupById) | **PUT** /groups/{groupId} | 
 
 
 ## Service Declaration
@@ -148,6 +151,68 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+## **deleteGroupById**
+> OpenAPI\Server\Model\ApiResponse deleteGroupById($groupId)
+
+
+
+deleteGroupById
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/GroupsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\GroupsApiInterface;
+
+class GroupsApi implements GroupsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of GroupsApiInterface#deleteGroupById
+     */
+    public function deleteGroupById(string $groupId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **string**|  |
+
+### Return type
+
+[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 ## **deleteGroupLocalMarkerById**
 > OpenAPI\Server\Model\ApiResponse deleteGroupLocalMarkerById($groupId)
 
@@ -198,6 +263,68 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getGroupById**
+> OpenAPI\Server\Model\GroupData getGroupById($groupId)
+
+Your GET endpoint
+
+getGroupById
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/GroupsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\GroupsApiInterface;
+
+class GroupsApi implements GroupsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of GroupsApiInterface#getGroupById
+     */
+    public function getGroupById(string $groupId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **string**|  |
+
+### Return type
+
+[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
 
 ### Authorization
 
@@ -394,6 +521,69 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **updateGroupById**
+> OpenAPI\Server\Model\GroupData updateGroupById($groupId, $groupInput)
+
+
+
+updateGroupById
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/GroupsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\GroupsApiInterface;
+
+class GroupsApi implements GroupsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of GroupsApiInterface#updateGroupById
+     */
+    public function updateGroupById(string $groupId, GroupInput $groupInput = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **string**|  |
+ **groupInput** | [**OpenAPI\Server\Model\GroupInput**](../Model/GroupInput.md)|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

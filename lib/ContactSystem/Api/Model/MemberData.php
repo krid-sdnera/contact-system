@@ -42,24 +42,27 @@ use JMS\Serializer\Annotation\SerializedName;
 class MemberData 
 {
         /**
-     * @var string|null
+     * @var string
      * @SerializedName("id")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $id;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("firstname")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $firstname;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("lastname")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
@@ -82,20 +85,52 @@ class MemberData
     protected $address;
 
     /**
-     * @var OpenAPI\Server\Model\SectionData|null
-     * @SerializedName("section")
-     * @Assert\Type("OpenAPI\Server\Model\SectionData")
-     * @Type("OpenAPI\Server\Model\SectionData")
+     * @var \DateTime|null
+     * @SerializedName("dateOfBirth")
+     * @Assert\Date()
+     * @Type("DateTime")
      */
-    protected $section;
+    protected $dateOfBirth;
 
     /**
-     * @var OpenAPI\Server\Model\RoleData|null
-     * @SerializedName("role")
-     * @Assert\Type("OpenAPI\Server\Model\RoleData")
-     * @Type("OpenAPI\Server\Model\RoleData")
+     * @var string|null
+     * @SerializedName("membershipNumber")
+     * @Assert\Type("string")
+     * @Type("string")
      */
-    protected $role;
+    protected $membershipNumber;
+
+    /**
+     * @var string|null
+     * @SerializedName("phoneHome")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $phoneHome;
+
+    /**
+     * @var string|null
+     * @SerializedName("phoneMobile")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $phoneMobile;
+
+    /**
+     * @var string|null
+     * @SerializedName("phoneWork")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $phoneWork;
+
+    /**
+     * @var string|null
+     * @SerializedName("gender")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $gender;
 
     /**
      * Constructor
@@ -108,16 +143,20 @@ class MemberData
         $this->lastname = isset($data['lastname']) ? $data['lastname'] : null;
         $this->nickname = isset($data['nickname']) ? $data['nickname'] : null;
         $this->address = isset($data['address']) ? $data['address'] : null;
-        $this->section = isset($data['section']) ? $data['section'] : null;
-        $this->role = isset($data['role']) ? $data['role'] : null;
+        $this->dateOfBirth = isset($data['dateOfBirth']) ? $data['dateOfBirth'] : null;
+        $this->membershipNumber = isset($data['membershipNumber']) ? $data['membershipNumber'] : null;
+        $this->phoneHome = isset($data['phoneHome']) ? $data['phoneHome'] : null;
+        $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
+        $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : null;
+        $this->gender = isset($data['gender']) ? $data['gender'] : null;
     }
 
     /**
      * Gets id.
      *
-     * @return string|null
+     * @return string
      */
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
     }
@@ -125,11 +164,11 @@ class MemberData
     /**
      * Sets id.
      *
-     * @param string|null $id
+     * @param string $id
      *
      * @return $this
      */
-    public function setId(string $id = null): ?string
+    public function setId(string $id): string
     {
         $this->id = $id;
 
@@ -139,9 +178,9 @@ class MemberData
     /**
      * Gets firstname.
      *
-     * @return string|null
+     * @return string
      */
-    public function getFirstname(): ?string
+    public function getFirstname(): string
     {
         return $this->firstname;
     }
@@ -149,11 +188,11 @@ class MemberData
     /**
      * Sets firstname.
      *
-     * @param string|null $firstname
+     * @param string $firstname
      *
      * @return $this
      */
-    public function setFirstname(string $firstname = null): ?string
+    public function setFirstname(string $firstname): string
     {
         $this->firstname = $firstname;
 
@@ -163,9 +202,9 @@ class MemberData
     /**
      * Gets lastname.
      *
-     * @return string|null
+     * @return string
      */
-    public function getLastname(): ?string
+    public function getLastname(): string
     {
         return $this->lastname;
     }
@@ -173,11 +212,11 @@ class MemberData
     /**
      * Sets lastname.
      *
-     * @param string|null $lastname
+     * @param string $lastname
      *
      * @return $this
      */
-    public function setLastname(string $lastname = null): ?string
+    public function setLastname(string $lastname): string
     {
         $this->lastname = $lastname;
 
@@ -233,49 +272,145 @@ class MemberData
     }
 
     /**
-     * Gets section.
+     * Gets dateOfBirth.
      *
-     * @return OpenAPI\Server\Model\SectionData|null
+     * @return \DateTime|null
      */
-    public function getSection(): ?SectionData
+    public function getDateOfBirth(): ?\DateTime
     {
-        return $this->section;
+        return $this->dateOfBirth;
     }
 
     /**
-     * Sets section.
+     * Sets dateOfBirth.
      *
-     * @param OpenAPI\Server\Model\SectionData|null $section
+     * @param \DateTime|null $dateOfBirth
      *
      * @return $this
      */
-    public function setSection(SectionData $section = null): ?SectionData
+    public function setDateOfBirth(\DateTime $dateOfBirth = null): ?\DateTime
     {
-        $this->section = $section;
+        $this->dateOfBirth = $dateOfBirth;
 
         return $this;
     }
 
     /**
-     * Gets role.
+     * Gets membershipNumber.
      *
-     * @return OpenAPI\Server\Model\RoleData|null
+     * @return string|null
      */
-    public function getRole(): ?RoleData
+    public function getMembershipNumber(): ?string
     {
-        return $this->role;
+        return $this->membershipNumber;
     }
 
     /**
-     * Sets role.
+     * Sets membershipNumber.
      *
-     * @param OpenAPI\Server\Model\RoleData|null $role
+     * @param string|null $membershipNumber
      *
      * @return $this
      */
-    public function setRole(RoleData $role = null): ?RoleData
+    public function setMembershipNumber(string $membershipNumber = null): ?string
     {
-        $this->role = $role;
+        $this->membershipNumber = $membershipNumber;
+
+        return $this;
+    }
+
+    /**
+     * Gets phoneHome.
+     *
+     * @return string|null
+     */
+    public function getPhoneHome(): ?string
+    {
+        return $this->phoneHome;
+    }
+
+    /**
+     * Sets phoneHome.
+     *
+     * @param string|null $phoneHome
+     *
+     * @return $this
+     */
+    public function setPhoneHome(string $phoneHome = null): ?string
+    {
+        $this->phoneHome = $phoneHome;
+
+        return $this;
+    }
+
+    /**
+     * Gets phoneMobile.
+     *
+     * @return string|null
+     */
+    public function getPhoneMobile(): ?string
+    {
+        return $this->phoneMobile;
+    }
+
+    /**
+     * Sets phoneMobile.
+     *
+     * @param string|null $phoneMobile
+     *
+     * @return $this
+     */
+    public function setPhoneMobile(string $phoneMobile = null): ?string
+    {
+        $this->phoneMobile = $phoneMobile;
+
+        return $this;
+    }
+
+    /**
+     * Gets phoneWork.
+     *
+     * @return string|null
+     */
+    public function getPhoneWork(): ?string
+    {
+        return $this->phoneWork;
+    }
+
+    /**
+     * Sets phoneWork.
+     *
+     * @param string|null $phoneWork
+     *
+     * @return $this
+     */
+    public function setPhoneWork(string $phoneWork = null): ?string
+    {
+        $this->phoneWork = $phoneWork;
+
+        return $this;
+    }
+
+    /**
+     * Gets gender.
+     *
+     * @return string|null
+     */
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Sets gender.
+     *
+     * @param string|null $gender
+     *
+     * @return $this
+     */
+    public function setGender(string $gender = null): ?string
+    {
+        $this->gender = $gender;
 
         return $this;
     }

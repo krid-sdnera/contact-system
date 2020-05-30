@@ -74,10 +74,10 @@ class AddressData
     protected $state;
 
     /**
-     * @var int|null
+     * @var string|null
      * @SerializedName("postcode")
-     * @Assert\Type("int")
-     * @Type("int")
+     * @Assert\Type("string")
+     * @Type("string")
      */
     protected $postcode;
 
@@ -193,9 +193,9 @@ class AddressData
     /**
      * Gets postcode.
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getPostcode(): ?int
+    public function getPostcode(): ?string
     {
         return $this->postcode;
     }
@@ -203,11 +203,11 @@ class AddressData
     /**
      * Sets postcode.
      *
-     * @param int|null $postcode
+     * @param string|null $postcode
      *
      * @return $this
      */
-    public function setPostcode(int $postcode = null): ?int
+    public function setPostcode(string $postcode = null): ?string
     {
         $this->postcode = $postcode;
 

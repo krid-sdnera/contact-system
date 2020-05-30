@@ -105,4 +105,53 @@ class MemberInputTest extends \PHPUnit_Framework_TestCase
     public function testPropertyAddress()
     {
     }
+
+    /**
+     * Test attribute "dateOfBirth"
+     */
+    public function testPropertyDateOfBirth()
+    {
+    }
+
+    /**
+     * Test attribute "membershipNumber"
+     */
+    public function testPropertyMembershipNumber()
+    {
+    }
+
+    /**
+     * Test attribute "phoneHome"
+     */
+    public function testPropertyPhoneHome()
+    {
+    }
+
+    /**
+     * Test attribute "phoneMobile"
+     */
+    public function testPropertyPhoneMobile()
+    {
+    }
+
+    /**
+     * Test attribute "phoneWork"
+     */
+    public function testPropertyPhoneWork()
+    {
+    }
+
+    /**
+     * Test attribute "gender"
+     */
+    public function testPropertyGender()
+    {
+    }
+
+    /**
+     * Test attribute "email"
+     */
+    public function testPropertyEmail()
+    {
+    }
 }

@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
  */
-class Member
+class Contact
 {
     /**
      * @ORM\Id()
@@ -24,29 +22,19 @@ class Member
     private $firstname;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nickname;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nickname;
-
-    /**
      * @ORM\Column(type="json")
      */
     private $address = [];
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $dateOfBirth;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $membershipNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -66,22 +54,12 @@ class Member
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $gender;
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $email;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="members")
-     */
-    private $roles;
-
-    public function __construct()
-    {
-        $this->roles = new ArrayCollection();
-    }
+    private $occupation;
 
     public function getId(): ?int
     {
@@ -100,6 +78,18 @@ class Member
         return $this;
     }
 
+    public function getNickname(): ?string
+    {
+        return $this->nickname;
+    }
+
+    public function setNickname(?string $nickname): self
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
+
     public function getLastname(): ?string
     {
         return $this->lastname;
@@ -112,18 +102,6 @@ class Member
         return $this;
     }
 
-    public function getNickname(): ?string
-    {
-        return $this->nickname;
-    }
-
-    public function setNickname(string $nickname): self
-    {
-        $this->nickname = $nickname;
-
-        return $this;
-    }
-
     public function getAddress(): ?array
     {
         return $this->address;
@@ -132,30 +110,6 @@ class Member
     public function setAddress(array $address): self
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    public function getDateOfBirth(): ?\DateTimeInterface
-    {
-        return $this->dateOfBirth;
-    }
-
-    public function setDateOfBirth(?\DateTimeInterface $dateOfBirth): self
-    {
-        $this->dateOfBirth = $dateOfBirth;
-
-        return $this;
-    }
-
-    public function getMembershipNumber(): ?string
-    {
-        return $this->membershipNumber;
-    }
-
-    public function setMembershipNumber(?string $membershipNumber): self
-    {
-        $this->membershipNumber = $membershipNumber;
 
         return $this;
     }
@@ -196,18 +150,6 @@ class Member
         return $this;
     }
 
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    public function setGender(?string $gender): self
-    {
-        $this->gender = $gender;
-
-        return $this;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -220,28 +162,14 @@ class Member
         return $this;
     }
 
-    /**
-     * @return Collection|Role[]
-     */
-    public function getRoles(): Collection
+    public function getOccupation(): ?string
     {
-        return $this->roles;
+        return $this->occupation;
     }
 
-    public function addRole(Role $role): self
+    public function setOccupation(?string $occupation): self
     {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-        }
-
-        return $this;
-    }
-
-    public function removeRole(Role $role): self
-    {
-        if ($this->roles->contains($role)) {
-            $this->roles->removeElement($role);
-        }
+        $this->occupation = $occupation;
 
         return $this;
     }

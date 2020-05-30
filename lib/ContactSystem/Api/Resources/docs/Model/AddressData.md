@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **street2** | **string** |  | [optional] 
 **city** | **string** |  | [optional] 
 **state** | **string** |  | [optional] 
-**postcode** | **int** |  | [optional] 
+**postcode** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

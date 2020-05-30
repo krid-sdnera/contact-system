@@ -42,12 +42,22 @@ use JMS\Serializer\Annotation\SerializedName;
 class SectionInput 
 {
         /**
-     * @var string|null
+     * @var string
      * @SerializedName("name")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $name;
+
+    /**
+     * @var int
+     * @SerializedName("scoutGroupId")
+     * @Assert\NotNull()
+     * @Assert\Type("int")
+     * @Type("int")
+     */
+    protected $scoutGroupId;
 
     /**
      * Constructor
@@ -56,14 +66,15 @@ class SectionInput
     public function __construct(array $data = null)
     {
         $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->scoutGroupId = isset($data['scoutGroupId']) ? $data['scoutGroupId'] : null;
     }
 
     /**
      * Gets name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -71,13 +82,37 @@ class SectionInput
     /**
      * Sets name.
      *
-     * @param string|null $name
+     * @param string $name
      *
      * @return $this
      */
-    public function setName(string $name = null): ?string
+    public function setName(string $name): string
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets scoutGroupId.
+     *
+     * @return int
+     */
+    public function getScoutGroupId(): int
+    {
+        return $this->scoutGroupId;
+    }
+
+    /**
+     * Sets scoutGroupId.
+     *
+     * @param int $scoutGroupId
+     *
+     * @return $this
+     */
+    public function setScoutGroupId(int $scoutGroupId): int
+    {
+        $this->scoutGroupId = $scoutGroupId;
 
         return $this;
     }

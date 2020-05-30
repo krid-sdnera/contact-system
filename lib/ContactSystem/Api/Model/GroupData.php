@@ -42,16 +42,18 @@ use JMS\Serializer\Annotation\SerializedName;
 class GroupData 
 {
         /**
-     * @var string|null
+     * @var string
      * @SerializedName("id")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $id;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("name")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
@@ -70,9 +72,9 @@ class GroupData
     /**
      * Gets id.
      *
-     * @return string|null
+     * @return string
      */
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
     }
@@ -80,11 +82,11 @@ class GroupData
     /**
      * Sets id.
      *
-     * @param string|null $id
+     * @param string $id
      *
      * @return $this
      */
-    public function setId(string $id = null): ?string
+    public function setId(string $id): string
     {
         $this->id = $id;
 
@@ -94,9 +96,9 @@ class GroupData
     /**
      * Gets name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -104,11 +106,11 @@ class GroupData
     /**
      * Sets name.
      *
-     * @param string|null $name
+     * @param string $name
      *
      * @return $this
      */
-    public function setName(string $name = null): ?string
+    public function setName(string $name): string
     {
         $this->name = $name;
 

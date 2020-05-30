@@ -1,6 +1,6 @@
 <?php
 /**
- * ParentsApiInterfaceTest
+ * ContactsApiInterfaceTest
  * PHP version 5
  *
  * @category Class
@@ -35,14 +35,14 @@ use OpenAPI\Server\ObjectSerializer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * ParentsApiInterfaceTest Class Doc Comment
+ * ContactsApiInterfaceTest Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Server\Tests\Api
  * @author   openapi-generator contributors
  * @link     https://github.com/openapitools/openapi-generator
  */
-class ParentsApiInterfaceTest extends WebTestCase
+class ContactsApiInterfaceTest extends WebTestCase
 {
 
     /**
@@ -74,32 +74,32 @@ class ParentsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for createParent
+     * Test case for createContact
      *
      * .
      *
      */
-    public function testCreateParent()
+    public function testCreateContact()
     {
         $client = static::createClient();
 
-        $path = '/parents';
+        $path = '/contacts';
 
         $crawler = $client->request('POST', $path);
     }
 
     /**
-     * Test case for deleteGroupById
+     * Test case for deleteContactById
      *
      * .
      *
      */
-    public function testDeleteGroupById()
+    public function testDeleteContactById()
     {
         $client = static::createClient();
 
-        $path = '/groups/{groupId}';
-        $pattern = '{groupId}';
+        $path = '/contacts/{contactId}';
+        $pattern = '{contactId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);
 
@@ -107,122 +107,68 @@ class ParentsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteParentById
+     * Test case for getContactById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetContactById()
+    {
+        $client = static::createClient();
+
+        $path = '/contacts/{contactId}';
+        $pattern = '{contactId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getContactMembersById
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetContactMembersById()
+    {
+        $client = static::createClient();
+
+        $path = '/contacts/{contactId}/members';
+        $pattern = '{contactId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getContacts
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetContacts()
+    {
+        $client = static::createClient();
+
+        $path = '/contacts';
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for updateContactById
      *
      * .
      *
      */
-    public function testDeleteParentById()
+    public function testUpdateContactById()
     {
         $client = static::createClient();
 
-        $path = '/parents/{parentId}';
-        $pattern = '{parentId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('DELETE', $path);
-    }
-
-    /**
-     * Test case for getGroupById
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetGroupById()
-    {
-        $client = static::createClient();
-
-        $path = '/groups/{groupId}';
-        $pattern = '{groupId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getParentById
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetParentById()
-    {
-        $client = static::createClient();
-
-        $path = '/parents/{parentId}';
-        $pattern = '{parentId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getParentMembersById
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetParentMembersById()
-    {
-        $client = static::createClient();
-
-        $path = '/parents/{parentId}/members';
-        $pattern = '{parentId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getParents
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetParents()
-    {
-        $client = static::createClient();
-
-        $path = '/parents';
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for updateGroupById
-     *
-     * .
-     *
-     */
-    public function testUpdateGroupById()
-    {
-        $client = static::createClient();
-
-        $path = '/groups/{groupId}';
-        $pattern = '{groupId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('PUT', $path);
-    }
-
-    /**
-     * Test case for updateParentById
-     *
-     * .
-     *
-     */
-    public function testUpdateParentById()
-    {
-        $client = static::createClient();
-
-        $path = '/parents/{parentId}';
-        $pattern = '{parentId}';
+        $path = '/contacts/{contactId}';
+        $pattern = '{contactId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);
 

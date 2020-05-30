@@ -42,20 +42,31 @@ use JMS\Serializer\Annotation\SerializedName;
 class RoleData 
 {
         /**
-     * @var string|null
+     * @var string
      * @SerializedName("id")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $id;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("name")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $name;
+
+    /**
+     * @var OpenAPI\Server\Model\SectionData
+     * @SerializedName("section")
+     * @Assert\NotNull()
+     * @Assert\Type("OpenAPI\Server\Model\SectionData")
+     * @Type("OpenAPI\Server\Model\SectionData")
+     */
+    protected $section;
 
     /**
      * Constructor
@@ -65,14 +76,15 @@ class RoleData
     {
         $this->id = isset($data['id']) ? $data['id'] : null;
         $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->section = isset($data['section']) ? $data['section'] : null;
     }
 
     /**
      * Gets id.
      *
-     * @return string|null
+     * @return string
      */
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
     }
@@ -80,11 +92,11 @@ class RoleData
     /**
      * Sets id.
      *
-     * @param string|null $id
+     * @param string $id
      *
      * @return $this
      */
-    public function setId(string $id = null): ?string
+    public function setId(string $id): string
     {
         $this->id = $id;
 
@@ -94,9 +106,9 @@ class RoleData
     /**
      * Gets name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -104,13 +116,37 @@ class RoleData
     /**
      * Sets name.
      *
-     * @param string|null $name
+     * @param string $name
      *
      * @return $this
      */
-    public function setName(string $name = null): ?string
+    public function setName(string $name): string
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets section.
+     *
+     * @return OpenAPI\Server\Model\SectionData
+     */
+    public function getSection(): SectionData
+    {
+        return $this->section;
+    }
+
+    /**
+     * Sets section.
+     *
+     * @param OpenAPI\Server\Model\SectionData $section
+     *
+     * @return $this
+     */
+    public function setSection(SectionData $section): SectionData
+    {
+        $this->section = $section;
 
         return $this;
     }
