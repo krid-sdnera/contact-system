@@ -140,6 +140,8 @@ class GroupsController extends Controller
     /**
      * Operation createGroup
      *
+     * Create Group
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -231,6 +233,8 @@ class GroupsController extends Controller
 
     /**
      * Operation deleteGroupById
+     *
+     * Delete Group
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -398,7 +402,7 @@ class GroupsController extends Controller
     /**
      * Operation getGroupById
      *
-     * Your GET endpoint
+     * Get Group
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -653,7 +657,7 @@ class GroupsController extends Controller
     /**
      * Operation getGroups
      *
-     * Your GET endpoint
+     * Get Groups
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -753,6 +757,8 @@ class GroupsController extends Controller
 
     /**
      * Operation updateGroupById
+     *
+     * Update Group
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.

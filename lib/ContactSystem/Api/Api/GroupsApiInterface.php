@@ -70,6 +70,8 @@ interface GroupsApiInterface
     /**
      * Operation createGroup
      *
+     * Create Group
+     *
      * @param  OpenAPI\Server\Model\GroupInput $groupInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -81,6 +83,8 @@ interface GroupsApiInterface
 
     /**
      * Operation deleteGroupById
+     *
+     * Delete Group
      *
      * @param  string $groupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -106,7 +110,7 @@ interface GroupsApiInterface
     /**
      * Operation getGroupById
      *
-     * Your GET endpoint
+     * Get Group
      *
      * @param  string $groupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -148,7 +152,7 @@ interface GroupsApiInterface
     /**
      * Operation getGroups
      *
-     * Your GET endpoint
+     * Get Groups
      *
      * @param  string $sort   (optional)
      * @param  int $pageSize   (optional)
@@ -163,6 +167,8 @@ interface GroupsApiInterface
 
     /**
      * Operation updateGroupById
+     *
+     * Update Group
      *
      * @param  string $groupId   (required)
      * @param  OpenAPI\Server\Model\GroupInput $groupInput   (optional)

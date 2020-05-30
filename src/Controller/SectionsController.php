@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ScoutGroup;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 // use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -44,14 +45,23 @@ class SectionsController extends AbstractController implements SectionsApiInterf
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+        $groupId = $section->getScoutGroupId();
+        $group = $this->getDoctrine()
+            ->getRepository(ScoutGroup::class)
+            ->find($groupId);
+
+        if (!$group) {
+            $responseCode = 500;
+            return new ApiResponse([
+                'code' => 500,
+                'type' => 'Constraint not met',
+                'message' => "Group (${groupId}) required for section creation and was not found"
+            ]);
+        }
+
         $newSection = new Section();
         $newSection->setName($section->getName());
-
-        // $errors = $validator->validate($product);
-        // if (count($errors) > 0) {
-        //     $responseCode = 400;
-        //     return (string) $errors;
-        // }
+        $newSection->setScoutGroup($group);
 
         $entityManager->persist($newSection);
         $entityManager->flush();
@@ -78,6 +88,16 @@ class SectionsController extends AbstractController implements SectionsApiInterf
         }
 
         $entityManager = $this->getDoctrine()->getManager();
+
+        // TODO: Possible removal of RoleMember relations
+        if (count($section->getRoles()) > 0) {
+            return new ApiResponse([
+                'code' => 500,
+                'type' => 'Section has roles',
+                'message' => "Section (${sectionId}) was not deleted because Role records still reference this section."
+            ]);
+        }
+
         $entityManager->remove($section);
         $entityManager->flush();
 
@@ -203,14 +223,22 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             ]);
         }
 
+        $groupId = $section->getScoutGroupId();
+        $group = $this->getDoctrine()
+            ->getRepository(ScoutGroup::class)
+            ->find($groupId);
+
+        if (!$group) {
+            $responseCode = 500;
+            return new ApiResponse([
+                'code' => 500,
+                'type' => 'Constraint not met',
+                'message' => "Group (${groupId}) required for section creation and was not found"
+            ]);
+        }
+
         $sectionToUpdate->setName($section->getName());
-
-
-        // $errors = $validator->validate($product);
-        // if (count($errors) > 0) {
-        //     $responseCode = 400;
-        //     return (string) $errors;
-        // }
+        $sectionToUpdate->setScoutGroup($group);
 
         $entityManager->persist($sectionToUpdate);
         $entityManager->flush();

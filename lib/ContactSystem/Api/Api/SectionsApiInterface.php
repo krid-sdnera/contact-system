@@ -69,6 +69,8 @@ interface SectionsApiInterface
     /**
      * Operation createSection
      *
+     * Create Section
+     *
      * @param  OpenAPI\Server\Model\SectionInput $sectionInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -80,6 +82,8 @@ interface SectionsApiInterface
 
     /**
      * Operation deleteSectionById
+     *
+     * Delete Section
      *
      * @param  string $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -93,7 +97,7 @@ interface SectionsApiInterface
     /**
      * Operation getSectionById
      *
-     * Your GET endpoint
+     * Get Section
      *
      * @param  string $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -121,7 +125,7 @@ interface SectionsApiInterface
     /**
      * Operation getSections
      *
-     * Your GET endpoint
+     * Get Sections
      *
      * @param  string $sort   (optional)
      * @param  int $pageSize   (optional)
@@ -148,6 +152,8 @@ interface SectionsApiInterface
 
     /**
      * Operation updateSectionById
+     *
+     * Update Section
      *
      * @param  string $sectionId   (required)
      * @param  OpenAPI\Server\Model\SectionInput $sectionInput   (optional)

@@ -94,7 +94,7 @@ class SectionsApiInterfaceTest extends WebTestCase
     /**
      * Test case for createSection
      *
-     * .
+     * Create Section.
      *
      */
     public function testCreateSection()
@@ -109,7 +109,7 @@ class SectionsApiInterfaceTest extends WebTestCase
     /**
      * Test case for deleteSectionById
      *
-     * .
+     * Delete Section.
      *
      */
     public function testDeleteSectionById()
@@ -127,7 +127,7 @@ class SectionsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getSectionById
      *
-     * Your GET endpoint.
+     * Get Section.
      *
      */
     public function testGetSectionById()
@@ -163,7 +163,7 @@ class SectionsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getSections
      *
-     * Your GET endpoint.
+     * Get Sections.
      *
      */
     public function testGetSections()
@@ -196,7 +196,7 @@ class SectionsApiInterfaceTest extends WebTestCase
     /**
      * Test case for updateSectionById
      *
-     * .
+     * Update Section.
      *
      */
     public function testUpdateSectionById()

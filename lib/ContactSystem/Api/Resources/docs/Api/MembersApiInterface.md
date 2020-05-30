@@ -5,6 +5,7 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addMemberLocalMarkerById**](MembersApiInterface.md#addMemberLocalMarkerById) | **PUT** /members/{memberId}/local | Add local marker
+[**addMemberRoleById**](MembersApiInterface.md#addMemberRoleById) | **PUT** /members/{memberId}/roles/{roleId} | Add Member Role
 [**createMember**](MembersApiInterface.md#createMember) | **POST** /members | Create a member
 [**deleteMemberById**](MembersApiInterface.md#deleteMemberById) | **DELETE** /members/{memberId} | Delete member
 [**getMemberById**](MembersApiInterface.md#getMemberById) | **GET** /members/{memberId} | Get member
@@ -12,9 +13,7 @@ Method | HTTP request | Description
 [**getMembers**](MembersApiInterface.md#getMembers) | **GET** /members | List all members
 [**mergeMember**](MembersApiInterface.md#mergeMember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
 [**removeMemberLocalMarkerById**](MembersApiInterface.md#removeMemberLocalMarkerById) | **DELETE** /members/{memberId}/local | Remove local marker
-[**removeMemberSectionById**](MembersApiInterface.md#removeMemberSectionById) | **DELETE** /members/{memberId}/section | 
-[**setMemberGroupById**](MembersApiInterface.md#setMemberGroupById) | **PUT** /members/{memberId}/group | 
-[**setMemberSectionById**](MembersApiInterface.md#setMemberSectionById) | **PUT** /members/{memberId}/section | 
+[**removeMemberRoleById**](MembersApiInterface.md#removeMemberRoleById) | **DELETE** /members/{memberId}/roles/{roleId} | Remove Member Role
 [**updateMemberById**](MembersApiInterface.md#updateMemberById) | **PUT** /members/{memberId} | Update member
 
 
@@ -80,6 +79,69 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **addMemberRoleById**
+> OpenAPI\Server\Model\RoleData addMemberRoleById($memberId, $roleId)
+
+Add Member Role
+
+addMemberRoleById
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/MembersApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\MembersApiInterface;
+
+class MembersApi implements MembersApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of MembersApiInterface#addMemberRoleById
+     */
+    public function addMemberRoleById(string $memberId, string $roleId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **memberId** | **string**|  |
+ **roleId** | **string**|  |
+
+### Return type
+
+[**OpenAPI\Server\Model\RoleData**](../Model/RoleData.md)
 
 ### Authorization
 
@@ -529,12 +591,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **removeMemberSectionById**
-> OpenAPI\Server\Model\ApiResponse removeMemberSectionById($memberId)
+## **removeMemberRoleById**
+> OpenAPI\Server\Model\ApiResponse removeMemberRoleById($memberId, $roleId)
 
+Remove Member Role
 
-
-removeMemberSectionById
+removeMemberRoleById
 
 ### Example Implementation
 ```php
@@ -559,9 +621,9 @@ class MembersApi implements MembersApiInterface
     // ...
 
     /**
-     * Implementation of MembersApiInterface#removeMemberSectionById
+     * Implementation of MembersApiInterface#removeMemberRoleById
      */
-    public function removeMemberSectionById(string $memberId)
+    public function removeMemberRoleById(string $memberId, string $roleId)
     {
         // Implement the operation ...
     }
@@ -575,6 +637,7 @@ class MembersApi implements MembersApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **memberId** | **string**|  |
+ **roleId** | **string**|  |
 
 ### Return type
 
@@ -587,132 +650,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **setMemberGroupById**
-> OpenAPI\Server\Model\GroupData setMemberGroupById($memberId, $groupInput)
-
-
-
-setMemberGroupById
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/MembersApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\MembersApiInterface;
-
-class MembersApi implements MembersApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of MembersApiInterface#setMemberGroupById
-     */
-    public function setMemberGroupById(string $memberId, GroupInput $groupInput = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
- **groupInput** | [**OpenAPI\Server\Model\GroupInput**](../Model/GroupInput.md)|  | [optional]
-
-### Return type
-
-[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **setMemberSectionById**
-> OpenAPI\Server\Model\ApiResponse setMemberSectionById($memberId, $sectionData)
-
-
-
-Your PUT endpoint
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/MembersApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\MembersApiInterface;
-
-class MembersApi implements MembersApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of MembersApiInterface#setMemberSectionById
-     */
-    public function setMemberSectionById(string $memberId, array $sectionData = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
- **sectionData** | [**OpenAPI\Server\Model\SectionData**](../Model/SectionData.md)|  | [optional]
-
-### Return type
-
-[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

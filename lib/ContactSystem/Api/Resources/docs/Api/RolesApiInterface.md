@@ -4,12 +4,12 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createCustomRole**](RolesApiInterface.md#createCustomRole) | **POST** /roles/custom | Create custom role
-[**deleteCustomRoleById**](RolesApiInterface.md#deleteCustomRoleById) | **DELETE** /roles/custom/{customRoleId} | Delete custom role
-[**getCustomRoleById**](RolesApiInterface.md#getCustomRoleById) | **GET** /roles/custom/{customRoleId} | Your GET endpoint
-[**getCustomRoleMembersById**](RolesApiInterface.md#getCustomRoleMembersById) | **GET** /roles/custom/{customRoleId}/members | Your GET endpoint
-[**getCustomRoles**](RolesApiInterface.md#getCustomRoles) | **GET** /roles/custom | Your GET endpoint
-[**updateCustomRoleById**](RolesApiInterface.md#updateCustomRoleById) | **PUT** /roles/custom/{customRoleId} | Update custom role
+[**createRole**](RolesApiInterface.md#createRole) | **POST** /roles | Create role
+[**deleteRoleById**](RolesApiInterface.md#deleteRoleById) | **DELETE** /roles/{roleId} | Delete role
+[**getRoleById**](RolesApiInterface.md#getRoleById) | **GET** /roles/{roleId} | Get Role
+[**getRoleMembersById**](RolesApiInterface.md#getRoleMembersById) | **GET** /roles/{roleId}/members | Get role members
+[**getRoles**](RolesApiInterface.md#getRoles) | **GET** /roles | Get roles
+[**updateRoleById**](RolesApiInterface.md#updateRoleById) | **PUT** /roles/{roleId} | Update role
 
 
 ## Service Declaration
@@ -24,12 +24,12 @@ services:
     # ...
 ```
 
-## **createCustomRole**
-> OpenAPI\Server\Model\RoleData createCustomRole($roleInput)
+## **createRole**
+> OpenAPI\Server\Model\RoleData createRole($roleInput)
 
-Create custom role
+Create role
 
-Create custom role
+Create role
 
 ### Example Implementation
 ```php
@@ -54,9 +54,9 @@ class RolesApi implements RolesApiInterface
     // ...
 
     /**
-     * Implementation of RolesApiInterface#createCustomRole
+     * Implementation of RolesApiInterface#createRole
      */
-    public function createCustomRole(RoleInput $roleInput = null)
+    public function createRole(RoleInput $roleInput = null)
     {
         // Implement the operation ...
     }
@@ -86,12 +86,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **deleteCustomRoleById**
-> OpenAPI\Server\Model\ApiResponse deleteCustomRoleById($customRoleId)
+## **deleteRoleById**
+> OpenAPI\Server\Model\ApiResponse deleteRoleById($roleId)
 
-Delete custom role
+Delete role
 
-Delete custom role
+Delete role
 
 ### Example Implementation
 ```php
@@ -116,9 +116,9 @@ class RolesApi implements RolesApiInterface
     // ...
 
     /**
-     * Implementation of RolesApiInterface#deleteCustomRoleById
+     * Implementation of RolesApiInterface#deleteRoleById
      */
-    public function deleteCustomRoleById(string $customRoleId)
+    public function deleteRoleById(string $roleId)
     {
         // Implement the operation ...
     }
@@ -131,7 +131,7 @@ class RolesApi implements RolesApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **customRoleId** | **string**|  |
+ **roleId** | **string**|  |
 
 ### Return type
 
@@ -148,12 +148,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getCustomRoleById**
-> OpenAPI\Server\Model\RoleData getCustomRoleById($customRoleId)
+## **getRoleById**
+> OpenAPI\Server\Model\RoleData getRoleById($roleId)
 
-Your GET endpoint
+Get Role
 
-Your GET endpoint
+Get role
 
 ### Example Implementation
 ```php
@@ -178,9 +178,9 @@ class RolesApi implements RolesApiInterface
     // ...
 
     /**
-     * Implementation of RolesApiInterface#getCustomRoleById
+     * Implementation of RolesApiInterface#getRoleById
      */
-    public function getCustomRoleById(string $customRoleId)
+    public function getRoleById(string $roleId)
     {
         // Implement the operation ...
     }
@@ -193,7 +193,7 @@ class RolesApi implements RolesApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **customRoleId** | **string**|  |
+ **roleId** | **string**|  |
 
 ### Return type
 
@@ -210,12 +210,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getCustomRoleMembersById**
-> OpenAPI\Server\Model\MemberData getCustomRoleMembersById($customRoleId)
+## **getRoleMembersById**
+> OpenAPI\Server\Model\MemberData getRoleMembersById($roleId, $sort, $pageSize, $page)
 
-Your GET endpoint
+Get role members
 
-Your GET endpoint
+Get role members
 
 ### Example Implementation
 ```php
@@ -240,9 +240,9 @@ class RolesApi implements RolesApiInterface
     // ...
 
     /**
-     * Implementation of RolesApiInterface#getCustomRoleMembersById
+     * Implementation of RolesApiInterface#getRoleMembersById
      */
-    public function getCustomRoleMembersById(string $customRoleId)
+    public function getRoleMembersById(string $roleId, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -255,7 +255,10 @@ class RolesApi implements RolesApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **customRoleId** | **string**|  |
+ **roleId** | **string**|  |
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 
@@ -272,12 +275,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getCustomRoles**
-> OpenAPI\Server\Model\RoleData getCustomRoles($sort, $pageSize, $page)
+## **getRoles**
+> OpenAPI\Server\Model\RoleData getRoles($sort, $pageSize, $page)
 
-Your GET endpoint
+Get roles
 
-Your GET endpoint
+Get roles
 
 ### Example Implementation
 ```php
@@ -302,9 +305,9 @@ class RolesApi implements RolesApiInterface
     // ...
 
     /**
-     * Implementation of RolesApiInterface#getCustomRoles
+     * Implementation of RolesApiInterface#getRoles
      */
-    public function getCustomRoles(string $sort = null, int $pageSize = null, int $page = null)
+    public function getRoles(string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -336,12 +339,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **updateCustomRoleById**
-> OpenAPI\Server\Model\RoleData updateCustomRoleById($customRoleId, $roleInput)
+## **updateRoleById**
+> OpenAPI\Server\Model\RoleData updateRoleById($roleId, $roleInput)
 
-Update custom role
+Update role
 
-Update custom role
+Update role
 
 ### Example Implementation
 ```php
@@ -366,9 +369,9 @@ class RolesApi implements RolesApiInterface
     // ...
 
     /**
-     * Implementation of RolesApiInterface#updateCustomRoleById
+     * Implementation of RolesApiInterface#updateRoleById
      */
-    public function updateCustomRoleById(string $customRoleId, RoleInput $roleInput = null)
+    public function updateRoleById(string $roleId, RoleInput $roleInput = null)
     {
         // Implement the operation ...
     }
@@ -381,7 +384,7 @@ class RolesApi implements RolesApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **customRoleId** | **string**|  |
+ **roleId** | **string**|  |
  **roleInput** | [**OpenAPI\Server\Model\RoleInput**](../Model/RoleInput.md)|  | [optional]
 
 ### Return type

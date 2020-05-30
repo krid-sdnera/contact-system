@@ -5,14 +5,14 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addGroupLocalMarkerById**](GroupsApiInterface.md#addGroupLocalMarkerById) | **PUT** /groups/{groupId}/local | 
-[**createGroup**](GroupsApiInterface.md#createGroup) | **POST** /groups | 
-[**deleteGroupById**](GroupsApiInterface.md#deleteGroupById) | **DELETE** /groups/{groupId} | 
+[**createGroup**](GroupsApiInterface.md#createGroup) | **POST** /groups | Create Group
+[**deleteGroupById**](GroupsApiInterface.md#deleteGroupById) | **DELETE** /groups/{groupId} | Delete Group
 [**deleteGroupLocalMarkerById**](GroupsApiInterface.md#deleteGroupLocalMarkerById) | **DELETE** /groups/{groupId}/local | 
-[**getGroupById**](GroupsApiInterface.md#getGroupById) | **GET** /groups/{groupId} | Your GET endpoint
+[**getGroupById**](GroupsApiInterface.md#getGroupById) | **GET** /groups/{groupId} | Get Group
 [**getGroupMembersById**](GroupsApiInterface.md#getGroupMembersById) | **GET** /groups/{groupId}/members | Your GET endpoint
 [**getGroupSectionsById**](GroupsApiInterface.md#getGroupSectionsById) | **GET** /groups/{groupId}/sections | Your GET endpoint
-[**getGroups**](GroupsApiInterface.md#getGroups) | **GET** /groups | Your GET endpoint
-[**updateGroupById**](GroupsApiInterface.md#updateGroupById) | **PUT** /groups/{groupId} | 
+[**getGroups**](GroupsApiInterface.md#getGroups) | **GET** /groups | Get Groups
+[**updateGroupById**](GroupsApiInterface.md#updateGroupById) | **PUT** /groups/{groupId} | Update Group
 
 
 ## Service Declaration
@@ -92,9 +92,9 @@ Name | Type | Description  | Notes
 ## **createGroup**
 > OpenAPI\Server\Model\GroupData createGroup($groupInput)
 
+Create Group
 
-
-createGroup
+Create Group
 
 ### Example Implementation
 ```php
@@ -154,9 +154,9 @@ Name | Type | Description  | Notes
 ## **deleteGroupById**
 > OpenAPI\Server\Model\ApiResponse deleteGroupById($groupId)
 
+Delete Group
 
-
-deleteGroupById
+Delete Group
 
 ### Example Implementation
 ```php
@@ -278,9 +278,9 @@ Name | Type | Description  | Notes
 ## **getGroupById**
 > OpenAPI\Server\Model\GroupData getGroupById($groupId)
 
-Your GET endpoint
+Get Group
 
-getGroupById
+Get Group
 
 ### Example Implementation
 ```php
@@ -464,9 +464,9 @@ Name | Type | Description  | Notes
 ## **getGroups**
 > OpenAPI\Server\Model\GroupData getGroups($sort, $pageSize, $page)
 
-Your GET endpoint
+Get Groups
 
-Your GET endpoint
+Get Groups
 
 ### Example Implementation
 ```php
@@ -528,9 +528,9 @@ Name | Type | Description  | Notes
 ## **updateGroupById**
 > OpenAPI\Server\Model\GroupData updateGroupById($groupId, $groupInput)
 
+Update Group
 
-
-updateGroupById
+Update Group
 
 ### Example Implementation
 ```php

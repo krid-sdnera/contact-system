@@ -17,6 +17,8 @@ use OpenAPI\Server\Model\GroupInput;
 use OpenAPI\Server\Model\SectionInput;
 
 use App\Entity\Member;
+use App\Entity\Role;
+use DateTime;
 use OpenAPI\Server\Model\ApiResponse;
 
 class MembersController extends AbstractController implements MembersApiInterface
@@ -45,6 +47,47 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
+    public function addMemberRoleById(string $memberId, string $roleId, &$responseCode, array &$responseHeaders)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $memberToUpdate = $this->getDoctrine()
+            ->getRepository(Member::class)
+            ->find($memberId);
+
+        if (!$memberToUpdate) {
+            $responseCode = 404;
+            return new ApiResponse([
+                'code' => 404,
+                'type' => 'Not Found',
+                'message' => "Member (${memberId}) not found"
+            ]);
+        }
+
+        $roleToAdd = $this->getDoctrine()
+            ->getRepository(Role::class)
+            ->find($roleId);
+
+        if (!$roleToAdd) {
+            $responseCode = 404;
+            return new ApiResponse([
+                'code' => 404,
+                'type' => 'Not Found',
+                'message' => "Role (${roleId}) not found"
+            ]);
+        }
+
+        $memberToUpdate->addRole($roleToAdd);
+
+        $entityManager->persist($memberToUpdate);
+        $entityManager->flush();
+
+        return $memberToUpdate;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
     public function createMember(MemberInput $member, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -53,6 +96,14 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $newMember->setFirstname($member->getFirstname());
         $newMember->setLastname($member->getLastname());
         $newMember->setNickname($member->getNickname());
+        $newMember->setDateOfBirth(new DateTime($member->getDateOfBirth()));
+        $newMember->setMembershipNumber($member->getMembershipNumber());
+        $newMember->setPhoneHome($member->getPhoneHome());
+        $newMember->setPhoneMobile($member->getPhoneMobile());
+        $newMember->setPhoneWork($member->getPhoneWork());
+        $newMember->setGender($member->getGender());
+        $newMember->setEmail($member->getEmail());
+
         $newMember->setAddress([
             'street1' => $member->getAddress()->getStreet1(),
             'street2' => $member->getAddress()->getStreet2(),
@@ -216,40 +267,42 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
-    public function removeMemberSectionById($memberId, &$responseCode, array &$responseHeaders)
+    public function removeMemberRoleById(string $memberId, string $roleId, &$responseCode, array &$responseHeaders)
     {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
-    }
+        $entityManager = $this->getDoctrine()->getManager();
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setMemberGroupById($memberId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
-    }
+        $memberToUpdate = $this->getDoctrine()
+            ->getRepository(Member::class)
+            ->find($memberId);
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setMemberSectionById($memberId, array $sectionData = null, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
+        if (!$memberToUpdate) {
+            $responseCode = 404;
+            return new ApiResponse([
+                'code' => 404,
+                'type' => 'Not Found',
+                'message' => "Member (${memberId}) not found"
+            ]);
+        }
+
+        $roleToAdd = $this->getDoctrine()
+            ->getRepository(Role::class)
+            ->find($roleId);
+
+        if (!$roleToAdd) {
+            $responseCode = 404;
+            return new ApiResponse([
+                'code' => 404,
+                'type' => 'Not Found',
+                'message' => "Role (${roleId}) not found"
+            ]);
+        }
+
+        $memberToUpdate->removeRole($roleToAdd);
+
+        $entityManager->persist($memberToUpdate);
+        $entityManager->flush();
+
+        return $memberToUpdate;
     }
 
     /**

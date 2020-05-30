@@ -74,32 +74,32 @@ class RolesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for createCustomRole
+     * Test case for createRole
      *
-     * Create custom role.
+     * Create role.
      *
      */
-    public function testCreateCustomRole()
+    public function testCreateRole()
     {
         $client = static::createClient();
 
-        $path = '/roles/custom';
+        $path = '/roles';
 
         $crawler = $client->request('POST', $path);
     }
 
     /**
-     * Test case for deleteCustomRoleById
+     * Test case for deleteRoleById
      *
-     * Delete custom role.
+     * Delete role.
      *
      */
-    public function testDeleteCustomRoleById()
+    public function testDeleteRoleById()
     {
         $client = static::createClient();
 
-        $path = '/roles/custom/{customRoleId}';
-        $pattern = '{customRoleId}';
+        $path = '/roles/{roleId}';
+        $pattern = '{roleId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);
 
@@ -107,17 +107,17 @@ class RolesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getCustomRoleById
+     * Test case for getRoleById
      *
-     * Your GET endpoint.
+     * Get Role.
      *
      */
-    public function testGetCustomRoleById()
+    public function testGetRoleById()
     {
         $client = static::createClient();
 
-        $path = '/roles/custom/{customRoleId}';
-        $pattern = '{customRoleId}';
+        $path = '/roles/{roleId}';
+        $pattern = '{roleId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);
 
@@ -125,17 +125,17 @@ class RolesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getCustomRoleMembersById
+     * Test case for getRoleMembersById
      *
-     * Your GET endpoint.
+     * Get role members.
      *
      */
-    public function testGetCustomRoleMembersById()
+    public function testGetRoleMembersById()
     {
         $client = static::createClient();
 
-        $path = '/roles/custom/{customRoleId}/members';
-        $pattern = '{customRoleId}';
+        $path = '/roles/{roleId}/members';
+        $pattern = '{roleId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);
 
@@ -143,32 +143,32 @@ class RolesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getCustomRoles
+     * Test case for getRoles
      *
-     * Your GET endpoint.
+     * Get roles.
      *
      */
-    public function testGetCustomRoles()
+    public function testGetRoles()
     {
         $client = static::createClient();
 
-        $path = '/roles/custom';
+        $path = '/roles';
 
         $crawler = $client->request('GET', $path);
     }
 
     /**
-     * Test case for updateCustomRoleById
+     * Test case for updateRoleById
      *
-     * Update custom role.
+     * Update role.
      *
      */
-    public function testUpdateCustomRoleById()
+    public function testUpdateRoleById()
     {
         $client = static::createClient();
 
-        $path = '/roles/custom/{customRoleId}';
-        $pattern = '{customRoleId}';
+        $path = '/roles/{roleId}';
+        $pattern = '{roleId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);
 

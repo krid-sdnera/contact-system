@@ -55,9 +55,9 @@ interface RolesApiInterface
     public function setcontact_auth($value);
 
     /**
-     * Operation createCustomRole
+     * Operation createRole
      *
-     * Create custom role
+     * Create role
      *
      * @param  OpenAPI\Server\Model\RoleInput $roleInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
@@ -66,54 +66,57 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function createCustomRole(RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
+    public function createRole(RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation deleteCustomRoleById
+     * Operation deleteRoleById
      *
-     * Delete custom role
+     * Delete role
      *
-     * @param  string $customRoleId   (required)
+     * @param  string $roleId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteCustomRoleById(string $customRoleId, &$responseCode, array &$responseHeaders);
+    public function deleteRoleById(string $roleId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getCustomRoleById
+     * Operation getRoleById
      *
-     * Your GET endpoint
+     * Get Role
      *
-     * @param  string $customRoleId   (required)
+     * @param  string $roleId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function getCustomRoleById(string $customRoleId, &$responseCode, array &$responseHeaders);
+    public function getRoleById(string $roleId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getCustomRoleMembersById
+     * Operation getRoleMembersById
      *
-     * Your GET endpoint
+     * Get role members
      *
-     * @param  string $customRoleId   (required)
+     * @param  string $roleId   (required)
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getCustomRoleMembersById(string $customRoleId, &$responseCode, array &$responseHeaders);
+    public function getRoleMembersById(string $roleId, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getCustomRoles
+     * Operation getRoles
      *
-     * Your GET endpoint
+     * Get roles
      *
      * @param  string $sort   (optional)
      * @param  int $pageSize   (optional)
@@ -124,14 +127,14 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\RoleData[]
      *
      */
-    public function getCustomRoles(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getRoles(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation updateCustomRoleById
+     * Operation updateRoleById
      *
-     * Update custom role
+     * Update role
      *
-     * @param  string $customRoleId   (required)
+     * @param  string $roleId   (required)
      * @param  OpenAPI\Server\Model\RoleInput $roleInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -139,5 +142,5 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function updateCustomRoleById(string $customRoleId, RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
+    public function updateRoleById(string $roleId, RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
 }

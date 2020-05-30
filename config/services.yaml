@@ -31,8 +31,18 @@ services:
         tags:
             - { name: "open_api_server.api", api: "members" }
 
+    contact_system.controller.roles:
+        class: App\Controller\RolesController
+        tags:
+            - { name: "open_api_server.api", api: "roles" }
+
     contact_system.controller.sections:
         class: App\Controller\SectionsController
         tags:
             - { name: "open_api_server.api", api: "sections" }
+
+    contact_system.controller.groups:
+        class: App\Controller\GroupsController
+        tags:
+            - { name: "open_api_server.api", api: "groups" }
             

@@ -122,7 +122,7 @@ paths:
         - members
     put:
       summary: Update member
-      description: "Update member"
+      description: Update member
       parameters: []
       operationId: updateMemberById
       responses:
@@ -245,10 +245,49 @@ paths:
         name: mergeMemberId
         in: path
         required: true
-  /roles/custom:
+  "/members/{memberId}/roles/{roleId}":
+    parameters:
+      - schema:
+          type: string
+        name: memberId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: roleId
+        in: path
+        required: true
+    put:
+      summary: Add Member Role
+      description: addMemberRoleById
+      operationId: addMemberRoleById
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleData"
+      tags:
+        - members
+    delete:
+      summary: Remove Member Role
+      description: removeMemberRoleById
+      operationId: removeMemberRoleById
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - members
+  /roles:
     get:
-      summary: Your GET endpoint
-      description: Your GET endpoint
+      summary: Get roles
+      description: Get roles
+      operationId: getRoles
       tags:
         - roles
       responses:
@@ -261,7 +300,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/RoleData"
-      operationId: getCustomRoles
       parameters:
         - schema:
             type: string
@@ -276,9 +314,9 @@ paths:
           in: query
           name: page
     post:
-      summary: Create custom role
-      description: Create custom role
-      operationId: createCustomRole
+      summary: Create role
+      description: Create role
+      operationId: createRole
       responses:
         "200":
           description: OK
@@ -293,16 +331,16 @@ paths:
               $ref: "#/components/schemas/RoleInput"
       tags:
         - roles
-  "/roles/custom/{customRoleId}":
+  "/roles/{roleId}":
     parameters:
       - schema:
           type: string
-        name: customRoleId
+        name: roleId
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: Your GET endpoint
+      summary: Get Role
+      description: Get role
       tags:
         - roles
       responses:
@@ -312,11 +350,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RoleData"
-      operationId: getCustomRoleById
+      operationId: getRoleById
     put:
-      summary: Update custom role
-      description: Update custom role
-      operationId: updateCustomRoleById
+      summary: Update role
+      description: Update role
+      operationId: updateRoleById
       responses:
         "200":
           description: OK
@@ -332,9 +370,9 @@ paths:
       tags:
         - roles
     delete:
-      summary: Delete custom role
-      description: Delete custom role
-      operationId: deleteCustomRoleById
+      summary: Delete role
+      description: Delete role
+      operationId: deleteRoleById
       responses:
         "200":
           description: OK
@@ -344,16 +382,17 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - roles
-  "/roles/custom/{customRoleId}/members":
+  "/roles/{roleId}/members":
     parameters:
       - schema:
           type: string
-        name: customRoleId
+        name: roleId
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: Your GET endpoint
+      summary: Get role members
+      description: Get role members
+      operationId: getRoleMembersById
       tags:
         - roles
       responses:
@@ -366,7 +405,19 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/MemberData"
-      operationId: getCustomRoleMembersById
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
   /subsidiaries:
     get:
       summary: Get Subsidiary
@@ -626,7 +677,8 @@ paths:
       operationId: getContactMembersById
   /groups:
     get:
-      summary: Your GET endpoint
+      summary: Get Groups
+      description: Get Groups
       tags:
         - groups
       responses:
@@ -653,10 +705,9 @@ paths:
             type: integer
           in: query
           name: page
-      description: Your GET endpoint
     post:
-      summary: ""
-      description: createGroup
+      summary: Create Group
+      description: Create Group
       operationId: createGroup
       responses:
         "200":
@@ -680,8 +731,8 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: getGroupById
+      summary: Get Group
+      description: Get Group
       tags:
         - groups
       responses:
@@ -693,8 +744,8 @@ paths:
                 $ref: "#/components/schemas/GroupData"
       operationId: getGroupById
     put:
-      summary: ""
-      description: updateGroupById
+      summary: Update Group
+      description: Update Group
       operationId: updateGroupById
       responses:
         "200":
@@ -711,8 +762,8 @@ paths:
       tags:
         - groups
     delete:
-      summary: ""
-      description: deleteGroupById
+      summary: Delete Group
+      description: Delete Group
       operationId: deleteGroupById
       responses:
         "200":
@@ -804,8 +855,8 @@ paths:
                   $ref: "#/components/schemas/SectionData"
   /sections:
     get:
-      summary: Your GET endpoint
-      description: getSections
+      summary: Get Sections
+      description: Get Sections
       operationId: getSections
       tags:
         - sections
@@ -833,8 +884,8 @@ paths:
           in: query
           name: page
     post:
-      summary: ""
-      description: createSection
+      summary: Create Section
+      description: Create Section
       operationId: createSection
       responses:
         "200":
@@ -858,8 +909,8 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: getSectionById
+      summary: Get Section
+      description: Get Section
       operationId: getSectionById
       tags:
         - sections
@@ -871,8 +922,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/SectionData"
     put:
-      summary: ""
-      description: updateSectionById
+      summary: Update Section
+      description: Update Section
       operationId: updateSectionById
       responses:
         "200":
@@ -889,8 +940,8 @@ paths:
       tags:
         - sections
     delete:
-      summary: ""
-      description: deleteSectionById
+      summary: Delete Section
+      description: Delete Section
       operationId: deleteSectionById
       responses:
         "200":
@@ -957,73 +1008,6 @@ paths:
                 items:
                   $ref: "#/components/schemas/MemberData"
       operationId: getSectionMembersById
-  "/members/{memberId}/section":
-    parameters:
-      - schema:
-          type: string
-        name: memberId
-        in: path
-        required: true
-    put:
-      summary: ""
-      description: Your PUT endpoint
-      operationId: setMemberSectionById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              title: Sections
-              type: array
-              items:
-                $ref: "#/components/schemas/SectionData"
-        description: ""
-      tags:
-        - members
-    delete:
-      summary: ""
-      description: removeMemberSectionById
-      operationId: removeMemberSectionById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - members
-  "/members/{memberId}/group":
-    parameters:
-      - schema:
-          type: string
-        name: memberId
-        in: path
-        required: true
-    put:
-      summary: ""
-      description: setMemberGroupById
-      operationId: setMemberGroupById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GroupData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GroupInput"
-      tags:
-        - members
   /lists:
     get:
       summary: Your GET endpoint
@@ -1367,7 +1351,8 @@ components:
           $ref: "#/components/schemas/AddressData"
         dateOfBirth:
           type: string
-          format: date
+          default: "1990-01-01"
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         membershipNumber:
           type: string
         phoneHome:

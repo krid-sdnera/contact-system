@@ -30,13 +30,11 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\GroupData;
-use OpenAPI\Server\Model\GroupInput;
 use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\MemberInput;
 use OpenAPI\Server\Model\MemberSuggetion;
 use OpenAPI\Server\Model\Members;
-use OpenAPI\Server\Model\SectionData;
+use OpenAPI\Server\Model\RoleData;
 
 /**
  * MembersApiInterface Interface Doc Comment
@@ -71,6 +69,21 @@ interface MembersApiInterface
      *
      */
     public function addMemberLocalMarkerById(string $memberId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation addMemberRoleById
+     *
+     * Add Member Role
+     *
+     * @param  string $memberId   (required)
+     * @param  string $roleId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\RoleData
+     *
+     */
+    public function addMemberRoleById(string $memberId, string $roleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createMember
@@ -174,42 +187,19 @@ interface MembersApiInterface
     public function removeMemberLocalMarkerById(string $memberId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation removeMemberSectionById
+     * Operation removeMemberRoleById
+     *
+     * Remove Member Role
      *
      * @param  string $memberId   (required)
+     * @param  string $roleId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function removeMemberSectionById(string $memberId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation setMemberGroupById
-     *
-     * @param  string $memberId   (required)
-     * @param  OpenAPI\Server\Model\GroupInput $groupInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\GroupData
-     *
-     */
-    public function setMemberGroupById(string $memberId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation setMemberSectionById
-     *
-     * @param  string $memberId   (required)
-     * @param  OpenAPI\Server\Model\SectionData[] $sectionData   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
-     */
-    public function setMemberSectionById(string $memberId, array $sectionData = null, &$responseCode, array &$responseHeaders);
+    public function removeMemberRoleById(string $memberId, string $roleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateMemberById

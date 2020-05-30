@@ -54,14 +54,14 @@ class RolesController extends Controller
 {
 
     /**
-     * Operation createCustomRole
+     * Operation createRole
      *
-     * Create custom role
+     * Create role
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function createCustomRoleAction(Request $request)
+    public function createRoleAction(Request $request)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -116,7 +116,7 @@ class RolesController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->createCustomRole($roleInput, $responseCode, $responseHeaders);
+            $result = $handler->createRole($roleInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -148,14 +148,14 @@ class RolesController extends Controller
     }
 
     /**
-     * Operation deleteCustomRoleById
+     * Operation deleteRoleById
      *
-     * Delete custom role
+     * Delete role
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function deleteCustomRoleByIdAction(Request $request, $customRoleId)
+    public function deleteRoleByIdAction(Request $request, $roleId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -177,7 +177,7 @@ class RolesController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $customRoleId = $this->deserialize($customRoleId, 'string', 'string');
+            $roleId = $this->deserialize($roleId, 'string', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -186,7 +186,7 @@ class RolesController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("string");
-        $response = $this->validate($customRoleId, $asserts);
+        $response = $this->validate($roleId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -201,7 +201,7 @@ class RolesController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->deleteCustomRoleById($customRoleId, $responseCode, $responseHeaders);
+            $result = $handler->deleteRoleById($roleId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -233,14 +233,14 @@ class RolesController extends Controller
     }
 
     /**
-     * Operation getCustomRoleById
+     * Operation getRoleById
      *
-     * Your GET endpoint
+     * Get Role
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getCustomRoleByIdAction(Request $request, $customRoleId)
+    public function getRoleByIdAction(Request $request, $roleId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -262,7 +262,7 @@ class RolesController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $customRoleId = $this->deserialize($customRoleId, 'string', 'string');
+            $roleId = $this->deserialize($roleId, 'string', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -271,7 +271,7 @@ class RolesController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("string");
-        $response = $this->validate($customRoleId, $asserts);
+        $response = $this->validate($roleId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -286,7 +286,7 @@ class RolesController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getCustomRoleById($customRoleId, $responseCode, $responseHeaders);
+            $result = $handler->getRoleById($roleId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -318,14 +318,14 @@ class RolesController extends Controller
     }
 
     /**
-     * Operation getCustomRoleMembersById
+     * Operation getRoleMembersById
      *
-     * Your GET endpoint
+     * Get role members
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getCustomRoleMembersByIdAction(Request $request, $customRoleId)
+    public function getRoleMembersByIdAction(Request $request, $roleId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -342,12 +342,18 @@ class RolesController extends Controller
         $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
+        $sort = $request->query->get('sort');
+        $pageSize = $request->query->get('pageSize');
+        $page = $request->query->get('page');
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
-            $customRoleId = $this->deserialize($customRoleId, 'string', 'string');
+            $roleId = $this->deserialize($roleId, 'string', 'string');
+            $sort = $this->deserialize($sort, 'string', 'string');
+            $pageSize = $this->deserialize($pageSize, 'int', 'string');
+            $page = $this->deserialize($page, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -356,7 +362,25 @@ class RolesController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("string");
-        $response = $this->validate($customRoleId, $asserts);
+        $response = $this->validate($roleId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+        $asserts = [];
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($sort, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+        $asserts = [];
+        $asserts[] = new Assert\Type("int");
+        $response = $this->validate($pageSize, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+        $asserts = [];
+        $asserts[] = new Assert\Type("int");
+        $response = $this->validate($page, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -371,7 +395,7 @@ class RolesController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getCustomRoleMembersById($customRoleId, $responseCode, $responseHeaders);
+            $result = $handler->getRoleMembersById($roleId, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -403,14 +427,14 @@ class RolesController extends Controller
     }
 
     /**
-     * Operation getCustomRoles
+     * Operation getRoles
      *
-     * Your GET endpoint
+     * Get roles
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getCustomRolesAction(Request $request)
+    public function getRolesAction(Request $request)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -472,7 +496,7 @@ class RolesController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getCustomRoles($sort, $pageSize, $page, $responseCode, $responseHeaders);
+            $result = $handler->getRoles($sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -504,14 +528,14 @@ class RolesController extends Controller
     }
 
     /**
-     * Operation updateCustomRoleById
+     * Operation updateRoleById
      *
-     * Update custom role
+     * Update role
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function updateCustomRoleByIdAction(Request $request, $customRoleId)
+    public function updateRoleByIdAction(Request $request, $roleId)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -542,7 +566,7 @@ class RolesController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $customRoleId = $this->deserialize($customRoleId, 'string', 'string');
+            $roleId = $this->deserialize($roleId, 'string', 'string');
             $roleInput = $this->deserialize($roleInput, 'OpenAPI\Server\Model\RoleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -552,7 +576,7 @@ class RolesController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("string");
-        $response = $this->validate($customRoleId, $asserts);
+        $response = $this->validate($roleId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -574,7 +598,7 @@ class RolesController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateCustomRoleById($customRoleId, $roleInput, $responseCode, $responseHeaders);
+            $result = $handler->updateRoleById($roleId, $roleInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

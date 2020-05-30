@@ -57,3 +57,7 @@ HERE2
 
 s/$old/$new/mg;
 ' lib/ContactSystem/Api/Controller/*.php
+
+echo "> Fix double escaped regex"
+sed -i '' -e 's/@Assert\\Regex("\/^\\\\d{4}-\\\\d{2}-\\\\d{2}\$\/")/@Assert\\Regex("\/^\\d{4}-\\d{2}-\\d{2}$\/")/' lib/ContactSystem/Api/Model/Member*.php
+

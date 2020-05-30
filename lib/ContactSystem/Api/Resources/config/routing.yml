@@ -249,6 +249,15 @@ open_api_server_members_addmemberlocalmarkerbyid:
     requirements:
         memberId: '[a-z0-9]+'
 
+open_api_server_members_addmemberrolebyid:
+    path:     /members/{memberId}/roles/{roleId}
+    methods:  [PUT]
+    defaults:
+        _controller: open_api_server.controller.members:addMemberRoleByIdAction
+    requirements:
+        memberId: '[a-z0-9]+'
+        roleId: '[a-z0-9]+'
+
 open_api_server_members_createmember:
     path:     /members
     methods:  [POST]
@@ -302,29 +311,14 @@ open_api_server_members_removememberlocalmarkerbyid:
     requirements:
         memberId: '[a-z0-9]+'
 
-open_api_server_members_removemembersectionbyid:
-    path:     /members/{memberId}/section
+open_api_server_members_removememberrolebyid:
+    path:     /members/{memberId}/roles/{roleId}
     methods:  [DELETE]
     defaults:
-        _controller: open_api_server.controller.members:removeMemberSectionByIdAction
+        _controller: open_api_server.controller.members:removeMemberRoleByIdAction
     requirements:
         memberId: '[a-z0-9]+'
-
-open_api_server_members_setmembergroupbyid:
-    path:     /members/{memberId}/group
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.members:setMemberGroupByIdAction
-    requirements:
-        memberId: '[a-z0-9]+'
-
-open_api_server_members_setmembersectionbyid:
-    path:     /members/{memberId}/section
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.members:setMemberSectionByIdAction
-    requirements:
-        memberId: '[a-z0-9]+'
+        roleId: '[a-z0-9]+'
 
 open_api_server_members_updatememberbyid:
     path:     /members/{memberId}
@@ -335,49 +329,49 @@ open_api_server_members_updatememberbyid:
         memberId: '[a-z0-9]+'
 
 # roles
-open_api_server_roles_createcustomrole:
-    path:     /roles/custom
+open_api_server_roles_createrole:
+    path:     /roles
     methods:  [POST]
     defaults:
-        _controller: open_api_server.controller.roles:createCustomRoleAction
+        _controller: open_api_server.controller.roles:createRoleAction
 
-open_api_server_roles_deletecustomrolebyid:
-    path:     /roles/custom/{customRoleId}
+open_api_server_roles_deleterolebyid:
+    path:     /roles/{roleId}
     methods:  [DELETE]
     defaults:
-        _controller: open_api_server.controller.roles:deleteCustomRoleByIdAction
+        _controller: open_api_server.controller.roles:deleteRoleByIdAction
     requirements:
-        customRoleId: '[a-z0-9]+'
+        roleId: '[a-z0-9]+'
 
-open_api_server_roles_getcustomrolebyid:
-    path:     /roles/custom/{customRoleId}
+open_api_server_roles_getrolebyid:
+    path:     /roles/{roleId}
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.roles:getCustomRoleByIdAction
+        _controller: open_api_server.controller.roles:getRoleByIdAction
     requirements:
-        customRoleId: '[a-z0-9]+'
+        roleId: '[a-z0-9]+'
 
-open_api_server_roles_getcustomrolemembersbyid:
-    path:     /roles/custom/{customRoleId}/members
+open_api_server_roles_getrolemembersbyid:
+    path:     /roles/{roleId}/members
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.roles:getCustomRoleMembersByIdAction
+        _controller: open_api_server.controller.roles:getRoleMembersByIdAction
     requirements:
-        customRoleId: '[a-z0-9]+'
+        roleId: '[a-z0-9]+'
 
-open_api_server_roles_getcustomroles:
-    path:     /roles/custom
+open_api_server_roles_getroles:
+    path:     /roles
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.roles:getCustomRolesAction
+        _controller: open_api_server.controller.roles:getRolesAction
 
-open_api_server_roles_updatecustomrolebyid:
-    path:     /roles/custom/{customRoleId}
+open_api_server_roles_updaterolebyid:
+    path:     /roles/{roleId}
     methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.roles:updateCustomRoleByIdAction
+        _controller: open_api_server.controller.roles:updateRoleByIdAction
     requirements:
-        customRoleId: '[a-z0-9]+'
+        roleId: '[a-z0-9]+'
 
 # sections
 open_api_server_sections_addsectionlocalmarkerbyid:

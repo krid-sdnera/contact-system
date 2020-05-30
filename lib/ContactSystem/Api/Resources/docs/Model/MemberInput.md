@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **lastname** | **string** |  | 
 **nickname** | **string** |  | [optional] 
 **address** | [**OpenAPI\Server\Model\AddressData**](AddressData.md) |  | [optional] 
-**dateOfBirth** | [**\DateTime**](Date.md) |  | [optional] 
+**dateOfBirth** | **string** |  | [optional] [default to '1990-01-01']
 **membershipNumber** | **string** |  | [optional] 
 **phoneHome** | **string** |  | [optional] 
 **phoneMobile** | **string** |  | [optional] 

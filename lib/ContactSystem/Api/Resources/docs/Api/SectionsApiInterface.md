@@ -5,13 +5,13 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addSectionLocalMarkerById**](SectionsApiInterface.md#addSectionLocalMarkerById) | **PUT** /sections/{sectionId}/local | 
-[**createSection**](SectionsApiInterface.md#createSection) | **POST** /sections | 
-[**deleteSectionById**](SectionsApiInterface.md#deleteSectionById) | **DELETE** /sections/{sectionId} | 
-[**getSectionById**](SectionsApiInterface.md#getSectionById) | **GET** /sections/{sectionId} | Your GET endpoint
+[**createSection**](SectionsApiInterface.md#createSection) | **POST** /sections | Create Section
+[**deleteSectionById**](SectionsApiInterface.md#deleteSectionById) | **DELETE** /sections/{sectionId} | Delete Section
+[**getSectionById**](SectionsApiInterface.md#getSectionById) | **GET** /sections/{sectionId} | Get Section
 [**getSectionMembersById**](SectionsApiInterface.md#getSectionMembersById) | **GET** /sections/{sectionId}/members | Your GET endpoint
-[**getSections**](SectionsApiInterface.md#getSections) | **GET** /sections | Your GET endpoint
+[**getSections**](SectionsApiInterface.md#getSections) | **GET** /sections | Get Sections
 [**removeSectionLocalMarkerById**](SectionsApiInterface.md#removeSectionLocalMarkerById) | **DELETE** /sections/{sectionId}/local | 
-[**updateSectionById**](SectionsApiInterface.md#updateSectionById) | **PUT** /sections/{sectionId} | 
+[**updateSectionById**](SectionsApiInterface.md#updateSectionById) | **PUT** /sections/{sectionId} | Update Section
 
 
 ## Service Declaration
@@ -91,9 +91,9 @@ Name | Type | Description  | Notes
 ## **createSection**
 > OpenAPI\Server\Model\SectionData createSection($sectionInput)
 
+Create Section
 
-
-createSection
+Create Section
 
 ### Example Implementation
 ```php
@@ -153,9 +153,9 @@ Name | Type | Description  | Notes
 ## **deleteSectionById**
 > OpenAPI\Server\Model\ApiResponse deleteSectionById($sectionId)
 
+Delete Section
 
-
-deleteSectionById
+Delete Section
 
 ### Example Implementation
 ```php
@@ -215,9 +215,9 @@ Name | Type | Description  | Notes
 ## **getSectionById**
 > OpenAPI\Server\Model\SectionData getSectionById($sectionId)
 
-Your GET endpoint
+Get Section
 
-getSectionById
+Get Section
 
 ### Example Implementation
 ```php
@@ -339,9 +339,9 @@ Name | Type | Description  | Notes
 ## **getSections**
 > OpenAPI\Server\Model\SectionData getSections($sort, $pageSize, $page)
 
-Your GET endpoint
+Get Sections
 
-getSections
+Get Sections
 
 ### Example Implementation
 ```php
@@ -465,9 +465,9 @@ Name | Type | Description  | Notes
 ## **updateSectionById**
 > OpenAPI\Server\Model\SectionData updateSectionById($sectionId, $sectionInput)
 
+Update Section
 
-
-updateSectionById
+Update Section
 
 ### Example Implementation
 ```php

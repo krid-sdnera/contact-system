@@ -76,10 +76,11 @@ class MemberInput
     protected $address;
 
     /**
-     * @var \DateTime|null
+     * @var string|null
      * @SerializedName("dateOfBirth")
-     * @Assert\Date()
-     * @Type("DateTime")
+     * @Assert\Type("string")
+     * @Type("string")
+     * @Assert\Regex("/^\d{4}-\d{2}-\d{2}$/")
      */
     protected $dateOfBirth;
 
@@ -141,7 +142,7 @@ class MemberInput
         $this->lastname = isset($data['lastname']) ? $data['lastname'] : null;
         $this->nickname = isset($data['nickname']) ? $data['nickname'] : null;
         $this->address = isset($data['address']) ? $data['address'] : null;
-        $this->dateOfBirth = isset($data['dateOfBirth']) ? $data['dateOfBirth'] : null;
+        $this->dateOfBirth = isset($data['dateOfBirth']) ? $data['dateOfBirth'] : '1990-01-01';
         $this->membershipNumber = isset($data['membershipNumber']) ? $data['membershipNumber'] : null;
         $this->phoneHome = isset($data['phoneHome']) ? $data['phoneHome'] : null;
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
@@ -249,9 +250,9 @@ class MemberInput
     /**
      * Gets dateOfBirth.
      *
-     * @return \DateTime|null
+     * @return string|null
      */
-    public function getDateOfBirth(): ?\DateTime
+    public function getDateOfBirth(): ?string
     {
         return $this->dateOfBirth;
     }
@@ -259,11 +260,11 @@ class MemberInput
     /**
      * Sets dateOfBirth.
      *
-     * @param \DateTime|null $dateOfBirth
+     * @param string|null $dateOfBirth
      *
      * @return $this
      */
-    public function setDateOfBirth(\DateTime $dateOfBirth = null): ?\DateTime
+    public function setDateOfBirth(string $dateOfBirth = null): ?string
     {
         $this->dateOfBirth = $dateOfBirth;
 

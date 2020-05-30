@@ -139,6 +139,8 @@ class SectionsController extends Controller
     /**
      * Operation createSection
      *
+     * Create Section
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -231,6 +233,8 @@ class SectionsController extends Controller
     /**
      * Operation deleteSectionById
      *
+     * Delete Section
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -314,7 +318,7 @@ class SectionsController extends Controller
     /**
      * Operation getSectionById
      *
-     * Your GET endpoint
+     * Get Section
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -484,7 +488,7 @@ class SectionsController extends Controller
     /**
      * Operation getSections
      *
-     * Your GET endpoint
+     * Get Sections
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -667,6 +671,8 @@ class SectionsController extends Controller
 
     /**
      * Operation updateSectionById
+     *
+     * Update Section
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.

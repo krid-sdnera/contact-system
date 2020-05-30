@@ -131,14 +131,14 @@ Class | Method | HTTP request | Description
 *ContactsApiInterface* | [**getContacts**](Resources/docs/Api/ContactsApiInterface.md#getcontacts) | **GET** /contacts | Your GET endpoint
 *ContactsApiInterface* | [**updateContactById**](Resources/docs/Api/ContactsApiInterface.md#updatecontactbyid) | **PUT** /contacts/{contactId} | 
 *GroupsApiInterface* | [**addGroupLocalMarkerById**](Resources/docs/Api/GroupsApiInterface.md#addgrouplocalmarkerbyid) | **PUT** /groups/{groupId}/local | 
-*GroupsApiInterface* | [**createGroup**](Resources/docs/Api/GroupsApiInterface.md#creategroup) | **POST** /groups | 
-*GroupsApiInterface* | [**deleteGroupById**](Resources/docs/Api/GroupsApiInterface.md#deletegroupbyid) | **DELETE** /groups/{groupId} | 
+*GroupsApiInterface* | [**createGroup**](Resources/docs/Api/GroupsApiInterface.md#creategroup) | **POST** /groups | Create Group
+*GroupsApiInterface* | [**deleteGroupById**](Resources/docs/Api/GroupsApiInterface.md#deletegroupbyid) | **DELETE** /groups/{groupId} | Delete Group
 *GroupsApiInterface* | [**deleteGroupLocalMarkerById**](Resources/docs/Api/GroupsApiInterface.md#deletegrouplocalmarkerbyid) | **DELETE** /groups/{groupId}/local | 
-*GroupsApiInterface* | [**getGroupById**](Resources/docs/Api/GroupsApiInterface.md#getgroupbyid) | **GET** /groups/{groupId} | Your GET endpoint
+*GroupsApiInterface* | [**getGroupById**](Resources/docs/Api/GroupsApiInterface.md#getgroupbyid) | **GET** /groups/{groupId} | Get Group
 *GroupsApiInterface* | [**getGroupMembersById**](Resources/docs/Api/GroupsApiInterface.md#getgroupmembersbyid) | **GET** /groups/{groupId}/members | Your GET endpoint
 *GroupsApiInterface* | [**getGroupSectionsById**](Resources/docs/Api/GroupsApiInterface.md#getgroupsectionsbyid) | **GET** /groups/{groupId}/sections | Your GET endpoint
-*GroupsApiInterface* | [**getGroups**](Resources/docs/Api/GroupsApiInterface.md#getgroups) | **GET** /groups | Your GET endpoint
-*GroupsApiInterface* | [**updateGroupById**](Resources/docs/Api/GroupsApiInterface.md#updategroupbyid) | **PUT** /groups/{groupId} | 
+*GroupsApiInterface* | [**getGroups**](Resources/docs/Api/GroupsApiInterface.md#getgroups) | **GET** /groups | Get Groups
+*GroupsApiInterface* | [**updateGroupById**](Resources/docs/Api/GroupsApiInterface.md#updategroupbyid) | **PUT** /groups/{groupId} | Update Group
 *ListsApiInterface* | [**createList**](Resources/docs/Api/ListsApiInterface.md#createlist) | **POST** /lists | 
 *ListsApiInterface* | [**createListRuleById**](Resources/docs/Api/ListsApiInterface.md#createlistrulebyid) | **POST** /lists/{listId}/rules | 
 *ListsApiInterface* | [**createListTypes**](Resources/docs/Api/ListsApiInterface.md#createlisttypes) | **POST** /lists/types | 
@@ -156,6 +156,7 @@ Class | Method | HTTP request | Description
 *ListsApiInterface* | [**updateListRuleById**](Resources/docs/Api/ListsApiInterface.md#updatelistrulebyid) | **PUT** /lists/{listId}/rules/{ruleId} | 
 *ListsApiInterface* | [**updateListTypeById**](Resources/docs/Api/ListsApiInterface.md#updatelisttypebyid) | **PUT** /lists/types/{listTypeId} | 
 *MembersApiInterface* | [**addMemberLocalMarkerById**](Resources/docs/Api/MembersApiInterface.md#addmemberlocalmarkerbyid) | **PUT** /members/{memberId}/local | Add local marker
+*MembersApiInterface* | [**addMemberRoleById**](Resources/docs/Api/MembersApiInterface.md#addmemberrolebyid) | **PUT** /members/{memberId}/roles/{roleId} | Add Member Role
 *MembersApiInterface* | [**createMember**](Resources/docs/Api/MembersApiInterface.md#createmember) | **POST** /members | Create a member
 *MembersApiInterface* | [**deleteMemberById**](Resources/docs/Api/MembersApiInterface.md#deletememberbyid) | **DELETE** /members/{memberId} | Delete member
 *MembersApiInterface* | [**getMemberById**](Resources/docs/Api/MembersApiInterface.md#getmemberbyid) | **GET** /members/{memberId} | Get member
@@ -163,24 +164,22 @@ Class | Method | HTTP request | Description
 *MembersApiInterface* | [**getMembers**](Resources/docs/Api/MembersApiInterface.md#getmembers) | **GET** /members | List all members
 *MembersApiInterface* | [**mergeMember**](Resources/docs/Api/MembersApiInterface.md#mergemember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
 *MembersApiInterface* | [**removeMemberLocalMarkerById**](Resources/docs/Api/MembersApiInterface.md#removememberlocalmarkerbyid) | **DELETE** /members/{memberId}/local | Remove local marker
-*MembersApiInterface* | [**removeMemberSectionById**](Resources/docs/Api/MembersApiInterface.md#removemembersectionbyid) | **DELETE** /members/{memberId}/section | 
-*MembersApiInterface* | [**setMemberGroupById**](Resources/docs/Api/MembersApiInterface.md#setmembergroupbyid) | **PUT** /members/{memberId}/group | 
-*MembersApiInterface* | [**setMemberSectionById**](Resources/docs/Api/MembersApiInterface.md#setmembersectionbyid) | **PUT** /members/{memberId}/section | 
+*MembersApiInterface* | [**removeMemberRoleById**](Resources/docs/Api/MembersApiInterface.md#removememberrolebyid) | **DELETE** /members/{memberId}/roles/{roleId} | Remove Member Role
 *MembersApiInterface* | [**updateMemberById**](Resources/docs/Api/MembersApiInterface.md#updatememberbyid) | **PUT** /members/{memberId} | Update member
-*RolesApiInterface* | [**createCustomRole**](Resources/docs/Api/RolesApiInterface.md#createcustomrole) | **POST** /roles/custom | Create custom role
-*RolesApiInterface* | [**deleteCustomRoleById**](Resources/docs/Api/RolesApiInterface.md#deletecustomrolebyid) | **DELETE** /roles/custom/{customRoleId} | Delete custom role
-*RolesApiInterface* | [**getCustomRoleById**](Resources/docs/Api/RolesApiInterface.md#getcustomrolebyid) | **GET** /roles/custom/{customRoleId} | Your GET endpoint
-*RolesApiInterface* | [**getCustomRoleMembersById**](Resources/docs/Api/RolesApiInterface.md#getcustomrolemembersbyid) | **GET** /roles/custom/{customRoleId}/members | Your GET endpoint
-*RolesApiInterface* | [**getCustomRoles**](Resources/docs/Api/RolesApiInterface.md#getcustomroles) | **GET** /roles/custom | Your GET endpoint
-*RolesApiInterface* | [**updateCustomRoleById**](Resources/docs/Api/RolesApiInterface.md#updatecustomrolebyid) | **PUT** /roles/custom/{customRoleId} | Update custom role
+*RolesApiInterface* | [**createRole**](Resources/docs/Api/RolesApiInterface.md#createrole) | **POST** /roles | Create role
+*RolesApiInterface* | [**deleteRoleById**](Resources/docs/Api/RolesApiInterface.md#deleterolebyid) | **DELETE** /roles/{roleId} | Delete role
+*RolesApiInterface* | [**getRoleById**](Resources/docs/Api/RolesApiInterface.md#getrolebyid) | **GET** /roles/{roleId} | Get Role
+*RolesApiInterface* | [**getRoleMembersById**](Resources/docs/Api/RolesApiInterface.md#getrolemembersbyid) | **GET** /roles/{roleId}/members | Get role members
+*RolesApiInterface* | [**getRoles**](Resources/docs/Api/RolesApiInterface.md#getroles) | **GET** /roles | Get roles
+*RolesApiInterface* | [**updateRoleById**](Resources/docs/Api/RolesApiInterface.md#updaterolebyid) | **PUT** /roles/{roleId} | Update role
 *SectionsApiInterface* | [**addSectionLocalMarkerById**](Resources/docs/Api/SectionsApiInterface.md#addsectionlocalmarkerbyid) | **PUT** /sections/{sectionId}/local | 
-*SectionsApiInterface* | [**createSection**](Resources/docs/Api/SectionsApiInterface.md#createsection) | **POST** /sections | 
-*SectionsApiInterface* | [**deleteSectionById**](Resources/docs/Api/SectionsApiInterface.md#deletesectionbyid) | **DELETE** /sections/{sectionId} | 
-*SectionsApiInterface* | [**getSectionById**](Resources/docs/Api/SectionsApiInterface.md#getsectionbyid) | **GET** /sections/{sectionId} | Your GET endpoint
+*SectionsApiInterface* | [**createSection**](Resources/docs/Api/SectionsApiInterface.md#createsection) | **POST** /sections | Create Section
+*SectionsApiInterface* | [**deleteSectionById**](Resources/docs/Api/SectionsApiInterface.md#deletesectionbyid) | **DELETE** /sections/{sectionId} | Delete Section
+*SectionsApiInterface* | [**getSectionById**](Resources/docs/Api/SectionsApiInterface.md#getsectionbyid) | **GET** /sections/{sectionId} | Get Section
 *SectionsApiInterface* | [**getSectionMembersById**](Resources/docs/Api/SectionsApiInterface.md#getsectionmembersbyid) | **GET** /sections/{sectionId}/members | Your GET endpoint
-*SectionsApiInterface* | [**getSections**](Resources/docs/Api/SectionsApiInterface.md#getsections) | **GET** /sections | Your GET endpoint
+*SectionsApiInterface* | [**getSections**](Resources/docs/Api/SectionsApiInterface.md#getsections) | **GET** /sections | Get Sections
 *SectionsApiInterface* | [**removeSectionLocalMarkerById**](Resources/docs/Api/SectionsApiInterface.md#removesectionlocalmarkerbyid) | **DELETE** /sections/{sectionId}/local | 
-*SectionsApiInterface* | [**updateSectionById**](Resources/docs/Api/SectionsApiInterface.md#updatesectionbyid) | **PUT** /sections/{sectionId} | 
+*SectionsApiInterface* | [**updateSectionById**](Resources/docs/Api/SectionsApiInterface.md#updatesectionbyid) | **PUT** /sections/{sectionId} | Update Section
 *SubsidiariesApiInterface* | [**addSubsidiaryLocalMarkerById**](Resources/docs/Api/SubsidiariesApiInterface.md#addsubsidiarylocalmarkerbyid) | **PUT** /subsidiaries/{subsidiaryId}/local | Add local marker
 *SubsidiariesApiInterface* | [**createSubsidiary**](Resources/docs/Api/SubsidiariesApiInterface.md#createsubsidiary) | **POST** /subsidiaries | Create subsidiary
 *SubsidiariesApiInterface* | [**deleteSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#deletesubsidiarybyid) | **DELETE** /subsidiaries/{subsidiaryId} | Delete Subsidiary

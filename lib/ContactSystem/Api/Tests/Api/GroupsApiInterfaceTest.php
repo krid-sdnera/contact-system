@@ -94,7 +94,7 @@ class GroupsApiInterfaceTest extends WebTestCase
     /**
      * Test case for createGroup
      *
-     * .
+     * Create Group.
      *
      */
     public function testCreateGroup()
@@ -109,7 +109,7 @@ class GroupsApiInterfaceTest extends WebTestCase
     /**
      * Test case for deleteGroupById
      *
-     * .
+     * Delete Group.
      *
      */
     public function testDeleteGroupById()
@@ -145,7 +145,7 @@ class GroupsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getGroupById
      *
-     * Your GET endpoint.
+     * Get Group.
      *
      */
     public function testGetGroupById()
@@ -199,7 +199,7 @@ class GroupsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getGroups
      *
-     * Your GET endpoint.
+     * Get Groups.
      *
      */
     public function testGetGroups()
@@ -214,7 +214,7 @@ class GroupsApiInterfaceTest extends WebTestCase
     /**
      * Test case for updateGroupById
      *
-     * .
+     * Update Group.
      *
      */
     public function testUpdateGroupById()

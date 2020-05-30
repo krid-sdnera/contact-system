@@ -92,6 +92,27 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
+     * Test case for addMemberRoleById
+     *
+     * Add Member Role.
+     *
+     */
+    public function testAddMemberRoleById()
+    {
+        $client = static::createClient();
+
+        $path = '/members/{memberId}/roles/{roleId}';
+        $pattern = '{memberId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+        $pattern = '{roleId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('PUT', $path);
+    }
+
+    /**
      * Test case for createMember
      *
      * Create a member.
@@ -215,57 +236,24 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for removeMemberSectionById
+     * Test case for removeMemberRoleById
      *
-     * .
+     * Remove Member Role.
      *
      */
-    public function testRemoveMemberSectionById()
+    public function testRemoveMemberRoleById()
     {
         $client = static::createClient();
 
-        $path = '/members/{memberId}/section';
+        $path = '/members/{memberId}/roles/{roleId}';
         $pattern = '{memberId}';
+        $data = $this->genTestData('[a-z0-9]+');
+        $path = str_replace($pattern, $data, $path);
+        $pattern = '{roleId}';
         $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
-    }
-
-    /**
-     * Test case for setMemberGroupById
-     *
-     * .
-     *
-     */
-    public function testSetMemberGroupById()
-    {
-        $client = static::createClient();
-
-        $path = '/members/{memberId}/group';
-        $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('PUT', $path);
-    }
-
-    /**
-     * Test case for setMemberSectionById
-     *
-     * .
-     *
-     */
-    public function testSetMemberSectionById()
-    {
-        $client = static::createClient();
-
-        $path = '/members/{memberId}/section';
-        $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('PUT', $path);
     }
 
     /**
