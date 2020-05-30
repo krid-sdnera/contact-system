@@ -76,7 +76,7 @@ class SubsidiariesApiInterfaceTest extends WebTestCase
     /**
      * Test case for addSubsidiaryLocalMarkerById
      *
-     * .
+     * Add local marker.
      *
      */
     public function testAddSubsidiaryLocalMarkerById()
@@ -94,7 +94,7 @@ class SubsidiariesApiInterfaceTest extends WebTestCase
     /**
      * Test case for createSubsidiary
      *
-     * .
+     * Create subsidiary.
      *
      */
     public function testCreateSubsidiary()
@@ -109,7 +109,7 @@ class SubsidiariesApiInterfaceTest extends WebTestCase
     /**
      * Test case for deleteSubsidiaryById
      *
-     * .
+     * Delete Subsidiary.
      *
      */
     public function testDeleteSubsidiaryById()
@@ -178,7 +178,7 @@ class SubsidiariesApiInterfaceTest extends WebTestCase
     /**
      * Test case for removeSubsidiaryLocalMarkerById
      *
-     * .
+     * Remove local marker.
      *
      */
     public function testRemoveSubsidiaryLocalMarkerById()
@@ -196,7 +196,7 @@ class SubsidiariesApiInterfaceTest extends WebTestCase
     /**
      * Test case for updateSubsidiaryById
      *
-     * .
+     * Update subsidiary.
      *
      */
     public function testUpdateSubsidiaryById()

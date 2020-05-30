@@ -32,6 +32,8 @@ services:
 
 
 
+createParent
+
 ### Example Implementation
 ```php
 <?php
@@ -91,6 +93,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\ApiResponse deleteGroupById($groupId)
 
 
+
+deleteGroupById
 
 ### Example Implementation
 ```php
@@ -152,6 +156,8 @@ Name | Type | Description  | Notes
 
 
 
+deleteParentById
+
 ### Example Implementation
 ```php
 <?php
@@ -211,6 +217,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\GroupData getGroupById($groupId)
 
 Your GET endpoint
+
+getGroupById
 
 ### Example Implementation
 ```php
@@ -272,6 +280,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+getParentById
+
 ### Example Implementation
 ```php
 <?php
@@ -332,6 +342,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+Your GET endpoint
+
 ### Example Implementation
 ```php
 <?php
@@ -389,6 +401,8 @@ Name | Type | Description  | Notes
 
 ## **getParents**
 > OpenAPI\Server\Model\MemberParentData getParents($sort, $pageSize, $page)
+
+Your GET endpoint
 
 Your GET endpoint
 
@@ -454,6 +468,8 @@ Name | Type | Description  | Notes
 
 
 
+updateGroupById
+
 ### Example Implementation
 ```php
 <?php
@@ -514,6 +530,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\MemberParentData updateParentById($parentId, $memberParentInput)
 
 
+
+updateParentById
 
 ### Example Implementation
 ```php

@@ -4,12 +4,12 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createCustomRole**](RolesApiInterface.md#createCustomRole) | **POST** /roles/custom | 
-[**deleteCustomRoleById**](RolesApiInterface.md#deleteCustomRoleById) | **DELETE** /roles/custom/{customRoleId} | 
+[**createCustomRole**](RolesApiInterface.md#createCustomRole) | **POST** /roles/custom | Create custom role
+[**deleteCustomRoleById**](RolesApiInterface.md#deleteCustomRoleById) | **DELETE** /roles/custom/{customRoleId} | Delete custom role
 [**getCustomRoleById**](RolesApiInterface.md#getCustomRoleById) | **GET** /roles/custom/{customRoleId} | Your GET endpoint
 [**getCustomRoleMembersById**](RolesApiInterface.md#getCustomRoleMembersById) | **GET** /roles/custom/{customRoleId}/members | Your GET endpoint
 [**getCustomRoles**](RolesApiInterface.md#getCustomRoles) | **GET** /roles/custom | Your GET endpoint
-[**updateCustomRoleById**](RolesApiInterface.md#updateCustomRoleById) | **PUT** /roles/custom/{customRoleId} | 
+[**updateCustomRoleById**](RolesApiInterface.md#updateCustomRoleById) | **PUT** /roles/custom/{customRoleId} | Update custom role
 
 
 ## Service Declaration
@@ -27,7 +27,9 @@ services:
 ## **createCustomRole**
 > OpenAPI\Server\Model\RoleData createCustomRole($roleInput)
 
+Create custom role
 
+Create custom role
 
 ### Example Implementation
 ```php
@@ -87,7 +89,9 @@ Name | Type | Description  | Notes
 ## **deleteCustomRoleById**
 > OpenAPI\Server\Model\ApiResponse deleteCustomRoleById($customRoleId)
 
+Delete custom role
 
+Delete custom role
 
 ### Example Implementation
 ```php
@@ -146,6 +150,8 @@ Name | Type | Description  | Notes
 
 ## **getCustomRoleById**
 > OpenAPI\Server\Model\RoleData getCustomRoleById($customRoleId)
+
+Your GET endpoint
 
 Your GET endpoint
 
@@ -209,6 +215,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+Your GET endpoint
+
 ### Example Implementation
 ```php
 <?php
@@ -266,6 +274,8 @@ Name | Type | Description  | Notes
 
 ## **getCustomRoles**
 > OpenAPI\Server\Model\RoleData getCustomRoles($sort, $pageSize, $page)
+
+Your GET endpoint
 
 Your GET endpoint
 
@@ -329,7 +339,9 @@ Name | Type | Description  | Notes
 ## **updateCustomRoleById**
 > OpenAPI\Server\Model\RoleData updateCustomRoleById($customRoleId, $roleInput)
 
+Update custom role
 
+Update custom role
 
 ### Example Implementation
 ```php

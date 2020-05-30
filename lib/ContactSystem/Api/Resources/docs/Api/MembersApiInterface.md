@@ -35,6 +35,8 @@ services:
 
 Add local marker
 
+Add local marker
+
 ### Example Implementation
 ```php
 <?php
@@ -92,6 +94,8 @@ Name | Type | Description  | Notes
 
 ## **createMember**
 > OpenAPI\Server\Model\MemberData createMember($memberInput)
+
+Create a member
 
 Create a member
 
@@ -279,6 +283,8 @@ Name | Type | Description  | Notes
 
 Get member suggestions
 
+Get member suggestions
+
 ### Example Implementation
 ```php
 <?php
@@ -336,6 +342,8 @@ Name | Type | Description  | Notes
 
 ## **getMembers**
 > OpenAPI\Server\Model\Members getMembers($sort, $pageSize, $page)
+
+List all members
 
 List all members
 
@@ -401,6 +409,8 @@ Name | Type | Description  | Notes
 
 Merge member
 
+Merge member
+
 ### Example Implementation
 ```php
 <?php
@@ -459,6 +469,8 @@ Name | Type | Description  | Notes
 
 ## **removeMemberLocalMarkerById**
 > OpenAPI\Server\Model\ApiResponse removeMemberLocalMarkerById($memberId)
+
+Remove local marker
 
 Remove local marker
 
@@ -522,6 +534,8 @@ Name | Type | Description  | Notes
 
 
 
+removeMemberSectionById
+
 ### Example Implementation
 ```php
 <?php
@@ -581,6 +595,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\GroupData setMemberGroupById($memberId, $groupInput)
 
 
+
+setMemberGroupById
 
 ### Example Implementation
 ```php
@@ -642,6 +658,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\ApiResponse setMemberSectionById($memberId, $sectionData)
 
 
+
+Your PUT endpoint
 
 ### Example Implementation
 ```php

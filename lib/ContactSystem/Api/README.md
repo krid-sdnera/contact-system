@@ -167,12 +167,12 @@ Class | Method | HTTP request | Description
 *ParentsApiInterface* | [**getParents**](Resources/docs/Api/ParentsApiInterface.md#getparents) | **GET** /parents | Your GET endpoint
 *ParentsApiInterface* | [**updateGroupById**](Resources/docs/Api/ParentsApiInterface.md#updategroupbyid) | **PUT** /groups/{groupId} | 
 *ParentsApiInterface* | [**updateParentById**](Resources/docs/Api/ParentsApiInterface.md#updateparentbyid) | **PUT** /parents/{parentId} | 
-*RolesApiInterface* | [**createCustomRole**](Resources/docs/Api/RolesApiInterface.md#createcustomrole) | **POST** /roles/custom | 
-*RolesApiInterface* | [**deleteCustomRoleById**](Resources/docs/Api/RolesApiInterface.md#deletecustomrolebyid) | **DELETE** /roles/custom/{customRoleId} | 
+*RolesApiInterface* | [**createCustomRole**](Resources/docs/Api/RolesApiInterface.md#createcustomrole) | **POST** /roles/custom | Create custom role
+*RolesApiInterface* | [**deleteCustomRoleById**](Resources/docs/Api/RolesApiInterface.md#deletecustomrolebyid) | **DELETE** /roles/custom/{customRoleId} | Delete custom role
 *RolesApiInterface* | [**getCustomRoleById**](Resources/docs/Api/RolesApiInterface.md#getcustomrolebyid) | **GET** /roles/custom/{customRoleId} | Your GET endpoint
 *RolesApiInterface* | [**getCustomRoleMembersById**](Resources/docs/Api/RolesApiInterface.md#getcustomrolemembersbyid) | **GET** /roles/custom/{customRoleId}/members | Your GET endpoint
 *RolesApiInterface* | [**getCustomRoles**](Resources/docs/Api/RolesApiInterface.md#getcustomroles) | **GET** /roles/custom | Your GET endpoint
-*RolesApiInterface* | [**updateCustomRoleById**](Resources/docs/Api/RolesApiInterface.md#updatecustomrolebyid) | **PUT** /roles/custom/{customRoleId} | 
+*RolesApiInterface* | [**updateCustomRoleById**](Resources/docs/Api/RolesApiInterface.md#updatecustomrolebyid) | **PUT** /roles/custom/{customRoleId} | Update custom role
 *SectionsApiInterface* | [**addSectionLocalMarkerById**](Resources/docs/Api/SectionsApiInterface.md#addsectionlocalmarkerbyid) | **PUT** /sections/{sectionId}/local | 
 *SectionsApiInterface* | [**createSection**](Resources/docs/Api/SectionsApiInterface.md#createsection) | **POST** /sections | 
 *SectionsApiInterface* | [**deleteSectionById**](Resources/docs/Api/SectionsApiInterface.md#deletesectionbyid) | **DELETE** /sections/{sectionId} | 
@@ -181,14 +181,14 @@ Class | Method | HTTP request | Description
 *SectionsApiInterface* | [**getSections**](Resources/docs/Api/SectionsApiInterface.md#getsections) | **GET** /sections | Your GET endpoint
 *SectionsApiInterface* | [**removeSectionLocalMarkerById**](Resources/docs/Api/SectionsApiInterface.md#removesectionlocalmarkerbyid) | **DELETE** /sections/{sectionId}/local | 
 *SectionsApiInterface* | [**updateSectionById**](Resources/docs/Api/SectionsApiInterface.md#updatesectionbyid) | **PUT** /sections/{sectionId} | 
-*SubsidiariesApiInterface* | [**addSubsidiaryLocalMarkerById**](Resources/docs/Api/SubsidiariesApiInterface.md#addsubsidiarylocalmarkerbyid) | **PUT** /subsidiaries/{subsidiaryId}/local | 
-*SubsidiariesApiInterface* | [**createSubsidiary**](Resources/docs/Api/SubsidiariesApiInterface.md#createsubsidiary) | **POST** /subsidiaries | 
-*SubsidiariesApiInterface* | [**deleteSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#deletesubsidiarybyid) | **DELETE** /subsidiaries/{subsidiaryId} | 
+*SubsidiariesApiInterface* | [**addSubsidiaryLocalMarkerById**](Resources/docs/Api/SubsidiariesApiInterface.md#addsubsidiarylocalmarkerbyid) | **PUT** /subsidiaries/{subsidiaryId}/local | Add local marker
+*SubsidiariesApiInterface* | [**createSubsidiary**](Resources/docs/Api/SubsidiariesApiInterface.md#createsubsidiary) | **POST** /subsidiaries | Create subsidiary
+*SubsidiariesApiInterface* | [**deleteSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#deletesubsidiarybyid) | **DELETE** /subsidiaries/{subsidiaryId} | Delete Subsidiary
 *SubsidiariesApiInterface* | [**getSubsidiary**](Resources/docs/Api/SubsidiariesApiInterface.md#getsubsidiary) | **GET** /subsidiaries | Get Subsidiary
 *SubsidiariesApiInterface* | [**getSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#getsubsidiarybyid) | **GET** /subsidiaries/{subsidiaryId} | Your GET endpoint
 *SubsidiariesApiInterface* | [**getSubsidiaryMembersById**](Resources/docs/Api/SubsidiariesApiInterface.md#getsubsidiarymembersbyid) | **GET** /subsidiaries/{subsidiaryId}/members | Your GET endpoint
-*SubsidiariesApiInterface* | [**removeSubsidiaryLocalMarkerById**](Resources/docs/Api/SubsidiariesApiInterface.md#removesubsidiarylocalmarkerbyid) | **DELETE** /subsidiaries/{subsidiaryId}/local | 
-*SubsidiariesApiInterface* | [**updateSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#updatesubsidiarybyid) | **PUT** /subsidiaries/{subsidiaryId} | 
+*SubsidiariesApiInterface* | [**removeSubsidiaryLocalMarkerById**](Resources/docs/Api/SubsidiariesApiInterface.md#removesubsidiarylocalmarkerbyid) | **DELETE** /subsidiaries/{subsidiaryId}/local | Remove local marker
+*SubsidiariesApiInterface* | [**updateSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#updatesubsidiarybyid) | **PUT** /subsidiaries/{subsidiaryId} | Update subsidiary
 
 
 ## Documentation For Models

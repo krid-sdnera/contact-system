@@ -39,6 +39,8 @@ services:
 
 
 
+createList
+
 ### Example Implementation
 ```php
 <?php
@@ -98,6 +100,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\ListRule createListRuleById($listId, $listRule)
 
 
+
+createListRuleById
 
 ### Example Implementation
 ```php
@@ -160,6 +164,8 @@ Name | Type | Description  | Notes
 
 
 
+createListTypes
+
 ### Example Implementation
 ```php
 <?php
@@ -220,6 +226,8 @@ Name | Type | Description  | Notes
 
 
 
+deleteListById
+
 ### Example Implementation
 ```php
 <?php
@@ -279,6 +287,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\ApiResponse deleteListRuleById($listId, $ruleId)
 
 
+
+deleteListRuleById
 
 ### Example Implementation
 ```php
@@ -341,6 +351,8 @@ Name | Type | Description  | Notes
 
 
 
+deleteListTypeById
+
 ### Example Implementation
 ```php
 <?php
@@ -400,6 +412,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\ModelList getListById($listId)
 
 Your GET endpoint
+
+getListById
 
 ### Example Implementation
 ```php
@@ -461,6 +475,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+getListMembersById
+
 ### Example Implementation
 ```php
 <?php
@@ -520,6 +536,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\ListRule getListRuleById($listId, $ruleId)
 
 Your GET endpoint
+
+getListRuleById
 
 ### Example Implementation
 ```php
@@ -582,6 +600,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+getListRulesById
+
 ### Example Implementation
 ```php
 <?php
@@ -642,6 +662,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+getListTypeById
+
 ### Example Implementation
 ```php
 <?php
@@ -701,6 +723,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\ListType getListTypes($sort, $pageSize, $page)
 
 Your GET endpoint
+
+getListTypes
 
 ### Example Implementation
 ```php
@@ -764,6 +788,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+getLists
+
 ### Example Implementation
 ```php
 <?php
@@ -826,6 +852,8 @@ Name | Type | Description  | Notes
 
 
 
+updateListById
+
 ### Example Implementation
 ```php
 <?php
@@ -886,6 +914,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\ListRule updateListRuleById($listId, $ruleId, $listRule)
 
 
+
+updateListRuleById
 
 ### Example Implementation
 ```php
@@ -948,6 +978,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\ListType updateListTypeById($listTypeId, $listType)
 
 
+
+updateListTypeById
 
 ### Example Implementation
 ```php

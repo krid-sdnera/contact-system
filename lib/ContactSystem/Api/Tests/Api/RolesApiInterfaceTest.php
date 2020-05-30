@@ -76,7 +76,7 @@ class RolesApiInterfaceTest extends WebTestCase
     /**
      * Test case for createCustomRole
      *
-     * .
+     * Create custom role.
      *
      */
     public function testCreateCustomRole()
@@ -91,7 +91,7 @@ class RolesApiInterfaceTest extends WebTestCase
     /**
      * Test case for deleteCustomRoleById
      *
-     * .
+     * Delete custom role.
      *
      */
     public function testDeleteCustomRoleById()
@@ -160,7 +160,7 @@ class RolesApiInterfaceTest extends WebTestCase
     /**
      * Test case for updateCustomRoleById
      *
-     * .
+     * Update custom role.
      *
      */
     public function testUpdateCustomRoleById()

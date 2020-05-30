@@ -31,6 +31,8 @@ services:
 
 
 
+addSectionLocalMarkerById
+
 ### Example Implementation
 ```php
 <?php
@@ -90,6 +92,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\SectionData createSection($sectionInput)
 
 
+
+createSection
 
 ### Example Implementation
 ```php
@@ -151,6 +155,8 @@ Name | Type | Description  | Notes
 
 
 
+deleteSectionById
+
 ### Example Implementation
 ```php
 <?php
@@ -211,6 +217,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+getSectionById
+
 ### Example Implementation
 ```php
 <?php
@@ -268,6 +276,8 @@ Name | Type | Description  | Notes
 
 ## **getSectionMembersById**
 > OpenAPI\Server\Model\MemberData getSectionMembersById($sectionId)
+
+Your GET endpoint
 
 Your GET endpoint
 
@@ -331,6 +341,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+getSections
+
 ### Example Implementation
 ```php
 <?php
@@ -393,6 +405,8 @@ Name | Type | Description  | Notes
 
 
 
+removeSectionLocalMarkerById
+
 ### Example Implementation
 ```php
 <?php
@@ -452,6 +466,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\SectionData updateSectionById($sectionId, $sectionInput)
 
 
+
+updateSectionById
 
 ### Example Implementation
 ```php

@@ -57,6 +57,8 @@ interface RolesApiInterface
     /**
      * Operation createCustomRole
      *
+     * Create custom role
+     *
      * @param  OpenAPI\Server\Model\RoleInput $roleInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -68,6 +70,8 @@ interface RolesApiInterface
 
     /**
      * Operation deleteCustomRoleById
+     *
+     * Delete custom role
      *
      * @param  string $customRoleId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -124,6 +128,8 @@ interface RolesApiInterface
 
     /**
      * Operation updateCustomRoleById
+     *
+     * Update custom role
      *
      * @param  string $customRoleId   (required)
      * @param  OpenAPI\Server\Model\RoleInput $roleInput   (optional)

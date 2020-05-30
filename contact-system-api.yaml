@@ -51,7 +51,7 @@ paths:
       tags:
         - members
       summary: Create a member
-      description: ""
+      description: Create a member
       operationId: createMember
       requestBody:
         description: ""
@@ -70,7 +70,7 @@ paths:
                 $ref: "#/components/schemas/MemberData"
     get:
       summary: List all members
-      description: ""
+      description: List all members
       parameters:
         - schema:
             type: string
@@ -163,7 +163,7 @@ paths:
   "/members/{memberId}/local":
     put:
       summary: Add local marker
-      description: ""
+      description: Add local marker
       parameters: []
       operationId: addMemberLocalMarkerById
       responses:
@@ -177,7 +177,7 @@ paths:
         - members
     delete:
       summary: Remove local marker
-      description: ""
+      description: Remove local marker
       parameters: []
       operationId: removeMemberLocalMarkerById
       responses:
@@ -198,7 +198,7 @@ paths:
   "/members/{memberId}/local/suggestions":
     get:
       summary: Get member suggestions
-      description: ""
+      description: Get member suggestions
       parameters: []
       operationId: getMemberLocalMarkerSuggestionsById
       responses:
@@ -222,7 +222,7 @@ paths:
   "/members/{memberId}/merge_into/{mergeMemberId}":
     post:
       summary: Merge member
-      description: ""
+      description: Merge member
       parameters: []
       operationId: mergeMember
       tags:
@@ -248,6 +248,7 @@ paths:
   /roles/custom:
     get:
       summary: Your GET endpoint
+      description: Your GET endpoint
       tags:
         - roles
       responses:
@@ -275,7 +276,8 @@ paths:
           in: query
           name: page
     post:
-      summary: ""
+      summary: Create custom role
+      description: Create custom role
       operationId: createCustomRole
       responses:
         "200":
@@ -300,6 +302,7 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: Your GET endpoint
       tags:
         - roles
       responses:
@@ -311,7 +314,8 @@ paths:
                 $ref: "#/components/schemas/RoleData"
       operationId: getCustomRoleById
     put:
-      summary: ""
+      summary: Update custom role
+      description: Update custom role
       operationId: updateCustomRoleById
       responses:
         "200":
@@ -328,7 +332,8 @@ paths:
       tags:
         - roles
     delete:
-      summary: ""
+      summary: Delete custom role
+      description: Delete custom role
       operationId: deleteCustomRoleById
       responses:
         "200":
@@ -348,6 +353,7 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: Your GET endpoint
       tags:
         - roles
       responses:
@@ -364,6 +370,7 @@ paths:
   /subsidiaries:
     get:
       summary: Get Subsidiary
+      description: Get Subsidiary
       tags:
         - subsidiaries
       responses:
@@ -377,9 +384,9 @@ paths:
                 items:
                   $ref: "#/components/schemas/SubsidiaryData"
       operationId: getSubsidiary
-      description: ""
     post:
-      summary: ""
+      summary: Create subsidiary
+      description: Create subsidiary
       operationId: createSubsidiary
       responses:
         "200":
@@ -395,6 +402,7 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: Your GET endpoint
       tags:
         - subsidiaries
       responses:
@@ -417,6 +425,7 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: Your GET endpoint
       tags:
         - subsidiaries
       responses:
@@ -428,7 +437,8 @@ paths:
                 $ref: "#/components/schemas/SubsidiaryData"
       operationId: getSubsidiaryById
     put:
-      summary: ""
+      summary: Update subsidiary
+      description: Update subsidiary
       operationId: updateSubsidiaryById
       responses:
         "200":
@@ -445,7 +455,8 @@ paths:
       tags:
         - subsidiaries
     delete:
-      summary: ""
+      summary: Delete Subsidiary
+      description: Delete Subsidiary
       operationId: deleteSubsidiaryById
       responses:
         "200":
@@ -464,7 +475,8 @@ paths:
         in: path
         required: true
     put:
-      summary: ""
+      summary: Add local marker
+      description: Add local marker
       operationId: addSubsidiaryLocalMarkerById
       responses:
         "200":
@@ -476,7 +488,8 @@ paths:
       tags:
         - subsidiaries
     delete:
-      summary: ""
+      summary: Remove local marker
+      description: Remove local marker
       operationId: removeSubsidiaryLocalMarkerById
       responses:
         "200":
@@ -490,6 +503,7 @@ paths:
   /parents:
     get:
       summary: Your GET endpoint
+      description: Your GET endpoint
       tags:
         - parents
       responses:
@@ -518,6 +532,7 @@ paths:
           name: page
     post:
       summary: ""
+      description: createParent
       operationId: createParent
       responses:
         "200":
@@ -543,6 +558,7 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: getParentById
       tags:
         - parents
       responses:
@@ -555,6 +571,7 @@ paths:
       operationId: getParentById
     put:
       summary: ""
+      description: updateParentById
       operationId: updateParentById
       responses:
         "200":
@@ -573,6 +590,7 @@ paths:
         - parents
     delete:
       summary: ""
+      description: deleteParentById
       operationId: deleteParentById
       responses:
         "200":
@@ -592,6 +610,7 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: Your GET endpoint
       tags:
         - parents
       responses:
@@ -634,9 +653,10 @@ paths:
             type: integer
           in: query
           name: page
-      description: ""
+      description: Your GET endpoint
     post:
       summary: ""
+      description: createGroup
       operationId: createGroup
       responses:
         "200":
@@ -661,6 +681,7 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: getGroupById
       tags:
         - parents
       responses:
@@ -673,6 +694,7 @@ paths:
       operationId: getGroupById
     put:
       summary: ""
+      description: updateGroupById
       operationId: updateGroupById
       responses:
         "200":
@@ -690,6 +712,7 @@ paths:
         - parents
     delete:
       summary: ""
+      description: deleteGroupById
       operationId: deleteGroupById
       responses:
         "200":
@@ -709,6 +732,7 @@ paths:
         required: true
     put:
       summary: ""
+      description: addGroupLocalMarkerById
       operationId: addGroupLocalMarkerById
       responses:
         "200":
@@ -721,6 +745,7 @@ paths:
         - groups
     delete:
       summary: ""
+      description: deleteGroupLocalMarkerById
       operationId: deleteGroupLocalMarkerById
       responses:
         "200":
@@ -753,7 +778,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/MemberData"
       operationId: getGroupMembersById
-      description: ""
+      description: getGroupMembersById
   "/groups/{groupId}/sections":
     parameters:
       - schema:
@@ -763,6 +788,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: getGroupSectionsById
+      operationId: getGroupSectionsById
       tags:
         - groups
       responses:
@@ -775,10 +802,11 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/SectionData"
-      operationId: getGroupSectionsById
   /sections:
     get:
       summary: Your GET endpoint
+      description: getSections
+      operationId: getSections
       tags:
         - sections
       responses:
@@ -791,7 +819,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/SectionData"
-      operationId: getSections
       parameters:
         - schema:
             type: string
@@ -807,6 +834,7 @@ paths:
           name: page
     post:
       summary: ""
+      description: createSection
       operationId: createSection
       responses:
         "200":
@@ -831,6 +859,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: getSectionById
+      operationId: getSectionById
       tags:
         - sections
       responses:
@@ -840,9 +870,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SectionData"
-      operationId: getSectionById
     put:
       summary: ""
+      description: updateSectionById
       operationId: updateSectionById
       responses:
         "200":
@@ -860,6 +890,7 @@ paths:
         - sections
     delete:
       summary: ""
+      description: deleteSectionById
       operationId: deleteSectionById
       responses:
         "200":
@@ -879,6 +910,7 @@ paths:
         required: true
     put:
       summary: ""
+      description: addSectionLocalMarkerById
       operationId: addSectionLocalMarkerById
       responses:
         "200":
@@ -891,6 +923,7 @@ paths:
         - sections
     delete:
       summary: ""
+      description: removeSectionLocalMarkerById
       operationId: removeSectionLocalMarkerById
       responses:
         "200":
@@ -910,6 +943,7 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: Your GET endpoint
       tags:
         - sections
       responses:
@@ -932,6 +966,7 @@ paths:
         required: true
     put:
       summary: ""
+      description: Your PUT endpoint
       operationId: setMemberSectionById
       responses:
         "200":
@@ -953,6 +988,7 @@ paths:
         - members
     delete:
       summary: ""
+      description: removeMemberSectionById
       operationId: removeMemberSectionById
       responses:
         "200":
@@ -972,6 +1008,7 @@ paths:
         required: true
     put:
       summary: ""
+      description: setMemberGroupById
       operationId: setMemberGroupById
       responses:
         "200":
@@ -991,6 +1028,8 @@ paths:
   /lists:
     get:
       summary: Your GET endpoint
+      description: getLists
+      operationId: getLists
       responses:
         "200":
           description: OK
@@ -1000,7 +1039,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/List"
-      operationId: getLists
       parameters:
         - schema:
             type: string
@@ -1018,6 +1056,7 @@ paths:
         - lists
     post:
       summary: ""
+      description: createList
       operationId: createList
       responses:
         "200":
@@ -1042,6 +1081,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: getListById
+      operationId: getListById
       tags:
         - lists
       responses:
@@ -1051,9 +1092,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/List"
-      operationId: getListById
     put:
       summary: ""
+      description: updateListById
       operationId: updateListById
       responses:
         "200":
@@ -1071,6 +1112,7 @@ paths:
         - lists
     delete:
       summary: ""
+      description: deleteListById
       operationId: deleteListById
       responses:
         "200":
@@ -1090,6 +1132,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: getListMembersById
+      operationId: getListMembersById
       tags:
         - lists
       responses:
@@ -1102,7 +1146,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/MemberData"
-      operationId: getListMembersById
   "/lists/{listId}/rules":
     parameters:
       - schema:
@@ -1112,6 +1155,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: getListRulesById
+      operationId: getListRulesById
       tags:
         - lists
       responses:
@@ -1123,10 +1168,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/ListRule"
-      operationId: getListRulesById
-      description: ""
     post:
       summary: ""
+      description: createListRuleById
       operationId: createListRuleById
       responses:
         "200":
@@ -1156,6 +1200,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: getListRuleById
+      operationId: getListRuleById
       tags:
         - lists
       responses:
@@ -1165,9 +1211,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ListRule"
-      operationId: getListRuleById
     put:
       summary: ""
+      description: updateListRuleById
       operationId: updateListRuleById
       responses:
         "200":
@@ -1185,6 +1231,7 @@ paths:
         - lists
     delete:
       summary: ""
+      description: deleteListRuleById
       operationId: deleteListRuleById
       responses:
         "200":
@@ -1198,6 +1245,8 @@ paths:
   /lists/types:
     get:
       summary: Your GET endpoint
+      description: getListTypes
+      operationId: getListTypes
       tags:
         - lists
       responses:
@@ -1209,7 +1258,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/ListType"
-      operationId: getListTypes
       parameters:
         - schema:
             type: string
@@ -1225,6 +1273,7 @@ paths:
           name: page
     post:
       summary: ""
+      description: createListTypes
       operationId: createListTypes
       responses:
         "200":
@@ -1249,6 +1298,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
+      description: getListTypeById
+      operationId: getListTypeById
       tags:
         - lists
       responses:
@@ -1258,9 +1309,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ListType"
-      operationId: getListTypeById
     put:
       summary: ""
+      description: updateListTypeById
       operationId: updateListTypeById
       responses:
         "200":
@@ -1278,6 +1329,7 @@ paths:
         - lists
     delete:
       summary: ""
+      description: deleteListTypeById
       operationId: deleteListTypeById
       responses:
         "200":

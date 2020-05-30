@@ -56,6 +56,8 @@ class RolesController extends Controller
     /**
      * Operation createCustomRole
      *
+     * Create custom role
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -147,6 +149,8 @@ class RolesController extends Controller
 
     /**
      * Operation deleteCustomRoleById
+     *
+     * Delete custom role
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -501,6 +505,8 @@ class RolesController extends Controller
 
     /**
      * Operation updateCustomRoleById
+     *
+     * Update custom role
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.

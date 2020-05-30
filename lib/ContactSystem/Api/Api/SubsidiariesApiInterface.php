@@ -57,6 +57,8 @@ interface SubsidiariesApiInterface
     /**
      * Operation addSubsidiaryLocalMarkerById
      *
+     * Add local marker
+     *
      * @param  string $subsidiaryId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -69,6 +71,8 @@ interface SubsidiariesApiInterface
     /**
      * Operation createSubsidiary
      *
+     * Create subsidiary
+     *
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
@@ -79,6 +83,8 @@ interface SubsidiariesApiInterface
 
     /**
      * Operation deleteSubsidiaryById
+     *
+     * Delete Subsidiary
      *
      * @param  string $subsidiaryId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -133,6 +139,8 @@ interface SubsidiariesApiInterface
     /**
      * Operation removeSubsidiaryLocalMarkerById
      *
+     * Remove local marker
+     *
      * @param  string $subsidiaryId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -144,6 +152,8 @@ interface SubsidiariesApiInterface
 
     /**
      * Operation updateSubsidiaryById
+     *
+     * Update subsidiary
      *
      * @param  string $subsidiaryId   (required)
      * @param  OpenAPI\Server\Model\SubsidiaryInput $subsidiaryInput   (optional)

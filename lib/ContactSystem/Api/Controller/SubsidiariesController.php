@@ -56,6 +56,8 @@ class SubsidiariesController extends Controller
     /**
      * Operation addSubsidiaryLocalMarkerById
      *
+     * Add local marker
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -139,6 +141,8 @@ class SubsidiariesController extends Controller
     /**
      * Operation createSubsidiary
      *
+     * Create subsidiary
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -197,6 +201,8 @@ class SubsidiariesController extends Controller
 
     /**
      * Operation deleteSubsidiaryById
+     *
+     * Delete Subsidiary
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -522,6 +528,8 @@ class SubsidiariesController extends Controller
     /**
      * Operation removeSubsidiaryLocalMarkerById
      *
+     * Remove local marker
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -604,6 +612,8 @@ class SubsidiariesController extends Controller
 
     /**
      * Operation updateSubsidiaryById
+     *
+     * Update subsidiary
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.

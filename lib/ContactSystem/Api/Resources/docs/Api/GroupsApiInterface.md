@@ -29,6 +29,8 @@ services:
 
 
 
+addGroupLocalMarkerById
+
 ### Example Implementation
 ```php
 <?php
@@ -88,6 +90,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\GroupData createGroup($groupInput)
 
 
+
+createGroup
 
 ### Example Implementation
 ```php
@@ -149,6 +153,8 @@ Name | Type | Description  | Notes
 
 
 
+deleteGroupLocalMarkerById
+
 ### Example Implementation
 ```php
 <?php
@@ -208,6 +214,8 @@ Name | Type | Description  | Notes
 > OpenAPI\Server\Model\MemberData getGroupMembersById($groupId)
 
 Your GET endpoint
+
+getGroupMembersById
 
 ### Example Implementation
 ```php
@@ -269,6 +277,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+getGroupSectionsById
+
 ### Example Implementation
 ```php
 <?php
@@ -326,6 +336,8 @@ Name | Type | Description  | Notes
 
 ## **getGroups**
 > OpenAPI\Server\Model\GroupData getGroups($sort, $pageSize, $page)
+
+Your GET endpoint
 
 Your GET endpoint
 

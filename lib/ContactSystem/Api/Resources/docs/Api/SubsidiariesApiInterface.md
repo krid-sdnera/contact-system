@@ -4,14 +4,14 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addSubsidiaryLocalMarkerById**](SubsidiariesApiInterface.md#addSubsidiaryLocalMarkerById) | **PUT** /subsidiaries/{subsidiaryId}/local | 
-[**createSubsidiary**](SubsidiariesApiInterface.md#createSubsidiary) | **POST** /subsidiaries | 
-[**deleteSubsidiaryById**](SubsidiariesApiInterface.md#deleteSubsidiaryById) | **DELETE** /subsidiaries/{subsidiaryId} | 
+[**addSubsidiaryLocalMarkerById**](SubsidiariesApiInterface.md#addSubsidiaryLocalMarkerById) | **PUT** /subsidiaries/{subsidiaryId}/local | Add local marker
+[**createSubsidiary**](SubsidiariesApiInterface.md#createSubsidiary) | **POST** /subsidiaries | Create subsidiary
+[**deleteSubsidiaryById**](SubsidiariesApiInterface.md#deleteSubsidiaryById) | **DELETE** /subsidiaries/{subsidiaryId} | Delete Subsidiary
 [**getSubsidiary**](SubsidiariesApiInterface.md#getSubsidiary) | **GET** /subsidiaries | Get Subsidiary
 [**getSubsidiaryById**](SubsidiariesApiInterface.md#getSubsidiaryById) | **GET** /subsidiaries/{subsidiaryId} | Your GET endpoint
 [**getSubsidiaryMembersById**](SubsidiariesApiInterface.md#getSubsidiaryMembersById) | **GET** /subsidiaries/{subsidiaryId}/members | Your GET endpoint
-[**removeSubsidiaryLocalMarkerById**](SubsidiariesApiInterface.md#removeSubsidiaryLocalMarkerById) | **DELETE** /subsidiaries/{subsidiaryId}/local | 
-[**updateSubsidiaryById**](SubsidiariesApiInterface.md#updateSubsidiaryById) | **PUT** /subsidiaries/{subsidiaryId} | 
+[**removeSubsidiaryLocalMarkerById**](SubsidiariesApiInterface.md#removeSubsidiaryLocalMarkerById) | **DELETE** /subsidiaries/{subsidiaryId}/local | Remove local marker
+[**updateSubsidiaryById**](SubsidiariesApiInterface.md#updateSubsidiaryById) | **PUT** /subsidiaries/{subsidiaryId} | Update subsidiary
 
 
 ## Service Declaration
@@ -29,7 +29,9 @@ services:
 ## **addSubsidiaryLocalMarkerById**
 > OpenAPI\Server\Model\ApiResponse addSubsidiaryLocalMarkerById($subsidiaryId)
 
+Add local marker
 
+Add local marker
 
 ### Example Implementation
 ```php
@@ -89,7 +91,9 @@ Name | Type | Description  | Notes
 ## **createSubsidiary**
 > createSubsidiary()
 
+Create subsidiary
 
+Create subsidiary
 
 ### Example Implementation
 ```php
@@ -146,7 +150,9 @@ void (empty response body)
 ## **deleteSubsidiaryById**
 > OpenAPI\Server\Model\ApiResponse deleteSubsidiaryById($subsidiaryId)
 
+Delete Subsidiary
 
+Delete Subsidiary
 
 ### Example Implementation
 ```php
@@ -208,6 +214,8 @@ Name | Type | Description  | Notes
 
 Get Subsidiary
 
+Get Subsidiary
+
 ### Example Implementation
 ```php
 <?php
@@ -262,6 +270,8 @@ This endpoint does not need any parameter.
 
 ## **getSubsidiaryById**
 > OpenAPI\Server\Model\SubsidiaryData getSubsidiaryById($subsidiaryId)
+
+Your GET endpoint
 
 Your GET endpoint
 
@@ -325,6 +335,8 @@ Name | Type | Description  | Notes
 
 Your GET endpoint
 
+Your GET endpoint
+
 ### Example Implementation
 ```php
 <?php
@@ -383,7 +395,9 @@ Name | Type | Description  | Notes
 ## **removeSubsidiaryLocalMarkerById**
 > OpenAPI\Server\Model\ApiResponse removeSubsidiaryLocalMarkerById($subsidiaryId)
 
+Remove local marker
 
+Remove local marker
 
 ### Example Implementation
 ```php
@@ -443,7 +457,9 @@ Name | Type | Description  | Notes
 ## **updateSubsidiaryById**
 > OpenAPI\Server\Model\SubsidiaryData updateSubsidiaryById($subsidiaryId, $subsidiaryInput)
 
+Update subsidiary
 
+Update subsidiary
 
 ### Example Implementation
 ```php
