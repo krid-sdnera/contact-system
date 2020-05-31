@@ -1476,12 +1476,16 @@ components:
           type: string
         phoneWork:
           type: string
-        gender:
+        relationship:
           type: string
+        primaryContact:
+          type: boolean
         email:
           type: string
         occupation:
           type: string
+        memberId:
+          type: integer
       required:
         - firstname
         - lastname
@@ -1505,12 +1509,16 @@ components:
           type: string
         phoneWork:
           type: string
-        gender:
+        relationship:
           type: string
+        primaryContact:
+          type: boolean
         email:
           type: string
         occupation:
           type: string
+        member:
+          $ref: "#/components/schemas/MemberData"
       required:
         - id
         - firstname

@@ -46,3 +46,8 @@ services:
         tags:
             - { name: "open_api_server.api", api: "groups" }
             
+    contact_system.controller.contacts:
+        class: App\Controller\ContactsController
+        tags:
+            - { name: "open_api_server.api", api: "contacts" }
+            

@@ -135,9 +135,16 @@ class ContactDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "gender"
+     * Test attribute "relationship"
      */
-    public function testPropertyGender()
+    public function testPropertyRelationship()
+    {
+    }
+
+    /**
+     * Test attribute "primaryContact"
+     */
+    public function testPropertyPrimaryContact()
     {
     }
 
@@ -152,6 +159,13 @@ class ContactDataTest extends \PHPUnit_Framework_TestCase
      * Test attribute "occupation"
      */
     public function testPropertyOccupation()
+    {
+    }
+
+    /**
+     * Test attribute "member"
+     */
+    public function testPropertyMember()
     {
     }
 }

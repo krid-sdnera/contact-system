@@ -78,9 +78,15 @@ class Member
      */
     private $roles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="member")
+     */
+    private $contacts;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -241,6 +247,37 @@ class Member
     {
         if ($this->roles->contains($role)) {
             $this->roles->removeElement($role);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getMember() === $this) {
+                $contact->setMember(null);
+            }
         }
 
         return $this;

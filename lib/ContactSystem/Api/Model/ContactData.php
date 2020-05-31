@@ -110,11 +110,19 @@ class ContactData
 
     /**
      * @var string|null
-     * @SerializedName("gender")
+     * @SerializedName("relationship")
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected $gender;
+    protected $relationship;
+
+    /**
+     * @var bool|null
+     * @SerializedName("primaryContact")
+     * @Assert\Type("bool")
+     * @Type("bool")
+     */
+    protected $primaryContact;
 
     /**
      * @var string|null
@@ -133,6 +141,14 @@ class ContactData
     protected $occupation;
 
     /**
+     * @var OpenAPI\Server\Model\MemberData|null
+     * @SerializedName("member")
+     * @Assert\Type("OpenAPI\Server\Model\MemberData")
+     * @Type("OpenAPI\Server\Model\MemberData")
+     */
+    protected $member;
+
+    /**
      * Constructor
      * @param mixed[] $data Associated array of property values initializing the model
      */
@@ -146,9 +162,11 @@ class ContactData
         $this->phoneHome = isset($data['phoneHome']) ? $data['phoneHome'] : null;
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
         $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : null;
-        $this->gender = isset($data['gender']) ? $data['gender'] : null;
+        $this->relationship = isset($data['relationship']) ? $data['relationship'] : null;
+        $this->primaryContact = isset($data['primaryContact']) ? $data['primaryContact'] : null;
         $this->email = isset($data['email']) ? $data['email'] : null;
         $this->occupation = isset($data['occupation']) ? $data['occupation'] : null;
+        $this->member = isset($data['member']) ? $data['member'] : null;
     }
 
     /**
@@ -344,25 +362,49 @@ class ContactData
     }
 
     /**
-     * Gets gender.
+     * Gets relationship.
      *
      * @return string|null
      */
-    public function getGender(): ?string
+    public function getRelationship(): ?string
     {
-        return $this->gender;
+        return $this->relationship;
     }
 
     /**
-     * Sets gender.
+     * Sets relationship.
      *
-     * @param string|null $gender
+     * @param string|null $relationship
      *
      * @return $this
      */
-    public function setGender(string $gender = null): ?string
+    public function setRelationship(string $relationship = null): ?string
     {
-        $this->gender = $gender;
+        $this->relationship = $relationship;
+
+        return $this;
+    }
+
+    /**
+     * Gets primaryContact.
+     *
+     * @return bool|null
+     */
+    public function isPrimaryContact(): ?bool
+    {
+        return $this->primaryContact;
+    }
+
+    /**
+     * Sets primaryContact.
+     *
+     * @param bool|null $primaryContact
+     *
+     * @return $this
+     */
+    public function setPrimaryContact(bool $primaryContact = null): ?bool
+    {
+        $this->primaryContact = $primaryContact;
 
         return $this;
     }
@@ -411,6 +453,30 @@ class ContactData
     public function setOccupation(string $occupation = null): ?string
     {
         $this->occupation = $occupation;
+
+        return $this;
+    }
+
+    /**
+     * Gets member.
+     *
+     * @return OpenAPI\Server\Model\MemberData|null
+     */
+    public function getMember(): ?MemberData
+    {
+        return $this->member;
+    }
+
+    /**
+     * Sets member.
+     *
+     * @param OpenAPI\Server\Model\MemberData|null $member
+     *
+     * @return $this
+     */
+    public function setMember(MemberData $member = null): ?MemberData
+    {
+        $this->member = $member;
 
         return $this;
     }

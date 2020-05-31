@@ -61,6 +61,22 @@ class Contact
      */
     private $occupation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="contacts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $member;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $relationship;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $primaryContact;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -170,6 +186,42 @@ class Contact
     public function setOccupation(?string $occupation): self
     {
         $this->occupation = $occupation;
+
+        return $this;
+    }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(?Member $member): self
+    {
+        $this->member = $member;
+
+        return $this;
+    }
+
+    public function getRelationship(): ?string
+    {
+        return $this->relationship;
+    }
+
+    public function setRelationship(?string $relationship): self
+    {
+        $this->relationship = $relationship;
+
+        return $this;
+    }
+
+    public function getPrimaryContact(): ?bool
+    {
+        return $this->primaryContact;
+    }
+
+    public function setPrimaryContact(bool $primaryContact): self
+    {
+        $this->primaryContact = $primaryContact;
 
         return $this;
     }
