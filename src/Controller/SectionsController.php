@@ -6,7 +6,6 @@ use App\Entity\ScoutGroup;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 // use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-use Doctrine\ORM\ORMException;
 
 use OpenAPI\Server\Api\SectionsApiInterface;
 
@@ -14,6 +13,8 @@ use OpenAPI\Server\Model\SectionInput;
 
 use App\Entity\Section;
 use OpenAPI\Server\Model\ApiResponse;
+
+use App\Exception\SortKeyNotFound;
 
 class SectionsController extends AbstractController implements SectionsApiInterface
 {
@@ -152,39 +153,21 @@ class SectionsController extends AbstractController implements SectionsApiInterf
         &$responseCode,
         array &$responseHeaders
     ) {
-        $sortComputed = [];
-        if ($sort) {
-            $parts = explode(':', $sort, 2);
-
-            $sortField = (!empty($parts[0])) ? $parts[0] : null;
-            if ($sortField) {
-                $sortDirecton = (count($parts) >= 2 && !empty($parts[1])) ? $parts[1] : null;
-                $sortComputed[strtolower($sortField)] = (in_array(strtolower($sortDirecton), ['asc', 'desc'])) ? strtolower($sortDirecton) : 'asc';
-            }
-        }
-
-        $page = max($page, 1);
-        $limit = max(min($pageSize, 50), 5);
-        $offset = ($page - 1) * $limit;
-        $offset = max(min($offset, 9999), 0);
-
         try {
             $sections = $this->getDoctrine()
                 ->getRepository(Section::class)
-                ->findBy([], $sortComputed, $limit, $offset);
-        } catch (ORMException $e) {
-            if (strpos($e->getMessage(), "Unrecognized field") === 0) {
-                $keys = implode(',', array_keys($sortComputed));
-
-                $responseCode = 400;
-                return new ApiResponse([
-                    'code' => 400,
-                    'type' => 'Bad Request',
-                    'message' => "Sort field (${keys}) is not found"
-                ]);
-            }
-
-            throw $e;
+                ->findByPage(
+                    $sort,
+                    $pageSize,
+                    $page
+                );
+        } catch (SortKeyNotFound $e) {
+            $responseCode = 400;
+            return new ApiResponse([
+                'code' => 400,
+                'type' => 'Bad Request',
+                'message' => $e->getMessage()
+            ]);
         }
 
         return $sections;

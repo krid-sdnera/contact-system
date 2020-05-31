@@ -24,19 +24,13 @@ class Role
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Section", inversedBy="roles")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Section")
      * @ORM\JoinColumn(nullable=false)
      */
     private $section;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Member", mappedBy="roles")
-     */
-    private $members;
-
     public function __construct()
     {
-        $this->members = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,34 +58,6 @@ class Role
     public function setSection(?Section $section): self
     {
         $this->section = $section;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Member[]
-     */
-    public function getMembers(): Collection
-    {
-        return $this->members;
-    }
-
-    public function addMember(Member $member): self
-    {
-        if (!$this->members->contains($member)) {
-            $this->members[] = $member;
-            $member->addRole($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMember(Member $member): self
-    {
-        if ($this->members->contains($member)) {
-            $this->members->removeElement($member);
-            $member->removeRole($this);
-        }
 
         return $this;
     }

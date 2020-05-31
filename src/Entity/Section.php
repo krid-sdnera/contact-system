@@ -23,20 +23,15 @@ class Section
      */
     private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Role", mappedBy="section")
-     */
-    private $roles;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ScoutGroup", inversedBy="sections")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ScoutGroup")
      * @ORM\JoinColumn(nullable=false)
      */
     private $scoutGroup;
 
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,37 +47,6 @@ class Section
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Role[]
-     */
-    public function getRoles(): Collection
-    {
-        return $this->roles;
-    }
-
-    public function addRole(Role $role): self
-    {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-            $role->setSection($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRole(Role $role): self
-    {
-        if ($this->roles->contains($role)) {
-            $this->roles->removeElement($role);
-            // set the owning side to null (unless already changed)
-            if ($role->getSection() === $this) {
-                $role->setSection(null);
-            }
-        }
 
         return $this;
     }
