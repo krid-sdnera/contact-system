@@ -16,6 +16,7 @@ use App\Entity\Member;
 use OpenAPI\Server\Model\ApiResponse;
 
 use App\Exception\SortKeyNotFound;
+use DateTime;
 
 class ContactsController extends AbstractController implements ContactsApiInterface
 {
@@ -49,6 +50,11 @@ class ContactsController extends AbstractController implements ContactsApiInterf
         }
 
         $newContact = new Contact();
+
+        $newContact->setManagementState(Contact::DefaultManagementState);
+        $newContact->setState(Contact::DefaultState);
+        $newContact->setOverrides(Contact::DefaultOverrides);
+
         $newContact->setFirstname($contactInput->getFirstname());
         $newContact->setLastname($contactInput->getLastname());
         $newContact->setNickname($contactInput->getNickname());
@@ -201,6 +207,10 @@ class ContactsController extends AbstractController implements ContactsApiInterf
                 'message' => "Member (${memberId}) required for updating and was not found"
             ]);
         }
+
+        $contactToUpdate->setState($contactInput->getState());
+        $contactToUpdate->setOverrides($contactInput->getOverrides());
+        $contactToUpdate->setExpiry(new DateTime($member->getExpiry()));
 
         $contactToUpdate->setFirstname($contactInput->getFirstname());
         $contactToUpdate->setLastname($contactInput->getLastname());

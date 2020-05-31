@@ -51,6 +51,22 @@ class MemberData
     protected $id;
 
     /**
+     * @var string|null
+     * @SerializedName("state")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $state;
+
+    /**
+     * @var string|null
+     * @SerializedName("managementState")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $managementState;
+
+    /**
      * @var string
      * @SerializedName("firstname")
      * @Assert\NotNull()
@@ -133,12 +149,31 @@ class MemberData
     protected $gender;
 
     /**
+     * @var string|null
+     * @SerializedName("expiry")
+     * @Assert\Type("string")
+     * @Type("string")
+     * @Assert\Regex("/^\d{4}-\d{2}-\d{2}$/")
+     */
+    protected $expiry;
+
+    /**
+     * @var OpenAPI\Server\Model\MemberOverrideData|null
+     * @SerializedName("overrides")
+     * @Assert\Type("OpenAPI\Server\Model\MemberOverrideData")
+     * @Type("OpenAPI\Server\Model\MemberOverrideData")
+     */
+    protected $overrides;
+
+    /**
      * Constructor
      * @param mixed[] $data Associated array of property values initializing the model
      */
     public function __construct(array $data = null)
     {
         $this->id = isset($data['id']) ? $data['id'] : null;
+        $this->state = isset($data['state']) ? $data['state'] : null;
+        $this->managementState = isset($data['managementState']) ? $data['managementState'] : null;
         $this->firstname = isset($data['firstname']) ? $data['firstname'] : null;
         $this->lastname = isset($data['lastname']) ? $data['lastname'] : null;
         $this->nickname = isset($data['nickname']) ? $data['nickname'] : null;
@@ -149,6 +184,8 @@ class MemberData
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
         $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : null;
         $this->gender = isset($data['gender']) ? $data['gender'] : null;
+        $this->expiry = isset($data['expiry']) ? $data['expiry'] : '1990-01-01';
+        $this->overrides = isset($data['overrides']) ? $data['overrides'] : null;
     }
 
     /**
@@ -171,6 +208,54 @@ class MemberData
     public function setId(string $id): string
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets state.
+     *
+     * @return string|null
+     */
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    /**
+     * Sets state.
+     *
+     * @param string|null $state
+     *
+     * @return $this
+     */
+    public function setState(string $state = null): ?string
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Gets managementState.
+     *
+     * @return string|null
+     */
+    public function getManagementState(): ?string
+    {
+        return $this->managementState;
+    }
+
+    /**
+     * Sets managementState.
+     *
+     * @param string|null $managementState
+     *
+     * @return $this
+     */
+    public function setManagementState(string $managementState = null): ?string
+    {
+        $this->managementState = $managementState;
 
         return $this;
     }
@@ -411,6 +496,54 @@ class MemberData
     public function setGender(string $gender = null): ?string
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Gets expiry.
+     *
+     * @return string|null
+     */
+    public function getExpiry(): ?string
+    {
+        return $this->expiry;
+    }
+
+    /**
+     * Sets expiry.
+     *
+     * @param string|null $expiry
+     *
+     * @return $this
+     */
+    public function setExpiry(string $expiry = null): ?string
+    {
+        $this->expiry = $expiry;
+
+        return $this;
+    }
+
+    /**
+     * Gets overrides.
+     *
+     * @return OpenAPI\Server\Model\MemberOverrideData|null
+     */
+    public function getOverrides(): ?MemberOverrideData
+    {
+        return $this->overrides;
+    }
+
+    /**
+     * Sets overrides.
+     *
+     * @param OpenAPI\Server\Model\MemberOverrideData|null $overrides
+     *
+     * @return $this
+     */
+    public function setOverrides(MemberOverrideData $overrides = null): ?MemberOverrideData
+    {
+        $this->overrides = $overrides;
 
         return $this;
     }

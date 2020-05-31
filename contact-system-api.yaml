@@ -268,6 +268,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RoleData"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberRoleInput"
       tags:
         - members
     delete:
@@ -1341,6 +1346,8 @@ components:
       title: MemberInput
       type: object
       properties:
+        state:
+          type: string
         firstname:
           type: string
         lastname:
@@ -1365,6 +1372,12 @@ components:
           type: string
         email:
           type: string
+        expiry:
+          type: string
+          default: "1990-01-01"
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        overrides:
+          $ref: "#/components/schemas/MemberOverrideData"
       required:
         - firstname
         - lastname
@@ -1373,6 +1386,10 @@ components:
       type: object
       properties:
         id:
+          type: string
+        state:
+          type: string
+        managementState:
           type: string
         firstname:
           type: string
@@ -1395,10 +1412,46 @@ components:
           type: string
         gender:
           type: string
+        expiry:
+          type: string
+          default: "1990-01-01"
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        overrides:
+          $ref: "#/components/schemas/MemberOverrideData"
       required:
         - id
         - firstname
         - lastname
+    MemberOverrideData:
+      title: MemberOverrideData
+      type: object
+      properties:
+        firstname:
+          type: boolean
+          default: false
+        lastname:
+          type: boolean
+          default: false
+        nickname:
+          type: boolean
+          default: false
+        address:
+          $ref: "#/components/schemas/AddressData"
+        dateOfBirth:
+          type: boolean
+          default: false
+        phoneHome:
+          type: boolean
+          default: false
+        phoneMobile:
+          type: boolean
+          default: false
+        phoneWork:
+          type: boolean
+          default: false
+        gender:
+          type: boolean
+          default: false
     MemberSuggetion:
       title: MemberSuggetion
       type: object
@@ -1444,6 +1497,16 @@ components:
         - id
         - name
         - section
+    MemberRoleInput:
+      title: MemberRoleInput
+      type: object
+      properties:
+        state:
+          type: string
+        expiry:
+          type: string
+          default: "1990-01-01"
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
     SubsidiaryInput:
       title: SubsidiaryInput
       type: object
@@ -1462,6 +1525,8 @@ components:
       title: ContactInput
       type: object
       properties:
+        state:
+          type: string
         firstname:
           type: string
         nickname:
@@ -1486,6 +1551,12 @@ components:
           type: string
         memberId:
           type: integer
+        expiry:
+          type: string
+          default: "1990-01-01"
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        overrides:
+          $ref: "#/components/schemas/ContactOverrideData"
       required:
         - firstname
         - lastname
@@ -1494,6 +1565,10 @@ components:
       type: object
       properties:
         id:
+          type: string
+        state:
+          type: string
+        managementState:
           type: string
         firstname:
           type: string
@@ -1519,10 +1594,52 @@ components:
           type: string
         member:
           $ref: "#/components/schemas/MemberData"
+        expiry:
+          type: string
+          default: "1990-01-01"
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        overrides:
+          $ref: "#/components/schemas/ContactOverrideData"
       required:
         - id
         - firstname
         - lastname
+    ContactOverrideData:
+      title: ContactOverrideData
+      type: object
+      properties:
+        firstname:
+          type: boolean
+          default: false
+        nickname:
+          type: boolean
+          default: false
+        lastname:
+          type: boolean
+          default: false
+        address:
+          $ref: "#/components/schemas/AddressData"
+        phoneHome:
+          type: boolean
+          default: false
+        phoneMobile:
+          type: boolean
+          default: false
+        phoneWork:
+          type: boolean
+          default: false
+        relationship:
+          type: boolean
+          default: false
+        primaryContact:
+          type: boolean
+          default: false
+        email:
+          type: boolean
+          default: false
+        occupation:
+          type: boolean
+          default: false
     GroupInput:
       title: GroupInput
       type: object

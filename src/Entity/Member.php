@@ -11,6 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Member
 {
+
+    const DefaultManagementState = 'unmanaged';
+    const DefaultState = 'enabled';
+    const DefaultOverrides = [];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -74,7 +79,7 @@ class Member
     private $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="members")
+     * @ORM\OneToMany(targetEntity="App\Entity\MemberRole", mappedBy="member")
      */
     private $roles;
 
@@ -82,6 +87,26 @@ class Member
      * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="member")
      */
     private $contacts;
+
+    /**
+     * @ORM\Column(type="string", length=255, options={"default": "enabled"})
+     */
+    private $state;
+
+    /**
+     * @ORM\Column(type="string", length=255, options={"default": "unmanaged"})
+     */
+    private $managementState;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $expiry;
+
+    /**
+     * @ORM\Column(type="json", options={"default": "{}"})
+     */
+    private $overrides = [];
 
     public function __construct()
     {
@@ -227,14 +252,14 @@ class Member
     }
 
     /**
-     * @return Collection|Role[]
+     * @return Collection|MemberRole[]
      */
     public function getRoles(): Collection
     {
         return $this->roles;
     }
 
-    public function addRole(Role $role): self
+    public function addRole(MemberRole $role): self
     {
         if (!$this->roles->contains($role)) {
             $this->roles[] = $role;
@@ -243,7 +268,7 @@ class Member
         return $this;
     }
 
-    public function removeRole(Role $role): self
+    public function removeRole(MemberRole $role): self
     {
         if ($this->roles->contains($role)) {
             $this->roles->removeElement($role);
@@ -279,6 +304,54 @@ class Member
                 $contact->setMember(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getManagementState(): ?string
+    {
+        return $this->managementState;
+    }
+
+    public function setManagementState(string $managementState): self
+    {
+        $this->managementState = $managementState;
+
+        return $this;
+    }
+
+    public function getExpiry(): ?\DateTimeInterface
+    {
+        return $this->expiry;
+    }
+
+    public function setExpiry(?\DateTimeInterface $expiry): self
+    {
+        $this->expiry = $expiry;
+
+        return $this;
+    }
+
+    public function getOverrides(): ?array
+    {
+        return $this->overrides;
+    }
+
+    public function setOverrides(array $overrides): self
+    {
+        $this->overrides = $overrides;
 
         return $this;
     }

@@ -79,6 +79,13 @@ class ContactInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "state"
+     */
+    public function testPropertyState()
+    {
+    }
+
+    /**
      * Test attribute "firstname"
      */
     public function testPropertyFirstname()
@@ -159,6 +166,20 @@ class ContactInputTest extends \PHPUnit_Framework_TestCase
      * Test attribute "memberId"
      */
     public function testPropertyMemberId()
+    {
+    }
+
+    /**
+     * Test attribute "expiry"
+     */
+    public function testPropertyExpiry()
+    {
+    }
+
+    /**
+     * Test attribute "overrides"
+     */
+    public function testPropertyOverrides()
     {
     }
 }

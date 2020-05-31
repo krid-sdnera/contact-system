@@ -1,6 +1,6 @@
 <?php
 /**
- * MemberInputTest
+ * MemberOverrideDataTest
  *
  * PHP version 5
  *
@@ -30,16 +30,16 @@
 namespace OpenAPI\Server\Model;
 
 /**
- * MemberInputTest Class Doc Comment
+ * MemberOverrideDataTest Class Doc Comment
  *
  * @category    Class */
-// * @description MemberInput
+// * @description MemberOverrideData
 /**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
  */
-class MemberInputTest extends \PHPUnit_Framework_TestCase
+class MemberOverrideDataTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -71,18 +71,11 @@ class MemberInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "MemberInput"
+     * Test "MemberOverrideData"
      */
-    public function testMemberInput()
+    public function testMemberOverrideData()
     {
-        $testMemberInput = new MemberInput();
-    }
-
-    /**
-     * Test attribute "state"
-     */
-    public function testPropertyState()
-    {
+        $testMemberOverrideData = new MemberOverrideData();
     }
 
     /**
@@ -121,13 +114,6 @@ class MemberInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "membershipNumber"
-     */
-    public function testPropertyMembershipNumber()
-    {
-    }
-
-    /**
      * Test attribute "phoneHome"
      */
     public function testPropertyPhoneHome()
@@ -152,27 +138,6 @@ class MemberInputTest extends \PHPUnit_Framework_TestCase
      * Test attribute "gender"
      */
     public function testPropertyGender()
-    {
-    }
-
-    /**
-     * Test attribute "email"
-     */
-    public function testPropertyEmail()
-    {
-    }
-
-    /**
-     * Test attribute "expiry"
-     */
-    public function testPropertyExpiry()
-    {
-    }
-
-    /**
-     * Test attribute "overrides"
-     */
-    public function testPropertyOverrides()
     {
     }
 }

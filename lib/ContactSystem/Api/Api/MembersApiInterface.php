@@ -32,6 +32,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\MemberInput;
+use OpenAPI\Server\Model\MemberRoleInput;
 use OpenAPI\Server\Model\MemberSuggetion;
 use OpenAPI\Server\Model\Members;
 use OpenAPI\Server\Model\RoleData;
@@ -77,13 +78,14 @@ interface MembersApiInterface
      *
      * @param  string $memberId   (required)
      * @param  string $roleId   (required)
+     * @param  OpenAPI\Server\Model\MemberRoleInput $memberRoleInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function addMemberRoleById(string $memberId, string $roleId, &$responseCode, array &$responseHeaders);
+    public function addMemberRoleById(string $memberId, string $roleId, MemberRoleInput $memberRoleInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createMember

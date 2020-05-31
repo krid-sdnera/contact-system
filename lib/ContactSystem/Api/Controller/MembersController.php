@@ -40,6 +40,7 @@ use OpenAPI\Server\Api\MembersApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\MemberInput;
+use OpenAPI\Server\Model\MemberRoleInput;
 use OpenAPI\Server\Model\MemberSuggetion;
 use OpenAPI\Server\Model\Members;
 use OpenAPI\Server\Model\RoleData;
@@ -150,6 +151,14 @@ class MembersController extends Controller
      */
     public function addMemberRoleByIdAction(Request $request, $memberId, $roleId)
     {
+        // Make sure that the client is providing something that we can consume
+        $consumes = ['application/json'];
+        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
+        if (!in_array($inputFormat, $consumes)) {
+            // We can't consume the content that the client is sending us
+            return new Response('', 415);
+        }
+
         // Figure out what data format to return to the client
         $produces = ['application/json'];
         // Figure out what the client accepts
@@ -165,6 +174,7 @@ class MembersController extends Controller
         $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
+        $memberRoleInput = $request->getContent();
 
         // Use the default value if no value was provided
 
@@ -172,6 +182,7 @@ class MembersController extends Controller
         try {
             $memberId = $this->deserialize($memberId, 'string', 'string');
             $roleId = $this->deserialize($roleId, 'string', 'string');
+            $memberRoleInput = $this->deserialize($memberRoleInput, 'OpenAPI\Server\Model\MemberRoleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -191,6 +202,13 @@ class MembersController extends Controller
         if ($response instanceof Response) {
             return $response;
         }
+        $asserts = [];
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\MemberRoleInput");
+        $asserts[] = new Assert\Valid();
+        $response = $this->validate($memberRoleInput, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
 
 
         try {
@@ -202,7 +220,7 @@ class MembersController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->addMemberRoleById($memberId, $roleId, $responseCode, $responseHeaders);
+            $result = $handler->addMemberRoleById($memberId, $roleId, $memberRoleInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

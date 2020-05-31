@@ -86,6 +86,20 @@ class ContactDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "state"
+     */
+    public function testPropertyState()
+    {
+    }
+
+    /**
+     * Test attribute "managementState"
+     */
+    public function testPropertyManagementState()
+    {
+    }
+
+    /**
      * Test attribute "firstname"
      */
     public function testPropertyFirstname()
@@ -166,6 +180,20 @@ class ContactDataTest extends \PHPUnit_Framework_TestCase
      * Test attribute "member"
      */
     public function testPropertyMember()
+    {
+    }
+
+    /**
+     * Test attribute "expiry"
+     */
+    public function testPropertyExpiry()
+    {
+    }
+
+    /**
+     * Test attribute "overrides"
+     */
+    public function testPropertyOverrides()
     {
     }
 }

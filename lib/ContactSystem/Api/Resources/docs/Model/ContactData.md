@@ -4,6 +4,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **string** |  | 
+**state** | **string** |  | [optional] 
+**managementState** | **string** |  | [optional] 
 **firstname** | **string** |  | 
 **nickname** | **string** |  | [optional] 
 **lastname** | **string** |  | 
@@ -16,6 +18,8 @@ Name | Type | Description | Notes
 **email** | **string** |  | [optional] 
 **occupation** | **string** |  | [optional] 
 **member** | [**OpenAPI\Server\Model\MemberData**](MemberData.md) |  | [optional] 
+**expiry** | **string** |  | [optional] [default to '1990-01-01']
+**overrides** | [**OpenAPI\Server\Model\ContactOverrideData**](ContactOverrideData.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

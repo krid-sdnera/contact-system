@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Contact
 {
+
+    const DefaultManagementState = 'unmanaged';
+    const DefaultState = 'enabled';
+    const DefaultOverrides = [];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -76,6 +81,26 @@ class Contact
      * @ORM\Column(type="boolean")
      */
     private $primaryContact;
+
+    /**
+     * @ORM\Column(type="string", length=255, options={"default": "enabled"})
+     */
+    private $state;
+
+    /**
+     * @ORM\Column(type="string", length=255, options={"default": "unmanaged"})
+     */
+    private $managementState;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $expiry;
+
+    /**
+     * @ORM\Column(type="json", options={"default": "{}"})
+     */
+    private $overrides = [];
 
     public function getId(): ?int
     {
@@ -222,6 +247,54 @@ class Contact
     public function setPrimaryContact(bool $primaryContact): self
     {
         $this->primaryContact = $primaryContact;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getManagementState(): ?string
+    {
+        return $this->managementState;
+    }
+
+    public function setManagementState(string $managementState): self
+    {
+        $this->managementState = $managementState;
+
+        return $this;
+    }
+
+    public function getExpiry(): ?\DateTimeInterface
+    {
+        return $this->expiry;
+    }
+
+    public function setExpiry(?\DateTimeInterface $expiry): self
+    {
+        $this->expiry = $expiry;
+
+        return $this;
+    }
+
+    public function getOverrides(): ?array
+    {
+        return $this->overrides;
+    }
+
+    public function setOverrides(array $overrides): self
+    {
+        $this->overrides = $overrides;
 
         return $this;
     }

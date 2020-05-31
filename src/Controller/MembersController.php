@@ -15,8 +15,10 @@ use OpenAPI\Server\Model\MemberInput;
 use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\GroupInput;
 use OpenAPI\Server\Model\SectionInput;
+use OpenAPI\Server\Model\MemberRoleInput;
 
 use App\Entity\Member;
+use App\Entity\MemberRole;
 use App\Entity\Role;
 use DateTime;
 use OpenAPI\Server\Model\ApiResponse;
@@ -48,9 +50,11 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
-    public function addMemberRoleById(string $memberId, string $roleId, &$responseCode, array &$responseHeaders)
+    public function addMemberRoleById(string $memberId, string $roleId, MemberRoleInput $memberRoleInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
+
+        // Confirm Member exists
         $memberToUpdate = $this->getDoctrine()
             ->getRepository(Member::class)
             ->find($memberId);
@@ -64,11 +68,28 @@ class MembersController extends AbstractController implements MembersApiInterfac
             ]);
         }
 
-        $roleToAdd = $this->getDoctrine()
+        // Get relationship if it exisits
+        $roleRelation = $this->getDoctrine()
+            ->getRepository(MemberRole::class)
+            ->findOneBy(['role' => $roleId]);
+
+        // Confirm the role (still)? exists
+        $role = $this->getDoctrine()
             ->getRepository(Role::class)
             ->find($roleId);
 
-        if (!$roleToAdd) {
+        if (!$role) {
+            if ($roleRelation) {
+                // Role does not exist. Somehow a relationship does
+                $responseCode = 500;
+                return new ApiResponse([
+                    'code' => 500,
+                    'type' => 'Server Error',
+                    'message' => "Role (${roleId}) not found but orphaned relation still exists."
+                ]);
+            }
+
+            // Role does not exist.
             $responseCode = 404;
             return new ApiResponse([
                 'code' => 404,
@@ -77,9 +98,25 @@ class MembersController extends AbstractController implements MembersApiInterfac
             ]);
         }
 
-        $memberToUpdate->addRole($roleToAdd);
+        if (!$roleRelation) {
+            // Set up a new relationship
+            $roleRelation = new MemberRole();
+            $roleRelation->setManagementState(MemberRole::DefaultManagementState);
+            $roleRelation->setState(MemberRole::DefaultState);
+            $roleRelation->setRole($role);
+            $roleRelation->setMember($memberToUpdate);
+            $memberToUpdate->addRole($roleRelation);
+        }
+
+        $expiry = ($memberRoleInput->getExpiry()) ? new DateTime($memberRoleInput->getExpiry()) : null;
+        $roleRelation->setExpiry($expiry);
+
+        $state = ($memberRoleInput->getState()) ?: MemberRole::DefaultState;
+        $roleRelation->setState($state);
+
 
         $entityManager->persist($memberToUpdate);
+        $entityManager->persist($roleRelation);
         $entityManager->flush();
 
         return $memberToUpdate;
@@ -94,6 +131,11 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $entityManager = $this->getDoctrine()->getManager();
 
         $newMember = new Member();
+
+        $newMember->setManagementState(Member::DefaultManagementState);
+        $newMember->setState(Member::DefaultState);
+        $newMember->setOverrides(Member::DefaultOverrides);
+
         $newMember->setFirstname($member->getFirstname());
         $newMember->setLastname($member->getLastname());
         $newMember->setNickname($member->getNickname());
@@ -201,7 +243,6 @@ class MembersController extends AbstractController implements MembersApiInterfac
     ) {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-
         try {
             $members = $this->getDoctrine()
                 ->getRepository(Member::class)
@@ -268,25 +309,30 @@ class MembersController extends AbstractController implements MembersApiInterfac
             ]);
         }
 
-        $roleToAdd = $this->getDoctrine()
-            ->getRepository(Role::class)
-            ->find($roleId);
+        $roleRelationToRemove = $this->getDoctrine()
+            ->getRepository(MemberRole::class)
+            ->findOneBy(['role' => $roleId]);
 
-        if (!$roleToAdd) {
+        if (!$roleRelationToRemove) {
             $responseCode = 404;
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Role (${roleId}) not found"
+                'message' => "Relationship (Member: ${memberId}, Role: ${roleId}) not found"
             ]);
         }
 
-        $memberToUpdate->removeRole($roleToAdd);
+        $memberToUpdate->removeRole($roleRelationToRemove);
 
+        $entityManager->remove($roleRelationToRemove);
         $entityManager->persist($memberToUpdate);
         $entityManager->flush();
 
-        return $memberToUpdate;
+        return new ApiResponse([
+            'code' => 200,
+            'type' => 'Relationship Deleted',
+            'message' => "Relationship (Member: ${memberId}, Role: ${roleId}) was deleted"
+        ]);
     }
 
     /**
@@ -309,9 +355,21 @@ class MembersController extends AbstractController implements MembersApiInterfac
             ]);
         }
 
+        $memberToUpdate->setState($member->getState());
+        $memberToUpdate->setOverrides((array) $member->getOverrides());
+        $memberToUpdate->setExpiry(new DateTime($member->getExpiry()));
+
         $memberToUpdate->setFirstname($member->getFirstname());
         $memberToUpdate->setLastname($member->getLastname());
         $memberToUpdate->setNickname($member->getNickname());
+        $memberToUpdate->setDateOfBirth(new DateTime($member->getDateOfBirth()));
+        $memberToUpdate->setMembershipNumber($member->getMembershipNumber());
+        $memberToUpdate->setPhoneHome($member->getPhoneHome());
+        $memberToUpdate->setPhoneMobile($member->getPhoneMobile());
+        $memberToUpdate->setPhoneWork($member->getPhoneWork());
+        $memberToUpdate->setGender($member->getGender());
+        $memberToUpdate->setEmail($member->getEmail());
+
         $memberToUpdate->setAddress([
             'street1' => $member->getAddress()->getStreet1(),
             'street2' => $member->getAddress()->getStreet2(),

@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **addMemberRoleById**
-> OpenAPI\Server\Model\RoleData addMemberRoleById($memberId, $roleId)
+> OpenAPI\Server\Model\RoleData addMemberRoleById($memberId, $roleId, $memberRoleInput)
 
 Add Member Role
 
@@ -123,7 +123,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#addMemberRoleById
      */
-    public function addMemberRoleById(string $memberId, string $roleId)
+    public function addMemberRoleById(string $memberId, string $roleId, MemberRoleInput $memberRoleInput = null)
     {
         // Implement the operation ...
     }
@@ -138,6 +138,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **memberId** | **string**|  |
  **roleId** | **string**|  |
+ **memberRoleInput** | [**OpenAPI\Server\Model\MemberRoleInput**](../Model/MemberRoleInput.md)|  | [optional]
 
 ### Return type
 
@@ -149,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

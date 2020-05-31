@@ -1,6 +1,6 @@
 <?php
 /**
- * MemberInputTest
+ * ContactOverrideDataTest
  *
  * PHP version 5
  *
@@ -30,16 +30,16 @@
 namespace OpenAPI\Server\Model;
 
 /**
- * MemberInputTest Class Doc Comment
+ * ContactOverrideDataTest Class Doc Comment
  *
  * @category    Class */
-// * @description MemberInput
+// * @description ContactOverrideData
 /**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
  */
-class MemberInputTest extends \PHPUnit_Framework_TestCase
+class ContactOverrideDataTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -71,31 +71,17 @@ class MemberInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "MemberInput"
+     * Test "ContactOverrideData"
      */
-    public function testMemberInput()
+    public function testContactOverrideData()
     {
-        $testMemberInput = new MemberInput();
-    }
-
-    /**
-     * Test attribute "state"
-     */
-    public function testPropertyState()
-    {
+        $testContactOverrideData = new ContactOverrideData();
     }
 
     /**
      * Test attribute "firstname"
      */
     public function testPropertyFirstname()
-    {
-    }
-
-    /**
-     * Test attribute "lastname"
-     */
-    public function testPropertyLastname()
     {
     }
 
@@ -107,23 +93,16 @@ class MemberInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "lastname"
+     */
+    public function testPropertyLastname()
+    {
+    }
+
+    /**
      * Test attribute "address"
      */
     public function testPropertyAddress()
-    {
-    }
-
-    /**
-     * Test attribute "dateOfBirth"
-     */
-    public function testPropertyDateOfBirth()
-    {
-    }
-
-    /**
-     * Test attribute "membershipNumber"
-     */
-    public function testPropertyMembershipNumber()
     {
     }
 
@@ -149,9 +128,16 @@ class MemberInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "gender"
+     * Test attribute "relationship"
      */
-    public function testPropertyGender()
+    public function testPropertyRelationship()
+    {
+    }
+
+    /**
+     * Test attribute "primaryContact"
+     */
+    public function testPropertyPrimaryContact()
     {
     }
 
@@ -163,16 +149,9 @@ class MemberInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "expiry"
+     * Test attribute "occupation"
      */
-    public function testPropertyExpiry()
-    {
-    }
-
-    /**
-     * Test attribute "overrides"
-     */
-    public function testPropertyOverrides()
+    public function testPropertyOccupation()
     {
     }
 }
