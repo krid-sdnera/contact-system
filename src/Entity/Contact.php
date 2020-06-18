@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
@@ -14,12 +16,127 @@ class Contact
     const DefaultState = 'enabled';
     const DefaultOverrides = [];
 
+    const ManagementStateManaged = 'managed';
+    const UnmanagementStateManaged = 'unmanaged';
+
+    private static $entityManager;
+
+    public static function setEntityManager(EntityManagerInterface $entityManager)
+    {
+        self::$entityManager = $entityManager;
+    }
+
+    public static function fromExtranetContact(ExtranetContact $extranetContact)
+    {
+
+        if (empty(self::$entityManager)) {
+            throw new Exception('Missing entity manager in contact entity');
+        }
+
+        $contactRepo = self::$entityManager->getRepository(self::class);
+
+        // Look for for contact by parentId
+        /** @var Contact */
+        $contact = $contactRepo->findOneBy([
+            'parentId' => $extranetContact->getParentId()
+        ]);
+
+        if (!$contact) {
+            // Attempt to match up with an existing record
+            $contact = $contactRepo->createQueryBuilder('m')
+                ->where("m.firstname LIKE :firstname")
+                ->orWhere("m.firstname LIKE :lastname")
+                ->andWhere("m.relationship = :relationship")
+                ->andWhere("m.managementState = :state")
+                ->setParameter("firstname", '%' . addcslashes($extranetContact->getFirstname(), '%_') . '%')
+                ->setParameter("lastname", '%' . addcslashes($extranetContact->getLastname(), '%_') . '%')
+                ->setParameter("relationship", $extranetContact->getRelationship())
+                ->setParameter("state", 'unmanaged')
+                ->getQuery()
+                ->getResult();
+        }
+
+        if (!$contact) {
+            // Still no contact matched. Let's create one.
+            $contact = new self();
+        }
+
+        // Update name fields
+        if ($contact->overridable('firstname')) {
+            $contact->setFirstname($extranetContact->getFirstname());
+        }
+        if ($contact->overridable('nickname')) {
+            $contact->setNickname($extranetContact->getNickname());
+        }
+        if ($contact->overridable('lastname')) {
+            $contact->setLastname($extranetContact->getLastname());
+        }
+        if ($contact->overridable('primaryContact')) {
+            $contact->setPrimaryContact($extranetContact->getPrimaryContact());
+        }
+        if ($contact->overridable('occupation')) {
+            $contact->setOccupation($extranetContact->getOccupation());
+        }
+        if ($contact->overridable('relationship')) {
+            $contact->setRelationship($extranetContact->getRelationship());
+        }
+
+        // Update address        
+        if ($contact->overridable('address')) {
+            $contact->setAddress(array(
+                'street1' => $extranetContact->getHomeAddress(),
+                'street2' => '',
+                'city' => $extranetContact->getHomeSuburb(),
+                'state' => $extranetContact->getHomeState(),
+                'postcode' => $extranetContact->getHomePostcode(),
+            ));
+        }
+
+        // Update contact details
+        if ($contact->overridable('phoneHome')) {
+            $contact->setPhoneHome($extranetContact->getHomephone());
+        }
+        if ($contact->overridable('phoneWork')) {
+            $contact->setPhoneWork($extranetContact->getWorkPhone());
+        }
+        if ($contact->overridable('phoneMobile')) {
+            $contact->setPhoneMobile($extranetContact->getMobile());
+        }
+        if ($contact->overridable('email')) {
+            $contact->setEmail($extranetContact->getEmail());
+        }
+
+        // Always do these fields.
+        $contact->setParentId($extranetContact->getParentId());
+        $contact->setManagementState(self::ManagementStateManaged);
+        $contact->setExpiry(null);
+        // Do not update `state`.
+
+        return $contact;
+    }
+
+    public function overridable(string $overrideKey)
+    {
+        $overrides = $this->getOverrides();
+
+        // Check to see if there is an override defined for this field.
+        $hasOverride = (isset($overrides[$overrideKey]) && $overrides[$overrideKey] === true);
+
+        // If there is an override set up. Then this field can not be overriden.
+        return !$hasOverride;
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $parentId;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -105,6 +222,18 @@ class Contact
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getParentId(): ?int
+    {
+        return $this->parentId;
+    }
+
+    public function setParentId(?int $parentId): self
+    {
+        $this->parentId = $parentId;
+
+        return $this;
     }
 
     public function getFirstname(): ?string

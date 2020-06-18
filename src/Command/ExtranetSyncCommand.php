@@ -12,6 +12,12 @@ class ExtranetSyncCommand extends Command
 {
     protected static $defaultName = 'app:extranetsync';
 
+    public function __construct(ExtranetService $extranetService)
+    {
+        parent::__construct();
+        $this->extranetService = $extranetService;
+    }
+
     protected function configure()
     {
         $this
@@ -30,8 +36,7 @@ class ExtranetSyncCommand extends Command
         $this->username = $input->getArgument('username');
         $this->password = $input->getArgument('password');
 
-        $extranet = new ExtranetService();
-        $extranet
+        $this->extranetService
             ->setCacheFile('var/cache/extranet-data.json')
             ->setCredentials($this->username, $this->password)
             ->useCache($this->cache)

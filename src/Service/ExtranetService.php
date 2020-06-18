@@ -9,11 +9,16 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 use League\Csv\Reader;
 
+use Doctrine\ORM\EntityManagerInterface;
+
+use App\Entity\Member;
+use App\Entity\Contact;
 use App\Entity\ExtranetMember;
+use App\Entity\ExtranetContact;
 
 class ExtranetService
 {
-    private $useCache = false;
+    private $_useCache = false;
     private $credentials = [
         'username' => '',
         'password' => ''
@@ -28,6 +33,11 @@ class ExtranetService
 
     // I don't really want to assume but... VicScouts likes javascript ambiguities
     const MemberContactHeaders = ['Relationship', 'Title', 'Firstname', 'Surname', 'Preferedname', 'Occupation', 'Contact', 'Address', 'PrimaryContact'];
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->em = $entityManager;
+    }
 
     public function setCacheFile($cacheFile): self
     {
@@ -74,8 +84,11 @@ class ExtranetService
     {
         $this->getExtranetData();
 
+        Member::setEntityManager($this->em);
+        Contact::setEntityManager($this->em);
+
         foreach ($this->extranetMembers as $i => $extranetMember) {
-            //     $tempIDs = $this->extranet_import('Member','RegID',$extranet_human);
+            $this->extranet_import($extranetMember);
         }
     }
 
@@ -83,7 +96,16 @@ class ExtranetService
     {
         if ($this->_useCache) {
             echo 'Using cache data';
-            return json_decode(file_get_contents($this->cacheFile), true);
+
+            $data = json_decode(file_get_contents($this->cacheFile), true);
+
+            $this->extranetMembers = array_map(
+                function ($member) {
+                    return ExtranetMember::fromArray($member);
+                },
+                $data
+            );
+            return;
         }
 
         $this->setClient(self::HttpClientFactory());
@@ -96,7 +118,12 @@ class ExtranetService
         // Update Cache
         file_put_contents(
             $this->cacheFile,
-            json_encode($this->extranetMembers, JSON_PRETTY_PRINT)
+            json_encode(array_map(
+                function ($member) {
+                    return $member->toArray();
+                },
+                $this->extranetMembers
+            ), JSON_PRETTY_PRINT)
         );
     }
 
@@ -163,6 +190,8 @@ class ExtranetService
                 'bConfirm' => 'N',
             ]
         ]);
+
+        // TODO do we need to check the thing here?
     }
 
     private function checkExtranetLoginInsurance(ResponseInterface $response): void
@@ -309,6 +338,8 @@ class ExtranetService
         $response = $this->client->request('GET', '/portal/Interface/Include/getCSV2.php?f=/data/apache/www.vicscouts.asn.au/root/portal/PDF/csv' . $matches[1] . '.csv');
         $content = $response->getContent();
 
+        file_put_contents('var/cache/' . $reportName . '.csv', $content);
+
         $csv = Reader::createFromString($content);
         $csv->setHeaderOffset(0);
 
@@ -324,14 +355,11 @@ class ExtranetService
     {
         echo 'Processing ' . $record['RegID'] . PHP_EOL;
 
-        $extranetMember = new ExtranetMember($record);
+        $extranetMember = ExtranetMember::fromExtranetCsv($record);
 
-        $membershipNumber = $record['RegID'];
-        $extranetMember->setMembershipNumber($membershipNumber);
-
-        $this->getMemberDetailPage($membershipNumber, $extranetMember);
-        $this->getMemberUpdateLink($membershipNumber, $extranetMember);
-        $this->getMemberContacts($membershipNumber, $extranetMember);
+        $this->getMemberDetailPage($extranetMember);
+        $this->getMemberUpdateLink($extranetMember);
+        $this->getMemberContacts($extranetMember);
 
         // TODO: Roles and section
         // TODO: Map remaining csv keys
@@ -339,12 +367,12 @@ class ExtranetService
         $this->extranetMembers[] = $extranetMember;
     }
 
-    private function getMemberDetailPage($membershipNumber, $extranetMember)
+    private function getMemberDetailPage(ExtranetMember $extranetMember)
     {
         // Fetch additional data from member detail page
         $response = $this->client->request('GET', '/portal/Interface/Report/showMemDetail.php', [
             'query' => [
-                'regg' => $membershipNumber
+                'regg' => $extranetMember->getMembershipNumber()
             ]
         ]);
 
@@ -366,7 +394,7 @@ class ExtranetService
             $matches
         );
         $yearLevel = (count($matches) === 2) ? $matches[1] : null;
-        $extranetMember->setYearLevel($yearLevel);
+        $extranetMember->setSchoolYearLevel($yearLevel);
 
         // Extract the member's subsidiary sections
         preg_match(
@@ -394,11 +422,11 @@ class ExtranetService
 
     }
 
-    private function getMemberUpdateLink($membershipNumber, $extranetMember)
+    private function getMemberUpdateLink(ExtranetMember $extranetMember)
     {
         // Downloading: Member Update Link
         $response = $this->client->request('POST', '/portal/membership/get-member-key', [
-            'query' => ['regid' => $membershipNumber],
+            'query' => ['regid' => $extranetMember->getMembershipNumber()],
             'headers' => ['X-Requested-With: XMLHttpRequest']
         ]);
         $content = $response->getContent();
@@ -407,7 +435,7 @@ class ExtranetService
         $extranetMember->setMemberUpdateLink($memberUpdateLink);
     }
 
-    private function getMemberContacts($membershipNumber, $extranetMember)
+    private function getMemberContacts(ExtranetMember $extranetMember)
     {
 
         // Downloading: Parent Data
@@ -420,7 +448,7 @@ class ExtranetService
                 'query' => '',
                 'qtype' => '',
                 'action' => 'retrieve_parent_by_child',
-                'regid' => $membershipNumber,
+                'regid' => $extranetMember->getMembershipNumber(),
             ],
             'headers' => ['X-Requested-With: XMLHttpRequest']
         ]);
@@ -469,14 +497,17 @@ class ExtranetService
             // Handle Primary contact
             $parent['PrimaryContact'] = substr($parent['PrimaryContact'], 0, 1);
 
-            $extranetMember->addContact($parent);
+            $extranetMember->addContact(ExtranetContact::fromExtranetCsv($parent));
         }
     }
 
     private function extranet_import($extranetMember)
     {
+        /** @var Member */
+        $member = Member::fromExtranetMember($extranetMember);
 
-        // $extranetmember = $this->searchMember($extranetmember);
+        // TODO: Compare processed contact Ids
+
 
         // find existing extranet member
         // if no member, then flag insert
