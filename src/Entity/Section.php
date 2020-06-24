@@ -6,11 +6,50 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Exception;
+use Doctrine\ORM\EntityManagerInterface;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SectionRepository")
  */
 class Section
 {
+
+    private static $entityManager;
+
+    public static function setEntityManager(EntityManagerInterface $entityManager)
+    {
+        self::$entityManager = $entityManager;
+    }
+
+    public static function fromExtranetRole(ExtranetRole $extranetRole)
+    {
+
+        if (empty(self::$entityManager)) {
+            throw new Exception('Missing entity manager in section entity');
+        }
+
+        /** @var SectionRepository */
+        $sectionRepo = self::$entityManager->getRepository(self::class);
+
+        // Look for for section by external id
+        /** @var Section */
+        $section = $sectionRepo->findOneBy([
+            'externalId' => $extranetRole->getSectionId()
+        ]);
+
+        if (!$section) {
+            // Still no section matched. Let's create one.
+            $section = new self();
+            $section->setName($extranetRole->getSectionName());
+            $section->setExternalId($extranetRole->getSectionId());
+
+            $section->setScoutGroup(ScoutGroup::fromExtranetRole($extranetRole));
+        }
+
+        return $section;
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -25,10 +64,15 @@ class Section
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ScoutGroup")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ScoutGroup", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $scoutGroup;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $externalId;
 
     public function __construct()
     {
@@ -59,6 +103,18 @@ class Section
     public function setScoutGroup(?ScoutGroup $scoutGroup): self
     {
         $this->scoutGroup = $scoutGroup;
+
+        return $this;
+    }
+
+    public function getExternalId(): ?string
+    {
+        return $this->externalId;
+    }
+
+    public function setExternalId(string $externalId): self
+    {
+        $this->externalId = $externalId;
 
         return $this;
     }

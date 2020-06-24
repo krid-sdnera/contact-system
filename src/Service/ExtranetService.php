@@ -10,9 +10,14 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 use League\Csv\Reader;
 
 use Doctrine\ORM\EntityManagerInterface;
+use DateTime;
 
 use App\Entity\Member;
 use App\Entity\Contact;
+use App\Entity\MemberRole;
+use App\Entity\Role;
+use App\Entity\Section;
+use App\Entity\ScoutGroup;
 use App\Entity\ExtranetMember;
 use App\Entity\ExtranetContact;
 
@@ -86,10 +91,26 @@ class ExtranetService
 
         Member::setEntityManager($this->em);
         Contact::setEntityManager($this->em);
+        MemberRole::setEntityManager($this->em);
+        Role::setEntityManager($this->em);
+        Section::setEntityManager($this->em);
+        ScoutGroup::setEntityManager($this->em);
 
+        /** @var Member[] */
+        $members = [];
         foreach ($this->extranetMembers as $i => $extranetMember) {
-            $this->extranet_import($extranetMember);
+            /** @var Member */
+            $member = Member::fromExtranetMember($extranetMember);
+            $members[] = $member;
         }
+
+        $membersToPersist =  $this->extranet_import($members);
+
+        foreach ($membersToPersist as $i => $member) {
+            $this->em->persist($member);
+        }
+
+        $this->em->flush();
     }
 
     private function getExtranetData()
@@ -501,12 +522,43 @@ class ExtranetService
         }
     }
 
-    private function extranet_import($extranetMember)
+    private function extranet_import(array $members)
     {
-        /** @var Member */
-        $member = Member::fromExtranetMember($extranetMember);
 
-        // TODO: Compare processed contact Ids
+        /** @var MemberRepository */
+        $memberRepo = $this->em->getRepository(Member::class);
+
+        $managedMemberIds = $memberRepo->findIdsBy([
+            'managementState' => Member::ManagementStateManaged
+        ]);
+
+        $extranetMembersConsidered = [];
+        foreach ($members as $i => $member) {
+            if ($this->em->contains($member)) {
+                $extranetMembersConsidered[] = $member->getId();
+            }
+        }
+
+        /** @var MemberRepository */
+        $memberRepo = $this->em->getRepository(Member::class);
+
+        $updatedMembers = [];
+        foreach ($managedMemberIds as $i => $memberId) {
+            // Is this member also in extranet?
+            if (in_array($memberId, $extranetMembersConsidered)) {
+                // Yes this member is in extranet
+            } else {
+                // No this contact is not in extranet
+                $member = $memberRepo->findOne($memberId);
+                $member->setManagementState(Member::UnmanagementStateManaged);
+                // TODO: Check if the expiry date is already set
+                $member->setExpiry(new DateTime());
+
+                $updatedMembers[] = $member;
+            }
+        }
+
+        return $members + $updatedMembers;
 
 
         // find existing extranet member

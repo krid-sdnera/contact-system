@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Exception;
+use Doctrine\ORM\EntityManagerInterface;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRoleRepository")
  */
@@ -13,6 +16,52 @@ class MemberRole
     const DefaultManagementState = 'unmanaged';
     const DefaultState = 'enabled';
     const DefaultOverrides = [];
+
+    const ManagementStateManaged = 'managed';
+    const UnmanagementStateManaged = 'unmanaged';
+
+    private static $entityManager;
+
+    public static function setEntityManager(EntityManagerInterface $entityManager)
+    {
+        self::$entityManager = $entityManager;
+    }
+
+    public static function fromExtranetRole(Member $member, ExtranetRole $extranetRole)
+    {
+
+        if (empty(self::$entityManager)) {
+            throw new Exception('Missing entity manager in member role entity');
+        }
+
+        /** @var MemberRoleRepository */
+        $memberRoleRepo = self::$entityManager->getRepository(self::class);
+
+        // Get new or existing role.
+        $role = Role::fromExtranetRole($extranetRole);
+
+        // Lets check for a relationship entity
+        /** @var MemberRole */
+        $relatioshipEntity = $memberRoleRepo->findOneBy([
+            'member' => $member->getId(),
+            'role' => $role->getId()
+        ]);
+
+        if (!$relatioshipEntity) {
+            // We can create one
+            $relatioshipEntity = new self();
+            $relatioshipEntity->setMember($member);
+            $relatioshipEntity->setRole($role);
+            $relatioshipEntity->setState(self::DefaultState);
+        }
+
+        $relatioshipEntity->setManagementState(self::ManagementStateManaged);
+        $relatioshipEntity->setExpiry(null);
+
+        self::$entityManager->persist($role);
+
+        return $relatioshipEntity;
+    }
 
     /**
      * @ORM\Id()
@@ -41,9 +90,9 @@ class MemberRole
      */
     private $expiry;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
-        return $this->id;
+        return $this->member->getId() . $this->role->getId();
     }
 
     public function getMember(): ?Member

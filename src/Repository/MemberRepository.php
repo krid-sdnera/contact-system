@@ -65,6 +65,31 @@ class MemberRepository extends ServiceEntityRepository
         return $result;
     }
 
+    public function findIdsBy(array $criteria)
+    {
+
+        $queryBuilder = $this->createQueryBuilder('m');
+        $queryBuilder->select('m.id');
+
+        foreach ($criteria as $key => $value) {
+            if (\is_array($value)) {
+                $exp = $queryBuilder->expr()->in("m.{$key}", ":{$key}");
+            } else {
+                $exp = $queryBuilder->expr()->eq("m.{$key}", ":{$key}");
+            }
+
+            $queryBuilder
+                ->andWhere($exp)
+                ->setParameter($key, $value);
+        }
+
+        $result = $queryBuilder->getQuery()->getScalarResult();
+
+        $ids = array_column($result, "id");
+
+        return $ids;
+    }
+
     // /**
     //  * @return Member[] Returns an array of Member objects
     //  */

@@ -6,11 +6,47 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Exception;
+use Doctrine\ORM\EntityManagerInterface;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ScoutGroupRepository")
  */
 class ScoutGroup
 {
+    private static $entityManager;
+
+    public static function setEntityManager(EntityManagerInterface $entityManager)
+    {
+        self::$entityManager = $entityManager;
+    }
+
+    public static function fromExtranetRole(ExtranetRole $extranetRole)
+    {
+
+        if (empty(self::$entityManager)) {
+            throw new Exception('Missing entity manager in scout group entity');
+        }
+
+        /** @var ScoutGroupRepository */
+        $scoutGroupRepo = self::$entityManager->getRepository(self::class);
+
+        // Look for for scout group by external id
+        /** @var ScoutGroup */
+        $scoutGroup = $scoutGroupRepo->findOneBy([
+            'externalId' => $extranetRole->getGroupId()
+        ]);
+
+        if (!$scoutGroup) {
+            // Still no scout group matched. Let's create one.
+            $scoutGroup = new self();
+            $scoutGroup->setName($extranetRole->getGroupName());
+            $scoutGroup->setExternalId($extranetRole->getGroupId());
+        }
+
+        return $scoutGroup;
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -22,6 +58,11 @@ class ScoutGroup
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $externalId;
 
 
     public function __construct()
@@ -41,6 +82,18 @@ class ScoutGroup
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getExternalId(): ?string
+    {
+        return $this->externalId;
+    }
+
+    public function setExternalId(string $externalId): self
+    {
+        $this->externalId = $externalId;
 
         return $this;
     }

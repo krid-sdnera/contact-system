@@ -31,18 +31,6 @@ class Member
         self::$entityManager = $entityManager;
     }
 
-    public static function generateRole($roleName, $sectionName, $groupName, $externalId, $type)
-    {
-        return [
-            'name' => $roleName,
-            'section' => $sectionName,
-            'group' => $groupName,
-            'externalId' => $externalId,
-            'type' =>  $type
-        ];
-    }
-
-
     public static function fromExtranetMember(ExtranetMember $extranetMember)
     {
 
@@ -50,6 +38,7 @@ class Member
             throw new Exception('Missing entity manager in member entity');
         }
 
+        /** @var MemberRepository */
         $memberRepo = self::$entityManager->getRepository(self::class);
 
         // Look for for member by membershipNumber
@@ -76,6 +65,7 @@ class Member
         if (!$member) {
             // Still no member matched. Let's create one.
             $member = new self();
+            $member->setState(self::DefaultState);
         }
 
 
@@ -125,182 +115,69 @@ class Member
         $member->setSchoolName($extranetMember->getSchoolName());
         $member->setSchoolYearLevel($extranetMember->getSchoolYearLevel());
 
+        $extranetRoles = Member::GenerateExpectedRole($extranetMember);
+
         /**
          * Roles
          */
-        // Build expected roles.
-        $roles = [];
+        $extranetRoleRelationshipsConsidered = [];
+        foreach ($extranetRoles as $i => $extranetRole) {
+            $relatioshipEntity = MemberRole::fromExtranetRole($member, $extranetRole);
 
-        $youthRoles = [
-            'JOEY',
-            'CUB',
-            'SCOUT',
-            'VENT',
-            'ROVER'
-        ];
+            // Add this role, no action if already assigned.
+            $member->addRole($relatioshipEntity);
 
-        if (in_array($extranetMember->getClassId(), $youthRoles)) {
-            $roles[] = self::generateRole(
-                'Youth',
-                $extranetMember->getSectionName(),
-                $extranetMember->getGroupName(),
-                'Youth' .
-                    $extranetMember->getSectionId() .
-                    $extranetMember->getGroupId(),
-
-                'classIdYouth'
-            );
-        } elseif ($extranetMember->getClassId() === 'LDR') {
-            preg_match(
-                '/(?:A-Z\s)?(JOEY SCOUT|CUB SCOUT|SCOUT|VENTURER|ROVER|GROUP)\s+(?:LDR|LEADER)/',
-                $extranetMember->getRole(),
-                $matches
-            );
-
-            if (count($matches) == 2) {
-                $section = $matches[1];
-                //Remove {CUB}" SCOUT" & {JOEY}" SCOUT"
-                $section = preg_replace('/(.+?)(?: SCOUT)?/', '$1', $section);
-                //Remove {VENT}"URER"
-                $section = preg_replace('/(.+?)(?:URER)?/',   '$1', $section);
-            } else {
-                $section = 'GROUP';
-            }
-
-            $list = array(
-                'JOEY'  => 'M1',
-                'CUB'   => 'P1',
-                'SCOUT' => 'T1',
-                'VENT'  => 'U1',
-                'ROVER' => 'C1',
-                'GROUP' => ''
-            );
-
-            $roles[] = self::generateRole(
-                $extranetMember->getRole(),
-                $extranetMember->getSectionName() . " - " . $section,
-                $extranetMember->getGroupName(),
-                $extranetMember->getRole() .
-                    $extranetMember->getSectionId() . $list[$section] .
-                    $extranetMember->getGroupId(),
-                'classIdLeader'
-            );
-        } elseif ($extranetMember->getClassId() === 'OB') {
-            // Convert Position to Roles
-            $positions = $extranetMember->getPosition();
-
-            if ($positions) {
-                $positionArray = preg_split('/,\s*/', $positions);
-
-                foreach ($positionArray as $i => $position) {
-                    $roles[] = self::generateRole(
-                        $position,
-                        'Group',
-                        $extranetMember->getGroupName(),
-                        $position,
-                        'classIdOffice'
-                    );
-                }
-            }
-        } elseif ($extranetMember->getClassId() === 'AH') {
-            $roles[] = self::generateRole(
-                'Adult Helper',
-                $extranetMember->getSectionName(),
-                $extranetMember->getGroupName(),
-                'Adult Helper' .
-                    $extranetMember->getSectionId() .
-                    $extranetMember->getGroupId(),
-                'classIdAdultHelper'
-            );
-        }
-
-        // Convert Subsidiary Sections to Roles
-        $subSections = $extranetMember->getSubsidiarySections();
-        foreach ($subSections as $i => $section) {
-            $roles[] = [
-                'name' => 'youth member',
-                'section' => $section['SectionName'],
-                'group' => 'TODO: Derive from SectionName',
-                'externalId' => $section['SectionID'],
-                'type' => 'subsidiarySection'
-            ];
-        }
-
-        // Compare current roles
-        $extranetRolesConsidered = [];
-        foreach ($member->getRoles() as $i => $role) {
-            $key = array_search($role->getExternalId(), array_column($roles, 'externalId'));
-
-            // Is this role also in extranet?
-            if ($key !== false) {
-                // Yes this role is in extranet
-                $member->getRoles()[$i]->setManagementState(self::ManagementStateManaged);
-                $member->getRoles()[$i]->setExpiry(null);
-
-                $extranetRolesConsidered[] = $roles[$key]['externalId'];
-            } else {
-                // No this role is not in extranet
-                $member->getRoles()[$i]->setManagementState(self::UnmanagementStateManaged);
-                $member->getRoles()[$i]->setExpiry(new DateTime());
+            if (self::$entityManager->contains($relatioshipEntity)) {
+                $extranetRoleRelationshipsConsidered[] = $relatioshipEntity->getId();
             }
         }
 
-        foreach ($roles as $i => $role) {
-            // Is this role assigned to the member?
-            if (in_array($role['externalId'], $extranetRolesConsidered)) {
+        foreach ($member->getRoles() as $i => $relatioshipEntity) {
+            if (self::$entityManager->contains($relatioshipEntity)) {
+                // This is a new role
+                continue;
+            }
+            if (in_array($relatioshipEntity->getId(), $extranetRoleRelationshipsConsidered)) {
                 // Yes this role is assigned to the member
-            } else {
-                // No this role is not assigned to the member
-
-                // Look up this externalId
-
-                // else
-                // $newRole = new Role();
-                // $newRole->setName()
-                // $member->addRole($newRole);
+                continue;
             }
+
+            // No this role is not in extranet
+            $relatioshipEntity->setManagementState(MemberRole::UnmanagementStateManaged);
+            // TODO: Check if the expiry date is already set
+            $relatioshipEntity->setExpiry(new DateTime());
         }
 
         /**
          * Contacts
          */
-        // Compare current contacts
         $extranetContactsConsidered = [];
-        foreach ($member->getContacts() as $i => $contact) {
-            $key = array_search($contact->getParentId(), array_column($extranetMember->getContacts(), 'parentId'));
+        foreach ($extranetMember->getContacts() as $i => $extranetContact) {
+            // Get new or existing contact.
+            $contact = Contact::fromExtranetContact($extranetContact);
 
-            // Is this contact also in extranet?
-            if ($key !== false) {
-                // Yes this contact is in extranet
-                $member->getContacts()[$i]->setManagementState(self::ManagementStateManaged);
-                $member->getContacts()[$i]->setExpiry(null);
+            // Add this contact, no action if already assigned.
+            $member->addContact($contact);
 
-                $extranetContactsConsidered[] = $extranetMember->getContacts()[$key]['parentId'];
-            } else {
-                // No this contact is not in extranet
-                $member->getContacts()[$i]->setManagementState(self::UnmanagementStateManaged);
-                $member->getContacts()[$i]->setExpiry(new DateTime());
+            if (self::$entityManager->contains($contact)) {
+                $extranetContactsConsidered[] = $contact->getId();
             }
         }
 
-        foreach ($extranetMember->getContacts() as $i => $contact) {
-            // Is this contact assigned to the member?
-            // TODO make ParentID into parentId
-            if (in_array($contact->getParentId(), $extranetContactsConsidered)) {
-                // Yes this contact is assigned to the member
-            } else {
-                // No this contact is not assigned to the member
-
-                // Look up this parentId
-
-                // else
-                // $newContact = new Contact();
-                // $newContact->setName()
-                // $member->addContact($newContact);
-
-
-                $member->addContact(Contact::fromExtranetContact($contact));
+        foreach ($member->getContacts() as $i => $contact) {
+            if (self::$entityManager->contains($contact)) {
+                // This is a new contact
+                continue;
             }
+            if (in_array($contact->getId(), $extranetContactsConsidered)) {
+                // Yes this contact is assigned to the member
+                continue;
+            }
+
+            // No this contact is not in extranet
+            $contact->setManagementState(Contact::UnmanagementStateManaged);
+            // TODO: Check if the expiry date is already set
+            $contact->setExpiry(new DateTime());
         }
 
         // Always do these fields.
@@ -321,6 +198,133 @@ class Member
 
         // If there is an override set up. Then this field can not be overriden.
         return !$hasOverride;
+    }
+
+    public static function GenerateExpectedRole(ExtranetMember $extranetMember): array
+    {
+
+        // Build expected roles.
+        $roles = [];
+
+        $youthClassIds = [
+            'JOEY',
+            'CUB',
+            'SCOUT',
+            'VENT',
+            'ROVER'
+        ];
+
+        // Special handling for 15th essendon sea scouts
+        $extranetMember->setGroupName(str_replace(' SEA SCOUTS', '', $extranetMember->getGroupName()));
+
+        if (in_array($extranetMember->getClassId(), $youthClassIds)) {
+            $roles[] = new ExtranetRole(
+                'Youth',
+                'youth-classIdYouth',
+                $extranetMember->getClassId(),
+                $extranetMember->getClassId(),
+                $extranetMember->getSectionName(),
+                $extranetMember->getSectionId(),
+                $extranetMember->getGroupName(),
+                $extranetMember->getGroupId()
+            );
+        } elseif ($extranetMember->getClassId() === 'LDR') {
+            preg_match(
+                '/(?:A-Z\s)?(JOEY SCOUT|CUB SCOUT|SCOUT|VENTURER|ROVER|GROUP)\s+(?:LDR|LEADER)/',
+                $extranetMember->getRole(),
+                $matches
+            );
+
+            if (count($matches) == 2) {
+                $normalisedSection = $matches[1];
+                //Remove {CUB}" SCOUT" & {JOEY}" SCOUT"
+                $normalisedSection = preg_replace('/(.+?)(?: SCOUT)?/', '$1', $normalisedSection);
+                //Remove {VENT}"URER"
+                $normalisedSection = preg_replace('/(.+?)(?:URER)?/',   '$1', $normalisedSection);
+            } else {
+                $normalisedSection = 'GROUP';
+            }
+
+            // Generate sections
+            $nameMapping = array(
+                'JOEY'  => '-JOEY SCOUT MOB',
+                'CUB'   => '-CUB SCOUT PACK',
+                'SCOUT' => '-SCOUT TROOP',
+                'VENT'  => '-VENTURER UNIT',
+                'ROVER' => '-ROVER CREW',
+                'GROUP' => ''
+            );
+            $idMapping = array(
+                'JOEY'  => 'M',
+                'CUB'   => 'P',
+                'SCOUT' => 'T',
+                'VENT'  => 'U',
+                'ROVER' => 'C',
+                'GROUP' => ''
+            );
+
+            $sectionName = $extranetMember->getGroupName() . $nameMapping[$normalisedSection];
+            $sectionId = $extranetMember->getGroupId() . $idMapping[$normalisedSection];
+
+            $roles[] = new ExtranetRole(
+                ucwords(strtolower($extranetMember->getRole())),
+                str_replace(' ', '-', strtolower($extranetMember->getRole())) . '-classIdLeader',
+                $extranetMember->getClassId(),
+                $normalisedSection,
+                $sectionName,
+                $sectionId,
+                $extranetMember->getGroupName(),
+                $extranetMember->getGroupId()
+            );
+        } elseif ($extranetMember->getClassId() === 'OB') {
+            // Convert Position to Roles
+            $positions = $extranetMember->getPosition();
+
+            if ($positions) {
+                $positionArray = preg_split('/,\s*/', $positions);
+
+                foreach ($positionArray as $i => $position) {
+                    $roles[] = new ExtranetRole(
+                        $position,
+                        str_replace(' ', '-', strtolower($position)) . '-classIdOfficeBearer',
+                        $extranetMember->getClassId(),
+                        $extranetMember->getClassId(),
+                        $extranetMember->getGroupName(),
+                        $extranetMember->getGroupId(),
+                        $extranetMember->getGroupName(),
+                        $extranetMember->getGroupId()
+                    );
+                }
+            }
+        } elseif ($extranetMember->getClassId() === 'AH') {
+            $roles[] = new ExtranetRole(
+                'Adult Helper',
+                'adult-helper-classIdAdultHelper',
+                $extranetMember->getClassId(),
+                $extranetMember->getClassId(),
+                $extranetMember->getGroupName(),
+                $extranetMember->getGroupId(),
+                $extranetMember->getGroupName(),
+                $extranetMember->getGroupId()
+            );
+        }
+
+        // Convert Subsidiary Sections to Roles
+        $subSections = $extranetMember->getSubsidiarySections();
+        foreach ($subSections as $i => $section) {
+            $roles[] = new ExtranetRole(
+                'Youth',
+                'youth-subsidiarySection',
+                'Subsidary',
+                'Subsidary',
+                $section['SectionName'],
+                $section['SectionID'],
+                $section['SectionName'],
+                $section['SectionID']
+            );
+        }
+
+        return $roles;
     }
 
     /**
@@ -396,12 +400,12 @@ class Member
     private $schoolYearLevel;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MemberRole", mappedBy="member")
+     * @ORM\OneToMany(targetEntity="App\Entity\MemberRole", mappedBy="member", cascade={"persist"})
      */
     private $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="member")
+     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="member", cascade={"persist"})
      */
     private $contacts;
 

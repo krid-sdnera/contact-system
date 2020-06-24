@@ -40,7 +40,7 @@ class ExtranetSyncCommand extends Command
             ->setCacheFile('var/cache/extranet-data.json')
             ->setCredentials($this->username, $this->password)
             ->useCache($this->cache)
-            ->doExtract($this->cache);
+            ->doExtract();
 
         return 0;
     }

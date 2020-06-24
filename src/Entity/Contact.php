@@ -59,6 +59,7 @@ class Contact
         if (!$contact) {
             // Still no contact matched. Let's create one.
             $contact = new self();
+            $contact->setState(self::DefaultState);
         }
 
         // Update name fields
