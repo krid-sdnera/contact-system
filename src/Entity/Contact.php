@@ -33,8 +33,10 @@ class Contact
             throw new Exception('Missing entity manager in contact entity');
         }
 
+        /** @var ContactRepository */
         $contactRepo = self::$entityManager->getRepository(self::class);
 
+        echo "Processing Contact {$extranetContact->getParentId()}: Checking by parentId" . PHP_EOL;
         // Look for for contact by parentId
         /** @var Contact */
         $contact = $contactRepo->findOneBy([
@@ -42,6 +44,7 @@ class Contact
         ]);
 
         if (!$contact) {
+            echo "Processing Contact {$extranetContact->getParentId()}: Not found by parentId, checking by name" . PHP_EOL;
             // Attempt to match up with an existing record
             $contact = $contactRepo->createQueryBuilder('m')
                 ->where("m.firstname LIKE :firstname")
@@ -53,10 +56,11 @@ class Contact
                 ->setParameter("relationship", $extranetContact->getRelationship())
                 ->setParameter("state", 'unmanaged')
                 ->getQuery()
-                ->getResult();
+                ->getOneOrNullResult();
         }
 
         if (!$contact) {
+            echo "Processing Contact {$extranetContact->getParentId()}: Not found by name, creating" . PHP_EOL;
             // Still no contact matched. Let's create one.
             $contact = new self();
             $contact->setState(self::DefaultState);

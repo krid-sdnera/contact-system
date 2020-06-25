@@ -90,6 +90,46 @@ class MemberRepository extends ServiceEntityRepository
         return $ids;
     }
 
+    // public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null): array
+    // {
+    //     $queryBuilder = $this->createQueryBuilder('p');
+
+    //     foreach ($criteria as $key => $value) {
+    //         if (\is_array($value)) {
+    //             $exp = $queryBuilder->expr()->in("e.{$key}", ":{$key}");
+    //         } else {
+    //             $exp = $queryBuilder->expr()->eq("e.{$key}", ":{$key}");
+    //         }
+
+    //         $queryBuilder
+    //             ->andWhere($exp)
+    //             ->setParameter($key, $value)
+    //         ;
+    //     }
+
+    //     foreach ($orderBy ?: [] as $sort => $order) {
+    //         $queryBuilder->orderBy("e.{$sort}", $order);
+    //     }
+
+    //     if ($limit) {
+    //         $queryBuilder->setMaxResults($limit);
+    //     }
+
+    //     if ($offset) {
+    //         $queryBuilder->setFirstResult($offset);
+    //     }
+
+    //     $query = $queryBuilder->getQuery();
+
+    //     $query
+    //         ->useQueryCache(false)
+    //         ->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, TranslationWalker::class)
+    //         ->setHint(\Gedmo\Translatable\TranslatableListener::HINT_FALLBACK, 1)
+    //     ;
+
+    //     return $query->getResult();
+    // }
+
     // /**
     //  * @return Member[] Returns an array of Member objects
     //  */

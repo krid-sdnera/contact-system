@@ -40,27 +40,30 @@ class MemberRole
         // Get new or existing role.
         $role = Role::fromExtranetRole($extranetRole);
 
+        echo "Processing MemberRole {$extranetRole->getExternalId()}: Checking by member and role" . PHP_EOL;
         // Lets check for a relationship entity
         /** @var MemberRole */
-        $relatioshipEntity = $memberRoleRepo->findOneBy([
+        $relationshipEntity = $memberRoleRepo->findOneBy([
             'member' => $member->getId(),
             'role' => $role->getId()
         ]);
 
-        if (!$relatioshipEntity) {
+        if (!$relationshipEntity) {
+            echo "Processing MemberRole {$extranetRole->getExternalId()}: Not found by member and role, creating" . PHP_EOL;
             // We can create one
-            $relatioshipEntity = new self();
-            $relatioshipEntity->setMember($member);
-            $relatioshipEntity->setRole($role);
-            $relatioshipEntity->setState(self::DefaultState);
+            $relationshipEntity = new self();
+            $relationshipEntity->setMember($member);
+            $relationshipEntity->setRole($role);
+            $relationshipEntity->setState(self::DefaultState);
         }
 
-        $relatioshipEntity->setManagementState(self::ManagementStateManaged);
-        $relatioshipEntity->setExpiry(null);
+        $relationshipEntity->setManagementState(self::ManagementStateManaged);
+        $relationshipEntity->setExpiry(null);
 
         self::$entityManager->persist($role);
+        self::$entityManager->flush();
 
-        return $relatioshipEntity;
+        return $relationshipEntity;
     }
 
     /**

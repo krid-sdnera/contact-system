@@ -32,6 +32,7 @@ class Role
         /** @var RoleRepository */
         $roleRepo = self::$entityManager->getRepository(self::class);
 
+        echo "Processing Role {$extranetRole->getExternalId()}: Checking by externalId" . PHP_EOL;
         // Look for for role by external id
         /** @var Role */
         $role = $roleRepo->findOneBy([
@@ -39,12 +40,13 @@ class Role
         ]);
 
         if (!$role) {
+            echo "Processing Role {$extranetRole->getExternalId()}: Not found by externalId, creating" . PHP_EOL;
             // No role matched. Let's create one.
             $role = new self();
             $role->setName($extranetRole->getRoleName());
             $role->setClassId($extranetRole->getClassId());
             $role->setNormalisedClassId($extranetRole->getNormalisedClassId());
-            $role->setExternalId($extranetRole->getRoleId());
+            $role->setExternalId($extranetRole->getExternalId());
 
             $role->setSection(Section::fromExtranetRole($extranetRole));
         }

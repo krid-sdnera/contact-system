@@ -99,6 +99,7 @@ class ExtranetService
         /** @var Member[] */
         $members = [];
         foreach ($this->extranetMembers as $i => $extranetMember) {
+            echo "Processing Member {$extranetMember->getMembershipNumber()}" . PHP_EOL;
             /** @var Member */
             $member = Member::fromExtranetMember($extranetMember);
             $members[] = $member;
@@ -116,7 +117,7 @@ class ExtranetService
     private function getExtranetData()
     {
         if ($this->_useCache) {
-            echo 'Using cache data';
+            echo 'Using cache data' . PHP_EOL;
 
             $data = json_decode(file_get_contents($this->cacheFile), true);
 
@@ -126,6 +127,9 @@ class ExtranetService
                 },
                 $data
             );
+
+            echo 'Cache data loaded successfully' . PHP_EOL;
+
             return;
         }
 

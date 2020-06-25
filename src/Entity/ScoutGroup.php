@@ -31,6 +31,7 @@ class ScoutGroup
         /** @var ScoutGroupRepository */
         $scoutGroupRepo = self::$entityManager->getRepository(self::class);
 
+        echo "Processing ScoutGroup {$extranetRole->getExternalId()}: Checking by externalId" . PHP_EOL;
         // Look for for scout group by external id
         /** @var ScoutGroup */
         $scoutGroup = $scoutGroupRepo->findOneBy([
@@ -38,6 +39,7 @@ class ScoutGroup
         ]);
 
         if (!$scoutGroup) {
+            echo "Processing ScoutGroup {$extranetRole->getExternalId()}: Not found by externalId, creating" . PHP_EOL;
             // Still no scout group matched. Let's create one.
             $scoutGroup = new self();
             $scoutGroup->setName($extranetRole->getGroupName());

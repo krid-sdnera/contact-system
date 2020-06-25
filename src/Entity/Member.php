@@ -41,6 +41,7 @@ class Member
         /** @var MemberRepository */
         $memberRepo = self::$entityManager->getRepository(self::class);
 
+        echo "Processing Member {$extranetMember->getMembershipNumber()}: Checking by membershipNumber" . PHP_EOL;
         // Look for for member by membershipNumber
         /** @var Member */
         $member = $memberRepo->findOneBy([
@@ -48,6 +49,7 @@ class Member
         ]);
 
         if (!$member) {
+            echo "Processing Member {$extranetMember->getMembershipNumber()}: Not found by membershipNumber, checking by name" . PHP_EOL;
             // Attempt to match up with an existing record
             $member = $memberRepo->createQueryBuilder('m')
                 ->where("m.firstname LIKE :firstname")
@@ -59,10 +61,11 @@ class Member
                 ->setParameter("dateOfBirth", $extranetMember->getDateOfBirth())
                 ->setParameter("state", 'unmanaged')
                 ->getQuery()
-                ->getResult();
+                ->getOneOrNullResult();
         }
 
         if (!$member) {
+            echo "Processing Member {$extranetMember->getMembershipNumber()}: Not found by name, creating" . PHP_EOL;
             // Still no member matched. Let's create one.
             $member = new self();
             $member->setState(self::DefaultState);
@@ -115,6 +118,7 @@ class Member
         $member->setSchoolName($extranetMember->getSchoolName());
         $member->setSchoolYearLevel($extranetMember->getSchoolYearLevel());
 
+        echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating roles" . PHP_EOL;
         $extranetRoles = Member::GenerateExpectedRole($extranetMember);
 
         /**
@@ -133,7 +137,7 @@ class Member
         }
 
         foreach ($member->getRoles() as $i => $relatioshipEntity) {
-            if (self::$entityManager->contains($relatioshipEntity)) {
+            if (!self::$entityManager->contains($relatioshipEntity)) {
                 // This is a new role
                 continue;
             }
@@ -141,6 +145,8 @@ class Member
                 // Yes this role is assigned to the member
                 continue;
             }
+
+            echo "Processing Member {$extranetMember->getMembershipNumber()}: Unmanaging role {$relatioshipEntity->getId()} because !isNew or isAssigned" . PHP_EOL;
 
             // No this role is not in extranet
             $relatioshipEntity->setManagementState(MemberRole::UnmanagementStateManaged);
@@ -165,7 +171,7 @@ class Member
         }
 
         foreach ($member->getContacts() as $i => $contact) {
-            if (self::$entityManager->contains($contact)) {
+            if (!self::$entityManager->contains($contact)) {
                 // This is a new contact
                 continue;
             }
@@ -174,11 +180,15 @@ class Member
                 continue;
             }
 
+            echo "Processing Member {$extranetMember->getMembershipNumber()}: Unmanaging contact {$contact->getId()} because !isNew or isAssigned" . PHP_EOL;
+
             // No this contact is not in extranet
             $contact->setManagementState(Contact::UnmanagementStateManaged);
             // TODO: Check if the expiry date is already set
             $contact->setExpiry(new DateTime());
         }
+
+        echo "Processing Member {$extranetMember->getMembershipNumber()}: Always manage member" . PHP_EOL;
 
         // Always do these fields.
         $member->setMembershipNumber($extranetMember->getMembershipNumber());
@@ -218,6 +228,7 @@ class Member
         $extranetMember->setGroupName(str_replace(' SEA SCOUTS', '', $extranetMember->getGroupName()));
 
         if (in_array($extranetMember->getClassId(), $youthClassIds)) {
+            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdYouth" . PHP_EOL;
             $roles[] = new ExtranetRole(
                 'Youth',
                 'youth-classIdYouth',
@@ -229,6 +240,7 @@ class Member
                 $extranetMember->getGroupId()
             );
         } elseif ($extranetMember->getClassId() === 'LDR') {
+            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdLeader" . PHP_EOL;
             preg_match(
                 '/(?:A-Z\s)?(JOEY SCOUT|CUB SCOUT|SCOUT|VENTURER|ROVER|GROUP)\s+(?:LDR|LEADER)/',
                 $extranetMember->getRole(),
@@ -277,6 +289,7 @@ class Member
                 $extranetMember->getGroupId()
             );
         } elseif ($extranetMember->getClassId() === 'OB') {
+            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdOfficeBearer" . PHP_EOL;
             // Convert Position to Roles
             $positions = $extranetMember->getPosition();
 
@@ -297,6 +310,7 @@ class Member
                 }
             }
         } elseif ($extranetMember->getClassId() === 'AH') {
+            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdAdultHelper" . PHP_EOL;
             $roles[] = new ExtranetRole(
                 'Adult Helper',
                 'adult-helper-classIdAdultHelper',
@@ -312,6 +326,7 @@ class Member
         // Convert Subsidiary Sections to Roles
         $subSections = $extranetMember->getSubsidiarySections();
         foreach ($subSections as $i => $section) {
+            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: subsidiarySection {$i}: {$section['SectionName']}" . PHP_EOL;
             $roles[] = new ExtranetRole(
                 'Youth',
                 'youth-subsidiarySection',

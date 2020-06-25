@@ -32,6 +32,7 @@ class Section
         /** @var SectionRepository */
         $sectionRepo = self::$entityManager->getRepository(self::class);
 
+        echo "Processing Section {$extranetRole->getSectionId()}: Checking by externalId" . PHP_EOL;
         // Look for for section by external id
         /** @var Section */
         $section = $sectionRepo->findOneBy([
@@ -39,6 +40,7 @@ class Section
         ]);
 
         if (!$section) {
+            echo "Processing Section {$extranetRole->getExternalId()}: Not found by externalId, creating" . PHP_EOL;
             // Still no section matched. Let's create one.
             $section = new self();
             $section->setName($extranetRole->getSectionName());
