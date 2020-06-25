@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(dirname -- $(readlink -f "$0"))/.."
+
 echo "> Remove existing generation"
 rm -r lib/ContactSystem/Api/*
 
