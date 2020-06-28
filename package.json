@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "generate": "yarn run generate:api; yarn run generate:client",
-    "generate:api": "./api/bin/build.sh",
-    "generate:client": "./ui/bin/build.sh",
+    "generate:api": "build/bin/build-api.sh",
+    "generate:client": "build/bin/build-client.sh",
     "dev:server": "php -S 127.0.0.1:8000 -t api/public/",
     "dev:ui": "yarn --cwd ui run dev",
     "build:ui": "yarn --cwd ui run build",

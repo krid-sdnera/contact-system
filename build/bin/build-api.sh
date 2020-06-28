@@ -7,7 +7,7 @@ rm -r api/lib/ContactSystem/Api/*
 
 echo "> Generate API using openapi-generator generate"
 yarn install
-yarn run openapi-generator generate -i ./contact-system-api.yaml -g php-symfony -o ./api/lib/ContactSystem/Api --git-user-id contact-system --git-repo-id api --additional-properties=phpLegacySupport=false,composerProjectName=contact-system,composerVendorName=api
+yarn run openapi-generator generate -i build/contact-system-api.yaml -g php-symfony -o api/lib/ContactSystem/Api --git-user-id contact-system --git-repo-id api --additional-properties=phpLegacySupport=false,composerProjectName=contact-system,composerVendorName=api
 
 echo "> Upgrade Composer dependacies"
 sed -i '' -e 's/"jms\/serializer-bundle": "^2.0"/"jms\/serializer-bundle": "^3.0"/' api/lib/ContactSystem/Api/composer.json
