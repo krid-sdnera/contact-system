@@ -1,0 +1,19 @@
+{
+  "name": "oas3-s5",
+  "version": "1.0.0",
+  "author": "Dirk Arends <dirk@arends.com.au>",
+  "license": "MIT",
+  "scripts": {
+    "generate": "yarn run generate:api; yarn run generate:client",
+    "generate:api": "./api/bin/build.sh",
+    "generate:client": "./ui/bin/build.sh",
+    "dev:server": "php -S 127.0.0.1:8000 -t api/public/",
+    "dev:ui": "yarn --cwd ui run dev",
+    "build:ui": "yarn --cwd ui run build",
+    "extranet:sync": "php api/bin/console app:extranetsync",
+    "extranet:sync:cache": "php api/bin/console app:extranetsync use-cache"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0"
+  }
+}

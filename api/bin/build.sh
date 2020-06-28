@@ -1,17 +1,17 @@
 #!/bin/bash
 
-cd "$(dirname -- $(readlink -f "$0"))/.."
+cd "$(dirname -- $(readlink -f "$0"))/../.."
 
 echo "> Remove existing generation"
-rm -r lib/ContactSystem/Api/*
+rm -r api/lib/ContactSystem/Api/*
 
 echo "> Generate API using openapi-generator generate"
 yarn install
-yarn run generate-api
+yarn run openapi-generator generate -i ./contact-system-api.yaml -g php-symfony -o ./api/lib/ContactSystem/Api --git-user-id contact-system --git-repo-id api --additional-properties=phpLegacySupport=false,composerProjectName=contact-system,composerVendorName=api
 
 echo "> Upgrade Composer dependacies"
-sed -i '' -e 's/"jms\/serializer-bundle": "^2.0"/"jms\/serializer-bundle": "^3.0"/' lib/ContactSystem/Api/composer.json
-sed -i '' -e 's/"symfony\/framework-bundle": "^3.3\|^4.1"/"symfony\/framework-bundle": "^3.3|^4.1|^5.0"/' lib/ContactSystem/Api/composer.json
+sed -i '' -e 's/"jms\/serializer-bundle": "^2.0"/"jms\/serializer-bundle": "^3.0"/' api/lib/ContactSystem/Api/composer.json
+sed -i '' -e 's/"symfony\/framework-bundle": "^3.3\|^4.1"/"symfony\/framework-bundle": "^3.3|^4.1|^5.0"/' api/lib/ContactSystem/Api/composer.json
 
 echo "> Remove Deserialization NamingStrategy"
 perl -0777 -i -ple '
@@ -28,10 +28,10 @@ $new = << '\''HERE2'\'';
 HERE2
 
 s/$old/$new/m;
-' lib/ContactSystem/Api/Service/JmsSerializer.php
+' api/lib/ContactSystem/Api/Service/JmsSerializer.php
 
 echo "> Remove trailing spaces"
-sed -i '' -e 's/return \$this->deserializeString(\$data, \$type);           /return $this->deserializeString($data, $type);/' lib/ContactSystem/Api/Service/JmsSerializer.php
+sed -i '' -e 's/return \$this->deserializeString(\$data, \$type);           /return $this->deserializeString($data, $type);/' api/lib/ContactSystem/Api/Service/JmsSerializer.php
 
 echo "> Add Symfony Guard Authenticator support"
 perl -0777 -i -ple '
@@ -44,7 +44,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 HERE2
 
 s/$old/$new/m;
-' lib/ContactSystem/Api/Controller/*.php
+' api/lib/ContactSystem/Api/Controller/*.php
 
 perl -0777 -i -ple '
 $old = <<'\''HERE1'\'';
@@ -58,8 +58,8 @@ $new = << '\''HERE2'\'';
 HERE2
 
 s/$old/$new/mg;
-' lib/ContactSystem/Api/Controller/*.php
+' api/lib/ContactSystem/Api/Controller/*.php
 
 echo "> Fix double escaped regex"
-sed -i '' -e 's/@Assert\\Regex("\/^\\\\d{4}-\\\\d{2}-\\\\d{2}\$\/")/@Assert\\Regex("\/^\\d{4}-\\d{2}-\\d{2}$\/")/' lib/ContactSystem/Api/Model/Member*.php
+sed -i '' -e 's/@Assert\\Regex("\/^\\\\d{4}-\\\\d{2}-\\\\d{2}\$\/")/@Assert\\Regex("\/^\\d{4}-\\d{2}-\\d{2}$\/")/' api/lib/ContactSystem/Api/Model/Member*.php
 
