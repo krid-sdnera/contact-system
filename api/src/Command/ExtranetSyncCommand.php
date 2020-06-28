@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Service\ExtranetService;
+use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -23,22 +24,29 @@ class ExtranetSyncCommand extends Command
         $this
             ->setDescription('Import from Extranet')
             ->setHelp('This command starts an import from Extranet')
-            ->addArgument('username', InputArgument::REQUIRED, 'Extranet username')
-            ->addArgument('password', InputArgument::REQUIRED, 'Extranet password')
             ->addArgument('cache', InputArgument::OPTIONAL, 'Use cache instead of fetching data from extranet again');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if (!isset($_ENV['EXTRANET_USERNAME'])) {
+            throw new Exception('Missing env var EXTRANET_USERNAME');
+        }
+
+        if (!isset($_ENV['EXTRANET_PASSWORD'])) {
+            throw new Exception('Missing env var EXTRANET_PASSWORD');
+        }
+
+        $username = $_ENV['EXTRANET_USERNAME'];
+        $password = $_ENV['EXTRANET_PASSWORD'];
+
         $output->writeln('Starting sync');
 
         $this->cache = ($input->getArgument('cache') === 'use-cache');
-        $this->username = $input->getArgument('username');
-        $this->password = $input->getArgument('password');
 
         $this->extranetService
-            ->setCacheFile('var/cache/extranet-data.json')
-            ->setCredentials($this->username, $this->password)
+            ->setCacheDirectory('api/var/cache/')
+            ->setCredentials($username, $password)
             ->useCache($this->cache)
             ->doExtract();
 

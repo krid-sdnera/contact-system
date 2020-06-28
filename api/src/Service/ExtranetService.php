@@ -28,7 +28,7 @@ class ExtranetService
         'username' => '',
         'password' => ''
     ];
-    private $cacheFile;
+    private $cacheDirectory;
     /**
      * @var HttpClientInterface
      */
@@ -44,9 +44,9 @@ class ExtranetService
         $this->em = $entityManager;
     }
 
-    public function setCacheFile($cacheFile): self
+    public function setCacheDirectory($cacheDirectory): self
     {
-        $this->cacheFile = $cacheFile;
+        $this->cacheDirectory = $cacheDirectory;
         return $this;
     }
 
@@ -119,7 +119,7 @@ class ExtranetService
         if ($this->_useCache) {
             echo 'Using cache data' . PHP_EOL;
 
-            $data = json_decode(file_get_contents($this->cacheFile), true);
+            $data = json_decode(file_get_contents($this->cacheDirectory . 'extranet-data.json'), true);
 
             $this->extranetMembers = array_map(
                 function ($member) {
@@ -142,7 +142,7 @@ class ExtranetService
 
         // Update Cache
         file_put_contents(
-            $this->cacheFile,
+            $this->cacheDirectory . 'extranet-data.json',
             json_encode(array_map(
                 function ($member) {
                     return $member->toArray();
@@ -363,7 +363,11 @@ class ExtranetService
         $response = $this->client->request('GET', '/portal/Interface/Include/getCSV2.php?f=/data/apache/www.vicscouts.asn.au/root/portal/PDF/csv' . $matches[1] . '.csv');
         $content = $response->getContent();
 
-        file_put_contents('var/cache/' . $reportName . '.csv', $content);
+        // Update Cache
+        file_put_contents(
+            $this->cacheDirectory . $reportName . '.csv',
+            $content
+        );
 
         $csv = Reader::createFromString($content);
         $csv->setHeaderOffset(0);
