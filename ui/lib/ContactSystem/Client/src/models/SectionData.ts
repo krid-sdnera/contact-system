@@ -40,6 +40,12 @@ export interface SectionData {
     name: string;
     /**
      * 
+     * @type {string}
+     * @memberof SectionData
+     */
+    externalId?: string;
+    /**
+     * 
      * @type {ScoutGroupData}
      * @memberof SectionData
      */
@@ -58,6 +64,7 @@ export function SectionDataFromJSONTyped(json: any, ignoreDiscriminator: boolean
         
         'id': json['id'],
         'name': json['name'],
+        'externalId': !exists(json, 'externalId') ? undefined : json['externalId'],
         'scoutGroup': ScoutGroupDataFromJSON(json['scoutGroup']),
     };
 }
@@ -73,6 +80,7 @@ export function SectionDataToJSON(value?: SectionData | null): any {
         
         'id': value.id,
         'name': value.name,
+        'externalId': value.externalId,
         'scoutGroup': ScoutGroupDataToJSON(value.scoutGroup),
     };
 }

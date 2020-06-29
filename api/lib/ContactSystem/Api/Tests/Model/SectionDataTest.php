@@ -93,6 +93,13 @@ class SectionDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "externalId"
+     */
+    public function testPropertyExternalId()
+    {
+    }
+
+    /**
      * Test attribute "scoutGroup"
      */
     public function testPropertyScoutGroup()

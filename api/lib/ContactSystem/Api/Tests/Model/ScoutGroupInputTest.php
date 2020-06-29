@@ -84,4 +84,11 @@ class ScoutGroupInputTest extends \PHPUnit_Framework_TestCase
     public function testPropertyName()
     {
     }
+
+    /**
+     * Test attribute "externalId"
+     */
+    public function testPropertyExternalId()
+    {
+    }
 }

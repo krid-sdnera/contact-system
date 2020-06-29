@@ -51,6 +51,14 @@ class SectionInput
     protected $name;
 
     /**
+     * @var string|null
+     * @SerializedName("externalId")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $externalId;
+
+    /**
      * @var int
      * @SerializedName("scoutGroupId")
      * @Assert\NotNull()
@@ -66,6 +74,7 @@ class SectionInput
     public function __construct(array $data = null)
     {
         $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->externalId = isset($data['externalId']) ? $data['externalId'] : null;
         $this->scoutGroupId = isset($data['scoutGroupId']) ? $data['scoutGroupId'] : null;
     }
 
@@ -89,6 +98,30 @@ class SectionInput
     public function setName(string $name): string
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets externalId.
+     *
+     * @return string|null
+     */
+    public function getExternalId(): ?string
+    {
+        return $this->externalId;
+    }
+
+    /**
+     * Sets externalId.
+     *
+     * @param string|null $externalId
+     *
+     * @return $this
+     */
+    public function setExternalId(string $externalId = null): ?string
+    {
+        $this->externalId = $externalId;
 
         return $this;
     }

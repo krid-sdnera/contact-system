@@ -93,6 +93,13 @@ class RoleDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "externalId"
+     */
+    public function testPropertyExternalId()
+    {
+    }
+
+    /**
      * Test attribute "section"
      */
     public function testPropertySection()

@@ -40,6 +40,12 @@ export interface RoleData {
     name: string;
     /**
      * 
+     * @type {string}
+     * @memberof RoleData
+     */
+    externalId?: string;
+    /**
+     * 
      * @type {SectionData}
      * @memberof RoleData
      */
@@ -58,6 +64,7 @@ export function RoleDataFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         
         'id': json['id'],
         'name': json['name'],
+        'externalId': !exists(json, 'externalId') ? undefined : json['externalId'],
         'section': SectionDataFromJSON(json['section']),
     };
 }
@@ -73,6 +80,7 @@ export function RoleDataToJSON(value?: RoleData | null): any {
         
         'id': value.id,
         'name': value.name,
+        'externalId': value.externalId,
         'section': SectionDataToJSON(value.section),
     };
 }

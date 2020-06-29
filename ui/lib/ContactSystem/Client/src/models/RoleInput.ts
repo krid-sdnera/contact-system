@@ -27,6 +27,12 @@ export interface RoleInput {
     name: string;
     /**
      * 
+     * @type {string}
+     * @memberof RoleInput
+     */
+    externalId?: string;
+    /**
+     * 
      * @type {number}
      * @memberof RoleInput
      */
@@ -44,6 +50,7 @@ export function RoleInputFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     return {
         
         'name': json['name'],
+        'externalId': !exists(json, 'externalId') ? undefined : json['externalId'],
         'sectionId': json['sectionId'],
     };
 }
@@ -58,6 +65,7 @@ export function RoleInputToJSON(value?: RoleInput | null): any {
     return {
         
         'name': value.name,
+        'externalId': value.externalId,
         'sectionId': value.sectionId,
     };
 }

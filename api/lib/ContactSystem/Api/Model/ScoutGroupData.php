@@ -60,6 +60,14 @@ class ScoutGroupData
     protected $name;
 
     /**
+     * @var string|null
+     * @SerializedName("externalId")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $externalId;
+
+    /**
      * Constructor
      * @param mixed[] $data Associated array of property values initializing the model
      */
@@ -67,6 +75,7 @@ class ScoutGroupData
     {
         $this->id = isset($data['id']) ? $data['id'] : null;
         $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->externalId = isset($data['externalId']) ? $data['externalId'] : null;
     }
 
     /**
@@ -113,6 +122,30 @@ class ScoutGroupData
     public function setName(string $name): string
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets externalId.
+     *
+     * @return string|null
+     */
+    public function getExternalId(): ?string
+    {
+        return $this->externalId;
+    }
+
+    /**
+     * Sets externalId.
+     *
+     * @param string|null $externalId
+     *
+     * @return $this
+     */
+    public function setExternalId(string $externalId = null): ?string
+    {
+        $this->externalId = $externalId;
 
         return $this;
     }

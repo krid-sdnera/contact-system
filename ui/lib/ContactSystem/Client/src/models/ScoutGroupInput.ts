@@ -25,6 +25,12 @@ export interface ScoutGroupInput {
      * @memberof ScoutGroupInput
      */
     name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ScoutGroupInput
+     */
+    externalId?: string;
 }
 
 export function ScoutGroupInputFromJSON(json: any): ScoutGroupInput {
@@ -38,6 +44,7 @@ export function ScoutGroupInputFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         
         'name': json['name'],
+        'externalId': !exists(json, 'externalId') ? undefined : json['externalId'],
     };
 }
 
@@ -51,6 +58,7 @@ export function ScoutGroupInputToJSON(value?: ScoutGroupInput | null): any {
     return {
         
         'name': value.name,
+        'externalId': value.externalId,
     };
 }
 

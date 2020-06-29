@@ -27,6 +27,12 @@ export interface SectionInput {
     name: string;
     /**
      * 
+     * @type {string}
+     * @memberof SectionInput
+     */
+    externalId?: string;
+    /**
+     * 
      * @type {number}
      * @memberof SectionInput
      */
@@ -44,6 +50,7 @@ export function SectionInputFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         
         'name': json['name'],
+        'externalId': !exists(json, 'externalId') ? undefined : json['externalId'],
         'scoutGroupId': json['scoutGroupId'],
     };
 }
@@ -58,6 +65,7 @@ export function SectionInputToJSON(value?: SectionInput | null): any {
     return {
         
         'name': value.name,
+        'externalId': value.externalId,
         'scoutGroupId': value.scoutGroupId,
     };
 }

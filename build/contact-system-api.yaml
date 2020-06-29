@@ -1343,6 +1343,8 @@ components:
       properties:
         name:
           type: string
+        externalId:
+          type: string
         sectionId:
           type: integer
       required:
@@ -1355,6 +1357,8 @@ components:
         id:
           type: string
         name:
+          type: string
+        externalId:
           type: string
         section:
           $ref: "#/components/schemas/SectionData"
@@ -1509,6 +1513,8 @@ components:
       properties:
         name:
           type: string
+        externalId:
+          type: string
       required:
         - name
     ScoutGroupData:
@@ -1519,6 +1525,8 @@ components:
           type: string
         name:
           type: string
+        externalId:
+          type: string
       required:
         - id
         - name
@@ -1527,6 +1535,8 @@ components:
       type: object
       properties:
         name:
+          type: string
+        externalId:
           type: string
         scoutGroupId:
           type: integer
@@ -1540,6 +1550,8 @@ components:
         id:
           type: string
         name:
+          type: string
+        externalId:
           type: string
         scoutGroup:
           $ref: "#/components/schemas/ScoutGroupData"
