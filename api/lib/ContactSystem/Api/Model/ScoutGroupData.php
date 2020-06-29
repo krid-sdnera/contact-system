@@ -1,6 +1,6 @@
 <?php
 /**
- * GroupData
+ * ScoutGroupData
  *
  * PHP version 5
  *
@@ -34,12 +34,12 @@ use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
 
 /**
- * Class representing the GroupData model.
+ * Class representing the ScoutGroupData model.
  *
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-class GroupData 
+class ScoutGroupData 
 {
         /**
      * @var string

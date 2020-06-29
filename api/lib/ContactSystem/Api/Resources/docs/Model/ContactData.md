@@ -17,7 +17,6 @@ Name | Type | Description | Notes
 **primaryContact** | **bool** |  | [optional] 
 **email** | **string** |  | [optional] 
 **occupation** | **string** |  | [optional] 
-**member** | [**OpenAPI\Server\Model\MemberData**](MemberData.md) |  | [optional] 
 **expiry** | **string** |  | [optional] [default to '1990-01-01']
 **overrides** | [**OpenAPI\Server\Model\ContactOverrideData**](ContactOverrideData.md) |  | [optional] 
 

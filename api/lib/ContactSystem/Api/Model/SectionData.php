@@ -60,11 +60,11 @@ class SectionData
     protected $name;
 
     /**
-     * @var OpenAPI\Server\Model\GroupData
+     * @var OpenAPI\Server\Model\ScoutGroupData
      * @SerializedName("scoutGroup")
      * @Assert\NotNull()
-     * @Assert\Type("OpenAPI\Server\Model\GroupData")
-     * @Type("OpenAPI\Server\Model\GroupData")
+     * @Assert\Type("OpenAPI\Server\Model\ScoutGroupData")
+     * @Type("OpenAPI\Server\Model\ScoutGroupData")
      */
     protected $scoutGroup;
 
@@ -130,9 +130,9 @@ class SectionData
     /**
      * Gets scoutGroup.
      *
-     * @return OpenAPI\Server\Model\GroupData
+     * @return OpenAPI\Server\Model\ScoutGroupData
      */
-    public function getScoutGroup(): GroupData
+    public function getScoutGroup(): ScoutGroupData
     {
         return $this->scoutGroup;
     }
@@ -140,11 +140,11 @@ class SectionData
     /**
      * Sets scoutGroup.
      *
-     * @param OpenAPI\Server\Model\GroupData $scoutGroup
+     * @param OpenAPI\Server\Model\ScoutGroupData $scoutGroup
      *
      * @return $this
      */
-    public function setScoutGroup(GroupData $scoutGroup): GroupData
+    public function setScoutGroup(ScoutGroupData $scoutGroup): ScoutGroupData
     {
         $this->scoutGroup = $scoutGroup;
 

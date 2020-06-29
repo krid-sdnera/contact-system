@@ -1,6 +1,6 @@
 <?php
 /**
- * SubsidiaryDataTest
+ * MemberRoleDataTest
  *
  * PHP version 5
  *
@@ -30,16 +30,16 @@
 namespace OpenAPI\Server\Model;
 
 /**
- * SubsidiaryDataTest Class Doc Comment
+ * MemberRoleDataTest Class Doc Comment
  *
  * @category    Class */
-// * @description SubsidiaryData
+// * @description MemberRoleData
 /**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
  */
-class SubsidiaryDataTest extends \PHPUnit_Framework_TestCase
+class MemberRoleDataTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -71,24 +71,38 @@ class SubsidiaryDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "SubsidiaryData"
+     * Test "MemberRoleData"
      */
-    public function testSubsidiaryData()
+    public function testMemberRoleData()
     {
-        $testSubsidiaryData = new SubsidiaryData();
+        $testMemberRoleData = new MemberRoleData();
     }
 
     /**
-     * Test attribute "id"
+     * Test attribute "state"
      */
-    public function testPropertyId()
+    public function testPropertyState()
     {
     }
 
     /**
-     * Test attribute "name"
+     * Test attribute "managementState"
      */
-    public function testPropertyName()
+    public function testPropertyManagementState()
+    {
+    }
+
+    /**
+     * Test attribute "expiry"
+     */
+    public function testPropertyExpiry()
+    {
+    }
+
+    /**
+     * Test attribute "role"
+     */
+    public function testPropertyRole()
     {
     }
 }

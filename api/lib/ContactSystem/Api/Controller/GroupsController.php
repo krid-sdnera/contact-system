@@ -38,9 +38,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Constraints as Assert;
 use OpenAPI\Server\Api\GroupsApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\GroupData;
-use OpenAPI\Server\Model\GroupInput;
 use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\ScoutGroupData;
+use OpenAPI\Server\Model\ScoutGroupInput;
 use OpenAPI\Server\Model\SectionData;
 
 /**
@@ -170,22 +170,22 @@ class GroupsController extends Controller
         $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
-        $groupInput = $request->getContent();
+        $scoutGroupInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
-            $groupInput = $this->deserialize($groupInput, 'OpenAPI\Server\Model\GroupInput', $inputFormat);
+            $scoutGroupInput = $this->deserialize($scoutGroupInput, 'OpenAPI\Server\Model\ScoutGroupInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
 
         // Validate the input values
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\GroupInput");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ScoutGroupInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($groupInput, $asserts);
+        $response = $this->validate($scoutGroupInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -200,7 +200,7 @@ class GroupsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->createGroup($groupInput, $responseCode, $responseHeaders);
+            $result = $handler->createGroup($scoutGroupInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -788,14 +788,14 @@ class GroupsController extends Controller
         $securitycontact_auth = $request->headers->get('x-auth-token');
 
         // Read out all input parameter values into variables
-        $groupInput = $request->getContent();
+        $scoutGroupInput = $request->getContent();
 
         // Use the default value if no value was provided
 
         // Deserialize the input values that needs it
         try {
             $groupId = $this->deserialize($groupId, 'string', 'string');
-            $groupInput = $this->deserialize($groupInput, 'OpenAPI\Server\Model\GroupInput', $inputFormat);
+            $scoutGroupInput = $this->deserialize($scoutGroupInput, 'OpenAPI\Server\Model\ScoutGroupInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -809,9 +809,9 @@ class GroupsController extends Controller
             return $response;
         }
         $asserts = [];
-        $asserts[] = new Assert\Type("OpenAPI\Server\Model\GroupInput");
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ScoutGroupInput");
         $asserts[] = new Assert\Valid();
-        $response = $this->validate($groupInput, $asserts);
+        $response = $this->validate($scoutGroupInput, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -826,7 +826,7 @@ class GroupsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateGroupById($groupId, $groupInput, $responseCode, $responseHeaders);
+            $result = $handler->updateGroupById($groupId, $scoutGroupInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

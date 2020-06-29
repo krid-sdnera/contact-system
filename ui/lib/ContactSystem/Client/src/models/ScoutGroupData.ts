@@ -16,28 +16,28 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface GroupData
+ * @interface ScoutGroupData
  */
-export interface GroupData {
+export interface ScoutGroupData {
     /**
      * 
      * @type {string}
-     * @memberof GroupData
+     * @memberof ScoutGroupData
      */
     id: string;
     /**
      * 
      * @type {string}
-     * @memberof GroupData
+     * @memberof ScoutGroupData
      */
     name: string;
 }
 
-export function GroupDataFromJSON(json: any): GroupData {
-    return GroupDataFromJSONTyped(json, false);
+export function ScoutGroupDataFromJSON(json: any): ScoutGroupData {
+    return ScoutGroupDataFromJSONTyped(json, false);
 }
 
-export function GroupDataFromJSONTyped(json: any, ignoreDiscriminator: boolean): GroupData {
+export function ScoutGroupDataFromJSONTyped(json: any, ignoreDiscriminator: boolean): ScoutGroupData {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -48,7 +48,7 @@ export function GroupDataFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function GroupDataToJSON(value?: GroupData | null): any {
+export function ScoutGroupDataToJSON(value?: ScoutGroupData | null): any {
     if (value === undefined) {
         return undefined;
     }

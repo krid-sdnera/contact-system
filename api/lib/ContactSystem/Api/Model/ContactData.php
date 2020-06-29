@@ -157,14 +157,6 @@ class ContactData
     protected $occupation;
 
     /**
-     * @var OpenAPI\Server\Model\MemberData|null
-     * @SerializedName("member")
-     * @Assert\Type("OpenAPI\Server\Model\MemberData")
-     * @Type("OpenAPI\Server\Model\MemberData")
-     */
-    protected $member;
-
-    /**
      * @var string|null
      * @SerializedName("expiry")
      * @Assert\Type("string")
@@ -201,7 +193,6 @@ class ContactData
         $this->primaryContact = isset($data['primaryContact']) ? $data['primaryContact'] : null;
         $this->email = isset($data['email']) ? $data['email'] : null;
         $this->occupation = isset($data['occupation']) ? $data['occupation'] : null;
-        $this->member = isset($data['member']) ? $data['member'] : null;
         $this->expiry = isset($data['expiry']) ? $data['expiry'] : '1990-01-01';
         $this->overrides = isset($data['overrides']) ? $data['overrides'] : null;
     }
@@ -538,30 +529,6 @@ class ContactData
     public function setOccupation(string $occupation = null): ?string
     {
         $this->occupation = $occupation;
-
-        return $this;
-    }
-
-    /**
-     * Gets member.
-     *
-     * @return OpenAPI\Server\Model\MemberData|null
-     */
-    public function getMember(): ?MemberData
-    {
-        return $this->member;
-    }
-
-    /**
-     * Sets member.
-     *
-     * @param OpenAPI\Server\Model\MemberData|null $member
-     *
-     * @return $this
-     */
-    public function setMember(MemberData $member = null): ?MemberData
-    {
-        $this->member = $member;
 
         return $this;
     }

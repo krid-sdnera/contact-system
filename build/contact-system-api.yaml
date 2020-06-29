@@ -41,8 +41,6 @@ tags:
     description: Everything you need to handle `contacts`
   - name: roles
     description: Everything you need to handle `roles`
-  - name: subsidiaries
-    description: Everything you need to handle `subsidiaries`
   - name: sections
     description: Everything you need to handle `sections`
 paths:
@@ -423,139 +421,6 @@ paths:
             type: integer
           in: query
           name: page
-  /subsidiaries:
-    get:
-      summary: Get Subsidiary
-      description: Get Subsidiary
-      tags:
-        - subsidiaries
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                title: Subsidaries
-                type: array
-                items:
-                  $ref: "#/components/schemas/SubsidiaryData"
-      operationId: getSubsidiary
-    post:
-      summary: Create subsidiary
-      description: Create subsidiary
-      operationId: createSubsidiary
-      responses:
-        "200":
-          description: OK
-      tags:
-        - subsidiaries
-  "/subsidiaries/{subsidiaryId}/members":
-    parameters:
-      - schema:
-          type: string
-        name: subsidiaryId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: Your GET endpoint
-      tags:
-        - subsidiaries
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                title: Members
-                type: array
-                items:
-                  $ref: "#/components/schemas/MemberData"
-      operationId: getSubsidiaryMembersById
-  "/subsidiaries/{subsidiaryId}":
-    parameters:
-      - schema:
-          type: string
-        name: subsidiaryId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: Your GET endpoint
-      tags:
-        - subsidiaries
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SubsidiaryData"
-      operationId: getSubsidiaryById
-    put:
-      summary: Update subsidiary
-      description: Update subsidiary
-      operationId: updateSubsidiaryById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SubsidiaryData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SubsidiaryInput"
-      tags:
-        - subsidiaries
-    delete:
-      summary: Delete Subsidiary
-      description: Delete Subsidiary
-      operationId: deleteSubsidiaryById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - subsidiaries
-  "/subsidiaries/{subsidiaryId}/local":
-    parameters:
-      - schema:
-          type: string
-        name: subsidiaryId
-        in: path
-        required: true
-    put:
-      summary: Add local marker
-      description: Add local marker
-      operationId: addSubsidiaryLocalMarkerById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - subsidiaries
-    delete:
-      summary: Remove local marker
-      description: Remove local marker
-      operationId: removeSubsidiaryLocalMarkerById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - subsidiaries
   /contacts:
     get:
       summary: Your GET endpoint
@@ -695,7 +560,7 @@ paths:
                 title: Groups
                 type: array
                 items:
-                  $ref: "#/components/schemas/GroupData"
+                  $ref: "#/components/schemas/ScoutGroupData"
       operationId: getGroups
       parameters:
         - schema:
@@ -720,12 +585,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GroupData"
+                $ref: "#/components/schemas/ScoutGroupData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GroupInput"
+              $ref: "#/components/schemas/ScoutGroupInput"
       tags:
         - groups
   "/groups/{groupId}":
@@ -746,7 +611,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GroupData"
+                $ref: "#/components/schemas/ScoutGroupData"
       operationId: getGroupById
     put:
       summary: Update Group
@@ -758,12 +623,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GroupData"
+                $ref: "#/components/schemas/ScoutGroupData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GroupInput"
+              $ref: "#/components/schemas/ScoutGroupInput"
       tags:
         - groups
     delete:
@@ -1507,20 +1372,20 @@ components:
           type: string
           default: "1990-01-01"
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
-    SubsidiaryInput:
-      title: SubsidiaryInput
+    MemberRoleData:
+      title: MemberRoleData
       type: object
       properties:
-        name:
+        state:
           type: string
-    SubsidiaryData:
-      title: SubsidiaryData
-      type: object
-      properties:
-        id:
+        managementState:
           type: string
-        name:
+        expiry:
           type: string
+          default: "1990-01-01"
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        role:
+          $ref: "#/components/schemas/RoleData"
     ContactInput:
       title: ContactInput
       type: object
@@ -1592,8 +1457,6 @@ components:
           type: string
         occupation:
           type: string
-        member:
-          $ref: "#/components/schemas/MemberData"
         expiry:
           type: string
           default: "1990-01-01"
@@ -1640,16 +1503,16 @@ components:
         occupation:
           type: boolean
           default: false
-    GroupInput:
-      title: GroupInput
+    ScoutGroupInput:
+      title: ScoutGroupInput
       type: object
       properties:
         name:
           type: string
       required:
         - name
-    GroupData:
-      title: GroupData
+    ScoutGroupData:
+      title: ScoutGroupData
       type: object
       properties:
         id:
@@ -1679,7 +1542,7 @@ components:
         name:
           type: string
         scoutGroup:
-          $ref: "#/components/schemas/GroupData"
+          $ref: "#/components/schemas/ScoutGroupData"
       required:
         - id
         - name

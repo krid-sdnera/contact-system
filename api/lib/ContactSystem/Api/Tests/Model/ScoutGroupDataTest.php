@@ -1,6 +1,6 @@
 <?php
 /**
- * GroupInputTest
+ * ScoutGroupDataTest
  *
  * PHP version 5
  *
@@ -30,16 +30,16 @@
 namespace OpenAPI\Server\Model;
 
 /**
- * GroupInputTest Class Doc Comment
+ * ScoutGroupDataTest Class Doc Comment
  *
  * @category    Class */
-// * @description GroupInput
+// * @description ScoutGroupData
 /**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
  */
-class GroupInputTest extends \PHPUnit_Framework_TestCase
+class ScoutGroupDataTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -71,11 +71,18 @@ class GroupInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "GroupInput"
+     * Test "ScoutGroupData"
      */
-    public function testGroupInput()
+    public function testScoutGroupData()
     {
-        $testGroupInput = new GroupInput();
+        $testScoutGroupData = new ScoutGroupData();
+    }
+
+    /**
+     * Test attribute "id"
+     */
+    public function testPropertyId()
+    {
     }
 
     /**

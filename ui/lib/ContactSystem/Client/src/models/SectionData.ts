@@ -14,10 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    GroupData,
-    GroupDataFromJSON,
-    GroupDataFromJSONTyped,
-    GroupDataToJSON,
+    ScoutGroupData,
+    ScoutGroupDataFromJSON,
+    ScoutGroupDataFromJSONTyped,
+    ScoutGroupDataToJSON,
 } from './';
 
 /**
@@ -40,10 +40,10 @@ export interface SectionData {
     name: string;
     /**
      * 
-     * @type {GroupData}
+     * @type {ScoutGroupData}
      * @memberof SectionData
      */
-    scoutGroup: GroupData;
+    scoutGroup: ScoutGroupData;
 }
 
 export function SectionDataFromJSON(json: any): SectionData {
@@ -58,7 +58,7 @@ export function SectionDataFromJSONTyped(json: any, ignoreDiscriminator: boolean
         
         'id': json['id'],
         'name': json['name'],
-        'scoutGroup': GroupDataFromJSON(json['scoutGroup']),
+        'scoutGroup': ScoutGroupDataFromJSON(json['scoutGroup']),
     };
 }
 
@@ -73,7 +73,7 @@ export function SectionDataToJSON(value?: SectionData | null): any {
         
         'id': value.id,
         'name': value.name,
-        'scoutGroup': GroupDataToJSON(value.scoutGroup),
+        'scoutGroup': ScoutGroupDataToJSON(value.scoutGroup),
     };
 }
 

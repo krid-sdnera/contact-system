@@ -16,32 +16,32 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface SubsidiaryInput
+ * @interface ScoutGroupInput
  */
-export interface SubsidiaryInput {
+export interface ScoutGroupInput {
     /**
      * 
      * @type {string}
-     * @memberof SubsidiaryInput
+     * @memberof ScoutGroupInput
      */
-    name?: string;
+    name: string;
 }
 
-export function SubsidiaryInputFromJSON(json: any): SubsidiaryInput {
-    return SubsidiaryInputFromJSONTyped(json, false);
+export function ScoutGroupInputFromJSON(json: any): ScoutGroupInput {
+    return ScoutGroupInputFromJSONTyped(json, false);
 }
 
-export function SubsidiaryInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): SubsidiaryInput {
+export function ScoutGroupInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ScoutGroupInput {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'name': json['name'],
     };
 }
 
-export function SubsidiaryInputToJSON(value?: SubsidiaryInput | null): any {
+export function ScoutGroupInputToJSON(value?: ScoutGroupInput | null): any {
     if (value === undefined) {
         return undefined;
     }

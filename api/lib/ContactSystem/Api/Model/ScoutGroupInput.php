@@ -1,6 +1,6 @@
 <?php
 /**
- * GroupInput
+ * ScoutGroupInput
  *
  * PHP version 5
  *
@@ -34,12 +34,12 @@ use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
 
 /**
- * Class representing the GroupInput model.
+ * Class representing the ScoutGroupInput model.
  *
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-class GroupInput 
+class ScoutGroupInput 
 {
         /**
      * @var string

@@ -22,10 +22,6 @@ import {
     ContactOverrideDataFromJSON,
     ContactOverrideDataFromJSONTyped,
     ContactOverrideDataToJSON,
-    MemberData,
-    MemberDataFromJSON,
-    MemberDataFromJSONTyped,
-    MemberDataToJSON,
 } from './';
 
 /**
@@ -120,12 +116,6 @@ export interface ContactData {
     occupation?: string;
     /**
      * 
-     * @type {MemberData}
-     * @memberof ContactData
-     */
-    member?: MemberData;
-    /**
-     * 
      * @type {string}
      * @memberof ContactData
      */
@@ -162,7 +152,6 @@ export function ContactDataFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'primaryContact': !exists(json, 'primaryContact') ? undefined : json['primaryContact'],
         'email': !exists(json, 'email') ? undefined : json['email'],
         'occupation': !exists(json, 'occupation') ? undefined : json['occupation'],
-        'member': !exists(json, 'member') ? undefined : MemberDataFromJSON(json['member']),
         'expiry': !exists(json, 'expiry') ? undefined : json['expiry'],
         'overrides': !exists(json, 'overrides') ? undefined : ContactOverrideDataFromJSON(json['overrides']),
     };
@@ -191,7 +180,6 @@ export function ContactDataToJSON(value?: ContactData | null): any {
         'primaryContact': value.primaryContact,
         'email': value.email,
         'occupation': value.occupation,
-        'member': MemberDataToJSON(value.member),
         'expiry': value.expiry,
         'overrides': ContactOverrideDataToJSON(value.overrides),
     };

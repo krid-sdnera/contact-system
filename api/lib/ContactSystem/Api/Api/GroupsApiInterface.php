@@ -30,9 +30,9 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\GroupData;
-use OpenAPI\Server\Model\GroupInput;
 use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\ScoutGroupData;
+use OpenAPI\Server\Model\ScoutGroupInput;
 use OpenAPI\Server\Model\SectionData;
 
 /**
@@ -72,14 +72,14 @@ interface GroupsApiInterface
      *
      * Create Group
      *
-     * @param  OpenAPI\Server\Model\GroupInput $groupInput   (optional)
+     * @param  OpenAPI\Server\Model\ScoutGroupInput $scoutGroupInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\GroupData
+     * @return OpenAPI\Server\Model\ScoutGroupData
      *
      */
-    public function createGroup(GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
+    public function createGroup(ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteGroupById
@@ -116,7 +116,7 @@ interface GroupsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\GroupData
+     * @return OpenAPI\Server\Model\ScoutGroupData
      *
      */
     public function getGroupById(string $groupId, &$responseCode, array &$responseHeaders);
@@ -160,7 +160,7 @@ interface GroupsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\GroupData[]
+     * @return OpenAPI\Server\Model\ScoutGroupData[]
      *
      */
     public function getGroups(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
@@ -171,12 +171,12 @@ interface GroupsApiInterface
      * Update Group
      *
      * @param  string $groupId   (required)
-     * @param  OpenAPI\Server\Model\GroupInput $groupInput   (optional)
+     * @param  OpenAPI\Server\Model\ScoutGroupInput $scoutGroupInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\GroupData
+     * @return OpenAPI\Server\Model\ScoutGroupData
      *
      */
-    public function updateGroupById(string $groupId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders);
+    public function updateGroupById(string $groupId, ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
 }

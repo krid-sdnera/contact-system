@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **createGroup**
-> OpenAPI\Server\Model\GroupData createGroup($groupInput)
+> OpenAPI\Server\Model\ScoutGroupData createGroup($scoutGroupInput)
 
 Create Group
 
@@ -121,7 +121,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#createGroup
      */
-    public function createGroup(GroupInput $groupInput = null)
+    public function createGroup(ScoutGroupInput $scoutGroupInput = null)
     {
         // Implement the operation ...
     }
@@ -134,11 +134,11 @@ class GroupsApi implements GroupsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **groupInput** | [**OpenAPI\Server\Model\GroupInput**](../Model/GroupInput.md)|  | [optional]
+ **scoutGroupInput** | [**OpenAPI\Server\Model\ScoutGroupInput**](../Model/ScoutGroupInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
+[**OpenAPI\Server\Model\ScoutGroupData**](../Model/ScoutGroupData.md)
 
 ### Authorization
 
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getGroupById**
-> OpenAPI\Server\Model\GroupData getGroupById($groupId)
+> OpenAPI\Server\Model\ScoutGroupData getGroupById($groupId)
 
 Get Group
 
@@ -324,7 +324,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
+[**OpenAPI\Server\Model\ScoutGroupData**](../Model/ScoutGroupData.md)
 
 ### Authorization
 
@@ -462,7 +462,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getGroups**
-> OpenAPI\Server\Model\GroupData getGroups($sort, $pageSize, $page)
+> OpenAPI\Server\Model\ScoutGroupData getGroups($sort, $pageSize, $page)
 
 Get Groups
 
@@ -512,7 +512,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
+[**OpenAPI\Server\Model\ScoutGroupData**](../Model/ScoutGroupData.md)
 
 ### Authorization
 
@@ -526,7 +526,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateGroupById**
-> OpenAPI\Server\Model\GroupData updateGroupById($groupId, $groupInput)
+> OpenAPI\Server\Model\ScoutGroupData updateGroupById($groupId, $scoutGroupInput)
 
 Update Group
 
@@ -557,7 +557,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#updateGroupById
      */
-    public function updateGroupById(string $groupId, GroupInput $groupInput = null)
+    public function updateGroupById(string $groupId, ScoutGroupInput $scoutGroupInput = null)
     {
         // Implement the operation ...
     }
@@ -571,11 +571,11 @@ class GroupsApi implements GroupsApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **groupId** | **string**|  |
- **groupInput** | [**OpenAPI\Server\Model\GroupInput**](../Model/GroupInput.md)|  | [optional]
+ **scoutGroupInput** | [**OpenAPI\Server\Model\ScoutGroupInput**](../Model/ScoutGroupInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\GroupData**](../Model/GroupData.md)
+[**OpenAPI\Server\Model\ScoutGroupData**](../Model/ScoutGroupData.md)
 
 ### Authorization
 

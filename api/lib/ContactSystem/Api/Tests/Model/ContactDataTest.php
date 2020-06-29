@@ -177,13 +177,6 @@ class ContactDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "member"
-     */
-    public function testPropertyMember()
-    {
-    }
-
-    /**
      * Test attribute "expiry"
      */
     public function testPropertyExpiry()

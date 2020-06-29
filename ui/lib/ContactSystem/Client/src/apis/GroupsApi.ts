@@ -15,18 +15,18 @@
 
 import * as runtime from '../runtime';
 import {
-    GroupData,
-    GroupDataFromJSON,
-    GroupDataToJSON,
-    GroupInput,
-    GroupInputFromJSON,
-    GroupInputToJSON,
     MemberData,
     MemberDataFromJSON,
     MemberDataToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
+    ScoutGroupData,
+    ScoutGroupDataFromJSON,
+    ScoutGroupDataToJSON,
+    ScoutGroupInput,
+    ScoutGroupInputFromJSON,
+    ScoutGroupInputToJSON,
     SectionData,
     SectionDataFromJSON,
     SectionDataToJSON,
@@ -37,7 +37,7 @@ export interface AddGroupLocalMarkerByIdRequest {
 }
 
 export interface CreateGroupRequest {
-    groupInput?: GroupInput;
+    scoutGroupInput?: ScoutGroupInput;
 }
 
 export interface DeleteGroupByIdRequest {
@@ -68,7 +68,7 @@ export interface GetGroupsRequest {
 
 export interface UpdateGroupByIdRequest {
     groupId: string;
-    groupInput?: GroupInput;
+    scoutGroupInput?: ScoutGroupInput;
 }
 
 /**
@@ -94,18 +94,18 @@ export interface GroupsApiInterface {
     /**
      * Create Group
      * @summary Create Group
-     * @param {GroupInput} [groupInput] 
+     * @param {ScoutGroupInput} [scoutGroupInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupsApiInterface
      */
-    createGroupRaw(requestParameters: CreateGroupRequest): Promise<runtime.ApiResponse<GroupData>>;
+    createGroupRaw(requestParameters: CreateGroupRequest): Promise<runtime.ApiResponse<ScoutGroupData>>;
 
     /**
      * Create Group
      * Create Group
      */
-    createGroup(requestParameters: CreateGroupRequest): Promise<GroupData>;
+    createGroup(requestParameters: CreateGroupRequest): Promise<ScoutGroupData>;
 
     /**
      * Delete Group
@@ -145,13 +145,13 @@ export interface GroupsApiInterface {
      * @throws {RequiredError}
      * @memberof GroupsApiInterface
      */
-    getGroupByIdRaw(requestParameters: GetGroupByIdRequest): Promise<runtime.ApiResponse<GroupData>>;
+    getGroupByIdRaw(requestParameters: GetGroupByIdRequest): Promise<runtime.ApiResponse<ScoutGroupData>>;
 
     /**
      * Get Group
      * Get Group
      */
-    getGroupById(requestParameters: GetGroupByIdRequest): Promise<GroupData>;
+    getGroupById(requestParameters: GetGroupByIdRequest): Promise<ScoutGroupData>;
 
     /**
      * getGroupMembersById
@@ -195,30 +195,30 @@ export interface GroupsApiInterface {
      * @throws {RequiredError}
      * @memberof GroupsApiInterface
      */
-    getGroupsRaw(requestParameters: GetGroupsRequest): Promise<runtime.ApiResponse<Array<GroupData>>>;
+    getGroupsRaw(requestParameters: GetGroupsRequest): Promise<runtime.ApiResponse<Array<ScoutGroupData>>>;
 
     /**
      * Get Groups
      * Get Groups
      */
-    getGroups(requestParameters: GetGroupsRequest): Promise<Array<GroupData>>;
+    getGroups(requestParameters: GetGroupsRequest): Promise<Array<ScoutGroupData>>;
 
     /**
      * Update Group
      * @summary Update Group
      * @param {string} groupId 
-     * @param {GroupInput} [groupInput] 
+     * @param {ScoutGroupInput} [scoutGroupInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupsApiInterface
      */
-    updateGroupByIdRaw(requestParameters: UpdateGroupByIdRequest): Promise<runtime.ApiResponse<GroupData>>;
+    updateGroupByIdRaw(requestParameters: UpdateGroupByIdRequest): Promise<runtime.ApiResponse<ScoutGroupData>>;
 
     /**
      * Update Group
      * Update Group
      */
-    updateGroupById(requestParameters: UpdateGroupByIdRequest): Promise<GroupData>;
+    updateGroupById(requestParameters: UpdateGroupByIdRequest): Promise<ScoutGroupData>;
 
 }
 
@@ -265,7 +265,7 @@ export class GroupsApi extends runtime.BaseAPI implements GroupsApiInterface {
      * Create Group
      * Create Group
      */
-    async createGroupRaw(requestParameters: CreateGroupRequest): Promise<runtime.ApiResponse<GroupData>> {
+    async createGroupRaw(requestParameters: CreateGroupRequest): Promise<runtime.ApiResponse<ScoutGroupData>> {
         const queryParameters: runtime.HTTPQuery = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -281,17 +281,17 @@ export class GroupsApi extends runtime.BaseAPI implements GroupsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: GroupInputToJSON(requestParameters.groupInput),
+            body: ScoutGroupInputToJSON(requestParameters.scoutGroupInput),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => GroupDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ScoutGroupDataFromJSON(jsonValue));
     }
 
     /**
      * Create Group
      * Create Group
      */
-    async createGroup(requestParameters: CreateGroupRequest): Promise<GroupData> {
+    async createGroup(requestParameters: CreateGroupRequest): Promise<ScoutGroupData> {
         const response = await this.createGroupRaw(requestParameters);
         return await response.value();
     }
@@ -370,7 +370,7 @@ export class GroupsApi extends runtime.BaseAPI implements GroupsApiInterface {
      * Get Group
      * Get Group
      */
-    async getGroupByIdRaw(requestParameters: GetGroupByIdRequest): Promise<runtime.ApiResponse<GroupData>> {
+    async getGroupByIdRaw(requestParameters: GetGroupByIdRequest): Promise<runtime.ApiResponse<ScoutGroupData>> {
         if (requestParameters.groupId === null || requestParameters.groupId === undefined) {
             throw new runtime.RequiredError('groupId','Required parameter requestParameters.groupId was null or undefined when calling getGroupById.');
         }
@@ -390,14 +390,14 @@ export class GroupsApi extends runtime.BaseAPI implements GroupsApiInterface {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => GroupDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ScoutGroupDataFromJSON(jsonValue));
     }
 
     /**
      * Get Group
      * Get Group
      */
-    async getGroupById(requestParameters: GetGroupByIdRequest): Promise<GroupData> {
+    async getGroupById(requestParameters: GetGroupByIdRequest): Promise<ScoutGroupData> {
         const response = await this.getGroupByIdRaw(requestParameters);
         return await response.value();
     }
@@ -478,7 +478,7 @@ export class GroupsApi extends runtime.BaseAPI implements GroupsApiInterface {
      * Get Groups
      * Get Groups
      */
-    async getGroupsRaw(requestParameters: GetGroupsRequest): Promise<runtime.ApiResponse<Array<GroupData>>> {
+    async getGroupsRaw(requestParameters: GetGroupsRequest): Promise<runtime.ApiResponse<Array<ScoutGroupData>>> {
         const queryParameters: runtime.HTTPQuery = {};
 
         if (requestParameters.sort !== undefined) {
@@ -506,14 +506,14 @@ export class GroupsApi extends runtime.BaseAPI implements GroupsApiInterface {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GroupDataFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ScoutGroupDataFromJSON));
     }
 
     /**
      * Get Groups
      * Get Groups
      */
-    async getGroups(requestParameters: GetGroupsRequest): Promise<Array<GroupData>> {
+    async getGroups(requestParameters: GetGroupsRequest): Promise<Array<ScoutGroupData>> {
         const response = await this.getGroupsRaw(requestParameters);
         return await response.value();
     }
@@ -522,7 +522,7 @@ export class GroupsApi extends runtime.BaseAPI implements GroupsApiInterface {
      * Update Group
      * Update Group
      */
-    async updateGroupByIdRaw(requestParameters: UpdateGroupByIdRequest): Promise<runtime.ApiResponse<GroupData>> {
+    async updateGroupByIdRaw(requestParameters: UpdateGroupByIdRequest): Promise<runtime.ApiResponse<ScoutGroupData>> {
         if (requestParameters.groupId === null || requestParameters.groupId === undefined) {
             throw new runtime.RequiredError('groupId','Required parameter requestParameters.groupId was null or undefined when calling updateGroupById.');
         }
@@ -542,17 +542,17 @@ export class GroupsApi extends runtime.BaseAPI implements GroupsApiInterface {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: GroupInputToJSON(requestParameters.groupInput),
+            body: ScoutGroupInputToJSON(requestParameters.scoutGroupInput),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => GroupDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ScoutGroupDataFromJSON(jsonValue));
     }
 
     /**
      * Update Group
      * Update Group
      */
-    async updateGroupById(requestParameters: UpdateGroupByIdRequest): Promise<GroupData> {
+    async updateGroupById(requestParameters: UpdateGroupByIdRequest): Promise<ScoutGroupData> {
         const response = await this.updateGroupByIdRaw(requestParameters);
         return await response.value();
     }

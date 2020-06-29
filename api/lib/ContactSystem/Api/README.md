@@ -180,14 +180,6 @@ Class | Method | HTTP request | Description
 *SectionsApiInterface* | [**getSections**](Resources/docs/Api/SectionsApiInterface.md#getsections) | **GET** /sections | Get Sections
 *SectionsApiInterface* | [**removeSectionLocalMarkerById**](Resources/docs/Api/SectionsApiInterface.md#removesectionlocalmarkerbyid) | **DELETE** /sections/{sectionId}/local | 
 *SectionsApiInterface* | [**updateSectionById**](Resources/docs/Api/SectionsApiInterface.md#updatesectionbyid) | **PUT** /sections/{sectionId} | Update Section
-*SubsidiariesApiInterface* | [**addSubsidiaryLocalMarkerById**](Resources/docs/Api/SubsidiariesApiInterface.md#addsubsidiarylocalmarkerbyid) | **PUT** /subsidiaries/{subsidiaryId}/local | Add local marker
-*SubsidiariesApiInterface* | [**createSubsidiary**](Resources/docs/Api/SubsidiariesApiInterface.md#createsubsidiary) | **POST** /subsidiaries | Create subsidiary
-*SubsidiariesApiInterface* | [**deleteSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#deletesubsidiarybyid) | **DELETE** /subsidiaries/{subsidiaryId} | Delete Subsidiary
-*SubsidiariesApiInterface* | [**getSubsidiary**](Resources/docs/Api/SubsidiariesApiInterface.md#getsubsidiary) | **GET** /subsidiaries | Get Subsidiary
-*SubsidiariesApiInterface* | [**getSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#getsubsidiarybyid) | **GET** /subsidiaries/{subsidiaryId} | Your GET endpoint
-*SubsidiariesApiInterface* | [**getSubsidiaryMembersById**](Resources/docs/Api/SubsidiariesApiInterface.md#getsubsidiarymembersbyid) | **GET** /subsidiaries/{subsidiaryId}/members | Your GET endpoint
-*SubsidiariesApiInterface* | [**removeSubsidiaryLocalMarkerById**](Resources/docs/Api/SubsidiariesApiInterface.md#removesubsidiarylocalmarkerbyid) | **DELETE** /subsidiaries/{subsidiaryId}/local | Remove local marker
-*SubsidiariesApiInterface* | [**updateSubsidiaryById**](Resources/docs/Api/SubsidiariesApiInterface.md#updatesubsidiarybyid) | **PUT** /subsidiaries/{subsidiaryId} | Update subsidiary
 
 
 ## Documentation For Models
@@ -197,23 +189,22 @@ Class | Method | HTTP request | Description
  - [ContactData](Resources/docs/Model/ContactData.md)
  - [ContactInput](Resources/docs/Model/ContactInput.md)
  - [ContactOverrideData](Resources/docs/Model/ContactOverrideData.md)
- - [GroupData](Resources/docs/Model/GroupData.md)
- - [GroupInput](Resources/docs/Model/GroupInput.md)
  - [ListRule](Resources/docs/Model/ListRule.md)
  - [ListType](Resources/docs/Model/ListType.md)
  - [MemberData](Resources/docs/Model/MemberData.md)
  - [MemberInput](Resources/docs/Model/MemberInput.md)
  - [MemberOverrideData](Resources/docs/Model/MemberOverrideData.md)
+ - [MemberRoleData](Resources/docs/Model/MemberRoleData.md)
  - [MemberRoleInput](Resources/docs/Model/MemberRoleInput.md)
  - [MemberSuggetion](Resources/docs/Model/MemberSuggetion.md)
  - [Members](Resources/docs/Model/Members.md)
  - [ModelList](Resources/docs/Model/ModelList.md)
  - [RoleData](Resources/docs/Model/RoleData.md)
  - [RoleInput](Resources/docs/Model/RoleInput.md)
+ - [ScoutGroupData](Resources/docs/Model/ScoutGroupData.md)
+ - [ScoutGroupInput](Resources/docs/Model/ScoutGroupInput.md)
  - [SectionData](Resources/docs/Model/SectionData.md)
  - [SectionInput](Resources/docs/Model/SectionInput.md)
- - [SubsidiaryData](Resources/docs/Model/SubsidiaryData.md)
- - [SubsidiaryInput](Resources/docs/Model/SubsidiaryInput.md)
 
 
 ## Documentation For Authorization
