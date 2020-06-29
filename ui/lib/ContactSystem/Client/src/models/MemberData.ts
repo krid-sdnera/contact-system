@@ -18,10 +18,18 @@ import {
     AddressDataFromJSON,
     AddressDataFromJSONTyped,
     AddressDataToJSON,
+    ContactData,
+    ContactDataFromJSON,
+    ContactDataFromJSONTyped,
+    ContactDataToJSON,
     MemberOverrideData,
     MemberOverrideDataFromJSON,
     MemberOverrideDataFromJSONTyped,
     MemberOverrideDataToJSON,
+    MemberRoleData,
+    MemberRoleDataFromJSON,
+    MemberRoleDataFromJSONTyped,
+    MemberRoleDataToJSON,
 } from './';
 
 /**
@@ -120,6 +128,18 @@ export interface MemberData {
      * @memberof MemberData
      */
     overrides?: MemberOverrideData;
+    /**
+     * Array containg the list
+     * @type {Array<MemberRoleData>}
+     * @memberof MemberData
+     */
+    roles?: Array<MemberRoleData>;
+    /**
+     * Array containg the list
+     * @type {Array<ContactData>}
+     * @memberof MemberData
+     */
+    contacts?: Array<ContactData>;
 }
 
 export function MemberDataFromJSON(json: any): MemberData {
@@ -147,6 +167,8 @@ export function MemberDataFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'gender': !exists(json, 'gender') ? undefined : json['gender'],
         'expiry': !exists(json, 'expiry') ? undefined : json['expiry'],
         'overrides': !exists(json, 'overrides') ? undefined : MemberOverrideDataFromJSON(json['overrides']),
+        'roles': !exists(json, 'roles') ? undefined : ((json['roles'] as Array<any>).map(MemberRoleDataFromJSON)),
+        'contacts': !exists(json, 'contacts') ? undefined : ((json['contacts'] as Array<any>).map(ContactDataFromJSON)),
     };
 }
 
@@ -174,6 +196,8 @@ export function MemberDataToJSON(value?: MemberData | null): any {
         'gender': value.gender,
         'expiry': value.expiry,
         'overrides': MemberOverrideDataToJSON(value.overrides),
+        'roles': value.roles === undefined ? undefined : ((value.roles as Array<any>).map(MemberRoleDataToJSON)),
+        'contacts': value.contacts === undefined ? undefined : ((value.contacts as Array<any>).map(ContactDataToJSON)),
     };
 }
 

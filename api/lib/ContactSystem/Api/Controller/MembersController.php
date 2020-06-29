@@ -376,7 +376,7 @@ class MembersController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
+            $memberId = $this->deserialize($memberId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -384,7 +384,7 @@ class MembersController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($memberId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -461,7 +461,7 @@ class MembersController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
+            $memberId = $this->deserialize($memberId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -469,7 +469,7 @@ class MembersController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($memberId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -1012,7 +1012,7 @@ class MembersController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
+            $memberId = $this->deserialize($memberId, 'int', 'string');
             $memberInput = $this->deserialize($memberInput, 'OpenAPI\Server\Model\MemberInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -1021,7 +1021,7 @@ class MembersController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($memberId, $asserts);
         if ($response instanceof Response) {
             return $response;

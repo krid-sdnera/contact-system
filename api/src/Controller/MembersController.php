@@ -201,6 +201,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
      */
     public function getMemberById($memberId, &$responseCode, array &$responseHeaders)
     {
+        /** @var Member */
         $member = $this->getDoctrine()
             ->getRepository(Member::class)
             ->find($memberId);
@@ -214,7 +215,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
             ]);
         }
 
-        return $member;
+        return $member->toMemberData();
     }
 
     /**
@@ -260,7 +261,12 @@ class MembersController extends AbstractController implements MembersApiInterfac
             ]);
         }
 
-        return $members;
+        return array_map(
+            function ($member) {
+                return $member->toMemberData();
+            },
+            $members
+        );
     }
 
     /**

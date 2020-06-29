@@ -154,7 +154,7 @@ paths:
         - members
     parameters:
       - schema:
-          type: string
+          type: integer
         name: memberId
         in: path
         required: true
@@ -1283,6 +1283,18 @@ components:
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         overrides:
           $ref: "#/components/schemas/MemberOverrideData"
+        roles:
+          description: Array containg the list
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/MemberRoleData"
+        contacts:
+          description: Array containg the list
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/ContactData"
       required:
         - id
         - firstname

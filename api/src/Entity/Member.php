@@ -10,6 +10,8 @@ use DateTime;
 
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use OpenAPI\Server\Model\AddressData;
+use OpenAPI\Server\Model\MemberData;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
@@ -340,6 +342,41 @@ class Member
         }
 
         return $roles;
+    }
+
+    public function toMemberData(): MemberData
+    {
+        $arrayData = [
+            'id' => $this->getId(),
+            'state' => $this->getState(),
+            'managementState' => $this->getManagementState(),
+            'expiry' => $this->getExpiry(),
+            'firstname' => $this->getFirstname(),
+            'nickname' => $this->getNickname(),
+            'lastname' => $this->getLastname(),
+            'dateOfBirth' => $this->getDateOfBirth(),
+            'gender' => $this->getGender(),
+            'membershipNumber' => $this->getMembershipNumber(),
+            'address' => new AddressData($this->getAddress()),
+            'phoneHome' => $this->getPhoneHome(),
+            'phoneWork' => $this->getPhoneWork(),
+            'phoneMobile' => $this->getPhoneMobile(),
+            'email' => $this->getEmail(),
+            'schoolName' => $this->getSchoolName(),
+            'schoolYearLevel' => $this->getSchoolYearLevel(),
+            // TODO fix this
+            // 'membershipUpdateLink' => $this->getMembershipUpdateLink(),
+            'roles' => array_map(function ($role) {
+                return $role->toMemberRoleData();
+            }, iterator_to_array($this->getRoles())),
+            'contacts' => array_map(function ($contact) {
+                return $contact->toContactData();
+            }, iterator_to_array($this->getContacts()))
+        ];
+
+        $data = new MemberData($arrayData);
+
+        return $data;
     }
 
     /**

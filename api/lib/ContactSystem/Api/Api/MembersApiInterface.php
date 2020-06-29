@@ -106,28 +106,28 @@ interface MembersApiInterface
      *
      * Delete member
      *
-     * @param  string $memberId   (required)
+     * @param  int $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteMemberById(string $memberId, &$responseCode, array &$responseHeaders);
+    public function deleteMemberById(int $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMemberById
      *
      * Get member
      *
-     * @param  string $memberId   (required)
+     * @param  int $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\MemberData
      *
      */
-    public function getMemberById(string $memberId, &$responseCode, array &$responseHeaders);
+    public function getMemberById(int $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMemberLocalMarkerSuggestionsById
@@ -208,7 +208,7 @@ interface MembersApiInterface
      *
      * Update member
      *
-     * @param  string $memberId   (required)
+     * @param  int $memberId   (required)
      * @param  OpenAPI\Server\Model\MemberInput $memberInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -216,5 +216,5 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\MemberData
      *
      */
-    public function updateMemberById(string $memberId, MemberInput $memberInput = null, &$responseCode, array &$responseHeaders);
+    public function updateMemberById(int $memberId, MemberInput $memberInput = null, &$responseCode, array &$responseHeaders);
 }

@@ -182,4 +182,18 @@ class MemberDataTest extends \PHPUnit_Framework_TestCase
     public function testPropertyOverrides()
     {
     }
+
+    /**
+     * Test attribute "roles"
+     */
+    public function testPropertyRoles()
+    {
+    }
+
+    /**
+     * Test attribute "contacts"
+     */
+    public function testPropertyContacts()
+    {
+    }
 }

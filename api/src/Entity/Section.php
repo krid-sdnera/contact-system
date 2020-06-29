@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use OpenAPI\Server\Model\SectionData;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SectionRepository")
@@ -50,6 +51,20 @@ class Section
         }
 
         return $section;
+    }
+
+    public function toSectionData(): SectionData
+    {
+        $arrayData = [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'externalId' => $this->getExternalId(),
+            'scoutGroup' => $this->getScoutGroup()->toScoutGroupData(),
+        ];
+
+        $data = new SectionData($arrayData);
+
+        return $data;
     }
 
     /**

@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use OpenAPI\Server\Model\AddressData;
+use OpenAPI\Server\Model\ContactData;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
@@ -129,6 +131,32 @@ class Contact
 
         // If there is an override set up. Then this field can not be overriden.
         return !$hasOverride;
+    }
+
+    public function toContactData(): ContactData
+    {
+        $arrayData = [
+            'id' => $this->getId(),
+            'state' => $this->getState(),
+            'managementState' => $this->getManagementState(),
+            'expiry' => $this->getExpiry(),
+            'firstname' => $this->getFirstname(),
+            'nickname' => $this->getNickname(),
+            'lastname' => $this->getLastname(),
+            'occupation' => $this->getOccupation(),
+            'relationship' => $this->getRelationship(),
+            'parentId' => $this->getParentId(),
+            'address' => new AddressData($this->getAddress()),
+            'phoneHome' => $this->getPhoneHome(),
+            'phoneWork' => $this->getPhoneWork(),
+            'phoneMobile' => $this->getPhoneMobile(),
+            'email' => $this->getEmail(),
+            'primaryContact' => $this->getPrimaryContact(),
+        ];
+
+        $data = new ContactData($arrayData);
+
+        return $data;
     }
 
     /**

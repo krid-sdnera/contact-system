@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use OpenAPI\Server\Model\RoleData;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RoleRepository")
@@ -52,6 +53,20 @@ class Role
         }
 
         return $role;
+    }
+
+    public function toRoleData(): RoleData
+    {
+        $arrayData = [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'externalId' => $this->getExternalId(),
+            'section' => $this->getSection()->toSectionData(),
+        ];
+
+        $data = new RoleData($arrayData);
+
+        return $data;
     }
 
     /**

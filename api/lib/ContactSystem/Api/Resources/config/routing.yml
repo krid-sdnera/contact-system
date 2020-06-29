@@ -270,7 +270,7 @@ open_api_server_members_deletememberbyid:
     defaults:
         _controller: open_api_server.controller.members:deleteMemberByIdAction
     requirements:
-        memberId: '[a-z0-9]+'
+        memberId: '\d+'
 
 open_api_server_members_getmemberbyid:
     path:     /members/{memberId}
@@ -278,7 +278,7 @@ open_api_server_members_getmemberbyid:
     defaults:
         _controller: open_api_server.controller.members:getMemberByIdAction
     requirements:
-        memberId: '[a-z0-9]+'
+        memberId: '\d+'
 
 open_api_server_members_getmemberlocalmarkersuggestionsbyid:
     path:     /members/{memberId}/local/suggestions
@@ -326,7 +326,7 @@ open_api_server_members_updatememberbyid:
     defaults:
         _controller: open_api_server.controller.members:updateMemberByIdAction
     requirements:
-        memberId: '[a-z0-9]+'
+        memberId: '\d+'
 
 # roles
 open_api_server_roles_createrole:

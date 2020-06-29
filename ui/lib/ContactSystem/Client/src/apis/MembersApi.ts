@@ -53,11 +53,11 @@ export interface CreateMemberRequest {
 }
 
 export interface DeleteMemberByIdRequest {
-    memberId: string;
+    memberId: number;
 }
 
 export interface GetMemberByIdRequest {
-    memberId: string;
+    memberId: number;
 }
 
 export interface GetMemberLocalMarkerSuggestionsByIdRequest {
@@ -85,7 +85,7 @@ export interface RemoveMemberRoleByIdRequest {
 }
 
 export interface UpdateMemberByIdRequest {
-    memberId: string;
+    memberId: number;
     memberInput?: MemberInput;
 }
 
@@ -148,7 +148,7 @@ export interface MembersApiInterface {
     /**
      * Delete a member
      * @summary Delete member
-     * @param {string} memberId 
+     * @param {number} memberId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MembersApiInterface
@@ -164,7 +164,7 @@ export interface MembersApiInterface {
     /**
      * Get details for a member
      * @summary Get member
-     * @param {string} memberId 
+     * @param {number} memberId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MembersApiInterface
@@ -264,7 +264,7 @@ export interface MembersApiInterface {
     /**
      * Update member
      * @summary Update member
-     * @param {string} memberId 
+     * @param {number} memberId 
      * @param {MemberInput} [memberInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

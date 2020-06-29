@@ -249,7 +249,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#deleteMemberById
      */
-    public function deleteMemberById(string $memberId)
+    public function deleteMemberById(int $memberId)
     {
         // Implement the operation ...
     }
@@ -262,7 +262,7 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
+ **memberId** | **int**|  |
 
 ### Return type
 
@@ -311,7 +311,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#getMemberById
      */
-    public function getMemberById(string $memberId)
+    public function getMemberById(int $memberId)
     {
         // Implement the operation ...
     }
@@ -324,7 +324,7 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
+ **memberId** | **int**|  |
 
 ### Return type
 
@@ -687,7 +687,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#updateMemberById
      */
-    public function updateMemberById(string $memberId, MemberInput $memberInput = null)
+    public function updateMemberById(int $memberId, MemberInput $memberInput = null)
     {
         // Implement the operation ...
     }
@@ -700,7 +700,7 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
+ **memberId** | **int**|  |
  **memberInput** | [**OpenAPI\Server\Model\MemberInput**](../Model/MemberInput.md)|  | [optional]
 
 ### Return type

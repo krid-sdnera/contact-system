@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use OpenAPI\Server\Model\ScoutGroupData;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ScoutGroupRepository")
@@ -47,6 +48,19 @@ class ScoutGroup
         }
 
         return $scoutGroup;
+    }
+
+    public function toScoutGroupData(): ScoutGroupData
+    {
+        $arrayData = [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'externalId' => $this->getExternalId(),
+        ];
+
+        $data = new ScoutGroupData($arrayData);
+
+        return $data;
     }
 
     /**

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use OpenAPI\Server\Model\MemberRoleData;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRoleRepository")
@@ -64,6 +65,21 @@ class MemberRole
         self::$entityManager->flush();
 
         return $relationshipEntity;
+    }
+
+    public function toMemberRoleData(): MemberRoleData
+    {
+        $arrayData = [
+            'id' => $this->getId(),
+            'state' => $this->getState(),
+            'managementState' => $this->getManagementState(),
+            'expiry' => $this->getExpiry(),
+            'role' => $this->getRole()->toRoleData(),
+        ];
+
+        $data = new MemberRoleData($arrayData);
+
+        return $data;
     }
 
     /**
