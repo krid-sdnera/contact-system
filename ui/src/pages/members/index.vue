@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="members"
     :options.sync="options"
     :server-items-length="totalDesserts"
     :loading="loading"
@@ -33,11 +33,12 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator';
+import { Members } from '@api/models';
 
 @Component
 export default class MembersListPage extends Vue {
   totalDesserts = 0;
-  desserts = [];
+  members: Members | null = null;
   loading = true;
   options = {
     // sortBy: null,
@@ -46,7 +47,6 @@ export default class MembersListPage extends Vue {
     itemsPerPage: 20,
   };
 
-  dialog = false;
   formTitle = 'title of the form';
 
   headers = [
@@ -61,70 +61,32 @@ export default class MembersListPage extends Vue {
     { text: 'Actions', value: 'actions' },
   ];
 
-  editedIndex = -1;
-  editedItem = {
-    name: '',
-    calories: 0,
-    fat: 0,
-    carbs: 0,
-    protein: 0,
-  };
-
-  defaultItem = {
-    name: '',
-    calories: 0,
-    fat: 0,
-    carbs: 0,
-    protein: 0,
-  };
-
-  @Watch('dialog')
-  onDialogChange(val) {
-    val || this.close();
-  }
-
   @Watch('options', { deep: true })
   onOptionsChange() {
     this.getDataFromApi().then((data) => {
-      this.desserts = data.items;
+      this.members = data.items;
       this.totalDesserts = data.total;
     });
   }
 
   created() {
     this.getDataFromApi().then((data) => {
-      this.desserts = data.items;
+      this.members = data.items;
       this.totalDesserts = data.total;
     });
   }
 
-  async getDataFromApi() {
+  async getDataFromApi(): Promise<{ items: Members; total: number }> {
     this.loading = true;
-    const { /* sortBy, sortDesc, */ page, itemsPerPage } = this.options;
+    // const { /* sortBy, sortDesc, */ page, itemsPerPage } = this.options;
 
-    let items = await this.getMembers();
-    const total = items.length;
-
-    // if (sortBy.length === 1 && sortDesc.length === 1) {
-    //   items = items.sort((a, b) => {
-    //     const sortA = a[sortBy[0]];
-    //     const sortB = b[sortBy[0]];
-
-    //     if (sortDesc[0]) {
-    //       if (sortA < sortB) return 1;
-    //       if (sortA > sortB) return -1;
-    //       return 0;
-    //     } else {
-    //       if (sortA < sortB) return -1;
-    //       if (sortA > sortB) return 1;
-    //       return 0;
-    //     }
-    //   });
-    // }
-
-    if (itemsPerPage > 0) {
-      items = items.slice((page - 1) * itemsPerPage, page * itemsPerPage);
-    }
+    const items: Members = await this.$api.members.getMembers({
+      // sort?: string,
+      // pageSize?: number,
+      // page?: number,
+    });
+    // const total = items.length;
+    const total = 111;
 
     this.loading = false;
 
@@ -132,10 +94,6 @@ export default class MembersListPage extends Vue {
       items,
       total,
     };
-  }
-
-  async getMembers() {
-    return await this.$api.$get('/members');
   }
 }
 </script>

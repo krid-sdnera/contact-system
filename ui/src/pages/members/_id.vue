@@ -28,7 +28,7 @@
             <v-card-title>Administration</v-card-title>
             <v-card-text>
               <v-chip>{{ member.state | capitalize }}</v-chip>
-              <v-chip>{{ member.management_state | capitalize }}</v-chip>
+              <v-chip>{{ member.managementState | capitalize }}</v-chip>
               <v-chip v-if="member.expiry">{{ member.expiry }}</v-chip>
             </v-card-text>
             <v-card-text>
@@ -92,12 +92,10 @@
                 <v-list-item :key="item.role.id">
                   <v-list-item-content>
                     <v-list-item-title>{{ item.role.name }}</v-list-item-title>
-                    <v-list-item-subtitle
-                      >{{ item.role.section.name }} -
-                      {{
-                        item.role.section.scout_group.name
-                      }}</v-list-item-subtitle
-                    >
+                    <v-list-item-subtitle>
+                      {{ item.role.section.name }} -
+                      {{ item.role.section.scoutGroup.name }}
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
               </template>
@@ -110,13 +108,13 @@
               <template v-for="item in member.contacts">
                 <v-list-item :key="item.id">
                   <v-list-item-content>
-                    <v-list-item-title
-                      >{{ item.firstname }}
-                      {{ item.lastname }}</v-list-item-title
-                    >
-                    <v-list-item-subtitle>{{
-                      item.relationship
-                    }}</v-list-item-subtitle>
+                    <v-list-item-title>
+                      {{ item.firstname }}
+                      {{ item.lastname }}
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      {{ item.relationship }}
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
               </template>
@@ -213,21 +211,20 @@
       </v-col>
     </v-row>
   </v-container>
-  <div v-else>
-    Member not found!
-  </div>
+  <div v-else>Member not found!</div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import { MemberData } from '@api/models';
 
 @Component
 export default class MemberDetailPage extends Vue {
   get id(): number {
-    return this.$route.params.id;
+    return Number(this.$route.params.id);
   }
 
-  member = null;
+  member: MemberData | null = null;
   loading = true;
 
   headers = {
@@ -245,22 +242,23 @@ export default class MemberDetailPage extends Vue {
     roles: [
       { text: 'Role', value: 'role.name' },
       { text: 'Section', value: 'role.section.name' },
-      { text: 'Scout Group', value: 'role.section.scout_group.name' },
+      { text: 'Scout Group', value: 'role.section.scoutGroup.name' },
       { text: 'Actions', value: 'actions' },
     ],
   };
 
   mounted() {
-    this.getMembers().then((data) => {
+    this.getMember().then((data) => {
       this.member = data;
     });
   }
 
-  async getMembers() {
+  async getMember() {
     if (!this.id) {
       return null;
     }
-    const member = await this.$api.$get(`/members/${this.id}`);
+    const member = await this.$api.members.getMemberById({ memberId: this.id });
+
     this.loading = false;
     return member;
   }
@@ -269,27 +267,16 @@ export default class MemberDetailPage extends Vue {
     if (!this.member) {
       return '';
     }
-    return `${this.member.address.street1} ${this.member.address.street2} ${this.member.address.city} ${this.member.address.state} ${this.member.address.postcode}`;
-  }
 
-  meta = {
-    breadcrumbs: [
-      {
-        text: 'Dashboard',
-        disabled: false,
-        href: 'breadcrumbs_dashboard',
-      },
-      {
-        text: 'Link 1',
-        disabled: false,
-        href: 'breadcrumbs_link_1',
-      },
-      {
-        text: 'Link 2',
-        disabled: true,
-        href: 'breadcrumbs_link_2',
-      },
-    ],
-  };
+    return 'Address placeholder';
+
+    // const street1 = this.member.address.street1 || '';
+    // const street2 = this.member.address.street2 || '';
+    // const city = this.member.address.city || '';
+    // const state = this.member.address.state || '';
+    // const postcode = this.member.address.postcode || '';
+
+    // return `${street1} ${street2} ${city} ${state} ${postcode}`;
+  }
 }
 </script>

@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 export default {
   srcDir: 'src/',
@@ -38,7 +39,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/http', '~/plugins/filters'],
+  plugins: ['~/plugins/api', '~/plugins/filters'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -77,7 +78,18 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+    /*
+     ** You can extend webpack config here
+     */
+    extend(config) {
+      config.resolve = config.resolve || {};
+      config.resolve.plugins = config.resolve.plugins || [];
+      config.resolve.plugins.push(
+        new TsconfigPathsPlugin({ configFile: './tsconfig.json' })
+      );
+    },
+  },
   env: {
     API_BASE: '/api/v1',
     API_TOKEN: process.env.API_TOKEN,
