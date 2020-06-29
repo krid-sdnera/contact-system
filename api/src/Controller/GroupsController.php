@@ -9,7 +9,7 @@ use Doctrine\ORM\ORMException;
 
 use OpenAPI\Server\Api\GroupsApiInterface;
 
-use OpenAPI\Server\Model\GroupInput;
+use OpenAPI\Server\Model\ScoutGroupInput;
 
 use App\Entity\ScoutGroup;
 use App\Entity\Section;
@@ -43,7 +43,7 @@ class GroupsController extends AbstractController implements GroupsApiInterface
     /**
      * {@inheritdoc}
      */
-    public function createGroup(GroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
+    public function createGroup(ScoutGroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -182,7 +182,7 @@ class GroupsController extends AbstractController implements GroupsApiInterface
     /**
      * {@inheritdoc}
      */
-    public function updateGroupById(string $groupId, GroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
+    public function updateGroupById(string $groupId, ScoutGroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
