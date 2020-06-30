@@ -8,15 +8,15 @@
               >{{ member.firstname }} {{ member.lastname }}</v-card-title
             >
 
-            <v-card-subtitle v-if="member.membership_number">
+            <v-card-subtitle v-if="member.membershipNumber">
               <div class="text--secondary">Rego:</div>
-              <div class="text--primary">{{ member.membership_number }}</div>
+              <div class="text--primary">{{ member.membershipNumber }}</div>
             </v-card-subtitle>
 
             <v-card-text>
               <div class="text--secondary">Date of Birth:</div>
               <div class="text--primary">
-                {{ member.date_of_birth | dateOfBirth }}
+                {{ member.dateOfBirth | dateOfBirth }}
               </div>
 
               <div class="text--secondary">Gender:</div>
@@ -54,31 +54,31 @@
             </v-card-text>
 
             <v-card-text>
-              <template v-if="member.phone_home">
+              <template v-if="member.phoneHome">
                 <div class="text--secondary">Homephone:</div>
-                <div class="text--primary">{{ member.phone_home }}</div>
+                <div class="text--primary">{{ member.phoneHome }}</div>
               </template>
 
-              <template v-if="member.phone_work">
+              <template v-if="member.phoneWork">
                 <div class="text--secondary">Workphone:</div>
-                <div class="text--primary">{{ member.phone_work }}</div>
+                <div class="text--primary">{{ member.phoneWork }}</div>
               </template>
 
-              <template v-if="member.phone_mobile">
+              <template v-if="member.phoneMobile">
                 <div class="text--secondary">Mobile:</div>
-                <div class="text--primary">{{ member.phone_mobile }}</div>
+                <div class="text--primary">{{ member.phoneMobile }}</div>
               </template>
             </v-card-text>
 
-            <v-card-text v-if="member.school_name || member.school_year_level">
-              <template v-if="member.school_name">
+            <v-card-text v-if="member.schoolName || member.schoolYearLevel">
+              <template v-if="member.schoolName">
                 <div class="text--secondary">School Name:</div>
-                <div class="text--primary">{{ member.school_name }}</div>
+                <div class="text--primary">{{ member.schoolName }}</div>
               </template>
 
-              <template v-if="member.school_year_level">
+              <template v-if="member.schoolYearLevel">
                 <div class="text--secondary">School Year Level:</div>
-                <div class="text--primary">{{ member.school_year_level }}</div>
+                <div class="text--primary">{{ member.schoolYearLevel }}</div>
               </template>
             </v-card-text>
           </v-card>
@@ -211,6 +211,7 @@
       </v-col>
     </v-row>
   </v-container>
+  <div v-else-if="error">Error loading member details</div>
   <div v-else>Member not found!</div>
 </template>
 
@@ -218,13 +219,25 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { MemberData } from '@api/models';
 
+import { namespace as memberNamespace } from '~/store/member';
+
 @Component
 export default class MemberDetailPage extends Vue {
   get id(): number {
     return Number(this.$route.params.id);
   }
 
-  member: MemberData | null = null;
+  get member(): MemberData | null {
+    const member = this.$store.getters[`${memberNamespace}/getMemberById`](
+      this.id
+    );
+    if (!member) {
+      return null;
+    }
+    return member;
+  }
+
+  error = false;
   loading = true;
 
   headers = {
@@ -247,20 +260,14 @@ export default class MemberDetailPage extends Vue {
     ],
   };
 
-  mounted() {
-    this.getMember().then((data) => {
-      this.member = data;
-    });
-  }
-
-  async getMember() {
-    if (!this.id) {
-      return null;
+  async mounted() {
+    try {
+      await this.$store.dispatch(`${memberNamespace}/fetchMemberById`, this.id);
+    } catch (e) {
+      this.error = true;
+    } finally {
+      this.loading = false;
     }
-    const member = await this.$api.members.getMemberById({ memberId: this.id });
-
-    this.loading = false;
-    return member;
   }
 
   get address() {

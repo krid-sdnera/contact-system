@@ -33,12 +33,13 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator';
-import { Members } from '@api/models';
+import { MemberData } from '@api/models';
+import { namespace as memberNamespace } from '~/store/member';
 
 @Component
 export default class MembersListPage extends Vue {
-  totalDesserts = 0;
-  members: Members | null = null;
+  totalMembers = 0;
+  error = false;
   loading = true;
   options = {
     // sortBy: null,
@@ -63,37 +64,32 @@ export default class MembersListPage extends Vue {
 
   @Watch('options', { deep: true })
   onOptionsChange() {
-    this.getDataFromApi().then((data) => {
-      this.members = data.items;
-      this.totalDesserts = data.total;
-    });
+    // this.getDataFromApi().then((data) => {
+    //   this.members = data.items;
+    //   this.totalDesserts = data.total;
+    // });
   }
 
-  created() {
-    this.getDataFromApi().then((data) => {
-      this.members = data.items;
-      this.totalDesserts = data.total;
-    });
+  get members(): Array<MemberData> | null {
+    const members = this.$store.getters[`${memberNamespace}/getMembers`];
+    if (!members) {
+      return null;
+    }
+    return members;
   }
 
-  async getDataFromApi(): Promise<{ items: Members; total: number }> {
-    this.loading = true;
+  async mounted() {
+    try {
+      await this.$store.dispatch(`${memberNamespace}/fetchMembers`, {});
+    } catch (e) {
+      this.error = true;
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  async getDataFromApi(): Promise<void> {
     // const { /* sortBy, sortDesc, */ page, itemsPerPage } = this.options;
-
-    const items: Members = await this.$api.members.getMembers({
-      // sort?: string,
-      // pageSize?: number,
-      // page?: number,
-    });
-    // const total = items.length;
-    const total = 111;
-
-    this.loading = false;
-
-    return {
-      items,
-      total,
-    };
   }
 }
 </script>

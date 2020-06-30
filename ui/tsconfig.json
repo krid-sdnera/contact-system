@@ -12,7 +12,7 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "~/*": ["./src/*"],
       "@api/*": ["./lib/ContactSystem/Client/src/*"]
     },
     "types": ["@types/node", "@nuxt/types"]
