@@ -40,6 +40,7 @@ use OpenAPI\Server\Api\ContactsApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ContactData;
 use OpenAPI\Server\Model\ContactInput;
+use OpenAPI\Server\Model\Contacts;
 use OpenAPI\Server\Model\MemberData;
 
 /**

@@ -274,7 +274,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getContacts**
-> OpenAPI\Server\Model\ContactData getContacts($sort, $pageSize, $page)
+> OpenAPI\Server\Model\Contacts getContacts($sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -324,7 +324,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ContactData**](../Model/ContactData.md)
+[**OpenAPI\Server\Model\Contacts**](../Model/Contacts.md)
 
 ### Authorization
 

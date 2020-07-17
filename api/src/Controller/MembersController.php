@@ -261,12 +261,14 @@ class MembersController extends AbstractController implements MembersApiInterfac
             ]);
         }
 
-        return array_map(
-            function ($member) {
-                return $member->toMemberData();
-            },
-            $members
-        );
+        return [
+            'members' => array_map(
+                function ($member) {
+                    return $member->toMemberData();
+                },
+                $members
+            )
+        ];
     }
 
     /**
@@ -281,7 +283,6 @@ class MembersController extends AbstractController implements MembersApiInterfac
             'message' => "This endpoint has not been implemented"
         ]);
     }
-
 
     /**
      * {@inheritdoc}

@@ -83,7 +83,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
     /**
      * {@inheritdoc}
      */
-    public function deleteContactById(string $contactId, &$responseCode, array &$responseHeaders)
+    public function deleteContactById(int $contactId, &$responseCode, array &$responseHeaders)
     {
         $contact = $this->getDoctrine()
             ->getRepository(Contact::class)
@@ -113,7 +113,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
     /**
      * {@inheritdoc}
      */
-    public function getContactById(string $contactId, &$responseCode, array &$responseHeaders)
+    public function getContactById(int $contactId, &$responseCode, array &$responseHeaders)
     {
         $contact = $this->getDoctrine()
             ->getRepository(Contact::class)
@@ -134,7 +134,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
     /**
      * {@inheritdoc}
      */
-    public function getContactMembersById(string $contactId, &$responseCode, array &$responseHeaders)
+    public function getContactMembersById(int $contactId, &$responseCode, array &$responseHeaders)
     {
         $responseCode = 501;
         return new ApiResponse([
@@ -171,13 +171,33 @@ class ContactsController extends AbstractController implements ContactsApiInterf
             ]);
         }
 
-        return $contacts;
+        return [
+            "contacts" => array_map(
+                function ($contact) {
+                    return $contact->toContactData();
+                },
+                $contacts
+            )
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function updateContactById(string $contactId, ContactInput $contactInput = null, &$responseCode, array &$responseHeaders)
+    public function patchContactById($contactId, ContactInput $contact = null, &$responseCode, array &$responseHeaders)
+    {
+        $responseCode = 501;
+        return new ApiResponse([
+            'code' => 501,
+            'type' => 'Not Implemented',
+            'message' => "This endpoint has not been implemented"
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateContactById(int $contactId, ContactInput $contactInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 

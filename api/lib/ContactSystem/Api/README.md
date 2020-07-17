@@ -191,6 +191,7 @@ Class | Method | HTTP request | Description
  - [ContactData](Resources/docs/Model/ContactData.md)
  - [ContactInput](Resources/docs/Model/ContactInput.md)
  - [ContactOverrideData](Resources/docs/Model/ContactOverrideData.md)
+ - [Contacts](Resources/docs/Model/Contacts.md)
  - [ListRule](Resources/docs/Model/ListRule.md)
  - [ListType](Resources/docs/Model/ListType.md)
  - [MemberData](Resources/docs/Model/MemberData.md)

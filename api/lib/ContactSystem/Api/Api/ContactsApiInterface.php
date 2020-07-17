@@ -32,6 +32,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ContactData;
 use OpenAPI\Server\Model\ContactInput;
+use OpenAPI\Server\Model\Contacts;
 use OpenAPI\Server\Model\MemberData;
 
 /**
@@ -117,7 +118,7 @@ interface ContactsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ContactData[]
+     * @return OpenAPI\Server\Model\Contacts
      *
      */
     public function getContacts(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);

@@ -2,6 +2,7 @@ export * from './AddressData';
 export * from './ContactData';
 export * from './ContactInput';
 export * from './ContactOverrideData';
+export * from './Contacts';
 export * from './List';
 export * from './ListRule';
 export * from './ListType';

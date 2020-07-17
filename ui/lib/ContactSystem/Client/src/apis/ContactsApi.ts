@@ -21,6 +21,9 @@ import {
     ContactInput,
     ContactInputFromJSON,
     ContactInputToJSON,
+    Contacts,
+    ContactsFromJSON,
+    ContactsToJSON,
     MemberData,
     MemberDataFromJSON,
     MemberDataToJSON,
@@ -137,13 +140,13 @@ export interface ContactsApiInterface {
      * @throws {RequiredError}
      * @memberof ContactsApiInterface
      */
-    getContactsRaw(requestParameters: GetContactsRequest): Promise<runtime.ApiResponse<Array<ContactData>>>;
+    getContactsRaw(requestParameters: GetContactsRequest): Promise<runtime.ApiResponse<Contacts>>;
 
     /**
      * Your GET endpoint
      * Your GET endpoint
      */
-    getContacts(requestParameters: GetContactsRequest): Promise<Array<ContactData>>;
+    getContacts(requestParameters: GetContactsRequest): Promise<Contacts>;
 
     /**
      * patchContactById
@@ -325,7 +328,7 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
      * Your GET endpoint
      * Your GET endpoint
      */
-    async getContactsRaw(requestParameters: GetContactsRequest): Promise<runtime.ApiResponse<Array<ContactData>>> {
+    async getContactsRaw(requestParameters: GetContactsRequest): Promise<runtime.ApiResponse<Contacts>> {
         const queryParameters: runtime.HTTPQuery = {};
 
         if (requestParameters.sort !== undefined) {
@@ -353,14 +356,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ContactDataFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ContactsFromJSON(jsonValue));
     }
 
     /**
      * Your GET endpoint
      * Your GET endpoint
      */
-    async getContacts(requestParameters: GetContactsRequest): Promise<Array<ContactData>> {
+    async getContacts(requestParameters: GetContactsRequest): Promise<Contacts> {
         const response = await this.getContactsRaw(requestParameters);
         return await response.value();
     }

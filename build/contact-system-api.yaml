@@ -454,9 +454,17 @@ paths:
             application/json:
               schema:
                 title: Contacts
-                type: array
-                items:
-                  $ref: "#/components/schemas/ContactData"
+                description: A list of contacts
+                type: object
+                properties:
+                  contacts:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/ContactData"
+                required:
+                  - members
       operationId: getContacts
       parameters:
         - schema:
