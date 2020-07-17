@@ -41,13 +41,13 @@ export interface ContactData {
      * @type {string}
      * @memberof ContactData
      */
-    state?: string;
+    state?: ContactDataStateEnum;
     /**
      * 
      * @type {string}
      * @memberof ContactData
      */
-    managementState?: string;
+    managementState?: ContactDataManagementStateEnum;
     /**
      * 
      * @type {string}
@@ -183,6 +183,23 @@ export function ContactDataToJSON(value?: ContactData | null): any {
         'expiry': value.expiry,
         'overrides': ContactOverrideDataToJSON(value.overrides),
     };
+}
+
+/**
+* @export
+* @enum {string}
+*/
+export enum ContactDataStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
+}
+/**
+* @export
+* @enum {string}
+*/
+export enum ContactDataManagementStateEnum {
+    Managed = 'managed',
+    Unmanaged = 'unmanaged'
 }
 
 

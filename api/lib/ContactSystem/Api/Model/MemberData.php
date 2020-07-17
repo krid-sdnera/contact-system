@@ -53,6 +53,7 @@ class MemberData
     /**
      * @var string|null
      * @SerializedName("state")
+     * @Assert\Choice({ "enabled", "disabled" })
      * @Assert\Type("string")
      * @Type("string")
      */
@@ -61,6 +62,7 @@ class MemberData
     /**
      * @var string|null
      * @SerializedName("managementState")
+     * @Assert\Choice({ "managed", "unmanaged" })
      * @Assert\Type("string")
      * @Type("string")
      */

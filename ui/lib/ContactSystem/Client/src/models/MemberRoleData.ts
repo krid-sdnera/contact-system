@@ -31,13 +31,13 @@ export interface MemberRoleData {
      * @type {string}
      * @memberof MemberRoleData
      */
-    state?: string;
+    state?: MemberRoleDataStateEnum;
     /**
      * 
      * @type {string}
      * @memberof MemberRoleData
      */
-    managementState?: string;
+    managementState?: MemberRoleDataManagementStateEnum;
     /**
      * 
      * @type {string}
@@ -83,6 +83,23 @@ export function MemberRoleDataToJSON(value?: MemberRoleData | null): any {
         'expiry': value.expiry,
         'role': RoleDataToJSON(value.role),
     };
+}
+
+/**
+* @export
+* @enum {string}
+*/
+export enum MemberRoleDataStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
+}
+/**
+* @export
+* @enum {string}
+*/
+export enum MemberRoleDataManagementStateEnum {
+    Managed = 'managed',
+    Unmanaged = 'unmanaged'
 }
 
 

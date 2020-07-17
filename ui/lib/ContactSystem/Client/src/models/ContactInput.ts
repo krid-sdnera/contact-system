@@ -35,7 +35,7 @@ export interface ContactInput {
      * @type {string}
      * @memberof ContactInput
      */
-    state?: string;
+    state?: ContactInputStateEnum;
     /**
      * 
      * @type {string}
@@ -175,6 +175,15 @@ export function ContactInputToJSON(value?: ContactInput | null): any {
         'expiry': value.expiry,
         'overrides': ContactOverrideDataToJSON(value.overrides),
     };
+}
+
+/**
+* @export
+* @enum {string}
+*/
+export enum ContactInputStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
 }
 
 

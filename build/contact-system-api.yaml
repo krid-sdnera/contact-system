@@ -1213,6 +1213,9 @@ components:
       properties:
         state:
           type: string
+          enum:
+            - enabled
+            - disabled
         firstname:
           type: string
         lastname:
@@ -1253,9 +1256,15 @@ components:
         id:
           type: integer
         state:
+          enum:
+            - enabled
+            - disabled
           type: string
         managementState:
           type: string
+          enum:
+            - managed
+            - unmanaged
         firstname:
           type: string
         lastname:
@@ -1389,6 +1398,9 @@ components:
       properties:
         state:
           type: string
+          enum:
+            - enabled
+            - disabled
         expiry:
           type: string
           default: "1990-01-01"
@@ -1399,8 +1411,14 @@ components:
       properties:
         state:
           type: string
+          enum:
+            - enabled
+            - disabled
         managementState:
           type: string
+          enum:
+            - managed
+            - unmanaged
         expiry:
           type: string
           default: "1990-01-01"
@@ -1413,6 +1431,9 @@ components:
       properties:
         state:
           type: string
+          enum:
+            - enabled
+            - disabled
         firstname:
           type: string
         nickname:
@@ -1454,8 +1475,14 @@ components:
           type: integer
         state:
           type: string
+          enum:
+            - enabled
+            - disabled
         managementState:
           type: string
+          enum:
+            - managed
+            - unmanaged
         firstname:
           type: string
         nickname:

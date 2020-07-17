@@ -44,6 +44,7 @@ class MemberRoleInput
         /**
      * @var string|null
      * @SerializedName("state")
+     * @Assert\Choice({ "enabled", "disabled" })
      * @Assert\Type("string")
      * @Type("string")
      */

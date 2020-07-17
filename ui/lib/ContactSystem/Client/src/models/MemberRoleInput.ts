@@ -24,7 +24,7 @@ export interface MemberRoleInput {
      * @type {string}
      * @memberof MemberRoleInput
      */
-    state?: string;
+    state?: MemberRoleInputStateEnum;
     /**
      * 
      * @type {string}
@@ -60,6 +60,15 @@ export function MemberRoleInputToJSON(value?: MemberRoleInput | null): any {
         'state': value.state,
         'expiry': value.expiry,
     };
+}
+
+/**
+* @export
+* @enum {string}
+*/
+export enum MemberRoleInputStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
 }
 
 

@@ -35,7 +35,7 @@ export interface MemberInput {
      * @type {string}
      * @memberof MemberInput
      */
-    state?: string;
+    state?: MemberInputStateEnum;
     /**
      * 
      * @type {string}
@@ -167,6 +167,15 @@ export function MemberInputToJSON(value?: MemberInput | null): any {
         'expiry': value.expiry,
         'overrides': MemberOverrideDataToJSON(value.overrides),
     };
+}
+
+/**
+* @export
+* @enum {string}
+*/
+export enum MemberInputStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
 }
 
 

@@ -49,13 +49,13 @@ export interface MemberData {
      * @type {string}
      * @memberof MemberData
      */
-    state?: string;
+    state?: MemberDataStateEnum;
     /**
      * 
      * @type {string}
      * @memberof MemberData
      */
-    managementState?: string;
+    managementState?: MemberDataManagementStateEnum;
     /**
      * 
      * @type {string}
@@ -199,6 +199,23 @@ export function MemberDataToJSON(value?: MemberData | null): any {
         'roles': value.roles === undefined ? undefined : ((value.roles as Array<any>).map(MemberRoleDataToJSON)),
         'contacts': value.contacts === undefined ? undefined : ((value.contacts as Array<any>).map(ContactDataToJSON)),
     };
+}
+
+/**
+* @export
+* @enum {string}
+*/
+export enum MemberDataStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
+}
+/**
+* @export
+* @enum {string}
+*/
+export enum MemberDataManagementStateEnum {
+    Managed = 'managed',
+    Unmanaged = 'unmanaged'
 }
 
 
