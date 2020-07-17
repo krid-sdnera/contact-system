@@ -81,7 +81,7 @@ class SectionsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $sectionId = $this->deserialize($sectionId, 'string', 'string');
+            $sectionId = $this->deserialize($sectionId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -89,7 +89,7 @@ class SectionsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($sectionId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -260,7 +260,7 @@ class SectionsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $sectionId = $this->deserialize($sectionId, 'string', 'string');
+            $sectionId = $this->deserialize($sectionId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -268,7 +268,7 @@ class SectionsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($sectionId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -345,7 +345,7 @@ class SectionsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $sectionId = $this->deserialize($sectionId, 'string', 'string');
+            $sectionId = $this->deserialize($sectionId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -353,7 +353,7 @@ class SectionsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($sectionId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -430,7 +430,7 @@ class SectionsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $sectionId = $this->deserialize($sectionId, 'string', 'string');
+            $sectionId = $this->deserialize($sectionId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -438,7 +438,7 @@ class SectionsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($sectionId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -614,7 +614,7 @@ class SectionsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $sectionId = $this->deserialize($sectionId, 'string', 'string');
+            $sectionId = $this->deserialize($sectionId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -622,7 +622,7 @@ class SectionsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($sectionId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -708,7 +708,7 @@ class SectionsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $sectionId = $this->deserialize($sectionId, 'string', 'string');
+            $sectionId = $this->deserialize($sectionId, 'int', 'string');
             $sectionInput = $this->deserialize($sectionInput, 'OpenAPI\Server\Model\SectionInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -717,7 +717,7 @@ class SectionsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($sectionId, $asserts);
         if ($response instanceof Response) {
             return $response;

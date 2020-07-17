@@ -57,14 +57,14 @@ interface SectionsApiInterface
     /**
      * Operation addSectionLocalMarkerById
      *
-     * @param  string $sectionId   (required)
+     * @param  int $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function addSectionLocalMarkerById(string $sectionId, &$responseCode, array &$responseHeaders);
+    public function addSectionLocalMarkerById(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createSection
@@ -85,42 +85,42 @@ interface SectionsApiInterface
      *
      * Delete Section
      *
-     * @param  string $sectionId   (required)
+     * @param  int $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteSectionById(string $sectionId, &$responseCode, array &$responseHeaders);
+    public function deleteSectionById(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSectionById
      *
      * Get Section
      *
-     * @param  string $sectionId   (required)
+     * @param  int $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\SectionData
      *
      */
-    public function getSectionById(string $sectionId, &$responseCode, array &$responseHeaders);
+    public function getSectionById(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSectionMembersById
      *
      * Your GET endpoint
      *
-     * @param  string $sectionId   (required)
+     * @param  int $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getSectionMembersById(string $sectionId, &$responseCode, array &$responseHeaders);
+    public function getSectionMembersById(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSections
@@ -141,21 +141,21 @@ interface SectionsApiInterface
     /**
      * Operation removeSectionLocalMarkerById
      *
-     * @param  string $sectionId   (required)
+     * @param  int $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function removeSectionLocalMarkerById(string $sectionId, &$responseCode, array &$responseHeaders);
+    public function removeSectionLocalMarkerById(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateSectionById
      *
      * Update Section
      *
-     * @param  string $sectionId   (required)
+     * @param  int $sectionId   (required)
      * @param  OpenAPI\Server\Model\SectionInput $sectionInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -163,5 +163,5 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\SectionData
      *
      */
-    public function updateSectionById(string $sectionId, SectionInput $sectionInput = null, &$responseCode, array &$responseHeaders);
+    public function updateSectionById(int $sectionId, SectionInput $sectionInput = null, &$responseCode, array &$responseHeaders);
 }

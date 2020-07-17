@@ -85,7 +85,7 @@ class MembersApiInterfaceTest extends WebTestCase
 
         $path = '/members/{memberId}/local';
         $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PUT', $path);
@@ -103,10 +103,10 @@ class MembersApiInterfaceTest extends WebTestCase
 
         $path = '/members/{memberId}/roles/{roleId}';
         $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
         $pattern = '{roleId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PUT', $path);
@@ -175,7 +175,7 @@ class MembersApiInterfaceTest extends WebTestCase
 
         $path = '/members/{memberId}/local/suggestions';
         $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -208,10 +208,10 @@ class MembersApiInterfaceTest extends WebTestCase
 
         $path = '/members/{memberId}/merge_into/{mergeMemberId}';
         $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
         $pattern = '{mergeMemberId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('POST', $path);
@@ -229,7 +229,7 @@ class MembersApiInterfaceTest extends WebTestCase
 
         $path = '/members/{memberId}/local';
         $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
@@ -247,10 +247,10 @@ class MembersApiInterfaceTest extends WebTestCase
 
         $path = '/members/{memberId}/roles/{roleId}';
         $pattern = '{memberId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
         $pattern = '{roleId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);

@@ -82,7 +82,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'string', 'string');
+            $groupId = $this->deserialize($groupId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -90,7 +90,7 @@ class GroupsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($groupId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -261,7 +261,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'string', 'string');
+            $groupId = $this->deserialize($groupId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -269,7 +269,7 @@ class GroupsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($groupId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -344,7 +344,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'string', 'string');
+            $groupId = $this->deserialize($groupId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -352,7 +352,7 @@ class GroupsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($groupId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -429,7 +429,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'string', 'string');
+            $groupId = $this->deserialize($groupId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -437,7 +437,7 @@ class GroupsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($groupId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -514,7 +514,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'string', 'string');
+            $groupId = $this->deserialize($groupId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -522,7 +522,7 @@ class GroupsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($groupId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -599,7 +599,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'string', 'string');
+            $groupId = $this->deserialize($groupId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -607,7 +607,7 @@ class GroupsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($groupId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -794,7 +794,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'string', 'string');
+            $groupId = $this->deserialize($groupId, 'int', 'string');
             $scoutGroupInput = $this->deserialize($scoutGroupInput, 'OpenAPI\Server\Model\ScoutGroupInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -803,7 +803,7 @@ class GroupsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($groupId, $asserts);
         if ($response instanceof Response) {
             return $response;

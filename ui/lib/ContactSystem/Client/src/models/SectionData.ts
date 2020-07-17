@@ -28,10 +28,10 @@ import {
 export interface SectionData {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SectionData
      */
-    id: string;
+    id: number;
     /**
      * 
      * @type {string}

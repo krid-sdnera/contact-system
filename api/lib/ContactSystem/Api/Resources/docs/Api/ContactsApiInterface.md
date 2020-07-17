@@ -118,7 +118,7 @@ class ContactsApi implements ContactsApiInterface
     /**
      * Implementation of ContactsApiInterface#deleteContactById
      */
-    public function deleteContactById(string $contactId)
+    public function deleteContactById(int $contactId)
     {
         // Implement the operation ...
     }
@@ -131,7 +131,7 @@ class ContactsApi implements ContactsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contactId** | **string**|  |
+ **contactId** | **int**|  |
 
 ### Return type
 
@@ -180,7 +180,7 @@ class ContactsApi implements ContactsApiInterface
     /**
      * Implementation of ContactsApiInterface#getContactById
      */
-    public function getContactById(string $contactId)
+    public function getContactById(int $contactId)
     {
         // Implement the operation ...
     }
@@ -193,7 +193,7 @@ class ContactsApi implements ContactsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contactId** | **string**|  |
+ **contactId** | **int**|  |
 
 ### Return type
 
@@ -242,7 +242,7 @@ class ContactsApi implements ContactsApiInterface
     /**
      * Implementation of ContactsApiInterface#getContactMembersById
      */
-    public function getContactMembersById(string $contactId)
+    public function getContactMembersById(int $contactId)
     {
         // Implement the operation ...
     }
@@ -255,7 +255,7 @@ class ContactsApi implements ContactsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contactId** | **string**|  |
+ **contactId** | **int**|  |
 
 ### Return type
 
@@ -368,7 +368,7 @@ class ContactsApi implements ContactsApiInterface
     /**
      * Implementation of ContactsApiInterface#updateContactById
      */
-    public function updateContactById(string $contactId, ContactInput $contactInput = null)
+    public function updateContactById(int $contactId, ContactInput $contactInput = null)
     {
         // Implement the operation ...
     }
@@ -381,7 +381,7 @@ class ContactsApi implements ContactsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contactId** | **string**|  |
+ **contactId** | **int**|  |
  **contactInput** | [**OpenAPI\Server\Model\ContactInput**](../Model/ContactInput.md)|  | [optional]
 
 ### Return type

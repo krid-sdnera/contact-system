@@ -37,7 +37,7 @@ export interface CreateListRequest {
 }
 
 export interface CreateListRuleByIdRequest {
-    listId: string;
+    listId: number;
     listRule?: ListRule;
 }
 
@@ -46,37 +46,37 @@ export interface CreateListTypesRequest {
 }
 
 export interface DeleteListByIdRequest {
-    listId: string;
+    listId: number;
 }
 
 export interface DeleteListRuleByIdRequest {
-    listId: string;
-    ruleId: string;
+    listId: number;
+    ruleId: number;
 }
 
 export interface DeleteListTypeByIdRequest {
-    listTypeId: string;
+    listTypeId: number;
 }
 
 export interface GetListByIdRequest {
-    listId: string;
+    listId: number;
 }
 
 export interface GetListMembersByIdRequest {
-    listId: string;
+    listId: number;
 }
 
 export interface GetListRuleByIdRequest {
-    listId: string;
-    ruleId: string;
+    listId: number;
+    ruleId: number;
 }
 
 export interface GetListRulesByIdRequest {
-    listId: string;
+    listId: number;
 }
 
 export interface GetListTypeByIdRequest {
-    listTypeId: string;
+    listTypeId: number;
 }
 
 export interface GetListTypesRequest {
@@ -92,18 +92,18 @@ export interface GetListsRequest {
 }
 
 export interface UpdateListByIdRequest {
-    listId: string;
+    listId: number;
     list?: List;
 }
 
 export interface UpdateListRuleByIdRequest {
-    listId: string;
-    ruleId: string;
+    listId: number;
+    ruleId: number;
     listRule?: ListRule;
 }
 
 export interface UpdateListTypeByIdRequest {
-    listTypeId: string;
+    listTypeId: number;
     listType?: ListType;
 }
 
@@ -129,7 +129,7 @@ export interface ListsApiInterface {
 
     /**
      * createListRuleById
-     * @param {string} listId 
+     * @param {number} listId 
      * @param {ListRule} [listRule] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -158,7 +158,7 @@ export interface ListsApiInterface {
 
     /**
      * deleteListById
-     * @param {string} listId 
+     * @param {number} listId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
@@ -172,8 +172,8 @@ export interface ListsApiInterface {
 
     /**
      * deleteListRuleById
-     * @param {string} listId 
-     * @param {string} ruleId 
+     * @param {number} listId 
+     * @param {number} ruleId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
@@ -187,7 +187,7 @@ export interface ListsApiInterface {
 
     /**
      * deleteListTypeById
-     * @param {string} listTypeId 
+     * @param {number} listTypeId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
@@ -202,7 +202,7 @@ export interface ListsApiInterface {
     /**
      * getListById
      * @summary Your GET endpoint
-     * @param {string} listId 
+     * @param {number} listId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
@@ -218,7 +218,7 @@ export interface ListsApiInterface {
     /**
      * getListMembersById
      * @summary Your GET endpoint
-     * @param {string} listId 
+     * @param {number} listId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
@@ -234,8 +234,8 @@ export interface ListsApiInterface {
     /**
      * getListRuleById
      * @summary Your GET endpoint
-     * @param {string} listId 
-     * @param {string} ruleId 
+     * @param {number} listId 
+     * @param {number} ruleId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
@@ -251,7 +251,7 @@ export interface ListsApiInterface {
     /**
      * getListRulesById
      * @summary Your GET endpoint
-     * @param {string} listId 
+     * @param {number} listId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
@@ -267,7 +267,7 @@ export interface ListsApiInterface {
     /**
      * getListTypeById
      * @summary Your GET endpoint
-     * @param {string} listTypeId 
+     * @param {number} listTypeId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
@@ -318,7 +318,7 @@ export interface ListsApiInterface {
 
     /**
      * updateListById
-     * @param {string} listId 
+     * @param {number} listId 
      * @param {List} [list] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -333,8 +333,8 @@ export interface ListsApiInterface {
 
     /**
      * updateListRuleById
-     * @param {string} listId 
-     * @param {string} ruleId 
+     * @param {number} listId 
+     * @param {number} ruleId 
      * @param {ListRule} [listRule] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -349,7 +349,7 @@ export interface ListsApiInterface {
 
     /**
      * updateListTypeById
-     * @param {string} listTypeId 
+     * @param {number} listTypeId 
      * @param {ListType} [listType] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

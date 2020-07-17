@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** |  | 
+**id** | **int** |  | 
 **state** | **string** |  | [optional] 
 **managementState** | **string** |  | [optional] 
 **firstname** | **string** |  | 

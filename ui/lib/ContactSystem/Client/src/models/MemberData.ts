@@ -40,10 +40,10 @@ import {
 export interface MemberData {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof MemberData
      */
-    id: string;
+    id: number;
     /**
      * 
      * @type {string}

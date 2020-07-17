@@ -15,7 +15,7 @@ open_api_server_contacts_deletecontactbyid:
     defaults:
         _controller: open_api_server.controller.contacts:deleteContactByIdAction
     requirements:
-        contactId: '[a-z0-9]+'
+        contactId: '\d+'
 
 open_api_server_contacts_getcontactbyid:
     path:     /contacts/{contactId}
@@ -23,7 +23,7 @@ open_api_server_contacts_getcontactbyid:
     defaults:
         _controller: open_api_server.controller.contacts:getContactByIdAction
     requirements:
-        contactId: '[a-z0-9]+'
+        contactId: '\d+'
 
 open_api_server_contacts_getcontactmembersbyid:
     path:     /contacts/{contactId}/members
@@ -31,7 +31,7 @@ open_api_server_contacts_getcontactmembersbyid:
     defaults:
         _controller: open_api_server.controller.contacts:getContactMembersByIdAction
     requirements:
-        contactId: '[a-z0-9]+'
+        contactId: '\d+'
 
 open_api_server_contacts_getcontacts:
     path:     /contacts
@@ -45,7 +45,7 @@ open_api_server_contacts_updatecontactbyid:
     defaults:
         _controller: open_api_server.controller.contacts:updateContactByIdAction
     requirements:
-        contactId: '[a-z0-9]+'
+        contactId: '\d+'
 
 # groups
 open_api_server_groups_addgrouplocalmarkerbyid:
@@ -54,7 +54,7 @@ open_api_server_groups_addgrouplocalmarkerbyid:
     defaults:
         _controller: open_api_server.controller.groups:addGroupLocalMarkerByIdAction
     requirements:
-        groupId: '[a-z0-9]+'
+        groupId: '\d+'
 
 open_api_server_groups_creategroup:
     path:     /groups
@@ -68,7 +68,7 @@ open_api_server_groups_deletegroupbyid:
     defaults:
         _controller: open_api_server.controller.groups:deleteGroupByIdAction
     requirements:
-        groupId: '[a-z0-9]+'
+        groupId: '\d+'
 
 open_api_server_groups_deletegrouplocalmarkerbyid:
     path:     /groups/{groupId}/local
@@ -76,7 +76,7 @@ open_api_server_groups_deletegrouplocalmarkerbyid:
     defaults:
         _controller: open_api_server.controller.groups:deleteGroupLocalMarkerByIdAction
     requirements:
-        groupId: '[a-z0-9]+'
+        groupId: '\d+'
 
 open_api_server_groups_getgroupbyid:
     path:     /groups/{groupId}
@@ -84,7 +84,7 @@ open_api_server_groups_getgroupbyid:
     defaults:
         _controller: open_api_server.controller.groups:getGroupByIdAction
     requirements:
-        groupId: '[a-z0-9]+'
+        groupId: '\d+'
 
 open_api_server_groups_getgroupmembersbyid:
     path:     /groups/{groupId}/members
@@ -92,7 +92,7 @@ open_api_server_groups_getgroupmembersbyid:
     defaults:
         _controller: open_api_server.controller.groups:getGroupMembersByIdAction
     requirements:
-        groupId: '[a-z0-9]+'
+        groupId: '\d+'
 
 open_api_server_groups_getgroupsectionsbyid:
     path:     /groups/{groupId}/sections
@@ -100,7 +100,7 @@ open_api_server_groups_getgroupsectionsbyid:
     defaults:
         _controller: open_api_server.controller.groups:getGroupSectionsByIdAction
     requirements:
-        groupId: '[a-z0-9]+'
+        groupId: '\d+'
 
 open_api_server_groups_getgroups:
     path:     /groups
@@ -114,7 +114,7 @@ open_api_server_groups_updategroupbyid:
     defaults:
         _controller: open_api_server.controller.groups:updateGroupByIdAction
     requirements:
-        groupId: '[a-z0-9]+'
+        groupId: '\d+'
 
 # lists
 open_api_server_lists_createlist:
@@ -129,7 +129,7 @@ open_api_server_lists_createlistrulebyid:
     defaults:
         _controller: open_api_server.controller.lists:createListRuleByIdAction
     requirements:
-        listId: '[a-z0-9]+'
+        listId: '\d+'
 
 open_api_server_lists_createlisttypes:
     path:     /lists/types
@@ -143,7 +143,7 @@ open_api_server_lists_deletelistbyid:
     defaults:
         _controller: open_api_server.controller.lists:deleteListByIdAction
     requirements:
-        listId: '[a-z0-9]+'
+        listId: '\d+'
 
 open_api_server_lists_deletelistrulebyid:
     path:     /lists/{listId}/rules/{ruleId}
@@ -151,8 +151,8 @@ open_api_server_lists_deletelistrulebyid:
     defaults:
         _controller: open_api_server.controller.lists:deleteListRuleByIdAction
     requirements:
-        listId: '[a-z0-9]+'
-        ruleId: '[a-z0-9]+'
+        listId: '\d+'
+        ruleId: '\d+'
 
 open_api_server_lists_deletelisttypebyid:
     path:     /lists/types/{listTypeId}
@@ -160,7 +160,7 @@ open_api_server_lists_deletelisttypebyid:
     defaults:
         _controller: open_api_server.controller.lists:deleteListTypeByIdAction
     requirements:
-        listTypeId: '[a-z0-9]+'
+        listTypeId: '\d+'
 
 open_api_server_lists_getlistbyid:
     path:     /lists/{listId}
@@ -168,7 +168,7 @@ open_api_server_lists_getlistbyid:
     defaults:
         _controller: open_api_server.controller.lists:getListByIdAction
     requirements:
-        listId: '[a-z0-9]+'
+        listId: '\d+'
 
 open_api_server_lists_getlistmembersbyid:
     path:     /lists/{listId}/members
@@ -176,7 +176,7 @@ open_api_server_lists_getlistmembersbyid:
     defaults:
         _controller: open_api_server.controller.lists:getListMembersByIdAction
     requirements:
-        listId: '[a-z0-9]+'
+        listId: '\d+'
 
 open_api_server_lists_getlistrulebyid:
     path:     /lists/{listId}/rules/{ruleId}
@@ -184,8 +184,8 @@ open_api_server_lists_getlistrulebyid:
     defaults:
         _controller: open_api_server.controller.lists:getListRuleByIdAction
     requirements:
-        listId: '[a-z0-9]+'
-        ruleId: '[a-z0-9]+'
+        listId: '\d+'
+        ruleId: '\d+'
 
 open_api_server_lists_getlistrulesbyid:
     path:     /lists/{listId}/rules
@@ -193,7 +193,7 @@ open_api_server_lists_getlistrulesbyid:
     defaults:
         _controller: open_api_server.controller.lists:getListRulesByIdAction
     requirements:
-        listId: '[a-z0-9]+'
+        listId: '\d+'
 
 open_api_server_lists_getlisttypebyid:
     path:     /lists/types/{listTypeId}
@@ -201,7 +201,7 @@ open_api_server_lists_getlisttypebyid:
     defaults:
         _controller: open_api_server.controller.lists:getListTypeByIdAction
     requirements:
-        listTypeId: '[a-z0-9]+'
+        listTypeId: '\d+'
 
 open_api_server_lists_getlisttypes:
     path:     /lists/types
@@ -221,7 +221,7 @@ open_api_server_lists_updatelistbyid:
     defaults:
         _controller: open_api_server.controller.lists:updateListByIdAction
     requirements:
-        listId: '[a-z0-9]+'
+        listId: '\d+'
 
 open_api_server_lists_updatelistrulebyid:
     path:     /lists/{listId}/rules/{ruleId}
@@ -229,8 +229,8 @@ open_api_server_lists_updatelistrulebyid:
     defaults:
         _controller: open_api_server.controller.lists:updateListRuleByIdAction
     requirements:
-        listId: '[a-z0-9]+'
-        ruleId: '[a-z0-9]+'
+        listId: '\d+'
+        ruleId: '\d+'
 
 open_api_server_lists_updatelisttypebyid:
     path:     /lists/types/{listTypeId}
@@ -238,7 +238,7 @@ open_api_server_lists_updatelisttypebyid:
     defaults:
         _controller: open_api_server.controller.lists:updateListTypeByIdAction
     requirements:
-        listTypeId: '[a-z0-9]+'
+        listTypeId: '\d+'
 
 # members
 open_api_server_members_addmemberlocalmarkerbyid:
@@ -247,7 +247,7 @@ open_api_server_members_addmemberlocalmarkerbyid:
     defaults:
         _controller: open_api_server.controller.members:addMemberLocalMarkerByIdAction
     requirements:
-        memberId: '[a-z0-9]+'
+        memberId: '\d+'
 
 open_api_server_members_addmemberrolebyid:
     path:     /members/{memberId}/roles/{roleId}
@@ -255,8 +255,8 @@ open_api_server_members_addmemberrolebyid:
     defaults:
         _controller: open_api_server.controller.members:addMemberRoleByIdAction
     requirements:
-        memberId: '[a-z0-9]+'
-        roleId: '[a-z0-9]+'
+        memberId: '\d+'
+        roleId: '\d+'
 
 open_api_server_members_createmember:
     path:     /members
@@ -286,7 +286,7 @@ open_api_server_members_getmemberlocalmarkersuggestionsbyid:
     defaults:
         _controller: open_api_server.controller.members:getMemberLocalMarkerSuggestionsByIdAction
     requirements:
-        memberId: '[a-z0-9]+'
+        memberId: '\d+'
 
 open_api_server_members_getmembers:
     path:     /members
@@ -300,8 +300,8 @@ open_api_server_members_mergemember:
     defaults:
         _controller: open_api_server.controller.members:mergeMemberAction
     requirements:
-        memberId: '[a-z0-9]+'
-        mergeMemberId: '[a-z0-9]+'
+        memberId: '\d+'
+        mergeMemberId: '\d+'
 
 open_api_server_members_removememberlocalmarkerbyid:
     path:     /members/{memberId}/local
@@ -309,7 +309,7 @@ open_api_server_members_removememberlocalmarkerbyid:
     defaults:
         _controller: open_api_server.controller.members:removeMemberLocalMarkerByIdAction
     requirements:
-        memberId: '[a-z0-9]+'
+        memberId: '\d+'
 
 open_api_server_members_removememberrolebyid:
     path:     /members/{memberId}/roles/{roleId}
@@ -317,8 +317,8 @@ open_api_server_members_removememberrolebyid:
     defaults:
         _controller: open_api_server.controller.members:removeMemberRoleByIdAction
     requirements:
-        memberId: '[a-z0-9]+'
-        roleId: '[a-z0-9]+'
+        memberId: '\d+'
+        roleId: '\d+'
 
 open_api_server_members_updatememberbyid:
     path:     /members/{memberId}
@@ -341,7 +341,7 @@ open_api_server_roles_deleterolebyid:
     defaults:
         _controller: open_api_server.controller.roles:deleteRoleByIdAction
     requirements:
-        roleId: '[a-z0-9]+'
+        roleId: '\d+'
 
 open_api_server_roles_getrolebyid:
     path:     /roles/{roleId}
@@ -349,7 +349,7 @@ open_api_server_roles_getrolebyid:
     defaults:
         _controller: open_api_server.controller.roles:getRoleByIdAction
     requirements:
-        roleId: '[a-z0-9]+'
+        roleId: '\d+'
 
 open_api_server_roles_getrolemembersbyid:
     path:     /roles/{roleId}/members
@@ -357,7 +357,7 @@ open_api_server_roles_getrolemembersbyid:
     defaults:
         _controller: open_api_server.controller.roles:getRoleMembersByIdAction
     requirements:
-        roleId: '[a-z0-9]+'
+        roleId: '\d+'
 
 open_api_server_roles_getroles:
     path:     /roles
@@ -371,7 +371,7 @@ open_api_server_roles_updaterolebyid:
     defaults:
         _controller: open_api_server.controller.roles:updateRoleByIdAction
     requirements:
-        roleId: '[a-z0-9]+'
+        roleId: '\d+'
 
 # sections
 open_api_server_sections_addsectionlocalmarkerbyid:
@@ -380,7 +380,7 @@ open_api_server_sections_addsectionlocalmarkerbyid:
     defaults:
         _controller: open_api_server.controller.sections:addSectionLocalMarkerByIdAction
     requirements:
-        sectionId: '[a-z0-9]+'
+        sectionId: '\d+'
 
 open_api_server_sections_createsection:
     path:     /sections
@@ -394,7 +394,7 @@ open_api_server_sections_deletesectionbyid:
     defaults:
         _controller: open_api_server.controller.sections:deleteSectionByIdAction
     requirements:
-        sectionId: '[a-z0-9]+'
+        sectionId: '\d+'
 
 open_api_server_sections_getsectionbyid:
     path:     /sections/{sectionId}
@@ -402,7 +402,7 @@ open_api_server_sections_getsectionbyid:
     defaults:
         _controller: open_api_server.controller.sections:getSectionByIdAction
     requirements:
-        sectionId: '[a-z0-9]+'
+        sectionId: '\d+'
 
 open_api_server_sections_getsectionmembersbyid:
     path:     /sections/{sectionId}/members
@@ -410,7 +410,7 @@ open_api_server_sections_getsectionmembersbyid:
     defaults:
         _controller: open_api_server.controller.sections:getSectionMembersByIdAction
     requirements:
-        sectionId: '[a-z0-9]+'
+        sectionId: '\d+'
 
 open_api_server_sections_getsections:
     path:     /sections
@@ -424,7 +424,7 @@ open_api_server_sections_removesectionlocalmarkerbyid:
     defaults:
         _controller: open_api_server.controller.sections:removeSectionLocalMarkerByIdAction
     requirements:
-        sectionId: '[a-z0-9]+'
+        sectionId: '\d+'
 
 open_api_server_sections_updatesectionbyid:
     path:     /sections/{sectionId}
@@ -432,5 +432,5 @@ open_api_server_sections_updatesectionbyid:
     defaults:
         _controller: open_api_server.controller.sections:updateSectionByIdAction
     requirements:
-        sectionId: '[a-z0-9]+'
+        sectionId: '\d+'
 

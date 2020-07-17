@@ -189,7 +189,7 @@ paths:
         - members
     parameters:
       - schema:
-          type: string
+          type: integer
         name: memberId
         in: path
         required: true
@@ -213,7 +213,7 @@ paths:
         - members
     parameters:
       - schema:
-          type: string
+          type: integer
         name: memberId
         in: path
         required: true
@@ -234,24 +234,24 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
     parameters:
       - schema:
-          type: string
+          type: integer
         name: memberId
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: mergeMemberId
         in: path
         required: true
   "/members/{memberId}/roles/{roleId}":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: memberId
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: roleId
         in: path
         required: true
@@ -337,7 +337,7 @@ paths:
   "/roles/{roleId}":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: roleId
         in: path
         required: true
@@ -388,7 +388,7 @@ paths:
   "/roles/{roleId}/members":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: roleId
         in: path
         required: true
@@ -473,7 +473,7 @@ paths:
   "/contacts/{contactId}":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: contactId
         in: path
         required: true
@@ -525,7 +525,7 @@ paths:
   "/contacts/{contactId}/members":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: contactId
         in: path
         required: true
@@ -596,7 +596,7 @@ paths:
   "/groups/{groupId}":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: groupId
         in: path
         required: true
@@ -647,7 +647,7 @@ paths:
   "/groups/{groupId}/local":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: groupId
         in: path
         required: true
@@ -680,7 +680,7 @@ paths:
   "/groups/{groupId}/members":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: groupId
         in: path
         required: true
@@ -703,7 +703,7 @@ paths:
   "/groups/{groupId}/sections":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: groupId
         in: path
         required: true
@@ -774,7 +774,7 @@ paths:
   "/sections/{sectionId}":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: sectionId
         in: path
         required: true
@@ -825,7 +825,7 @@ paths:
   "/sections/{sectionId}/local":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: sectionId
         in: path
         required: true
@@ -858,7 +858,7 @@ paths:
   "/sections/{sectionId}/members":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: sectionId
         in: path
         required: true
@@ -928,7 +928,7 @@ paths:
   "/lists/{listId}":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: listId
         in: path
         required: true
@@ -979,7 +979,7 @@ paths:
   "/lists/{listId}/members":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: listId
         in: path
         required: true
@@ -1002,7 +1002,7 @@ paths:
   "/lists/{listId}/rules":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: listId
         in: path
         required: true
@@ -1042,12 +1042,12 @@ paths:
   "/lists/{listId}/rules/{ruleId}":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: listId
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: ruleId
         in: path
         required: true
@@ -1145,7 +1145,7 @@ paths:
   "/lists/types/{listTypeId}":
     parameters:
       - schema:
-          type: string
+          type: integer
         name: listTypeId
         in: path
         required: true
@@ -1251,7 +1251,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         state:
           type: string
         managementState:
@@ -1367,7 +1367,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         name:
           type: string
         externalId:
@@ -1446,7 +1446,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         state:
           type: string
         managementState:
@@ -1534,7 +1534,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         name:
           type: string
         externalId:
@@ -1560,7 +1560,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         name:
           type: string
         externalId:

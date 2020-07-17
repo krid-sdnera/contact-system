@@ -33,7 +33,7 @@ import {
 } from '../models';
 
 export interface AddGroupLocalMarkerByIdRequest {
-    groupId: string;
+    groupId: number;
 }
 
 export interface CreateGroupRequest {
@@ -41,23 +41,23 @@ export interface CreateGroupRequest {
 }
 
 export interface DeleteGroupByIdRequest {
-    groupId: string;
+    groupId: number;
 }
 
 export interface DeleteGroupLocalMarkerByIdRequest {
-    groupId: string;
+    groupId: number;
 }
 
 export interface GetGroupByIdRequest {
-    groupId: string;
+    groupId: number;
 }
 
 export interface GetGroupMembersByIdRequest {
-    groupId: string;
+    groupId: number;
 }
 
 export interface GetGroupSectionsByIdRequest {
-    groupId: string;
+    groupId: number;
 }
 
 export interface GetGroupsRequest {
@@ -67,7 +67,7 @@ export interface GetGroupsRequest {
 }
 
 export interface UpdateGroupByIdRequest {
-    groupId: string;
+    groupId: number;
     scoutGroupInput?: ScoutGroupInput;
 }
 
@@ -79,7 +79,7 @@ export interface UpdateGroupByIdRequest {
 export interface GroupsApiInterface {
     /**
      * addGroupLocalMarkerById
-     * @param {string} groupId 
+     * @param {number} groupId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupsApiInterface
@@ -110,7 +110,7 @@ export interface GroupsApiInterface {
     /**
      * Delete Group
      * @summary Delete Group
-     * @param {string} groupId 
+     * @param {number} groupId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupsApiInterface
@@ -125,7 +125,7 @@ export interface GroupsApiInterface {
 
     /**
      * deleteGroupLocalMarkerById
-     * @param {string} groupId 
+     * @param {number} groupId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupsApiInterface
@@ -140,7 +140,7 @@ export interface GroupsApiInterface {
     /**
      * Get Group
      * @summary Get Group
-     * @param {string} groupId 
+     * @param {number} groupId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupsApiInterface
@@ -156,7 +156,7 @@ export interface GroupsApiInterface {
     /**
      * getGroupMembersById
      * @summary Your GET endpoint
-     * @param {string} groupId 
+     * @param {number} groupId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupsApiInterface
@@ -172,7 +172,7 @@ export interface GroupsApiInterface {
     /**
      * getGroupSectionsById
      * @summary Your GET endpoint
-     * @param {string} groupId 
+     * @param {number} groupId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupsApiInterface
@@ -206,7 +206,7 @@ export interface GroupsApiInterface {
     /**
      * Update Group
      * @summary Update Group
-     * @param {string} groupId 
+     * @param {number} groupId 
      * @param {ScoutGroupInput} [scoutGroupInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

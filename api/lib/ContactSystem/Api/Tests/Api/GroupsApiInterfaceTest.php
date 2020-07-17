@@ -85,7 +85,7 @@ class GroupsApiInterfaceTest extends WebTestCase
 
         $path = '/groups/{groupId}/local';
         $pattern = '{groupId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PUT', $path);
@@ -118,7 +118,7 @@ class GroupsApiInterfaceTest extends WebTestCase
 
         $path = '/groups/{groupId}';
         $pattern = '{groupId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
@@ -136,7 +136,7 @@ class GroupsApiInterfaceTest extends WebTestCase
 
         $path = '/groups/{groupId}/local';
         $pattern = '{groupId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
@@ -154,7 +154,7 @@ class GroupsApiInterfaceTest extends WebTestCase
 
         $path = '/groups/{groupId}';
         $pattern = '{groupId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -172,7 +172,7 @@ class GroupsApiInterfaceTest extends WebTestCase
 
         $path = '/groups/{groupId}/members';
         $pattern = '{groupId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -190,7 +190,7 @@ class GroupsApiInterfaceTest extends WebTestCase
 
         $path = '/groups/{groupId}/sections';
         $pattern = '{groupId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -223,7 +223,7 @@ class GroupsApiInterfaceTest extends WebTestCase
 
         $path = '/groups/{groupId}';
         $pattern = '{groupId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PUT', $path);

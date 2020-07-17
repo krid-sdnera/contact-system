@@ -58,7 +58,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#addSectionLocalMarkerById
      */
-    public function addSectionLocalMarkerById(string $sectionId)
+    public function addSectionLocalMarkerById(int $sectionId)
     {
         // Implement the operation ...
     }
@@ -71,7 +71,7 @@ class SectionsApi implements SectionsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sectionId** | **string**|  |
+ **sectionId** | **int**|  |
 
 ### Return type
 
@@ -182,7 +182,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#deleteSectionById
      */
-    public function deleteSectionById(string $sectionId)
+    public function deleteSectionById(int $sectionId)
     {
         // Implement the operation ...
     }
@@ -195,7 +195,7 @@ class SectionsApi implements SectionsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sectionId** | **string**|  |
+ **sectionId** | **int**|  |
 
 ### Return type
 
@@ -244,7 +244,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#getSectionById
      */
-    public function getSectionById(string $sectionId)
+    public function getSectionById(int $sectionId)
     {
         // Implement the operation ...
     }
@@ -257,7 +257,7 @@ class SectionsApi implements SectionsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sectionId** | **string**|  |
+ **sectionId** | **int**|  |
 
 ### Return type
 
@@ -306,7 +306,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#getSectionMembersById
      */
-    public function getSectionMembersById(string $sectionId)
+    public function getSectionMembersById(int $sectionId)
     {
         // Implement the operation ...
     }
@@ -319,7 +319,7 @@ class SectionsApi implements SectionsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sectionId** | **string**|  |
+ **sectionId** | **int**|  |
 
 ### Return type
 
@@ -432,7 +432,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#removeSectionLocalMarkerById
      */
-    public function removeSectionLocalMarkerById(string $sectionId)
+    public function removeSectionLocalMarkerById(int $sectionId)
     {
         // Implement the operation ...
     }
@@ -445,7 +445,7 @@ class SectionsApi implements SectionsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sectionId** | **string**|  |
+ **sectionId** | **int**|  |
 
 ### Return type
 
@@ -494,7 +494,7 @@ class SectionsApi implements SectionsApiInterface
     /**
      * Implementation of SectionsApiInterface#updateSectionById
      */
-    public function updateSectionById(string $sectionId, SectionInput $sectionInput = null)
+    public function updateSectionById(int $sectionId, SectionInput $sectionInput = null)
     {
         // Implement the operation ...
     }
@@ -507,7 +507,7 @@ class SectionsApi implements SectionsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sectionId** | **string**|  |
+ **sectionId** | **int**|  |
  **sectionInput** | [**OpenAPI\Server\Model\SectionInput**](../Model/SectionInput.md)|  | [optional]
 
 ### Return type

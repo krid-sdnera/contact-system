@@ -100,7 +100,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/{listId}/rules';
         $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('POST', $path);
@@ -133,7 +133,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/{listId}';
         $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
@@ -151,10 +151,10 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/{listId}/rules/{ruleId}';
         $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
         $pattern = '{ruleId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
@@ -172,7 +172,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/types/{listTypeId}';
         $pattern = '{listTypeId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
@@ -190,7 +190,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/{listId}';
         $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -208,7 +208,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/{listId}/members';
         $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -226,10 +226,10 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/{listId}/rules/{ruleId}';
         $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
         $pattern = '{ruleId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -247,7 +247,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/{listId}/rules';
         $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -265,7 +265,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/types/{listTypeId}';
         $pattern = '{listTypeId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -313,7 +313,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/{listId}';
         $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PUT', $path);
@@ -331,10 +331,10 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/{listId}/rules/{ruleId}';
         $pattern = '{listId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
         $pattern = '{ruleId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PUT', $path);
@@ -352,7 +352,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/types/{listTypeId}';
         $pattern = '{listTypeId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PUT', $path);

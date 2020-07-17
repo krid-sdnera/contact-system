@@ -28,10 +28,10 @@ import {
 export interface RoleData {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof RoleData
      */
-    id: string;
+    id: number;
     /**
      * 
      * @type {string}

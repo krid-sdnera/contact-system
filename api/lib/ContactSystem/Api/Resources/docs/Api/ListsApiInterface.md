@@ -128,7 +128,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#createListRuleById
      */
-    public function createListRuleById(string $listId, ListRule $listRule = null)
+    public function createListRuleById(int $listId, ListRule $listRule = null)
     {
         // Implement the operation ...
     }
@@ -141,7 +141,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**|  |
+ **listId** | **int**|  |
  **listRule** | [**OpenAPI\Server\Model\ListRule**](../Model/ListRule.md)|  | [optional]
 
 ### Return type
@@ -253,7 +253,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#deleteListById
      */
-    public function deleteListById(string $listId)
+    public function deleteListById(int $listId)
     {
         // Implement the operation ...
     }
@@ -266,7 +266,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**|  |
+ **listId** | **int**|  |
 
 ### Return type
 
@@ -315,7 +315,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#deleteListRuleById
      */
-    public function deleteListRuleById(string $listId, string $ruleId)
+    public function deleteListRuleById(int $listId, int $ruleId)
     {
         // Implement the operation ...
     }
@@ -328,8 +328,8 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**|  |
- **ruleId** | **string**|  |
+ **listId** | **int**|  |
+ **ruleId** | **int**|  |
 
 ### Return type
 
@@ -378,7 +378,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#deleteListTypeById
      */
-    public function deleteListTypeById(string $listTypeId)
+    public function deleteListTypeById(int $listTypeId)
     {
         // Implement the operation ...
     }
@@ -391,7 +391,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listTypeId** | **string**|  |
+ **listTypeId** | **int**|  |
 
 ### Return type
 
@@ -440,7 +440,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListById
      */
-    public function getListById(string $listId)
+    public function getListById(int $listId)
     {
         // Implement the operation ...
     }
@@ -453,7 +453,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**|  |
+ **listId** | **int**|  |
 
 ### Return type
 
@@ -502,7 +502,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListMembersById
      */
-    public function getListMembersById(string $listId)
+    public function getListMembersById(int $listId)
     {
         // Implement the operation ...
     }
@@ -515,7 +515,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**|  |
+ **listId** | **int**|  |
 
 ### Return type
 
@@ -564,7 +564,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListRuleById
      */
-    public function getListRuleById(string $listId, string $ruleId)
+    public function getListRuleById(int $listId, int $ruleId)
     {
         // Implement the operation ...
     }
@@ -577,8 +577,8 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**|  |
- **ruleId** | **string**|  |
+ **listId** | **int**|  |
+ **ruleId** | **int**|  |
 
 ### Return type
 
@@ -627,7 +627,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListRulesById
      */
-    public function getListRulesById(string $listId)
+    public function getListRulesById(int $listId)
     {
         // Implement the operation ...
     }
@@ -640,7 +640,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**|  |
+ **listId** | **int**|  |
 
 ### Return type
 
@@ -689,7 +689,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListTypeById
      */
-    public function getListTypeById(string $listTypeId)
+    public function getListTypeById(int $listTypeId)
     {
         // Implement the operation ...
     }
@@ -702,7 +702,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listTypeId** | **string**|  |
+ **listTypeId** | **int**|  |
 
 ### Return type
 
@@ -879,7 +879,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#updateListById
      */
-    public function updateListById(string $listId, ModelList $modelList = null)
+    public function updateListById(int $listId, ModelList $modelList = null)
     {
         // Implement the operation ...
     }
@@ -892,7 +892,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**|  |
+ **listId** | **int**|  |
  **modelList** | [**OpenAPI\Server\Model\ModelList**](../Model/ModelList.md)|  | [optional]
 
 ### Return type
@@ -942,7 +942,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#updateListRuleById
      */
-    public function updateListRuleById(string $listId, string $ruleId, ListRule $listRule = null)
+    public function updateListRuleById(int $listId, int $ruleId, ListRule $listRule = null)
     {
         // Implement the operation ...
     }
@@ -955,8 +955,8 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**|  |
- **ruleId** | **string**|  |
+ **listId** | **int**|  |
+ **ruleId** | **int**|  |
  **listRule** | [**OpenAPI\Server\Model\ListRule**](../Model/ListRule.md)|  | [optional]
 
 ### Return type
@@ -1006,7 +1006,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#updateListTypeById
      */
-    public function updateListTypeById(string $listTypeId, ListType $listType = null)
+    public function updateListTypeById(int $listTypeId, ListType $listType = null)
     {
         // Implement the operation ...
     }
@@ -1019,7 +1019,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listTypeId** | **string**|  |
+ **listTypeId** | **int**|  |
  **listType** | [**OpenAPI\Server\Model\ListType**](../Model/ListType.md)|  | [optional]
 
 ### Return type

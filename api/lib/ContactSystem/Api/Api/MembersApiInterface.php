@@ -62,22 +62,22 @@ interface MembersApiInterface
      *
      * Add local marker
      *
-     * @param  string $memberId   (required)
+     * @param  int $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function addMemberLocalMarkerById(string $memberId, &$responseCode, array &$responseHeaders);
+    public function addMemberLocalMarkerById(int $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation addMemberRoleById
      *
      * Add Member Role
      *
-     * @param  string $memberId   (required)
-     * @param  string $roleId   (required)
+     * @param  int $memberId   (required)
+     * @param  int $roleId   (required)
      * @param  OpenAPI\Server\Model\MemberRoleInput $memberRoleInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -85,7 +85,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function addMemberRoleById(string $memberId, string $roleId, MemberRoleInput $memberRoleInput = null, &$responseCode, array &$responseHeaders);
+    public function addMemberRoleById(int $memberId, int $roleId, MemberRoleInput $memberRoleInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createMember
@@ -134,14 +134,14 @@ interface MembersApiInterface
      *
      * Get member suggestions
      *
-     * @param  string $memberId   (required)
+     * @param  int $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\MemberSuggetion[]
      *
      */
-    public function getMemberLocalMarkerSuggestionsById(string $memberId, &$responseCode, array &$responseHeaders);
+    public function getMemberLocalMarkerSuggestionsById(int $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMembers
@@ -164,44 +164,44 @@ interface MembersApiInterface
      *
      * Merge member
      *
-     * @param  string $memberId   (required)
-     * @param  string $mergeMemberId   (required)
+     * @param  int $memberId   (required)
+     * @param  int $mergeMemberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function mergeMember(string $memberId, string $mergeMemberId, &$responseCode, array &$responseHeaders);
+    public function mergeMember(int $memberId, int $mergeMemberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation removeMemberLocalMarkerById
      *
      * Remove local marker
      *
-     * @param  string $memberId   (required)
+     * @param  int $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function removeMemberLocalMarkerById(string $memberId, &$responseCode, array &$responseHeaders);
+    public function removeMemberLocalMarkerById(int $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation removeMemberRoleById
      *
      * Remove Member Role
      *
-     * @param  string $memberId   (required)
-     * @param  string $roleId   (required)
+     * @param  int $memberId   (required)
+     * @param  int $roleId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function removeMemberRoleById(string $memberId, string $roleId, &$responseCode, array &$responseHeaders);
+    public function removeMemberRoleById(int $memberId, int $roleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateMemberById

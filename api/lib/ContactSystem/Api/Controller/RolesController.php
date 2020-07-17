@@ -177,7 +177,7 @@ class RolesController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $roleId = $this->deserialize($roleId, 'string', 'string');
+            $roleId = $this->deserialize($roleId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -185,7 +185,7 @@ class RolesController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($roleId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -262,7 +262,7 @@ class RolesController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $roleId = $this->deserialize($roleId, 'string', 'string');
+            $roleId = $this->deserialize($roleId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -270,7 +270,7 @@ class RolesController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($roleId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -350,7 +350,7 @@ class RolesController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $roleId = $this->deserialize($roleId, 'string', 'string');
+            $roleId = $this->deserialize($roleId, 'int', 'string');
             $sort = $this->deserialize($sort, 'string', 'string');
             $pageSize = $this->deserialize($pageSize, 'int', 'string');
             $page = $this->deserialize($page, 'int', 'string');
@@ -361,7 +361,7 @@ class RolesController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($roleId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -566,7 +566,7 @@ class RolesController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $roleId = $this->deserialize($roleId, 'string', 'string');
+            $roleId = $this->deserialize($roleId, 'int', 'string');
             $roleInput = $this->deserialize($roleInput, 'OpenAPI\Server\Model\RoleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -575,7 +575,7 @@ class RolesController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($roleId, $asserts);
         if ($response instanceof Response) {
             return $response;

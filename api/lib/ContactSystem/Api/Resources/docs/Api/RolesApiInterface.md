@@ -118,7 +118,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#deleteRoleById
      */
-    public function deleteRoleById(string $roleId)
+    public function deleteRoleById(int $roleId)
     {
         // Implement the operation ...
     }
@@ -131,7 +131,7 @@ class RolesApi implements RolesApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **roleId** | **string**|  |
+ **roleId** | **int**|  |
 
 ### Return type
 
@@ -180,7 +180,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#getRoleById
      */
-    public function getRoleById(string $roleId)
+    public function getRoleById(int $roleId)
     {
         // Implement the operation ...
     }
@@ -193,7 +193,7 @@ class RolesApi implements RolesApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **roleId** | **string**|  |
+ **roleId** | **int**|  |
 
 ### Return type
 
@@ -242,7 +242,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#getRoleMembersById
      */
-    public function getRoleMembersById(string $roleId, string $sort = null, int $pageSize = null, int $page = null)
+    public function getRoleMembersById(int $roleId, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -255,7 +255,7 @@ class RolesApi implements RolesApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **roleId** | **string**|  |
+ **roleId** | **int**|  |
  **sort** | **string**|  | [optional]
  **pageSize** | **int**|  | [optional]
  **page** | **int**|  | [optional]
@@ -371,7 +371,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#updateRoleById
      */
-    public function updateRoleById(string $roleId, RoleInput $roleInput = null)
+    public function updateRoleById(int $roleId, RoleInput $roleInput = null)
     {
         // Implement the operation ...
     }
@@ -384,7 +384,7 @@ class RolesApi implements RolesApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **roleId** | **string**|  |
+ **roleId** | **int**|  |
  **roleInput** | [**OpenAPI\Server\Model\RoleInput**](../Model/RoleInput.md)|  | [optional]
 
 ### Return type

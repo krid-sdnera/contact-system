@@ -21,10 +21,10 @@ import { exists, mapValues } from '../runtime';
 export interface ScoutGroupData {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof ScoutGroupData
      */
-    id: string;
+    id: number;
     /**
      * 
      * @type {string}

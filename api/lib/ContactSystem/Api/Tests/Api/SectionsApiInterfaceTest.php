@@ -85,7 +85,7 @@ class SectionsApiInterfaceTest extends WebTestCase
 
         $path = '/sections/{sectionId}/local';
         $pattern = '{sectionId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PUT', $path);
@@ -118,7 +118,7 @@ class SectionsApiInterfaceTest extends WebTestCase
 
         $path = '/sections/{sectionId}';
         $pattern = '{sectionId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
@@ -136,7 +136,7 @@ class SectionsApiInterfaceTest extends WebTestCase
 
         $path = '/sections/{sectionId}';
         $pattern = '{sectionId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -154,7 +154,7 @@ class SectionsApiInterfaceTest extends WebTestCase
 
         $path = '/sections/{sectionId}/members';
         $pattern = '{sectionId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -187,7 +187,7 @@ class SectionsApiInterfaceTest extends WebTestCase
 
         $path = '/sections/{sectionId}/local';
         $pattern = '{sectionId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
@@ -205,7 +205,7 @@ class SectionsApiInterfaceTest extends WebTestCase
 
         $path = '/sections/{sectionId}';
         $pattern = '{sectionId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PUT', $path);

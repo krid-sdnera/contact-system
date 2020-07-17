@@ -42,11 +42,11 @@ use JMS\Serializer\Annotation\SerializedName;
 class ScoutGroupData 
 {
         /**
-     * @var string
+     * @var int
      * @SerializedName("id")
      * @Assert\NotNull()
-     * @Assert\Type("string")
-     * @Type("string")
+     * @Assert\Type("int")
+     * @Type("int")
      */
     protected $id;
 
@@ -81,9 +81,9 @@ class ScoutGroupData
     /**
      * Gets id.
      *
-     * @return string
+     * @return int
      */
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
@@ -91,11 +91,11 @@ class ScoutGroupData
     /**
      * Sets id.
      *
-     * @param string $id
+     * @param int $id
      *
      * @return $this
      */
-    public function setId(string $id): string
+    public function setId(int $id): int
     {
         $this->id = $id;
 

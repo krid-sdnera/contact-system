@@ -183,7 +183,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listId = $this->deserialize($listId, 'string', 'string');
+            $listId = $this->deserialize($listId, 'int', 'string');
             $listRule = $this->deserialize($listRule, 'OpenAPI\Server\Model\ListRule', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -192,7 +192,7 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -366,7 +366,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listId = $this->deserialize($listId, 'string', 'string');
+            $listId = $this->deserialize($listId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -374,7 +374,7 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -449,8 +449,8 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listId = $this->deserialize($listId, 'string', 'string');
-            $ruleId = $this->deserialize($ruleId, 'string', 'string');
+            $listId = $this->deserialize($listId, 'int', 'string');
+            $ruleId = $this->deserialize($ruleId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -458,14 +458,14 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($ruleId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -540,7 +540,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listTypeId = $this->deserialize($listTypeId, 'string', 'string');
+            $listTypeId = $this->deserialize($listTypeId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -548,7 +548,7 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listTypeId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -625,7 +625,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listId = $this->deserialize($listId, 'string', 'string');
+            $listId = $this->deserialize($listId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -633,7 +633,7 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -710,7 +710,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listId = $this->deserialize($listId, 'string', 'string');
+            $listId = $this->deserialize($listId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -718,7 +718,7 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -795,8 +795,8 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listId = $this->deserialize($listId, 'string', 'string');
-            $ruleId = $this->deserialize($ruleId, 'string', 'string');
+            $listId = $this->deserialize($listId, 'int', 'string');
+            $ruleId = $this->deserialize($ruleId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -804,14 +804,14 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($ruleId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -888,7 +888,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listId = $this->deserialize($listId, 'string', 'string');
+            $listId = $this->deserialize($listId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -896,7 +896,7 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -973,7 +973,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listTypeId = $this->deserialize($listTypeId, 'string', 'string');
+            $listTypeId = $this->deserialize($listTypeId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -981,7 +981,7 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listTypeId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -1267,7 +1267,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listId = $this->deserialize($listId, 'string', 'string');
+            $listId = $this->deserialize($listId, 'int', 'string');
             $modelList = $this->deserialize($modelList, 'OpenAPI\Server\Model\ModelList', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -1276,7 +1276,7 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -1367,8 +1367,8 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listId = $this->deserialize($listId, 'string', 'string');
-            $ruleId = $this->deserialize($ruleId, 'string', 'string');
+            $listId = $this->deserialize($listId, 'int', 'string');
+            $ruleId = $this->deserialize($ruleId, 'int', 'string');
             $listRule = $this->deserialize($listRule, 'OpenAPI\Server\Model\ListRule', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -1377,14 +1377,14 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($ruleId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -1475,7 +1475,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $listTypeId = $this->deserialize($listTypeId, 'string', 'string');
+            $listTypeId = $this->deserialize($listTypeId, 'int', 'string');
             $listType = $this->deserialize($listType, 'OpenAPI\Server\Model\ListType', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -1484,7 +1484,7 @@ class ListsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($listTypeId, $asserts);
         if ($response instanceof Response) {
             return $response;

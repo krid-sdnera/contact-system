@@ -59,7 +59,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#addGroupLocalMarkerById
      */
-    public function addGroupLocalMarkerById(string $groupId)
+    public function addGroupLocalMarkerById(int $groupId)
     {
         // Implement the operation ...
     }
@@ -72,7 +72,7 @@ class GroupsApi implements GroupsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **groupId** | **string**|  |
+ **groupId** | **int**|  |
 
 ### Return type
 
@@ -183,7 +183,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#deleteGroupById
      */
-    public function deleteGroupById(string $groupId)
+    public function deleteGroupById(int $groupId)
     {
         // Implement the operation ...
     }
@@ -196,7 +196,7 @@ class GroupsApi implements GroupsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **groupId** | **string**|  |
+ **groupId** | **int**|  |
 
 ### Return type
 
@@ -245,7 +245,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#deleteGroupLocalMarkerById
      */
-    public function deleteGroupLocalMarkerById(string $groupId)
+    public function deleteGroupLocalMarkerById(int $groupId)
     {
         // Implement the operation ...
     }
@@ -258,7 +258,7 @@ class GroupsApi implements GroupsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **groupId** | **string**|  |
+ **groupId** | **int**|  |
 
 ### Return type
 
@@ -307,7 +307,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#getGroupById
      */
-    public function getGroupById(string $groupId)
+    public function getGroupById(int $groupId)
     {
         // Implement the operation ...
     }
@@ -320,7 +320,7 @@ class GroupsApi implements GroupsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **groupId** | **string**|  |
+ **groupId** | **int**|  |
 
 ### Return type
 
@@ -369,7 +369,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#getGroupMembersById
      */
-    public function getGroupMembersById(string $groupId)
+    public function getGroupMembersById(int $groupId)
     {
         // Implement the operation ...
     }
@@ -382,7 +382,7 @@ class GroupsApi implements GroupsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **groupId** | **string**|  |
+ **groupId** | **int**|  |
 
 ### Return type
 
@@ -431,7 +431,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#getGroupSectionsById
      */
-    public function getGroupSectionsById(string $groupId)
+    public function getGroupSectionsById(int $groupId)
     {
         // Implement the operation ...
     }
@@ -444,7 +444,7 @@ class GroupsApi implements GroupsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **groupId** | **string**|  |
+ **groupId** | **int**|  |
 
 ### Return type
 
@@ -557,7 +557,7 @@ class GroupsApi implements GroupsApiInterface
     /**
      * Implementation of GroupsApiInterface#updateGroupById
      */
-    public function updateGroupById(string $groupId, ScoutGroupInput $scoutGroupInput = null)
+    public function updateGroupById(int $groupId, ScoutGroupInput $scoutGroupInput = null)
     {
         // Implement the operation ...
     }
@@ -570,7 +570,7 @@ class GroupsApi implements GroupsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **groupId** | **string**|  |
+ **groupId** | **int**|  |
  **scoutGroupInput** | [**OpenAPI\Server\Model\ScoutGroupInput**](../Model/ScoutGroupInput.md)|  | [optional]
 
 ### Return type

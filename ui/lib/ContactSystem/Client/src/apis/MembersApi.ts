@@ -39,12 +39,12 @@ import {
 } from '../models';
 
 export interface AddMemberLocalMarkerByIdRequest {
-    memberId: string;
+    memberId: number;
 }
 
 export interface AddMemberRoleByIdRequest {
-    memberId: string;
-    roleId: string;
+    memberId: number;
+    roleId: number;
     memberRoleInput?: MemberRoleInput;
 }
 
@@ -61,7 +61,7 @@ export interface GetMemberByIdRequest {
 }
 
 export interface GetMemberLocalMarkerSuggestionsByIdRequest {
-    memberId: string;
+    memberId: number;
 }
 
 export interface GetMembersRequest {
@@ -71,17 +71,17 @@ export interface GetMembersRequest {
 }
 
 export interface MergeMemberRequest {
-    memberId: string;
-    mergeMemberId: string;
+    memberId: number;
+    mergeMemberId: number;
 }
 
 export interface RemoveMemberLocalMarkerByIdRequest {
-    memberId: string;
+    memberId: number;
 }
 
 export interface RemoveMemberRoleByIdRequest {
-    memberId: string;
-    roleId: string;
+    memberId: number;
+    roleId: number;
 }
 
 export interface UpdateMemberByIdRequest {
@@ -98,7 +98,7 @@ export interface MembersApiInterface {
     /**
      * Add local marker
      * @summary Add local marker
-     * @param {string} memberId 
+     * @param {number} memberId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MembersApiInterface
@@ -114,8 +114,8 @@ export interface MembersApiInterface {
     /**
      * addMemberRoleById
      * @summary Add Member Role
-     * @param {string} memberId 
-     * @param {string} roleId 
+     * @param {number} memberId 
+     * @param {number} roleId 
      * @param {MemberRoleInput} [memberRoleInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -180,7 +180,7 @@ export interface MembersApiInterface {
     /**
      * Get member suggestions
      * @summary Get member suggestions
-     * @param {string} memberId 
+     * @param {number} memberId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MembersApiInterface
@@ -214,8 +214,8 @@ export interface MembersApiInterface {
     /**
      * Merge member
      * @summary Merge member
-     * @param {string} memberId 
-     * @param {string} mergeMemberId 
+     * @param {number} memberId 
+     * @param {number} mergeMemberId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MembersApiInterface
@@ -231,7 +231,7 @@ export interface MembersApiInterface {
     /**
      * Remove local marker
      * @summary Remove local marker
-     * @param {string} memberId 
+     * @param {number} memberId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MembersApiInterface
@@ -247,8 +247,8 @@ export interface MembersApiInterface {
     /**
      * removeMemberRoleById
      * @summary Remove Member Role
-     * @param {string} memberId 
-     * @param {string} roleId 
+     * @param {number} memberId 
+     * @param {number} roleId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MembersApiInterface

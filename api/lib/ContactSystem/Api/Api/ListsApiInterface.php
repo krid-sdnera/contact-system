@@ -70,7 +70,7 @@ interface ListsApiInterface
     /**
      * Operation createListRuleById
      *
-     * @param  string $listId   (required)
+     * @param  int $listId   (required)
      * @param  OpenAPI\Server\Model\ListRule $listRule   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -78,7 +78,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListRule
      *
      */
-    public function createListRuleById(string $listId, ListRule $listRule = null, &$responseCode, array &$responseHeaders);
+    public function createListRuleById(int $listId, ListRule $listRule = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createListTypes
@@ -95,110 +95,110 @@ interface ListsApiInterface
     /**
      * Operation deleteListById
      *
-     * @param  string $listId   (required)
+     * @param  int $listId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteListById(string $listId, &$responseCode, array &$responseHeaders);
+    public function deleteListById(int $listId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteListRuleById
      *
-     * @param  string $listId   (required)
-     * @param  string $ruleId   (required)
+     * @param  int $listId   (required)
+     * @param  int $ruleId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteListRuleById(string $listId, string $ruleId, &$responseCode, array &$responseHeaders);
+    public function deleteListRuleById(int $listId, int $ruleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteListTypeById
      *
-     * @param  string $listTypeId   (required)
+     * @param  int $listTypeId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteListTypeById(string $listTypeId, &$responseCode, array &$responseHeaders);
+    public function deleteListTypeById(int $listTypeId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListById
      *
      * Your GET endpoint
      *
-     * @param  string $listId   (required)
+     * @param  int $listId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ModelList
      *
      */
-    public function getListById(string $listId, &$responseCode, array &$responseHeaders);
+    public function getListById(int $listId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListMembersById
      *
      * Your GET endpoint
      *
-     * @param  string $listId   (required)
+     * @param  int $listId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getListMembersById(string $listId, &$responseCode, array &$responseHeaders);
+    public function getListMembersById(int $listId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListRuleById
      *
      * Your GET endpoint
      *
-     * @param  string $listId   (required)
-     * @param  string $ruleId   (required)
+     * @param  int $listId   (required)
+     * @param  int $ruleId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ListRule
      *
      */
-    public function getListRuleById(string $listId, string $ruleId, &$responseCode, array &$responseHeaders);
+    public function getListRuleById(int $listId, int $ruleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListRulesById
      *
      * Your GET endpoint
      *
-     * @param  string $listId   (required)
+     * @param  int $listId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ListRule[]
      *
      */
-    public function getListRulesById(string $listId, &$responseCode, array &$responseHeaders);
+    public function getListRulesById(int $listId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListTypeById
      *
      * Your GET endpoint
      *
-     * @param  string $listTypeId   (required)
+     * @param  int $listTypeId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ListType
      *
      */
-    public function getListTypeById(string $listTypeId, &$responseCode, array &$responseHeaders);
+    public function getListTypeById(int $listTypeId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListTypes
@@ -235,7 +235,7 @@ interface ListsApiInterface
     /**
      * Operation updateListById
      *
-     * @param  string $listId   (required)
+     * @param  int $listId   (required)
      * @param  OpenAPI\Server\Model\ModelList $modelList   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -243,13 +243,13 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ModelList
      *
      */
-    public function updateListById(string $listId, ModelList $modelList = null, &$responseCode, array &$responseHeaders);
+    public function updateListById(int $listId, ModelList $modelList = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateListRuleById
      *
-     * @param  string $listId   (required)
-     * @param  string $ruleId   (required)
+     * @param  int $listId   (required)
+     * @param  int $ruleId   (required)
      * @param  OpenAPI\Server\Model\ListRule $listRule   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -257,12 +257,12 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListRule
      *
      */
-    public function updateListRuleById(string $listId, string $ruleId, ListRule $listRule = null, &$responseCode, array &$responseHeaders);
+    public function updateListRuleById(int $listId, int $ruleId, ListRule $listRule = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateListTypeById
      *
-     * @param  string $listTypeId   (required)
+     * @param  int $listTypeId   (required)
      * @param  OpenAPI\Server\Model\ListType $listType   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -270,5 +270,5 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListType
      *
      */
-    public function updateListTypeById(string $listTypeId, ListType $listType = null, &$responseCode, array &$responseHeaders);
+    public function updateListTypeById(int $listTypeId, ListType $listType = null, &$responseCode, array &$responseHeaders);
 }

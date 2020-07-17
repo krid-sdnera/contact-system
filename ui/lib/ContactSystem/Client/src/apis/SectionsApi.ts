@@ -30,7 +30,7 @@ import {
 } from '../models';
 
 export interface AddSectionLocalMarkerByIdRequest {
-    sectionId: string;
+    sectionId: number;
 }
 
 export interface CreateSectionRequest {
@@ -38,15 +38,15 @@ export interface CreateSectionRequest {
 }
 
 export interface DeleteSectionByIdRequest {
-    sectionId: string;
+    sectionId: number;
 }
 
 export interface GetSectionByIdRequest {
-    sectionId: string;
+    sectionId: number;
 }
 
 export interface GetSectionMembersByIdRequest {
-    sectionId: string;
+    sectionId: number;
 }
 
 export interface GetSectionsRequest {
@@ -56,11 +56,11 @@ export interface GetSectionsRequest {
 }
 
 export interface RemoveSectionLocalMarkerByIdRequest {
-    sectionId: string;
+    sectionId: number;
 }
 
 export interface UpdateSectionByIdRequest {
-    sectionId: string;
+    sectionId: number;
     sectionInput?: SectionInput;
 }
 
@@ -72,7 +72,7 @@ export interface UpdateSectionByIdRequest {
 export interface SectionsApiInterface {
     /**
      * addSectionLocalMarkerById
-     * @param {string} sectionId 
+     * @param {number} sectionId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
@@ -103,7 +103,7 @@ export interface SectionsApiInterface {
     /**
      * Delete Section
      * @summary Delete Section
-     * @param {string} sectionId 
+     * @param {number} sectionId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
@@ -119,7 +119,7 @@ export interface SectionsApiInterface {
     /**
      * Get Section
      * @summary Get Section
-     * @param {string} sectionId 
+     * @param {number} sectionId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
@@ -135,7 +135,7 @@ export interface SectionsApiInterface {
     /**
      * Your GET endpoint
      * @summary Your GET endpoint
-     * @param {string} sectionId 
+     * @param {number} sectionId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
@@ -168,7 +168,7 @@ export interface SectionsApiInterface {
 
     /**
      * removeSectionLocalMarkerById
-     * @param {string} sectionId 
+     * @param {number} sectionId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
@@ -183,7 +183,7 @@ export interface SectionsApiInterface {
     /**
      * Update Section
      * @summary Update Section
-     * @param {string} sectionId 
+     * @param {number} sectionId 
      * @param {SectionInput} [sectionInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

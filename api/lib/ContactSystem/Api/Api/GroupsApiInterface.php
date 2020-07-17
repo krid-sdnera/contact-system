@@ -58,14 +58,14 @@ interface GroupsApiInterface
     /**
      * Operation addGroupLocalMarkerById
      *
-     * @param  string $groupId   (required)
+     * @param  int $groupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function addGroupLocalMarkerById(string $groupId, &$responseCode, array &$responseHeaders);
+    public function addGroupLocalMarkerById(int $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createGroup
@@ -86,68 +86,68 @@ interface GroupsApiInterface
      *
      * Delete Group
      *
-     * @param  string $groupId   (required)
+     * @param  int $groupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteGroupById(string $groupId, &$responseCode, array &$responseHeaders);
+    public function deleteGroupById(int $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteGroupLocalMarkerById
      *
-     * @param  string $groupId   (required)
+     * @param  int $groupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteGroupLocalMarkerById(string $groupId, &$responseCode, array &$responseHeaders);
+    public function deleteGroupLocalMarkerById(int $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getGroupById
      *
      * Get Group
      *
-     * @param  string $groupId   (required)
+     * @param  int $groupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ScoutGroupData
      *
      */
-    public function getGroupById(string $groupId, &$responseCode, array &$responseHeaders);
+    public function getGroupById(int $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getGroupMembersById
      *
      * Your GET endpoint
      *
-     * @param  string $groupId   (required)
+     * @param  int $groupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getGroupMembersById(string $groupId, &$responseCode, array &$responseHeaders);
+    public function getGroupMembersById(int $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getGroupSectionsById
      *
      * Your GET endpoint
      *
-     * @param  string $groupId   (required)
+     * @param  int $groupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\SectionData[]
      *
      */
-    public function getGroupSectionsById(string $groupId, &$responseCode, array &$responseHeaders);
+    public function getGroupSectionsById(int $groupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getGroups
@@ -170,7 +170,7 @@ interface GroupsApiInterface
      *
      * Update Group
      *
-     * @param  string $groupId   (required)
+     * @param  int $groupId   (required)
      * @param  OpenAPI\Server\Model\ScoutGroupInput $scoutGroupInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -178,5 +178,5 @@ interface GroupsApiInterface
      * @return OpenAPI\Server\Model\ScoutGroupData
      *
      */
-    public function updateGroupById(string $groupId, ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
+    public function updateGroupById(int $groupId, ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
 }

@@ -100,7 +100,7 @@ class RolesApiInterfaceTest extends WebTestCase
 
         $path = '/roles/{roleId}';
         $pattern = '{roleId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
@@ -118,7 +118,7 @@ class RolesApiInterfaceTest extends WebTestCase
 
         $path = '/roles/{roleId}';
         $pattern = '{roleId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -136,7 +136,7 @@ class RolesApiInterfaceTest extends WebTestCase
 
         $path = '/roles/{roleId}/members';
         $pattern = '{roleId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
@@ -169,7 +169,7 @@ class RolesApiInterfaceTest extends WebTestCase
 
         $path = '/roles/{roleId}';
         $pattern = '{roleId}';
-        $data = $this->genTestData('[a-z0-9]+');
+        $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PUT', $path);

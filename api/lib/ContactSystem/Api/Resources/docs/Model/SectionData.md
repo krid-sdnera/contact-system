@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** |  | 
+**id** | **int** |  | 
 **name** | **string** |  | 
 **externalId** | **string** |  | [optional] 
 **scoutGroup** | [**OpenAPI\Server\Model\ScoutGroupData**](ScoutGroupData.md) |  | 

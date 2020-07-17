@@ -86,7 +86,7 @@ class MembersController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
+            $memberId = $this->deserialize($memberId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -94,7 +94,7 @@ class MembersController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($memberId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -180,8 +180,8 @@ class MembersController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
-            $roleId = $this->deserialize($roleId, 'string', 'string');
+            $memberId = $this->deserialize($memberId, 'int', 'string');
+            $roleId = $this->deserialize($roleId, 'int', 'string');
             $memberRoleInput = $this->deserialize($memberRoleInput, 'OpenAPI\Server\Model\MemberRoleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -190,14 +190,14 @@ class MembersController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($memberId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($roleId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -546,7 +546,7 @@ class MembersController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
+            $memberId = $this->deserialize($memberId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -554,7 +554,7 @@ class MembersController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($memberId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -732,8 +732,8 @@ class MembersController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
-            $mergeMemberId = $this->deserialize($mergeMemberId, 'string', 'string');
+            $memberId = $this->deserialize($memberId, 'int', 'string');
+            $mergeMemberId = $this->deserialize($mergeMemberId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -741,14 +741,14 @@ class MembersController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($memberId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($mergeMemberId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -825,7 +825,7 @@ class MembersController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
+            $memberId = $this->deserialize($memberId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -833,7 +833,7 @@ class MembersController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($memberId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -910,8 +910,8 @@ class MembersController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $memberId = $this->deserialize($memberId, 'string', 'string');
-            $roleId = $this->deserialize($roleId, 'string', 'string');
+            $memberId = $this->deserialize($memberId, 'int', 'string');
+            $roleId = $this->deserialize($roleId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -919,14 +919,14 @@ class MembersController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($memberId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($roleId, $asserts);
         if ($response instanceof Response) {
             return $response;

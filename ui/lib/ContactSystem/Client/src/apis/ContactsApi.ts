@@ -34,15 +34,15 @@ export interface CreateContactRequest {
 }
 
 export interface DeleteContactByIdRequest {
-    contactId: string;
+    contactId: number;
 }
 
 export interface GetContactByIdRequest {
-    contactId: string;
+    contactId: number;
 }
 
 export interface GetContactMembersByIdRequest {
-    contactId: string;
+    contactId: number;
 }
 
 export interface GetContactsRequest {
@@ -52,7 +52,7 @@ export interface GetContactsRequest {
 }
 
 export interface UpdateContactByIdRequest {
-    contactId: string;
+    contactId: number;
     contactInput?: ContactInput;
 }
 
@@ -78,7 +78,7 @@ export interface ContactsApiInterface {
 
     /**
      * deleteContactById
-     * @param {string} contactId 
+     * @param {number} contactId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContactsApiInterface
@@ -93,7 +93,7 @@ export interface ContactsApiInterface {
     /**
      * getContactById
      * @summary Your GET endpoint
-     * @param {string} contactId 
+     * @param {number} contactId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContactsApiInterface
@@ -109,7 +109,7 @@ export interface ContactsApiInterface {
     /**
      * Your GET endpoint
      * @summary Your GET endpoint
-     * @param {string} contactId 
+     * @param {number} contactId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContactsApiInterface
@@ -142,7 +142,7 @@ export interface ContactsApiInterface {
 
     /**
      * updateContactById
-     * @param {string} contactId 
+     * @param {number} contactId 
      * @param {ContactInput} [contactInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

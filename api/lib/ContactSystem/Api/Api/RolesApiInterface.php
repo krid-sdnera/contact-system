@@ -73,35 +73,35 @@ interface RolesApiInterface
      *
      * Delete role
      *
-     * @param  string $roleId   (required)
+     * @param  int $roleId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteRoleById(string $roleId, &$responseCode, array &$responseHeaders);
+    public function deleteRoleById(int $roleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getRoleById
      *
      * Get Role
      *
-     * @param  string $roleId   (required)
+     * @param  int $roleId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function getRoleById(string $roleId, &$responseCode, array &$responseHeaders);
+    public function getRoleById(int $roleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getRoleMembersById
      *
      * Get role members
      *
-     * @param  string $roleId   (required)
+     * @param  int $roleId   (required)
      * @param  string $sort   (optional)
      * @param  int $pageSize   (optional)
      * @param  int $page   (optional)
@@ -111,7 +111,7 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\MemberData[]
      *
      */
-    public function getRoleMembersById(string $roleId, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getRoleMembersById(int $roleId, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getRoles
@@ -134,7 +134,7 @@ interface RolesApiInterface
      *
      * Update role
      *
-     * @param  string $roleId   (required)
+     * @param  int $roleId   (required)
      * @param  OpenAPI\Server\Model\RoleInput $roleInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -142,5 +142,5 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\RoleData
      *
      */
-    public function updateRoleById(string $roleId, RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
+    public function updateRoleById(int $roleId, RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
 }

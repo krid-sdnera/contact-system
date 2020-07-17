@@ -173,7 +173,7 @@ class ContactsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $contactId = $this->deserialize($contactId, 'string', 'string');
+            $contactId = $this->deserialize($contactId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -181,7 +181,7 @@ class ContactsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($contactId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -258,7 +258,7 @@ class ContactsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $contactId = $this->deserialize($contactId, 'string', 'string');
+            $contactId = $this->deserialize($contactId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -266,7 +266,7 @@ class ContactsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($contactId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -343,7 +343,7 @@ class ContactsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $contactId = $this->deserialize($contactId, 'string', 'string');
+            $contactId = $this->deserialize($contactId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -351,7 +351,7 @@ class ContactsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($contactId, $asserts);
         if ($response instanceof Response) {
             return $response;
@@ -536,7 +536,7 @@ class ContactsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $contactId = $this->deserialize($contactId, 'string', 'string');
+            $contactId = $this->deserialize($contactId, 'int', 'string');
             $contactInput = $this->deserialize($contactInput, 'OpenAPI\Server\Model\ContactInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -545,7 +545,7 @@ class ContactsController extends Controller
         // Validate the input values
         $asserts = [];
         $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Type("int");
         $response = $this->validate($contactId, $asserts);
         if ($response instanceof Response) {
             return $response;

@@ -32,10 +32,10 @@ import {
 export interface ContactData {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof ContactData
      */
-    id: string;
+    id: number;
     /**
      * 
      * @type {string}

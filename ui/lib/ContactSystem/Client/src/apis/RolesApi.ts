@@ -34,15 +34,15 @@ export interface CreateRoleRequest {
 }
 
 export interface DeleteRoleByIdRequest {
-    roleId: string;
+    roleId: number;
 }
 
 export interface GetRoleByIdRequest {
-    roleId: string;
+    roleId: number;
 }
 
 export interface GetRoleMembersByIdRequest {
-    roleId: string;
+    roleId: number;
     sort?: string;
     pageSize?: number;
     page?: number;
@@ -55,7 +55,7 @@ export interface GetRolesRequest {
 }
 
 export interface UpdateRoleByIdRequest {
-    roleId: string;
+    roleId: number;
     roleInput?: RoleInput;
 }
 
@@ -84,7 +84,7 @@ export interface RolesApiInterface {
     /**
      * Delete role
      * @summary Delete role
-     * @param {string} roleId 
+     * @param {number} roleId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RolesApiInterface
@@ -100,7 +100,7 @@ export interface RolesApiInterface {
     /**
      * Get role
      * @summary Get Role
-     * @param {string} roleId 
+     * @param {number} roleId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RolesApiInterface
@@ -116,7 +116,7 @@ export interface RolesApiInterface {
     /**
      * Get role members
      * @summary Get role members
-     * @param {string} roleId 
+     * @param {number} roleId 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
      * @param {number} [page] 
@@ -153,7 +153,7 @@ export interface RolesApiInterface {
     /**
      * Update role
      * @summary Update role
-     * @param {string} roleId 
+     * @param {number} roleId 
      * @param {RoleInput} [roleInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

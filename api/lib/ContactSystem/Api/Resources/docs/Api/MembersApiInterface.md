@@ -61,7 +61,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#addMemberLocalMarkerById
      */
-    public function addMemberLocalMarkerById(string $memberId)
+    public function addMemberLocalMarkerById(int $memberId)
     {
         // Implement the operation ...
     }
@@ -74,7 +74,7 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
+ **memberId** | **int**|  |
 
 ### Return type
 
@@ -123,7 +123,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#addMemberRoleById
      */
-    public function addMemberRoleById(string $memberId, string $roleId, MemberRoleInput $memberRoleInput = null)
+    public function addMemberRoleById(int $memberId, int $roleId, MemberRoleInput $memberRoleInput = null)
     {
         // Implement the operation ...
     }
@@ -136,8 +136,8 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
- **roleId** | **string**|  |
+ **memberId** | **int**|  |
+ **roleId** | **int**|  |
  **memberRoleInput** | [**OpenAPI\Server\Model\MemberRoleInput**](../Model/MemberRoleInput.md)|  | [optional]
 
 ### Return type
@@ -373,7 +373,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#getMemberLocalMarkerSuggestionsById
      */
-    public function getMemberLocalMarkerSuggestionsById(string $memberId)
+    public function getMemberLocalMarkerSuggestionsById(int $memberId)
     {
         // Implement the operation ...
     }
@@ -386,7 +386,7 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
+ **memberId** | **int**|  |
 
 ### Return type
 
@@ -499,7 +499,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#mergeMember
      */
-    public function mergeMember(string $memberId, string $mergeMemberId)
+    public function mergeMember(int $memberId, int $mergeMemberId)
     {
         // Implement the operation ...
     }
@@ -512,8 +512,8 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
- **mergeMemberId** | **string**|  |
+ **memberId** | **int**|  |
+ **mergeMemberId** | **int**|  |
 
 ### Return type
 
@@ -562,7 +562,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#removeMemberLocalMarkerById
      */
-    public function removeMemberLocalMarkerById(string $memberId)
+    public function removeMemberLocalMarkerById(int $memberId)
     {
         // Implement the operation ...
     }
@@ -575,7 +575,7 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
+ **memberId** | **int**|  |
 
 ### Return type
 
@@ -624,7 +624,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#removeMemberRoleById
      */
-    public function removeMemberRoleById(string $memberId, string $roleId)
+    public function removeMemberRoleById(int $memberId, int $roleId)
     {
         // Implement the operation ...
     }
@@ -637,8 +637,8 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **string**|  |
- **roleId** | **string**|  |
+ **memberId** | **int**|  |
+ **roleId** | **int**|  |
 
 ### Return type
 
