@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **phoneMobile** | **string** |  | [optional] 
 **phoneWork** | **string** |  | [optional] 
 **gender** | **string** |  | [optional] 
-**expiry** | **string** |  | [optional] [default to '1990-01-01']
+**expiry** | **string** |  | [optional] 
 **overrides** | [**OpenAPI\Server\Model\MemberOverrideData**](MemberOverrideData.md) |  | [optional] 
 **roles** | [**OpenAPI\Server\Model\MemberRoleData**](MemberRoleData.md) | Array containg the list | [optional] 
 **contacts** | [**OpenAPI\Server\Model\ContactData**](ContactData.md) | Array containg the list | [optional] 

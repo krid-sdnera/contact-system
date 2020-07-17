@@ -41,13 +41,13 @@ export interface MemberInput {
      * @type {string}
      * @memberof MemberInput
      */
-    firstname: string;
+    firstname?: string;
     /**
      * 
      * @type {string}
      * @memberof MemberInput
      */
-    lastname: string;
+    lastname?: string;
     /**
      * 
      * @type {string}
@@ -127,8 +127,8 @@ export function MemberInputFromJSONTyped(json: any, ignoreDiscriminator: boolean
     return {
         
         'state': !exists(json, 'state') ? undefined : json['state'],
-        'firstname': json['firstname'],
-        'lastname': json['lastname'],
+        'firstname': !exists(json, 'firstname') ? undefined : json['firstname'],
+        'lastname': !exists(json, 'lastname') ? undefined : json['lastname'],
         'nickname': !exists(json, 'nickname') ? undefined : json['nickname'],
         'address': !exists(json, 'address') ? undefined : AddressDataFromJSON(json['address']),
         'dateOfBirth': !exists(json, 'dateOfBirth') ? undefined : json['dateOfBirth'],

@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **primaryContact** | **bool** |  | [optional] 
 **email** | **string** |  | [optional] 
 **occupation** | **string** |  | [optional] 
-**expiry** | **string** |  | [optional] [default to '1990-01-01']
+**expiry** | **string** |  | [optional] 
 **overrides** | [**OpenAPI\Server\Model\ContactOverrideData**](ContactOverrideData.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

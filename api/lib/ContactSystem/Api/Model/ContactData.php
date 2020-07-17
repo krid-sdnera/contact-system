@@ -195,7 +195,7 @@ class ContactData
         $this->primaryContact = isset($data['primaryContact']) ? $data['primaryContact'] : null;
         $this->email = isset($data['email']) ? $data['email'] : null;
         $this->occupation = isset($data['occupation']) ? $data['occupation'] : null;
-        $this->expiry = isset($data['expiry']) ? $data['expiry'] : '1990-01-01';
+        $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
         $this->overrides = isset($data['overrides']) ? $data['overrides'] : null;
     }
 

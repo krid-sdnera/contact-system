@@ -210,7 +210,7 @@ class MemberData
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
         $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : null;
         $this->gender = isset($data['gender']) ? $data['gender'] : null;
-        $this->expiry = isset($data['expiry']) ? $data['expiry'] : '1990-01-01';
+        $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
         $this->overrides = isset($data['overrides']) ? $data['overrides'] : null;
         $this->roles = isset($data['roles']) ? $data['roles'] : null;
         $this->contacts = isset($data['contacts']) ? $data['contacts'] : null;

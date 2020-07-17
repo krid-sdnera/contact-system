@@ -1226,7 +1226,6 @@ components:
           $ref: "#/components/schemas/AddressData"
         dateOfBirth:
           type: string
-          default: "1990-01-01"
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         membershipNumber:
           type: string
@@ -1242,13 +1241,9 @@ components:
           type: string
         expiry:
           type: string
-          default: "1990-01-01"
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         overrides:
           $ref: "#/components/schemas/MemberOverrideData"
-      required:
-        - firstname
-        - lastname
     MemberData:
       title: MemberData
       type: object
@@ -1288,7 +1283,6 @@ components:
           type: string
         expiry:
           type: string
-          default: "1990-01-01"
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         overrides:
           $ref: "#/components/schemas/MemberOverrideData"
@@ -1403,7 +1397,6 @@ components:
             - disabled
         expiry:
           type: string
-          default: "1990-01-01"
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
     MemberRoleData:
       title: MemberRoleData
@@ -1421,7 +1414,6 @@ components:
             - unmanaged
         expiry:
           type: string
-          default: "1990-01-01"
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         role:
           $ref: "#/components/schemas/RoleData"
@@ -1460,13 +1452,9 @@ components:
           type: integer
         expiry:
           type: string
-          default: "1990-01-01"
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         overrides:
           $ref: "#/components/schemas/ContactOverrideData"
-      required:
-        - firstname
-        - lastname
     ContactData:
       title: ContactData
       type: object
@@ -1507,7 +1495,6 @@ components:
           type: string
         expiry:
           type: string
-          default: "1990-01-01"
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         overrides:
           $ref: "#/components/schemas/ContactOverrideData"

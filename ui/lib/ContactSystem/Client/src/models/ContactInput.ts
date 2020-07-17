@@ -41,7 +41,7 @@ export interface ContactInput {
      * @type {string}
      * @memberof ContactInput
      */
-    firstname: string;
+    firstname?: string;
     /**
      * 
      * @type {string}
@@ -53,7 +53,7 @@ export interface ContactInput {
      * @type {string}
      * @memberof ContactInput
      */
-    lastname: string;
+    lastname?: string;
     /**
      * 
      * @type {AddressData}
@@ -133,9 +133,9 @@ export function ContactInputFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         
         'state': !exists(json, 'state') ? undefined : json['state'],
-        'firstname': json['firstname'],
+        'firstname': !exists(json, 'firstname') ? undefined : json['firstname'],
         'nickname': !exists(json, 'nickname') ? undefined : json['nickname'],
-        'lastname': json['lastname'],
+        'lastname': !exists(json, 'lastname') ? undefined : json['lastname'],
         'address': !exists(json, 'address') ? undefined : AddressDataFromJSON(json['address']),
         'phoneHome': !exists(json, 'phoneHome') ? undefined : json['phoneHome'],
         'phoneMobile': !exists(json, 'phoneMobile') ? undefined : json['phoneMobile'],

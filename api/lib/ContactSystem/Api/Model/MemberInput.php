@@ -51,18 +51,16 @@ class MemberInput
     protected $state;
 
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("firstname")
-     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $firstname;
 
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("lastname")
-     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
@@ -169,14 +167,14 @@ class MemberInput
         $this->lastname = isset($data['lastname']) ? $data['lastname'] : null;
         $this->nickname = isset($data['nickname']) ? $data['nickname'] : null;
         $this->address = isset($data['address']) ? $data['address'] : null;
-        $this->dateOfBirth = isset($data['dateOfBirth']) ? $data['dateOfBirth'] : '1990-01-01';
+        $this->dateOfBirth = isset($data['dateOfBirth']) ? $data['dateOfBirth'] : null;
         $this->membershipNumber = isset($data['membershipNumber']) ? $data['membershipNumber'] : null;
         $this->phoneHome = isset($data['phoneHome']) ? $data['phoneHome'] : null;
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
         $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : null;
         $this->gender = isset($data['gender']) ? $data['gender'] : null;
         $this->email = isset($data['email']) ? $data['email'] : null;
-        $this->expiry = isset($data['expiry']) ? $data['expiry'] : '1990-01-01';
+        $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
         $this->overrides = isset($data['overrides']) ? $data['overrides'] : null;
     }
 
@@ -207,9 +205,9 @@ class MemberInput
     /**
      * Gets firstname.
      *
-     * @return string
+     * @return string|null
      */
-    public function getFirstname(): string
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
@@ -217,11 +215,11 @@ class MemberInput
     /**
      * Sets firstname.
      *
-     * @param string $firstname
+     * @param string|null $firstname
      *
      * @return $this
      */
-    public function setFirstname(string $firstname): string
+    public function setFirstname(string $firstname = null): ?string
     {
         $this->firstname = $firstname;
 
@@ -231,9 +229,9 @@ class MemberInput
     /**
      * Gets lastname.
      *
-     * @return string
+     * @return string|null
      */
-    public function getLastname(): string
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
@@ -241,11 +239,11 @@ class MemberInput
     /**
      * Sets lastname.
      *
-     * @param string $lastname
+     * @param string|null $lastname
      *
      * @return $this
      */
-    public function setLastname(string $lastname): string
+    public function setLastname(string $lastname = null): ?string
     {
         $this->lastname = $lastname;
 

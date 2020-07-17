@@ -84,7 +84,7 @@ class MemberRoleData
     {
         $this->state = isset($data['state']) ? $data['state'] : null;
         $this->managementState = isset($data['managementState']) ? $data['managementState'] : null;
-        $this->expiry = isset($data['expiry']) ? $data['expiry'] : '1990-01-01';
+        $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
         $this->role = isset($data['role']) ? $data['role'] : null;
     }
 
