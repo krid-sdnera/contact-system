@@ -500,6 +500,106 @@ class ContactsController extends Controller
     }
 
     /**
+     * Operation patchContactById
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function patchContactByIdAction(Request $request, $contactId)
+    {
+        // Make sure that the client is providing something that we can consume
+        $consumes = ['application/json'];
+        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
+        if (!in_array($inputFormat, $consumes)) {
+            // We can't consume the content that the client is sending us
+            return new Response('', 415);
+        }
+
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-auth-token');
+
+        // Read out all input parameter values into variables
+        $contactInput = $request->getContent();
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $contactId = $this->deserialize($contactId, 'int', 'string');
+            $contactInput = $this->deserialize($contactInput, 'OpenAPI\Server\Model\ContactInput', $inputFormat);
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("int");
+        $response = $this->validate($contactId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+        $asserts = [];
+        $asserts[] = new Assert\Type("OpenAPI\Server\Model\ContactInput");
+        $asserts[] = new Assert\Valid();
+        $response = $this->validate($contactInput, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->patchContactById($contactId, $contactInput, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
      * Operation updateContactById
      *
      * @param Request $request The Symfony request to handle.

@@ -123,6 +123,19 @@ interface ContactsApiInterface
     public function getContacts(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
+     * Operation patchContactById
+     *
+     * @param  int $contactId   (required)
+     * @param  OpenAPI\Server\Model\ContactInput $contactInput   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\ContactData
+     *
+     */
+    public function patchContactById(int $contactId, ContactInput $contactInput = null, &$responseCode, array &$responseHeaders);
+
+    /**
      * Operation updateContactById
      *
      * @param  int $contactId   (required)

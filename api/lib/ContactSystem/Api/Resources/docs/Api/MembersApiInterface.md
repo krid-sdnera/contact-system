@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**getMemberLocalMarkerSuggestionsById**](MembersApiInterface.md#getMemberLocalMarkerSuggestionsById) | **GET** /members/{memberId}/local/suggestions | Get member suggestions
 [**getMembers**](MembersApiInterface.md#getMembers) | **GET** /members | List all members
 [**mergeMember**](MembersApiInterface.md#mergeMember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
+[**patchMemberById**](MembersApiInterface.md#patchMemberById) | **PATCH** /members/{memberId} | Partially update member
 [**removeMemberLocalMarkerById**](MembersApiInterface.md#removeMemberLocalMarkerById) | **DELETE** /members/{memberId}/local | Remove local marker
 [**removeMemberRoleById**](MembersApiInterface.md#removeMemberRoleById) | **DELETE** /members/{memberId}/roles/{roleId} | Remove Member Role
 [**updateMemberById**](MembersApiInterface.md#updateMemberById) | **PUT** /members/{memberId} | Update member
@@ -526,6 +527,69 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **patchMemberById**
+> OpenAPI\Server\Model\MemberData patchMemberById($memberId, $memberInput)
+
+Partially update member
+
+Partially update member
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/MembersApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\MembersApiInterface;
+
+class MembersApi implements MembersApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of MembersApiInterface#patchMemberById
+     */
+    public function patchMemberById(int $memberId, MemberInput $memberInput = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **memberId** | **int**|  |
+ **memberInput** | [**OpenAPI\Server\Model\MemberInput**](../Model/MemberInput.md)|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

@@ -282,6 +282,20 @@ class MembersController extends AbstractController implements MembersApiInterfac
         ]);
     }
 
+
+    /**
+     * {@inheritdoc}
+     */
+    public function patchMemberById($memberId, MemberInput $member = null, &$responseCode, array &$responseHeaders)
+    {
+        $responseCode = 501;
+        return new ApiResponse([
+            'code' => 501,
+            'type' => 'Not Implemented',
+            'message' => "This endpoint has not been implemented"
+        ]);
+    }
+
     /**
      * {@inheritdoc}
      */

@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**getContactById**](ContactsApiInterface.md#getContactById) | **GET** /contacts/{contactId} | Your GET endpoint
 [**getContactMembersById**](ContactsApiInterface.md#getContactMembersById) | **GET** /contacts/{contactId}/members | Your GET endpoint
 [**getContacts**](ContactsApiInterface.md#getContacts) | **GET** /contacts | Your GET endpoint
+[**patchContactById**](ContactsApiInterface.md#patchContactById) | **PATCH** /contacts/{contactId} | 
 [**updateContactById**](ContactsApiInterface.md#updateContactById) | **PUT** /contacts/{contactId} | 
 
 
@@ -332,6 +333,69 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **patchContactById**
+> OpenAPI\Server\Model\ContactData patchContactById($contactId, $contactInput)
+
+
+
+patchContactById
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/ContactsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\ContactsApiInterface;
+
+class ContactsApi implements ContactsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of ContactsApiInterface#patchContactById
+     */
+    public function patchContactById(int $contactId, ContactInput $contactInput = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contactId** | **int**|  |
+ **contactInput** | [**OpenAPI\Server\Model\ContactInput**](../Model/ContactInput.md)|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\ContactData**](../Model/ContactData.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

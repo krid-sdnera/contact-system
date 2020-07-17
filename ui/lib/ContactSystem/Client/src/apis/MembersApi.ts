@@ -75,6 +75,11 @@ export interface MergeMemberRequest {
     mergeMemberId: number;
 }
 
+export interface PatchMemberByIdRequest {
+    memberId: number;
+    memberInput?: MemberInput;
+}
+
 export interface RemoveMemberLocalMarkerByIdRequest {
     memberId: number;
 }
@@ -227,6 +232,23 @@ export interface MembersApiInterface {
      * Merge member
      */
     mergeMember(requestParameters: MergeMemberRequest): Promise<ModelApiResponse>;
+
+    /**
+     * Partially update member
+     * @summary Partially update member
+     * @param {number} memberId 
+     * @param {MemberInput} [memberInput] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MembersApiInterface
+     */
+    patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>>;
+
+    /**
+     * Partially update member
+     * Partially update member
+     */
+    patchMemberById(requestParameters: PatchMemberByIdRequest): Promise<MemberData>;
 
     /**
      * Remove local marker
@@ -592,6 +614,45 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      */
     async mergeMember(requestParameters: MergeMemberRequest): Promise<ModelApiResponse> {
         const response = await this.mergeMemberRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * Partially update member
+     * Partially update member
+     */
+    async patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>> {
+        if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
+            throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling patchMemberById.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        const response = await this.request({
+            path: `/members/{memberId}`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: MemberInputToJSON(requestParameters.memberInput),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MemberDataFromJSON(jsonValue));
+    }
+
+    /**
+     * Partially update member
+     * Partially update member
+     */
+    async patchMemberById(requestParameters: PatchMemberByIdRequest): Promise<MemberData> {
+        const response = await this.patchMemberByIdRaw(requestParameters);
         return await response.value();
     }
 

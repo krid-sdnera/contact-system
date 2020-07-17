@@ -218,6 +218,24 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
+     * Test case for patchMemberById
+     *
+     * Partially update member.
+     *
+     */
+    public function testPatchMemberById()
+    {
+        $client = static::createClient();
+
+        $path = '/members/{memberId}';
+        $pattern = '{memberId}';
+        $data = $this->genTestData('\d+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('PATCH', $path);
+    }
+
+    /**
      * Test case for removeMemberLocalMarkerById
      *
      * Remove local marker.

@@ -129,6 +129,7 @@ Class | Method | HTTP request | Description
 *ContactsApiInterface* | [**getContactById**](Resources/docs/Api/ContactsApiInterface.md#getcontactbyid) | **GET** /contacts/{contactId} | Your GET endpoint
 *ContactsApiInterface* | [**getContactMembersById**](Resources/docs/Api/ContactsApiInterface.md#getcontactmembersbyid) | **GET** /contacts/{contactId}/members | Your GET endpoint
 *ContactsApiInterface* | [**getContacts**](Resources/docs/Api/ContactsApiInterface.md#getcontacts) | **GET** /contacts | Your GET endpoint
+*ContactsApiInterface* | [**patchContactById**](Resources/docs/Api/ContactsApiInterface.md#patchcontactbyid) | **PATCH** /contacts/{contactId} | 
 *ContactsApiInterface* | [**updateContactById**](Resources/docs/Api/ContactsApiInterface.md#updatecontactbyid) | **PUT** /contacts/{contactId} | 
 *GroupsApiInterface* | [**addGroupLocalMarkerById**](Resources/docs/Api/GroupsApiInterface.md#addgrouplocalmarkerbyid) | **PUT** /groups/{groupId}/local | 
 *GroupsApiInterface* | [**createGroup**](Resources/docs/Api/GroupsApiInterface.md#creategroup) | **POST** /groups | Create Group
@@ -163,6 +164,7 @@ Class | Method | HTTP request | Description
 *MembersApiInterface* | [**getMemberLocalMarkerSuggestionsById**](Resources/docs/Api/MembersApiInterface.md#getmemberlocalmarkersuggestionsbyid) | **GET** /members/{memberId}/local/suggestions | Get member suggestions
 *MembersApiInterface* | [**getMembers**](Resources/docs/Api/MembersApiInterface.md#getmembers) | **GET** /members | List all members
 *MembersApiInterface* | [**mergeMember**](Resources/docs/Api/MembersApiInterface.md#mergemember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
+*MembersApiInterface* | [**patchMemberById**](Resources/docs/Api/MembersApiInterface.md#patchmemberbyid) | **PATCH** /members/{memberId} | Partially update member
 *MembersApiInterface* | [**removeMemberLocalMarkerById**](Resources/docs/Api/MembersApiInterface.md#removememberlocalmarkerbyid) | **DELETE** /members/{memberId}/local | Remove local marker
 *MembersApiInterface* | [**removeMemberRoleById**](Resources/docs/Api/MembersApiInterface.md#removememberrolebyid) | **DELETE** /members/{memberId}/roles/{roleId} | Remove Member Role
 *MembersApiInterface* | [**updateMemberById**](Resources/docs/Api/MembersApiInterface.md#updatememberbyid) | **PUT** /members/{memberId} | Update member

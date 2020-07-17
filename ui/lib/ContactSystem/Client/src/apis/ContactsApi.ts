@@ -51,6 +51,11 @@ export interface GetContactsRequest {
     page?: number;
 }
 
+export interface PatchContactByIdRequest {
+    contactId: number;
+    contactInput?: ContactInput;
+}
+
 export interface UpdateContactByIdRequest {
     contactId: number;
     contactInput?: ContactInput;
@@ -139,6 +144,21 @@ export interface ContactsApiInterface {
      * Your GET endpoint
      */
     getContacts(requestParameters: GetContactsRequest): Promise<Array<ContactData>>;
+
+    /**
+     * patchContactById
+     * @param {number} contactId 
+     * @param {ContactInput} [contactInput] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ContactsApiInterface
+     */
+    patchContactByIdRaw(requestParameters: PatchContactByIdRequest): Promise<runtime.ApiResponse<ContactData>>;
+
+    /**
+     * patchContactById
+     */
+    patchContactById(requestParameters: PatchContactByIdRequest): Promise<ContactData>;
 
     /**
      * updateContactById
@@ -342,6 +362,43 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
      */
     async getContacts(requestParameters: GetContactsRequest): Promise<Array<ContactData>> {
         const response = await this.getContactsRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * patchContactById
+     */
+    async patchContactByIdRaw(requestParameters: PatchContactByIdRequest): Promise<runtime.ApiResponse<ContactData>> {
+        if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
+            throw new runtime.RequiredError('contactId','Required parameter requestParameters.contactId was null or undefined when calling patchContactById.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        const response = await this.request({
+            path: `/contacts/{contactId}`.replace(`{${"contactId"}}`, encodeURIComponent(String(requestParameters.contactId))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ContactInputToJSON(requestParameters.contactInput),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ContactDataFromJSON(jsonValue));
+    }
+
+    /**
+     * patchContactById
+     */
+    async patchContactById(requestParameters: PatchContactByIdRequest): Promise<ContactData> {
+        const response = await this.patchContactByIdRaw(requestParameters);
         return await response.value();
     }
 

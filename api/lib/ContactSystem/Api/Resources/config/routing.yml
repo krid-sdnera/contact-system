@@ -39,6 +39,14 @@ open_api_server_contacts_getcontacts:
     defaults:
         _controller: open_api_server.controller.contacts:getContactsAction
 
+open_api_server_contacts_patchcontactbyid:
+    path:     /contacts/{contactId}
+    methods:  [PATCH]
+    defaults:
+        _controller: open_api_server.controller.contacts:patchContactByIdAction
+    requirements:
+        contactId: '\d+'
+
 open_api_server_contacts_updatecontactbyid:
     path:     /contacts/{contactId}
     methods:  [PUT]
@@ -302,6 +310,14 @@ open_api_server_members_mergemember:
     requirements:
         memberId: '\d+'
         mergeMemberId: '\d+'
+
+open_api_server_members_patchmemberbyid:
+    path:     /members/{memberId}
+    methods:  [PATCH]
+    defaults:
+        _controller: open_api_server.controller.members:patchMemberByIdAction
+    requirements:
+        memberId: '\d+'
 
 open_api_server_members_removememberlocalmarkerbyid:
     path:     /members/{memberId}/local

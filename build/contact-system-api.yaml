@@ -138,6 +138,26 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/MemberInput"
+    patch:
+      summary: Partially update member
+      description: Partially update member
+      parameters: []
+      operationId: patchMemberById
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemberData"
+      tags:
+        - members
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberInput"
     delete:
       summary: Delete member
       description: Delete a member
@@ -494,6 +514,25 @@ paths:
       summary: ""
       description: updateContactById
       operationId: updateContactById
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactData"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactInput"
+        description: ""
+      tags:
+        - contacts
+    patch:
+      summary: ""
+      description: patchContactById
+      operationId: patchContactById
       responses:
         "200":
           description: OK
