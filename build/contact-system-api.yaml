@@ -1349,6 +1349,11 @@ components:
           type: string
         postcode:
           type: string
+      required:
+        - street1
+        - city
+        - state
+        - postcode
     RoleInput:
       title: RoleInput
       type: object

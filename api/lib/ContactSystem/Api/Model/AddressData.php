@@ -42,8 +42,9 @@ use JMS\Serializer\Annotation\SerializedName;
 class AddressData 
 {
         /**
-     * @var string|null
+     * @var string
      * @SerializedName("street1")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
@@ -58,24 +59,27 @@ class AddressData
     protected $street2;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("city")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $city;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("state")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $state;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("postcode")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
@@ -97,9 +101,9 @@ class AddressData
     /**
      * Gets street1.
      *
-     * @return string|null
+     * @return string
      */
-    public function getStreet1(): ?string
+    public function getStreet1(): string
     {
         return $this->street1;
     }
@@ -107,11 +111,11 @@ class AddressData
     /**
      * Sets street1.
      *
-     * @param string|null $street1
+     * @param string $street1
      *
      * @return $this
      */
-    public function setStreet1(string $street1 = null): ?string
+    public function setStreet1(string $street1): string
     {
         $this->street1 = $street1;
 
@@ -145,9 +149,9 @@ class AddressData
     /**
      * Gets city.
      *
-     * @return string|null
+     * @return string
      */
-    public function getCity(): ?string
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -155,11 +159,11 @@ class AddressData
     /**
      * Sets city.
      *
-     * @param string|null $city
+     * @param string $city
      *
      * @return $this
      */
-    public function setCity(string $city = null): ?string
+    public function setCity(string $city): string
     {
         $this->city = $city;
 
@@ -169,9 +173,9 @@ class AddressData
     /**
      * Gets state.
      *
-     * @return string|null
+     * @return string
      */
-    public function getState(): ?string
+    public function getState(): string
     {
         return $this->state;
     }
@@ -179,11 +183,11 @@ class AddressData
     /**
      * Sets state.
      *
-     * @param string|null $state
+     * @param string $state
      *
      * @return $this
      */
-    public function setState(string $state = null): ?string
+    public function setState(string $state): string
     {
         $this->state = $state;
 
@@ -193,9 +197,9 @@ class AddressData
     /**
      * Gets postcode.
      *
-     * @return string|null
+     * @return string
      */
-    public function getPostcode(): ?string
+    public function getPostcode(): string
     {
         return $this->postcode;
     }
@@ -203,11 +207,11 @@ class AddressData
     /**
      * Sets postcode.
      *
-     * @param string|null $postcode
+     * @param string $postcode
      *
      * @return $this
      */
-    public function setPostcode(string $postcode = null): ?string
+    public function setPostcode(string $postcode): string
     {
         $this->postcode = $postcode;
 

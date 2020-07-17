@@ -24,7 +24,7 @@ export interface AddressData {
      * @type {string}
      * @memberof AddressData
      */
-    street1?: string;
+    street1: string;
     /**
      * 
      * @type {string}
@@ -36,19 +36,19 @@ export interface AddressData {
      * @type {string}
      * @memberof AddressData
      */
-    city?: string;
+    city: string;
     /**
      * 
      * @type {string}
      * @memberof AddressData
      */
-    state?: string;
+    state: string;
     /**
      * 
      * @type {string}
      * @memberof AddressData
      */
-    postcode?: string;
+    postcode: string;
 }
 
 export function AddressDataFromJSON(json: any): AddressData {
@@ -61,11 +61,11 @@ export function AddressDataFromJSONTyped(json: any, ignoreDiscriminator: boolean
     }
     return {
         
-        'street1': !exists(json, 'street1') ? undefined : json['street1'],
+        'street1': json['street1'],
         'street2': !exists(json, 'street2') ? undefined : json['street2'],
-        'city': !exists(json, 'city') ? undefined : json['city'],
-        'state': !exists(json, 'state') ? undefined : json['state'],
-        'postcode': !exists(json, 'postcode') ? undefined : json['postcode'],
+        'city': json['city'],
+        'state': json['state'],
+        'postcode': json['postcode'],
     };
 }
 

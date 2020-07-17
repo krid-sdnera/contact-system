@@ -3,11 +3,11 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**street1** | **string** |  | [optional] 
+**street1** | **string** |  | 
 **street2** | **string** |  | [optional] 
-**city** | **string** |  | [optional] 
-**state** | **string** |  | [optional] 
-**postcode** | **string** |  | [optional] 
+**city** | **string** |  | 
+**state** | **string** |  | 
+**postcode** | **string** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
