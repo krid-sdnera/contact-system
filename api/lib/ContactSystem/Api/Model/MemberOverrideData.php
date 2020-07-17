@@ -66,10 +66,10 @@ class MemberOverrideData
     protected $nickname;
 
     /**
-     * @var OpenAPI\Server\Model\AddressData|null
+     * @var bool|null
      * @SerializedName("address")
-     * @Assert\Type("OpenAPI\Server\Model\AddressData")
-     * @Type("OpenAPI\Server\Model\AddressData")
+     * @Assert\Type("bool")
+     * @Type("bool")
      */
     protected $address;
 
@@ -80,6 +80,14 @@ class MemberOverrideData
      * @Type("bool")
      */
     protected $dateOfBirth;
+
+    /**
+     * @var bool|null
+     * @SerializedName("email")
+     * @Assert\Type("bool")
+     * @Type("bool")
+     */
+    protected $email;
 
     /**
      * @var bool|null
@@ -122,8 +130,9 @@ class MemberOverrideData
         $this->firstname = isset($data['firstname']) ? $data['firstname'] : false;
         $this->lastname = isset($data['lastname']) ? $data['lastname'] : false;
         $this->nickname = isset($data['nickname']) ? $data['nickname'] : false;
-        $this->address = isset($data['address']) ? $data['address'] : null;
+        $this->address = isset($data['address']) ? $data['address'] : false;
         $this->dateOfBirth = isset($data['dateOfBirth']) ? $data['dateOfBirth'] : false;
+        $this->email = isset($data['email']) ? $data['email'] : false;
         $this->phoneHome = isset($data['phoneHome']) ? $data['phoneHome'] : false;
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : false;
         $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : false;
@@ -205,9 +214,9 @@ class MemberOverrideData
     /**
      * Gets address.
      *
-     * @return OpenAPI\Server\Model\AddressData|null
+     * @return bool|null
      */
-    public function getAddress(): ?AddressData
+    public function isAddress(): ?bool
     {
         return $this->address;
     }
@@ -215,11 +224,11 @@ class MemberOverrideData
     /**
      * Sets address.
      *
-     * @param OpenAPI\Server\Model\AddressData|null $address
+     * @param bool|null $address
      *
      * @return $this
      */
-    public function setAddress(AddressData $address = null): ?AddressData
+    public function setAddress(bool $address = null): ?bool
     {
         $this->address = $address;
 
@@ -246,6 +255,30 @@ class MemberOverrideData
     public function setDateOfBirth(bool $dateOfBirth = null): ?bool
     {
         $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    /**
+     * Gets email.
+     *
+     * @return bool|null
+     */
+    public function isEmail(): ?bool
+    {
+        return $this->email;
+    }
+
+    /**
+     * Sets email.
+     *
+     * @param bool|null $email
+     *
+     * @return $this
+     */
+    public function setEmail(bool $email = null): ?bool
+    {
+        $this->email = $email;
 
         return $this;
     }

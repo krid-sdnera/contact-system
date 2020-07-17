@@ -66,10 +66,10 @@ class ContactOverrideData
     protected $lastname;
 
     /**
-     * @var OpenAPI\Server\Model\AddressData|null
+     * @var bool|null
      * @SerializedName("address")
-     * @Assert\Type("OpenAPI\Server\Model\AddressData")
-     * @Type("OpenAPI\Server\Model\AddressData")
+     * @Assert\Type("bool")
+     * @Type("bool")
      */
     protected $address;
 
@@ -138,7 +138,7 @@ class ContactOverrideData
         $this->firstname = isset($data['firstname']) ? $data['firstname'] : false;
         $this->nickname = isset($data['nickname']) ? $data['nickname'] : false;
         $this->lastname = isset($data['lastname']) ? $data['lastname'] : false;
-        $this->address = isset($data['address']) ? $data['address'] : null;
+        $this->address = isset($data['address']) ? $data['address'] : false;
         $this->phoneHome = isset($data['phoneHome']) ? $data['phoneHome'] : false;
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : false;
         $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : false;
@@ -223,9 +223,9 @@ class ContactOverrideData
     /**
      * Gets address.
      *
-     * @return OpenAPI\Server\Model\AddressData|null
+     * @return bool|null
      */
-    public function getAddress(): ?AddressData
+    public function isAddress(): ?bool
     {
         return $this->address;
     }
@@ -233,11 +233,11 @@ class ContactOverrideData
     /**
      * Sets address.
      *
-     * @param OpenAPI\Server\Model\AddressData|null $address
+     * @param bool|null $address
      *
      * @return $this
      */
-    public function setAddress(AddressData $address = null): ?AddressData
+    public function setAddress(bool $address = null): ?bool
     {
         $this->address = $address;
 

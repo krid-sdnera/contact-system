@@ -114,6 +114,13 @@ class MemberOverrideDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "email"
+     */
+    public function testPropertyEmail()
+    {
+    }
+
+    /**
      * Test attribute "phoneHome"
      */
     public function testPropertyPhoneHome()

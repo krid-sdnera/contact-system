@@ -13,13 +13,6 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-    AddressData,
-    AddressDataFromJSON,
-    AddressDataFromJSONTyped,
-    AddressDataToJSON,
-} from './';
-
 /**
  * 
  * @export
@@ -46,10 +39,10 @@ export interface ContactOverrideData {
     lastname?: boolean;
     /**
      * 
-     * @type {AddressData}
+     * @type {boolean}
      * @memberof ContactOverrideData
      */
-    address?: AddressData;
+    address?: boolean;
     /**
      * 
      * @type {boolean}
@@ -107,7 +100,7 @@ export function ContactOverrideDataFromJSONTyped(json: any, ignoreDiscriminator:
         'firstname': !exists(json, 'firstname') ? undefined : json['firstname'],
         'nickname': !exists(json, 'nickname') ? undefined : json['nickname'],
         'lastname': !exists(json, 'lastname') ? undefined : json['lastname'],
-        'address': !exists(json, 'address') ? undefined : AddressDataFromJSON(json['address']),
+        'address': !exists(json, 'address') ? undefined : json['address'],
         'phoneHome': !exists(json, 'phoneHome') ? undefined : json['phoneHome'],
         'phoneMobile': !exists(json, 'phoneMobile') ? undefined : json['phoneMobile'],
         'phoneWork': !exists(json, 'phoneWork') ? undefined : json['phoneWork'],
@@ -130,7 +123,7 @@ export function ContactOverrideDataToJSON(value?: ContactOverrideData | null): a
         'firstname': value.firstname,
         'nickname': value.nickname,
         'lastname': value.lastname,
-        'address': AddressDataToJSON(value.address),
+        'address': value.address,
         'phoneHome': value.phoneHome,
         'phoneMobile': value.phoneMobile,
         'phoneWork': value.phoneWork,

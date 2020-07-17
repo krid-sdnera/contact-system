@@ -18,18 +18,10 @@ import {
     AddressDataFromJSON,
     AddressDataFromJSONTyped,
     AddressDataToJSON,
-    ContactData,
-    ContactDataFromJSON,
-    ContactDataFromJSONTyped,
-    ContactDataToJSON,
     MemberOverrideData,
     MemberOverrideDataFromJSON,
     MemberOverrideDataFromJSONTyped,
     MemberOverrideDataToJSON,
-    MemberRoleData,
-    MemberRoleDataFromJSON,
-    MemberRoleDataFromJSONTyped,
-    MemberRoleDataToJSON,
 } from './';
 
 /**
@@ -97,6 +89,12 @@ export interface MemberData {
      * @type {string}
      * @memberof MemberData
      */
+    email?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MemberData
+     */
     phoneHome?: string;
     /**
      * 
@@ -128,18 +126,6 @@ export interface MemberData {
      * @memberof MemberData
      */
     overrides?: MemberOverrideData;
-    /**
-     * Array containg the list
-     * @type {Array<MemberRoleData>}
-     * @memberof MemberData
-     */
-    roles?: Array<MemberRoleData>;
-    /**
-     * Array containg the list
-     * @type {Array<ContactData>}
-     * @memberof MemberData
-     */
-    contacts?: Array<ContactData>;
 }
 
 export function MemberDataFromJSON(json: any): MemberData {
@@ -161,14 +147,13 @@ export function MemberDataFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'address': !exists(json, 'address') ? undefined : AddressDataFromJSON(json['address']),
         'dateOfBirth': !exists(json, 'dateOfBirth') ? undefined : (new Date(json['dateOfBirth'])),
         'membershipNumber': !exists(json, 'membershipNumber') ? undefined : json['membershipNumber'],
+        'email': !exists(json, 'email') ? undefined : json['email'],
         'phoneHome': !exists(json, 'phoneHome') ? undefined : json['phoneHome'],
         'phoneMobile': !exists(json, 'phoneMobile') ? undefined : json['phoneMobile'],
         'phoneWork': !exists(json, 'phoneWork') ? undefined : json['phoneWork'],
         'gender': !exists(json, 'gender') ? undefined : json['gender'],
         'expiry': !exists(json, 'expiry') ? undefined : json['expiry'],
         'overrides': !exists(json, 'overrides') ? undefined : MemberOverrideDataFromJSON(json['overrides']),
-        'roles': !exists(json, 'roles') ? undefined : ((json['roles'] as Array<any>).map(MemberRoleDataFromJSON)),
-        'contacts': !exists(json, 'contacts') ? undefined : ((json['contacts'] as Array<any>).map(ContactDataFromJSON)),
     };
 }
 
@@ -190,14 +175,13 @@ export function MemberDataToJSON(value?: MemberData | null): any {
         'address': AddressDataToJSON(value.address),
         'dateOfBirth': value.dateOfBirth === undefined ? undefined : (value.dateOfBirth.toISOString().substr(0,10)),
         'membershipNumber': value.membershipNumber,
+        'email': value.email,
         'phoneHome': value.phoneHome,
         'phoneMobile': value.phoneMobile,
         'phoneWork': value.phoneWork,
         'gender': value.gender,
         'expiry': value.expiry,
         'overrides': MemberOverrideDataToJSON(value.overrides),
-        'roles': value.roles === undefined ? undefined : ((value.roles as Array<any>).map(MemberRoleDataToJSON)),
-        'contacts': value.contacts === undefined ? undefined : ((value.contacts as Array<any>).map(ContactDataToJSON)),
     };
 }
 

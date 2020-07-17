@@ -1273,6 +1273,8 @@ components:
           format: date
         membershipNumber:
           type: string
+        email:
+          type: string
         phoneHome:
           type: string
         phoneMobile:
@@ -1286,18 +1288,6 @@ components:
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         overrides:
           $ref: "#/components/schemas/MemberOverrideData"
-        roles:
-          description: Array containg the list
-          type: array
-          uniqueItems: true
-          items:
-            $ref: "#/components/schemas/MemberRoleData"
-        contacts:
-          description: Array containg the list
-          type: array
-          uniqueItems: true
-          items:
-            $ref: "#/components/schemas/ContactData"
       required:
         - id
         - firstname
@@ -1316,8 +1306,12 @@ components:
           type: boolean
           default: false
         address:
-          $ref: "#/components/schemas/AddressData"
+          type: boolean
+          default: false
         dateOfBirth:
+          type: boolean
+          default: false
+        email:
           type: boolean
           default: false
         phoneHome:
@@ -1516,7 +1510,8 @@ components:
           type: boolean
           default: false
         address:
-          $ref: "#/components/schemas/AddressData"
+          type: boolean
+          default: false
         phoneHome:
           type: boolean
           default: false

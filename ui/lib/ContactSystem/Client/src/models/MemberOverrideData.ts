@@ -13,13 +13,6 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-    AddressData,
-    AddressDataFromJSON,
-    AddressDataFromJSONTyped,
-    AddressDataToJSON,
-} from './';
-
 /**
  * 
  * @export
@@ -46,16 +39,22 @@ export interface MemberOverrideData {
     nickname?: boolean;
     /**
      * 
-     * @type {AddressData}
+     * @type {boolean}
      * @memberof MemberOverrideData
      */
-    address?: AddressData;
+    address?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof MemberOverrideData
      */
     dateOfBirth?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MemberOverrideData
+     */
+    email?: boolean;
     /**
      * 
      * @type {boolean}
@@ -95,8 +94,9 @@ export function MemberOverrideDataFromJSONTyped(json: any, ignoreDiscriminator: 
         'firstname': !exists(json, 'firstname') ? undefined : json['firstname'],
         'lastname': !exists(json, 'lastname') ? undefined : json['lastname'],
         'nickname': !exists(json, 'nickname') ? undefined : json['nickname'],
-        'address': !exists(json, 'address') ? undefined : AddressDataFromJSON(json['address']),
+        'address': !exists(json, 'address') ? undefined : json['address'],
         'dateOfBirth': !exists(json, 'dateOfBirth') ? undefined : json['dateOfBirth'],
+        'email': !exists(json, 'email') ? undefined : json['email'],
         'phoneHome': !exists(json, 'phoneHome') ? undefined : json['phoneHome'],
         'phoneMobile': !exists(json, 'phoneMobile') ? undefined : json['phoneMobile'],
         'phoneWork': !exists(json, 'phoneWork') ? undefined : json['phoneWork'],
@@ -116,8 +116,9 @@ export function MemberOverrideDataToJSON(value?: MemberOverrideData | null): any
         'firstname': value.firstname,
         'lastname': value.lastname,
         'nickname': value.nickname,
-        'address': AddressDataToJSON(value.address),
+        'address': value.address,
         'dateOfBirth': value.dateOfBirth,
+        'email': value.email,
         'phoneHome': value.phoneHome,
         'phoneMobile': value.phoneMobile,
         'phoneWork': value.phoneWork,

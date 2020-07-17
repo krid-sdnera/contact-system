@@ -66,7 +66,7 @@ class MemberRoleInput
     public function __construct(array $data = null)
     {
         $this->state = isset($data['state']) ? $data['state'] : null;
-        $this->expiry = isset($data['expiry']) ? $data['expiry'] : '1990-01-01';
+        $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
     }
 
     /**

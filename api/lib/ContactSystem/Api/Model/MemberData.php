@@ -120,6 +120,14 @@ class MemberData
 
     /**
      * @var string|null
+     * @SerializedName("email")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $email;
+
+    /**
+     * @var string|null
      * @SerializedName("phoneHome")
      * @Assert\Type("string")
      * @Type("string")
@@ -168,30 +176,6 @@ class MemberData
     protected $overrides;
 
     /**
-     * Array containg the list
-     *
-     * @var OpenAPI\Server\Model\MemberRoleData[]|null
-     * @SerializedName("roles")
-     * @Assert\All({
-     *   @Assert\Type("OpenAPI\Server\Model\MemberRoleData")
-     * })
-     * @Type("array<OpenAPI\Server\Model\MemberRoleData>")
-     */
-    protected $roles;
-
-    /**
-     * Array containg the list
-     *
-     * @var OpenAPI\Server\Model\ContactData[]|null
-     * @SerializedName("contacts")
-     * @Assert\All({
-     *   @Assert\Type("OpenAPI\Server\Model\ContactData")
-     * })
-     * @Type("array<OpenAPI\Server\Model\ContactData>")
-     */
-    protected $contacts;
-
-    /**
      * Constructor
      * @param mixed[] $data Associated array of property values initializing the model
      */
@@ -206,14 +190,13 @@ class MemberData
         $this->address = isset($data['address']) ? $data['address'] : null;
         $this->dateOfBirth = isset($data['dateOfBirth']) ? $data['dateOfBirth'] : null;
         $this->membershipNumber = isset($data['membershipNumber']) ? $data['membershipNumber'] : null;
+        $this->email = isset($data['email']) ? $data['email'] : null;
         $this->phoneHome = isset($data['phoneHome']) ? $data['phoneHome'] : null;
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
         $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : null;
         $this->gender = isset($data['gender']) ? $data['gender'] : null;
         $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
         $this->overrides = isset($data['overrides']) ? $data['overrides'] : null;
-        $this->roles = isset($data['roles']) ? $data['roles'] : null;
-        $this->contacts = isset($data['contacts']) ? $data['contacts'] : null;
     }
 
     /**
@@ -433,6 +416,30 @@ class MemberData
     }
 
     /**
+     * Gets email.
+     *
+     * @return string|null
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Sets email.
+     *
+     * @param string|null $email
+     *
+     * @return $this
+     */
+    public function setEmail(string $email = null): ?string
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
      * Gets phoneHome.
      *
      * @return string|null
@@ -572,54 +579,6 @@ class MemberData
     public function setOverrides(MemberOverrideData $overrides = null): ?MemberOverrideData
     {
         $this->overrides = $overrides;
-
-        return $this;
-    }
-
-    /**
-     * Gets roles.
-     *
-     * @return OpenAPI\Server\Model\MemberRoleData[]|null
-     */
-    public function getRoles(): ?array
-    {
-        return $this->roles;
-    }
-
-    /**
-     * Sets roles.
-     *
-     * @param OpenAPI\Server\Model\MemberRoleData[]|null $roles  Array containg the list
-     *
-     * @return $this
-     */
-    public function setRoles(array $roles = null): ?array
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * Gets contacts.
-     *
-     * @return OpenAPI\Server\Model\ContactData[]|null
-     */
-    public function getContacts(): ?array
-    {
-        return $this->contacts;
-    }
-
-    /**
-     * Sets contacts.
-     *
-     * @param OpenAPI\Server\Model\ContactData[]|null $contacts  Array containg the list
-     *
-     * @return $this
-     */
-    public function setContacts(array $contacts = null): ?array
-    {
-        $this->contacts = $contacts;
 
         return $this;
     }

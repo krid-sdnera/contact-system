@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **firstname** | **bool** |  | [optional] [default to false]
 **nickname** | **bool** |  | [optional] [default to false]
 **lastname** | **bool** |  | [optional] [default to false]
-**address** | [**OpenAPI\Server\Model\AddressData**](AddressData.md) |  | [optional] 
+**address** | **bool** |  | [optional] [default to false]
 **phoneHome** | **bool** |  | [optional] [default to false]
 **phoneMobile** | **bool** |  | [optional] [default to false]
 **phoneWork** | **bool** |  | [optional] [default to false]
