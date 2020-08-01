@@ -12,6 +12,7 @@ use OpenAPI\Server\Api\SectionsApiInterface;
 use OpenAPI\Server\Model\SectionInput;
 
 use App\Entity\Section;
+use App\Entity\Role;
 use OpenAPI\Server\Model\ApiResponse;
 
 use App\Exception\SortKeyNotFound;
@@ -24,19 +25,6 @@ class SectionsController extends AbstractController implements SectionsApiInterf
      */
     public function setcontact_auth($value)
     {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addSectionLocalMarkerById($sectionId, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
     }
 
     /**
@@ -67,7 +55,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
         $entityManager->persist($newSection);
         $entityManager->flush();
 
-        return $newSection;
+        return $newSection->toSectionData();
     }
 
     /**
@@ -127,20 +115,29 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             ]);
         }
 
-        return $section;
+        return $section->toSectionData();
     }
+
 
     /**
      * {@inheritdoc}
      */
-    public function getSectionMembersById($sectionId, &$responseCode, array &$responseHeaders)
+    public function getSectionRolesById(int $sectionId, &$responseCode, array &$responseHeaders)
     {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
+
+        /** @var RoleRepository */
+        $roleRepo = $this->getDoctrine()->getRepository(Role::class);
+
+        $roles = $roleRepo->findBySectionId($sectionId);
+
+        return [
+            'roles' => array_map(
+                function ($role) {
+                    return $role->toRoleData();
+                },
+                $roles
+            )
+        ];
     }
 
     /**
@@ -170,20 +167,14 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             ]);
         }
 
-        return $sections;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeSectionLocalMarkerById($sectionId, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
+        return [
+            'sections' => array_map(
+                function ($section) {
+                    return $section->toSectionData();
+                },
+                $sections
+            )
+        ];
     }
 
     /**
@@ -226,6 +217,6 @@ class SectionsController extends AbstractController implements SectionsApiInterf
         $entityManager->persist($sectionToUpdate);
         $entityManager->flush();
 
-        return $sectionToUpdate;
+        return $sectionToUpdate->toSectionData();
     }
 }

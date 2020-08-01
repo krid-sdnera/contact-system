@@ -77,7 +77,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
         $entityManager->persist($newContact);
         $entityManager->flush();
 
-        return $newContact;
+        return $newContact->toContactData();
     }
 
     /**
@@ -128,20 +128,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
             ]);
         }
 
-        return $contact;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getContactMembersById(int $contactId, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
+        return $contact->toContactData();
     }
 
     /**
@@ -186,12 +173,109 @@ class ContactsController extends AbstractController implements ContactsApiInterf
      */
     public function patchContactById($contactId, ContactInput $contact = null, &$responseCode, array &$responseHeaders)
     {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $contactToUpdate = $this->getDoctrine()
+            ->getRepository(Contact::class)
+            ->find($contactId);
+
+        if (!$contactToUpdate) {
+            $responseCode = 404;
+            return new ApiResponse([
+                'code' => 404,
+                'type' => 'Not Found',
+                'message' => "Contact (${contactId}) not found"
+            ]);
+        }
+
+        if ($contact->getMemberId() !== null) {
+            $memberId = $contact->getMemberId();
+            $member = $this->getDoctrine()
+                ->getRepository(Member::class)
+                ->find($memberId);
+
+            if (!$member) {
+                $responseCode = 500;
+                return new ApiResponse([
+                    'code' => 500,
+                    'type' => 'Constraint not met',
+                    'message' => "Member (${memberId}) required for updating and was not found"
+                ]);
+            }
+
+            $contactToUpdate->setMember($member);
+        }
+
+        if ($contact->getState() !== null) {
+            $contactToUpdate->setState($contact->getState());
+        }
+
+        if ($contact->getOverrides() !== null) {
+            $overrides = $contact->getOverrides();
+            $contactToUpdate->setOverrides([
+                'firstname' => $overrides->isFirstname(),
+                'lastname' => $overrides->isLastname(),
+                'nickname' => $overrides->isNickname(),
+                'address' => $overrides->isAddress(),
+                'primaryContact' => $overrides->isPrimaryContact(),
+                'email' => $overrides->isEmail(),
+                'phoneHome' => $overrides->isPhoneHome(),
+                'phoneMobile' => $overrides->isPhoneMobile(),
+                'phoneWork' => $overrides->isPhoneWork(),
+                'occupation' => $overrides->isOccupation(),
+                'relationship' => $overrides->isRelationship(),
+            ]);
+        }
+        // $contactToUpdate->setExpiry(new DateTime($member->getExpiry()));
+
+        if ($contact->getFirstname() !== null) {
+            $contactToUpdate->setFirstname($contact->getFirstname());
+        }
+        if ($contact->getLastname() !== null) {
+            $contactToUpdate->setLastname($contact->getLastname());
+        }
+        if ($contact->getNickname() !== null) {
+            $contactToUpdate->setNickname($contact->getNickname());
+        }
+        if ($contact->getOccupation() !== null) {
+            $contactToUpdate->setOccupation($contact->getOccupation());
+        }
+        if ($contact->getRelationship() !== null) {
+            $contactToUpdate->setRelationship($contact->getRelationship());
+        }
+        if ($contact->getPhoneHome() !== null) {
+            $contactToUpdate->setPhoneHome($contact->getPhoneHome());
+        }
+        if ($contact->getPhoneMobile() !== null) {
+            $contactToUpdate->setPhoneMobile($contact->getPhoneMobile());
+        }
+        if ($contact->getPhoneWork() !== null) {
+            $contactToUpdate->setPhoneWork($contact->getPhoneWork());
+        }
+        if ($contact->getEmail() !== null) {
+            $contactToUpdate->setEmail($contact->getEmail());
+        }
+        if ($contact->isPrimaryContact() !== null) {
+            $contactToUpdate->setPrimaryContact($contact->isPrimaryContact());
+        }
+
+        if ($contact->getAddress() !== null) {
+            $address = $contact->getAddress();
+
+            $contactToUpdate->setAddress([
+                'street1' => $address->getStreet1(),
+                'street2' => $address->getStreet2(),
+                'city' => $address->getCity(),
+                'state' => $address->getState(),
+                'postcode' => $address->getPostcode(),
+            ]);
+        }
+
+        $entityManager->persist($contactToUpdate);
+        $entityManager->flush();
+
+        return $contactToUpdate->toContactData();
     }
 
     /**
@@ -229,8 +313,23 @@ class ContactsController extends AbstractController implements ContactsApiInterf
         }
 
         $contactToUpdate->setState($contactInput->getState());
-        $contactToUpdate->setOverrides($contactInput->getOverrides());
-        $contactToUpdate->setExpiry(new DateTime($member->getExpiry()));
+
+        $overrides = $contactToUpdate->getOverrides();
+        $contactToUpdate->setOverrides([
+            'firstname' => $overrides->isFirstname(),
+            'lastname' => $overrides->isLastname(),
+            'nickname' => $overrides->isNickname(),
+            'address' => $overrides->isAddress(),
+            'primaryContact' => $overrides->isPrimaryContact(),
+            'email' => $overrides->isEmail(),
+            'phoneHome' => $overrides->isPhoneHome(),
+            'phoneMobile' => $overrides->isPhoneMobile(),
+            'phoneWork' => $overrides->isPhoneWork(),
+            'occupation' => $overrides->isOccupation(),
+            'relationship' => $overrides->isRelationship(),
+        ]);
+
+        // $contactToUpdate->setExpiry(new DateTime($member->getExpiry()));
 
         $contactToUpdate->setFirstname($contactInput->getFirstname());
         $contactToUpdate->setLastname($contactInput->getLastname());
@@ -255,6 +354,6 @@ class ContactsController extends AbstractController implements ContactsApiInterf
         $entityManager->persist($contactToUpdate);
         $entityManager->flush();
 
-        return $contactToUpdate;
+        return $contactToUpdate->toContactData();
     }
 }

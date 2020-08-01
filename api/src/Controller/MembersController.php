@@ -9,8 +9,6 @@ use Doctrine\ORM\ORMException;
 
 use OpenAPI\Server\Api\MembersApiInterface;
 
-use OpenAPI\Server\Model\InlineObject;
-use OpenAPI\Server\Model\InlineObject1;
 use OpenAPI\Server\Model\MemberInput;
 use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\GroupInput;
@@ -18,6 +16,7 @@ use OpenAPI\Server\Model\SectionInput;
 use OpenAPI\Server\Model\MemberRoleInput;
 
 use App\Entity\Member;
+use App\Entity\Contact;
 use App\Entity\MemberRole;
 use App\Entity\Role;
 use DateTime;
@@ -37,20 +36,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
-    public function addMemberLocalMarkerById($memberId, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addMemberRoleById(string $memberId, string $roleId, MemberRoleInput $memberRoleInput = null, &$responseCode, array &$responseHeaders)
+    public function addMemberRoleById(int $memberId, int $roleId, MemberRoleInput $memberRoleInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -221,15 +207,43 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
-
-    public function getMemberLocalMarkerSuggestionsById($memberId, &$responseCode, array &$responseHeaders)
+    public function getMemberContactsById(int $memberId, &$responseCode, array &$responseHeaders)
     {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
+
+        /** @var ContactRepository */
+        $contactRepo = $this->getDoctrine()->getRepository(Contact::class);
+
+        $contacts = $contactRepo->findByMemberId($memberId);
+
+        return [
+            'contacts' => array_map(
+                function ($contact) {
+                    return $contact->toContactData();
+                },
+                $contacts
+            )
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMemberRolesById(int $memberId, &$responseCode, array &$responseHeaders)
+    {
+
+        /** @var MemberRoleRepository */
+        $roleRepo = $this->getDoctrine()->getRepository(MemberRole::class);
+
+        $roles = $roleRepo->findByMemberId($memberId);
+
+        return [
+            'roles' => array_map(
+                function ($role) {
+                    return $role->toMemberRoleData();
+                },
+                $roles
+            )
+        ];
     }
 
     /**
@@ -242,7 +256,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
         &$responseCode,
         array &$responseHeaders
     ) {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        // $this->denyAccessUnlessGranted('ROLE_USER');
 
         try {
             $members = $this->getDoctrine()
@@ -289,31 +303,109 @@ class MembersController extends AbstractController implements MembersApiInterfac
      */
     public function patchMemberById($memberId, MemberInput $member = null, &$responseCode, array &$responseHeaders)
     {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $memberToUpdate = $this->getDoctrine()
+            ->getRepository(Member::class)
+            ->find($memberId);
+
+        if (!$memberToUpdate) {
+            $responseCode = 404;
+            return new ApiResponse([
+                'code' => 404,
+                'type' => 'Not Found',
+                'message' => "Member (${memberId}) not found"
+            ]);
+        }
+
+        if ($member->getState() !== null) {
+            $memberToUpdate->setState($member->getState());
+        }
+
+        if ($member->getOverrides() !== null) {
+            $overrides = $member->getOverrides();
+            $memberToUpdate->setOverrides([
+                'firstname' => $overrides->isFirstname(),
+                'lastname' => $overrides->isLastname(),
+                'nickname' => $overrides->isNickname(),
+                'address' => $overrides->isAddress(),
+                'dateOfBirth' => $overrides->isDateOfBirth(),
+                'email' => $overrides->isEmail(),
+                'phoneHome' => $overrides->isPhoneHome(),
+                'phoneMobile' => $overrides->isPhoneMobile(),
+                'phoneWork' => $overrides->isPhoneWork(),
+                'gender' => $overrides->isGender(),
+                'schoolName' => $overrides->isSchoolName(),
+                'schoolYearLevel' => $overrides->isSchoolYearLevel(),
+            ]);
+        }
+        // $memberToUpdate->setExpiry((empty($member->getExpiry())) ? null : new DateTime($member->getExpiry()));
+
+        if ($member->getFirstname() !== null) {
+            $memberToUpdate->setFirstname($member->getFirstname());
+        }
+        if ($member->getLastname() !== null) {
+            $memberToUpdate->setLastname($member->getLastname());
+        }
+        if ($member->getNickname() !== null) {
+            $memberToUpdate->setNickname($member->getNickname());
+        }
+        if ($member->getDateOfBirth() !== null) {
+            $memberToUpdate->setDateOfBirth(new DateTime($member->getDateOfBirth()));
+        }
+        if ($member->getMembershipNumber() !== null) {
+            $memberToUpdate->setMembershipNumber($member->getMembershipNumber());
+        }
+        if ($member->getPhoneHome() !== null) {
+            $memberToUpdate->setPhoneHome($member->getPhoneHome());
+        }
+        if ($member->getPhoneMobile() !== null) {
+            $memberToUpdate->setPhoneMobile($member->getPhoneMobile());
+        }
+        if ($member->getPhoneWork() !== null) {
+            $memberToUpdate->setPhoneWork($member->getPhoneWork());
+        }
+        if ($member->getGender() !== null) {
+            $memberToUpdate->setGender($member->getGender());
+        }
+        if ($member->getEmail() !== null) {
+            $memberToUpdate->setEmail($member->getEmail());
+        }
+        if ($member->getSchoolName() !== null) {
+            $memberToUpdate->setSchoolName($member->getSchoolName());
+        }
+        if ($member->getSchoolYearLevel() !== null) {
+            $memberToUpdate->setSchoolYearLevel($member->getSchoolYearLevel());
+        }
+
+        if ($member->getAddress() !== null) {
+            $address = $member->getAddress();
+
+            $memberToUpdate->setAddress([
+                'street1' => $address->getStreet1(),
+                'street2' => $address->getStreet2(),
+                'city' => $address->getCity(),
+                'state' => $address->getState(),
+                'postcode' => $address->getPostcode(),
+            ]);
+        }
+
+        // $errors = $validator->validate($product);
+        // if (count($errors) > 0) {
+        //     $responseCode = 400;
+        //     return (string) $errors;
+        // }
+
+        $entityManager->persist($memberToUpdate);
+        $entityManager->flush();
+
+        return $memberToUpdate->toMemberData();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function removeMemberLocalMarkerById($memberId, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeMemberRoleById(string $memberId, string $roleId, &$responseCode, array &$responseHeaders)
+    public function removeMemberRoleById(int $memberId, int $roleId, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -376,9 +468,22 @@ class MembersController extends AbstractController implements MembersApiInterfac
             ]);
         }
 
+        $overrides = $member->getOverrides();
+
         $memberToUpdate->setState($member->getState());
-        $memberToUpdate->setOverrides((array) $member->getOverrides());
-        $memberToUpdate->setExpiry(new DateTime($member->getExpiry()));
+        $memberToUpdate->setOverrides([
+            'firstname' => $overrides->isFirstname(),
+            'lastname' => $overrides->isLastname(),
+            'nickname' => $overrides->isNickname(),
+            'address' => $overrides->isAddress(),
+            'dateOfBirth' => $overrides->isDateOfBirth(),
+            'email' => $overrides->isEmail(),
+            'phoneHome' => $overrides->isPhoneHome(),
+            'phoneMobile' => $overrides->isPhoneMobile(),
+            'phoneWork' => $overrides->isPhoneWork(),
+            'gender' => $overrides->isGender(),
+        ]);
+        $memberToUpdate->setExpiry((empty($member->getExpiry())) ? null : new DateTime($member->getExpiry()));
 
         $memberToUpdate->setFirstname($member->getFirstname());
         $memberToUpdate->setLastname($member->getLastname());
@@ -390,13 +495,17 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $memberToUpdate->setPhoneWork($member->getPhoneWork());
         $memberToUpdate->setGender($member->getGender());
         $memberToUpdate->setEmail($member->getEmail());
+        $memberToUpdate->setSchoolName($member->getSchoolName());
+        $memberToUpdate->setSchoolYearLevel($member->getSchoolYearLevel());
+
+        $address = $member->getAddress();
 
         $memberToUpdate->setAddress([
-            'street1' => $member->getAddress()->getStreet1(),
-            'street2' => $member->getAddress()->getStreet2(),
-            'city' => $member->getAddress()->getCity(),
-            'state' => $member->getAddress()->getState(),
-            'postcode' => $member->getAddress()->getPostcode(),
+            'street1' => $address->getStreet1(),
+            'street2' => $address->getStreet2(),
+            'city' => $address->getCity(),
+            'state' => $address->getState(),
+            'postcode' => $address->getPostcode(),
         ]);
 
         // $errors = $validator->validate($product);
@@ -408,6 +517,6 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $entityManager->persist($memberToUpdate);
         $entityManager->flush();
 
-        return $memberToUpdate;
+        return $memberToUpdate->toMemberData();
     }
 }

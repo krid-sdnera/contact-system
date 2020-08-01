@@ -1,9 +1,11 @@
 export class AppError {
   code: ErrorCode;
   message: string;
-  constructor(code: ErrorCode, message: string) {
+  previous: Error | undefined;
+  constructor(code: ErrorCode, message: string, previous?: Error | undefined) {
     this.code = code;
     this.message = message;
+    this.previous = previous;
   }
 }
 

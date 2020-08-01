@@ -30,6 +30,18 @@ export interface RoleInput {
      * @type {string}
      * @memberof RoleInput
      */
+    classId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoleInput
+     */
+    normalisedClassId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoleInput
+     */
     externalId?: string;
     /**
      * 
@@ -50,6 +62,8 @@ export function RoleInputFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     return {
         
         'name': json['name'],
+        'classId': !exists(json, 'classId') ? undefined : json['classId'],
+        'normalisedClassId': !exists(json, 'normalisedClassId') ? undefined : json['normalisedClassId'],
         'externalId': !exists(json, 'externalId') ? undefined : json['externalId'],
         'sectionId': json['sectionId'],
     };
@@ -65,6 +79,8 @@ export function RoleInputToJSON(value?: RoleInput | null): any {
     return {
         
         'name': value.name,
+        'classId': value.classId,
+        'normalisedClassId': value.normalisedClassId,
         'externalId': value.externalId,
         'sectionId': value.sectionId,
     };

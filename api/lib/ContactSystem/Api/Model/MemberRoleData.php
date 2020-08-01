@@ -42,8 +42,9 @@ use JMS\Serializer\Annotation\SerializedName;
 class MemberRoleData 
 {
         /**
-     * @var string|null
+     * @var string
      * @SerializedName("state")
+     * @Assert\NotNull()
      * @Assert\Choice({ "enabled", "disabled" })
      * @Assert\Type("string")
      * @Type("string")
@@ -51,8 +52,9 @@ class MemberRoleData
     protected $state;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("managementState")
+     * @Assert\NotNull()
      * @Assert\Choice({ "managed", "unmanaged" })
      * @Assert\Type("string")
      * @Type("string")
@@ -69,8 +71,18 @@ class MemberRoleData
     protected $expiry;
 
     /**
-     * @var OpenAPI\Server\Model\RoleData|null
+     * @var int
+     * @SerializedName("memberId")
+     * @Assert\NotNull()
+     * @Assert\Type("int")
+     * @Type("int")
+     */
+    protected $memberId;
+
+    /**
+     * @var OpenAPI\Server\Model\RoleData
      * @SerializedName("role")
+     * @Assert\NotNull()
      * @Assert\Type("OpenAPI\Server\Model\RoleData")
      * @Type("OpenAPI\Server\Model\RoleData")
      */
@@ -85,15 +97,16 @@ class MemberRoleData
         $this->state = isset($data['state']) ? $data['state'] : null;
         $this->managementState = isset($data['managementState']) ? $data['managementState'] : null;
         $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
+        $this->memberId = isset($data['memberId']) ? $data['memberId'] : null;
         $this->role = isset($data['role']) ? $data['role'] : null;
     }
 
     /**
      * Gets state.
      *
-     * @return string|null
+     * @return string
      */
-    public function getState(): ?string
+    public function getState(): string
     {
         return $this->state;
     }
@@ -101,11 +114,11 @@ class MemberRoleData
     /**
      * Sets state.
      *
-     * @param string|null $state
+     * @param string $state
      *
      * @return $this
      */
-    public function setState(string $state = null): ?string
+    public function setState(string $state): string
     {
         $this->state = $state;
 
@@ -115,9 +128,9 @@ class MemberRoleData
     /**
      * Gets managementState.
      *
-     * @return string|null
+     * @return string
      */
-    public function getManagementState(): ?string
+    public function getManagementState(): string
     {
         return $this->managementState;
     }
@@ -125,11 +138,11 @@ class MemberRoleData
     /**
      * Sets managementState.
      *
-     * @param string|null $managementState
+     * @param string $managementState
      *
      * @return $this
      */
-    public function setManagementState(string $managementState = null): ?string
+    public function setManagementState(string $managementState): string
     {
         $this->managementState = $managementState;
 
@@ -161,11 +174,35 @@ class MemberRoleData
     }
 
     /**
+     * Gets memberId.
+     *
+     * @return int
+     */
+    public function getMemberId(): int
+    {
+        return $this->memberId;
+    }
+
+    /**
+     * Sets memberId.
+     *
+     * @param int $memberId
+     *
+     * @return $this
+     */
+    public function setMemberId(int $memberId): int
+    {
+        $this->memberId = $memberId;
+
+        return $this;
+    }
+
+    /**
      * Gets role.
      *
-     * @return OpenAPI\Server\Model\RoleData|null
+     * @return OpenAPI\Server\Model\RoleData
      */
-    public function getRole(): ?RoleData
+    public function getRole(): RoleData
     {
         return $this->role;
     }
@@ -173,11 +210,11 @@ class MemberRoleData
     /**
      * Sets role.
      *
-     * @param OpenAPI\Server\Model\RoleData|null $role
+     * @param OpenAPI\Server\Model\RoleData $role
      *
      * @return $this
      */
-    public function setRole(RoleData $role = null): ?RoleData
+    public function setRole(RoleData $role): RoleData
     {
         $this->role = $role;
 

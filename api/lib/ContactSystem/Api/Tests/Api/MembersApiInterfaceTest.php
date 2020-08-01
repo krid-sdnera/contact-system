@@ -74,24 +74,6 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for addMemberLocalMarkerById
-     *
-     * Add local marker.
-     *
-     */
-    public function testAddMemberLocalMarkerById()
-    {
-        $client = static::createClient();
-
-        $path = '/members/{memberId}/local';
-        $pattern = '{memberId}';
-        $data = $this->genTestData('\d+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('PUT', $path);
-    }
-
-    /**
      * Test case for addMemberRoleById
      *
      * Add Member Role.
@@ -164,16 +146,34 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getMemberLocalMarkerSuggestionsById
+     * Test case for getMemberContactsById
      *
-     * Get member suggestions.
+     * List member's contacts.
      *
      */
-    public function testGetMemberLocalMarkerSuggestionsById()
+    public function testGetMemberContactsById()
     {
         $client = static::createClient();
 
-        $path = '/members/{memberId}/local/suggestions';
+        $path = '/members/{memberId}/contacts';
+        $pattern = '{memberId}';
+        $data = $this->genTestData('\d+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
+     * Test case for getMemberRolesById
+     *
+     * List member's roles.
+     *
+     */
+    public function testGetMemberRolesById()
+    {
+        $client = static::createClient();
+
+        $path = '/members/{memberId}/roles';
         $pattern = '{memberId}';
         $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
@@ -233,24 +233,6 @@ class MembersApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('PATCH', $path);
-    }
-
-    /**
-     * Test case for removeMemberLocalMarkerById
-     *
-     * Remove local marker.
-     *
-     */
-    public function testRemoveMemberLocalMarkerById()
-    {
-        $client = static::createClient();
-
-        $path = '/members/{memberId}/local';
-        $pattern = '{memberId}';
-        $data = $this->genTestData('\d+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('DELETE', $path);
     }
 
     /**

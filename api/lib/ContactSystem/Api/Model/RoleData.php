@@ -61,6 +61,22 @@ class RoleData
 
     /**
      * @var string|null
+     * @SerializedName("classId")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $classId;
+
+    /**
+     * @var string|null
+     * @SerializedName("normalisedClassId")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $normalisedClassId;
+
+    /**
+     * @var string|null
      * @SerializedName("externalId")
      * @Assert\Type("string")
      * @Type("string")
@@ -84,6 +100,8 @@ class RoleData
     {
         $this->id = isset($data['id']) ? $data['id'] : null;
         $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->classId = isset($data['classId']) ? $data['classId'] : null;
+        $this->normalisedClassId = isset($data['normalisedClassId']) ? $data['normalisedClassId'] : null;
         $this->externalId = isset($data['externalId']) ? $data['externalId'] : null;
         $this->section = isset($data['section']) ? $data['section'] : null;
     }
@@ -132,6 +150,54 @@ class RoleData
     public function setName(string $name): string
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets classId.
+     *
+     * @return string|null
+     */
+    public function getClassId(): ?string
+    {
+        return $this->classId;
+    }
+
+    /**
+     * Sets classId.
+     *
+     * @param string|null $classId
+     *
+     * @return $this
+     */
+    public function setClassId(string $classId = null): ?string
+    {
+        $this->classId = $classId;
+
+        return $this;
+    }
+
+    /**
+     * Gets normalisedClassId.
+     *
+     * @return string|null
+     */
+    public function getNormalisedClassId(): ?string
+    {
+        return $this->normalisedClassId;
+    }
+
+    /**
+     * Sets normalisedClassId.
+     *
+     * @param string|null $normalisedClassId
+     *
+     * @return $this
+     */
+    public function setNormalisedClassId(string $normalisedClassId = null): ?string
+    {
+        $this->normalisedClassId = $normalisedClassId;
 
         return $this;
     }

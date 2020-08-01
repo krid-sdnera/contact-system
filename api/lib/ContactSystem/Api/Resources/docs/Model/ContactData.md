@@ -4,8 +4,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**state** | **string** |  | [optional] 
-**managementState** | **string** |  | [optional] 
+**state** | **string** |  | 
+**managementState** | **string** |  | 
+**memberId** | **int** |  | 
+**parentId** | **int** |  | [optional] 
 **firstname** | **string** |  | 
 **nickname** | **string** |  | [optional] 
 **lastname** | **string** |  | 

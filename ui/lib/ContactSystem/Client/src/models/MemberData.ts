@@ -119,6 +119,18 @@ export interface MemberData {
      * @type {string}
      * @memberof MemberData
      */
+    schoolName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MemberData
+     */
+    schoolYearLevel?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MemberData
+     */
     expiry?: string;
     /**
      * 
@@ -152,6 +164,8 @@ export function MemberDataFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'phoneMobile': !exists(json, 'phoneMobile') ? undefined : json['phoneMobile'],
         'phoneWork': !exists(json, 'phoneWork') ? undefined : json['phoneWork'],
         'gender': !exists(json, 'gender') ? undefined : json['gender'],
+        'schoolName': !exists(json, 'schoolName') ? undefined : json['schoolName'],
+        'schoolYearLevel': !exists(json, 'schoolYearLevel') ? undefined : json['schoolYearLevel'],
         'expiry': !exists(json, 'expiry') ? undefined : json['expiry'],
         'overrides': !exists(json, 'overrides') ? undefined : MemberOverrideDataFromJSON(json['overrides']),
     };
@@ -180,6 +194,8 @@ export function MemberDataToJSON(value?: MemberData | null): any {
         'phoneMobile': value.phoneMobile,
         'phoneWork': value.phoneWork,
         'gender': value.gender,
+        'schoolName': value.schoolName,
+        'schoolYearLevel': value.schoolYearLevel,
         'expiry': value.expiry,
         'overrides': MemberOverrideDataToJSON(value.overrides),
     };

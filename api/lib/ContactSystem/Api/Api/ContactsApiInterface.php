@@ -33,7 +33,6 @@ use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ContactData;
 use OpenAPI\Server\Model\ContactInput;
 use OpenAPI\Server\Model\Contacts;
-use OpenAPI\Server\Model\MemberData;
 
 /**
  * ContactsApiInterface Interface Doc Comment
@@ -92,20 +91,6 @@ interface ContactsApiInterface
      *
      */
     public function getContactById(int $contactId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation getContactMembersById
-     *
-     * Your GET endpoint
-     *
-     * @param  int $contactId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\MemberData[]
-     *
-     */
-    public function getContactMembersById(int $contactId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getContacts

@@ -110,6 +110,12 @@ export interface ContactInput {
     memberId?: number;
     /**
      * 
+     * @type {number}
+     * @memberof ContactInput
+     */
+    parentId?: number;
+    /**
+     * 
      * @type {string}
      * @memberof ContactInput
      */
@@ -145,6 +151,7 @@ export function ContactInputFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'email': !exists(json, 'email') ? undefined : json['email'],
         'occupation': !exists(json, 'occupation') ? undefined : json['occupation'],
         'memberId': !exists(json, 'memberId') ? undefined : json['memberId'],
+        'parentId': !exists(json, 'parentId') ? undefined : json['parentId'],
         'expiry': !exists(json, 'expiry') ? undefined : json['expiry'],
         'overrides': !exists(json, 'overrides') ? undefined : ContactOverrideDataFromJSON(json['overrides']),
     };
@@ -172,6 +179,7 @@ export function ContactInputToJSON(value?: ContactInput | null): any {
         'email': value.email,
         'occupation': value.occupation,
         'memberId': value.memberId,
+        'parentId': value.parentId,
         'expiry': value.expiry,
         'overrides': ContactOverrideDataToJSON(value.overrides),
     };

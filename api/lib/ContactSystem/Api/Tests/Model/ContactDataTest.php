@@ -100,6 +100,20 @@ class ContactDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "memberId"
+     */
+    public function testPropertyMemberId()
+    {
+    }
+
+    /**
+     * Test attribute "parentId"
+     */
+    public function testPropertyParentId()
+    {
+    }
+
+    /**
      * Test attribute "firstname"
      */
     public function testPropertyFirstname()

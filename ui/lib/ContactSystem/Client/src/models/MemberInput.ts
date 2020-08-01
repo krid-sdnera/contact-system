@@ -107,6 +107,18 @@ export interface MemberInput {
      * @type {string}
      * @memberof MemberInput
      */
+    schoolName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MemberInput
+     */
+    schoolYearLevel?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MemberInput
+     */
     expiry?: string;
     /**
      * 
@@ -138,6 +150,8 @@ export function MemberInputFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'phoneWork': !exists(json, 'phoneWork') ? undefined : json['phoneWork'],
         'gender': !exists(json, 'gender') ? undefined : json['gender'],
         'email': !exists(json, 'email') ? undefined : json['email'],
+        'schoolName': !exists(json, 'schoolName') ? undefined : json['schoolName'],
+        'schoolYearLevel': !exists(json, 'schoolYearLevel') ? undefined : json['schoolYearLevel'],
         'expiry': !exists(json, 'expiry') ? undefined : json['expiry'],
         'overrides': !exists(json, 'overrides') ? undefined : MemberOverrideDataFromJSON(json['overrides']),
     };
@@ -164,6 +178,8 @@ export function MemberInputToJSON(value?: MemberInput | null): any {
         'phoneWork': value.phoneWork,
         'gender': value.gender,
         'email': value.email,
+        'schoolName': value.schoolName,
+        'schoolYearLevel': value.schoolYearLevel,
         'expiry': value.expiry,
         'overrides': MemberOverrideDataToJSON(value.overrides),
     };

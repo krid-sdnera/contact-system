@@ -24,9 +24,6 @@ import {
     Contacts,
     ContactsFromJSON,
     ContactsToJSON,
-    MemberData,
-    MemberDataFromJSON,
-    MemberDataToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
@@ -41,10 +38,6 @@ export interface DeleteContactByIdRequest {
 }
 
 export interface GetContactByIdRequest {
-    contactId: number;
-}
-
-export interface GetContactMembersByIdRequest {
     contactId: number;
 }
 
@@ -113,22 +106,6 @@ export interface ContactsApiInterface {
      * Your GET endpoint
      */
     getContactById(requestParameters: GetContactByIdRequest): Promise<ContactData>;
-
-    /**
-     * Your GET endpoint
-     * @summary Your GET endpoint
-     * @param {number} contactId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ContactsApiInterface
-     */
-    getContactMembersByIdRaw(requestParameters: GetContactMembersByIdRequest): Promise<runtime.ApiResponse<Array<MemberData>>>;
-
-    /**
-     * Your GET endpoint
-     * Your GET endpoint
-     */
-    getContactMembersById(requestParameters: GetContactMembersByIdRequest): Promise<Array<MemberData>>;
 
     /**
      * Your GET endpoint
@@ -285,42 +262,6 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
      */
     async getContactById(requestParameters: GetContactByIdRequest): Promise<ContactData> {
         const response = await this.getContactByIdRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * Your GET endpoint
-     * Your GET endpoint
-     */
-    async getContactMembersByIdRaw(requestParameters: GetContactMembersByIdRequest): Promise<runtime.ApiResponse<Array<MemberData>>> {
-        if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
-            throw new runtime.RequiredError('contactId','Required parameter requestParameters.contactId was null or undefined when calling getContactMembersById.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        const response = await this.request({
-            path: `/contacts/{contactId}/members`.replace(`{${"contactId"}}`, encodeURIComponent(String(requestParameters.contactId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MemberDataFromJSON));
-    }
-
-    /**
-     * Your GET endpoint
-     * Your GET endpoint
-     */
-    async getContactMembersById(requestParameters: GetContactMembersByIdRequest): Promise<Array<MemberData>> {
-        const response = await this.getContactMembersByIdRaw(requestParameters);
         return await response.value();
     }
 

@@ -122,6 +122,22 @@ class MemberOverrideData
     protected $gender;
 
     /**
+     * @var bool|null
+     * @SerializedName("schoolName")
+     * @Assert\Type("bool")
+     * @Type("bool")
+     */
+    protected $schoolName;
+
+    /**
+     * @var bool|null
+     * @SerializedName("schoolYearLevel")
+     * @Assert\Type("bool")
+     * @Type("bool")
+     */
+    protected $schoolYearLevel;
+
+    /**
      * Constructor
      * @param mixed[] $data Associated array of property values initializing the model
      */
@@ -137,6 +153,8 @@ class MemberOverrideData
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : false;
         $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : false;
         $this->gender = isset($data['gender']) ? $data['gender'] : false;
+        $this->schoolName = isset($data['schoolName']) ? $data['schoolName'] : false;
+        $this->schoolYearLevel = isset($data['schoolYearLevel']) ? $data['schoolYearLevel'] : false;
     }
 
     /**
@@ -375,6 +393,54 @@ class MemberOverrideData
     public function setGender(bool $gender = null): ?bool
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Gets schoolName.
+     *
+     * @return bool|null
+     */
+    public function isSchoolName(): ?bool
+    {
+        return $this->schoolName;
+    }
+
+    /**
+     * Sets schoolName.
+     *
+     * @param bool|null $schoolName
+     *
+     * @return $this
+     */
+    public function setSchoolName(bool $schoolName = null): ?bool
+    {
+        $this->schoolName = $schoolName;
+
+        return $this;
+    }
+
+    /**
+     * Gets schoolYearLevel.
+     *
+     * @return bool|null
+     */
+    public function isSchoolYearLevel(): ?bool
+    {
+        return $this->schoolYearLevel;
+    }
+
+    /**
+     * Sets schoolYearLevel.
+     *
+     * @param bool|null $schoolYearLevel
+     *
+     * @return $this
+     */
+    public function setSchoolYearLevel(bool $schoolYearLevel = null): ?bool
+    {
+        $this->schoolYearLevel = $schoolYearLevel;
 
         return $this;
     }

@@ -31,17 +31,17 @@ info:
     email: dirk@arends.com.au
     name: Dirk Arends
 tags:
-  - name: groups
+  - name: ScoutGroups
     description: Everything you need to handle `groups`
-  - name: lists
+  - name: Lists
     description: Everything you need to handle `lists`
-  - name: members
+  - name: Members
     description: Everything you need to handle `members`
-  - name: contacts
+  - name: Contacts
     description: Everything you need to handle `contacts`
-  - name: roles
+  - name: Roles
     description: Everything you need to handle `roles`
-  - name: sections
+  - name: Sections
     description: Everything you need to handle `sections`
 paths:
   /members:
@@ -178,65 +178,68 @@ paths:
         name: memberId
         in: path
         required: true
-  "/members/{memberId}/local":
-    put:
-      summary: Add local marker
-      description: Add local marker
-      parameters: []
-      operationId: addMemberLocalMarkerById
-      responses:
-        "200":
-          description: Default response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - members
-    delete:
-      summary: Remove local marker
-      description: Remove local marker
-      parameters: []
-      operationId: removeMemberLocalMarkerById
-      responses:
-        "200":
-          description: Default response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - members
+  "/members/{memberId}/contacts":
     parameters:
       - schema:
           type: integer
         name: memberId
         in: path
         required: true
-  "/members/{memberId}/local/suggestions":
     get:
-      summary: Get member suggestions
-      description: Get member suggestions
-      parameters: []
-      operationId: getMemberLocalMarkerSuggestionsById
+      operationId: getMemberContactsById
+      summary: List member's contacts
+      description: List contacts for this member
+      tags:
+        - members
       responses:
         "200":
-          description: Default response
+          description: OK
           content:
             application/json:
               schema:
-                type: array
-                description: TODO
-                items:
-                  $ref: "#/components/schemas/MemberSuggetion"
-      tags:
-        - members
+                title: Contacts
+                description: A list of contacts
+                type: object
+                properties:
+                  contacts:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/ContactData"
+                required:
+                  - contacts
+  "/members/{memberId}/roles":
     parameters:
       - schema:
           type: integer
         name: memberId
         in: path
         required: true
+    get:
+      operationId: getMemberRolesById
+      summary: List member's roles
+      description: List roles for this member
+      tags:
+        - members
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: MemberRoles
+                description: A list of roles
+                type: object
+                properties:
+                  roles:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/MemberRoleData"
+                required:
+                  - roles
   "/members/{memberId}/merge_into/{mergeMemberId}":
     post:
       summary: Merge member
@@ -285,7 +288,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RoleData"
+                $ref: "#/components/schemas/MemberRoleData"
       requestBody:
         content:
           application/json:
@@ -320,9 +323,17 @@ paths:
             application/json:
               schema:
                 title: Roles
-                type: array
-                items:
-                  $ref: "#/components/schemas/RoleData"
+                description: A list of roles
+                type: object
+                properties:
+                  roles:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/RoleData"
+                required:
+                  - roles
       parameters:
         - schema:
             type: string
@@ -405,42 +416,6 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - roles
-  "/roles/{roleId}/members":
-    parameters:
-      - schema:
-          type: integer
-        name: roleId
-        in: path
-        required: true
-    get:
-      summary: Get role members
-      description: Get role members
-      operationId: getRoleMembersById
-      tags:
-        - roles
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                title: Members
-                type: array
-                items:
-                  $ref: "#/components/schemas/MemberData"
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: sort
-        - schema:
-            type: integer
-          in: query
-          name: pageSize
-        - schema:
-            type: integer
-          in: query
-          name: page
   /contacts:
     get:
       summary: Your GET endpoint
@@ -464,7 +439,7 @@ paths:
                     items:
                       $ref: "#/components/schemas/ContactData"
                 required:
-                  - members
+                  - contacts
       operationId: getContacts
       parameters:
         - schema:
@@ -569,46 +544,31 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - contacts
-  "/contacts/{contactId}/members":
-    parameters:
-      - schema:
-          type: integer
-        name: contactId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: Your GET endpoint
-      tags:
-        - contacts
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                title: Members
-                type: array
-                items:
-                  $ref: "#/components/schemas/MemberData"
-      operationId: getContactMembersById
   /groups:
     get:
       summary: Get Groups
       description: Get Groups
       tags:
-        - groups
+        - ScoutGroups
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                title: Groups
-                type: array
-                items:
-                  $ref: "#/components/schemas/ScoutGroupData"
-      operationId: getGroups
+                title: Scout Groups
+                description: A list of scout groups
+                type: object
+                properties:
+                  scoutGroup:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/ScoutGroupData"
+                required:
+                  - scoutGroup
+      operationId: getScoutGroups
       parameters:
         - schema:
             type: string
@@ -625,7 +585,7 @@ paths:
     post:
       summary: Create Group
       description: Create Group
-      operationId: createGroup
+      operationId: createScoutGroup
       responses:
         "200":
           description: OK
@@ -639,19 +599,19 @@ paths:
             schema:
               $ref: "#/components/schemas/ScoutGroupInput"
       tags:
-        - groups
-  "/groups/{groupId}":
+        - ScoutGroups
+  "/groups/{scoutGroupId}":
     parameters:
       - schema:
           type: integer
-        name: groupId
+        name: scoutGroupId
         in: path
         required: true
     get:
       summary: Get Group
       description: Get Group
       tags:
-        - groups
+        - ScoutGroups
       responses:
         "200":
           description: "OK  "
@@ -659,11 +619,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ScoutGroupData"
-      operationId: getGroupById
+      operationId: getScoutGroupById
     put:
       summary: Update Group
       description: Update Group
-      operationId: updateGroupById
+      operationId: updateScoutGroupById
       responses:
         "200":
           description: OK
@@ -677,11 +637,11 @@ paths:
             schema:
               $ref: "#/components/schemas/ScoutGroupInput"
       tags:
-        - groups
+        - ScoutGroups
     delete:
       summary: Delete Group
       description: Delete Group
-      operationId: deleteGroupById
+      operationId: deleteScoutGroupById
       responses:
         "200":
           description: OK
@@ -690,76 +650,20 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - groups
-  "/groups/{groupId}/local":
+        - ScoutGroups
+  "/groups/{scoutGroupId}/sections":
     parameters:
       - schema:
           type: integer
-        name: groupId
-        in: path
-        required: true
-    put:
-      summary: ""
-      description: addGroupLocalMarkerById
-      operationId: addGroupLocalMarkerById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - groups
-    delete:
-      summary: ""
-      description: deleteGroupLocalMarkerById
-      operationId: deleteGroupLocalMarkerById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - groups
-  "/groups/{groupId}/members":
-    parameters:
-      - schema:
-          type: integer
-        name: groupId
+        name: scoutGroupId
         in: path
         required: true
     get:
       summary: Your GET endpoint
+      description: getScoutGroupSectionsById
+      operationId: getScoutGroupSectionsById
       tags:
-        - groups
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                title: Members
-                type: array
-                items:
-                  $ref: "#/components/schemas/MemberData"
-      operationId: getGroupMembersById
-      description: getGroupMembersById
-  "/groups/{groupId}/sections":
-    parameters:
-      - schema:
-          type: integer
-        name: groupId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: getGroupSectionsById
-      operationId: getGroupSectionsById
-      tags:
-        - groups
+        - ScoutGroups
       responses:
         "200":
           description: OK
@@ -767,9 +671,17 @@ paths:
             application/json:
               schema:
                 title: Sections
-                type: array
-                items:
-                  $ref: "#/components/schemas/SectionData"
+                description: A list of sections
+                type: object
+                properties:
+                  sections:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/SectionData"
+                required:
+                  - sections
   /sections:
     get:
       summary: Get Sections
@@ -784,9 +696,17 @@ paths:
             application/json:
               schema:
                 title: Sections
-                type: array
-                items:
-                  $ref: "#/components/schemas/SectionData"
+                description: A list of sections
+                type: object
+                properties:
+                  sections:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/SectionData"
+                required:
+                  - sections
       parameters:
         - schema:
             type: string
@@ -869,40 +789,7 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - sections
-  "/sections/{sectionId}/local":
-    parameters:
-      - schema:
-          type: integer
-        name: sectionId
-        in: path
-        required: true
-    put:
-      summary: ""
-      description: addSectionLocalMarkerById
-      operationId: addSectionLocalMarkerById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - sections
-    delete:
-      summary: ""
-      description: removeSectionLocalMarkerById
-      operationId: removeSectionLocalMarkerById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - sections
-  "/sections/{sectionId}/members":
+  "/sections/{sectionId}/roles":
     parameters:
       - schema:
           type: integer
@@ -920,11 +807,19 @@ paths:
           content:
             application/json:
               schema:
-                title: Members
-                type: array
-                items:
-                  $ref: "#/components/schemas/MemberData"
-      operationId: getSectionMembersById
+                title: Roles
+                description: A list of roles
+                type: object
+                properties:
+                  roles:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/RoleData"
+                required:
+                  - roles
+      operationId: getSectionRolesById
   /lists:
     get:
       summary: Your GET endpoint
@@ -1286,6 +1181,10 @@ components:
           type: string
         email:
           type: string
+        schoolName:
+          type: string
+        schoolYearLevel:
+          type: string
         expiry:
           type: string
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
@@ -1330,6 +1229,10 @@ components:
           type: string
         gender:
           type: string
+        schoolName:
+          type: string
+        schoolYearLevel:
+          type: string
         expiry:
           type: string
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
@@ -1373,6 +1276,12 @@ components:
         gender:
           type: boolean
           default: false
+        schoolName:
+          type: boolean
+          default: false
+        schoolYearLevel:
+          type: boolean
+          default: false
     MemberSuggetion:
       title: MemberSuggetion
       type: object
@@ -1404,6 +1313,10 @@ components:
       properties:
         name:
           type: string
+        classId:
+          type: string
+        normalisedClassId:
+          type: string
         externalId:
           type: string
         sectionId:
@@ -1418,6 +1331,10 @@ components:
         id:
           type: integer
         name:
+          type: string
+        classId:
+          type: string
+        normalisedClassId:
           type: string
         externalId:
           type: string
@@ -1456,8 +1373,15 @@ components:
         expiry:
           type: string
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        memberId:
+          type: integer
         role:
           $ref: "#/components/schemas/RoleData"
+      required:
+        - state
+        - managementState
+        - memberId
+        - role
     ContactInput:
       title: ContactInput
       type: object
@@ -1491,6 +1415,8 @@ components:
           type: string
         memberId:
           type: integer
+        parentId:
+          type: integer
         expiry:
           type: string
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
@@ -1512,6 +1438,10 @@ components:
           enum:
             - managed
             - unmanaged
+        memberId:
+          type: integer
+        parentId:
+          type: integer
         firstname:
           type: string
         nickname:
@@ -1541,6 +1471,9 @@ components:
           $ref: "#/components/schemas/ContactOverrideData"
       required:
         - id
+        - state
+        - managementState
+        - memberId
         - firstname
         - lastname
     ContactOverrideData:

@@ -22,6 +22,18 @@ class RoleRepository extends ServiceEntityRepository
         parent::__construct($registry, Role::class);
     }
 
+    public function findBySectionId($sectionId)
+    {
+        // TODO: Add pagination
+        $result = $this->createQueryBuilder('r')
+            ->where('r.section = :sectionId')
+            ->setParameter('sectionId', $sectionId)
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
     public function findByPage(
         $sort = null,
         $pageSize = null,

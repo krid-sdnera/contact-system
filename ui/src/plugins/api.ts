@@ -5,8 +5,8 @@ import { Configuration } from '@api/runtime';
 import {
   ContactsApi,
   ContactsApiInterface,
-  GroupsApi,
-  GroupsApiInterface,
+  ScoutGroupsApi,
+  ScoutGroupsApiInterface,
   ListsApi,
   ListsApiInterface,
   MembersApi,
@@ -19,7 +19,7 @@ import {
 
 export interface VueApiInterface {
   contacts: ContactsApiInterface;
-  groups: GroupsApiInterface;
+  scoutGroups: ScoutGroupsApiInterface;
   lists: ListsApiInterface;
   members: MembersApiInterface;
   roles: RolesApiInterface;
@@ -52,7 +52,7 @@ const apiPlugin: Plugin = ({ env }, inject) => {
 
   const api: VueApiInterface = {
     contacts: new ContactsApi(configuration),
-    groups: new GroupsApi(configuration),
+    scoutGroups: new ScoutGroupsApi(configuration),
     lists: new ListsApi(configuration),
     members: new MembersApi(configuration),
     roles: new RolesApi(configuration),

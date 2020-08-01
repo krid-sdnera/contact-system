@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **phoneMobile** | **bool** |  | [optional] [default to false]
 **phoneWork** | **bool** |  | [optional] [default to false]
 **gender** | **bool** |  | [optional] [default to false]
+**schoolName** | **bool** |  | [optional] [default to false]
+**schoolYearLevel** | **bool** |  | [optional] [default to false]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

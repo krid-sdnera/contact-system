@@ -15,9 +15,6 @@
 
 import * as runtime from '../runtime';
 import {
-    MemberData,
-    MemberDataFromJSON,
-    MemberDataToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
@@ -27,6 +24,9 @@ import {
     RoleInput,
     RoleInputFromJSON,
     RoleInputToJSON,
+    Roles,
+    RolesFromJSON,
+    RolesToJSON,
 } from '../models';
 
 export interface CreateRoleRequest {
@@ -39,13 +39,6 @@ export interface DeleteRoleByIdRequest {
 
 export interface GetRoleByIdRequest {
     roleId: number;
-}
-
-export interface GetRoleMembersByIdRequest {
-    roleId: number;
-    sort?: string;
-    pageSize?: number;
-    page?: number;
 }
 
 export interface GetRolesRequest {
@@ -114,25 +107,6 @@ export interface RolesApiInterface {
     getRoleById(requestParameters: GetRoleByIdRequest): Promise<RoleData>;
 
     /**
-     * Get role members
-     * @summary Get role members
-     * @param {number} roleId 
-     * @param {string} [sort] 
-     * @param {number} [pageSize] 
-     * @param {number} [page] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof RolesApiInterface
-     */
-    getRoleMembersByIdRaw(requestParameters: GetRoleMembersByIdRequest): Promise<runtime.ApiResponse<Array<MemberData>>>;
-
-    /**
-     * Get role members
-     * Get role members
-     */
-    getRoleMembersById(requestParameters: GetRoleMembersByIdRequest): Promise<Array<MemberData>>;
-
-    /**
      * Get roles
      * @summary Get roles
      * @param {string} [sort] 
@@ -142,13 +116,13 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    getRolesRaw(requestParameters: GetRolesRequest): Promise<runtime.ApiResponse<Array<RoleData>>>;
+    getRolesRaw(requestParameters: GetRolesRequest): Promise<runtime.ApiResponse<Roles>>;
 
     /**
      * Get roles
      * Get roles
      */
-    getRoles(requestParameters: GetRolesRequest): Promise<Array<RoleData>>;
+    getRoles(requestParameters: GetRolesRequest): Promise<Roles>;
 
     /**
      * Update role
@@ -282,58 +256,10 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
     }
 
     /**
-     * Get role members
-     * Get role members
-     */
-    async getRoleMembersByIdRaw(requestParameters: GetRoleMembersByIdRequest): Promise<runtime.ApiResponse<Array<MemberData>>> {
-        if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
-            throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling getRoleMembersById.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.sort !== undefined) {
-            queryParameters['sort'] = requestParameters.sort;
-        }
-
-        if (requestParameters.pageSize !== undefined) {
-            queryParameters['pageSize'] = requestParameters.pageSize;
-        }
-
-        if (requestParameters.page !== undefined) {
-            queryParameters['page'] = requestParameters.page;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        const response = await this.request({
-            path: `/roles/{roleId}/members`.replace(`{${"roleId"}}`, encodeURIComponent(String(requestParameters.roleId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MemberDataFromJSON));
-    }
-
-    /**
-     * Get role members
-     * Get role members
-     */
-    async getRoleMembersById(requestParameters: GetRoleMembersByIdRequest): Promise<Array<MemberData>> {
-        const response = await this.getRoleMembersByIdRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
      * Get roles
      * Get roles
      */
-    async getRolesRaw(requestParameters: GetRolesRequest): Promise<runtime.ApiResponse<Array<RoleData>>> {
+    async getRolesRaw(requestParameters: GetRolesRequest): Promise<runtime.ApiResponse<Roles>> {
         const queryParameters: runtime.HTTPQuery = {};
 
         if (requestParameters.sort !== undefined) {
@@ -361,14 +287,14 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(RoleDataFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => RolesFromJSON(jsonValue));
     }
 
     /**
      * Get roles
      * Get roles
      */
-    async getRoles(requestParameters: GetRolesRequest): Promise<Array<RoleData>> {
+    async getRoles(requestParameters: GetRolesRequest): Promise<Roles> {
         const response = await this.getRolesRaw(requestParameters);
         return await response.value();
     }

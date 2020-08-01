@@ -1,6 +1,6 @@
 <?php
 /**
- * GroupsApiInterface
+ * ScoutGroupsApiInterface
  * PHP version 5
  *
  * @category Class
@@ -30,20 +30,20 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\ScoutGroupData;
 use OpenAPI\Server\Model\ScoutGroupInput;
-use OpenAPI\Server\Model\SectionData;
+use OpenAPI\Server\Model\ScoutGroups;
+use OpenAPI\Server\Model\Sections;
 
 /**
- * GroupsApiInterface Interface Doc Comment
+ * ScoutGroupsApiInterface Interface Doc Comment
  *
  * @category Interface
  * @package  OpenAPI\Server\Api
  * @author   OpenAPI Generator team
  * @link     https://github.com/openapitools/openapi-generator
  */
-interface GroupsApiInterface
+interface ScoutGroupsApiInterface
 {
 
     /**
@@ -56,19 +56,7 @@ interface GroupsApiInterface
     public function setcontact_auth($value);
 
     /**
-     * Operation addGroupLocalMarkerById
-     *
-     * @param  int $groupId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
-     */
-    public function addGroupLocalMarkerById(int $groupId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation createGroup
+     * Operation createScoutGroup
      *
      * Create Group
      *
@@ -79,78 +67,52 @@ interface GroupsApiInterface
      * @return OpenAPI\Server\Model\ScoutGroupData
      *
      */
-    public function createGroup(ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
+    public function createScoutGroup(ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation deleteGroupById
+     * Operation deleteScoutGroupById
      *
      * Delete Group
      *
-     * @param  int $groupId   (required)
+     * @param  int $scoutGroupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteGroupById(int $groupId, &$responseCode, array &$responseHeaders);
+    public function deleteScoutGroupById(int $scoutGroupId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation deleteGroupLocalMarkerById
-     *
-     * @param  int $groupId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
-     */
-    public function deleteGroupLocalMarkerById(int $groupId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation getGroupById
+     * Operation getScoutGroupById
      *
      * Get Group
      *
-     * @param  int $groupId   (required)
+     * @param  int $scoutGroupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\ScoutGroupData
      *
      */
-    public function getGroupById(int $groupId, &$responseCode, array &$responseHeaders);
+    public function getScoutGroupById(int $scoutGroupId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getGroupMembersById
+     * Operation getScoutGroupSectionsById
      *
      * Your GET endpoint
      *
-     * @param  int $groupId   (required)
+     * @param  int $scoutGroupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberData[]
+     * @return OpenAPI\Server\Model\Sections
      *
      */
-    public function getGroupMembersById(int $groupId, &$responseCode, array &$responseHeaders);
+    public function getScoutGroupSectionsById(int $scoutGroupId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getGroupSectionsById
-     *
-     * Your GET endpoint
-     *
-     * @param  int $groupId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\SectionData[]
-     *
-     */
-    public function getGroupSectionsById(int $groupId, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation getGroups
+     * Operation getScoutGroups
      *
      * Get Groups
      *
@@ -160,17 +122,17 @@ interface GroupsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ScoutGroupData[]
+     * @return OpenAPI\Server\Model\ScoutGroups
      *
      */
-    public function getGroups(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getScoutGroups(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation updateGroupById
+     * Operation updateScoutGroupById
      *
      * Update Group
      *
-     * @param  int $groupId   (required)
+     * @param  int $scoutGroupId   (required)
      * @param  OpenAPI\Server\Model\ScoutGroupInput $scoutGroupInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -178,5 +140,5 @@ interface GroupsApiInterface
      * @return OpenAPI\Server\Model\ScoutGroupData
      *
      */
-    public function updateGroupById(int $groupId, ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
+    public function updateScoutGroupById(int $scoutGroupId, ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
 }

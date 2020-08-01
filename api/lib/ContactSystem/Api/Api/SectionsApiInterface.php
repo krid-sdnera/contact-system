@@ -30,9 +30,10 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\Roles;
 use OpenAPI\Server\Model\SectionData;
 use OpenAPI\Server\Model\SectionInput;
+use OpenAPI\Server\Model\Sections;
 
 /**
  * SectionsApiInterface Interface Doc Comment
@@ -53,18 +54,6 @@ interface SectionsApiInterface
      * @return void
      */
     public function setcontact_auth($value);
-
-    /**
-     * Operation addSectionLocalMarkerById
-     *
-     * @param  int $sectionId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
-     */
-    public function addSectionLocalMarkerById(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation createSection
@@ -109,7 +98,7 @@ interface SectionsApiInterface
     public function getSectionById(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getSectionMembersById
+     * Operation getSectionRolesById
      *
      * Your GET endpoint
      *
@@ -117,10 +106,10 @@ interface SectionsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberData[]
+     * @return OpenAPI\Server\Model\Roles
      *
      */
-    public function getSectionMembersById(int $sectionId, &$responseCode, array &$responseHeaders);
+    public function getSectionRolesById(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSections
@@ -133,22 +122,10 @@ interface SectionsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\SectionData[]
+     * @return OpenAPI\Server\Model\Sections
      *
      */
     public function getSections(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation removeSectionLocalMarkerById
-     *
-     * @param  int $sectionId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
-     */
-    public function removeSectionLocalMarkerById(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateSectionById

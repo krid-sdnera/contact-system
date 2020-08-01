@@ -65,6 +65,19 @@ class ContactRepository extends ServiceEntityRepository
         return $result;
     }
 
+
+    public function findByMemberId($memberId)
+    {
+        // TODO: Add pagination
+        $result = $this->createQueryBuilder('c')
+            ->where('c.member = :memberId')
+            ->setParameter('memberId', $memberId)
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
     // /**
     //  * @return Contact[] Returns an array of Contact objects
     //  */

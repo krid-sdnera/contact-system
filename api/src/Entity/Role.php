@@ -60,6 +60,8 @@ class Role
         $arrayData = [
             'id' => $this->getId(),
             'name' => $this->getName(),
+            'classId' => $this->getClassId(),
+            'normalisedClassId' => $this->getNormalisedClassId(),
             'externalId' => $this->getExternalId(),
             'section' => $this->getSection()->toSectionData(),
         ];
@@ -82,7 +84,7 @@ class Role
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Section", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Section", cascade={"persist"}, inversedBy="roles")
      * @ORM\JoinColumn(nullable=false)
      */
     private $section;
@@ -102,8 +104,14 @@ class Role
      */
     private $externalId;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MemberRole", mappedBy="role")
+     */
+    private $members;
+
     public function __construct()
     {
+        $this->members = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,7 +148,7 @@ class Role
         return $this->classId;
     }
 
-    public function setClassId(string $classId): self
+    public function setClassId(int $classId): self
     {
         $this->classId = $classId;
 
@@ -152,7 +160,7 @@ class Role
         return $this->normalisedClassId;
     }
 
-    public function setNormalisedClassId(string $normalisedClassId): self
+    public function setNormalisedClassId(int $normalisedClassId): self
     {
         $this->normalisedClassId = $normalisedClassId;
 
@@ -164,9 +172,40 @@ class Role
         return $this->externalId;
     }
 
-    public function setExternalId(string $externalId): self
+    public function setExternalId(int $externalId): self
     {
         $this->externalId = $externalId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MemberRole[]
+     */
+    public function getMembers(): Collection
+    {
+        return $this->members;
+    }
+
+    public function addMember(MemberRole $member): self
+    {
+        if (!$this->members->contains($member)) {
+            $this->members[] = $member;
+            $member->setRole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMember(MemberRole $member): self
+    {
+        if ($this->members->contains($member)) {
+            $this->members->removeElement($member);
+            // set the owning side to null (unless already changed)
+            if ($member->getRole() === $this) {
+                $member->setRole(null);
+            }
+        }
 
         return $this;
     }

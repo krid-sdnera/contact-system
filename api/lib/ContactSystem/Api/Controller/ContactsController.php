@@ -41,7 +41,6 @@ use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ContactData;
 use OpenAPI\Server\Model\ContactInput;
 use OpenAPI\Server\Model\Contacts;
-use OpenAPI\Server\Model\MemberData;
 
 /**
  * ContactsController Class Doc Comment
@@ -284,91 +283,6 @@ class ContactsController extends Controller
             $responseCode = 200;
             $responseHeaders = [];
             $result = $handler->getContactById($contactId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (AccessDeniedException $accessDenied) {
-            // Fall through to Symfony Guard Authenticator by rethrowing
-            throw $accessDenied;
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation getContactMembersById
-     *
-     * Your GET endpoint
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function getContactMembersByIdAction(Request $request, $contactId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-auth-token');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $contactId = $this->deserialize($contactId, 'int', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("int");
-        $response = $this->validate($contactId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->getContactMembersById($contactId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

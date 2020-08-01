@@ -25,14 +25,6 @@ open_api_server_contacts_getcontactbyid:
     requirements:
         contactId: '\d+'
 
-open_api_server_contacts_getcontactmembersbyid:
-    path:     /contacts/{contactId}/members
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.contacts:getContactMembersByIdAction
-    requirements:
-        contactId: '\d+'
-
 open_api_server_contacts_getcontacts:
     path:     /contacts
     methods:  [GET]
@@ -54,75 +46,6 @@ open_api_server_contacts_updatecontactbyid:
         _controller: open_api_server.controller.contacts:updateContactByIdAction
     requirements:
         contactId: '\d+'
-
-# groups
-open_api_server_groups_addgrouplocalmarkerbyid:
-    path:     /groups/{groupId}/local
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.groups:addGroupLocalMarkerByIdAction
-    requirements:
-        groupId: '\d+'
-
-open_api_server_groups_creategroup:
-    path:     /groups
-    methods:  [POST]
-    defaults:
-        _controller: open_api_server.controller.groups:createGroupAction
-
-open_api_server_groups_deletegroupbyid:
-    path:     /groups/{groupId}
-    methods:  [DELETE]
-    defaults:
-        _controller: open_api_server.controller.groups:deleteGroupByIdAction
-    requirements:
-        groupId: '\d+'
-
-open_api_server_groups_deletegrouplocalmarkerbyid:
-    path:     /groups/{groupId}/local
-    methods:  [DELETE]
-    defaults:
-        _controller: open_api_server.controller.groups:deleteGroupLocalMarkerByIdAction
-    requirements:
-        groupId: '\d+'
-
-open_api_server_groups_getgroupbyid:
-    path:     /groups/{groupId}
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.groups:getGroupByIdAction
-    requirements:
-        groupId: '\d+'
-
-open_api_server_groups_getgroupmembersbyid:
-    path:     /groups/{groupId}/members
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.groups:getGroupMembersByIdAction
-    requirements:
-        groupId: '\d+'
-
-open_api_server_groups_getgroupsectionsbyid:
-    path:     /groups/{groupId}/sections
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.groups:getGroupSectionsByIdAction
-    requirements:
-        groupId: '\d+'
-
-open_api_server_groups_getgroups:
-    path:     /groups
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.groups:getGroupsAction
-
-open_api_server_groups_updategroupbyid:
-    path:     /groups/{groupId}
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.groups:updateGroupByIdAction
-    requirements:
-        groupId: '\d+'
 
 # lists
 open_api_server_lists_createlist:
@@ -249,14 +172,6 @@ open_api_server_lists_updatelisttypebyid:
         listTypeId: '\d+'
 
 # members
-open_api_server_members_addmemberlocalmarkerbyid:
-    path:     /members/{memberId}/local
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.members:addMemberLocalMarkerByIdAction
-    requirements:
-        memberId: '\d+'
-
 open_api_server_members_addmemberrolebyid:
     path:     /members/{memberId}/roles/{roleId}
     methods:  [PUT]
@@ -288,11 +203,19 @@ open_api_server_members_getmemberbyid:
     requirements:
         memberId: '\d+'
 
-open_api_server_members_getmemberlocalmarkersuggestionsbyid:
-    path:     /members/{memberId}/local/suggestions
+open_api_server_members_getmembercontactsbyid:
+    path:     /members/{memberId}/contacts
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.members:getMemberLocalMarkerSuggestionsByIdAction
+        _controller: open_api_server.controller.members:getMemberContactsByIdAction
+    requirements:
+        memberId: '\d+'
+
+open_api_server_members_getmemberrolesbyid:
+    path:     /members/{memberId}/roles
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.members:getMemberRolesByIdAction
     requirements:
         memberId: '\d+'
 
@@ -316,14 +239,6 @@ open_api_server_members_patchmemberbyid:
     methods:  [PATCH]
     defaults:
         _controller: open_api_server.controller.members:patchMemberByIdAction
-    requirements:
-        memberId: '\d+'
-
-open_api_server_members_removememberlocalmarkerbyid:
-    path:     /members/{memberId}/local
-    methods:  [DELETE]
-    defaults:
-        _controller: open_api_server.controller.members:removeMemberLocalMarkerByIdAction
     requirements:
         memberId: '\d+'
 
@@ -367,14 +282,6 @@ open_api_server_roles_getrolebyid:
     requirements:
         roleId: '\d+'
 
-open_api_server_roles_getrolemembersbyid:
-    path:     /roles/{roleId}/members
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.roles:getRoleMembersByIdAction
-    requirements:
-        roleId: '\d+'
-
 open_api_server_roles_getroles:
     path:     /roles
     methods:  [GET]
@@ -389,15 +296,52 @@ open_api_server_roles_updaterolebyid:
     requirements:
         roleId: '\d+'
 
-# sections
-open_api_server_sections_addsectionlocalmarkerbyid:
-    path:     /sections/{sectionId}/local
+# scoutGroups
+open_api_server_scoutGroups_createscoutgroup:
+    path:     /groups
+    methods:  [POST]
+    defaults:
+        _controller: open_api_server.controller.scoutGroups:createScoutGroupAction
+
+open_api_server_scoutGroups_deletescoutgroupbyid:
+    path:     /groups/{scoutGroupId}
+    methods:  [DELETE]
+    defaults:
+        _controller: open_api_server.controller.scoutGroups:deleteScoutGroupByIdAction
+    requirements:
+        scoutGroupId: '\d+'
+
+open_api_server_scoutGroups_getscoutgroupbyid:
+    path:     /groups/{scoutGroupId}
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.scoutGroups:getScoutGroupByIdAction
+    requirements:
+        scoutGroupId: '\d+'
+
+open_api_server_scoutGroups_getscoutgroupsectionsbyid:
+    path:     /groups/{scoutGroupId}/sections
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.scoutGroups:getScoutGroupSectionsByIdAction
+    requirements:
+        scoutGroupId: '\d+'
+
+open_api_server_scoutGroups_getscoutgroups:
+    path:     /groups
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.scoutGroups:getScoutGroupsAction
+
+open_api_server_scoutGroups_updatescoutgroupbyid:
+    path:     /groups/{scoutGroupId}
     methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.sections:addSectionLocalMarkerByIdAction
+        _controller: open_api_server.controller.scoutGroups:updateScoutGroupByIdAction
     requirements:
-        sectionId: '\d+'
+        scoutGroupId: '\d+'
 
+# sections
 open_api_server_sections_createsection:
     path:     /sections
     methods:  [POST]
@@ -420,11 +364,11 @@ open_api_server_sections_getsectionbyid:
     requirements:
         sectionId: '\d+'
 
-open_api_server_sections_getsectionmembersbyid:
-    path:     /sections/{sectionId}/members
+open_api_server_sections_getsectionrolesbyid:
+    path:     /sections/{sectionId}/roles
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.sections:getSectionMembersByIdAction
+        _controller: open_api_server.controller.sections:getSectionRolesByIdAction
     requirements:
         sectionId: '\d+'
 
@@ -433,14 +377,6 @@ open_api_server_sections_getsections:
     methods:  [GET]
     defaults:
         _controller: open_api_server.controller.sections:getSectionsAction
-
-open_api_server_sections_removesectionlocalmarkerbyid:
-    path:     /sections/{sectionId}/local
-    methods:  [DELETE]
-    defaults:
-        _controller: open_api_server.controller.sections:removeSectionLocalMarkerByIdAction
-    requirements:
-        sectionId: '\d+'
 
 open_api_server_sections_updatesectionbyid:
     path:     /sections/{sectionId}

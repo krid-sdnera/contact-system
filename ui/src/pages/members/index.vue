@@ -3,12 +3,12 @@
     :headers="headers"
     :items="members"
     :options.sync="options"
-    :server-items-length="totalDesserts"
+    :server-items-length="totalMembers"
     :loading="loading"
     class="elevation-1"
   >
     <template v-slot:top>
-      <v-toolbar flat color="white">
+      <v-toolbar flat>
         <v-toolbar-title>Members</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
@@ -34,11 +34,11 @@
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator';
 import { MemberData } from '@api/models';
-import { namespace as memberNamespace } from '~/store/member';
+import * as member from '~/store/member';
 
 @Component
 export default class MembersListPage extends Vue {
-  totalMembers = 0;
+  totalMembers = 5;
   error = false;
   loading = true;
   options = {
@@ -58,7 +58,7 @@ export default class MembersListPage extends Vue {
       value: 'firstname',
     },
     { text: 'Lastname', value: 'lastname' },
-    { text: 'DOB', value: 'dateOfBirth' },
+    { text: 'Membership Number', value: 'membershipNumber' },
     { text: 'Actions', value: 'actions' },
   ];
 
@@ -70,17 +70,13 @@ export default class MembersListPage extends Vue {
     // });
   }
 
-  get members(): Array<MemberData> | null {
-    const members = this.$store.getters[`${memberNamespace}/getMembers`];
-    if (!members) {
-      return null;
-    }
-    return members;
+  get members(): MemberData[] {
+    return this.$store.getters[`${member.namespace}/getMembers`];
   }
 
   async mounted() {
     try {
-      await this.$store.dispatch(`${memberNamespace}/fetchMembers`, {});
+      await this.$store.dispatch(`${member.namespace}/fetchMembers`, {});
     } catch (e) {
       this.error = true;
     } finally {

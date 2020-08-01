@@ -170,6 +170,13 @@ class ContactInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "parentId"
+     */
+    public function testPropertyParentId()
+    {
+    }
+
+    /**
      * Test attribute "expiry"
      */
     public function testPropertyExpiry()

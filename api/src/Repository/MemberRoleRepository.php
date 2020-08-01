@@ -19,6 +19,18 @@ class MemberRoleRepository extends ServiceEntityRepository
         parent::__construct($registry, MemberRole::class);
     }
 
+    public function findByMemberId($memberId)
+    {
+        // TODO: Add pagination
+        $result = $this->createQueryBuilder('m')
+            ->where('m.member = :memberId')
+            ->setParameter('memberId', $memberId)
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
     // /**
     //  * @return MemberRole[] Returns an array of MemberRole objects
     //  */

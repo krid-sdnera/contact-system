@@ -51,8 +51,9 @@ class ContactData
     protected $id;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("state")
+     * @Assert\NotNull()
      * @Assert\Choice({ "enabled", "disabled" })
      * @Assert\Type("string")
      * @Type("string")
@@ -60,13 +61,31 @@ class ContactData
     protected $state;
 
     /**
-     * @var string|null
+     * @var string
      * @SerializedName("managementState")
+     * @Assert\NotNull()
      * @Assert\Choice({ "managed", "unmanaged" })
      * @Assert\Type("string")
      * @Type("string")
      */
     protected $managementState;
+
+    /**
+     * @var int
+     * @SerializedName("memberId")
+     * @Assert\NotNull()
+     * @Assert\Type("int")
+     * @Type("int")
+     */
+    protected $memberId;
+
+    /**
+     * @var int|null
+     * @SerializedName("parentId")
+     * @Assert\Type("int")
+     * @Type("int")
+     */
+    protected $parentId;
 
     /**
      * @var string
@@ -184,6 +203,8 @@ class ContactData
         $this->id = isset($data['id']) ? $data['id'] : null;
         $this->state = isset($data['state']) ? $data['state'] : null;
         $this->managementState = isset($data['managementState']) ? $data['managementState'] : null;
+        $this->memberId = isset($data['memberId']) ? $data['memberId'] : null;
+        $this->parentId = isset($data['parentId']) ? $data['parentId'] : null;
         $this->firstname = isset($data['firstname']) ? $data['firstname'] : null;
         $this->nickname = isset($data['nickname']) ? $data['nickname'] : null;
         $this->lastname = isset($data['lastname']) ? $data['lastname'] : null;
@@ -226,9 +247,9 @@ class ContactData
     /**
      * Gets state.
      *
-     * @return string|null
+     * @return string
      */
-    public function getState(): ?string
+    public function getState(): string
     {
         return $this->state;
     }
@@ -236,11 +257,11 @@ class ContactData
     /**
      * Sets state.
      *
-     * @param string|null $state
+     * @param string $state
      *
      * @return $this
      */
-    public function setState(string $state = null): ?string
+    public function setState(string $state): string
     {
         $this->state = $state;
 
@@ -250,9 +271,9 @@ class ContactData
     /**
      * Gets managementState.
      *
-     * @return string|null
+     * @return string
      */
-    public function getManagementState(): ?string
+    public function getManagementState(): string
     {
         return $this->managementState;
     }
@@ -260,13 +281,61 @@ class ContactData
     /**
      * Sets managementState.
      *
-     * @param string|null $managementState
+     * @param string $managementState
      *
      * @return $this
      */
-    public function setManagementState(string $managementState = null): ?string
+    public function setManagementState(string $managementState): string
     {
         $this->managementState = $managementState;
+
+        return $this;
+    }
+
+    /**
+     * Gets memberId.
+     *
+     * @return int
+     */
+    public function getMemberId(): int
+    {
+        return $this->memberId;
+    }
+
+    /**
+     * Sets memberId.
+     *
+     * @param int $memberId
+     *
+     * @return $this
+     */
+    public function setMemberId(int $memberId): int
+    {
+        $this->memberId = $memberId;
+
+        return $this;
+    }
+
+    /**
+     * Gets parentId.
+     *
+     * @return int|null
+     */
+    public function getParentId(): ?int
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * Sets parentId.
+     *
+     * @param int|null $parentId
+     *
+     * @return $this
+     */
+    public function setParentId(int $parentId = null): ?int
+    {
+        $this->parentId = $parentId;
 
         return $this;
     }

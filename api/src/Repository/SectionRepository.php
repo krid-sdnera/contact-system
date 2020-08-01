@@ -22,16 +22,31 @@ class SectionRepository extends ServiceEntityRepository
         parent::__construct($registry, Section::class);
     }
 
-    public function find($id, $lockMode = NULL, $lockVersion = NULL)
+    // This was implemented for preloading the scout group data.
+    // TODO: find out about performance benfits of preloading the data here
+    //       maybe there is an annotation to to this.
+    // public function find($id, $lockMode = NULL, $lockVersion = NULL)
+    // {
+    //     $qb = $this->createQueryBuilder('s');
+    //     $qb->select('s, sg');
+    //     $qb->leftJoin('s.scoutGroup', 'sg');
+
+    //     $qb->where('s.id = :id');
+    //     $qb->setParameter('id', $id);
+
+    //     $result = $qb->getQuery()->getResult();
+    //     return $result;
+    // }
+
+    public function findByScoutGroupId($scoutGroupId)
     {
-        $qb = $this->createQueryBuilder('s');
-        $qb->select('s, sg');
-        $qb->leftJoin('s.scoutGroup', 'sg');
+        // TODO: Add pagination
+        $result = $this->createQueryBuilder('s')
+            ->where('s.scoutGroup = :scoutGroupId')
+            ->setParameter('scoutGroupId', $scoutGroupId)
+            ->getQuery()
+            ->getResult();
 
-        $qb->where('s.id = :id');
-        $qb->setParameter('id', $id);
-
-        $result = $qb->getQuery()->getResult();
         return $result;
     }
 

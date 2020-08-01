@@ -4,16 +4,15 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addMemberLocalMarkerById**](MembersApiInterface.md#addMemberLocalMarkerById) | **PUT** /members/{memberId}/local | Add local marker
 [**addMemberRoleById**](MembersApiInterface.md#addMemberRoleById) | **PUT** /members/{memberId}/roles/{roleId} | Add Member Role
 [**createMember**](MembersApiInterface.md#createMember) | **POST** /members | Create a member
 [**deleteMemberById**](MembersApiInterface.md#deleteMemberById) | **DELETE** /members/{memberId} | Delete member
 [**getMemberById**](MembersApiInterface.md#getMemberById) | **GET** /members/{memberId} | Get member
-[**getMemberLocalMarkerSuggestionsById**](MembersApiInterface.md#getMemberLocalMarkerSuggestionsById) | **GET** /members/{memberId}/local/suggestions | Get member suggestions
+[**getMemberContactsById**](MembersApiInterface.md#getMemberContactsById) | **GET** /members/{memberId}/contacts | List member&#39;s contacts
+[**getMemberRolesById**](MembersApiInterface.md#getMemberRolesById) | **GET** /members/{memberId}/roles | List member&#39;s roles
 [**getMembers**](MembersApiInterface.md#getMembers) | **GET** /members | List all members
 [**mergeMember**](MembersApiInterface.md#mergeMember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
 [**patchMemberById**](MembersApiInterface.md#patchMemberById) | **PATCH** /members/{memberId} | Partially update member
-[**removeMemberLocalMarkerById**](MembersApiInterface.md#removeMemberLocalMarkerById) | **DELETE** /members/{memberId}/local | Remove local marker
 [**removeMemberRoleById**](MembersApiInterface.md#removeMemberRoleById) | **DELETE** /members/{memberId}/roles/{roleId} | Remove Member Role
 [**updateMemberById**](MembersApiInterface.md#updateMemberById) | **PUT** /members/{memberId} | Update member
 
@@ -30,70 +29,8 @@ services:
     # ...
 ```
 
-## **addMemberLocalMarkerById**
-> OpenAPI\Server\Model\ApiResponse addMemberLocalMarkerById($memberId)
-
-Add local marker
-
-Add local marker
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/MembersApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\MembersApiInterface;
-
-class MembersApi implements MembersApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of MembersApiInterface#addMemberLocalMarkerById
-     */
-    public function addMemberLocalMarkerById(int $memberId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **int**|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 ## **addMemberRoleById**
-> OpenAPI\Server\Model\RoleData addMemberRoleById($memberId, $roleId, $memberRoleInput)
+> OpenAPI\Server\Model\MemberRoleData addMemberRoleById($memberId, $roleId, $memberRoleInput)
 
 Add Member Role
 
@@ -143,7 +80,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\RoleData**](../Model/RoleData.md)
+[**OpenAPI\Server\Model\MemberRoleData**](../Model/MemberRoleData.md)
 
 ### Authorization
 
@@ -342,12 +279,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getMemberLocalMarkerSuggestionsById**
-> OpenAPI\Server\Model\MemberSuggetion getMemberLocalMarkerSuggestionsById($memberId)
+## **getMemberContactsById**
+> OpenAPI\Server\Model\Contacts getMemberContactsById($memberId)
 
-Get member suggestions
+List member's contacts
 
-Get member suggestions
+List contacts for this member
 
 ### Example Implementation
 ```php
@@ -372,9 +309,9 @@ class MembersApi implements MembersApiInterface
     // ...
 
     /**
-     * Implementation of MembersApiInterface#getMemberLocalMarkerSuggestionsById
+     * Implementation of MembersApiInterface#getMemberContactsById
      */
-    public function getMemberLocalMarkerSuggestionsById(int $memberId)
+    public function getMemberContactsById(int $memberId)
     {
         // Implement the operation ...
     }
@@ -391,7 +328,69 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberSuggetion**](../Model/MemberSuggetion.md)
+[**OpenAPI\Server\Model\Contacts**](../Model/Contacts.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getMemberRolesById**
+> OpenAPI\Server\Model\MemberRoles getMemberRolesById($memberId)
+
+List member's roles
+
+List roles for this member
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/MembersApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\MembersApiInterface;
+
+class MembersApi implements MembersApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of MembersApiInterface#getMemberRolesById
+     */
+    public function getMemberRolesById(int $memberId)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **memberId** | **int**|  |
+
+### Return type
+
+[**OpenAPI\Server\Model\MemberRoles**](../Model/MemberRoles.md)
 
 ### Authorization
 
@@ -590,68 +589,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **removeMemberLocalMarkerById**
-> OpenAPI\Server\Model\ApiResponse removeMemberLocalMarkerById($memberId)
-
-Remove local marker
-
-Remove local marker
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/MembersApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\MembersApiInterface;
-
-class MembersApi implements MembersApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of MembersApiInterface#removeMemberLocalMarkerById
-     */
-    public function removeMemberLocalMarkerById(int $memberId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **int**|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

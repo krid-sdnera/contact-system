@@ -1,7 +1,7 @@
 <?php
 
 /**
- * GroupsController
+ * ScoutGroupsController
  * PHP version 5
  *
  * @category Class
@@ -36,116 +36,33 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Constraints as Assert;
-use OpenAPI\Server\Api\GroupsApiInterface;
+use OpenAPI\Server\Api\ScoutGroupsApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\ScoutGroupData;
 use OpenAPI\Server\Model\ScoutGroupInput;
-use OpenAPI\Server\Model\SectionData;
+use OpenAPI\Server\Model\ScoutGroups;
+use OpenAPI\Server\Model\Sections;
 
 /**
- * GroupsController Class Doc Comment
+ * ScoutGroupsController Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Server\Controller
  * @author   OpenAPI Generator team
  * @link     https://github.com/openapitools/openapi-generator
  */
-class GroupsController extends Controller
+class ScoutGroupsController extends Controller
 {
 
     /**
-     * Operation addGroupLocalMarkerById
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function addGroupLocalMarkerByIdAction(Request $request, $groupId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-auth-token');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $groupId = $this->deserialize($groupId, 'int', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("int");
-        $response = $this->validate($groupId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->addGroupLocalMarkerById($groupId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (AccessDeniedException $accessDenied) {
-            // Fall through to Symfony Guard Authenticator by rethrowing
-            throw $accessDenied;
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation createGroup
+     * Operation createScoutGroup
      *
      * Create Group
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function createGroupAction(Request $request)
+    public function createScoutGroupAction(Request $request)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -200,7 +117,7 @@ class GroupsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->createGroup($scoutGroupInput, $responseCode, $responseHeaders);
+            $result = $handler->createScoutGroup($scoutGroupInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -232,14 +149,14 @@ class GroupsController extends Controller
     }
 
     /**
-     * Operation deleteGroupById
+     * Operation deleteScoutGroupById
      *
      * Delete Group
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function deleteGroupByIdAction(Request $request, $groupId)
+    public function deleteScoutGroupByIdAction(Request $request, $scoutGroupId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -261,7 +178,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'int', 'string');
+            $scoutGroupId = $this->deserialize($scoutGroupId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -270,7 +187,7 @@ class GroupsController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("int");
-        $response = $this->validate($groupId, $asserts);
+        $response = $this->validate($scoutGroupId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -285,7 +202,7 @@ class GroupsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->deleteGroupById($groupId, $responseCode, $responseHeaders);
+            $result = $handler->deleteScoutGroupById($scoutGroupId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -317,97 +234,14 @@ class GroupsController extends Controller
     }
 
     /**
-     * Operation deleteGroupLocalMarkerById
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function deleteGroupLocalMarkerByIdAction(Request $request, $groupId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-auth-token');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $groupId = $this->deserialize($groupId, 'int', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("int");
-        $response = $this->validate($groupId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->deleteGroupLocalMarkerById($groupId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (AccessDeniedException $accessDenied) {
-            // Fall through to Symfony Guard Authenticator by rethrowing
-            throw $accessDenied;
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation getGroupById
+     * Operation getScoutGroupById
      *
      * Get Group
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getGroupByIdAction(Request $request, $groupId)
+    public function getScoutGroupByIdAction(Request $request, $scoutGroupId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -429,7 +263,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'int', 'string');
+            $scoutGroupId = $this->deserialize($scoutGroupId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -438,7 +272,7 @@ class GroupsController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("int");
-        $response = $this->validate($groupId, $asserts);
+        $response = $this->validate($scoutGroupId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -453,7 +287,7 @@ class GroupsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getGroupById($groupId, $responseCode, $responseHeaders);
+            $result = $handler->getScoutGroupById($scoutGroupId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -485,14 +319,14 @@ class GroupsController extends Controller
     }
 
     /**
-     * Operation getGroupMembersById
+     * Operation getScoutGroupSectionsById
      *
      * Your GET endpoint
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getGroupMembersByIdAction(Request $request, $groupId)
+    public function getScoutGroupSectionsByIdAction(Request $request, $scoutGroupId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -514,7 +348,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'int', 'string');
+            $scoutGroupId = $this->deserialize($scoutGroupId, 'int', 'string');
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
         }
@@ -523,7 +357,7 @@ class GroupsController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("int");
-        $response = $this->validate($groupId, $asserts);
+        $response = $this->validate($scoutGroupId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -538,7 +372,7 @@ class GroupsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getGroupMembersById($groupId, $responseCode, $responseHeaders);
+            $result = $handler->getScoutGroupSectionsById($scoutGroupId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -570,99 +404,14 @@ class GroupsController extends Controller
     }
 
     /**
-     * Operation getGroupSectionsById
-     *
-     * Your GET endpoint
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function getGroupSectionsByIdAction(Request $request, $groupId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-auth-token');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $groupId = $this->deserialize($groupId, 'int', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("int");
-        $response = $this->validate($groupId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->getGroupSectionsById($groupId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'OK';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'OK';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (AccessDeniedException $accessDenied) {
-            // Fall through to Symfony Guard Authenticator by rethrowing
-            throw $accessDenied;
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation getGroups
+     * Operation getScoutGroups
      *
      * Get Groups
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getGroupsAction(Request $request)
+    public function getScoutGroupsAction(Request $request)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -724,7 +473,7 @@ class GroupsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getGroups($sort, $pageSize, $page, $responseCode, $responseHeaders);
+            $result = $handler->getScoutGroups($sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -756,14 +505,14 @@ class GroupsController extends Controller
     }
 
     /**
-     * Operation updateGroupById
+     * Operation updateScoutGroupById
      *
      * Update Group
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function updateGroupByIdAction(Request $request, $groupId)
+    public function updateScoutGroupByIdAction(Request $request, $scoutGroupId)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -794,7 +543,7 @@ class GroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
-            $groupId = $this->deserialize($groupId, 'int', 'string');
+            $scoutGroupId = $this->deserialize($scoutGroupId, 'int', 'string');
             $scoutGroupInput = $this->deserialize($scoutGroupInput, 'OpenAPI\Server\Model\ScoutGroupInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -804,7 +553,7 @@ class GroupsController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("int");
-        $response = $this->validate($groupId, $asserts);
+        $response = $this->validate($scoutGroupId, $asserts);
         if ($response instanceof Response) {
             return $response;
         }
@@ -826,7 +575,7 @@ class GroupsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateGroupById($groupId, $scoutGroupInput, $responseCode, $responseHeaders);
+            $result = $handler->updateScoutGroupById($scoutGroupId, $scoutGroupInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -859,10 +608,10 @@ class GroupsController extends Controller
 
     /**
      * Returns the handler for this API controller.
-     * @return GroupsApiInterface
+     * @return ScoutGroupsApiInterface
      */
     public function getApiHandler()
     {
-        return $this->apiServer->getApiHandler('groups');
+        return $this->apiServer->getApiHandler('scoutGroups');
     }
 }

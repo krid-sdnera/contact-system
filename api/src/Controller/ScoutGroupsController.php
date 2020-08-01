@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Doctrine\ORM\ORMException;
 
-use OpenAPI\Server\Api\GroupsApiInterface;
+use OpenAPI\Server\Api\ScoutGroupsApiInterface;
 
 use OpenAPI\Server\Model\ScoutGroupInput;
 
@@ -17,7 +17,7 @@ use OpenAPI\Server\Model\ApiResponse;
 
 use App\Exception\SortKeyNotFound;
 
-class GroupsController extends AbstractController implements GroupsApiInterface
+class ScoutGroupsController extends AbstractController implements ScoutGroupsApiInterface
 {
 
     /**
@@ -30,20 +30,7 @@ class GroupsController extends AbstractController implements GroupsApiInterface
     /**
      * {@inheritdoc}
      */
-    public function addGroupLocalMarkerById(string $groupId, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createGroup(ScoutGroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
+    public function createScoutGroup(ScoutGroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -53,13 +40,13 @@ class GroupsController extends AbstractController implements GroupsApiInterface
         $entityManager->persist($newGroup);
         $entityManager->flush();
 
-        return $newGroup;
+        return $newGroup->toScoutGroupData();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function deleteGroupById(string $groupId, &$responseCode, array &$responseHeaders)
+    public function deleteScoutGroupById(int $groupId, &$responseCode, array &$responseHeaders)
     {
         $group = $this->getDoctrine()
             ->getRepository(ScoutGroup::class)
@@ -98,20 +85,7 @@ class GroupsController extends AbstractController implements GroupsApiInterface
     /**
      * {@inheritdoc}
      */
-    public function deleteGroupLocalMarkerById(string $groupId, &$responseCode, array &$responseHeaders)
-    {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getGroupById(string $groupId, &$responseCode, array &$responseHeaders)
+    public function getScoutGroupById(int $groupId, &$responseCode, array &$responseHeaders)
     {
         $group = $this->getDoctrine()
             ->getRepository(ScoutGroup::class)
@@ -126,33 +100,33 @@ class GroupsController extends AbstractController implements GroupsApiInterface
             ]);
         }
 
-        return $group;
+        return $group->toScoutGroupData();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGroupMembersById(string $groupId, &$responseCode, array &$responseHeaders)
+    public function getScoutGroupSectionsById(int $scoutGroupId, &$responseCode, array &$responseHeaders)
     {
-        $responseCode = 501;
-        return new ApiResponse([
-            'code' => 501,
-            'type' => 'Not Implemented',
-            'message' => "This endpoint has not been implemented"
-        ]);
-    }
 
+        /** @var SectionRepository */
+        $sectionRepo = $this->getDoctrine()->getRepository(Section::class);
+
+        $sections = $sectionRepo->findByScoutGroupId($scoutGroupId);
+
+        return [
+            'sections' => array_map(
+                function ($section) {
+                    return $section->toSectionData();
+                },
+                $sections
+            )
+        ];
+    }
     /**
      * {@inheritdoc}
      */
-    public function getGroupSectionsById(string $groupId, &$responseCode, array &$responseHeaders)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getGroups(
+    public function getScoutGroups(
         $sort = null,
         $pageSize = null,
         $page = null,
@@ -176,13 +150,20 @@ class GroupsController extends AbstractController implements GroupsApiInterface
             ]);
         }
 
-        return $groups;
+        return [
+            'scoutGroups' => array_map(
+                function ($group) {
+                    return $group->toScoutGroupData();
+                },
+                $groups
+            )
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function updateGroupById(string $groupId, ScoutGroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
+    public function updateScoutGroupById(int $groupId, ScoutGroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -204,6 +185,6 @@ class GroupsController extends AbstractController implements GroupsApiInterface
         $entityManager->persist($groupToUpdate);
         $entityManager->flush();
 
-        return $groupToUpdate;
+        return $groupToUpdate->toScoutGroupData();
     }
 }

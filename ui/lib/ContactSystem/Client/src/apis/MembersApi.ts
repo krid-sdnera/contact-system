@@ -15,32 +15,31 @@
 
 import * as runtime from '../runtime';
 import {
+    Contacts,
+    ContactsFromJSON,
+    ContactsToJSON,
     MemberData,
     MemberDataFromJSON,
     MemberDataToJSON,
     MemberInput,
     MemberInputFromJSON,
     MemberInputToJSON,
+    MemberRoleData,
+    MemberRoleDataFromJSON,
+    MemberRoleDataToJSON,
     MemberRoleInput,
     MemberRoleInputFromJSON,
     MemberRoleInputToJSON,
-    MemberSuggetion,
-    MemberSuggetionFromJSON,
-    MemberSuggetionToJSON,
+    MemberRoles,
+    MemberRolesFromJSON,
+    MemberRolesToJSON,
     Members,
     MembersFromJSON,
     MembersToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
-    RoleData,
-    RoleDataFromJSON,
-    RoleDataToJSON,
 } from '../models';
-
-export interface AddMemberLocalMarkerByIdRequest {
-    memberId: number;
-}
 
 export interface AddMemberRoleByIdRequest {
     memberId: number;
@@ -60,7 +59,11 @@ export interface GetMemberByIdRequest {
     memberId: number;
 }
 
-export interface GetMemberLocalMarkerSuggestionsByIdRequest {
+export interface GetMemberContactsByIdRequest {
+    memberId: number;
+}
+
+export interface GetMemberRolesByIdRequest {
     memberId: number;
 }
 
@@ -80,10 +83,6 @@ export interface PatchMemberByIdRequest {
     memberInput?: MemberInput;
 }
 
-export interface RemoveMemberLocalMarkerByIdRequest {
-    memberId: number;
-}
-
 export interface RemoveMemberRoleByIdRequest {
     memberId: number;
     roleId: number;
@@ -101,22 +100,6 @@ export interface UpdateMemberByIdRequest {
  */
 export interface MembersApiInterface {
     /**
-     * Add local marker
-     * @summary Add local marker
-     * @param {number} memberId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MembersApiInterface
-     */
-    addMemberLocalMarkerByIdRaw(requestParameters: AddMemberLocalMarkerByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
-
-    /**
-     * Add local marker
-     * Add local marker
-     */
-    addMemberLocalMarkerById(requestParameters: AddMemberLocalMarkerByIdRequest): Promise<ModelApiResponse>;
-
-    /**
      * addMemberRoleById
      * @summary Add Member Role
      * @param {number} memberId 
@@ -126,13 +109,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest): Promise<runtime.ApiResponse<RoleData>>;
+    addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest): Promise<runtime.ApiResponse<MemberRoleData>>;
 
     /**
      * addMemberRoleById
      * Add Member Role
      */
-    addMemberRoleById(requestParameters: AddMemberRoleByIdRequest): Promise<RoleData>;
+    addMemberRoleById(requestParameters: AddMemberRoleByIdRequest): Promise<MemberRoleData>;
 
     /**
      * Create a member
@@ -183,20 +166,36 @@ export interface MembersApiInterface {
     getMemberById(requestParameters: GetMemberByIdRequest): Promise<MemberData>;
 
     /**
-     * Get member suggestions
-     * @summary Get member suggestions
+     * List contacts for this member
+     * @summary List member\'s contacts
      * @param {number} memberId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    getMemberLocalMarkerSuggestionsByIdRaw(requestParameters: GetMemberLocalMarkerSuggestionsByIdRequest): Promise<runtime.ApiResponse<Array<MemberSuggetion>>>;
+    getMemberContactsByIdRaw(requestParameters: GetMemberContactsByIdRequest): Promise<runtime.ApiResponse<Contacts>>;
 
     /**
-     * Get member suggestions
-     * Get member suggestions
+     * List contacts for this member
+     * List member\'s contacts
      */
-    getMemberLocalMarkerSuggestionsById(requestParameters: GetMemberLocalMarkerSuggestionsByIdRequest): Promise<Array<MemberSuggetion>>;
+    getMemberContactsById(requestParameters: GetMemberContactsByIdRequest): Promise<Contacts>;
+
+    /**
+     * List roles for this member
+     * @summary List member\'s roles
+     * @param {number} memberId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MembersApiInterface
+     */
+    getMemberRolesByIdRaw(requestParameters: GetMemberRolesByIdRequest): Promise<runtime.ApiResponse<MemberRoles>>;
+
+    /**
+     * List roles for this member
+     * List member\'s roles
+     */
+    getMemberRolesById(requestParameters: GetMemberRolesByIdRequest): Promise<MemberRoles>;
 
     /**
      * List all members
@@ -251,22 +250,6 @@ export interface MembersApiInterface {
     patchMemberById(requestParameters: PatchMemberByIdRequest): Promise<MemberData>;
 
     /**
-     * Remove local marker
-     * @summary Remove local marker
-     * @param {number} memberId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MembersApiInterface
-     */
-    removeMemberLocalMarkerByIdRaw(requestParameters: RemoveMemberLocalMarkerByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
-
-    /**
-     * Remove local marker
-     * Remove local marker
-     */
-    removeMemberLocalMarkerById(requestParameters: RemoveMemberLocalMarkerByIdRequest): Promise<ModelApiResponse>;
-
-    /**
      * removeMemberRoleById
      * @summary Remove Member Role
      * @param {number} memberId 
@@ -308,46 +291,10 @@ export interface MembersApiInterface {
 export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
     /**
-     * Add local marker
-     * Add local marker
-     */
-    async addMemberLocalMarkerByIdRaw(requestParameters: AddMemberLocalMarkerByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
-        if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
-            throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling addMemberLocalMarkerById.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        const response = await this.request({
-            path: `/members/{memberId}/local`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Add local marker
-     * Add local marker
-     */
-    async addMemberLocalMarkerById(requestParameters: AddMemberLocalMarkerByIdRequest): Promise<ModelApiResponse> {
-        const response = await this.addMemberLocalMarkerByIdRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
      * addMemberRoleById
      * Add Member Role
      */
-    async addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest): Promise<runtime.ApiResponse<RoleData>> {
+    async addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest): Promise<runtime.ApiResponse<MemberRoleData>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling addMemberRoleById.');
         }
@@ -374,14 +321,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             body: MemberRoleInputToJSON(requestParameters.memberRoleInput),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => RoleDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MemberRoleDataFromJSON(jsonValue));
     }
 
     /**
      * addMemberRoleById
      * Add Member Role
      */
-    async addMemberRoleById(requestParameters: AddMemberRoleByIdRequest): Promise<RoleData> {
+    async addMemberRoleById(requestParameters: AddMemberRoleByIdRequest): Promise<MemberRoleData> {
         const response = await this.addMemberRoleByIdRaw(requestParameters);
         return await response.value();
     }
@@ -498,12 +445,12 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
     }
 
     /**
-     * Get member suggestions
-     * Get member suggestions
+     * List contacts for this member
+     * List member\'s contacts
      */
-    async getMemberLocalMarkerSuggestionsByIdRaw(requestParameters: GetMemberLocalMarkerSuggestionsByIdRequest): Promise<runtime.ApiResponse<Array<MemberSuggetion>>> {
+    async getMemberContactsByIdRaw(requestParameters: GetMemberContactsByIdRequest): Promise<runtime.ApiResponse<Contacts>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
-            throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling getMemberLocalMarkerSuggestionsById.');
+            throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling getMemberContactsById.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -515,21 +462,57 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
         }
 
         const response = await this.request({
-            path: `/members/{memberId}/local/suggestions`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
+            path: `/members/{memberId}/contacts`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MemberSuggetionFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ContactsFromJSON(jsonValue));
     }
 
     /**
-     * Get member suggestions
-     * Get member suggestions
+     * List contacts for this member
+     * List member\'s contacts
      */
-    async getMemberLocalMarkerSuggestionsById(requestParameters: GetMemberLocalMarkerSuggestionsByIdRequest): Promise<Array<MemberSuggetion>> {
-        const response = await this.getMemberLocalMarkerSuggestionsByIdRaw(requestParameters);
+    async getMemberContactsById(requestParameters: GetMemberContactsByIdRequest): Promise<Contacts> {
+        const response = await this.getMemberContactsByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * List roles for this member
+     * List member\'s roles
+     */
+    async getMemberRolesByIdRaw(requestParameters: GetMemberRolesByIdRequest): Promise<runtime.ApiResponse<MemberRoles>> {
+        if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
+            throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling getMemberRolesById.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        const response = await this.request({
+            path: `/members/{memberId}/roles`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MemberRolesFromJSON(jsonValue));
+    }
+
+    /**
+     * List roles for this member
+     * List member\'s roles
+     */
+    async getMemberRolesById(requestParameters: GetMemberRolesByIdRequest): Promise<MemberRoles> {
+        const response = await this.getMemberRolesByIdRaw(requestParameters);
         return await response.value();
     }
 
@@ -653,42 +636,6 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      */
     async patchMemberById(requestParameters: PatchMemberByIdRequest): Promise<MemberData> {
         const response = await this.patchMemberByIdRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * Remove local marker
-     * Remove local marker
-     */
-    async removeMemberLocalMarkerByIdRaw(requestParameters: RemoveMemberLocalMarkerByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
-        if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
-            throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling removeMemberLocalMarkerById.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        const response = await this.request({
-            path: `/members/{memberId}/local`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Remove local marker
-     * Remove local marker
-     */
-    async removeMemberLocalMarkerById(requestParameters: RemoveMemberLocalMarkerByIdRequest): Promise<ModelApiResponse> {
-        const response = await this.removeMemberLocalMarkerByIdRaw(requestParameters);
         return await response.value();
     }
 

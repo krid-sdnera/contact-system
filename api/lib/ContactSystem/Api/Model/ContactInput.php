@@ -147,6 +147,14 @@ class ContactInput
     protected $memberId;
 
     /**
+     * @var int|null
+     * @SerializedName("parentId")
+     * @Assert\Type("int")
+     * @Type("int")
+     */
+    protected $parentId;
+
+    /**
      * @var string|null
      * @SerializedName("expiry")
      * @Assert\Type("string")
@@ -182,6 +190,7 @@ class ContactInput
         $this->email = isset($data['email']) ? $data['email'] : null;
         $this->occupation = isset($data['occupation']) ? $data['occupation'] : null;
         $this->memberId = isset($data['memberId']) ? $data['memberId'] : null;
+        $this->parentId = isset($data['parentId']) ? $data['parentId'] : null;
         $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
         $this->overrides = isset($data['overrides']) ? $data['overrides'] : null;
     }
@@ -494,6 +503,30 @@ class ContactInput
     public function setMemberId(int $memberId = null): ?int
     {
         $this->memberId = $memberId;
+
+        return $this;
+    }
+
+    /**
+     * Gets parentId.
+     *
+     * @return int|null
+     */
+    public function getParentId(): ?int
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * Sets parentId.
+     *
+     * @param int|null $parentId
+     *
+     * @return $this
+     */
+    public function setParentId(int $parentId = null): ?int
+    {
+        $this->parentId = $parentId;
 
         return $this;
     }

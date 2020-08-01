@@ -41,6 +41,24 @@
         <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
+    <v-dialog
+      v-model="isUpdateApiRequestInProgress"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card color="primary">
+        <v-card-text>
+          Saving data
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <v-main>
       <v-container>
         <nuxt />
@@ -64,8 +82,10 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+
+import * as ui from '~/store/ui';
 
 @Component
 export default class DefaultLayout extends Vue {
@@ -75,7 +95,7 @@ export default class DefaultLayout extends Vue {
   items = [
     {
       icon: 'mdi-apps',
-      title: 'Home',
+      title: 'Dashboard',
       to: '/',
     },
     {
@@ -89,5 +109,9 @@ export default class DefaultLayout extends Vue {
   right = true;
   rightDrawer = false;
   title = 'Contact System';
+
+  get isUpdateApiRequestInProgress(): boolean {
+    return this.$store.getters[`${ui.namespace}/isUpdateApiRequestInProgress`];
+  }
 }
 </script>

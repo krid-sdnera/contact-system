@@ -30,12 +30,13 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
+use OpenAPI\Server\Model\Contacts;
 use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\MemberInput;
+use OpenAPI\Server\Model\MemberRoleData;
 use OpenAPI\Server\Model\MemberRoleInput;
-use OpenAPI\Server\Model\MemberSuggetion;
+use OpenAPI\Server\Model\MemberRoles;
 use OpenAPI\Server\Model\Members;
-use OpenAPI\Server\Model\RoleData;
 
 /**
  * MembersApiInterface Interface Doc Comment
@@ -58,20 +59,6 @@ interface MembersApiInterface
     public function setcontact_auth($value);
 
     /**
-     * Operation addMemberLocalMarkerById
-     *
-     * Add local marker
-     *
-     * @param  int $memberId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
-     */
-    public function addMemberLocalMarkerById(int $memberId, &$responseCode, array &$responseHeaders);
-
-    /**
      * Operation addMemberRoleById
      *
      * Add Member Role
@@ -82,7 +69,7 @@ interface MembersApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\RoleData
+     * @return OpenAPI\Server\Model\MemberRoleData
      *
      */
     public function addMemberRoleById(int $memberId, int $roleId, MemberRoleInput $memberRoleInput = null, &$responseCode, array &$responseHeaders);
@@ -130,18 +117,32 @@ interface MembersApiInterface
     public function getMemberById(int $memberId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getMemberLocalMarkerSuggestionsById
+     * Operation getMemberContactsById
      *
-     * Get member suggestions
+     * List member's contacts
      *
      * @param  int $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberSuggetion[]
+     * @return OpenAPI\Server\Model\Contacts
      *
      */
-    public function getMemberLocalMarkerSuggestionsById(int $memberId, &$responseCode, array &$responseHeaders);
+    public function getMemberContactsById(int $memberId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getMemberRolesById
+     *
+     * List member's roles
+     *
+     * @param  int $memberId   (required)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\MemberRoles
+     *
+     */
+    public function getMemberRolesById(int $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMembers
@@ -188,20 +189,6 @@ interface MembersApiInterface
      *
      */
     public function patchMemberById(int $memberId, MemberInput $memberInput = null, &$responseCode, array &$responseHeaders);
-
-    /**
-     * Operation removeMemberLocalMarkerById
-     *
-     * Remove local marker
-     *
-     * @param  int $memberId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
-     *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
-     */
-    public function removeMemberLocalMarkerById(int $memberId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation removeMemberRoleById

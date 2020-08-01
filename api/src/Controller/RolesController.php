@@ -55,13 +55,13 @@ class RolesController extends AbstractController implements RolesApiInterface
         $entityManager->persist($newRole);
         $entityManager->flush();
 
-        return $newRole;
+        return $newRole->toRoleData();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function deleteRoleById(string $roleId, &$responseCode, array &$responseHeaders)
+    public function deleteRoleById(int $roleId, &$responseCode, array &$responseHeaders)
     {
         $role = $this->getDoctrine()
             ->getRepository(Role::class)
@@ -100,7 +100,7 @@ class RolesController extends AbstractController implements RolesApiInterface
     /**
      * {@inheritdoc}
      */
-    public function getRoleById(string $roleId, &$responseCode, array &$responseHeaders)
+    public function getRoleById(int $roleId, &$responseCode, array &$responseHeaders)
     {
         $role = $this->getDoctrine()
             ->getRepository(Role::class)
@@ -115,30 +115,7 @@ class RolesController extends AbstractController implements RolesApiInterface
             ]);
         }
 
-        return $role;
-    }
-
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRoleMembersById(string $roleId, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
-    {
-        /** @var Role */
-        $role = $this->getDoctrine()
-            ->getRepository(Role::class)
-            ->find($roleId);
-
-        if (!$role) {
-            $responseCode = 404;
-            return new ApiResponse([
-                'code' => 404,
-                'type' => 'Not Found',
-                'message' => "Role (${roleId}) not found"
-            ]);
-        }
-
-        return $role->getMembers();
+        return $role->toRoleData();
     }
 
     /**
@@ -168,13 +145,20 @@ class RolesController extends AbstractController implements RolesApiInterface
             ]);
         }
 
-        return $roles;
+        return [
+            'roles' => array_map(
+                function ($role) {
+                    return $role->toRoleData();
+                },
+                $roles
+            )
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function updateRoleById(string $roleId, RoleInput $roleInput = null, &$responseCode, array &$responseHeaders)
+    public function updateRoleById(int $roleId, RoleInput $roleInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -192,6 +176,7 @@ class RolesController extends AbstractController implements RolesApiInterface
         }
 
         $sectionId = $roleInput->getSectionId();
+        /** @var Section */
         $section = $this->getDoctrine()
             ->getRepository(Section::class)
             ->find($sectionId);
@@ -211,6 +196,6 @@ class RolesController extends AbstractController implements RolesApiInterface
         $entityManager->persist($roleToUpdate);
         $entityManager->flush();
 
-        return $roleToUpdate;
+        return $roleToUpdate->toRoleData();
     }
 }

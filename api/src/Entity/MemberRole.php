@@ -74,6 +74,7 @@ class MemberRole
             'state' => $this->getState(),
             'managementState' => $this->getManagementState(),
             'expiry' => $this->getExpiry(),
+            'memberId' => $this->getMember()->getId(),
             'role' => $this->getRole()->toRoleData(),
         ];
 
@@ -90,7 +91,8 @@ class MemberRole
 
     /**
      * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="App\Entity\Role")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Role",  inversedBy="members")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $role;
 

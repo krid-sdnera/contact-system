@@ -46,8 +46,9 @@ class Contacts
         /**
      * Array containg the list
      *
-     * @var OpenAPI\Server\Model\ContactData[]|null
+     * @var OpenAPI\Server\Model\ContactData[]
      * @SerializedName("contacts")
+     * @Assert\NotNull()
      * @Assert\All({
      *   @Assert\Type("OpenAPI\Server\Model\ContactData")
      * })
@@ -67,9 +68,9 @@ class Contacts
     /**
      * Gets contacts.
      *
-     * @return OpenAPI\Server\Model\ContactData[]|null
+     * @return OpenAPI\Server\Model\ContactData[]
      */
-    public function getContacts(): ?array
+    public function getContacts(): array
     {
         return $this->contacts;
     }
@@ -77,11 +78,11 @@ class Contacts
     /**
      * Sets contacts.
      *
-     * @param OpenAPI\Server\Model\ContactData[]|null $contacts  Array containg the list
+     * @param OpenAPI\Server\Model\ContactData[] $contacts  Array containg the list
      *
      * @return $this
      */
-    public function setContacts(array $contacts = null): ?array
+    public function setContacts(array $contacts): array
     {
         $this->contacts = $contacts;
 

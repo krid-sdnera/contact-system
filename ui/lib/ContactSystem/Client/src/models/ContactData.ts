@@ -41,13 +41,25 @@ export interface ContactData {
      * @type {string}
      * @memberof ContactData
      */
-    state?: ContactDataStateEnum;
+    state: ContactDataStateEnum;
     /**
      * 
      * @type {string}
      * @memberof ContactData
      */
-    managementState?: ContactDataManagementStateEnum;
+    managementState: ContactDataManagementStateEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof ContactData
+     */
+    memberId: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ContactData
+     */
+    parentId?: number;
     /**
      * 
      * @type {string}
@@ -139,8 +151,10 @@ export function ContactDataFromJSONTyped(json: any, ignoreDiscriminator: boolean
     return {
         
         'id': json['id'],
-        'state': !exists(json, 'state') ? undefined : json['state'],
-        'managementState': !exists(json, 'managementState') ? undefined : json['managementState'],
+        'state': json['state'],
+        'managementState': json['managementState'],
+        'memberId': json['memberId'],
+        'parentId': !exists(json, 'parentId') ? undefined : json['parentId'],
         'firstname': json['firstname'],
         'nickname': !exists(json, 'nickname') ? undefined : json['nickname'],
         'lastname': json['lastname'],
@@ -169,6 +183,8 @@ export function ContactDataToJSON(value?: ContactData | null): any {
         'id': value.id,
         'state': value.state,
         'managementState': value.managementState,
+        'memberId': value.memberId,
+        'parentId': value.parentId,
         'firstname': value.firstname,
         'nickname': value.nickname,
         'lastname': value.lastname,

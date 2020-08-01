@@ -86,6 +86,20 @@ class RoleInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "classId"
+     */
+    public function testPropertyClassId()
+    {
+    }
+
+    /**
+     * Test attribute "normalisedClassId"
+     */
+    public function testPropertyNormalisedClassId()
+    {
+    }
+
+    /**
      * Test attribute "externalId"
      */
     public function testPropertyExternalId()

@@ -80,9 +80,15 @@ class ScoutGroup
      */
     private $externalId;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Section", mappedBy="scoutGroup")
+     */
+    private $sections;
+
 
     public function __construct()
     {
+        $this->sections = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,9 +113,40 @@ class ScoutGroup
         return $this->externalId;
     }
 
-    public function setExternalId(string $externalId): self
+    public function setExternalId(int $externalId): self
     {
         $this->externalId = $externalId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Section[]
+     */
+    public function getSections(): Collection
+    {
+        return $this->sections;
+    }
+
+    public function addSection(Section $section): self
+    {
+        if (!$this->sections->contains($section)) {
+            $this->sections[] = $section;
+            $section->setScoutGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSection(Section $section): self
+    {
+        if ($this->sections->contains($section)) {
+            $this->sections->removeElement($section);
+            // set the owning side to null (unless already changed)
+            if ($section->getScoutGroup() === $this) {
+                $section->setScoutGroup(null);
+            }
+        }
 
         return $this;
     }

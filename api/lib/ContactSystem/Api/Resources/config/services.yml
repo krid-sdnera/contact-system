@@ -30,15 +30,6 @@ services:
         tags: ['controller.service_arguments']
         autowire: true
 
-    open_api_server.controller.groups:
-        class: OpenAPI\Server\Controller\GroupsController
-        calls:
-         - [setSerializer, ['@open_api_server.service.serializer']]
-         - [setValidator,  ['@open_api_server.service.validator']]
-         - [setApiServer,  ['@open_api_server.api.api_server']]
-        tags: ['controller.service_arguments']
-        autowire: true
-
     open_api_server.controller.lists:
         class: OpenAPI\Server\Controller\ListsController
         calls:
@@ -59,6 +50,15 @@ services:
 
     open_api_server.controller.roles:
         class: OpenAPI\Server\Controller\RolesController
+        calls:
+         - [setSerializer, ['@open_api_server.service.serializer']]
+         - [setValidator,  ['@open_api_server.service.validator']]
+         - [setApiServer,  ['@open_api_server.api.api_server']]
+        tags: ['controller.service_arguments']
+        autowire: true
+
+    open_api_server.controller.scoutGroups:
+        class: OpenAPI\Server\Controller\ScoutGroupsController
         calls:
          - [setSerializer, ['@open_api_server.service.serializer']]
          - [setValidator,  ['@open_api_server.service.validator']]

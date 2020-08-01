@@ -31,7 +31,7 @@ export interface Contacts {
      * @type {Array<ContactData>}
      * @memberof Contacts
      */
-    contacts?: Array<ContactData>;
+    contacts: Array<ContactData>;
 }
 
 export function ContactsFromJSON(json: any): Contacts {
@@ -44,7 +44,7 @@ export function ContactsFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     }
     return {
         
-        'contacts': !exists(json, 'contacts') ? undefined : ((json['contacts'] as Array<any>).map(ContactDataFromJSON)),
+        'contacts': ((json['contacts'] as Array<any>).map(ContactDataFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function ContactsToJSON(value?: Contacts | null): any {
     }
     return {
         
-        'contacts': value.contacts === undefined ? undefined : ((value.contacts as Array<any>).map(ContactDataToJSON)),
+        'contacts': ((value.contacts as Array<any>).map(ContactDataToJSON)),
     };
 }
 

@@ -43,6 +43,18 @@ export interface RoleData {
      * @type {string}
      * @memberof RoleData
      */
+    classId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoleData
+     */
+    normalisedClassId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoleData
+     */
     externalId?: string;
     /**
      * 
@@ -64,6 +76,8 @@ export function RoleDataFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         
         'id': json['id'],
         'name': json['name'],
+        'classId': !exists(json, 'classId') ? undefined : json['classId'],
+        'normalisedClassId': !exists(json, 'normalisedClassId') ? undefined : json['normalisedClassId'],
         'externalId': !exists(json, 'externalId') ? undefined : json['externalId'],
         'section': SectionDataFromJSON(json['section']),
     };
@@ -80,6 +94,8 @@ export function RoleDataToJSON(value?: RoleData | null): any {
         
         'id': value.id,
         'name': value.name,
+        'classId': value.classId,
+        'normalisedClassId': value.normalisedClassId,
         'externalId': value.externalId,
         'section': SectionDataToJSON(value.section),
     };

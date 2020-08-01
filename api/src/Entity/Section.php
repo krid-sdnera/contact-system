@@ -81,7 +81,7 @@ class Section
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ScoutGroup", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\ScoutGroup", cascade={"persist"}, inversedBy="sections")
      * @ORM\JoinColumn(nullable=false)
      */
     private $scoutGroup;
@@ -91,8 +91,14 @@ class Section
      */
     private $externalId;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Role", mappedBy="section")
+     */
+    private $roles;
+
     public function __construct()
     {
+        $this->roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,9 +135,40 @@ class Section
         return $this->externalId;
     }
 
-    public function setExternalId(string $externalId): self
+    public function setExternalId(int $externalId): self
     {
         $this->externalId = $externalId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getRoles(): Collection
+    {
+        return $this->roles;
+    }
+
+    public function addRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+            $role->setSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): self
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->removeElement($role);
+            // set the owning side to null (unless already changed)
+            if ($role->getSection() === $this) {
+                $role->setSection(null);
+            }
+        }
 
         return $this;
     }

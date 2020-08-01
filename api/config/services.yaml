@@ -42,9 +42,9 @@ services:
             - { name: "open_api_server.api", api: "sections" }
 
     contact_system.controller.groups:
-        class: App\Controller\GroupsController
+        class: App\Controller\ScoutGroupsController
         tags:
-            - { name: "open_api_server.api", api: "groups" }
+            - { name: "open_api_server.api", api: "scoutGroups" }
             
     contact_system.controller.contacts:
         class: App\Controller\ContactsController

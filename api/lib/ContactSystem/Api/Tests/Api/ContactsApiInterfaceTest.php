@@ -125,24 +125,6 @@ class ContactsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getContactMembersById
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetContactMembersById()
-    {
-        $client = static::createClient();
-
-        $path = '/contacts/{contactId}/members';
-        $pattern = '{contactId}';
-        $data = $this->genTestData('\d+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
      * Test case for getContacts
      *
      * Your GET endpoint.

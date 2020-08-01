@@ -125,24 +125,6 @@ class RolesApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getRoleMembersById
-     *
-     * Get role members.
-     *
-     */
-    public function testGetRoleMembersById()
-    {
-        $client = static::createClient();
-
-        $path = '/roles/{roleId}/members';
-        $pattern = '{roleId}';
-        $data = $this->genTestData('\d+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
      * Test case for getRoles
      *
      * Get roles.

@@ -52,7 +52,7 @@ class ExtranetRole
         return $this->roleId;
     }
 
-    public function setRoleId(string $roleId): self
+    public function setRoleId(int $roleId): self
     {
         $this->roleId = $roleId;
 
@@ -64,7 +64,7 @@ class ExtranetRole
         return $this->classId;
     }
 
-    public function setClassId(string $classId): self
+    public function setClassId(int $classId): self
     {
         $this->classId = $classId;
 
@@ -77,7 +77,7 @@ class ExtranetRole
     }
 
 
-    public function setNormalisedClassId(string $normalisedClassId): self
+    public function setNormalisedClassId(int $normalisedClassId): self
     {
         $this->normalisedClassId = $normalisedClassId;
 
@@ -101,7 +101,7 @@ class ExtranetRole
         return $this->sectionId;
     }
 
-    public function setSectionId(string $sectionId): self
+    public function setSectionId(int $sectionId): self
     {
         $this->sectionId = $sectionId;
 

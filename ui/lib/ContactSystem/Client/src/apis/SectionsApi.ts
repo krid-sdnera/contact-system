@@ -15,23 +15,22 @@
 
 import * as runtime from '../runtime';
 import {
-    MemberData,
-    MemberDataFromJSON,
-    MemberDataToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
+    Roles,
+    RolesFromJSON,
+    RolesToJSON,
     SectionData,
     SectionDataFromJSON,
     SectionDataToJSON,
     SectionInput,
     SectionInputFromJSON,
     SectionInputToJSON,
+    Sections,
+    SectionsFromJSON,
+    SectionsToJSON,
 } from '../models';
-
-export interface AddSectionLocalMarkerByIdRequest {
-    sectionId: number;
-}
 
 export interface CreateSectionRequest {
     sectionInput?: SectionInput;
@@ -45,7 +44,7 @@ export interface GetSectionByIdRequest {
     sectionId: number;
 }
 
-export interface GetSectionMembersByIdRequest {
+export interface GetSectionRolesByIdRequest {
     sectionId: number;
 }
 
@@ -53,10 +52,6 @@ export interface GetSectionsRequest {
     sort?: string;
     pageSize?: number;
     page?: number;
-}
-
-export interface RemoveSectionLocalMarkerByIdRequest {
-    sectionId: number;
 }
 
 export interface UpdateSectionByIdRequest {
@@ -70,20 +65,6 @@ export interface UpdateSectionByIdRequest {
  * @interface SectionsApiInterface
  */
 export interface SectionsApiInterface {
-    /**
-     * addSectionLocalMarkerById
-     * @param {number} sectionId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SectionsApiInterface
-     */
-    addSectionLocalMarkerByIdRaw(requestParameters: AddSectionLocalMarkerByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
-
-    /**
-     * addSectionLocalMarkerById
-     */
-    addSectionLocalMarkerById(requestParameters: AddSectionLocalMarkerByIdRequest): Promise<ModelApiResponse>;
-
     /**
      * Create Section
      * @summary Create Section
@@ -140,13 +121,13 @@ export interface SectionsApiInterface {
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
      */
-    getSectionMembersByIdRaw(requestParameters: GetSectionMembersByIdRequest): Promise<runtime.ApiResponse<Array<MemberData>>>;
+    getSectionRolesByIdRaw(requestParameters: GetSectionRolesByIdRequest): Promise<runtime.ApiResponse<Roles>>;
 
     /**
      * Your GET endpoint
      * Your GET endpoint
      */
-    getSectionMembersById(requestParameters: GetSectionMembersByIdRequest): Promise<Array<MemberData>>;
+    getSectionRolesById(requestParameters: GetSectionRolesByIdRequest): Promise<Roles>;
 
     /**
      * Get Sections
@@ -158,27 +139,13 @@ export interface SectionsApiInterface {
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
      */
-    getSectionsRaw(requestParameters: GetSectionsRequest): Promise<runtime.ApiResponse<Array<SectionData>>>;
+    getSectionsRaw(requestParameters: GetSectionsRequest): Promise<runtime.ApiResponse<Sections>>;
 
     /**
      * Get Sections
      * Get Sections
      */
-    getSections(requestParameters: GetSectionsRequest): Promise<Array<SectionData>>;
-
-    /**
-     * removeSectionLocalMarkerById
-     * @param {number} sectionId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SectionsApiInterface
-     */
-    removeSectionLocalMarkerByIdRaw(requestParameters: RemoveSectionLocalMarkerByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
-
-    /**
-     * removeSectionLocalMarkerById
-     */
-    removeSectionLocalMarkerById(requestParameters: RemoveSectionLocalMarkerByIdRequest): Promise<ModelApiResponse>;
+    getSections(requestParameters: GetSectionsRequest): Promise<Sections>;
 
     /**
      * Update Section
@@ -203,40 +170,6 @@ export interface SectionsApiInterface {
  * no description
  */
 export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface {
-
-    /**
-     * addSectionLocalMarkerById
-     */
-    async addSectionLocalMarkerByIdRaw(requestParameters: AddSectionLocalMarkerByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
-        if (requestParameters.sectionId === null || requestParameters.sectionId === undefined) {
-            throw new runtime.RequiredError('sectionId','Required parameter requestParameters.sectionId was null or undefined when calling addSectionLocalMarkerById.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        const response = await this.request({
-            path: `/sections/{sectionId}/local`.replace(`{${"sectionId"}}`, encodeURIComponent(String(requestParameters.sectionId))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * addSectionLocalMarkerById
-     */
-    async addSectionLocalMarkerById(requestParameters: AddSectionLocalMarkerByIdRequest): Promise<ModelApiResponse> {
-        const response = await this.addSectionLocalMarkerByIdRaw(requestParameters);
-        return await response.value();
-    }
 
     /**
      * Create Section
@@ -349,9 +282,9 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
      * Your GET endpoint
      * Your GET endpoint
      */
-    async getSectionMembersByIdRaw(requestParameters: GetSectionMembersByIdRequest): Promise<runtime.ApiResponse<Array<MemberData>>> {
+    async getSectionRolesByIdRaw(requestParameters: GetSectionRolesByIdRequest): Promise<runtime.ApiResponse<Roles>> {
         if (requestParameters.sectionId === null || requestParameters.sectionId === undefined) {
-            throw new runtime.RequiredError('sectionId','Required parameter requestParameters.sectionId was null or undefined when calling getSectionMembersById.');
+            throw new runtime.RequiredError('sectionId','Required parameter requestParameters.sectionId was null or undefined when calling getSectionRolesById.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -363,21 +296,21 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
         }
 
         const response = await this.request({
-            path: `/sections/{sectionId}/members`.replace(`{${"sectionId"}}`, encodeURIComponent(String(requestParameters.sectionId))),
+            path: `/sections/{sectionId}/roles`.replace(`{${"sectionId"}}`, encodeURIComponent(String(requestParameters.sectionId))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MemberDataFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => RolesFromJSON(jsonValue));
     }
 
     /**
      * Your GET endpoint
      * Your GET endpoint
      */
-    async getSectionMembersById(requestParameters: GetSectionMembersByIdRequest): Promise<Array<MemberData>> {
-        const response = await this.getSectionMembersByIdRaw(requestParameters);
+    async getSectionRolesById(requestParameters: GetSectionRolesByIdRequest): Promise<Roles> {
+        const response = await this.getSectionRolesByIdRaw(requestParameters);
         return await response.value();
     }
 
@@ -385,7 +318,7 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
      * Get Sections
      * Get Sections
      */
-    async getSectionsRaw(requestParameters: GetSectionsRequest): Promise<runtime.ApiResponse<Array<SectionData>>> {
+    async getSectionsRaw(requestParameters: GetSectionsRequest): Promise<runtime.ApiResponse<Sections>> {
         const queryParameters: runtime.HTTPQuery = {};
 
         if (requestParameters.sort !== undefined) {
@@ -413,49 +346,15 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SectionDataFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SectionsFromJSON(jsonValue));
     }
 
     /**
      * Get Sections
      * Get Sections
      */
-    async getSections(requestParameters: GetSectionsRequest): Promise<Array<SectionData>> {
+    async getSections(requestParameters: GetSectionsRequest): Promise<Sections> {
         const response = await this.getSectionsRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * removeSectionLocalMarkerById
-     */
-    async removeSectionLocalMarkerByIdRaw(requestParameters: RemoveSectionLocalMarkerByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
-        if (requestParameters.sectionId === null || requestParameters.sectionId === undefined) {
-            throw new runtime.RequiredError('sectionId','Required parameter requestParameters.sectionId was null or undefined when calling removeSectionLocalMarkerById.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        const response = await this.request({
-            path: `/sections/{sectionId}/local`.replace(`{${"sectionId"}}`, encodeURIComponent(String(requestParameters.sectionId))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * removeSectionLocalMarkerById
-     */
-    async removeSectionLocalMarkerById(requestParameters: RemoveSectionLocalMarkerByIdRequest): Promise<ModelApiResponse> {
-        const response = await this.removeSectionLocalMarkerByIdRaw(requestParameters);
         return await response.value();
     }
 

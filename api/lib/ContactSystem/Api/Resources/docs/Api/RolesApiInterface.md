@@ -7,7 +7,6 @@ Method | HTTP request | Description
 [**createRole**](RolesApiInterface.md#createRole) | **POST** /roles | Create role
 [**deleteRoleById**](RolesApiInterface.md#deleteRoleById) | **DELETE** /roles/{roleId} | Delete role
 [**getRoleById**](RolesApiInterface.md#getRoleById) | **GET** /roles/{roleId} | Get Role
-[**getRoleMembersById**](RolesApiInterface.md#getRoleMembersById) | **GET** /roles/{roleId}/members | Get role members
 [**getRoles**](RolesApiInterface.md#getRoles) | **GET** /roles | Get roles
 [**updateRoleById**](RolesApiInterface.md#updateRoleById) | **PUT** /roles/{roleId} | Update role
 
@@ -210,73 +209,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getRoleMembersById**
-> OpenAPI\Server\Model\MemberData getRoleMembersById($roleId, $sort, $pageSize, $page)
-
-Get role members
-
-Get role members
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/RolesApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\RolesApiInterface;
-
-class RolesApi implements RolesApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of RolesApiInterface#getRoleMembersById
-     */
-    public function getRoleMembersById(int $roleId, string $sort = null, int $pageSize = null, int $page = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **roleId** | **int**|  |
- **sort** | **string**|  | [optional]
- **pageSize** | **int**|  | [optional]
- **page** | **int**|  | [optional]
-
-### Return type
-
-[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 ## **getRoles**
-> OpenAPI\Server\Model\RoleData getRoles($sort, $pageSize, $page)
+> OpenAPI\Server\Model\Roles getRoles($sort, $pageSize, $page)
 
 Get roles
 
@@ -326,7 +260,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\RoleData**](../Model/RoleData.md)
+[**OpenAPI\Server\Model\Roles**](../Model/Roles.md)
 
 ### Authorization
 

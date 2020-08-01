@@ -38,12 +38,13 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Constraints as Assert;
 use OpenAPI\Server\Api\MembersApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
+use OpenAPI\Server\Model\Contacts;
 use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\MemberInput;
+use OpenAPI\Server\Model\MemberRoleData;
 use OpenAPI\Server\Model\MemberRoleInput;
-use OpenAPI\Server\Model\MemberSuggetion;
+use OpenAPI\Server\Model\MemberRoles;
 use OpenAPI\Server\Model\Members;
-use OpenAPI\Server\Model\RoleData;
 
 /**
  * MembersController Class Doc Comment
@@ -55,91 +56,6 @@ use OpenAPI\Server\Model\RoleData;
  */
 class MembersController extends Controller
 {
-
-    /**
-     * Operation addMemberLocalMarkerById
-     *
-     * Add local marker
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function addMemberLocalMarkerByIdAction(Request $request, $memberId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-auth-token');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $memberId = $this->deserialize($memberId, 'int', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("int");
-        $response = $this->validate($memberId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->addMemberLocalMarkerById($memberId, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'Default response';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'Default response';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (AccessDeniedException $accessDenied) {
-            // Fall through to Symfony Guard Authenticator by rethrowing
-            throw $accessDenied;
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
 
     /**
      * Operation addMemberRoleById
@@ -517,14 +433,14 @@ class MembersController extends Controller
     }
 
     /**
-     * Operation getMemberLocalMarkerSuggestionsById
+     * Operation getMemberContactsById
      *
-     * Get member suggestions
+     * List member's contacts
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getMemberLocalMarkerSuggestionsByIdAction(Request $request, $memberId)
+    public function getMemberContactsByIdAction(Request $request, $memberId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -570,15 +486,100 @@ class MembersController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getMemberLocalMarkerSuggestionsById($memberId, $responseCode, $responseHeaders);
+            $result = $handler->getMemberContactsById($memberId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'Default response';
+            $message = 'OK';
 
             // Find a more specific message, if available
             switch ($responseCode) {
                 case 200:
-                    $message = 'Default response';
+                    $message = 'OK';
+                    break;
+            }
+
+            return new Response(
+                $result !== null ?$this->serialize($result, $responseFormat):'',
+                $responseCode,
+                array_merge(
+                    $responseHeaders,
+                    [
+                        'Content-Type' => $responseFormat,
+                        'X-OpenAPI-Message' => $message
+                    ]
+                )
+            );
+        } catch (AccessDeniedException $accessDenied) {
+            // Fall through to Symfony Guard Authenticator by rethrowing
+            throw $accessDenied;
+        } catch (Exception $fallthrough) {
+            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
+        }
+    }
+
+    /**
+     * Operation getMemberRolesById
+     *
+     * List member's roles
+     *
+     * @param Request $request The Symfony request to handle.
+     * @return Response The Symfony response.
+     */
+    public function getMemberRolesByIdAction(Request $request, $memberId)
+    {
+        // Figure out what data format to return to the client
+        $produces = ['application/json'];
+        // Figure out what the client accepts
+        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
+        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
+        if ($responseFormat === null) {
+            return new Response('', 406);
+        }
+
+        // Handle authentication
+        // Authentication 'contact_auth' required
+        // Set key with prefix in header
+        $securitycontact_auth = $request->headers->get('x-auth-token');
+
+        // Read out all input parameter values into variables
+
+        // Use the default value if no value was provided
+
+        // Deserialize the input values that needs it
+        try {
+            $memberId = $this->deserialize($memberId, 'int', 'string');
+        } catch (SerializerRuntimeException $exception) {
+            return $this->createBadRequestResponse($exception->getMessage());
+        }
+
+        // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\NotNull();
+        $asserts[] = new Assert\Type("int");
+        $response = $this->validate($memberId, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+
+        try {
+            $handler = $this->getApiHandler();
+
+            // Set authentication method 'contact_auth'
+            $handler->setcontact_auth($securitycontact_auth);
+            
+            // Make the call to the business logic
+            $responseCode = 200;
+            $responseHeaders = [];
+            $result = $handler->getMemberRolesById($memberId, $responseCode, $responseHeaders);
+
+            // Find default response message
+            $message = 'OK';
+
+            // Find a more specific message, if available
+            switch ($responseCode) {
+                case 200:
+                    $message = 'OK';
                     break;
             }
 
@@ -867,91 +868,6 @@ class MembersController extends Controller
             $responseCode = 200;
             $responseHeaders = [];
             $result = $handler->patchMemberById($memberId, $memberInput, $responseCode, $responseHeaders);
-
-            // Find default response message
-            $message = 'Default response';
-
-            // Find a more specific message, if available
-            switch ($responseCode) {
-                case 200:
-                    $message = 'Default response';
-                    break;
-            }
-
-            return new Response(
-                $result !== null ?$this->serialize($result, $responseFormat):'',
-                $responseCode,
-                array_merge(
-                    $responseHeaders,
-                    [
-                        'Content-Type' => $responseFormat,
-                        'X-OpenAPI-Message' => $message
-                    ]
-                )
-            );
-        } catch (AccessDeniedException $accessDenied) {
-            // Fall through to Symfony Guard Authenticator by rethrowing
-            throw $accessDenied;
-        } catch (Exception $fallthrough) {
-            return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
-        }
-    }
-
-    /**
-     * Operation removeMemberLocalMarkerById
-     *
-     * Remove local marker
-     *
-     * @param Request $request The Symfony request to handle.
-     * @return Response The Symfony response.
-     */
-    public function removeMemberLocalMarkerByIdAction(Request $request, $memberId)
-    {
-        // Figure out what data format to return to the client
-        $produces = ['application/json'];
-        // Figure out what the client accepts
-        $clientAccepts = $request->headers->has('Accept')?$request->headers->get('Accept'):'*/*';
-        $responseFormat = $this->getOutputFormat($clientAccepts, $produces);
-        if ($responseFormat === null) {
-            return new Response('', 406);
-        }
-
-        // Handle authentication
-        // Authentication 'contact_auth' required
-        // Set key with prefix in header
-        $securitycontact_auth = $request->headers->get('x-auth-token');
-
-        // Read out all input parameter values into variables
-
-        // Use the default value if no value was provided
-
-        // Deserialize the input values that needs it
-        try {
-            $memberId = $this->deserialize($memberId, 'int', 'string');
-        } catch (SerializerRuntimeException $exception) {
-            return $this->createBadRequestResponse($exception->getMessage());
-        }
-
-        // Validate the input values
-        $asserts = [];
-        $asserts[] = new Assert\NotNull();
-        $asserts[] = new Assert\Type("int");
-        $response = $this->validate($memberId, $asserts);
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-
-        try {
-            $handler = $this->getApiHandler();
-
-            // Set authentication method 'contact_auth'
-            $handler->setcontact_auth($securitycontact_auth);
-            
-            // Make the call to the business logic
-            $responseCode = 200;
-            $responseHeaders = [];
-            $result = $handler->removeMemberLocalMarkerById($memberId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'Default response';

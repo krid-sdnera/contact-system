@@ -177,6 +177,20 @@ class MemberDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "schoolName"
+     */
+    public function testPropertySchoolName()
+    {
+    }
+
+    /**
+     * Test attribute "schoolYearLevel"
+     */
+    public function testPropertySchoolYearLevel()
+    {
+    }
+
+    /**
      * Test attribute "expiry"
      */
     public function testPropertyExpiry()

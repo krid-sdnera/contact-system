@@ -11,6 +11,7 @@ use DateTime;
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\AddressData;
+use OpenAPI\Server\Model\MemberOverrideData;
 use OpenAPI\Server\Model\MemberData;
 
 /**
@@ -364,14 +365,9 @@ class Member
             'email' => $this->getEmail(),
             'schoolName' => $this->getSchoolName(),
             'schoolYearLevel' => $this->getSchoolYearLevel(),
+            'overrides' => new MemberOverrideData($this->getOverrides()),
             // TODO fix this
             // 'membershipUpdateLink' => $this->getMembershipUpdateLink(),
-            'roles' => array_map(function ($role) {
-                return $role->toMemberRoleData();
-            }, iterator_to_array($this->getRoles())),
-            'contacts' => array_map(function ($contact) {
-                return $contact->toContactData();
-            }, iterator_to_array($this->getContacts()))
         ];
 
         $data = new MemberData($arrayData);

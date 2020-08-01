@@ -4,6 +4,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | 
+**classId** | **string** |  | [optional] 
+**normalisedClassId** | **string** |  | [optional] 
 **externalId** | **string** |  | [optional] 
 **sectionId** | **int** |  | 
 

@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **phoneMobile** | **string** |  | [optional] 
 **phoneWork** | **string** |  | [optional] 
 **gender** | **string** |  | [optional] 
+**schoolName** | **string** |  | [optional] 
+**schoolYearLevel** | **string** |  | [optional] 
 **expiry** | **string** |  | [optional] 
 **overrides** | [**OpenAPI\Server\Model\MemberOverrideData**](MemberOverrideData.md) |  | [optional] 
 

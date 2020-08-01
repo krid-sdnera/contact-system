@@ -79,6 +79,18 @@ export interface MemberOverrideData {
      * @memberof MemberOverrideData
      */
     gender?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MemberOverrideData
+     */
+    schoolName?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MemberOverrideData
+     */
+    schoolYearLevel?: boolean;
 }
 
 export function MemberOverrideDataFromJSON(json: any): MemberOverrideData {
@@ -101,6 +113,8 @@ export function MemberOverrideDataFromJSONTyped(json: any, ignoreDiscriminator: 
         'phoneMobile': !exists(json, 'phoneMobile') ? undefined : json['phoneMobile'],
         'phoneWork': !exists(json, 'phoneWork') ? undefined : json['phoneWork'],
         'gender': !exists(json, 'gender') ? undefined : json['gender'],
+        'schoolName': !exists(json, 'schoolName') ? undefined : json['schoolName'],
+        'schoolYearLevel': !exists(json, 'schoolYearLevel') ? undefined : json['schoolYearLevel'],
     };
 }
 
@@ -123,6 +137,8 @@ export function MemberOverrideDataToJSON(value?: MemberOverrideData | null): any
         'phoneMobile': value.phoneMobile,
         'phoneWork': value.phoneWork,
         'gender': value.gender,
+        'schoolName': value.schoolName,
+        'schoolYearLevel': value.schoolYearLevel,
     };
 }
 

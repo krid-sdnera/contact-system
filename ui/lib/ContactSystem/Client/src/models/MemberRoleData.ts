@@ -31,13 +31,13 @@ export interface MemberRoleData {
      * @type {string}
      * @memberof MemberRoleData
      */
-    state?: MemberRoleDataStateEnum;
+    state: MemberRoleDataStateEnum;
     /**
      * 
      * @type {string}
      * @memberof MemberRoleData
      */
-    managementState?: MemberRoleDataManagementStateEnum;
+    managementState: MemberRoleDataManagementStateEnum;
     /**
      * 
      * @type {string}
@@ -46,10 +46,16 @@ export interface MemberRoleData {
     expiry?: string;
     /**
      * 
+     * @type {number}
+     * @memberof MemberRoleData
+     */
+    memberId: number;
+    /**
+     * 
      * @type {RoleData}
      * @memberof MemberRoleData
      */
-    role?: RoleData;
+    role: RoleData;
 }
 
 export function MemberRoleDataFromJSON(json: any): MemberRoleData {
@@ -62,10 +68,11 @@ export function MemberRoleDataFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'state': !exists(json, 'state') ? undefined : json['state'],
-        'managementState': !exists(json, 'managementState') ? undefined : json['managementState'],
+        'state': json['state'],
+        'managementState': json['managementState'],
         'expiry': !exists(json, 'expiry') ? undefined : json['expiry'],
-        'role': !exists(json, 'role') ? undefined : RoleDataFromJSON(json['role']),
+        'memberId': json['memberId'],
+        'role': RoleDataFromJSON(json['role']),
     };
 }
 
@@ -81,6 +88,7 @@ export function MemberRoleDataToJSON(value?: MemberRoleData | null): any {
         'state': value.state,
         'managementState': value.managementState,
         'expiry': value.expiry,
+        'memberId': value.memberId,
         'role': RoleDataToJSON(value.role),
     };
 }

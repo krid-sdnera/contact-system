@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use OpenAPI\Server\Model\AddressData;
 use OpenAPI\Server\Model\ContactData;
+use OpenAPI\Server\Model\ContactOverrideData;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
@@ -140,6 +141,7 @@ class Contact
             'state' => $this->getState(),
             'managementState' => $this->getManagementState(),
             'expiry' => $this->getExpiry(),
+            'memberId' => $this->getMember()->getId(),
             'firstname' => $this->getFirstname(),
             'nickname' => $this->getNickname(),
             'lastname' => $this->getLastname(),
@@ -152,6 +154,7 @@ class Contact
             'phoneMobile' => $this->getPhoneMobile(),
             'email' => $this->getEmail(),
             'primaryContact' => $this->getPrimaryContact(),
+            'overrides' => new ContactOverrideData($this->getOverrides()),
         ];
 
         $data = new ContactData($arrayData);

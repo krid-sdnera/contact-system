@@ -160,6 +160,22 @@ class MemberData
 
     /**
      * @var string|null
+     * @SerializedName("schoolName")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $schoolName;
+
+    /**
+     * @var string|null
+     * @SerializedName("schoolYearLevel")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $schoolYearLevel;
+
+    /**
+     * @var string|null
      * @SerializedName("expiry")
      * @Assert\Type("string")
      * @Type("string")
@@ -195,6 +211,8 @@ class MemberData
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
         $this->phoneWork = isset($data['phoneWork']) ? $data['phoneWork'] : null;
         $this->gender = isset($data['gender']) ? $data['gender'] : null;
+        $this->schoolName = isset($data['schoolName']) ? $data['schoolName'] : null;
+        $this->schoolYearLevel = isset($data['schoolYearLevel']) ? $data['schoolYearLevel'] : null;
         $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
         $this->overrides = isset($data['overrides']) ? $data['overrides'] : null;
     }
@@ -531,6 +549,54 @@ class MemberData
     public function setGender(string $gender = null): ?string
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Gets schoolName.
+     *
+     * @return string|null
+     */
+    public function getSchoolName(): ?string
+    {
+        return $this->schoolName;
+    }
+
+    /**
+     * Sets schoolName.
+     *
+     * @param string|null $schoolName
+     *
+     * @return $this
+     */
+    public function setSchoolName(string $schoolName = null): ?string
+    {
+        $this->schoolName = $schoolName;
+
+        return $this;
+    }
+
+    /**
+     * Gets schoolYearLevel.
+     *
+     * @return string|null
+     */
+    public function getSchoolYearLevel(): ?string
+    {
+        return $this->schoolYearLevel;
+    }
+
+    /**
+     * Sets schoolYearLevel.
+     *
+     * @param string|null $schoolYearLevel
+     *
+     * @return $this
+     */
+    public function setSchoolYearLevel(string $schoolYearLevel = null): ?string
+    {
+        $this->schoolYearLevel = $schoolYearLevel;
 
         return $this;
     }

@@ -147,4 +147,18 @@ class MemberOverrideDataTest extends \PHPUnit_Framework_TestCase
     public function testPropertyGender()
     {
     }
+
+    /**
+     * Test attribute "schoolName"
+     */
+    public function testPropertySchoolName()
+    {
+    }
+
+    /**
+     * Test attribute "schoolYearLevel"
+     */
+    public function testPropertySchoolYearLevel()
+    {
+    }
 }

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **email** | **string** |  | [optional] 
 **occupation** | **string** |  | [optional] 
 **memberId** | **int** |  | [optional] 
+**parentId** | **int** |  | [optional] 
 **expiry** | **string** |  | [optional] 
 **overrides** | [**OpenAPI\Server\Model\ContactOverrideData**](ContactOverrideData.md) |  | [optional] 
 

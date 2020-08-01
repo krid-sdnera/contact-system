@@ -1,6 +1,6 @@
 <?php
 /**
- * GroupsApiInterfaceTest
+ * ScoutGroupsApiInterfaceTest
  * PHP version 5
  *
  * @category Class
@@ -35,14 +35,14 @@ use OpenAPI\Server\ObjectSerializer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * GroupsApiInterfaceTest Class Doc Comment
+ * ScoutGroupsApiInterfaceTest Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Server\Tests\Api
  * @author   openapi-generator contributors
  * @link     https://github.com/openapitools/openapi-generator
  */
-class GroupsApiInterfaceTest extends WebTestCase
+class ScoutGroupsApiInterfaceTest extends WebTestCase
 {
 
     /**
@@ -74,30 +74,12 @@ class GroupsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for addGroupLocalMarkerById
-     *
-     * .
-     *
-     */
-    public function testAddGroupLocalMarkerById()
-    {
-        $client = static::createClient();
-
-        $path = '/groups/{groupId}/local';
-        $pattern = '{groupId}';
-        $data = $this->genTestData('\d+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('PUT', $path);
-    }
-
-    /**
-     * Test case for createGroup
+     * Test case for createScoutGroup
      *
      * Create Group.
      *
      */
-    public function testCreateGroup()
+    public function testCreateScoutGroup()
     {
         $client = static::createClient();
 
@@ -107,17 +89,17 @@ class GroupsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteGroupById
+     * Test case for deleteScoutGroupById
      *
      * Delete Group.
      *
      */
-    public function testDeleteGroupById()
+    public function testDeleteScoutGroupById()
     {
         $client = static::createClient();
 
-        $path = '/groups/{groupId}';
-        $pattern = '{groupId}';
+        $path = '/groups/{scoutGroupId}';
+        $pattern = '{scoutGroupId}';
         $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
@@ -125,35 +107,17 @@ class GroupsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteGroupLocalMarkerById
-     *
-     * .
-     *
-     */
-    public function testDeleteGroupLocalMarkerById()
-    {
-        $client = static::createClient();
-
-        $path = '/groups/{groupId}/local';
-        $pattern = '{groupId}';
-        $data = $this->genTestData('\d+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('DELETE', $path);
-    }
-
-    /**
-     * Test case for getGroupById
+     * Test case for getScoutGroupById
      *
      * Get Group.
      *
      */
-    public function testGetGroupById()
+    public function testGetScoutGroupById()
     {
         $client = static::createClient();
 
-        $path = '/groups/{groupId}';
-        $pattern = '{groupId}';
+        $path = '/groups/{scoutGroupId}';
+        $pattern = '{scoutGroupId}';
         $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
@@ -161,17 +125,17 @@ class GroupsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getGroupMembersById
+     * Test case for getScoutGroupSectionsById
      *
      * Your GET endpoint.
      *
      */
-    public function testGetGroupMembersById()
+    public function testGetScoutGroupSectionsById()
     {
         $client = static::createClient();
 
-        $path = '/groups/{groupId}/members';
-        $pattern = '{groupId}';
+        $path = '/groups/{scoutGroupId}/sections';
+        $pattern = '{scoutGroupId}';
         $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
@@ -179,30 +143,12 @@ class GroupsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getGroupSectionsById
-     *
-     * Your GET endpoint.
-     *
-     */
-    public function testGetGroupSectionsById()
-    {
-        $client = static::createClient();
-
-        $path = '/groups/{groupId}/sections';
-        $pattern = '{groupId}';
-        $data = $this->genTestData('\d+');
-        $path = str_replace($pattern, $data, $path);
-
-        $crawler = $client->request('GET', $path);
-    }
-
-    /**
-     * Test case for getGroups
+     * Test case for getScoutGroups
      *
      * Get Groups.
      *
      */
-    public function testGetGroups()
+    public function testGetScoutGroups()
     {
         $client = static::createClient();
 
@@ -212,17 +158,17 @@ class GroupsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for updateGroupById
+     * Test case for updateScoutGroupById
      *
      * Update Group.
      *
      */
-    public function testUpdateGroupById()
+    public function testUpdateScoutGroupById()
     {
         $client = static::createClient();
 
-        $path = '/groups/{groupId}';
-        $pattern = '{groupId}';
+        $path = '/groups/{scoutGroupId}';
+        $pattern = '{scoutGroupId}';
         $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
