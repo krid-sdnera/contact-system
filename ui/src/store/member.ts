@@ -5,6 +5,7 @@ import {
   UpdateMemberByIdRequest,
   PatchMemberByIdRequest,
   CreateMemberRequest,
+  AddMemberRoleByIdRequest,
 } from '@api/apis';
 import { MemberData, MemberRoleData } from '@api/models';
 import { AppError, ErrorCode } from '~/common/app-error';
@@ -137,6 +138,32 @@ export const actions: ActionTree<RootState, RootState> = {
     } catch (e) {
       commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
       throw new AppError(ErrorCode.InternalError, 'Unable to patch member', e);
+    }
+  },
+
+  async addMemberRole(
+    { commit },
+    { memberId, roleId, memberRoleInput }: AddMemberRoleByIdRequest
+  ) {
+    try {
+      commit('ui/startUpdateApiRequestInProgress', null, { root: true });
+      const payload: MemberRoleData = await this.$api.members.addMemberRoleById(
+        {
+          memberId,
+          roleId,
+          memberRoleInput,
+        }
+      );
+      commit('setMemberRoles', [payload]);
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      return payload;
+    } catch (e) {
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      throw new AppError(
+        ErrorCode.InternalError,
+        'Unable to create member role',
+        e
+      );
     }
   },
 };

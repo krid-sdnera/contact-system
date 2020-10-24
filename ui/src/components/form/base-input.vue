@@ -28,6 +28,24 @@
       :label="label"
       :disabled="!isOverridden"
     ></v-switch>
+    <v-select
+      v-else-if="fieldType === 'select'"
+      item-text="label"
+      item-value="value"
+      v-model="fieldData"
+      :label="label"
+      :disabled="!isOverridden"
+      :items="selectOptions"
+    />
+    <v-autocomplete
+      v-else-if="fieldType === 'autocomplete'"
+      item-text="label"
+      item-value="value"
+      v-model="fieldData"
+      :label="label"
+      :disabled="!isOverridden"
+      :items="selectOptions"
+    ></v-autocomplete>
     <v-menu
       v-else-if="fieldType === 'date'"
       v-model="datePickerModal"
@@ -74,6 +92,9 @@ export default class BaseInputComponent extends Vue {
 
   @Prop(String)
   readonly fieldType!: string;
+
+  @Prop(Array)
+  readonly selectOptions: { label: string; value: string }[] | undefined;
 
   @PropSync('field', { type: [String, Boolean] })
   fieldData!: string | boolean;

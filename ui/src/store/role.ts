@@ -37,7 +37,7 @@ export const mutations: MutationTree<RootState> = {
 
 export const actions: ActionTree<RootState, RootState> = {
   async fetchRoles({ commit }, options: GetRolesRequest) {
-    const payload = await this.$api.roles.getRoles(options);
+    const payload = await this.$api.roles.getRoles(options ?? {});
     commit('setRoles', payload.roles);
   },
   async fetchRoleById({ commit }, roleId: number) {

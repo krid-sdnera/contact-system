@@ -57,7 +57,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
         // Get relationship if it exisits
         $roleRelation = $this->getDoctrine()
             ->getRepository(MemberRole::class)
-            ->findOneBy(['role' => $roleId]);
+            ->findOneBy(['role' => $roleId, 'member' => $memberId]);
 
         // Confirm the role (still)? exists
         $role = $this->getDoctrine()
@@ -105,7 +105,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $entityManager->persist($roleRelation);
         $entityManager->flush();
 
-        return $memberToUpdate;
+        return $roleRelation->toMemberRoleData();
     }
 
 

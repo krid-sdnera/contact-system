@@ -52,9 +52,9 @@
               >
                 {{ member.state | capitalize }}
               </v-chip>
-              <v-chip class="mb-1">{{
-                member.managementState | capitalize
-              }}</v-chip>
+              <v-chip class="mb-1">
+                {{ member.managementState | capitalize }}
+              </v-chip>
               <v-chip v-if="member.expiry" class="mb-1">{{
                 member.expiry
               }}</v-chip>
@@ -267,18 +267,16 @@
                   color="primary"
                   class="mb-2"
                   @click="openCreateContactModal()"
-                  >New Local Contact</v-btn
                 >
+                  New Local Contact
+                </v-btn>
               </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
               <nuxt-link :to="{ path: `/contacts/${item.id}` }">
                 <v-icon small class="mr-2">mdi-eye</v-icon>
               </nuxt-link>
-              <nuxt-link :to="{ path: `/contacts/${item.id}/edit` }">
-                <v-icon small class="mr-2">mdi-pencil</v-icon>
-              </nuxt-link>
-              <nuxt-link :to="{ path: `/contacts/${item.id}/edit` }">
+              <nuxt-link :to="{ path: `/contacts/${item.id}/delete` }">
                 <v-icon small>mdi-delete</v-icon>
               </nuxt-link>
             </template>
@@ -296,19 +294,20 @@
                 <v-toolbar-title>Roles</v-toolbar-title>
                 <v-divider class="mx-4" inset vertical></v-divider>
                 <v-spacer></v-spacer>
-                <nuxt-link :to="{ path: `/roles/create/for-member/${id}/` }">
-                  <v-btn color="primary" class="mb-2">New Local Role</v-btn>
-                </nuxt-link>
+                <v-btn
+                  color="primary"
+                  class="mb-2"
+                  @click="openCreateMemberRoleModal()"
+                >
+                  Assign Local Role
+                </v-btn>
               </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
               <nuxt-link :to="{ path: `/roles/${item.role.id}` }">
                 <v-icon small class="mr-2">mdi-eye</v-icon>
               </nuxt-link>
-              <nuxt-link :to="{ path: `/roles/${item.role.id}/edit` }">
-                <v-icon small class="mr-2">mdi-pencil</v-icon>
-              </nuxt-link>
-              <nuxt-link :to="{ path: `/roles/${item.role.id}/edit` }">
+              <nuxt-link :to="{ path: `/roles/${item.role.id}/delete` }">
                 <v-icon small>mdi-delete</v-icon>
               </nuxt-link>
             </template>
@@ -322,6 +321,10 @@
       :member="member"
       :open.sync="dialogContactCreate"
     ></contact-create>
+    <member-role-create
+      :member="member"
+      :open.sync="dialogMemberRoleCreate"
+    ></member-role-create>
   </div>
   <v-container v-else-if="loading">
     <!-- Skeletons -->
@@ -365,6 +368,7 @@ import {
 import BaseInputComponent from '~/components/form/base-input.vue';
 import MemberEditDialog from '~/components/dialogs/member-edit.vue';
 import ContactCreateDialog from '~/components/dialogs/contact-create.vue';
+import MemberRoleCreateDialog from '~/components/dialogs/member-role-create.vue';
 
 import * as member from '~/store/member';
 import * as contact from '~/store/contact';
@@ -375,6 +379,7 @@ import * as ui from '~/store/ui';
     BaseInputComponent,
     MemberEditDialog,
     ContactCreateDialog,
+    MemberRoleCreateDialog,
   },
 })
 export default class MemberDetailPage extends Vue {
@@ -490,6 +495,16 @@ export default class MemberDetailPage extends Vue {
 
   closeCreateContactModal() {
     this.dialogContactCreate = false;
+  }
+
+  dialogMemberRoleCreate: boolean = false;
+
+  openCreateMemberRoleModal() {
+    this.dialogMemberRoleCreate = true;
+  }
+
+  closeCreateMemberRoleModal() {
+    this.dialogMemberRoleCreate = false;
   }
 }
 </script>
