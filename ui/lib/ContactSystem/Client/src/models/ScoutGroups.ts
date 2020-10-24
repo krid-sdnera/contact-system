@@ -31,7 +31,7 @@ export interface ScoutGroups {
      * @type {Array<ScoutGroupData>}
      * @memberof ScoutGroups
      */
-    scoutGroup: Array<ScoutGroupData>;
+    scoutGroups: Array<ScoutGroupData>;
 }
 
 export function ScoutGroupsFromJSON(json: any): ScoutGroups {
@@ -44,7 +44,7 @@ export function ScoutGroupsFromJSONTyped(json: any, ignoreDiscriminator: boolean
     }
     return {
         
-        'scoutGroup': ((json['scoutGroup'] as Array<any>).map(ScoutGroupDataFromJSON)),
+        'scoutGroups': ((json['scoutGroups'] as Array<any>).map(ScoutGroupDataFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function ScoutGroupsToJSON(value?: ScoutGroups | null): any {
     }
     return {
         
-        'scoutGroup': ((value.scoutGroup as Array<any>).map(ScoutGroupDataToJSON)),
+        'scoutGroups': ((value.scoutGroups as Array<any>).map(ScoutGroupDataToJSON)),
     };
 }
 

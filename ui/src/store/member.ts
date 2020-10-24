@@ -4,6 +4,7 @@ import {
   GetMembersRequest,
   UpdateMemberByIdRequest,
   PatchMemberByIdRequest,
+  CreateMemberRequest,
 } from '@api/apis';
 import { MemberData, MemberRoleData } from '@api/models';
 import { AppError, ErrorCode } from '~/common/app-error';
@@ -86,6 +87,20 @@ export const actions: ActionTree<RootState, RootState> = {
         'Unable to load member roles',
         e
       );
+    }
+  },
+  async createMember({ commit }, { memberInput }: CreateMemberRequest) {
+    try {
+      commit('ui/startUpdateApiRequestInProgress', null, { root: true });
+      const payload: MemberData = await this.$api.members.createMember({
+        memberInput,
+      });
+      commit('setMemberById', payload);
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      return payload;
+    } catch (e) {
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      throw new AppError(ErrorCode.InternalError, 'Unable to create member', e);
     }
   },
   async updateMemberById(

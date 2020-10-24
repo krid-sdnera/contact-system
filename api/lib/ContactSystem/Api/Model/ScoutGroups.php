@@ -47,14 +47,14 @@ class ScoutGroups
      * Array containg the list
      *
      * @var OpenAPI\Server\Model\ScoutGroupData[]
-     * @SerializedName("scoutGroup")
+     * @SerializedName("scoutGroups")
      * @Assert\NotNull()
      * @Assert\All({
      *   @Assert\Type("OpenAPI\Server\Model\ScoutGroupData")
      * })
      * @Type("array<OpenAPI\Server\Model\ScoutGroupData>")
      */
-    protected $scoutGroup;
+    protected $scoutGroups;
 
     /**
      * Constructor
@@ -62,29 +62,29 @@ class ScoutGroups
      */
     public function __construct(array $data = null)
     {
-        $this->scoutGroup = isset($data['scoutGroup']) ? $data['scoutGroup'] : null;
+        $this->scoutGroups = isset($data['scoutGroups']) ? $data['scoutGroups'] : null;
     }
 
     /**
-     * Gets scoutGroup.
+     * Gets scoutGroups.
      *
      * @return OpenAPI\Server\Model\ScoutGroupData[]
      */
-    public function getScoutGroup(): array
+    public function getScoutGroups(): array
     {
-        return $this->scoutGroup;
+        return $this->scoutGroups;
     }
 
     /**
-     * Sets scoutGroup.
+     * Sets scoutGroups.
      *
-     * @param OpenAPI\Server\Model\ScoutGroupData[] $scoutGroup  Array containg the list
+     * @param OpenAPI\Server\Model\ScoutGroupData[] $scoutGroups  Array containg the list
      *
      * @return $this
      */
-    public function setScoutGroup(array $scoutGroup): array
+    public function setScoutGroups(array $scoutGroups): array
     {
-        $this->scoutGroup = $scoutGroup;
+        $this->scoutGroups = $scoutGroups;
 
         return $this;
     }

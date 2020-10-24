@@ -263,9 +263,12 @@
                 <v-toolbar-title>Contacts</v-toolbar-title>
                 <v-divider class="mx-4" inset vertical></v-divider>
                 <v-spacer></v-spacer>
-                <nuxt-link :to="{ path: `/contacts/create/for-member/${id}/` }">
-                  <v-btn color="primary" class="mb-2">New Local Contact</v-btn>
-                </nuxt-link>
+                <v-btn
+                  color="primary"
+                  class="mb-2"
+                  @click="openCreateContactModal()"
+                  >New Local Contact</v-btn
+                >
               </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
@@ -315,6 +318,10 @@
     </v-container>
     <!-- Dialogs -->
     <member-edit :member="member" :open.sync="dialogMemberEdit"></member-edit>
+    <contact-create
+      :member="member"
+      :open.sync="dialogContactCreate"
+    ></contact-create>
   </div>
   <v-container v-else-if="loading">
     <!-- Skeletons -->
@@ -357,6 +364,7 @@ import {
 } from '@api/models';
 import BaseInputComponent from '~/components/form/base-input.vue';
 import MemberEditDialog from '~/components/dialogs/member-edit.vue';
+import ContactCreateDialog from '~/components/dialogs/contact-create.vue';
 
 import * as member from '~/store/member';
 import * as contact from '~/store/contact';
@@ -366,6 +374,7 @@ import * as ui from '~/store/ui';
   components: {
     BaseInputComponent,
     MemberEditDialog,
+    ContactCreateDialog,
   },
 })
 export default class MemberDetailPage extends Vue {
@@ -471,6 +480,16 @@ export default class MemberDetailPage extends Vue {
 
   closeEditMemberModal() {
     this.dialogMemberEdit = false;
+  }
+
+  dialogContactCreate: boolean = false;
+
+  openCreateContactModal() {
+    this.dialogContactCreate = true;
+  }
+
+  closeCreateContactModal() {
+    this.dialogContactCreate = false;
   }
 }
 </script>

@@ -79,9 +79,9 @@ class ScoutGroupsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "scoutGroup"
+     * Test attribute "scoutGroups"
      */
-    public function testPropertyScoutGroup()
+    public function testPropertyScoutGroups()
     {
     }
 }

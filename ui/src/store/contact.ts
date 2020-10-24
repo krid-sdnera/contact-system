@@ -4,6 +4,7 @@ import {
   GetContactsRequest,
   UpdateContactByIdRequest,
   PatchContactByIdRequest,
+  CreateContactRequest,
 } from '@api/apis';
 import { ContactData } from '@api/models';
 import { AppError, ErrorCode } from '~/common/app-error';
@@ -60,6 +61,24 @@ export const actions: ActionTree<RootState, RootState> = {
       commit('setContacts', payload.contacts);
     } catch (e) {
       throw new AppError(ErrorCode.InternalError, 'Unable to load contacts', e);
+    }
+  },
+  async createContact({ commit }, { contactInput }: CreateContactRequest) {
+    try {
+      commit('ui/startUpdateApiRequestInProgress', null, { root: true });
+      const payload: ContactData = await this.$api.contacts.createContact({
+        contactInput,
+      });
+      commit('setContactById', payload);
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      return payload;
+    } catch (e) {
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      throw new AppError(
+        ErrorCode.InternalError,
+        'Unable to create contact',
+        e
+      );
     }
   },
   async updateContactById(

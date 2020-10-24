@@ -560,14 +560,14 @@ paths:
                 description: A list of scout groups
                 type: object
                 properties:
-                  scoutGroup:
+                  scoutGroups:
                     description: Array containg the list
                     type: array
                     uniqueItems: true
                     items:
                       $ref: "#/components/schemas/ScoutGroupData"
                 required:
-                  - scoutGroup
+                  - scoutGroups
       operationId: getScoutGroups
       parameters:
         - schema:

@@ -12,9 +12,13 @@
         <v-toolbar-title>Members</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <nuxt-link :to="{ path: '/members/create' }">
-          <v-btn color="primary" dark class="mb-2">New Local Member</v-btn>
-        </nuxt-link>
+        <v-btn color="primary" class="mb-2" @click="openCreateMemberModal"
+          >New Local Member</v-btn
+        >
+        <member-create
+          :open.sync="dialogMemberCreate"
+          @submit="handleMemberCreateSubmit"
+        ></member-create>
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
@@ -84,8 +88,20 @@ export default class MembersListPage extends Vue {
     }
   }
 
-  async getDataFromApi(): Promise<void> {
-    // const { /* sortBy, sortDesc, */ page, itemsPerPage } = this.options;
+  dialogMemberCreate: boolean = false;
+
+  openCreateMemberModal() {
+    this.dialogMemberCreate = true;
+  }
+
+  closeCreateMemberModal() {
+    this.dialogMemberCreate = false;
+  }
+
+  handleMemberCreateSubmit(response: MemberData) {
+    if (response?.id) {
+      this.$router.push(`/members/${response.id}`);
+    }
   }
 }
 </script>

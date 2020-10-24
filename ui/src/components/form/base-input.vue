@@ -100,11 +100,16 @@ export default class BaseInputComponent extends Vue {
     // The override key is set to a falsy value.
     switch (this.fieldType) {
       case 'date': {
-        this.fieldData = this.original?.toISOString().substr(0, 10);
+        this.fieldData =
+          this.original instanceof Date
+            ? this.original?.toISOString().substr(0, 10)
+            : false;
         break;
       }
       default: {
-        this.fieldData = this.original || '';
+        this.fieldData = !(this.original instanceof Date)
+          ? this.original ?? ''
+          : '';
 
         break;
       }
