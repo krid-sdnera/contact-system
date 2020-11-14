@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use DateTime;
+use DateTimeInterface;
 
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
@@ -351,7 +352,7 @@ class Member
             'id' => $this->getId(),
             'state' => $this->getState(),
             'managementState' => $this->getManagementState(),
-            'expiry' => $this->getExpiry(),
+            'expiry' => ($this->getExpiry()) ? $this->getExpiry()->format(DateTimeInterface::ISO8601) : null,
             'firstname' => $this->getFirstname(),
             'nickname' => $this->getNickname(),
             'lastname' => $this->getLastname(),

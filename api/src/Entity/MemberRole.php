@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use DateTimeInterface;
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\MemberRoleData;
@@ -73,7 +74,7 @@ class MemberRole
             'id' => $this->getId(),
             'state' => $this->getState(),
             'managementState' => $this->getManagementState(),
-            'expiry' => $this->getExpiry(),
+            'expiry' => ($this->getExpiry()) ? $this->getExpiry()->format(DateTimeInterface::ISO8601) : null,
             'memberId' => $this->getMember()->getId(),
             'role' => $this->getRole()->toRoleData(),
         ];

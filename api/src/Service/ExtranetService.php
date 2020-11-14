@@ -167,6 +167,33 @@ class ExtranetService
         $cookie = $loginResponse->getHeaders()['set-cookie'][0];
         $this->setClient(self::HttpClientFactory($cookie));
 
+        $_2fa_security_question = $this->client->request(
+            'POST',
+            '/portal/twoFactorAuth.php',
+            [
+                'body' => [
+                    "username" => $this->credentials['username'],
+                    "password" => $this->credentials['password'],
+                    "authMethod" => "QUESTION",
+                    "authFormAction" => "validate",
+                    "questionID" => "3",
+                    "answerInput" => "3040",
+                    "btnSubmitQuestionAnswer" => "Submit"
+                ]
+            ]
+        );
+
+        $loginResponse = $this->client->request(
+            'POST',
+            '/portal/authNext.php',
+            [
+                'body' => [
+                    "username" => $this->credentials['username'],
+                    "authprocess" => "authNext"
+                ]
+            ]
+        );
+
         $this->checkExtranetLoginCensus($loginResponse);
         $this->checkExtranetLoginInsurance($loginResponse);
         $this->checkExtranetLoginPasswordExpiry($loginResponse);
@@ -557,7 +584,7 @@ class ExtranetService
                 // Yes this member is in extranet
             } else {
                 // No this contact is not in extranet
-                $member = $memberRepo->findOne($memberId);
+                $member = $memberRepo->findOneBy(['id' => $memberId]);
                 $member->setManagementState(Member::UnmanagementStateManaged);
                 // TODO: Check if the expiry date is already set
                 $member->setExpiry(new DateTime());

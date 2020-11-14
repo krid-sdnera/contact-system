@@ -148,7 +148,7 @@ class Role
         return $this->classId;
     }
 
-    public function setClassId(int $classId): self
+    public function setClassId(string $classId): self
     {
         $this->classId = $classId;
 
@@ -160,7 +160,7 @@ class Role
         return $this->normalisedClassId;
     }
 
-    public function setNormalisedClassId(int $normalisedClassId): self
+    public function setNormalisedClassId(string $normalisedClassId): self
     {
         $this->normalisedClassId = $normalisedClassId;
 
@@ -172,7 +172,7 @@ class Role
         return $this->externalId;
     }
 
-    public function setExternalId(int $externalId): self
+    public function setExternalId(string $externalId): self
     {
         $this->externalId = $externalId;
 

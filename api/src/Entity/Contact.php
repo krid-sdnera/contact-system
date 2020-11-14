@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -140,7 +141,7 @@ class Contact
             'id' => $this->getId(),
             'state' => $this->getState(),
             'managementState' => $this->getManagementState(),
-            'expiry' => $this->getExpiry(),
+            'expiry' => ($this->getExpiry()) ? $this->getExpiry()->format(DateTimeInterface::ISO8601) : null,
             'memberId' => $this->getMember()->getId(),
             'firstname' => $this->getFirstname(),
             'nickname' => $this->getNickname(),
