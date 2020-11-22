@@ -46,68 +46,12 @@
           <v-card>
             <v-card-title>Administration</v-card-title>
             <v-card-text>
-              <v-chip
-                :class="{ red: member.state === 'disabled' }"
-                class="mb-1"
-              >
-                {{ member.state | capitalize }}
-              </v-chip>
               <v-chip class="mb-1">
                 {{ member.managementState | capitalize }}
               </v-chip>
               <v-chip v-if="member.expiry" class="mb-1">{{
                 member.expiry
               }}</v-chip>
-            </v-card-text>
-            <v-card-text>
-              <v-dialog v-model="dialogStateConfirm" persistent width="500">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn color="primary" v-bind="attrs" v-on="on">
-                    {{ member.state === 'enabled' ? 'Disable' : 'Enable' }}
-                    member
-                  </v-btn>
-                </template>
-                <v-card>
-                  <v-card-title class="headline" primary-title>
-                    Change state to
-                    {{ member.state === 'enabled' ? 'disabled' : 'enabled' }}?
-                  </v-card-title>
-                  <v-card-text>
-                    You are about to
-                    {{ member.state === 'enabled' ? 'disable' : 'enable' }}
-                    {{ member.firstname }} <br />
-                    Are you sure you wish to continue?
-                  </v-card-text>
-                  <v-divider></v-divider>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      color="primary"
-                      text
-                      :disabled="isAppUpdating || !dialogStateConfirm"
-                      @click="dialogStateConfirm = false"
-                    >
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      v-if="member.state === 'enabled'"
-                      color="warning"
-                      text
-                      :disabled="isAppUpdating || !dialogStateConfirm"
-                      @click.stop="handleMemberState('disabled')"
-                      >Disable member</v-btn
-                    >
-                    <v-btn
-                      v-if="member.state === 'disabled'"
-                      color="warning"
-                      text
-                      :disabled="isAppUpdating || !dialogStateConfirm"
-                      @click.stop="handleMemberState('enabled')"
-                      >Enable member</v-btn
-                    >
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
             </v-card-text>
             <v-card-text>
               <v-btn color="primary" @click.stop="openEditMemberModal">
@@ -272,7 +216,17 @@
                 </v-btn>
               </v-toolbar>
             </template>
-            <template v-slot:item.actions="{ item }">
+            <template v-slot:[`item.state`]="{ item }">
+              <v-chip :color="getStateColor(item.state)">
+                {{ item.state }}
+              </v-chip>
+            </template>
+            <template v-slot:[`item.managementState`]="{ item }">
+              <v-chip :color="getMStateColor(item.managementState)">
+                {{ item.managementState }}
+              </v-chip>
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
               <nuxt-link :to="{ path: `/contacts/${item.id}` }">
                 <v-icon small class="mr-2">mdi-eye</v-icon>
               </nuxt-link>
@@ -303,7 +257,17 @@
                 </v-btn>
               </v-toolbar>
             </template>
-            <template v-slot:item.actions="{ item }">
+            <template v-slot:[`item.state`]="{ item }">
+              <v-chip :color="getStateColor(item.state)">
+                {{ item.state }}
+              </v-chip>
+            </template>
+            <template v-slot:[`item.managementState`]="{ item }">
+              <v-chip :color="getMStateColor(item.managementState)">
+                {{ item.managementState }}
+              </v-chip>
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
               <nuxt-link :to="{ path: `/roles/${item.role.id}` }">
                 <v-icon small class="mr-2">mdi-eye</v-icon>
               </nuxt-link>
@@ -364,6 +328,10 @@ import {
   ContactData,
   MemberRoleData,
   MemberOverrideData,
+  ContactDataStateEnum,
+  MemberRoleDataStateEnum,
+  MemberRoleDataManagementStateEnum,
+  ContactDataManagementStateEnum,
 } from '@api/models';
 import BaseInputComponent from '~/components/form/base-input.vue';
 import MemberEditDialog from '~/components/dialogs/member-edit.vue';
@@ -420,12 +388,16 @@ export default class MemberDetailPage extends Vue {
       },
       { text: 'Lastname', value: 'lastname' },
       { text: 'Relationship', value: 'relationship' },
+      { text: 'State', value: 'state' },
+      { text: 'MState', value: 'managementState' },
       { text: 'Actions', value: 'actions' },
     ],
     roles: [
       { text: 'Role', value: 'role.name' },
       { text: 'Section', value: 'role.section.name' },
       { text: 'Scout Group', value: 'role.section.scoutGroup.name' },
+      { text: 'State', value: 'state' },
+      { text: 'MState', value: 'managementState' },
       { text: 'Actions', value: 'actions' },
     ],
   };
@@ -435,6 +407,17 @@ export default class MemberDetailPage extends Vue {
       return false;
     }
     return this.member.overrides[fieldname] || false;
+  }
+
+  getStateColor(state: ContactDataStateEnum | MemberRoleDataStateEnum): string {
+    return state === ContactDataStateEnum.Enabled ? 'green' : 'orange';
+  }
+  getMStateColor(
+    state: ContactDataManagementStateEnum | MemberRoleDataManagementStateEnum
+  ): string {
+    return state === ContactDataManagementStateEnum.Managed
+      ? 'green'
+      : 'orange';
   }
 
   async mounted() {

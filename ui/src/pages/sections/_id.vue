@@ -24,6 +24,8 @@
         <v-col cols="12" sm="6" md="4">
           <!-- Scout Group Details -->
           <v-card class="mb-6">
+            <v-card-title>Group</v-card-title>
+
             <v-card-title
               class="d-flex flex-nowrap justify-space-between align-start"
             >

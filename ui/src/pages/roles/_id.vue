@@ -34,6 +34,8 @@
         <v-col cols="12" sm="6" md="4">
           <!-- Section Details -->
           <v-card class="mb-6">
+            <v-card-title>Section</v-card-title>
+
             <v-card-title
               class="d-flex flex-nowrap justify-space-between align-start"
             >
@@ -52,6 +54,8 @@
         <v-col cols="12" sm="6" md="4">
           <!-- Scout Group Details -->
           <v-card class="mb-6">
+            <v-card-title>Group</v-card-title>
+
             <v-card-title>
               {{ scoutGroup.name }}
             </v-card-title>
@@ -62,6 +66,29 @@
             </v-card-subtitle>
           </v-card>
         </v-col>
+      </v-row>
+      <v-row>
+        <v-data-table
+          :headers="headers"
+          :items="members"
+          :options.sync="options"
+          :server-items-length="totalMembers"
+          :loading="loading"
+          class="elevation-1"
+        >
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-toolbar-title>Members</v-toolbar-title>
+              <v-divider class="mx-4" inset vertical></v-divider>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-btn icon nuxt :to="{ path: `/members/${item.id}` }">
+              <v-icon small>mdi-eye</v-icon>
+            </v-btn>
+          </template>
+        </v-data-table>
       </v-row>
     </v-container>
     <!-- Dialogs -->
@@ -87,9 +114,10 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { RoleData, SectionData, ScoutGroupData } from '@api/models';
+import { RoleData, SectionData, ScoutGroupData, MemberData } from '@api/models';
 import RoleEditDialog from '~/components/dialogs/role-edit.vue';
 
+import * as member from '~/store/member';
 import * as role from '~/store/role';
 import * as ui from '~/store/ui';
 
@@ -115,12 +143,36 @@ export default class RoleDetailPage extends Vue {
     return this.section ? this.section.scoutGroup : null;
   }
 
+  get members(): MemberData[] {
+    return this.$store.getters[`${member.namespace}/getMembers`];
+  }
+
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }
 
   error = false;
   loading = true;
+
+  totalMembers = 5;
+  options = {
+    // sortBy: null,
+    // sortDesc: null,
+    page: 1,
+    itemsPerPage: 20,
+  };
+
+  headers = [
+    {
+      text: 'Firstname',
+      align: 'start',
+      sortable: false,
+      value: 'firstname',
+    },
+    { text: 'Lastname', value: 'lastname' },
+    { text: 'Membership Number', value: 'membershipNumber' },
+    { text: 'Actions', value: 'actions' },
+  ];
 
   async mounted() {
     try {
@@ -129,6 +181,8 @@ export default class RoleDetailPage extends Vue {
         this.loading = false;
         return;
       }
+
+      await this.$store.dispatch(`${member.namespace}/fetchMembers`, {});
     } catch (e) {
       this.error = true;
     } finally {
