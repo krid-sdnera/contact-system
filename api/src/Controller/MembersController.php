@@ -250,6 +250,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
      * {@inheritdoc}
      */
     public function getMembers(
+        $query = null,
         $sort = null,
         $pageSize = null,
         $page = null,
@@ -262,6 +263,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
             $members = $this->getDoctrine()
                 ->getRepository(Member::class)
                 ->findByPage(
+                    $query,
                     $sort,
                     $pageSize,
                     $page

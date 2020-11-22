@@ -404,7 +404,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getMembers**
-> OpenAPI\Server\Model\Members getMembers($sort, $pageSize, $page)
+> OpenAPI\Server\Model\Members getMembers($query, $sort, $pageSize, $page)
 
 List all members
 
@@ -435,7 +435,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#getMembers
      */
-    public function getMembers(string $sort = null, int $pageSize = null, int $page = null)
+    public function getMembers(string $query = null, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -448,6 +448,7 @@ class MembersApi implements MembersApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **query** | **string**|  | [optional]
  **sort** | **string**|  | [optional]
  **pageSize** | **int**|  | [optional]
  **page** | **int**|  | [optional]

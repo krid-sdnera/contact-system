@@ -149,6 +149,7 @@ interface MembersApiInterface
      *
      * List all members
      *
+     * @param  string $query   (optional)
      * @param  string $sort   (optional)
      * @param  int $pageSize   (optional)
      * @param  int $page   (optional)
@@ -158,7 +159,7 @@ interface MembersApiInterface
      * @return OpenAPI\Server\Model\Members
      *
      */
-    public function getMembers(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getMembers(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation mergeMember

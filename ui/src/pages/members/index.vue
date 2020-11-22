@@ -12,6 +12,13 @@
         <v-toolbar-title>Members</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
         <v-btn color="primary" class="mb-2" @click="openCreateMemberModal"
           >New Local Member</v-btn
         >
@@ -21,16 +28,13 @@
         ></member-create>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
-      <nuxt-link :to="{ path: `/members/${item.id}` }">
-        <v-icon small class="mr-2">mdi-eye</v-icon>
-      </nuxt-link>
-      <nuxt-link :to="{ path: `/members/${item.id}/edit` }">
-        <v-icon small class="mr-2">mdi-pencil</v-icon>
-      </nuxt-link>
-      <nuxt-link :to="{ path: `/members/${item.id}/edit` }">
-        <v-icon small>mdi-delete</v-icon>
-      </nuxt-link>
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-btn icon nuxt :to="{ path: `/members/${item.id}` }">
+        <v-icon small>mdi-eye</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon small color="red">mdi-delete</v-icon>
+      </v-btn>
     </template>
   </v-data-table>
 </template>
@@ -45,42 +49,77 @@ export default class MembersListPage extends Vue {
   totalMembers = 5;
   error = false;
   loading = true;
-  options = {
-    // sortBy: null,
-    // sortDesc: null,
-    page: 1,
-    itemsPerPage: 20,
-  };
-
-  formTitle = 'title of the form';
+  options: {
+    sortBy?: string[];
+    sortDesc?: string[];
+    page?: number;
+    itemsPerPage?: number;
+  } = {};
+  memberIdsToDisplay: number[] = [];
+  search: string = '';
 
   headers = [
-    {
-      text: 'Firstname',
-      align: 'start',
-      sortable: false,
-      value: 'firstname',
-    },
+    { text: 'Firstname', value: 'firstname' },
     { text: 'Lastname', value: 'lastname' },
     { text: 'Membership Number', value: 'membershipNumber' },
-    { text: 'Actions', value: 'actions' },
+    { text: 'Actions', value: 'actions', sortable: false },
   ];
+
+  get apiOptions() {
+    console.log(this.options.page);
+    console.log(this.options.itemsPerPage);
+    console.log(this.options.sortBy);
+    console.log(this.options.sortDesc);
+
+    let sort = '';
+    if (
+      this.options.sortBy &&
+      this.options.sortDesc &&
+      this.options.sortBy.length &&
+      this.options.sortDesc.length
+    ) {
+      const sortDir = this.options.sortDesc[0] ? 'DESC' : 'ASC';
+      sort = this.options.sortBy[0] + ':' + sortDir;
+    }
+    return {
+      query: this.search,
+      sort: sort,
+      page: this.options.page || 1,
+      pageSize: this.options.itemsPerPage || 25,
+    };
+  }
+
+  @Watch('search')
+  onSearchChange() {
+    this.fetchMembersWithNewOptions();
+  }
 
   @Watch('options', { deep: true })
   onOptionsChange() {
-    // this.getDataFromApi().then((data) => {
-    //   this.members = data.items;
-    //   this.totalDesserts = data.total;
-    // });
+    this.fetchMembersWithNewOptions();
   }
 
   get members(): MemberData[] {
-    return this.$store.getters[`${member.namespace}/getMembers`];
+    return this.$store.getters[
+      `${member.namespace}/getMembers`
+    ].filter((member: MemberData) =>
+      this.memberIdsToDisplay.includes(member.id)
+    );
   }
 
-  async mounted() {
+  async mounted() {}
+
+  async fetchMembersWithNewOptions(): Promise<void> {
+    this.loading = true;
     try {
-      await this.$store.dispatch(`${member.namespace}/fetchMembers`, {});
+      const memberIds: number[] = await this.$store.dispatch(
+        `${member.namespace}/fetchMembers`,
+        this.apiOptions
+      );
+      console.log(memberIds);
+      this.memberIdsToDisplay = memberIds;
+      this.totalMembers = 22;
+      this.error = false;
     } catch (e) {
       this.error = true;
     } finally {

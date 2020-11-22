@@ -68,6 +68,7 @@ export interface GetMemberRolesByIdRequest {
 }
 
 export interface GetMembersRequest {
+    query?: string;
     sort?: string;
     pageSize?: number;
     page?: number;
@@ -200,6 +201,7 @@ export interface MembersApiInterface {
     /**
      * List all members
      * @summary List all members
+     * @param {string} [query] 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
      * @param {number} [page] 
@@ -522,6 +524,10 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      */
     async getMembersRaw(requestParameters: GetMembersRequest): Promise<runtime.ApiResponse<Members>> {
         const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
 
         if (requestParameters.sort !== undefined) {
             queryParameters['sort'] = requestParameters.sort;

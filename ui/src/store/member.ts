@@ -54,9 +54,13 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-  async fetchMembers({ commit }, options: GetMembersRequest) {
+  async fetchMembers(
+    { commit },
+    options: GetMembersRequest
+  ): Promise<number[]> {
     const payload = await this.$api.members.getMembers(options);
     commit('setMembers', payload.members);
+    return payload.members.map((member: MemberData) => member.id);
   },
   async fetchMemberById({ commit }, memberId: number) {
     try {
@@ -64,16 +68,6 @@ export const actions: ActionTree<RootState, RootState> = {
       commit('setMemberById', payload);
     } catch (e) {
       throw new AppError(ErrorCode.InternalError, 'Unable to load member', e);
-    }
-  },
-  async fetchMembersByRoleId({ commit }, roleId: number) {
-    try {
-      const payload = await this.$api.roles.getRoleMembersById({
-        roleId,
-      });
-      commit('setMembers', payload.members);
-    } catch (e) {
-      throw new AppError(ErrorCode.InternalError, 'Unable to load members', e);
     }
   },
   async fetchRolesByMemberId({ commit }, memberId: number) {

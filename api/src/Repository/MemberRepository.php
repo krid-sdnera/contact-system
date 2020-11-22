@@ -23,19 +23,20 @@ class MemberRepository extends ServiceEntityRepository
     }
 
     public function findByPage(
+        $query = null,
         $sort = null,
         $pageSize = null,
         $page = null
     ) {
 
         $sortComputed = [];
-        if ($sort) {
+        if (!empty($sort)) {
             $parts = explode(':', $sort, 2);
 
             $sortField = (!empty($parts[0])) ? $parts[0] : null;
             if ($sortField) {
                 $sortDirecton = (count($parts) >= 2 && !empty($parts[1])) ? $parts[1] : null;
-                $sortComputed[strtolower($sortField)] = (in_array(strtolower($sortDirecton), ['asc', 'desc'])) ? strtolower($sortDirecton) : 'asc';
+                $sortComputed[$sortField] = (in_array(strtolower($sortDirecton), ['asc', 'desc'])) ? strtolower($sortDirecton) : 'asc';
             }
         }
 
@@ -47,7 +48,22 @@ class MemberRepository extends ServiceEntityRepository
         try {
             $qb = $this->createQueryBuilder('m');
             $qb->select('m');
-            // TODO sortComputed
+
+
+            // if (!empty($query)) {
+            //     $qb->add('where', $qb->expr()->orX(
+            //         $qb->expr()->like('m.firstname', ':search'),
+            //         $qb->expr()->like('m.surname', ':search'),
+            //         $qb->expr()->like('m.membershipNumber', ':search')
+            //     ));
+            //     $qb->setParameter('search', '%' . $query . '%');
+            // }
+
+            foreach ($sortComputed as $sortKey => $sortDirection) {
+                $qb->orderBy('m.' . $sortKey, $sortDirection);
+            }
+
+
             $qb->setFirstResult($offset);
             $qb->setMaxResults($limit);
 

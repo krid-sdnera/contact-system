@@ -73,6 +73,10 @@ paths:
         - schema:
             type: string
           in: query
+          name: query
+        - schema:
+            type: string
+          in: query
           name: sort
         - schema:
             type: integer
