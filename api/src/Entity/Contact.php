@@ -252,7 +252,7 @@ class Contact
     private $expiry;
 
     /**
-     * @ORM\Column(type="json", options={"default": "{}"})
+     * @ORM\Column(type="json")
      */
     private $overrides = [];
 
