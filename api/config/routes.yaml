@@ -6,4 +6,4 @@ update_token:
   controller: App\Controller\DefaultController::updateToken
 open_api_server:
   resource: "@OpenAPIServerBundle/Resources/config/routing.yml"
-  prefix: "/api/v1"
+  # prefix: "/api/v1"

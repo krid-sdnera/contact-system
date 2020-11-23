@@ -98,6 +98,6 @@ export default {
     proxy: true,
   },
   proxy: {
-    '/api/v1/': 'http://localhost:8000',
+    '/api/v1/': 'http://localhost:8000/api/v1/',
   },
 };
