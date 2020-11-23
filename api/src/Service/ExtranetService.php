@@ -167,6 +167,7 @@ class ExtranetService
         $cookie = $loginResponse->getHeaders()['set-cookie'][0];
         $this->setClient(self::HttpClientFactory($cookie));
 
+        echo 'Sending 2FA request' . PHP_EOL;
         $_2fa_security_question = $this->client->request(
             'POST',
             '/portal/twoFactorAuth.php',
@@ -183,6 +184,10 @@ class ExtranetService
             ]
         );
 
+        echo 'Letting 2FA request propogate in extranet' . PHP_EOL;
+        sleep(1);
+
+        echo 'Confirming 2FA request with extranet' . PHP_EOL;
         $loginResponse = $this->client->request(
             'POST',
             '/portal/authNext.php',
