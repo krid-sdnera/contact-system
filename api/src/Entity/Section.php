@@ -135,7 +135,7 @@ class Section
         return $this->externalId;
     }
 
-    public function setExternalId(int $externalId): self
+    public function setExternalId(string $externalId): self
     {
         $this->externalId = $externalId;
 
