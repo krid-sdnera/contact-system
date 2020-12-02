@@ -36,6 +36,13 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
+    public function setjwt_auth($value)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function addMemberRoleById(int $memberId, int $roleId, MemberRoleInput $memberRoleInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();

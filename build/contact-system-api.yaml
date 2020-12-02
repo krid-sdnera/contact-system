@@ -1140,7 +1140,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - lists
+        - Lists
   /auth/token:
     post:
       summary: Get JWT

@@ -31,6 +31,13 @@ class ContactsController extends AbstractController implements ContactsApiInterf
     /**
      * {@inheritdoc}
      */
+    public function setjwt_auth($value)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function createContact(ContactInput $contactInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();

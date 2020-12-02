@@ -30,6 +30,13 @@ class SectionsController extends AbstractController implements SectionsApiInterf
     /**
      * {@inheritdoc}
      */
+    public function setjwt_auth($value)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function createSection(SectionInput $section = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();

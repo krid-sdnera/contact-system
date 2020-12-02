@@ -30,6 +30,13 @@ class RolesController extends AbstractController implements RolesApiInterface
     /**
      * {@inheritdoc}
      */
+    public function setjwt_auth($value)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function createRole(RoleInput $roleInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();

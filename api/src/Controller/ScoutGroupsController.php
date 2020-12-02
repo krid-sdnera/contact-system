@@ -30,6 +30,13 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
     /**
      * {@inheritdoc}
      */
+    public function setjwt_auth($value)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function createScoutGroup(ScoutGroupInput $groupInput = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
