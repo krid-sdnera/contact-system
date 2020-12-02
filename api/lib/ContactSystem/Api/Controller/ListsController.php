@@ -83,6 +83,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
         $modelList = $request->getContent();
@@ -111,6 +114,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -175,6 +180,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
         $listRule = $request->getContent();
@@ -211,6 +219,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -275,6 +285,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
         $listType = $request->getContent();
@@ -303,6 +316,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -359,6 +374,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
 
@@ -386,6 +404,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -442,6 +462,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
 
@@ -477,6 +500,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -533,6 +558,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
 
@@ -560,6 +588,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -618,6 +648,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
 
@@ -645,6 +678,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -703,6 +738,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
 
@@ -730,6 +768,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -788,6 +828,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
 
@@ -823,6 +866,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -881,6 +926,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
 
@@ -908,6 +956,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -966,6 +1016,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
 
@@ -993,6 +1046,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -1051,6 +1106,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
         $sort = $request->query->get('sort');
@@ -1094,6 +1152,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -1152,6 +1212,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
         $sort = $request->query->get('sort');
@@ -1195,6 +1258,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -1259,6 +1324,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
         $modelList = $request->getContent();
@@ -1295,6 +1363,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -1359,6 +1429,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
         $listRule = $request->getContent();
@@ -1403,6 +1476,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;
@@ -1467,6 +1542,9 @@ class ListsController extends Controller
         // Authentication 'contact_auth' required
         // Set key with prefix in header
         $securitycontact_auth = $request->headers->get('x-auth-token');
+        // Authentication 'jwt_auth' required
+        // HTTP basic authentication required
+        $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
         $listType = $request->getContent();
@@ -1503,6 +1581,8 @@ class ListsController extends Controller
 
             // Set authentication method 'contact_auth'
             $handler->setcontact_auth($securitycontact_auth);
+            // Set authentication method 'jwt_auth'
+            $handler->setjwt_auth($securityjwt_auth);
             
             // Make the call to the business logic
             $responseCode = 200;

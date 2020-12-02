@@ -21,6 +21,15 @@ services:
         arguments:
             - '@validator'
 
+    open_api_server.controller.auth:
+        class: OpenAPI\Server\Controller\AuthController
+        calls:
+         - [setSerializer, ['@open_api_server.service.serializer']]
+         - [setValidator,  ['@open_api_server.service.validator']]
+         - [setApiServer,  ['@open_api_server.api.api_server']]
+        tags: ['controller.service_arguments']
+        autowire: true
+
     open_api_server.controller.contacts:
         class: OpenAPI\Server\Controller\ContactsController
         calls:

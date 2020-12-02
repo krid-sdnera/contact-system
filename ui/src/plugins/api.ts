@@ -3,6 +3,8 @@ import { Plugin } from '@nuxt/types';
 
 import { Configuration } from '@api/runtime';
 import {
+  AuthApi,
+  AuthApiInterface,
   ContactsApi,
   ContactsApiInterface,
   ScoutGroupsApi,
@@ -18,6 +20,7 @@ import {
 } from '@api/apis';
 
 export interface VueApiInterface {
+  auth: AuthApiInterface;
   contacts: ContactsApiInterface;
   scoutGroups: ScoutGroupsApiInterface;
   lists: ListsApiInterface;
@@ -47,10 +50,13 @@ declare module 'vuex/types/index' {
 const apiPlugin: Plugin = ({ env }, inject) => {
   const configuration = new Configuration({
     basePath: env.API_BASE,
-    apiKey: env.API_TOKEN,
+    accessToken: function (name?: string, scopes?: string[]): string {
+      return '';
+    },
   });
 
   const api: VueApiInterface = {
+    auth: new AuthApi(configuration),
     contacts: new ContactsApi(configuration),
     scoutGroups: new ScoutGroupsApi(configuration),
     lists: new ListsApi(configuration),

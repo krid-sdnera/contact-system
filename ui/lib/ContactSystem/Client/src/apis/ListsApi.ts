@@ -383,6 +383,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists`,
             method: 'POST',
@@ -420,6 +428,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/{listId}/rules`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
             method: 'POST',
@@ -453,6 +469,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/types`,
             method: 'POST',
@@ -488,6 +512,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/{listId}`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
             method: 'DELETE',
@@ -526,6 +558,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/{listId}/rules/{ruleId}`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))).replace(`{${"ruleId"}}`, encodeURIComponent(String(requestParameters.ruleId))),
             method: 'DELETE',
@@ -560,6 +600,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/types/{listTypeId}`.replace(`{${"listTypeId"}}`, encodeURIComponent(String(requestParameters.listTypeId))),
             method: 'DELETE',
@@ -595,6 +643,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/{listId}`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
             method: 'GET',
@@ -631,6 +687,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/{listId}/members`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
             method: 'GET',
@@ -671,6 +735,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/{listId}/rules/{ruleId}`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))).replace(`{${"ruleId"}}`, encodeURIComponent(String(requestParameters.ruleId))),
             method: 'GET',
@@ -707,6 +779,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/{listId}/rules`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
             method: 'GET',
@@ -743,6 +823,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/types/{listTypeId}`.replace(`{${"listTypeId"}}`, encodeURIComponent(String(requestParameters.listTypeId))),
             method: 'GET',
@@ -787,6 +875,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/types`,
             method: 'GET',
@@ -831,6 +927,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists`,
             method: 'GET',
@@ -868,6 +972,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/{listId}`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
             method: 'PUT',
@@ -909,6 +1021,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/{listId}/rules/{ruleId}`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))).replace(`{${"ruleId"}}`, encodeURIComponent(String(requestParameters.ruleId))),
             method: 'PUT',
@@ -946,6 +1066,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/lists/types/{listTypeId}`.replace(`{${"listTypeId"}}`, encodeURIComponent(String(requestParameters.listTypeId))),
             method: 'PUT',

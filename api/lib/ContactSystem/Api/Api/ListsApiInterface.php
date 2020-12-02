@@ -56,6 +56,15 @@ interface ListsApiInterface
     public function setcontact_auth($value);
 
     /**
+     * Sets authentication method jwt_auth
+     *
+     * @param string $value Value of the jwt_auth authentication method.
+     *
+     * @return void
+     */
+    public function setjwt_auth($value);
+
+    /**
      * Operation createList
      *
      * @param  OpenAPI\Server\Model\ModelList $modelList   (optional)

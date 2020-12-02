@@ -1,3 +1,4 @@
+export * from './AuthApi';
 export * from './ContactsApi';
 export * from './ListsApi';
 export * from './MembersApi';

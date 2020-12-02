@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class DefaultController extends AbstractController
 {
@@ -17,6 +19,22 @@ class DefaultController extends AbstractController
     {
         $message = "Hello.";
         return new Response($message);
+    }
+
+    public function register(Request $request, UserPasswordEncoderInterface $encoder)
+    {
+        $em = $this->getDoctrine()->getManager();
+        var_dump($request->request->get('_username'));
+        $username = $request->request->get('_username');
+        $password = $request->request->get('_password');
+
+        $user = new User();
+        $user->setUsername($username);
+        $user->setPassword($encoder->encodePassword($user, $password));
+        $em->persist($user);
+        $em->flush();
+
+        return new Response(sprintf('User %s successfully created', $user->getUsername()));
     }
 
     /**

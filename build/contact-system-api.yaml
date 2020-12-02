@@ -43,6 +43,8 @@ tags:
     description: Everything you need to handle `roles`
   - name: Sections
     description: Everything you need to handle `sections`
+  - name: Auth
+    description: Everything you need to handle `auth`
 paths:
   /members:
     post:
@@ -1139,7 +1141,57 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - lists
+  /auth/token:
+    post:
+      summary: Get JWT
+      description: Get a JWT
+      tags:
+        - Auth
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JwtData"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+      operationId: getJWT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JwtInput"
+      security: []
+  /auth/token/refresh:
+    post:
+      summary: Refresh JWT
+      description: Refresh a JWT
+      tags:
+        - Auth
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JwtData"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+      operationId: refreshJWT
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/JwtRefreshInput"
+            example:
+              refresh_token: "..."
+      security: []
 components:
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
   schemas:
     ApiResponse:
       title: ApiResponse
@@ -1153,6 +1205,44 @@ components:
           type: string
         message:
           type: string
+    JwtInput:
+      title: User credentials
+      description: User credentials
+      type: object
+      properties:
+        username:
+          description: Your username
+          type: string
+        password:
+          description: Your password
+          type: string
+      required:
+        - username
+        - password
+    JwtRefreshInput:
+      title: JWT Refresh Token
+      description: JWT Refresh Token
+      type: object
+      properties:
+        refresh_token:
+          description: The refresh token
+          type: string
+      required:
+        - refresh_token
+    JwtData:
+      title: JWT Auth Token
+      description: A JSON Web Token
+      type: object
+      properties:
+        token:
+          description: The JSON Web Token
+          type: string
+        refresh_token:
+          description: A refresh token for the JSON Web Token
+          type: string
+      required:
+        - token
+        - refresh_token
     MemberInput:
       title: MemberInput
       type: object
@@ -1587,13 +1677,15 @@ components:
       properties:
         id:
           type: string
-  requestBodies: {}
   securitySchemes:
     contact_auth:
       type: apiKey
       name: x-auth-token
       in: header
-  links: {}
-  callbacks: {}
+    jwt_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 security:
   - contact_auth: []
+  - jwt_auth: []

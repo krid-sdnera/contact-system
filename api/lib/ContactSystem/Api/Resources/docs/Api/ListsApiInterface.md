@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -274,7 +274,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -399,7 +399,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -461,7 +461,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -523,7 +523,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -586,7 +586,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -648,7 +648,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -710,7 +710,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -774,7 +774,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -838,7 +838,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -901,7 +901,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -965,7 +965,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 
@@ -1028,7 +1028,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[contact_auth](../../README.md#contact_auth)
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
 
 ### HTTP request headers
 

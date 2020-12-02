@@ -186,6 +186,14 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/groups`,
             method: 'POST',
@@ -223,6 +231,14 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/groups/{scoutGroupId}`.replace(`{${"scoutGroupId"}}`, encodeURIComponent(String(requestParameters.scoutGroupId))),
             method: 'DELETE',
@@ -259,6 +275,14 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/groups/{scoutGroupId}`.replace(`{${"scoutGroupId"}}`, encodeURIComponent(String(requestParameters.scoutGroupId))),
             method: 'GET',
@@ -295,6 +319,14 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/groups/{scoutGroupId}/sections`.replace(`{${"scoutGroupId"}}`, encodeURIComponent(String(requestParameters.scoutGroupId))),
             method: 'GET',
@@ -339,6 +371,14 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/groups`,
             method: 'GET',
@@ -377,6 +417,14 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/groups/{scoutGroupId}`.replace(`{${"scoutGroupId"}}`, encodeURIComponent(String(requestParameters.scoutGroupId))),
             method: 'PUT',

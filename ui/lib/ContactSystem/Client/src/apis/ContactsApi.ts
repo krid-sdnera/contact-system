@@ -176,6 +176,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/contacts`,
             method: 'POST',
@@ -211,6 +219,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/contacts/{contactId}`.replace(`{${"contactId"}}`, encodeURIComponent(String(requestParameters.contactId))),
             method: 'DELETE',
@@ -246,6 +262,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/contacts/{contactId}`.replace(`{${"contactId"}}`, encodeURIComponent(String(requestParameters.contactId))),
             method: 'GET',
@@ -290,6 +314,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/contacts`,
             method: 'GET',
@@ -327,6 +359,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/contacts/{contactId}`.replace(`{${"contactId"}}`, encodeURIComponent(String(requestParameters.contactId))),
             method: 'PATCH',
@@ -364,6 +404,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/contacts/{contactId}`.replace(`{${"contactId"}}`, encodeURIComponent(String(requestParameters.contactId))),
             method: 'PUT',

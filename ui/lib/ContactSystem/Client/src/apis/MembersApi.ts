@@ -315,6 +315,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members/{memberId}/roles/{roleId}`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))).replace(`{${"roleId"}}`, encodeURIComponent(String(requestParameters.roleId))),
             method: 'PUT',
@@ -354,6 +362,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members`,
             method: 'POST',
@@ -391,6 +407,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members/{memberId}`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
             method: 'DELETE',
@@ -427,6 +451,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members/{memberId}`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
             method: 'GET',
@@ -463,6 +495,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members/{memberId}/contacts`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
             method: 'GET',
@@ -499,6 +539,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members/{memberId}/roles`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
             method: 'GET',
@@ -547,6 +595,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members`,
             method: 'GET',
@@ -587,6 +643,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members/{memberId}/merge_into/{mergeMemberId}`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))).replace(`{${"mergeMemberId"}}`, encodeURIComponent(String(requestParameters.mergeMemberId))),
             method: 'POST',
@@ -625,6 +689,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members/{memberId}`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
             method: 'PATCH',
@@ -666,6 +738,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members/{memberId}/roles/{roleId}`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))).replace(`{${"roleId"}}`, encodeURIComponent(String(requestParameters.roleId))),
             method: 'DELETE',
@@ -704,6 +784,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/members/{memberId}`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
             method: 'PUT',

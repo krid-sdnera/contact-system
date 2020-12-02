@@ -163,6 +163,14 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/roles`,
             method: 'POST',
@@ -200,6 +208,14 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/roles/{roleId}`.replace(`{${"roleId"}}`, encodeURIComponent(String(requestParameters.roleId))),
             method: 'DELETE',
@@ -236,6 +252,14 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/roles/{roleId}`.replace(`{${"roleId"}}`, encodeURIComponent(String(requestParameters.roleId))),
             method: 'GET',
@@ -280,6 +304,14 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/roles`,
             method: 'GET',
@@ -318,6 +350,14 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/roles/{roleId}`.replace(`{${"roleId"}}`, encodeURIComponent(String(requestParameters.roleId))),
             method: 'PUT',
