@@ -79,6 +79,7 @@
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
       <v-spacer />
+      <v-btn @click="handleLogout">Logout</v-btn>
       <div>
         <v-tooltip v-if="!$vuetify.theme.dark" bottom>
           <template v-slot:activator="{ on }">
@@ -118,6 +119,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 
 import * as ui from '~/store/ui';
+import * as auth from '~/store/auth';
 
 @Component
 export default class DefaultLayout extends Vue {
@@ -144,6 +146,12 @@ export default class DefaultLayout extends Vue {
 
   get isUpdateApiRequestInProgress(): boolean {
     return this.$store.getters[`${ui.namespace}/isUpdateApiRequestInProgress`];
+  }
+
+  async handleLogout() {
+    await this.$store.dispatch(`${auth.namespace}/logout`);
+
+    this.$router.push('/login');
   }
 }
 </script>
