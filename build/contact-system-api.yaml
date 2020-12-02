@@ -47,7 +47,7 @@ paths:
   /members:
     post:
       tags:
-        - members
+        - Members
       summary: Create a member
       description: Create a member
       operationId: createMember
@@ -106,7 +106,7 @@ paths:
                 required:
                   - members
       tags:
-        - members
+        - Members
   "/members/{memberId}":
     get:
       summary: Get member
@@ -121,7 +121,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/MemberData"
       tags:
-        - members
+        - Members
     put:
       summary: Update member
       description: Update member
@@ -135,7 +135,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/MemberData"
       tags:
-        - members
+        - Members
       requestBody:
         description: ""
         content:
@@ -155,7 +155,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/MemberData"
       tags:
-        - members
+        - Members
       requestBody:
         description: ""
         content:
@@ -175,7 +175,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - members
+        - Members
     parameters:
       - schema:
           type: integer
@@ -194,7 +194,7 @@ paths:
       summary: List member's contacts
       description: List contacts for this member
       tags:
-        - members
+        - Members
       responses:
         "200":
           description: OK
@@ -225,7 +225,7 @@ paths:
       summary: List member's roles
       description: List roles for this member
       tags:
-        - members
+        - Members
       responses:
         "200":
           description: OK
@@ -251,7 +251,7 @@ paths:
       parameters: []
       operationId: mergeMember
       tags:
-        - members
+        - Members
       responses:
         "200":
           description: OK
@@ -299,7 +299,7 @@ paths:
             schema:
               $ref: "#/components/schemas/MemberRoleInput"
       tags:
-        - members
+        - Members
     delete:
       summary: Remove Member Role
       description: removeMemberRoleById
@@ -312,14 +312,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - members
+        - Members
   /roles:
     get:
       summary: Get roles
       description: Get roles
       operationId: getRoles
       tags:
-        - roles
+        - Roles
       responses:
         "200":
           description: OK
@@ -368,7 +368,7 @@ paths:
             schema:
               $ref: "#/components/schemas/RoleInput"
       tags:
-        - roles
+        - Roles
   "/roles/{roleId}":
     parameters:
       - schema:
@@ -380,7 +380,7 @@ paths:
       summary: Get Role
       description: Get role
       tags:
-        - roles
+        - Roles
       responses:
         "200":
           description: OK
@@ -406,7 +406,7 @@ paths:
             schema:
               $ref: "#/components/schemas/RoleInput"
       tags:
-        - roles
+        - Roles
     delete:
       summary: Delete role
       description: Delete role
@@ -419,13 +419,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - roles
+        - Roles
   /contacts:
     get:
       summary: Your GET endpoint
       description: Your GET endpoint
       tags:
-        - contacts
+        - Contacts
       responses:
         "200":
           description: OK
@@ -476,7 +476,7 @@ paths:
               $ref: "#/components/schemas/ContactInput"
         description: ""
       tags:
-        - contacts
+        - Contacts
   "/contacts/{contactId}":
     parameters:
       - schema:
@@ -488,7 +488,7 @@ paths:
       summary: Your GET endpoint
       description: getContactById
       tags:
-        - contacts
+        - Contacts
       responses:
         "200":
           description: OK
@@ -515,7 +515,7 @@ paths:
               $ref: "#/components/schemas/ContactInput"
         description: ""
       tags:
-        - contacts
+        - Contacts
     patch:
       summary: ""
       description: patchContactById
@@ -534,7 +534,7 @@ paths:
               $ref: "#/components/schemas/ContactInput"
         description: ""
       tags:
-        - contacts
+        - Contacts
     delete:
       summary: ""
       description: deleteContactById
@@ -547,7 +547,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - contacts
+        - Contacts
   /groups:
     get:
       summary: Get Groups
@@ -692,7 +692,7 @@ paths:
       description: Get Sections
       operationId: getSections
       tags:
-        - sections
+        - Sections
       responses:
         "200":
           description: OK
@@ -741,7 +741,7 @@ paths:
             schema:
               $ref: "#/components/schemas/SectionInput"
       tags:
-        - sections
+        - Sections
   "/sections/{sectionId}":
     parameters:
       - schema:
@@ -754,7 +754,7 @@ paths:
       description: Get Section
       operationId: getSectionById
       tags:
-        - sections
+        - Sections
       responses:
         "200":
           description: OK
@@ -779,7 +779,7 @@ paths:
             schema:
               $ref: "#/components/schemas/SectionInput"
       tags:
-        - sections
+        - Sections
     delete:
       summary: Delete Section
       description: Delete Section
@@ -792,7 +792,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - sections
+        - Sections
   "/sections/{sectionId}/roles":
     parameters:
       - schema:
@@ -804,7 +804,7 @@ paths:
       summary: Your GET endpoint
       description: Your GET endpoint
       tags:
-        - sections
+        - Sections
       responses:
         "200":
           description: OK
@@ -852,7 +852,7 @@ paths:
           in: query
           name: page
       tags:
-        - lists
+        - Lists
     post:
       summary: ""
       description: createList
@@ -870,7 +870,7 @@ paths:
             schema:
               $ref: "#/components/schemas/List"
       tags:
-        - lists
+        - Lists
   "/lists/{listId}":
     parameters:
       - schema:
@@ -883,7 +883,7 @@ paths:
       description: getListById
       operationId: getListById
       tags:
-        - lists
+        - Lists
       responses:
         "200":
           description: OK
@@ -908,7 +908,7 @@ paths:
             schema:
               $ref: "#/components/schemas/List"
       tags:
-        - lists
+        - Lists
     delete:
       summary: ""
       description: deleteListById
@@ -921,7 +921,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - lists
+        - Lists
   "/lists/{listId}/members":
     parameters:
       - schema:
@@ -934,7 +934,7 @@ paths:
       description: getListMembersById
       operationId: getListMembersById
       tags:
-        - lists
+        - Lists
       responses:
         "200":
           description: OK
@@ -957,7 +957,7 @@ paths:
       description: getListRulesById
       operationId: getListRulesById
       tags:
-        - lists
+        - Lists
       responses:
         "200":
           description: OK
@@ -984,7 +984,7 @@ paths:
             schema:
               $ref: "#/components/schemas/ListRule"
       tags:
-        - lists
+        - Lists
   "/lists/{listId}/rules/{ruleId}":
     parameters:
       - schema:
@@ -1002,7 +1002,7 @@ paths:
       description: getListRuleById
       operationId: getListRuleById
       tags:
-        - lists
+        - Lists
       responses:
         "200":
           description: OK
@@ -1027,7 +1027,7 @@ paths:
             schema:
               $ref: "#/components/schemas/ListRule"
       tags:
-        - lists
+        - Lists
     delete:
       summary: ""
       description: deleteListRuleById
@@ -1040,14 +1040,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
-        - lists
+        - Lists
   /lists/types:
     get:
       summary: Your GET endpoint
       description: getListTypes
       operationId: getListTypes
       tags:
-        - lists
+        - Lists
       responses:
         "200":
           description: OK
@@ -1087,7 +1087,7 @@ paths:
             schema:
               $ref: "#/components/schemas/ListType"
       tags:
-        - lists
+        - Lists
   "/lists/types/{listTypeId}":
     parameters:
       - schema:
@@ -1100,7 +1100,7 @@ paths:
       description: getListTypeById
       operationId: getListTypeById
       tags:
-        - lists
+        - Lists
       responses:
         "200":
           description: OK
@@ -1125,7 +1125,7 @@ paths:
             schema:
               $ref: "#/components/schemas/ListType"
       tags:
-        - lists
+        - Lists
     delete:
       summary: ""
       description: deleteListTypeById
