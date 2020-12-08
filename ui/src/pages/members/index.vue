@@ -19,9 +19,9 @@
           single-line
           hide-details
         ></v-text-field>
-        <v-btn color="primary" class="mb-2" @click="openCreateMemberModal"
-          >New Local Member</v-btn
-        >
+        <v-btn color="primary" class="mb-2" @click="openCreateMemberModal">
+          New Local Member
+        </v-btn>
         <member-create
           :open.sync="dialogMemberCreate"
           @submit="handleMemberCreateSubmit"

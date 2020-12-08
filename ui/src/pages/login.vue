@@ -1,5 +1,6 @@
 <template>
   <div>
+    <span v-if="isLoggedIn">Yo you are logged in</span>
     <v-text-field label="Username" name="username" v-model="username">
     </v-text-field>
     <v-text-field
@@ -25,6 +26,18 @@ export default class LoginPage extends Vue {
   loading: boolean = false;
   error: boolean = false;
 
+  get isLoggedIn(): boolean {
+    return this.$store.getters[`${auth.namespace}/isLoggedIn`];
+  }
+
+  @Watch('isLoggedIn', { immediate: true })
+  onLoggedInStateChange() {
+    console.log('isLoggedIn', this.isLoggedIn);
+    if (this.isLoggedIn === true) {
+      this.$router.go(-1);
+    }
+  }
+
   async handleLogin(): Promise<void> {
     this.loading = true;
     try {
@@ -33,8 +46,6 @@ export default class LoginPage extends Vue {
         password: this.password,
       });
       this.error = false;
-
-      this.$router.go(-1);
     } catch (e) {
       this.error = true;
     } finally {

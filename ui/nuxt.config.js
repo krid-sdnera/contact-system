@@ -39,7 +39,12 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/api', '~/plugins/filters'],
+  plugins: [
+    '~/plugins/api',
+    '~/plugins/filters',
+    '~/plugins/vuex-persist',
+    '~/plugins/vuex-shared-mutations',
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

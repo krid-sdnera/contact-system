@@ -116,7 +116,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Watch } from 'vue-property-decorator';
 
 import * as ui from '~/store/ui';
 import * as auth from '~/store/auth';
@@ -152,6 +152,17 @@ export default class DefaultLayout extends Vue {
     await this.$store.dispatch(`${auth.namespace}/logout`);
 
     this.$router.push('/login');
+  }
+
+  get isLoggedIn(): boolean {
+    return this.$store.getters[`${auth.namespace}/isLoggedIn`];
+  }
+
+  @Watch('isLoggedIn', { immediate: true })
+  onLoggedInStateChange() {
+    if (this.isLoggedIn === false) {
+      this.$router.push('/login');
+    }
   }
 }
 </script>
