@@ -419,6 +419,52 @@ class ExtranetMember
         return $member;
     }
 
+    public static function fromExtranetInvitation($data)
+    {
+        $member = new self();
+
+        $member->setMembershipNumber($data['id']);
+
+        $member->setSectionId($data['sectionID']);
+        $member->setSectionName($data['formation']);
+        $member->setGroupId($data['formationID']);
+        $member->setGroupName($data['formation']);
+        $member->setClassId($data['classID']);
+        $member->setFirstname($data['firstname']);
+        $member->setLastname($data['surname']);
+
+        if (isset($data['dob'])) {
+            $member->setDateOfBirth($data['dob']);
+        } else {
+            $member->setDateOfBirth('');
+        }
+
+        if (isset($data['email'])) {
+            $member->setEmail($data['email']);
+        } else {
+            $member->setEmail('');
+        }
+
+        if (isset($data['role'])) {
+            $member->setRole($data['role']);
+        }
+
+        $member->setNickname('');
+        $member->setGender('');
+        $member->setHomeAddress('');
+        $member->setHomeSuburb('');
+        $member->setHomeState('');
+        $member->setHomePostcode('');
+        $member->setHomePhone('');
+        $member->setWorkPhone('');
+        $member->setMobile('');
+        $member->setEmail('');
+        $member->setSchoolName('');
+        $member->setPosition('');
+
+
+        return $member;
+    }
 
     public static function fromArray($data)
     {

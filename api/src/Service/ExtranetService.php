@@ -140,6 +140,9 @@ class ExtranetService
         $this->getExtranetReport('total_grand');
         $this->getExtranetReport('ob');
 
+        $this->getExtranetInvitation('active');
+        $this->getExtranetInvitation('approving');
+
         // Update Cache
         file_put_contents(
             $this->cacheDirectory . 'extranet-data.json',
@@ -559,6 +562,25 @@ class ExtranetService
             $parent['PrimaryContact'] = substr($parent['PrimaryContact'], 0, 1);
 
             $extranetMember->addContact(ExtranetContact::fromExtranetCsv($parent));
+        }
+    }
+
+    private function getExtranetInvitation($type)
+    {
+        echo 'Begin invitation - ' . $type . PHP_EOL;
+        if ($type === 'active') {
+            $response = $this->client->request('GET', '/portal/membership/ajax-get-invitation-list/type/' . $type);
+        } else if ($type === 'approving') {
+            $response = $this->client->request('GET', '/portal/membership/ajax-get-approval-list/type/' . $type);
+        }
+        $content = json_decode($response->getContent(), true);
+
+        foreach ($content as $i => $record) {
+            echo 'Processing ' . $record['id'] . PHP_EOL;
+
+            $extranetMember = ExtranetMember::fromExtranetInvitation($record, $type);
+
+            $this->extranetMembers[] = $extranetMember;
         }
     }
 

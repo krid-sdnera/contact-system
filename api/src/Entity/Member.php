@@ -57,7 +57,7 @@ class Member
             // Attempt to match up with an existing record
             $member = $memberRepo->createQueryBuilder('m')
                 ->where("m.firstname LIKE :firstname")
-                ->orWhere("m.firstname LIKE :lastname")
+                ->orWhere("m.lastname LIKE :lastname")
                 ->andWhere("m.dateOfBirth = :dateOfBirth")
                 ->andWhere("m.managementState = :state")
                 ->setParameter("firstname", '%' . addcslashes($extranetMember->getFirstname(), '%_') . '%')

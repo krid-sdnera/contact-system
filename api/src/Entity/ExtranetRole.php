@@ -84,7 +84,7 @@ class ExtranetRole
         return $this;
     }
 
-    public function getSectionName(): bool
+    public function getSectionName(): string
     {
         return $this->sectionName;
     }
