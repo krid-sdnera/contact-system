@@ -7,7 +7,7 @@ import {
   CreateMemberRequest,
   AddMemberRoleByIdRequest,
 } from '@api/apis';
-import { MemberData, MemberRoleData } from '@api/models';
+import { MemberData, MemberRoleData, Members } from '@api/models';
 import { AppError, ErrorCode } from '~/common/app-error';
 
 export const namespace = 'member';
@@ -54,13 +54,10 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-  async fetchMembers(
-    { commit },
-    options: GetMembersRequest
-  ): Promise<number[]> {
+  async fetchMembers({ commit }, options: GetMembersRequest): Promise<Members> {
     const payload = await this.$api.members.getMembers(options);
     commit('setMembers', payload.members);
-    return payload.members.map((member: MemberData) => member.id);
+    return payload;
   },
   async fetchMemberById({ commit }, memberId: number) {
     try {

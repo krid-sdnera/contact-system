@@ -720,7 +720,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getListTypes**
-> OpenAPI\Server\Model\ListType getListTypes($sort, $pageSize, $page)
+> OpenAPI\Server\Model\ListType getListTypes($query, $sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -751,7 +751,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListTypes
      */
-    public function getListTypes(string $sort = null, int $pageSize = null, int $page = null)
+    public function getListTypes(string $query = null, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -764,6 +764,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **query** | **string**|  | [optional]
  **sort** | **string**|  | [optional]
  **pageSize** | **int**|  | [optional]
  **page** | **int**|  | [optional]
@@ -784,7 +785,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getLists**
-> OpenAPI\Server\Model\ModelList getLists($sort, $pageSize, $page)
+> OpenAPI\Server\Model\ModelList getLists($query, $sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -815,7 +816,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getLists
      */
-    public function getLists(string $sort = null, int $pageSize = null, int $page = null)
+    public function getLists(string $query = null, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -828,6 +829,7 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **query** | **string**|  | [optional]
  **sort** | **string**|  | [optional]
  **pageSize** | **int**|  | [optional]
  **page** | **int**|  | [optional]

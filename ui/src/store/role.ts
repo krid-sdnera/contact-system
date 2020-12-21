@@ -14,6 +14,9 @@ export const state = () =>
 export type RootState = ReturnType<typeof state>;
 
 export const getters: GetterTree<RootState, RootState> = {
+  getRoles: (state): RoleData[] => {
+    return Object.values(state.roles);
+  },
   getRoleById: (state) => (id: number): RoleData | null => {
     return state.roles[id] || null;
   },
@@ -39,6 +42,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async fetchRoles({ commit }, options: GetRolesRequest) {
     const payload = await this.$api.roles.getRoles(options ?? {});
     commit('setRoles', payload.roles);
+    return payload;
   },
   async fetchRoleById({ commit }, roleId: number) {
     try {

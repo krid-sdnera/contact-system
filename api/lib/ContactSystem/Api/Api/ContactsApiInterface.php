@@ -106,6 +106,7 @@ interface ContactsApiInterface
      *
      * Your GET endpoint
      *
+     * @param  string $query   (optional)
      * @param  string $sort   (optional)
      * @param  int $pageSize   (optional)
      * @param  int $page   (optional)
@@ -115,7 +116,7 @@ interface ContactsApiInterface
      * @return OpenAPI\Server\Model\Contacts
      *
      */
-    public function getContacts(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getContacts(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation patchContactById

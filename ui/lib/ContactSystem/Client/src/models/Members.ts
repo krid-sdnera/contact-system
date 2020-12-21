@@ -27,6 +27,30 @@ import {
  */
 export interface Members {
     /**
+     * Total number of items
+     * @type {number}
+     * @memberof Members
+     */
+    totalItems: number;
+    /**
+     * Total number of pages
+     * @type {number}
+     * @memberof Members
+     */
+    totalPages: number;
+    /**
+     * Current page number
+     * @type {number}
+     * @memberof Members
+     */
+    page: number;
+    /**
+     * Number of items in this page
+     * @type {number}
+     * @memberof Members
+     */
+    pageSize: number;
+    /**
      * Array containg the list
      * @type {Array<MemberData>}
      * @memberof Members
@@ -44,6 +68,10 @@ export function MembersFromJSONTyped(json: any, ignoreDiscriminator: boolean): M
     }
     return {
         
+        'totalItems': json['totalItems'],
+        'totalPages': json['totalPages'],
+        'page': json['page'],
+        'pageSize': json['pageSize'],
         'members': ((json['members'] as Array<any>).map(MemberDataFromJSON)),
     };
 }
@@ -57,6 +85,10 @@ export function MembersToJSON(value?: Members | null): any {
     }
     return {
         
+        'totalItems': value.totalItems,
+        'totalPages': value.totalPages,
+        'page': value.page,
+        'pageSize': value.pageSize,
         'members': ((value.members as Array<any>).map(MemberDataToJSON)),
     };
 }

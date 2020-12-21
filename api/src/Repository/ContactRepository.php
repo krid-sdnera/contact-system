@@ -6,8 +6,7 @@ use App\Entity\Contact;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-use App\Exception\SortKeyNotFound;
-use Doctrine\ORM\ORMException;
+use App\Repository\PageFetcherTrait;
 
 /**
  * @method Contact|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,93 +16,49 @@ use Doctrine\ORM\ORMException;
  */
 class ContactRepository extends ServiceEntityRepository
 {
+    use PageFetcherTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Contact::class);
     }
 
-    public function findByPage(
-        $sort = null,
-        $pageSize = null,
-        $page = null
-    ) {
-
-        $sortComputed = [];
-        if ($sort) {
-            $parts = explode(':', $sort, 2);
-
-            $sortField = (!empty($parts[0])) ? $parts[0] : null;
-            if ($sortField) {
-                $sortDirecton = (count($parts) >= 2 && !empty($parts[1])) ? $parts[1] : null;
-                $sortComputed[strtolower($sortField)] = (in_array(strtolower($sortDirecton), ['asc', 'desc'])) ? strtolower($sortDirecton) : 'asc';
-            }
-        }
-
-        $page = max($page, 1);
-        $limit = max(min($pageSize, 50), 5);
-        $offset = ($page - 1) * $limit;
-        $offset = max(min($offset, 9999), 0);
-
-        try {
-            $qb = $this->createQueryBuilder('c');
-            $qb->select('c');
-            // TODO sortComputed
-            $qb->setFirstResult($offset);
-            $qb->setMaxResults($limit);
-
-            $result = $qb->getQuery()->getResult();
-        } catch (ORMException $e) {
-            if (strpos($e->getMessage(), "Unrecognized field") === 0) {
-                $keys = implode(',', array_keys($sortComputed));
-
-                throw new SortKeyNotFound("Sort field (${keys}) is not found");
-            }
-
-            throw $e;
-        }
-
-        return $result;
-    }
-
-
-    public function findByMemberId($memberId)
+    public function findByPage($query = null, $sort = null, $pageSize = null, $page = null)
     {
-        // TODO: Add pagination
-        $result = $this->createQueryBuilder('c')
-            ->where('c.member = :memberId')
-            ->setParameter('memberId', $memberId)
-            ->getQuery()
-            ->getResult();
-
-        return $result;
+        $qb = $this->createQueryBuilder('e');
+        $expression = $qb->expr()->orX(
+            $qb->expr()->like('e.firstname', ':search'),
+            $qb->expr()->like('e.lastname', ':search')
+        );
+        return $this->pageFetcherHelper(
+            $expression,
+            function (Contact $contact) {
+                return $contact->toContactData();
+            },
+            'contacts',
+            "%${query}%",
+            $sort,
+            $pageSize,
+            $page
+        );
     }
 
-    // /**
-    //  * @return Contact[] Returns an array of Contact objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByMemberIdPage($memberId = null, $sort = null, $pageSize = null, $page = null)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('e');
+        $expression = $qb->expr()->orX(
+            $qb->expr()->eq('e.member', ':search')
+        );
+        return $this->pageFetcherHelper(
+            $expression,
+            function (Contact $contact) {
+                return $contact->toContactData();
+            },
+            'contacts',
+            $memberId,
+            $sort,
+            $pageSize,
+            $page
+        );
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Contact
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

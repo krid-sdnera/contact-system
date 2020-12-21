@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\MemberRole;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\PageFetcherTrait;
 
 /**
  * @method MemberRole|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,49 +15,30 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MemberRoleRepository extends ServiceEntityRepository
 {
+    use PageFetcherTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, MemberRole::class);
     }
 
-    public function findByMemberId($memberId)
+    public function findByMemberIdPage($memberId = null, $sort = null, $pageSize = null, $page = null)
     {
-        // TODO: Add pagination
-        $result = $this->createQueryBuilder('m')
-            ->where('m.member = :memberId')
-            ->setParameter('memberId', $memberId)
-            ->getQuery()
-            ->getResult();
-
-        return $result;
+        $qb = $this->createQueryBuilder('e');
+        $expression = $qb->expr()->orX(
+            $qb->expr()->eq('e.member', ':search')
+        );
+        return $this->pageFetcherHelper(
+            $expression,
+            function (MemberRole $memberRole) {
+                return $memberRole->toMemberRoleData();
+            },
+            'roles',
+            $memberId,
+            $sort,
+            $pageSize,
+            $page,
+            'member'
+        );
     }
-
-    // /**
-    //  * @return MemberRole[] Returns an array of MemberRole objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?MemberRole
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

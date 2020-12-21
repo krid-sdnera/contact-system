@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getRoles**
-> OpenAPI\Server\Model\Roles getRoles($sort, $pageSize, $page)
+> OpenAPI\Server\Model\Roles getRoles($query, $sort, $pageSize, $page)
 
 Get roles
 
@@ -241,7 +241,7 @@ class RolesApi implements RolesApiInterface
     /**
      * Implementation of RolesApiInterface#getRoles
      */
-    public function getRoles(string $sort = null, int $pageSize = null, int $page = null)
+    public function getRoles(string $query = null, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -254,6 +254,7 @@ class RolesApi implements RolesApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **query** | **string**|  | [optional]
  **sort** | **string**|  | [optional]
  **pageSize** | **int**|  | [optional]
  **page** | **int**|  | [optional]

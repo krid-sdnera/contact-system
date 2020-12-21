@@ -131,13 +131,16 @@ interface MembersApiInterface
      * List member's contacts
      *
      * @param  int $memberId   (required)
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\Contacts
      *
      */
-    public function getMemberContactsById(int $memberId, &$responseCode, array &$responseHeaders);
+    public function getMemberContactsById(int $memberId, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMemberRolesById
@@ -145,13 +148,16 @@ interface MembersApiInterface
      * List member's roles
      *
      * @param  int $memberId   (required)
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
      * @return OpenAPI\Server\Model\MemberRoles
      *
      */
-    public function getMemberRolesById(int $memberId, &$responseCode, array &$responseHeaders);
+    public function getMemberRolesById(int $memberId, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMembers

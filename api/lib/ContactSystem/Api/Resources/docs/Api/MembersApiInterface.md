@@ -280,7 +280,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getMemberContactsById**
-> OpenAPI\Server\Model\Contacts getMemberContactsById($memberId)
+> OpenAPI\Server\Model\Contacts getMemberContactsById($memberId, $sort, $pageSize, $page)
 
 List member's contacts
 
@@ -311,7 +311,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#getMemberContactsById
      */
-    public function getMemberContactsById(int $memberId)
+    public function getMemberContactsById(int $memberId, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -325,6 +325,9 @@ class MembersApi implements MembersApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **memberId** | **int**|  |
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 
@@ -342,7 +345,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getMemberRolesById**
-> OpenAPI\Server\Model\MemberRoles getMemberRolesById($memberId)
+> OpenAPI\Server\Model\MemberRoles getMemberRolesById($memberId, $sort, $pageSize, $page)
 
 List member's roles
 
@@ -373,7 +376,7 @@ class MembersApi implements MembersApiInterface
     /**
      * Implementation of MembersApiInterface#getMemberRolesById
      */
-    public function getMemberRolesById(int $memberId)
+    public function getMemberRolesById(int $memberId, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -387,6 +390,9 @@ class MembersApi implements MembersApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **memberId** | **int**|  |
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 

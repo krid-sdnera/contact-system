@@ -214,6 +214,7 @@ interface ListsApiInterface
      *
      * Your GET endpoint
      *
+     * @param  string $query   (optional)
      * @param  string $sort   (optional)
      * @param  int $pageSize   (optional)
      * @param  int $page   (optional)
@@ -223,13 +224,14 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListType[]
      *
      */
-    public function getListTypes(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getListTypes(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getLists
      *
      * Your GET endpoint
      *
+     * @param  string $query   (optional)
      * @param  string $sort   (optional)
      * @param  int $pageSize   (optional)
      * @param  int $page   (optional)
@@ -239,7 +241,7 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ModelList[]
      *
      */
-    public function getLists(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getLists(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateListById

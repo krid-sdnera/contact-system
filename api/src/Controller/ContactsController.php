@@ -142,20 +142,26 @@ class ContactsController extends AbstractController implements ContactsApiInterf
      * {@inheritdoc}
      */
     public function getContacts(
+        $query = null,
         $sort = null,
         $pageSize = null,
         $page = null,
         &$responseCode,
         array &$responseHeaders
     ) {
+
+        /** @var ContactRepository */
+        $repo = $this->getDoctrine()->getRepository(Contact::class);
+
         try {
-            $contacts = $this->getDoctrine()
-                ->getRepository(Contact::class)
-                ->findByPage(
-                    $sort,
-                    $pageSize,
-                    $page
-                );
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page
+            );
+
+            return $result;
         } catch (SortKeyNotFound $e) {
             $responseCode = 400;
             return new ApiResponse([
@@ -164,15 +170,6 @@ class ContactsController extends AbstractController implements ContactsApiInterf
                 'message' => $e->getMessage()
             ]);
         }
-
-        return [
-            "contacts" => array_map(
-                function ($contact) {
-                    return $contact->toContactData();
-                },
-                $contacts
-            )
-        ];
     }
 
     /**

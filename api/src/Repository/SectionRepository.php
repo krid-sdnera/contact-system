@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 use App\Exception\SortKeyNotFound;
 use Doctrine\ORM\ORMException;
+use App\Repository\PageFetcherTrait;
 
 /**
  * @method Section|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,109 +18,48 @@ use Doctrine\ORM\ORMException;
  */
 class SectionRepository extends ServiceEntityRepository
 {
+    use PageFetcherTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Section::class);
     }
 
-    // This was implemented for preloading the scout group data.
-    // TODO: find out about performance benfits of preloading the data here
-    //       maybe there is an annotation to to this.
-    // public function find($id, $lockMode = NULL, $lockVersion = NULL)
-    // {
-    //     $qb = $this->createQueryBuilder('s');
-    //     $qb->select('s, sg');
-    //     $qb->leftJoin('s.scoutGroup', 'sg');
-
-    //     $qb->where('s.id = :id');
-    //     $qb->setParameter('id', $id);
-
-    //     $result = $qb->getQuery()->getResult();
-    //     return $result;
-    // }
-
-    public function findByScoutGroupId($scoutGroupId)
+    public function findByPage($query = null, $sort = null, $pageSize = null, $page = null)
     {
-        // TODO: Add pagination
-        $result = $this->createQueryBuilder('s')
-            ->where('s.scoutGroup = :scoutGroupId')
-            ->setParameter('scoutGroupId', $scoutGroupId)
-            ->getQuery()
-            ->getResult();
-
-        return $result;
+        $qb = $this->createQueryBuilder('e');
+        $expression = $qb->expr()->orX(
+            $qb->expr()->like('e.name', ':search')
+        );
+        return $this->pageFetcherHelper(
+            $expression,
+            function (Section $section) {
+                return $section->toSectionData();
+            },
+            'sections',
+            "%${query}%",
+            $sort,
+            $pageSize,
+            $page
+        );
     }
 
-    public function findByPage(
-        $sort = null,
-        $pageSize = null,
-        $page = null
-    ) {
-
-        $sortComputed = [];
-        if ($sort) {
-            $parts = explode(':', $sort, 2);
-
-            $sortField = (!empty($parts[0])) ? $parts[0] : null;
-            if ($sortField) {
-                $sortDirecton = (count($parts) >= 2 && !empty($parts[1])) ? $parts[1] : null;
-                $sortComputed[strtolower($sortField)] = (in_array(strtolower($sortDirecton), ['asc', 'desc'])) ? strtolower($sortDirecton) : 'asc';
-            }
-        }
-
-        $page = max($page, 1);
-        $limit = max(min($pageSize, 50), 5);
-        $offset = ($page - 1) * $limit;
-        $offset = max(min($offset, 9999), 0);
-
-        try {
-            $qb = $this->createQueryBuilder('s');
-            $qb->select('s, sg');
-            $qb->leftJoin('s.scoutGroup', 'sg');
-            // TODO sortComputed
-            $qb->setFirstResult($offset);
-            $qb->setMaxResults($limit);
-
-            $result = $qb->getQuery()->getResult();
-        } catch (ORMException $e) {
-            if (strpos($e->getMessage(), "Unrecognized field") === 0) {
-                $keys = implode(',', array_keys($sortComputed));
-
-                throw new SortKeyNotFound("Sort field (${keys}) is not found");
-            }
-
-            throw $e;
-        }
-
-        return $result;
-    }
-
-    // /**
-    //  * @return Section[] Returns an array of Section objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByScoutGroupIdPage($scoutGroupId = null, $sort = null, $pageSize = null, $page = null)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('e');
+        $expression = $qb->expr()->orX(
+            $qb->expr()->eq('e.scoutGroup', ':search')
+        );
+        return $this->pageFetcherHelper(
+            $expression,
+            function (Section $section) {
+                return $section->toSectionData();
+            },
+            'sections',
+            $scoutGroupId,
+            $sort,
+            $pageSize,
+            $page
+        );
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Section
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

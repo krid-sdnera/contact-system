@@ -11,7 +11,7 @@ yarn run openapi-generator generate -i build/contact-system-api.yaml -g php-symf
 
 echo "> Upgrade Composer dependacies"
 sed -i '' -e 's/"jms\/serializer-bundle": "^2.0"/"jms\/serializer-bundle": "^3.0"/' api/lib/ContactSystem/Api/composer.json
-sed -i '' -e 's/"symfony\/framework-bundle": "^3.3\|^4.1"/"symfony\/framework-bundle": "^3.3|^4.1|^5.0"/' api/lib/ContactSystem/Api/composer.json
+sed -i '' -e 's/"symfony\/framework-bundle": "^3.3|^4.1"/"symfony\/framework-bundle": "^3.3|^4.1|^5.0"/' api/lib/ContactSystem/Api/composer.json
 
 echo "> Remove Deserialization NamingStrategy"
 perl -0777 -i -ple '

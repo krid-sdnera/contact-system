@@ -19,6 +19,9 @@ export const state = () =>
 export type RootState = ReturnType<typeof state>;
 
 export const getters: GetterTree<RootState, RootState> = {
+  getContacts: (state): ContactData[] => {
+    return Object.values(state.contacts);
+  },
   getContactById: (state) => (id: number): ContactData | null => {
     return state.contacts[id] || null;
   },
@@ -44,6 +47,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async fetchContacts({ commit }, options: GetContactsRequest) {
     const payload = await this.$api.contacts.getContacts(options);
     commit('setContacts', payload.contacts);
+    return payload;
   },
   async fetchContactById({ commit }, contactId: number) {
     try {

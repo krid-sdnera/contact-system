@@ -1,15 +1,15 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="members"
+    :items="groups"
     :options.sync="options"
-    :server-items-length="totalMembers"
+    :server-items-length="totalGroups"
     :loading="loading"
     class="elevation-1"
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>Members</v-toolbar-title>
+        <v-toolbar-title>Groups</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-text-field
@@ -19,17 +19,17 @@
           single-line
           hide-details
         ></v-text-field>
-        <v-btn color="primary" class="mb-2" @click="openCreateMemberModal">
-          New Local Member
+        <v-btn color="primary" class="mb-2" @click="openCreateGroupModal">
+          New Local Group
         </v-btn>
-        <member-create
-          :open.sync="dialogMemberCreate"
-          @submit="handleMemberCreateSubmit"
-        ></member-create>
+        <!-- <group-create
+          :open.sync="dialogGroupCreate"
+          @submit="handleGroupCreateSubmit"
+        ></group-create> -->
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <v-btn icon nuxt :to="{ path: `/members/${item.id}` }">
+      <v-btn icon nuxt :to="{ path: `/groups/${item.id}` }">
         <v-icon small>mdi-eye</v-icon>
       </v-btn>
       <v-btn icon>
@@ -41,12 +41,12 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator';
-import { MemberData, Members } from '@api/models';
-import * as member from '~/store/member';
+import { ScoutGroupData, ScoutGroups } from '@api/models';
+import * as group from '~/store/scoutGroup';
 
 @Component
-export default class MembersListPage extends Vue {
-  totalMembers = 5;
+export default class GroupsListPage extends Vue {
+  totalGroups = 5;
   error = false;
   loading = true;
   options: {
@@ -60,13 +60,11 @@ export default class MembersListPage extends Vue {
     page: 1,
     itemsPerPage: 10,
   };
-  memberIdsToDisplay: number[] = [];
+  groupIdsToDisplay: number[] = [];
   search: string = '';
 
   headers = [
-    { text: 'Firstname', value: 'firstname' },
-    { text: 'Lastname', value: 'lastname' },
-    { text: 'Membership Number', value: 'membershipNumber' },
+    { text: 'Name', value: 'name' },
     { text: 'Actions', value: 'actions', sortable: false },
   ];
 
@@ -87,41 +85,42 @@ export default class MembersListPage extends Vue {
   @Watch('search')
   onSearchChange() {
     this.options.page = 1;
-    this.fetchMembersWithNewOptions();
+    this.fetchGroupsWithNewOptions();
   }
 
   @Watch('options', { deep: true })
   onOptionsChange() {
-    this.fetchMembersWithNewOptions();
+    this.fetchGroupsWithNewOptions();
   }
 
-  get members(): MemberData[] {
-    return this.$store.getters[`${member.namespace}/getMembers`]
-      .filter((member: MemberData) =>
-        this.memberIdsToDisplay.includes(member.id)
+  get groups(): ScoutGroupData[] {
+    return this.$store.getters[`${group.namespace}/getScoutGroups`]
+      .filter((group: ScoutGroupData) =>
+        this.groupIdsToDisplay.includes(group.id)
       )
-      .sort((a: MemberData, b: MemberData) => {
+      .sort((a: ScoutGroupData, b: ScoutGroupData) => {
         return (
-          this.memberIdsToDisplay.indexOf(a.id) -
-          this.memberIdsToDisplay.indexOf(b.id)
+          this.groupIdsToDisplay.indexOf(a.id) -
+          this.groupIdsToDisplay.indexOf(b.id)
         );
       });
   }
 
   async mounted() {}
 
-  async fetchMembersWithNewOptions(): Promise<void> {
+  async fetchGroupsWithNewOptions(): Promise<void> {
     this.loading = true;
     try {
-      const payload: Members = await this.$store.dispatch(
-        `${member.namespace}/fetchMembers`,
+      const payload: ScoutGroups = await this.$store.dispatch(
+        `${group.namespace}/fetchScoutGroups`,
         this.apiOptions
       );
-
-      this.memberIdsToDisplay = payload.members.map(
-        (member: MemberData) => member.id
+      console.log(payload);
+      this.groupIdsToDisplay = payload.scoutGroups.map(
+        (group: ScoutGroupData) => group.id
       );
-      this.totalMembers = payload.totalItems;
+
+      this.totalGroups = payload.totalItems;
       if (this.apiOptions.page > payload.totalPages) {
         this.options.page = payload.totalPages;
       }
@@ -133,19 +132,19 @@ export default class MembersListPage extends Vue {
     }
   }
 
-  dialogMemberCreate: boolean = false;
+  dialogGroupCreate: boolean = false;
 
-  openCreateMemberModal() {
-    this.dialogMemberCreate = true;
+  openCreateGroupModal() {
+    this.dialogGroupCreate = true;
   }
 
-  closeCreateMemberModal() {
-    this.dialogMemberCreate = false;
+  closeCreateGroupModal() {
+    this.dialogGroupCreate = false;
   }
 
-  handleMemberCreateSubmit(response: MemberData) {
+  handleGroupCreateSubmit(response: ScoutGroupData) {
     if (response?.id) {
-      this.$router.push(`/members/${response.id}`);
+      this.$router.push(`/groups/${response.id}`);
     }
   }
 }

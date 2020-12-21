@@ -1,15 +1,15 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="members"
+    :items="roles"
     :options.sync="options"
-    :server-items-length="totalMembers"
+    :server-items-length="totalRoles"
     :loading="loading"
     class="elevation-1"
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>Members</v-toolbar-title>
+        <v-toolbar-title>Roles</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-text-field
@@ -19,17 +19,17 @@
           single-line
           hide-details
         ></v-text-field>
-        <v-btn color="primary" class="mb-2" @click="openCreateMemberModal">
-          New Local Member
+        <v-btn color="primary" class="mb-2" @click="openCreateRoleModal">
+          New Local Role
         </v-btn>
-        <member-create
-          :open.sync="dialogMemberCreate"
-          @submit="handleMemberCreateSubmit"
-        ></member-create>
+        <!-- <role-create
+          :open.sync="dialogRoleCreate"
+          @submit="handleRoleCreateSubmit"
+        ></role-create> -->
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <v-btn icon nuxt :to="{ path: `/members/${item.id}` }">
+      <v-btn icon nuxt :to="{ path: `/roles/${item.id}` }">
         <v-icon small>mdi-eye</v-icon>
       </v-btn>
       <v-btn icon>
@@ -41,12 +41,12 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator';
-import { MemberData, Members } from '@api/models';
-import * as member from '~/store/member';
+import { RoleData, Roles } from '@api/models';
+import * as role from '~/store/role';
 
 @Component
-export default class MembersListPage extends Vue {
-  totalMembers = 5;
+export default class RolesListPage extends Vue {
+  totalRoles = 5;
   error = false;
   loading = true;
   options: {
@@ -60,13 +60,11 @@ export default class MembersListPage extends Vue {
     page: 1,
     itemsPerPage: 10,
   };
-  memberIdsToDisplay: number[] = [];
+  roleIdsToDisplay: number[] = [];
   search: string = '';
 
   headers = [
-    { text: 'Firstname', value: 'firstname' },
-    { text: 'Lastname', value: 'lastname' },
-    { text: 'Membership Number', value: 'membershipNumber' },
+    { text: 'Name', value: 'name' },
     { text: 'Actions', value: 'actions', sortable: false },
   ];
 
@@ -87,41 +85,38 @@ export default class MembersListPage extends Vue {
   @Watch('search')
   onSearchChange() {
     this.options.page = 1;
-    this.fetchMembersWithNewOptions();
+    this.fetchRolesWithNewOptions();
   }
 
   @Watch('options', { deep: true })
   onOptionsChange() {
-    this.fetchMembersWithNewOptions();
+    this.fetchRolesWithNewOptions();
   }
 
-  get members(): MemberData[] {
-    return this.$store.getters[`${member.namespace}/getMembers`]
-      .filter((member: MemberData) =>
-        this.memberIdsToDisplay.includes(member.id)
-      )
-      .sort((a: MemberData, b: MemberData) => {
+  get roles(): RoleData[] {
+    return this.$store.getters[`${role.namespace}/getRoles`]
+      .filter((role: RoleData) => this.roleIdsToDisplay.includes(role.id))
+      .sort((a: RoleData, b: RoleData) => {
         return (
-          this.memberIdsToDisplay.indexOf(a.id) -
-          this.memberIdsToDisplay.indexOf(b.id)
+          this.roleIdsToDisplay.indexOf(a.id) -
+          this.roleIdsToDisplay.indexOf(b.id)
         );
       });
   }
 
   async mounted() {}
 
-  async fetchMembersWithNewOptions(): Promise<void> {
+  async fetchRolesWithNewOptions(): Promise<void> {
     this.loading = true;
     try {
-      const payload: Members = await this.$store.dispatch(
-        `${member.namespace}/fetchMembers`,
+      const payload: Roles = await this.$store.dispatch(
+        `${role.namespace}/fetchRoles`,
         this.apiOptions
       );
 
-      this.memberIdsToDisplay = payload.members.map(
-        (member: MemberData) => member.id
-      );
-      this.totalMembers = payload.totalItems;
+      this.roleIdsToDisplay = payload.roles.map((role: RoleData) => role.id);
+
+      this.totalRoles = payload.totalItems;
       if (this.apiOptions.page > payload.totalPages) {
         this.options.page = payload.totalPages;
       }
@@ -133,19 +128,19 @@ export default class MembersListPage extends Vue {
     }
   }
 
-  dialogMemberCreate: boolean = false;
+  dialogRoleCreate: boolean = false;
 
-  openCreateMemberModal() {
-    this.dialogMemberCreate = true;
+  openCreateRoleModal() {
+    this.dialogRoleCreate = true;
   }
 
-  closeCreateMemberModal() {
-    this.dialogMemberCreate = false;
+  closeCreateRoleModal() {
+    this.dialogRoleCreate = false;
   }
 
-  handleMemberCreateSubmit(response: MemberData) {
+  handleRoleCreateSubmit(response: RoleData) {
     if (response?.id) {
-      this.$router.push(`/members/${response.id}`);
+      this.$router.push(`/roles/${response.id}`);
     }
   }
 }

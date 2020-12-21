@@ -27,6 +27,30 @@ import {
  */
 export interface Sections {
     /**
+     * Total number of items
+     * @type {number}
+     * @memberof Sections
+     */
+    totalItems: number;
+    /**
+     * Total number of pages
+     * @type {number}
+     * @memberof Sections
+     */
+    totalPages: number;
+    /**
+     * Current page number
+     * @type {number}
+     * @memberof Sections
+     */
+    page: number;
+    /**
+     * Number of items in this page
+     * @type {number}
+     * @memberof Sections
+     */
+    pageSize: number;
+    /**
      * Array containg the list
      * @type {Array<SectionData>}
      * @memberof Sections
@@ -44,6 +68,10 @@ export function SectionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     }
     return {
         
+        'totalItems': json['totalItems'],
+        'totalPages': json['totalPages'],
+        'page': json['page'],
+        'pageSize': json['pageSize'],
         'sections': ((json['sections'] as Array<any>).map(SectionDataFromJSON)),
     };
 }
@@ -57,6 +85,10 @@ export function SectionsToJSON(value?: Sections | null): any {
     }
     return {
         
+        'totalItems': value.totalItems,
+        'totalPages': value.totalPages,
+        'page': value.page,
+        'pageSize': value.pageSize,
         'sections': ((value.sections as Array<any>).map(SectionDataToJSON)),
     };
 }

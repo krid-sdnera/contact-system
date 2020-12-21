@@ -42,6 +42,7 @@ export interface GetRoleByIdRequest {
 }
 
 export interface GetRolesRequest {
+    query?: string;
     sort?: string;
     pageSize?: number;
     page?: number;
@@ -109,6 +110,7 @@ export interface RolesApiInterface {
     /**
      * Get roles
      * @summary Get roles
+     * @param {string} [query] 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
      * @param {number} [page] 
@@ -285,6 +287,10 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      */
     async getRolesRaw(requestParameters: GetRolesRequest): Promise<runtime.ApiResponse<Roles>> {
         const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
 
         if (requestParameters.sort !== undefined) {
             queryParameters['sort'] = requestParameters.sort;

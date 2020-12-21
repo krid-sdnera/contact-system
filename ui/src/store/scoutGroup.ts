@@ -14,6 +14,9 @@ export const state = () =>
 export type RootState = ReturnType<typeof state>;
 
 export const getters: GetterTree<RootState, RootState> = {
+  getScoutGroups: (state): ScoutGroupData[] => {
+    return Object.values(state.scoutGroups);
+  },
   getScoutGroupById: (state) => (id: number): ScoutGroupData | null => {
     return state.scoutGroups[id] || null;
   },
@@ -34,6 +37,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async fetchScoutGroups({ commit }, options: GetScoutGroupsRequest) {
     const payload = await this.$api.scoutGroups.getScoutGroups(options);
     commit('setScoutGroups', payload.scoutGroups);
+    return payload;
   },
   async fetchScoutGroupById({ commit }, scoutGroupId: number) {
     try {

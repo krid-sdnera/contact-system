@@ -129,20 +129,26 @@ class RolesController extends AbstractController implements RolesApiInterface
      * {@inheritdoc}
      */
     public function getRoles(
+        $query = null,
         $sort = null,
         $pageSize = null,
         $page = null,
         &$responseCode,
         array &$responseHeaders
     ) {
+
+        /** @var RoleRepository */
+        $repo = $this->getDoctrine()->getRepository(Role::class);
+
         try {
-            $roles = $this->getDoctrine()
-                ->getRepository(Role::class)
-                ->findByPage(
-                    $sort,
-                    $pageSize,
-                    $page
-                );
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page
+            );
+
+            return $result;
         } catch (SortKeyNotFound $e) {
             $responseCode = 400;
             return new ApiResponse([
@@ -151,15 +157,6 @@ class RolesController extends AbstractController implements RolesApiInterface
                 'message' => $e->getMessage()
             ]);
         }
-
-        return [
-            'roles' => array_map(
-                function ($role) {
-                    return $role->toRoleData();
-                },
-                $roles
-            )
-        ];
     }
 
     /**

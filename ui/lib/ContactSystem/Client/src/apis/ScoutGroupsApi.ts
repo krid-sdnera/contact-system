@@ -49,6 +49,7 @@ export interface GetScoutGroupSectionsByIdRequest {
 }
 
 export interface GetScoutGroupsRequest {
+    query?: string;
     sort?: string;
     pageSize?: number;
     page?: number;
@@ -132,6 +133,7 @@ export interface ScoutGroupsApiInterface {
     /**
      * Get Groups
      * @summary Get Groups
+     * @param {string} [query] 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
      * @param {number} [page] 
@@ -352,6 +354,10 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      */
     async getScoutGroupsRaw(requestParameters: GetScoutGroupsRequest): Promise<runtime.ApiResponse<ScoutGroups>> {
         const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
 
         if (requestParameters.sort !== undefined) {
             queryParameters['sort'] = requestParameters.sort;

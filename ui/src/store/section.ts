@@ -14,6 +14,9 @@ export const state = () =>
 export type RootState = ReturnType<typeof state>;
 
 export const getters: GetterTree<RootState, RootState> = {
+  getSections: (state): SectionData[] => {
+    return Object.values(state.sections);
+  },
   getSectionById: (state) => (id: number): SectionData | null => {
     return state.sections[id] || null;
   },
@@ -39,6 +42,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async fetchSections({ commit }, options: GetSectionsRequest) {
     const payload = await this.$api.sections.getSections(options);
     commit('setSections', payload.sections);
+    return payload;
   },
   async fetchSectionById({ commit }, sectionId: number) {
     try {

@@ -27,6 +27,30 @@ import {
  */
 export interface MemberRoles {
     /**
+     * Total number of items
+     * @type {number}
+     * @memberof MemberRoles
+     */
+    totalItems: number;
+    /**
+     * Total number of pages
+     * @type {number}
+     * @memberof MemberRoles
+     */
+    totalPages: number;
+    /**
+     * Current page number
+     * @type {number}
+     * @memberof MemberRoles
+     */
+    page: number;
+    /**
+     * Number of items in this page
+     * @type {number}
+     * @memberof MemberRoles
+     */
+    pageSize: number;
+    /**
      * Array containg the list
      * @type {Array<MemberRoleData>}
      * @memberof MemberRoles
@@ -44,6 +68,10 @@ export function MemberRolesFromJSONTyped(json: any, ignoreDiscriminator: boolean
     }
     return {
         
+        'totalItems': json['totalItems'],
+        'totalPages': json['totalPages'],
+        'page': json['page'],
+        'pageSize': json['pageSize'],
         'roles': ((json['roles'] as Array<any>).map(MemberRoleDataFromJSON)),
     };
 }
@@ -57,6 +85,10 @@ export function MemberRolesToJSON(value?: MemberRoles | null): any {
     }
     return {
         
+        'totalItems': value.totalItems,
+        'totalPages': value.totalPages,
+        'page': value.page,
+        'pageSize': value.pageSize,
         'roles': ((value.roles as Array<any>).map(MemberRoleDataToJSON)),
     };
 }

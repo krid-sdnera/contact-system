@@ -125,6 +125,7 @@ interface ScoutGroupsApiInterface
      *
      * Get Groups
      *
+     * @param  string $query   (optional)
      * @param  string $sort   (optional)
      * @param  int $pageSize   (optional)
      * @param  int $page   (optional)
@@ -134,7 +135,7 @@ interface ScoutGroupsApiInterface
      * @return OpenAPI\Server\Model\ScoutGroups
      *
      */
-    public function getScoutGroups(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getScoutGroups(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateScoutGroupById

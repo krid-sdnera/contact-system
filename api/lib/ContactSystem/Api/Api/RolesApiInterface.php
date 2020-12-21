@@ -110,6 +110,7 @@ interface RolesApiInterface
      *
      * Get roles
      *
+     * @param  string $query   (optional)
      * @param  string $sort   (optional)
      * @param  int $pageSize   (optional)
      * @param  int $page   (optional)
@@ -119,7 +120,7 @@ interface RolesApiInterface
      * @return OpenAPI\Server\Model\Roles
      *
      */
-    public function getRoles(string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getRoles(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation updateRoleById

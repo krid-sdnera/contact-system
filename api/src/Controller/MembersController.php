@@ -214,43 +214,68 @@ class MembersController extends AbstractController implements MembersApiInterfac
     /**
      * {@inheritdoc}
      */
-    public function getMemberContactsById(int $memberId, &$responseCode, array &$responseHeaders)
-    {
-
+    public function getMemberContactsById(
+        int $memberId,
+        $sort,
+        $pageSize,
+        $page,
+        &$responseCode,
+        array &$responseHeaders
+    ) {
         /** @var ContactRepository */
-        $contactRepo = $this->getDoctrine()->getRepository(Contact::class);
+        $repo = $this->getDoctrine()->getRepository(Contact::class);
 
-        $contacts = $contactRepo->findByMemberId($memberId);
+        try {
+            $result = $repo->findByMemberIdPage(
+                $memberId,
+                $sort,
+                $pageSize,
+                $page
+            );
 
-        return [
-            'contacts' => array_map(
-                function ($contact) {
-                    return $contact->toContactData();
-                },
-                $contacts
-            )
-        ];
+            return $result;
+        } catch (SortKeyNotFound $e) {
+            $responseCode = 400;
+            return new ApiResponse([
+                'code' => 400,
+                'type' => 'Bad Request',
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getMemberRolesById(int $memberId, &$responseCode, array &$responseHeaders)
-    {
+    public function getMemberRolesById(
+        int $memberId,
+        $sort = null,
+        $pageSize = null,
+        $page = null,
+        &$responseCode,
+        array &$responseHeaders
+    ) {
 
         /** @var MemberRoleRepository */
-        $roleRepo = $this->getDoctrine()->getRepository(MemberRole::class);
+        $repo = $this->getDoctrine()->getRepository(MemberRole::class);
 
-        $roles = $roleRepo->findByMemberId($memberId);
+        try {
+            $result = $repo->findByMemberIdPage(
+                $memberId,
+                $sort,
+                $pageSize,
+                $page
+            );
 
-        return [
-            'roles' => array_map(
-                function ($role) {
-                    return $role->toMemberRoleData();
-                },
-                $roles
-            )
-        ];
+            return $result;
+        } catch (SortKeyNotFound $e) {
+            $responseCode = 400;
+            return new ApiResponse([
+                'code' => 400,
+                'type' => 'Bad Request',
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -266,15 +291,18 @@ class MembersController extends AbstractController implements MembersApiInterfac
     ) {
         // $this->denyAccessUnlessGranted('ROLE_USER');
 
+        /** @var MemberRepository */
+        $repo = $this->getDoctrine()->getRepository(Member::class);
+
         try {
-            $members = $this->getDoctrine()
-                ->getRepository(Member::class)
-                ->findByPage(
-                    $query,
-                    $sort,
-                    $pageSize,
-                    $page
-                );
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page
+            );
+
+            return $result;
         } catch (SortKeyNotFound $e) {
             $responseCode = 400;
             return new ApiResponse([
@@ -283,15 +311,6 @@ class MembersController extends AbstractController implements MembersApiInterfac
                 'message' => $e->getMessage()
             ]);
         }
-
-        return [
-            'members' => array_map(
-                function ($member) {
-                    return $member->toMemberData();
-                },
-                $members
-            )
-        ];
     }
 
     /**

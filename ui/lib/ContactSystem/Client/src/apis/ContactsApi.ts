@@ -42,6 +42,7 @@ export interface GetContactByIdRequest {
 }
 
 export interface GetContactsRequest {
+    query?: string;
     sort?: string;
     pageSize?: number;
     page?: number;
@@ -110,6 +111,7 @@ export interface ContactsApiInterface {
     /**
      * Your GET endpoint
      * @summary Your GET endpoint
+     * @param {string} [query] 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
      * @param {number} [page] 
@@ -295,6 +297,10 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
      */
     async getContactsRaw(requestParameters: GetContactsRequest): Promise<runtime.ApiResponse<Contacts>> {
         const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
 
         if (requestParameters.sort !== undefined) {
             queryParameters['sort'] = requestParameters.sort;

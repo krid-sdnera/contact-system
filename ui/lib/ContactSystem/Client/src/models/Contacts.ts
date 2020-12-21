@@ -27,6 +27,30 @@ import {
  */
 export interface Contacts {
     /**
+     * Total number of items
+     * @type {number}
+     * @memberof Contacts
+     */
+    totalItems: number;
+    /**
+     * Total number of pages
+     * @type {number}
+     * @memberof Contacts
+     */
+    totalPages: number;
+    /**
+     * Current page number
+     * @type {number}
+     * @memberof Contacts
+     */
+    page: number;
+    /**
+     * Number of items in this page
+     * @type {number}
+     * @memberof Contacts
+     */
+    pageSize: number;
+    /**
      * Array containg the list
      * @type {Array<ContactData>}
      * @memberof Contacts
@@ -44,6 +68,10 @@ export function ContactsFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     }
     return {
         
+        'totalItems': json['totalItems'],
+        'totalPages': json['totalPages'],
+        'page': json['page'],
+        'pageSize': json['pageSize'],
         'contacts': ((json['contacts'] as Array<any>).map(ContactDataFromJSON)),
     };
 }
@@ -57,6 +85,10 @@ export function ContactsToJSON(value?: Contacts | null): any {
     }
     return {
         
+        'totalItems': value.totalItems,
+        'totalPages': value.totalPages,
+        'page': value.page,
+        'pageSize': value.pageSize,
         'contacts': ((value.contacts as Array<any>).map(ContactDataToJSON)),
     };
 }

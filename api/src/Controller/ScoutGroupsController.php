@@ -134,20 +134,26 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
      * {@inheritdoc}
      */
     public function getScoutGroups(
+        $query = null,
         $sort = null,
         $pageSize = null,
         $page = null,
         &$responseCode,
         array &$responseHeaders
     ) {
+
+        /** @var ScoutGroupRepository */
+        $repo = $this->getDoctrine()->getRepository(ScoutGroup::class);
+
         try {
-            $groups = $this->getDoctrine()
-                ->getRepository(ScoutGroup::class)
-                ->findByPage(
-                    $sort,
-                    $pageSize,
-                    $page
-                );
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page
+            );
+
+            return $result;
         } catch (SortKeyNotFound $e) {
             $responseCode = 400;
             return new ApiResponse([
@@ -156,15 +162,6 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
                 'message' => $e->getMessage()
             ]);
         }
-
-        return [
-            'scoutGroups' => array_map(
-                function ($group) {
-                    return $group->toScoutGroupData();
-                },
-                $groups
-            )
-        ];
     }
 
     /**

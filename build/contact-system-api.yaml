@@ -99,6 +99,18 @@ paths:
                 description: A list of members
                 type: object
                 properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
                   members:
                     description: Array containg the list
                     type: array
@@ -107,6 +119,10 @@ paths:
                       $ref: "#/components/schemas/MemberData"
                 required:
                   - members
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
       tags:
         - Members
   "/members/{memberId}":
@@ -197,6 +213,19 @@ paths:
       description: List contacts for this member
       tags:
         - Members
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
       responses:
         "200":
           description: OK
@@ -207,6 +236,18 @@ paths:
                 description: A list of contacts
                 type: object
                 properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
                   contacts:
                     description: Array containg the list
                     type: array
@@ -215,6 +256,10 @@ paths:
                       $ref: "#/components/schemas/ContactData"
                 required:
                   - contacts
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
   "/members/{memberId}/roles":
     parameters:
       - schema:
@@ -228,6 +273,19 @@ paths:
       description: List roles for this member
       tags:
         - Members
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
       responses:
         "200":
           description: OK
@@ -238,6 +296,18 @@ paths:
                 description: A list of roles
                 type: object
                 properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
                   roles:
                     description: Array containg the list
                     type: array
@@ -246,6 +316,10 @@ paths:
                       $ref: "#/components/schemas/MemberRoleData"
                 required:
                   - roles
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
   "/members/{memberId}/merge_into/{mergeMemberId}":
     post:
       summary: Merge member
@@ -332,6 +406,18 @@ paths:
                 description: A list of roles
                 type: object
                 properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
                   roles:
                     description: Array containg the list
                     type: array
@@ -340,7 +426,15 @@ paths:
                       $ref: "#/components/schemas/RoleData"
                 required:
                   - roles
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
       parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
         - schema:
             type: string
           in: query
@@ -438,6 +532,18 @@ paths:
                 description: A list of contacts
                 type: object
                 properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
                   contacts:
                     description: Array containg the list
                     type: array
@@ -446,8 +552,16 @@ paths:
                       $ref: "#/components/schemas/ContactData"
                 required:
                   - contacts
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
       operationId: getContacts
       parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
         - schema:
             type: string
           in: query
@@ -566,6 +680,18 @@ paths:
                 description: A list of scout groups
                 type: object
                 properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
                   scoutGroups:
                     description: Array containg the list
                     type: array
@@ -574,8 +700,16 @@ paths:
                       $ref: "#/components/schemas/ScoutGroupData"
                 required:
                   - scoutGroups
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
       operationId: getScoutGroups
       parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
         - schema:
             type: string
           in: query
@@ -680,6 +814,18 @@ paths:
                 description: A list of sections
                 type: object
                 properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
                   sections:
                     description: Array containg the list
                     type: array
@@ -688,6 +834,10 @@ paths:
                       $ref: "#/components/schemas/SectionData"
                 required:
                   - sections
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
   /sections:
     get:
       summary: Get Sections
@@ -705,6 +855,18 @@ paths:
                 description: A list of sections
                 type: object
                 properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
                   sections:
                     description: Array containg the list
                     type: array
@@ -713,7 +875,15 @@ paths:
                       $ref: "#/components/schemas/SectionData"
                 required:
                   - sections
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
       parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
         - schema:
             type: string
           in: query
@@ -817,6 +987,18 @@ paths:
                 description: A list of roles
                 type: object
                 properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
                   roles:
                     description: Array containg the list
                     type: array
@@ -825,6 +1007,10 @@ paths:
                       $ref: "#/components/schemas/RoleData"
                 required:
                   - roles
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
       operationId: getSectionRolesById
   /lists:
     get:
@@ -841,6 +1027,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/List"
       parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
         - schema:
             type: string
           in: query
@@ -1063,6 +1253,10 @@ paths:
         - schema:
             type: string
           in: query
+          name: query
+        - schema:
+            type: string
+          in: query
           name: sort
         - schema:
             type: integer
@@ -1153,7 +1347,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/JwtData"
+                $ref: "#/components/schemas/JwtErrorResponse"
         "401":
           $ref: "#/components/responses/UnauthorizedError"
       operationId: getJWT
@@ -1175,7 +1369,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/JwtData"
+                $ref: "#/components/schemas/JwtErrorResponse"
         "401":
           $ref: "#/components/responses/UnauthorizedError"
       operationId: refreshJWT
@@ -1192,6 +1386,10 @@ components:
   responses:
     UnauthorizedError:
       description: Access token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/JwtErrorData"
   schemas:
     ApiResponse:
       title: ApiResponse
@@ -1205,6 +1403,12 @@ components:
           type: string
         message:
           type: string
+
+    JwtErrorResponse:
+      oneOf:
+        - $ref: "#/components/schemas/JwtData"
+        - $ref: "#/components/schemas/JwtErrorData"
+      type: object
     JwtInput:
       title: User credentials
       description: User credentials
@@ -1243,6 +1447,20 @@ components:
       required:
         - token
         - refresh_token
+    JwtErrorData:
+      title: JWT Error message
+      description: JSON Error message
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: integer
+        message:
+          description: Error message
+          type: string
+      required:
+        - code
+        - message
     MemberInput:
       title: MemberInput
       type: object

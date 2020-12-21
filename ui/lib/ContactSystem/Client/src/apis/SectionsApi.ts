@@ -49,6 +49,7 @@ export interface GetSectionRolesByIdRequest {
 }
 
 export interface GetSectionsRequest {
+    query?: string;
     sort?: string;
     pageSize?: number;
     page?: number;
@@ -132,6 +133,7 @@ export interface SectionsApiInterface {
     /**
      * Get Sections
      * @summary Get Sections
+     * @param {string} [query] 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
      * @param {number} [page] 
@@ -352,6 +354,10 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
      */
     async getSectionsRaw(requestParameters: GetSectionsRequest): Promise<runtime.ApiResponse<Sections>> {
         const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
 
         if (requestParameters.sort !== undefined) {
             queryParameters['sort'] = requestParameters.sort;

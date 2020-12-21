@@ -79,6 +79,34 @@ class ContactsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "totalItems"
+     */
+    public function testPropertyTotalItems()
+    {
+    }
+
+    /**
+     * Test attribute "totalPages"
+     */
+    public function testPropertyTotalPages()
+    {
+    }
+
+    /**
+     * Test attribute "page"
+     */
+    public function testPropertyPage()
+    {
+    }
+
+    /**
+     * Test attribute "pageSize"
+     */
+    public function testPropertyPageSize()
+    {
+    }
+
+    /**
      * Test attribute "contacts"
      */
     public function testPropertyContacts()

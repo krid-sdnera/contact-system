@@ -80,12 +80,14 @@ export interface GetListTypeByIdRequest {
 }
 
 export interface GetListTypesRequest {
+    query?: string;
     sort?: string;
     pageSize?: number;
     page?: number;
 }
 
 export interface GetListsRequest {
+    query?: string;
     sort?: string;
     pageSize?: number;
     page?: number;
@@ -283,6 +285,7 @@ export interface ListsApiInterface {
     /**
      * getListTypes
      * @summary Your GET endpoint
+     * @param {string} [query] 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
      * @param {number} [page] 
@@ -301,6 +304,7 @@ export interface ListsApiInterface {
     /**
      * getLists
      * @summary Your GET endpoint
+     * @param {string} [query] 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
      * @param {number} [page] 
@@ -857,6 +861,10 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     async getListTypesRaw(requestParameters: GetListTypesRequest): Promise<runtime.ApiResponse<Array<ListType>>> {
         const queryParameters: runtime.HTTPQuery = {};
 
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
         if (requestParameters.sort !== undefined) {
             queryParameters['sort'] = requestParameters.sort;
         }
@@ -908,6 +916,10 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
      */
     async getListsRaw(requestParameters: GetListsRequest): Promise<runtime.ApiResponse<Array<List>>> {
         const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
 
         if (requestParameters.sort !== undefined) {
             queryParameters['sort'] = requestParameters.sort;

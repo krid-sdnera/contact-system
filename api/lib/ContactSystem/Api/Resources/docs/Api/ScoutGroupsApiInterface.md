@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getScoutGroups**
-> OpenAPI\Server\Model\ScoutGroups getScoutGroups($sort, $pageSize, $page)
+> OpenAPI\Server\Model\ScoutGroups getScoutGroups($query, $sort, $pageSize, $page)
 
 Get Groups
 
@@ -304,7 +304,7 @@ class ScoutGroupsApi implements ScoutGroupsApiInterface
     /**
      * Implementation of ScoutGroupsApiInterface#getScoutGroups
      */
-    public function getScoutGroups(string $sort = null, int $pageSize = null, int $page = null)
+    public function getScoutGroups(string $query = null, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -317,6 +317,7 @@ class ScoutGroupsApi implements ScoutGroupsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **query** | **string**|  | [optional]
  **sort** | **string**|  | [optional]
  **pageSize** | **int**|  | [optional]
  **page** | **int**|  | [optional]

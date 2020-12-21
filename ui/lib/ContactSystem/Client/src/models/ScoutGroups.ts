@@ -27,6 +27,30 @@ import {
  */
 export interface ScoutGroups {
     /**
+     * Total number of items
+     * @type {number}
+     * @memberof ScoutGroups
+     */
+    totalItems: number;
+    /**
+     * Total number of pages
+     * @type {number}
+     * @memberof ScoutGroups
+     */
+    totalPages: number;
+    /**
+     * Current page number
+     * @type {number}
+     * @memberof ScoutGroups
+     */
+    page: number;
+    /**
+     * Number of items in this page
+     * @type {number}
+     * @memberof ScoutGroups
+     */
+    pageSize: number;
+    /**
      * Array containg the list
      * @type {Array<ScoutGroupData>}
      * @memberof ScoutGroups
@@ -44,6 +68,10 @@ export function ScoutGroupsFromJSONTyped(json: any, ignoreDiscriminator: boolean
     }
     return {
         
+        'totalItems': json['totalItems'],
+        'totalPages': json['totalPages'],
+        'page': json['page'],
+        'pageSize': json['pageSize'],
         'scoutGroups': ((json['scoutGroups'] as Array<any>).map(ScoutGroupDataFromJSON)),
     };
 }
@@ -57,6 +85,10 @@ export function ScoutGroupsToJSON(value?: ScoutGroups | null): any {
     }
     return {
         
+        'totalItems': value.totalItems,
+        'totalPages': value.totalPages,
+        'page': value.page,
+        'pageSize': value.pageSize,
         'scoutGroups': ((value.scoutGroups as Array<any>).map(ScoutGroupDataToJSON)),
     };
 }

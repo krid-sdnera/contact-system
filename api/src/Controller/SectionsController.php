@@ -151,20 +151,26 @@ class SectionsController extends AbstractController implements SectionsApiInterf
      * {@inheritdoc}
      */
     public function getSections(
+        $query = null,
         $sort = null,
         $pageSize = null,
         $page = null,
         &$responseCode,
         array &$responseHeaders
     ) {
+
+        /** @var SectionRepository */
+        $repo = $this->getDoctrine()->getRepository(Section::class);
+
         try {
-            $sections = $this->getDoctrine()
-                ->getRepository(Section::class)
-                ->findByPage(
-                    $sort,
-                    $pageSize,
-                    $page
-                );
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page
+            );
+
+            return $result;
         } catch (SortKeyNotFound $e) {
             $responseCode = 400;
             return new ApiResponse([
@@ -173,15 +179,6 @@ class SectionsController extends AbstractController implements SectionsApiInterf
                 'message' => $e->getMessage()
             ]);
         }
-
-        return [
-            'sections' => array_map(
-                function ($section) {
-                    return $section->toSectionData();
-                },
-                $sections
-            )
-        ];
     }
 
     /**

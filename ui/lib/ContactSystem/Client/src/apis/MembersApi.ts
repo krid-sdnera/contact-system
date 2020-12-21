@@ -61,10 +61,16 @@ export interface GetMemberByIdRequest {
 
 export interface GetMemberContactsByIdRequest {
     memberId: number;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
 }
 
 export interface GetMemberRolesByIdRequest {
     memberId: number;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
 }
 
 export interface GetMembersRequest {
@@ -170,6 +176,9 @@ export interface MembersApiInterface {
      * List contacts for this member
      * @summary List member\'s contacts
      * @param {number} memberId 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MembersApiInterface
@@ -186,6 +195,9 @@ export interface MembersApiInterface {
      * List roles for this member
      * @summary List member\'s roles
      * @param {number} memberId 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MembersApiInterface
@@ -489,6 +501,18 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         const queryParameters: runtime.HTTPQuery = {};
 
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
@@ -532,6 +556,18 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
         }
 
         const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 

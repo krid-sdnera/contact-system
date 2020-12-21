@@ -1111,6 +1111,7 @@ class ListsController extends Controller
         $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
+        $query = $request->query->get('query');
         $sort = $request->query->get('sort');
         $pageSize = $request->query->get('pageSize');
         $page = $request->query->get('page');
@@ -1119,6 +1120,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
+            $query = $this->deserialize($query, 'string', 'string');
             $sort = $this->deserialize($sort, 'string', 'string');
             $pageSize = $this->deserialize($pageSize, 'int', 'string');
             $page = $this->deserialize($page, 'int', 'string');
@@ -1127,6 +1129,12 @@ class ListsController extends Controller
         }
 
         // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($query, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
         $asserts = [];
         $asserts[] = new Assert\Type("string");
         $response = $this->validate($sort, $asserts);
@@ -1158,7 +1166,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getListTypes($sort, $pageSize, $page, $responseCode, $responseHeaders);
+            $result = $handler->getListTypes($query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -1217,6 +1225,7 @@ class ListsController extends Controller
         $securityjwt_auth = $request->headers->get('authorization');
 
         // Read out all input parameter values into variables
+        $query = $request->query->get('query');
         $sort = $request->query->get('sort');
         $pageSize = $request->query->get('pageSize');
         $page = $request->query->get('page');
@@ -1225,6 +1234,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
+            $query = $this->deserialize($query, 'string', 'string');
             $sort = $this->deserialize($sort, 'string', 'string');
             $pageSize = $this->deserialize($pageSize, 'int', 'string');
             $page = $this->deserialize($page, 'int', 'string');
@@ -1233,6 +1243,12 @@ class ListsController extends Controller
         }
 
         // Validate the input values
+        $asserts = [];
+        $asserts[] = new Assert\Type("string");
+        $response = $this->validate($query, $asserts);
+        if ($response instanceof Response) {
+            return $response;
+        }
         $asserts = [];
         $asserts[] = new Assert\Type("string");
         $response = $this->validate($sort, $asserts);
@@ -1264,7 +1280,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getLists($sort, $pageSize, $page, $responseCode, $responseHeaders);
+            $result = $handler->getLists($query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
