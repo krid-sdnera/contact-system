@@ -63,6 +63,7 @@ import {
 import * as member from '~/store/member';
 import * as role from '~/store/role';
 import * as ui from '~/store/ui';
+import { createAlert } from '~/common/alert';
 
 @Component
 export default class DialogMemberRoleCreateComponent extends Vue {
@@ -129,9 +130,17 @@ export default class DialogMemberRoleCreateComponent extends Vue {
 
       this.dialog = false;
       this.selectedRoleId = null;
+
+      createAlert(this.$store, {
+        message: 'Role created.',
+        type: 'success',
+      });
     } catch (e) {
       console.error(e);
-      alert('create failed');
+      createAlert(this.$store, {
+        message: 'Failed to create Role.',
+        type: 'error',
+      });
     }
   }
 }

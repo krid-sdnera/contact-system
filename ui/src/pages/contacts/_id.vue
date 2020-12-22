@@ -188,7 +188,7 @@
         </v-col>
         <v-col cols="12" sm="6" md="4">
           <!-- Contact member details -->
-          <v-card>
+          <v-card v-if="member">
             <v-card-title> Child / Spouse </v-card-title>
 
             <nuxt-link :to="`/members/${member.id}`">

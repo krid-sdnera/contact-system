@@ -73,6 +73,7 @@ import { ScoutGroupData, ScoutGroupInput } from '@api/models';
 
 import * as scoutGroup from '~/store/scoutGroup';
 import * as ui from '~/store/ui';
+import { createAlert } from '~/common/alert';
 
 @Component
 export default class DialogScoutGroupEditComponent extends Vue {
@@ -137,9 +138,17 @@ export default class DialogScoutGroupEditComponent extends Vue {
       this.dialog = false;
       this.newScoutGroup = null;
       this.originalChanged = false;
+      createAlert(this.$store, {
+        message: 'Scout Group created.',
+        type: 'success',
+      });
     } catch (e) {
       console.error(e);
-      alert('update failed');
+
+      createAlert(this.$store, {
+        message: 'Failed to create Scout Group.',
+        type: 'error',
+      });
     }
   }
 }

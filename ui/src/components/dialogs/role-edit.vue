@@ -91,6 +91,7 @@ import { RoleData, RoleInput } from '@api/models';
 
 import * as role from '~/store/role';
 import * as ui from '~/store/ui';
+import { createAlert } from '~/common/alert';
 
 @Component
 export default class DialogRoleEditComponent extends Vue {
@@ -156,9 +157,17 @@ export default class DialogRoleEditComponent extends Vue {
       this.dialog = false;
       this.newRole = null;
       this.originalChanged = false;
+      createAlert(this.$store, {
+        message: 'Role updated.',
+        type: 'success',
+      });
     } catch (e) {
       console.error(e);
-      alert('update failed');
+
+      createAlert(this.$store, {
+        message: 'Failed to update Role.',
+        type: 'error',
+      });
     }
   }
 }

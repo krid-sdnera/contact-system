@@ -119,7 +119,7 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
         /** @var SectionRepository */
         $sectionRepo = $this->getDoctrine()->getRepository(Section::class);
 
-        $sections = $sectionRepo->findByScoutGroupId($scoutGroupId);
+        $sections = $sectionRepo->findByScoutGroup($scoutGroupId);
 
         return [
             'sections' => array_map(

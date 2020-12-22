@@ -112,16 +112,17 @@
         </v-tooltip>
       </div>
     </v-footer>
+    <alerts></alerts>
   </v-app>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator';
-
+import Alerts from '~/components/alerts/alerts.vue';
 import * as ui from '~/store/ui';
 import * as auth from '~/store/auth';
 
-@Component
+@Component({ components: { Alerts } })
 export default class DefaultLayout extends Vue {
   clipped = false;
   drawer = false;
@@ -137,6 +138,26 @@ export default class DefaultLayout extends Vue {
       title: 'Members',
       to: '/members',
     },
+    {
+      icon: 'mdi-chart-bubble',
+      title: 'Contacts',
+      to: '/contacts',
+    },
+    {
+      icon: 'mdi-chart-bubble',
+      title: 'Roles',
+      to: '/roles',
+    },
+    {
+      icon: 'mdi-chart-bubble',
+      title: 'Sections',
+      to: '/sections',
+    },
+    {
+      icon: 'mdi-chart-bubble',
+      title: 'Groups',
+      to: '/groups',
+    },
   ];
 
   miniVariant = false;
@@ -150,19 +171,10 @@ export default class DefaultLayout extends Vue {
 
   async handleLogout() {
     await this.$store.dispatch(`${auth.namespace}/logout`);
-
-    this.$router.push('/login');
   }
 
   get isLoggedIn(): boolean {
     return this.$store.getters[`${auth.namespace}/isLoggedIn`];
-  }
-
-  @Watch('isLoggedIn', { immediate: true })
-  onLoggedInStateChange() {
-    if (this.isLoggedIn === false) {
-      this.$router.push('/login');
-    }
   }
 }
 </script>

@@ -234,6 +234,7 @@ import { ContactData, ContactInput, ContactInputStateEnum } from '@api/models';
 
 import * as contact from '~/store/contact';
 import * as ui from '~/store/ui';
+import { createAlert } from '~/common/alert';
 
 @Component
 export default class DialogContactEditComponent extends Vue {
@@ -318,9 +319,16 @@ export default class DialogContactEditComponent extends Vue {
       this.dialog = false;
       this.newContact = null;
       this.originalChanged = false;
+      createAlert(this.$store, {
+        message: 'Contact updated.',
+        type: 'success',
+      });
     } catch (e) {
       console.error(e);
-      alert('update failed');
+      createAlert(this.$store, {
+        message: 'Failed to update Contact.',
+        type: 'error',
+      });
     }
   }
 }

@@ -233,6 +233,7 @@ import { MemberData, MemberInput } from '@api/models';
 
 import * as member from '~/store/member';
 import * as ui from '~/store/ui';
+import { createAlert } from '~/common/alert';
 
 @Component
 export default class DialogMemberEditComponent extends Vue {
@@ -316,9 +317,18 @@ export default class DialogMemberEditComponent extends Vue {
       this.dialog = false;
       this.newMember = null;
       this.originalChanged = false;
+
+      createAlert(this.$store, {
+        message: 'Member updated.',
+        type: 'success',
+      });
     } catch (e) {
       console.error(e);
-      alert('update failed');
+
+      createAlert(this.$store, {
+        message: 'Failed to update Member.',
+        type: 'error',
+      });
     }
   }
 }

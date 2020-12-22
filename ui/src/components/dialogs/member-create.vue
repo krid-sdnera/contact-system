@@ -185,6 +185,7 @@ import { MemberInput, MemberInputStateEnum, MemberData } from '@api/models';
 
 import * as member from '~/store/member';
 import * as ui from '~/store/ui';
+import { createAlert } from '~/common/alert';
 
 @Component
 export default class DialogMemberCreateComponent extends Vue {
@@ -246,10 +247,19 @@ export default class DialogMemberCreateComponent extends Vue {
 
       this.dialog = false;
       this.newMember = null;
+
+      createAlert(this.$store, {
+        message: 'Member created.',
+        type: 'success',
+      });
+
       return memberResponse;
     } catch (e) {
       console.error(e);
-      alert('create failed');
+      createAlert(this.$store, {
+        message: 'Failed to create Member.',
+        type: 'error',
+      });
     }
   }
 }

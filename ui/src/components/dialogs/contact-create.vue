@@ -188,6 +188,7 @@ import { ContactInput, ContactInputStateEnum, MemberData } from '@api/models';
 
 import * as contact from '~/store/contact';
 import * as ui from '~/store/ui';
+import { AppAlert, createAlert } from '~/common/alert';
 
 @Component
 export default class DialogContactCreateComponent extends Vue {
@@ -250,9 +251,17 @@ export default class DialogContactCreateComponent extends Vue {
 
       this.dialog = false;
       this.newContact = null;
+      createAlert(this.$store, {
+        message: 'Contact created.',
+        type: 'success',
+      });
     } catch (e) {
       console.error(e);
-      alert('create failed');
+
+      createAlert(this.$store, {
+        message: 'Failed to create Contact.',
+        type: 'error',
+      });
     }
   }
 }

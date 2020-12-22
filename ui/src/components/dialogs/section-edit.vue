@@ -73,6 +73,7 @@ import { SectionData, SectionInput } from '@api/models';
 
 import * as section from '~/store/section';
 import * as ui from '~/store/ui';
+import { createAlert } from '~/common/alert';
 
 @Component
 export default class DialogSectionEditComponent extends Vue {
@@ -136,9 +137,17 @@ export default class DialogSectionEditComponent extends Vue {
       this.dialog = false;
       this.newSection = null;
       this.originalChanged = false;
+      createAlert(this.$store, {
+        message: 'Section created.',
+        type: 'success',
+      });
     } catch (e) {
       console.error(e);
-      alert('update failed');
+
+      createAlert(this.$store, {
+        message: 'Failed to create Section.',
+        type: 'error',
+      });
     }
   }
 }
