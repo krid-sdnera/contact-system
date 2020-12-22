@@ -44,6 +44,7 @@ export default {
     '~/plugins/filters',
     '~/plugins/vuex-persist',
     '~/plugins/vuex-shared-mutations',
+    '~/plugins/router-auth',
   ],
   /*
    ** Auto import components

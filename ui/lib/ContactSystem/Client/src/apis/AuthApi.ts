@@ -15,9 +15,12 @@
 
 import * as runtime from '../runtime';
 import {
-    JwtData,
-    JwtDataFromJSON,
-    JwtDataToJSON,
+    JwtErrorData,
+    JwtErrorDataFromJSON,
+    JwtErrorDataToJSON,
+    JwtErrorResponse,
+    JwtErrorResponseFromJSON,
+    JwtErrorResponseToJSON,
     JwtInput,
     JwtInputFromJSON,
     JwtInputToJSON,
@@ -45,13 +48,13 @@ export interface AuthApiInterface {
      * @throws {RequiredError}
      * @memberof AuthApiInterface
      */
-    getJWTRaw(requestParameters: GetJWTRequest): Promise<runtime.ApiResponse<JwtData>>;
+    getJWTRaw(requestParameters: GetJWTRequest): Promise<runtime.ApiResponse<JwtErrorResponse>>;
 
     /**
      * Get a JWT
      * Get JWT
      */
-    getJWT(requestParameters: GetJWTRequest): Promise<JwtData>;
+    getJWT(requestParameters: GetJWTRequest): Promise<JwtErrorResponse>;
 
     /**
      * Refresh a JWT
@@ -61,13 +64,13 @@ export interface AuthApiInterface {
      * @throws {RequiredError}
      * @memberof AuthApiInterface
      */
-    refreshJWTRaw(requestParameters: RefreshJWTRequest): Promise<runtime.ApiResponse<JwtData>>;
+    refreshJWTRaw(requestParameters: RefreshJWTRequest): Promise<runtime.ApiResponse<JwtErrorResponse>>;
 
     /**
      * Refresh a JWT
      * Refresh JWT
      */
-    refreshJWT(requestParameters: RefreshJWTRequest): Promise<JwtData>;
+    refreshJWT(requestParameters: RefreshJWTRequest): Promise<JwtErrorResponse>;
 
 }
 
@@ -80,7 +83,7 @@ export class AuthApi extends runtime.BaseAPI implements AuthApiInterface {
      * Get a JWT
      * Get JWT
      */
-    async getJWTRaw(requestParameters: GetJWTRequest): Promise<runtime.ApiResponse<JwtData>> {
+    async getJWTRaw(requestParameters: GetJWTRequest): Promise<runtime.ApiResponse<JwtErrorResponse>> {
         const queryParameters: runtime.HTTPQuery = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -95,14 +98,14 @@ export class AuthApi extends runtime.BaseAPI implements AuthApiInterface {
             body: JwtInputToJSON(requestParameters.jwtInput),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => JwtDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => JwtErrorResponseFromJSON(jsonValue));
     }
 
     /**
      * Get a JWT
      * Get JWT
      */
-    async getJWT(requestParameters: GetJWTRequest): Promise<JwtData> {
+    async getJWT(requestParameters: GetJWTRequest): Promise<JwtErrorResponse> {
         const response = await this.getJWTRaw(requestParameters);
         return await response.value();
     }
@@ -111,7 +114,7 @@ export class AuthApi extends runtime.BaseAPI implements AuthApiInterface {
      * Refresh a JWT
      * Refresh JWT
      */
-    async refreshJWTRaw(requestParameters: RefreshJWTRequest): Promise<runtime.ApiResponse<JwtData>> {
+    async refreshJWTRaw(requestParameters: RefreshJWTRequest): Promise<runtime.ApiResponse<JwtErrorResponse>> {
         if (requestParameters.refreshToken === null || requestParameters.refreshToken === undefined) {
             throw new runtime.RequiredError('refreshToken','Required parameter requestParameters.refreshToken was null or undefined when calling refreshJWT.');
         }
@@ -146,14 +149,14 @@ export class AuthApi extends runtime.BaseAPI implements AuthApiInterface {
             body: formParams,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => JwtDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => JwtErrorResponseFromJSON(jsonValue));
     }
 
     /**
      * Refresh a JWT
      * Refresh JWT
      */
-    async refreshJWT(requestParameters: RefreshJWTRequest): Promise<JwtData> {
+    async refreshJWT(requestParameters: RefreshJWTRequest): Promise<JwtErrorResponse> {
         const response = await this.refreshJWTRaw(requestParameters);
         return await response.value();
     }

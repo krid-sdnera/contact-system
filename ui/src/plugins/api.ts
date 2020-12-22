@@ -48,40 +48,50 @@ declare module 'vuex/types/index' {
   }
 }
 
-const apiPlugin: Plugin = ({ store, env, redirect }, inject) => {
+const apiPlugin: Plugin = ({ app, store, env, redirect }, inject) => {
   const configuration = new Configuration({
     basePath: env.API_BASE,
     accessToken: function (name?: string, _scopes?: string[]): string {
       if (name !== 'jwt_auth') {
+        console.warn(`Unsupported accessToken type: "${name}"`);
         return '';
       }
 
-      console.log(
-        'Making api request with accessToken:',
-        store.state[auth.namespace].authToken
-      );
-      if (store.state[auth.namespace].authToken) {
-        return store.state[auth.namespace].authToken;
-      } else {
-        return '';
-      }
+      const token = store.state[auth.namespace].authToken || '';
+
+      console.log(`token:${token}`);
+      return token;
     },
     middleware: [
       {
         post: async function (
           context: ResponseContext
         ): Promise<Response | void> {
+          if (context.url.match('auth/token')) {
+            // Performing a token action, do not try refresh the token if it failed.
+            return context.response;
+          }
           if (context.response.status !== 401) {
             return context.response;
           }
+
           try {
             await store.dispatch(`${auth.namespace}/refreshToken`);
           } catch (e) {
-            if (e.code === ErrorCode.AuthRefreshTokenInvalid) {
-              redirect(401, '/login');
-            }
             return context.response;
           }
+
+          // `configuration.fetchApi()` does not re-compute the headers
+          //  for the request, instead we need to inject the new token
+          //  in to these reqests.
+          context.init.headers = {
+            ...context.init.headers,
+            Authorization: `Bearer ${
+              configuration.accessToken
+                ? configuration.accessToken('jwt_auth')
+                : ''
+            }`,
+          };
 
           const response = await configuration.fetchApi(
             context.url,

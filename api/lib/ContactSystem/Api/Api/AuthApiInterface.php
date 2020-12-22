@@ -29,7 +29,8 @@
 namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use OpenAPI\Server\Model\JwtData;
+use OpenAPI\Server\Model\JwtErrorData;
+use OpenAPI\Server\Model\JwtErrorResponse;
 use OpenAPI\Server\Model\JwtInput;
 
 /**
@@ -52,7 +53,7 @@ interface AuthApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\JwtData
+     * @return OpenAPI\Server\Model\JwtErrorResponse
      *
      */
     public function getJWT(JwtInput $jwtInput = null, &$responseCode, array &$responseHeaders);
@@ -66,7 +67,7 @@ interface AuthApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\JwtData
+     * @return OpenAPI\Server\Model\JwtErrorResponse
      *
      */
     public function refreshJWT(string $refreshToken, &$responseCode, array &$responseHeaders);

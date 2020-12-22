@@ -171,6 +171,8 @@ Class | Method | HTTP request | Description
  - [ContactOverrideData](Resources/docs/Model/ContactOverrideData.md)
  - [Contacts](Resources/docs/Model/Contacts.md)
  - [JwtData](Resources/docs/Model/JwtData.md)
+ - [JwtErrorData](Resources/docs/Model/JwtErrorData.md)
+ - [JwtErrorResponse](Resources/docs/Model/JwtErrorResponse.md)
  - [JwtInput](Resources/docs/Model/JwtInput.md)
  - [JwtRefreshInput](Resources/docs/Model/JwtRefreshInput.md)
  - [ListRule](Resources/docs/Model/ListRule.md)

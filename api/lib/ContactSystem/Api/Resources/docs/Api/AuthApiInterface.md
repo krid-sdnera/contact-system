@@ -21,7 +21,7 @@ services:
 ```
 
 ## **getJWT**
-> OpenAPI\Server\Model\JwtData getJWT($jwtInput)
+> OpenAPI\Server\Model\JwtErrorResponse getJWT($jwtInput)
 
 Get JWT
 
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\JwtData**](../Model/JwtData.md)
+[**OpenAPI\Server\Model\JwtErrorResponse**](../Model/JwtErrorResponse.md)
 
 ### Authorization
 
@@ -75,7 +75,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **refreshJWT**
-> OpenAPI\Server\Model\JwtData refreshJWT($refreshToken)
+> OpenAPI\Server\Model\JwtErrorResponse refreshJWT($refreshToken)
 
 Refresh JWT
 
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\JwtData**](../Model/JwtData.md)
+[**OpenAPI\Server\Model\JwtErrorResponse**](../Model/JwtErrorResponse.md)
 
 ### Authorization
 

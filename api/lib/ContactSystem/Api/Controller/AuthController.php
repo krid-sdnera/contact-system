@@ -37,7 +37,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Constraints as Assert;
 use OpenAPI\Server\Api\AuthApiInterface;
-use OpenAPI\Server\Model\JwtData;
+use OpenAPI\Server\Model\JwtErrorData;
+use OpenAPI\Server\Model\JwtErrorResponse;
 use OpenAPI\Server\Model\JwtInput;
 
 /**

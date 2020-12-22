@@ -1,7 +1,12 @@
 <template>
   <div>
     <span v-if="isLoggedIn">Yo you are logged in</span>
-    <v-text-field label="Username" name="username" v-model="username">
+    <v-text-field
+      label="Username"
+      name="username"
+      v-model="username"
+      v-on:keyup.enter="handleLogin"
+    >
     </v-text-field>
     <v-text-field
       label="Password"
@@ -9,6 +14,7 @@
       name="password"
       v-model="password"
       autocomplete="off"
+      v-on:keyup.enter="handleLogin"
     ></v-text-field>
     <v-btn @click="handleLogin" :loading="loading">Login</v-btn>
   </div>

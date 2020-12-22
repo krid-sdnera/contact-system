@@ -4,6 +4,8 @@ export * from './ContactInput';
 export * from './ContactOverrideData';
 export * from './Contacts';
 export * from './JwtData';
+export * from './JwtErrorData';
+export * from './JwtErrorResponse';
 export * from './JwtInput';
 export * from './JwtRefreshInput';
 export * from './List';
