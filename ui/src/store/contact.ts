@@ -1,12 +1,13 @@
-import Vue from 'vue';
-import { GetterTree, ActionTree, MutationTree } from 'vuex';
 import {
-  GetContactsRequest,
-  UpdateContactByIdRequest,
-  PatchContactByIdRequest,
   CreateContactRequest,
+  DeleteContactByIdRequest,
+  GetContactsRequest,
+  PatchContactByIdRequest,
+  UpdateContactByIdRequest,
 } from '@api/apis';
-import { ContactData } from '@api/models';
+import { ContactData, ModelApiResponse } from '@api/models';
+import Vue from 'vue';
+import { ActionTree, GetterTree, MutationTree } from 'vuex';
 import { AppError, ErrorCode } from '~/common/app-error';
 
 export const namespace = 'contact';
@@ -35,6 +36,9 @@ export const getters: GetterTree<RootState, RootState> = {
 export const mutations: MutationTree<RootState> = {
   setContactById: (state, contact: ContactData) => {
     Vue.set(state.contacts, contact.id, contact);
+  },
+  removeContactById: (state, contactId: number) => {
+    Vue.delete(state.contacts, contactId);
   },
   setContacts: (state, contacts: Array<ContactData>) => {
     contacts.forEach((contact) => {
@@ -123,6 +127,27 @@ export const actions: ActionTree<RootState, RootState> = {
     } catch (e) {
       commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
       throw new AppError(ErrorCode.InternalError, 'Unable to patch contact', e);
+    }
+  },
+  async deleteContactById(
+    { commit },
+    { contactId }: DeleteContactByIdRequest
+  ): Promise<ModelApiResponse> {
+    try {
+      commit('ui/startUpdateApiRequestInProgress', null, { root: true });
+      const payload: ModelApiResponse = await this.$api.contacts.deleteContactById(
+        { contactId }
+      );
+      commit('removeContactById', contactId);
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      return payload;
+    } catch (e) {
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      throw new AppError(
+        ErrorCode.InternalError,
+        'Unable to delete contact',
+        e
+      );
     }
   },
 };

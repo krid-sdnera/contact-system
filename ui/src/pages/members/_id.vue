@@ -227,12 +227,24 @@
               </v-chip>
             </template>
             <template v-slot:[`item.actions`]="{ item }">
-              <nuxt-link :to="{ path: `/contacts/${item.id}` }">
-                <v-icon small class="mr-2">mdi-eye</v-icon>
-              </nuxt-link>
-              <nuxt-link :to="{ path: `/contacts/${item.id}/delete` }">
-                <v-icon small>mdi-delete</v-icon>
-              </nuxt-link>
+              <v-btn
+                :to="{ path: `/contacts/${item.id}` }"
+                color="primary"
+                icon
+                nuxt
+              >
+                <v-icon small>mdi-eye</v-icon>
+              </v-btn>
+
+              <danger-confirmation
+                :id="item.id"
+                :open.sync="dialogDeleteContact[item.id]"
+                title="Deleting Contact"
+                :message="`delete the contact, ${item.firstname}`"
+                icon="mdi-delete"
+                v-on:cancel="handleDeleteContactCancel"
+                v-on:confirm="handleDeleteContactConfirm"
+              ></danger-confirmation>
             </template>
           </v-data-table>
         </v-col>
@@ -337,10 +349,12 @@ import BaseInputComponent from '~/components/form/base-input.vue';
 import MemberEditDialog from '~/components/dialogs/member-edit.vue';
 import ContactCreateDialog from '~/components/dialogs/contact-create.vue';
 import MemberRoleCreateDialog from '~/components/dialogs/member-role-create.vue';
+import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
 
 import * as member from '~/store/member';
 import * as contact from '~/store/contact';
 import * as ui from '~/store/ui';
+import { createAlert } from '~/common/alert';
 
 @Component({
   components: {
@@ -348,6 +362,7 @@ import * as ui from '~/store/ui';
     MemberEditDialog,
     ContactCreateDialog,
     MemberRoleCreateDialog,
+    DangerConfirmation,
   },
 })
 export default class MemberDetailPage extends Vue {
@@ -435,6 +450,7 @@ export default class MemberDetailPage extends Vue {
         this.id
       );
       await Promise.all([memberPromise, contactsPromise, memberRolesPromise]);
+      this.initialiseDeleteDialogs();
     } catch (e) {
       this.error = true;
     } finally {
@@ -488,6 +504,40 @@ export default class MemberDetailPage extends Vue {
 
   closeCreateMemberRoleModal() {
     this.dialogMemberRoleCreate = false;
+  }
+
+  dialogDeleteContact: { [id: string]: boolean } = {};
+
+  initialiseDeleteDialogs() {
+    for (const contact of this.contacts) {
+      this.$set(this.dialogDeleteContact, contact.id, false);
+    }
+  }
+
+  handleDeleteContactCancel(id: string) {
+    this.$set(this.dialogDeleteContact, id, false);
+  }
+
+  async handleDeleteContactConfirm(id: string) {
+    try {
+      await this.$store.dispatch(`${contact.namespace}/deleteContactById`, {
+        contactId: id,
+      });
+
+      this.$set(this.dialogDeleteContact, id, false);
+      createAlert(this.$store, {
+        message: 'Contact deleted.',
+        type: 'success',
+      });
+    } catch (e) {
+      this.$set(this.dialogDeleteContact, id, false);
+
+      console.error(e);
+      createAlert(this.$store, {
+        message: 'Failed to delete Contact.',
+        type: 'error',
+      });
+    }
   }
 }
 </script>
