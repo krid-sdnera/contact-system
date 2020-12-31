@@ -114,7 +114,7 @@ class MemberRole
 
     public function getId(): ?string
     {
-        return $this->member->getId() . $this->role->getId();
+        return $this->member->getId() . '-' . $this->role->getId();
     }
 
     public function getMember(): ?Member

@@ -43,6 +43,15 @@ class MemberRoleData
 {
         /**
      * @var string
+     * @SerializedName("id")
+     * @Assert\NotNull()
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $id;
+
+    /**
+     * @var string
      * @SerializedName("state")
      * @Assert\NotNull()
      * @Assert\Choice({ "enabled", "disabled" })
@@ -94,11 +103,36 @@ class MemberRoleData
      */
     public function __construct(array $data = null)
     {
+        $this->id = isset($data['id']) ? $data['id'] : null;
         $this->state = isset($data['state']) ? $data['state'] : null;
         $this->managementState = isset($data['managementState']) ? $data['managementState'] : null;
         $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
         $this->memberId = isset($data['memberId']) ? $data['memberId'] : null;
         $this->role = isset($data['role']) ? $data['role'] : null;
+    }
+
+    /**
+     * Gets id.
+     *
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets id.
+     *
+     * @param string $id
+     *
+     * @return $this
+     */
+    public function setId(string $id): string
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**

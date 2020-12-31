@@ -1672,6 +1672,8 @@ components:
       title: MemberRoleData
       type: object
       properties:
+        id:
+          type: string
         state:
           type: string
           enum:
@@ -1690,6 +1692,7 @@ components:
         role:
           $ref: "#/components/schemas/RoleData"
       required:
+        - id
         - state
         - managementState
         - memberId

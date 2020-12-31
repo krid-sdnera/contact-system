@@ -31,6 +31,12 @@ export interface MemberRoleData {
      * @type {string}
      * @memberof MemberRoleData
      */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MemberRoleData
+     */
     state: MemberRoleDataStateEnum;
     /**
      * 
@@ -68,6 +74,7 @@ export function MemberRoleDataFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
+        'id': json['id'],
         'state': json['state'],
         'managementState': json['managementState'],
         'expiry': !exists(json, 'expiry') ? undefined : json['expiry'],
@@ -85,6 +92,7 @@ export function MemberRoleDataToJSON(value?: MemberRoleData | null): any {
     }
     return {
         
+        'id': value.id,
         'state': value.state,
         'managementState': value.managementState,
         'expiry': value.expiry,

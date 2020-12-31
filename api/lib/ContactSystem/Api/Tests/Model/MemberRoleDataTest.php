@@ -79,6 +79,13 @@ class MemberRoleDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "id"
+     */
+    public function testPropertyId()
+    {
+    }
+
+    /**
      * Test attribute "state"
      */
     public function testPropertyState()
