@@ -263,19 +263,19 @@ class Member
 
             // Generate sections
             $nameMapping = array(
-                'JOEY'  => '-JOEY SCOUT MOB',
-                'CUB'   => '-CUB SCOUT PACK',
-                'SCOUT' => '-SCOUT TROOP',
-                'VENT'  => '-VENTURER UNIT',
-                'ROVER' => '-ROVER CREW',
+                'JOEY'  => '-JOEY SCOUT MOB 1',
+                'CUB'   => '-CUB SCOUT PACK 1',
+                'SCOUT' => '-SCOUT TROOP 1',
+                'VENT'  => '-VENTURER UNIT 1',
+                'ROVER' => '-ROVER CREW 1',
                 'GROUP' => ''
             );
             $idMapping = array(
-                'JOEY'  => 'M',
-                'CUB'   => 'P',
-                'SCOUT' => 'T',
-                'VENT'  => 'U',
-                'ROVER' => 'C',
+                'JOEY'  => 'M1',
+                'CUB'   => 'P1',
+                'SCOUT' => 'T1',
+                'VENT'  => 'U1',
+                'ROVER' => 'C1',
                 'GROUP' => ''
             );
 

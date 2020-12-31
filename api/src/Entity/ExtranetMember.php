@@ -427,8 +427,8 @@ class ExtranetMember
 
         $member->setSectionId($data['sectionID']);
         $member->setSectionName($data['formation']);
-        $member->setGroupId($data['formationID']);
-        $member->setGroupName($data['formation']);
+        $member->setGroupId(substr($data['formationID'], 0, 7));
+        $member->setGroupName(substr($data['formation'], 0, strrpos($data['formation'], '-')));
         $member->setClassId($data['classID']);
         $member->setFirstname($data['firstname']);
         $member->setLastname($data['surname']);

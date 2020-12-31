@@ -221,7 +221,7 @@ class Contact
     private $occupation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="contacts")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="contacts", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $member;
