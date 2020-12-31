@@ -1,7 +1,11 @@
 import Vue from 'vue';
 import { GetterTree, ActionTree, MutationTree } from 'vuex';
-import { GetSectionsRequest, UpdateSectionByIdRequest } from '@api/apis';
-import { SectionData } from '@api/models';
+import {
+  DeleteSectionByIdRequest,
+  GetSectionsRequest,
+  UpdateSectionByIdRequest,
+} from '@api/apis';
+import { ModelApiResponse, SectionData } from '@api/models';
 import { AppError, ErrorCode } from '~/common/app-error';
 
 export const namespace = 'section';
@@ -19,6 +23,9 @@ export const getters: GetterTree<RootState, RootState> = {
   },
   getSectionById: (state) => (id: number): SectionData | null => {
     return state.sections[id] || null;
+  },
+  removeSectionById: (state, sectionId: number) => {
+    Vue.delete(state.sections, sectionId);
   },
   getSectionsByScoutGroupId: (state) => (id: number): SectionData[] => {
     return Object.values(state.sections).filter(
@@ -80,6 +87,27 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new AppError(
         ErrorCode.InternalError,
         'Unable to update section',
+        e
+      );
+    }
+  },
+  async deleteSectionById(
+    { commit },
+    { sectionId }: DeleteSectionByIdRequest
+  ): Promise<ModelApiResponse> {
+    try {
+      commit('ui/startUpdateApiRequestInProgress', null, { root: true });
+      const payload: ModelApiResponse = await this.$api.sections.deleteSectionById(
+        { sectionId }
+      );
+      commit('removeSectionById', sectionId);
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      return payload;
+    } catch (e) {
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      throw new AppError(
+        ErrorCode.InternalError,
+        'Unable to delete section',
         e
       );
     }

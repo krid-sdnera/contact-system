@@ -25,33 +25,8 @@
       <v-row>
         <v-col>
           <!-- Sections Table -->
-          <v-data-table
-            :headers="headers.sections"
-            :items="sections"
-            class="elevation-1"
-          >
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title>Sections</v-toolbar-title>
-                <v-divider class="mx-4" inset vertical></v-divider>
-                <v-spacer></v-spacer>
-                <nuxt-link :to="{ path: `/sections/create/for-group/${id}/` }">
-                  <v-btn color="primary" class="mb-2">New Section</v-btn>
-                </nuxt-link>
-              </v-toolbar>
-            </template>
-            <template v-slot:item.actions="{ item }">
-              <nuxt-link :to="{ path: `/sections/${item.id}` }">
-                <v-icon small class="mr-2">mdi-eye</v-icon>
-              </nuxt-link>
-              <nuxt-link :to="{ path: `/sections/${item.id}/edit` }">
-                <v-icon small class="mr-2">mdi-pencil</v-icon>
-              </nuxt-link>
-              <nuxt-link :to="{ path: `/sections/${item.id}/edit` }">
-                <v-icon small>mdi-delete</v-icon>
-              </nuxt-link>
-            </template>
-          </v-data-table>
+
+          <sections-table :sections="sections" allow-creation></sections-table>
         </v-col>
       </v-row>
     </v-container>
@@ -82,6 +57,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { ScoutGroupData, SectionData } from '@api/models';
 import ScoutGroupEditDialog from '~/components/dialogs/scout-group-edit.vue';
+import SectionTableComponent from '~/components/tables/sections-table.vue';
 
 import * as scoutGroup from '~/store/scoutGroup';
 import * as section from '~/store/section';
@@ -90,6 +66,7 @@ import * as ui from '~/store/ui';
 @Component({
   components: {
     ScoutGroupEditDialog,
+    SectionTableComponent,
   },
 })
 export default class ScoutGroupDetailPage extends Vue {

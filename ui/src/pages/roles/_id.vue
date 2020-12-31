@@ -68,27 +68,8 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-data-table
-          :headers="headers"
-          :items="members"
-          :options.sync="options"
-          :server-items-length="totalMembers"
-          :loading="loading"
-          class="elevation-1"
-        >
-          <template v-slot:top>
-            <v-toolbar flat>
-              <v-toolbar-title>Members</v-toolbar-title>
-              <v-divider class="mx-4" inset vertical></v-divider>
-              <v-spacer></v-spacer>
-            </v-toolbar>
-          </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-btn icon nuxt :to="{ path: `/members/${item.id}` }">
-              <v-icon small>mdi-eye</v-icon>
-            </v-btn>
-          </template>
-        </v-data-table>
+        <v-col><p>Coming soon: Table of members</p></v-col>
+        <!-- <members-table :members="members" searchable></members-table> -->
       </v-row>
     </v-container>
     <!-- Dialogs -->
@@ -144,7 +125,9 @@ export default class RoleDetailPage extends Vue {
   }
 
   get members(): MemberData[] {
-    return this.$store.getters[`${member.namespace}/getMembers`];
+    return this.$store.getters[`${member.namespace}/getMembersByRoleId`](
+      this.id
+    );
   }
 
   get isAppUpdating(): boolean {
@@ -154,26 +137,6 @@ export default class RoleDetailPage extends Vue {
   error = false;
   loading = true;
 
-  totalMembers = 5;
-  options = {
-    // sortBy: null,
-    // sortDesc: null,
-    page: 1,
-    itemsPerPage: 20,
-  };
-
-  headers = [
-    {
-      text: 'Firstname',
-      align: 'start',
-      sortable: false,
-      value: 'firstname',
-    },
-    { text: 'Lastname', value: 'lastname' },
-    { text: 'Membership Number', value: 'membershipNumber' },
-    { text: 'Actions', value: 'actions' },
-  ];
-
   async mounted() {
     try {
       await this.$store.dispatch(`${role.namespace}/fetchRoleById`, this.id);
@@ -182,7 +145,9 @@ export default class RoleDetailPage extends Vue {
         return;
       }
 
-      await this.$store.dispatch(`${member.namespace}/fetchMembers`, {});
+      await this.$store.dispatch(`${member.namespace}/fetchMembersByRoleId`, {
+        roleId: this.id,
+      });
     } catch (e) {
       this.error = true;
     } finally {

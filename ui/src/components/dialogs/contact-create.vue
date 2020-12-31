@@ -1,12 +1,11 @@
 <template>
-  <v-dialog
-    v-if="newContact !== null"
-    v-model="dialog"
-    persistent
-    scrollable
-    max-width="600px"
-  >
-    <v-card style="height: 90vh;">
+  <v-dialog v-model="dialog" persistent scrollable max-width="600px">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn color="primary" v-bind="attrs" v-on="on" class="mb-2">
+        New Local Contact
+      </v-btn>
+    </template>
+    <v-card v-if="newContact !== null" style="height: 90vh;">
       <v-card-title style="position: sticky;">
         <span class="headline">
           Create new Contact for {{ member.firstname }}
@@ -179,7 +178,6 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
-  <span v-else>Some text</span>
 </template>
 
 <script lang="ts">

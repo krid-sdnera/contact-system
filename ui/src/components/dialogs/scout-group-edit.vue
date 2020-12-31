@@ -1,12 +1,6 @@
 <template>
-  <v-dialog
-    v-if="newScoutGroup !== null"
-    v-model="dialog"
-    persistent
-    scrollable
-    max-width="600px"
-  >
-    <v-card style="height: 90vh;">
+  <v-dialog v-model="dialog" persistent scrollable max-width="600px">
+    <v-card v-if="newScoutGroup !== null" style="height: 90vh;">
       <v-card-title style="position: sticky;">
         <span class="headline">Editing {{ scoutGroup.name }}</span>
       </v-card-title>
@@ -64,7 +58,6 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
-  <span v-else>Some text</span>
 </template>
 
 <script lang="ts">

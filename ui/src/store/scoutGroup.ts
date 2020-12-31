@@ -1,7 +1,11 @@
 import Vue from 'vue';
 import { GetterTree, ActionTree, MutationTree } from 'vuex';
-import { GetScoutGroupsRequest, UpdateScoutGroupByIdRequest } from '@api/apis';
-import { ScoutGroupData } from '@api/models';
+import {
+  DeleteScoutGroupByIdRequest,
+  GetScoutGroupsRequest,
+  UpdateScoutGroupByIdRequest,
+} from '@api/apis';
+import { ModelApiResponse, ScoutGroupData } from '@api/models';
 import { AppError, ErrorCode } from '~/common/app-error';
 
 export const namespace = 'scoutGroup';
@@ -25,6 +29,9 @@ export const getters: GetterTree<RootState, RootState> = {
 export const mutations: MutationTree<RootState> = {
   setScoutGroupById: (state, scoutGroup: ScoutGroupData) => {
     Vue.set(state.scoutGroups, scoutGroup.id, scoutGroup);
+  },
+  removeScoutGroupById: (state, scoutGroupId: number) => {
+    Vue.delete(state.scoutGroups, scoutGroupId);
   },
   setScoutGroups: (state, scoutGroups: Array<ScoutGroupData>) => {
     scoutGroups.forEach((scoutGroup) => {
@@ -73,6 +80,27 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new AppError(
         ErrorCode.InternalError,
         'Unable to update scoutGroup',
+        e
+      );
+    }
+  },
+  async deletescoutGroupById(
+    { commit },
+    { scoutGroupId }: DeleteScoutGroupByIdRequest
+  ): Promise<ModelApiResponse> {
+    try {
+      commit('ui/startUpdateApiRequestInProgress', null, { root: true });
+      const payload: ModelApiResponse = await this.$api.scoutGroups.deleteScoutGroupById(
+        { scoutGroupId }
+      );
+      commit('removeScoutGroupById', scoutGroupId);
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      return payload;
+    } catch (e) {
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      throw new AppError(
+        ErrorCode.InternalError,
+        'Unable to delete scoutGroup',
         e
       );
     }

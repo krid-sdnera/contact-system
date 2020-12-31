@@ -46,33 +46,7 @@
       <v-row>
         <v-col>
           <!-- Roles Table -->
-          <v-data-table
-            :headers="headers.roles"
-            :items="roles"
-            class="elevation-1"
-          >
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title>Roles</v-toolbar-title>
-                <v-divider class="mx-4" inset vertical></v-divider>
-                <v-spacer></v-spacer>
-                <nuxt-link :to="{ path: `/roles/create/for-section/${id}/` }">
-                  <v-btn color="primary" class="mb-2">New Role</v-btn>
-                </nuxt-link>
-              </v-toolbar>
-            </template>
-            <template v-slot:item.actions="{ item }">
-              <nuxt-link :to="{ path: `/roles/${item.id}` }">
-                <v-icon small class="mr-2">mdi-eye</v-icon>
-              </nuxt-link>
-              <nuxt-link :to="{ path: `/roles/${item.id}/edit` }">
-                <v-icon small class="mr-2">mdi-pencil</v-icon>
-              </nuxt-link>
-              <nuxt-link :to="{ path: `/roles/${item.id}/edit` }">
-                <v-icon small>mdi-delete</v-icon>
-              </nuxt-link>
-            </template>
-          </v-data-table>
+          <roles-table :roles="roles" allow-creation></roles-table>
         </v-col>
       </v-row>
     </v-container>
@@ -106,6 +80,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { SectionData, ScoutGroupData, RoleData } from '@api/models';
 import SectionEditDialog from '~/components/dialogs/section-edit.vue';
+import RoleTableComponent from '~/components/tables/roles-table.vue';
 
 import * as section from '~/store/section';
 import * as role from '~/store/role';
@@ -114,6 +89,7 @@ import * as ui from '~/store/ui';
 @Component({
   components: {
     SectionEditDialog,
+    RoleTableComponent,
   },
 })
 export default class SectionDetailPage extends Vue {
@@ -141,14 +117,6 @@ export default class SectionDetailPage extends Vue {
 
   error = false;
   loading = true;
-
-  headers = {
-    roles: [
-      { text: 'Name', value: 'name' },
-      { text: 'External Id', value: 'externalId' },
-      { text: 'Actions', value: 'actions' },
-    ],
-  };
 
   async mounted() {
     try {

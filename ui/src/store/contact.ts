@@ -5,7 +5,7 @@ import {
   PatchContactByIdRequest,
   UpdateContactByIdRequest,
 } from '@api/apis';
-import { ContactData, ModelApiResponse } from '@api/models';
+import { ContactData, Contacts, ModelApiResponse } from '@api/models';
 import Vue from 'vue';
 import { ActionTree, GetterTree, MutationTree } from 'vuex';
 import { AppError, ErrorCode } from '~/common/app-error';
@@ -48,7 +48,10 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-  async fetchContacts({ commit }, options: GetContactsRequest) {
+  async fetchContacts(
+    { commit },
+    options: GetContactsRequest
+  ): Promise<Contacts> {
     const payload = await this.$api.contacts.getContacts(options);
     commit('setContacts', payload.contacts);
     return payload;
@@ -61,12 +64,16 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new AppError(ErrorCode.InternalError, 'Unable to load contact', e);
     }
   },
-  async fetchContactsByMemberId({ commit }, memberId: number) {
+  async fetchContactsByMemberId(
+    { commit },
+    memberId: number
+  ): Promise<Contacts> {
     try {
       const payload = await this.$api.members.getMemberContactsById({
         memberId,
       });
       commit('setContacts', payload.contacts);
+      return payload;
     } catch (e) {
       throw new AppError(ErrorCode.InternalError, 'Unable to load contacts', e);
     }

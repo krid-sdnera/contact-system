@@ -1,12 +1,11 @@
 <template>
-  <v-dialog
-    v-if="newMember !== null"
-    v-model="dialog"
-    persistent
-    scrollable
-    max-width="600px"
-  >
-    <v-card style="height: 90vh;">
+  <v-dialog v-model="dialog" persistent scrollable max-width="600px">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn color="primary" v-bind="attrs" v-on="on" class="ml-2">
+        New Local Member
+      </v-btn>
+    </template>
+    <v-card v-if="newMember !== null" style="height: 90vh;">
       <v-card-title style="position: sticky;">
         <span class="headline">Creating a new member</span>
       </v-card-title>

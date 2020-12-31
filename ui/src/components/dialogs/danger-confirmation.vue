@@ -19,7 +19,7 @@
           color="primary"
           text
           :disabled="isAppUpdating || !dialog"
-          @click.stop="$emit('cancel', id)"
+          @click.stop="cancelModal"
         >
           Cancel
         </v-btn>
@@ -27,7 +27,7 @@
           color="warning"
           text
           :disabled="isAppUpdating || !dialog"
-          @click.stop="$emit('confirm', id)"
+          @click.stop="confirmModal"
         >
           Delete
         </v-btn>
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, PropSync } from 'vue-property-decorator';
+import { Vue, Component, Prop, PropSync, Emit } from 'vue-property-decorator';
 
 import * as ui from '~/store/ui';
 
@@ -60,6 +60,18 @@ export default class DangerConfirmation extends Vue {
 
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
+  }
+
+  @Emit('cancel')
+  cancelModal() {
+    this.dialog = false;
+    return this.id;
+  }
+
+  @Emit('confirm')
+  confirmModal() {
+    this.dialog = false;
+    return this.id;
   }
 }
 </script>

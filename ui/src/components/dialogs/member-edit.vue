@@ -1,12 +1,11 @@
 <template>
-  <v-dialog
-    v-if="newMember !== null"
-    v-model="dialog"
-    persistent
-    scrollable
-    max-width="600px"
-  >
-    <v-card style="height: 90vh;">
+  <v-dialog v-model="dialog" persistent scrollable max-width="600px">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn color="primary" v-bind="attrs" v-on="on" class="mb-2">
+        <v-icon>mdi-pencil</v-icon> Edit
+      </v-btn>
+    </template>
+    <v-card v-if="newMember !== null" style="height: 90vh;">
       <v-card-title style="position: sticky;">
         <span class="headline">Editing {{ member.firstname }}</span>
       </v-card-title>

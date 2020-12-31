@@ -6,8 +6,15 @@ import {
   PatchMemberByIdRequest,
   CreateMemberRequest,
   AddMemberRoleByIdRequest,
+  DeleteMemberByIdRequest,
+  RemoveMemberRoleByIdRequest,
 } from '@api/apis';
-import { MemberData, MemberRoleData, Members } from '@api/models';
+import {
+  MemberData,
+  MemberRoleData,
+  Members,
+  ModelApiResponse,
+} from '@api/models';
 import { AppError, ErrorCode } from '~/common/app-error';
 
 export const namespace = 'member';
@@ -18,7 +25,7 @@ export const state = () =>
     roleRelations: {},
   } as {
     members: Record<number, MemberData>;
-    roleRelations: Record<number, MemberRoleData>;
+    roleRelations: Record<string, MemberRoleData>;
   });
 
 export type RootState = ReturnType<typeof state>;
@@ -29,6 +36,15 @@ export const getters: GetterTree<RootState, RootState> = {
   },
   getMemberById: (state) => (id: number): MemberData | null => {
     return state.members[id] || null;
+  },
+  getMembersByRoleId: (state) => (id: number): MemberData[] | null => {
+    const memberIds: number[] = Object.values(state.roleRelations)
+      .filter((role: MemberRoleData): boolean => role.role.id === id)
+      .map((role: MemberRoleData): number => role.memberId);
+
+    return Object.values(state.members).filter((member: MemberData): boolean =>
+      memberIds.includes(member.id)
+    );
   },
   getRolesByMemberId: (state) => (id: number): MemberRoleData[] => {
     return Object.values(state.roleRelations).filter(
@@ -41,6 +57,9 @@ export const mutations: MutationTree<RootState> = {
   setMemberById: (state, member: MemberData) => {
     Vue.set(state.members, member.id, member);
   },
+  removeMemberById: (state, memberId: number) => {
+    Vue.delete(state.members, memberId);
+  },
   setMembers: (state, members: Array<MemberData>) => {
     members.forEach((member) => {
       Vue.set(state.members, member.id, member);
@@ -48,8 +67,11 @@ export const mutations: MutationTree<RootState> = {
   },
   setMemberRoles: (state, roles: MemberRoleData[]) => {
     roles.forEach((role) => {
-      Vue.set(state.roleRelations, role.memberId + role.role.id, role);
+      Vue.set(state.roleRelations, role.id, role);
     });
+  },
+  removeMemberRoleById: (state, memberRoleCompositeId: string) => {
+    Vue.delete(state.roleRelations, memberRoleCompositeId);
   },
 };
 
@@ -79,6 +101,16 @@ export const actions: ActionTree<RootState, RootState> = {
         'Unable to load member roles',
         e
       );
+    }
+  },
+  async fetchMembersByRoleId({ commit }, roleId: number) {
+    try {
+      // const payload = await this.$api.members.getMembersByRoleId({
+      //   roleId,
+      // });
+      // commit('setMembers', payload.members);
+    } catch (e) {
+      throw new AppError(ErrorCode.InternalError, 'Unable to load members', e);
     }
   },
   async createMember({ commit }, { memberInput }: CreateMemberRequest) {
@@ -131,7 +163,23 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new AppError(ErrorCode.InternalError, 'Unable to patch member', e);
     }
   },
-
+  async deleteMemberById(
+    { commit },
+    { memberId }: DeleteMemberByIdRequest
+  ): Promise<ModelApiResponse> {
+    try {
+      commit('ui/startUpdateApiRequestInProgress', null, { root: true });
+      const payload: ModelApiResponse = await this.$api.members.deleteMemberById(
+        { memberId }
+      );
+      commit('removeMemberById', memberId);
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      return payload;
+    } catch (e) {
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      throw new AppError(ErrorCode.InternalError, 'Unable to delete member', e);
+    }
+  },
   async addMemberRole(
     { commit },
     { memberId, roleId, memberRoleInput }: AddMemberRoleByIdRequest
@@ -153,6 +201,30 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new AppError(
         ErrorCode.InternalError,
         'Unable to create member role',
+        e
+      );
+    }
+  },
+  async removeRoleById(
+    { commit },
+    { memberId, roleId }: RemoveMemberRoleByIdRequest
+  ) {
+    try {
+      commit('ui/startUpdateApiRequestInProgress', null, { root: true });
+      const payload: ModelApiResponse = await this.$api.members.removeMemberRoleById(
+        {
+          memberId,
+          roleId,
+        }
+      );
+      commit('removeMemberRoleById', `${memberId}-${roleId}`);
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      return payload;
+    } catch (e) {
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      throw new AppError(
+        ErrorCode.InternalError,
+        'Unable to delete member role',
         e
       );
     }

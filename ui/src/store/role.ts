@@ -1,7 +1,11 @@
 import Vue from 'vue';
 import { GetterTree, ActionTree, MutationTree } from 'vuex';
-import { GetRolesRequest, UpdateRoleByIdRequest } from '@api/apis';
-import { RoleData } from '@api/models';
+import {
+  DeleteRoleByIdRequest,
+  GetRolesRequest,
+  UpdateRoleByIdRequest,
+} from '@api/apis';
+import { ModelApiResponse, RoleData } from '@api/models';
 import { AppError, ErrorCode } from '~/common/app-error';
 
 export const namespace = 'role';
@@ -19,6 +23,9 @@ export const getters: GetterTree<RootState, RootState> = {
   },
   getRoleById: (state) => (id: number): RoleData | null => {
     return state.roles[id] || null;
+  },
+  removeRoleById: (state, roleId: number) => {
+    Vue.delete(state.roles, roleId);
   },
   getRolesBySectionId: (state) => (id: number): RoleData[] => {
     return Object.values(state.roles).filter(
@@ -78,6 +85,23 @@ export const actions: ActionTree<RootState, RootState> = {
     } catch (e) {
       commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
       throw new AppError(ErrorCode.InternalError, 'Unable to update role', e);
+    }
+  },
+  async deleteroleById(
+    { commit },
+    { roleId }: DeleteRoleByIdRequest
+  ): Promise<ModelApiResponse> {
+    try {
+      commit('ui/startUpdateApiRequestInProgress', null, { root: true });
+      const payload: ModelApiResponse = await this.$api.roles.deleteRoleById({
+        roleId,
+      });
+      commit('removeRoleById', roleId);
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      return payload;
+    } catch (e) {
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      throw new AppError(ErrorCode.InternalError, 'Unable to delete role', e);
     }
   },
 };

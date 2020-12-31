@@ -54,9 +54,10 @@
               }}</v-chip>
             </v-card-text>
             <v-card-text>
-              <v-btn color="primary" @click.stop="openEditMemberModal">
-                <v-icon small>mdi-pencil</v-icon> Edit
-              </v-btn>
+              <member-edit
+                :member="member"
+                :open.sync="dialogMemberEdit"
+              ></member-edit>
             </v-card-text>
           </v-card>
         </v-col>
@@ -179,9 +180,9 @@
                       {{ item.firstname }}
                       {{ item.lastname }}
                     </v-list-item-title>
-                    <v-list-item-subtitle>{{
-                      item.relationship
-                    }}</v-list-item-subtitle>
+                    <v-list-item-subtitle>
+                      {{ item.relationship }}
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-icon>
                     <nuxt-link :to="`/contacts/${item.id}`">
@@ -197,110 +198,22 @@
       <v-row>
         <v-col>
           <!-- Member Contact Table -->
-          <v-data-table
-            :headers="headers.contacts"
-            :items="contacts"
-            class="elevation-1"
-          >
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title>Contacts</v-toolbar-title>
-                <v-divider class="mx-4" inset vertical></v-divider>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="primary"
-                  class="mb-2"
-                  @click="openCreateContactModal()"
-                >
-                  New Local Contact
-                </v-btn>
-              </v-toolbar>
-            </template>
-            <template v-slot:[`item.state`]="{ item }">
-              <v-chip :color="getStateColor(item.state)">
-                {{ item.state }}
-              </v-chip>
-            </template>
-            <template v-slot:[`item.managementState`]="{ item }">
-              <v-chip :color="getMStateColor(item.managementState)">
-                {{ item.managementState }}
-              </v-chip>
-            </template>
-            <template v-slot:[`item.actions`]="{ item }">
-              <v-btn
-                :to="{ path: `/contacts/${item.id}` }"
-                color="primary"
-                icon
-                nuxt
-              >
-                <v-icon small>mdi-eye</v-icon>
-              </v-btn>
-
-              <danger-confirmation
-                :id="item.id"
-                :open.sync="dialogDeleteContact[item.id]"
-                title="Deleting Contact"
-                :message="`delete the contact, ${item.firstname}`"
-                icon="mdi-delete"
-                v-on:cancel="handleDeleteContactCancel"
-                v-on:confirm="handleDeleteContactConfirm"
-              ></danger-confirmation>
-            </template>
-          </v-data-table>
+          <contacts-table
+            :member="member"
+            :contacts="contacts"
+            allow-creation
+          ></contacts-table>
         </v-col>
         <v-col cols="12">
           <!-- Member Role Table -->
-          <v-data-table
-            :headers="headers.roles"
-            :items="roles"
-            class="elevation-1"
-          >
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title>Roles</v-toolbar-title>
-                <v-divider class="mx-4" inset vertical></v-divider>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="primary"
-                  class="mb-2"
-                  @click="openCreateMemberRoleModal()"
-                >
-                  Assign Local Role
-                </v-btn>
-              </v-toolbar>
-            </template>
-            <template v-slot:[`item.state`]="{ item }">
-              <v-chip :color="getStateColor(item.state)">
-                {{ item.state }}
-              </v-chip>
-            </template>
-            <template v-slot:[`item.managementState`]="{ item }">
-              <v-chip :color="getMStateColor(item.managementState)">
-                {{ item.managementState }}
-              </v-chip>
-            </template>
-            <template v-slot:[`item.actions`]="{ item }">
-              <nuxt-link :to="{ path: `/roles/${item.role.id}` }">
-                <v-icon small class="mr-2">mdi-eye</v-icon>
-              </nuxt-link>
-              <nuxt-link :to="{ path: `/roles/${item.role.id}/delete` }">
-                <v-icon small>mdi-delete</v-icon>
-              </nuxt-link>
-            </template>
-          </v-data-table>
+          <member-roles-table
+            :member="member"
+            :member-roles="roles"
+            allow-creation
+          ></member-roles-table>
         </v-col>
       </v-row>
     </v-container>
-    <!-- Dialogs -->
-    <member-edit :member="member" :open.sync="dialogMemberEdit"></member-edit>
-    <contact-create
-      :member="member"
-      :open.sync="dialogContactCreate"
-    ></contact-create>
-    <member-role-create
-      :member="member"
-      :open.sync="dialogMemberRoleCreate"
-    ></member-role-create>
   </div>
   <v-container v-else-if="loading">
     <!-- Skeletons -->
@@ -350,6 +263,8 @@ import MemberEditDialog from '~/components/dialogs/member-edit.vue';
 import ContactCreateDialog from '~/components/dialogs/contact-create.vue';
 import MemberRoleCreateDialog from '~/components/dialogs/member-role-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
+import ContactTableComponent from '~/components/tables/contacts-table.vue';
+import MemberRoleTableComponent from '~/components/tables/member-roles-table.vue';
 
 import * as member from '~/store/member';
 import * as contact from '~/store/contact';
@@ -363,6 +278,8 @@ import { createAlert } from '~/common/alert';
     ContactCreateDialog,
     MemberRoleCreateDialog,
     DangerConfirmation,
+    ContactTableComponent,
+    MemberRoleTableComponent,
   },
 })
 export default class MemberDetailPage extends Vue {
@@ -392,30 +309,6 @@ export default class MemberDetailPage extends Vue {
 
   error = false;
   loading = true;
-
-  headers = {
-    contacts: [
-      {
-        text: 'Firstname',
-        align: 'start',
-        sortable: false,
-        value: 'firstname',
-      },
-      { text: 'Lastname', value: 'lastname' },
-      { text: 'Relationship', value: 'relationship' },
-      { text: 'State', value: 'state' },
-      { text: 'MState', value: 'managementState' },
-      { text: 'Actions', value: 'actions' },
-    ],
-    roles: [
-      { text: 'Role', value: 'role.name' },
-      { text: 'Section', value: 'role.section.name' },
-      { text: 'Scout Group', value: 'role.section.scoutGroup.name' },
-      { text: 'State', value: 'state' },
-      { text: 'MState', value: 'managementState' },
-      { text: 'Actions', value: 'actions' },
-    ],
-  };
 
   isOverridden(fieldname: keyof MemberOverrideData): boolean {
     if (!this.member?.overrides) {
@@ -450,7 +343,6 @@ export default class MemberDetailPage extends Vue {
         this.id
       );
       await Promise.all([memberPromise, contactsPromise, memberRolesPromise]);
-      this.initialiseDeleteDialogs();
     } catch (e) {
       this.error = true;
     } finally {
@@ -458,86 +350,6 @@ export default class MemberDetailPage extends Vue {
     }
   }
 
-  dialogStateConfirm = false;
-
-  async handleMemberState(newState: MemberDataStateEnum): Promise<void> {
-    try {
-      await this.$store.dispatch(`${member.namespace}/patchMemberById`, {
-        memberId: this.id,
-        memberInput: {
-          state: newState,
-        },
-      });
-
-      this.dialogStateConfirm = false;
-    } catch (e) {
-      console.error(e);
-      alert('update failed');
-    }
-  }
-
   dialogMemberEdit: boolean = false;
-
-  openEditMemberModal() {
-    this.dialogMemberEdit = true;
-  }
-
-  closeEditMemberModal() {
-    this.dialogMemberEdit = false;
-  }
-
-  dialogContactCreate: boolean = false;
-
-  openCreateContactModal() {
-    this.dialogContactCreate = true;
-  }
-
-  closeCreateContactModal() {
-    this.dialogContactCreate = false;
-  }
-
-  dialogMemberRoleCreate: boolean = false;
-
-  openCreateMemberRoleModal() {
-    this.dialogMemberRoleCreate = true;
-  }
-
-  closeCreateMemberRoleModal() {
-    this.dialogMemberRoleCreate = false;
-  }
-
-  dialogDeleteContact: { [id: string]: boolean } = {};
-
-  initialiseDeleteDialogs() {
-    for (const contact of this.contacts) {
-      this.$set(this.dialogDeleteContact, contact.id, false);
-    }
-  }
-
-  handleDeleteContactCancel(id: string) {
-    this.$set(this.dialogDeleteContact, id, false);
-  }
-
-  async handleDeleteContactConfirm(id: string) {
-    try {
-      await this.$store.dispatch(`${contact.namespace}/deleteContactById`, {
-        contactId: id,
-      });
-
-      this.$set(this.dialogDeleteContact, id, false);
-      createAlert(this.$store, {
-        message: 'Contact deleted.',
-        type: 'success',
-      });
-    } catch (e) {
-      this.$set(this.dialogDeleteContact, id, false);
-
-      console.error(e);
-      createAlert(this.$store, {
-        message: 'Failed to delete Contact.',
-        type: 'error',
-      });
-    }
-  }
 }
 </script>
