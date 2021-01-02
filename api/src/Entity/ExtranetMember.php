@@ -38,6 +38,8 @@ class ExtranetMember
     private $subsidiarySections = [];
     private $position;
 
+    private $metaInvite = [];
+
     public function __construct()
     {
     }
@@ -374,6 +376,18 @@ class ExtranetMember
         return $this;
     }
 
+    public function getMetaInvite(): ?array
+    {
+        return $this->metaInvite;
+    }
+
+    public function setMetaInvite(?array $metaInvite): self
+    {
+        $this->metaInvite = $metaInvite;
+
+        return $this;
+    }
+
     // Data mappers
 
     public static function fromExtranetCsv($data)
@@ -419,7 +433,7 @@ class ExtranetMember
         return $member;
     }
 
-    public static function fromExtranetInvitation($data)
+    public static function fromExtranetInvitation($data, $type)
     {
         $member = new self();
 
@@ -461,6 +475,22 @@ class ExtranetMember
         $member->setEmail('');
         $member->setSchoolName('');
         $member->setPosition('');
+
+        if ($type === 'active') {
+            $member->setMetaInvite([
+                "type" => 'inviteActive',
+                "expiryDate" => $data['expiryDate'],
+                "status" => $data['status'],
+            ]);
+        } else if ($type === 'approving') {
+            $member->setMetaInvite([
+                "type" => 'inviteAwaitingApproval',
+                "submittedDate" => $data['submittedDate'],
+                "levelDescription" => $data['levelDescription'],
+                "appAge" => $data['appAge'],
+                "currentAppTimestamp" => $data['currentAppTimestamp'],
+            ]);
+        }
 
 
         return $member;

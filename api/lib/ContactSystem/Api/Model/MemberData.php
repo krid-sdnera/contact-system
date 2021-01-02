@@ -120,6 +120,14 @@ class MemberData
 
     /**
      * @var string|null
+     * @SerializedName("membershipUpdateLink")
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $membershipUpdateLink;
+
+    /**
+     * @var string|null
      * @SerializedName("email")
      * @Assert\Type("string")
      * @Type("string")
@@ -192,6 +200,14 @@ class MemberData
     protected $overrides;
 
     /**
+     * @var OpenAPI\Server\Model\MemberMetaInviteData|null
+     * @SerializedName("metaInvite")
+     * @Assert\Type("OpenAPI\Server\Model\MemberMetaInviteData")
+     * @Type("OpenAPI\Server\Model\MemberMetaInviteData")
+     */
+    protected $metaInvite;
+
+    /**
      * Constructor
      * @param mixed[] $data Associated array of property values initializing the model
      */
@@ -206,6 +222,7 @@ class MemberData
         $this->address = isset($data['address']) ? $data['address'] : null;
         $this->dateOfBirth = isset($data['dateOfBirth']) ? $data['dateOfBirth'] : null;
         $this->membershipNumber = isset($data['membershipNumber']) ? $data['membershipNumber'] : null;
+        $this->membershipUpdateLink = isset($data['membershipUpdateLink']) ? $data['membershipUpdateLink'] : null;
         $this->email = isset($data['email']) ? $data['email'] : null;
         $this->phoneHome = isset($data['phoneHome']) ? $data['phoneHome'] : null;
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
@@ -215,6 +232,7 @@ class MemberData
         $this->schoolYearLevel = isset($data['schoolYearLevel']) ? $data['schoolYearLevel'] : null;
         $this->expiry = isset($data['expiry']) ? $data['expiry'] : null;
         $this->overrides = isset($data['overrides']) ? $data['overrides'] : null;
+        $this->metaInvite = isset($data['metaInvite']) ? $data['metaInvite'] : null;
     }
 
     /**
@@ -434,6 +452,30 @@ class MemberData
     }
 
     /**
+     * Gets membershipUpdateLink.
+     *
+     * @return string|null
+     */
+    public function getMembershipUpdateLink(): ?string
+    {
+        return $this->membershipUpdateLink;
+    }
+
+    /**
+     * Sets membershipUpdateLink.
+     *
+     * @param string|null $membershipUpdateLink
+     *
+     * @return $this
+     */
+    public function setMembershipUpdateLink(string $membershipUpdateLink = null): ?string
+    {
+        $this->membershipUpdateLink = $membershipUpdateLink;
+
+        return $this;
+    }
+
+    /**
      * Gets email.
      *
      * @return string|null
@@ -645,6 +687,30 @@ class MemberData
     public function setOverrides(MemberOverrideData $overrides = null): ?MemberOverrideData
     {
         $this->overrides = $overrides;
+
+        return $this;
+    }
+
+    /**
+     * Gets metaInvite.
+     *
+     * @return OpenAPI\Server\Model\MemberMetaInviteData|null
+     */
+    public function getMetaInvite(): ?MemberMetaInviteData
+    {
+        return $this->metaInvite;
+    }
+
+    /**
+     * Sets metaInvite.
+     *
+     * @param OpenAPI\Server\Model\MemberMetaInviteData|null $metaInvite
+     *
+     * @return $this
+     */
+    public function setMetaInvite(MemberMetaInviteData $metaInvite = null): ?MemberMetaInviteData
+    {
+        $this->metaInvite = $metaInvite;
 
         return $this;
     }

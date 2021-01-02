@@ -142,6 +142,13 @@ class MemberDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "membershipUpdateLink"
+     */
+    public function testPropertyMembershipUpdateLink()
+    {
+    }
+
+    /**
      * Test attribute "email"
      */
     public function testPropertyEmail()
@@ -201,6 +208,13 @@ class MemberDataTest extends \PHPUnit_Framework_TestCase
      * Test attribute "overrides"
      */
     public function testPropertyOverrides()
+    {
+    }
+
+    /**
+     * Test attribute "metaInvite"
+     */
+    public function testPropertyMetaInvite()
     {
     }
 }

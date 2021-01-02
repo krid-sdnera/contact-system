@@ -26,7 +26,8 @@
             <v-card-text>
               <div class="text--secondary">Date of Birth:</div>
               <div class="text--primary d-flex justify-space-between">
-                {{ member.dateOfBirth | dateOfBirth }}
+                {{ member.dateOfBirth | date }}
+                ({{ member.dateOfBirth | duration }})
                 <v-icon v-if="isOverridden('dateOfBirth')">
                   mdi-backup-restore
                 </v-icon>
@@ -59,6 +60,58 @@
                 :open.sync="dialogMemberEdit"
               ></member-edit>
             </v-card-text>
+            <template v-if="member.metaInvite">
+              <template v-if="member.metaInvite.type === 'inviteActive'">
+                <v-card-text>
+                  <div class="text--secondary">Invitation process active:</div>
+                  <div class="text--primary">
+                    <v-icon class="red--text">mdi-close</v-icon>
+                    <span>Awaiting member completion </span>
+                  </div>
+                </v-card-text>
+                <v-card-text>
+                  <div class="text--secondary">This invite will expire on:</div>
+                  <div class="text--primary">
+                    {{ member.metaInvite.expiryDate | date }}
+                    ({{ member.metaInvite.expiryDate | duration }})
+                  </div>
+                </v-card-text>
+                <v-card-text>
+                  <div class="text--secondary">Status:</div>
+                  <div class="text--primary">
+                    {{ member.metaInvite.status }}
+                  </div>
+                </v-card-text>
+              </template>
+              <template
+                v-if="member.metaInvite.type === 'inviteAwaitingApproval'"
+              >
+                <v-card-text>
+                  <div class="text--secondary">Invitation process active:</div>
+                  <div class="text--primary">
+                    <v-icon class="green--text">mdi-check</v-icon>
+                    Member has completed invite<br />
+                    <v-icon class="red--text">mdi-close</v-icon>
+                    Awaiting Group Leader approval
+                  </div>
+                </v-card-text>
+                <v-card-text>
+                  <div class="text--secondary">
+                    This invite was submitted on:
+                  </div>
+                  <div class="text--primary">
+                    {{ member.metaInvite.submittedDate | date }}
+                    ({{ member.metaInvite.submittedDate | duration }})
+                  </div>
+                </v-card-text>
+                <v-card-text>
+                  <div class="text--secondary">Level Description:</div>
+                  <div class="text--primary">
+                    {{ member.metaInvite.levelDescription }}
+                  </div>
+                </v-card-text>
+              </template>
+            </template>
           </v-card>
         </v-col>
         <v-col cols="12" sm="6" md="4">

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **address** | [**OpenAPI\Server\Model\AddressData**](AddressData.md) |  | [optional] 
 **dateOfBirth** | [**\DateTime**](Date.md) |  | [optional] 
 **membershipNumber** | **string** |  | [optional] 
+**membershipUpdateLink** | **string** |  | [optional] 
 **email** | **string** |  | [optional] 
 **phoneHome** | **string** |  | [optional] 
 **phoneMobile** | **string** |  | [optional] 
@@ -21,6 +22,7 @@ Name | Type | Description | Notes
 **schoolYearLevel** | **string** |  | [optional] 
 **expiry** | **string** |  | [optional] 
 **overrides** | [**OpenAPI\Server\Model\MemberOverrideData**](MemberOverrideData.md) |  | [optional] 
+**metaInvite** | [**OpenAPI\Server\Model\MemberMetaInviteData**](MemberMetaInviteData.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\AddressData;
 use OpenAPI\Server\Model\MemberOverrideData;
 use OpenAPI\Server\Model\MemberData;
+use OpenAPI\Server\Model\MemberMetaInviteData;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
@@ -114,9 +115,12 @@ class Member
         if ($member->overridable('phoneMobile')) {
             $member->setPhoneMobile($extranetMember->getMobile());
         }
-        if ($member->overridable('email')) {
-            $member->setEmail($extranetMember->getEmail());
-        }
+
+        // Additional invitation data.
+        // If the extranet record has changed from being generated from
+        // and invite (and therefore the invite meta is blank)
+        // this is fine because we want the db to have the invite data blanked.
+        $member->setMetaInvite($extranetMember->getMetaInvite());
 
         // Always: Update school details
         $member->setSchoolName($extranetMember->getSchoolName());
@@ -367,8 +371,8 @@ class Member
             'schoolName' => $this->getSchoolName(),
             'schoolYearLevel' => $this->getSchoolYearLevel(),
             'overrides' => new MemberOverrideData($this->getOverrides()),
-            // TODO fix this
-            // 'membershipUpdateLink' => $this->getMembershipUpdateLink(),
+            'membershipUpdateLink' => $this->getMembershipUpdateLink(),
+            'metaInvite' => new MemberMetaInviteData($this->getMetaInvite()),
         ];
 
         $data = new MemberData($arrayData);
@@ -477,6 +481,17 @@ class Member
      * @ORM\Column(type="json")
      */
     private $overrides = [];
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $metaInvite = [];
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $membershipUpdateLink;
+
 
     public function __construct()
     {
@@ -746,6 +761,30 @@ class Member
     public function setSchoolYearLevel(?string $schoolYearLevel): self
     {
         $this->schoolYearLevel = $schoolYearLevel;
+
+        return $this;
+    }
+
+    public function getMetaInvite(): ?array
+    {
+        return $this->metaInvite;
+    }
+
+    public function setMetaInvite(?array $metaInvite): self
+    {
+        $this->metaInvite = $metaInvite;
+
+        return $this;
+    }
+
+    public function getMembershipUpdateLink(): string
+    {
+        return ($this->membershipUpdateLink) ?: '';
+    }
+
+    public function setMembershipUpdateLink($membershipUpdateLink): self
+    {
+        $this->membershipUpdateLink = $membershipUpdateLink;
 
         return $this;
     }

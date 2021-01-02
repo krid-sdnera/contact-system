@@ -13,6 +13,7 @@ export * from './ListRule';
 export * from './ListType';
 export * from './MemberData';
 export * from './MemberInput';
+export * from './MemberMetaInviteData';
 export * from './MemberOverrideData';
 export * from './MemberRoleData';
 export * from './MemberRoleInput';

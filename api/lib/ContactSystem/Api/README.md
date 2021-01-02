@@ -179,6 +179,7 @@ Class | Method | HTTP request | Description
  - [ListType](Resources/docs/Model/ListType.md)
  - [MemberData](Resources/docs/Model/MemberData.md)
  - [MemberInput](Resources/docs/Model/MemberInput.md)
+ - [MemberMetaInviteData](Resources/docs/Model/MemberMetaInviteData.md)
  - [MemberOverrideData](Resources/docs/Model/MemberOverrideData.md)
  - [MemberRoleData](Resources/docs/Model/MemberRoleData.md)
  - [MemberRoleInput](Resources/docs/Model/MemberRoleInput.md)

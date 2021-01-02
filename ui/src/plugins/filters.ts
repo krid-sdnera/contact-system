@@ -1,11 +1,78 @@
 import Vue from 'vue';
 import { AddressData } from '@api/models';
+import { DateTime, Duration } from 'luxon';
 
-Vue.filter('dateOfBirth', function (value: Date | undefined) {
-  if (!value) {
+Vue.filter('date', function (inDate: Date | string | undefined) {
+  if (!inDate) {
     return '';
   }
-  return new Date(value.toString()).toLocaleDateString();
+  let dt: DateTime;
+
+  dt = DateTime.fromJSDate(inDate as Date);
+
+  if (dt.invalidExplanation || dt.invalidReason) {
+    dt = DateTime.fromSQL(inDate as string);
+    if (dt.invalidExplanation || dt.invalidReason) {
+      return dt.invalidExplanation || dt.invalidReason;
+    }
+  }
+
+  return dt.toLocaleString(DateTime.DATE_SHORT);
+});
+
+Vue.filter('duration', function (inDate: string | Date) {
+  let dt: DateTime;
+
+  dt = DateTime.fromJSDate(inDate as Date);
+
+  if (dt.invalidExplanation || dt.invalidReason) {
+    dt = DateTime.fromSQL(inDate as string);
+    if (dt.invalidExplanation || dt.invalidReason) {
+      return dt.invalidExplanation || dt.invalidReason;
+    }
+  }
+
+  let d: Duration = dt.diffNow();
+
+  // Date is in the future.
+  const future = d.milliseconds > 0;
+
+  d = future ? d : d.negate();
+  d = d.shiftTo('years', 'months', 'days', 'hours', 'minutes');
+
+  const dur = d.toObject();
+  let pp: string[] = [];
+
+  const showYears = Number(dur.years) > 0;
+  const showMonths = Number(dur.months) > 0;
+  const showDays = Number(dur.days) > 0 && !showYears;
+  const showHours = Number(dur.hours) > 0 && !showYears && !showMonths;
+  const showMinutes =
+    Number(dur.minutes) > 0 && !showYears && !showMonths && !showDays;
+
+  if (future) {
+    pp.push('in');
+  }
+  if (showYears) {
+    pp.push(`${dur.years?.toFixed(0)}y`);
+  }
+  if (showMonths) {
+    pp.push(`${dur.months?.toFixed(0)}m`);
+  }
+  if (showDays) {
+    pp.push(`${dur.days?.toFixed(0)}d`);
+  }
+  if (showHours) {
+    pp.push(`${dur.hours?.toFixed(0)}h`);
+  }
+  if (showMinutes) {
+    pp.push(`${dur.minutes?.toFixed(0)}m`);
+  }
+  if (!future) {
+    pp.push('ago');
+  }
+  console.log(d, pp);
+  return pp.join(' ');
 });
 
 Vue.filter('capitalize', function (value: string | undefined) {

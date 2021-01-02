@@ -18,6 +18,10 @@ import {
     AddressDataFromJSON,
     AddressDataFromJSONTyped,
     AddressDataToJSON,
+    MemberMetaInviteData,
+    MemberMetaInviteDataFromJSON,
+    MemberMetaInviteDataFromJSONTyped,
+    MemberMetaInviteDataToJSON,
     MemberOverrideData,
     MemberOverrideDataFromJSON,
     MemberOverrideDataFromJSONTyped,
@@ -89,6 +93,12 @@ export interface MemberData {
      * @type {string}
      * @memberof MemberData
      */
+    membershipUpdateLink?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MemberData
+     */
     email?: string;
     /**
      * 
@@ -138,6 +148,12 @@ export interface MemberData {
      * @memberof MemberData
      */
     overrides?: MemberOverrideData;
+    /**
+     * 
+     * @type {MemberMetaInviteData}
+     * @memberof MemberData
+     */
+    metaInvite?: MemberMetaInviteData | null;
 }
 
 export function MemberDataFromJSON(json: any): MemberData {
@@ -159,6 +175,7 @@ export function MemberDataFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'address': !exists(json, 'address') ? undefined : AddressDataFromJSON(json['address']),
         'dateOfBirth': !exists(json, 'dateOfBirth') ? undefined : (new Date(json['dateOfBirth'])),
         'membershipNumber': !exists(json, 'membershipNumber') ? undefined : json['membershipNumber'],
+        'membershipUpdateLink': !exists(json, 'membershipUpdateLink') ? undefined : json['membershipUpdateLink'],
         'email': !exists(json, 'email') ? undefined : json['email'],
         'phoneHome': !exists(json, 'phoneHome') ? undefined : json['phoneHome'],
         'phoneMobile': !exists(json, 'phoneMobile') ? undefined : json['phoneMobile'],
@@ -168,6 +185,7 @@ export function MemberDataFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'schoolYearLevel': !exists(json, 'schoolYearLevel') ? undefined : json['schoolYearLevel'],
         'expiry': !exists(json, 'expiry') ? undefined : json['expiry'],
         'overrides': !exists(json, 'overrides') ? undefined : MemberOverrideDataFromJSON(json['overrides']),
+        'metaInvite': !exists(json, 'metaInvite') ? undefined : MemberMetaInviteDataFromJSON(json['metaInvite']),
     };
 }
 
@@ -189,6 +207,7 @@ export function MemberDataToJSON(value?: MemberData | null): any {
         'address': AddressDataToJSON(value.address),
         'dateOfBirth': value.dateOfBirth === undefined ? undefined : (value.dateOfBirth.toISOString().substr(0,10)),
         'membershipNumber': value.membershipNumber,
+        'membershipUpdateLink': value.membershipUpdateLink,
         'email': value.email,
         'phoneHome': value.phoneHome,
         'phoneMobile': value.phoneMobile,
@@ -198,6 +217,7 @@ export function MemberDataToJSON(value?: MemberData | null): any {
         'schoolYearLevel': value.schoolYearLevel,
         'expiry': value.expiry,
         'overrides': MemberOverrideDataToJSON(value.overrides),
+        'metaInvite': MemberMetaInviteDataToJSON(value.metaInvite),
     };
 }
 

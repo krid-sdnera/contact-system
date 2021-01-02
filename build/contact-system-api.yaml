@@ -1531,6 +1531,8 @@ components:
           format: date
         membershipNumber:
           type: string
+        membershipUpdateLink:
+          type: string
         email:
           type: string
         phoneHome:
@@ -1550,6 +1552,8 @@ components:
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         overrides:
           $ref: "#/components/schemas/MemberOverrideData"
+        metaInvite:
+          $ref: "#/components/schemas/MemberMetaInviteData"
       required:
         - id
         - firstname
@@ -1594,6 +1598,27 @@ components:
         schoolYearLevel:
           type: boolean
           default: false
+    MemberMetaInviteData:
+      title: MemberMetaInviteData
+      type: object
+      nullable: true
+      properties:
+        type:
+          type: string
+        expiryDate:
+          type: string
+        status:
+          type: string
+        submittedDate:
+          type: string
+        levelDescription:
+          type: string
+        appAge:
+          type: string
+        currentAppTimestamp:
+          type: string
+      required:
+        - type
     MemberSuggetion:
       title: MemberSuggetion
       type: object
