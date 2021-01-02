@@ -7,9 +7,6 @@
       "path": "api"
     },
     {
-      "path": "build"
-    },
-    {
       "path": "common"
     }
   ],
