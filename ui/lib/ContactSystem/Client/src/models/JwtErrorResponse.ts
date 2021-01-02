@@ -45,6 +45,6 @@ export function JwtErrorResponseToJSON(value?: JwtErrorResponse | null): any {
     if (value === null) {
         return null;
     }
-    return { ...JwtDataToJSON(value), ...JwtErrorDataToJSON(value) };
+    return { ...JwtDataToJSON(value as JwtData), ...JwtErrorDataToJSON(value as JwtErrorData) };
 }
 
