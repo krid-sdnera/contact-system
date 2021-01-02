@@ -1,0 +1,51 @@
+
+const RangeSlider = "";
+const CountrySelection = "";
+const FlatPickr = "";
+const query = {
+  operatorIdentifier: "AND",
+  children: [
+    { identifier: "age_range", value: [18, 45] },
+    { identifier: "country", value: "US" },
+    { identifier: "date", value: new Date().toLocaleDateString("fr-CA") },
+  ],
+};
+const config = {
+  operators: [
+    {
+      name: "AND",
+      identifier: "AND",
+    },
+    {
+      name: "OR",
+      identifier: "OR",
+    },
+  ],
+  rules: [
+    {
+      identifier: "age_range",
+      name: "Age Range",
+      component: RangeSlider,
+      initialValue: () => [18, 45],
+    },
+    {
+      identifier: "country",
+      name: "Country",
+      component: CountrySelection,
+      initialValue: "US",
+    },
+    {
+      identifier: "date",
+      name: "Date",
+      component: FlatPickr,
+      initialValue: () => new Date().toLocaleDateString("en-CA"),
+    },
+  ],
+  colors: ["hsl(88, 50%, 55%)", "hsl(187, 100%, 45%)"],
+  dragging: {
+    disabled: false,
+  },
+};
+
+
+
