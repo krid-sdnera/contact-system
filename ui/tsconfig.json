@@ -15,7 +15,7 @@
       "~/*": ["./src/*"],
       "@api/*": ["./lib/ContactSystem/Client/src/*"]
     },
-    "types": ["@types/node", "@nuxt/types"]
+    "types": ["@types/node", "@nuxt/types", "vuetify"]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }

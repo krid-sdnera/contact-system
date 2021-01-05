@@ -71,7 +71,6 @@ Vue.filter('duration', function (inDate: string | Date) {
   if (!future) {
     pp.push('ago');
   }
-  console.log(d, pp);
   return pp.join(' ');
 });
 

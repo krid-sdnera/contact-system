@@ -2,10 +2,12 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="miniVariant"
+      :permanent="!isMobile"
       :clipped="clipped"
-      fixed
+      :mini-variant.sync="mini"
+      :expand-on-hover="expandOnHover"
       app
+      bottom
     >
       <v-list>
         <v-list-item
@@ -14,6 +16,7 @@
           :to="item.to"
           router
           exact
+          :id="`menu-item-${i}`"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -23,23 +26,45 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <v-list v-if="!isMobile">
+          <v-list-item
+            @click.stop="
+              expandOnHover = !expandOnHover;
+              mini = !mini;
+              clipped = !clipped;
+            "
+          >
+            <v-list-item-action>
+              <v-icon v-if="expandOnHover && mini">mdi-chevron-right</v-icon>
+              <v-icon v-else-if="expandOnHover && !mini"
+                >mdi-pin-outline</v-icon
+              >
+              <v-icon v-else>mdi-pin</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title v-if="expandOnHover">Pin</v-list-item-title>
+              <v-list-item-title v-else>Collapse</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+        <div v-if="!mini" class="d-flex justify-center align-center mb-2">
+          <span class="mx-1">&copy;</span>
+          <span class="mx-1">&middot;</span>
+          <span class="mx-1" style="font-size: 0.5em;">DA</span>
+          <span class="mx-1">&middot;</span>
+          <span class="mx-1">{{ new Date().getFullYear() }} </span>
+        </div>
+      </template>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
+    <v-app-bar fixed app :clipped-left="clipped">
+      <v-btn v-if="isMobile" icon @click.stop="menuDrawer = !menuDrawer">
+        <v-icon>mdi-menu</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
+      <v-btn color="primary" v-if="!isLoggedIn" nuxt to="/login">Login</v-btn>
+      <v-btn color="primary" v-else @click="handleLogout">Logout</v-btn>
     </v-app-bar>
     <v-dialog
       v-model="isUpdateApiRequestInProgress"
@@ -64,54 +89,6 @@
         <nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-      <v-spacer />
-      <v-btn @click="handleLogout">Logout</v-btn>
-      <div>
-        <v-tooltip v-if="!$vuetify.theme.dark" bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn
-              v-on="on"
-              color="info"
-              small
-              fab
-              @click="$vuetify.theme.dark = !$vuetify.theme.dark"
-            >
-              <v-icon class="mr-1">mdi-moon-waxing-crescent</v-icon>
-            </v-btn>
-          </template>
-          <span>Dark Mode On</span>
-        </v-tooltip>
-
-        <v-tooltip v-else bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn
-              v-on="on"
-              color="info"
-              small
-              fab
-              @click="$vuetify.theme.dark = !$vuetify.theme.dark"
-            >
-              <v-icon color="yellow">mdi-white-balance-sunny</v-icon>
-            </v-btn>
-          </template>
-          <span>Dark Mode Off</span>
-        </v-tooltip>
-      </div>
-    </v-footer>
     <alerts></alerts>
   </v-app>
 </template>
@@ -124,8 +101,8 @@ import * as auth from '~/store/auth';
 
 @Component({ components: { Alerts } })
 export default class DefaultLayout extends Vue {
-  clipped = false;
-  drawer = false;
+  clipped = true;
+  menuDrawer = false;
   fixed = false;
   items = [
     {
@@ -134,36 +111,57 @@ export default class DefaultLayout extends Vue {
       to: '/',
     },
     {
-      icon: 'mdi-chart-bubble',
+      icon: 'mdi-account',
       title: 'Members',
       to: '/members',
     },
     {
-      icon: 'mdi-chart-bubble',
+      icon: 'mdi-account-child',
       title: 'Contacts',
       to: '/contacts',
     },
     {
-      icon: 'mdi-chart-bubble',
+      icon: 'mdi-baguette',
       title: 'Roles',
       to: '/roles',
     },
     {
-      icon: 'mdi-chart-bubble',
+      icon: 'mdi-account-supervisor-circle',
       title: 'Sections',
       to: '/sections',
     },
     {
-      icon: 'mdi-chart-bubble',
+      icon: 'mdi-account-group',
       title: 'Groups',
       to: '/groups',
     },
   ];
 
-  miniVariant = false;
+  expandOnHover = true;
+  mini = true;
   right = true;
   rightDrawer = false;
   title = 'Contact System';
+
+  get drawer() {
+    return this.menuDrawer || !this.isMobile;
+  }
+  set drawer(value) {
+    this.menuDrawer = value;
+  }
+
+  get isMobile() {
+    return ['xs', 'sm'].includes(this.$vuetify.breakpoint.name);
+  }
+
+  @Watch('isMobile', { immediate: true })
+  handleBreakpointChange(isMobile: boolean) {
+    console.log('ismobile', isMobile);
+    this.mini = !isMobile;
+    this.expandOnHover = !isMobile;
+    this.clipped = !isMobile;
+    this.menuDrawer = !isMobile;
+  }
 
   get isUpdateApiRequestInProgress(): boolean {
     return this.$store.getters[`${ui.namespace}/isUpdateApiRequestInProgress`];
