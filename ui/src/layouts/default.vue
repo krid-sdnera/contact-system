@@ -151,6 +151,9 @@ export default class DefaultLayout extends Vue {
   }
 
   get isMobile() {
+    if (typeof this.$vuetify.breakpoint.name === 'number') {
+      return;
+    }
     return ['xs', 'sm'].includes(this.$vuetify.breakpoint.name);
   }
 
