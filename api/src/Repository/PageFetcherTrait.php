@@ -41,7 +41,7 @@ trait PageFetcherTrait
             $qb = $this->createQueryBuilder('e');
             $qb->select('e');
 
-            if (!empty($query)) {
+            if (!empty($query) && $query !== '%%') {
                 $qb->where($expression);
                 $qb->setParameter('search', $query);
             }
@@ -58,7 +58,7 @@ trait PageFetcherTrait
             $qb = $this->createQueryBuilder('e');
             $qb->select("count(e.${countAggregateField})");
 
-            if (!empty($query)) {
+            if (!empty($query) && $query !== '%%') {
                 $qb->where($expression);
                 $qb->setParameter('search', $query);
             }
