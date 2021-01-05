@@ -86,7 +86,7 @@ class ExtranetContact
         return $this->primaryContact;
     }
 
-    public function setPrimaryContact(string $primaryContact): self
+    public function setPrimaryContact(bool $primaryContact): self
     {
         $this->primaryContact = $primaryContact;
 
@@ -227,7 +227,7 @@ class ExtranetContact
         $contact->setNickname(($data['Preferedname']) ?: '');
         $contact->setLastname($data['Surname']);
 
-        $contact->setPrimaryContact($data['PrimaryContact']);
+        $contact->setPrimaryContact($data['PrimaryContact']  === 'Y');
         $contact->setOccupation(($data['Occupation']) ?: '');
         $contact->setRelationship($data['Relationship']);
 
