@@ -287,6 +287,14 @@ open_api_server_roles_deleterolebyid:
     requirements:
         roleId: '\d+'
 
+open_api_server_roles_getmembersbyroleid:
+    path:     /roles/{roleId}/members
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.roles:getMembersByRoleIdAction
+    requirements:
+        roleId: '\d+'
+
 open_api_server_roles_getrolebyid:
     path:     /roles/{roleId}
     methods:  [GET]
@@ -366,6 +374,14 @@ open_api_server_sections_deletesectionbyid:
     methods:  [DELETE]
     defaults:
         _controller: open_api_server.controller.sections:deleteSectionByIdAction
+    requirements:
+        sectionId: '\d+'
+
+open_api_server_sections_getmembersbysectionid:
+    path:     /sections/{sectionId}/members
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.sections:getMembersBySectionIdAction
     requirements:
         sectionId: '\d+'
 

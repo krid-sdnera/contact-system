@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    Members,
+    MembersFromJSON,
+    MembersToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
@@ -38,6 +41,14 @@ export interface CreateSectionRequest {
 
 export interface DeleteSectionByIdRequest {
     sectionId: number;
+}
+
+export interface GetMembersBySectionIdRequest {
+    sectionId: number;
+    query?: string;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
 }
 
 export interface GetSectionByIdRequest {
@@ -97,6 +108,26 @@ export interface SectionsApiInterface {
      * Delete Section
      */
     deleteSectionById(requestParameters: DeleteSectionByIdRequest): Promise<ModelApiResponse>;
+
+    /**
+     * List all members in this section
+     * @summary List members by section
+     * @param {number} sectionId 
+     * @param {string} [query] 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SectionsApiInterface
+     */
+    getMembersBySectionIdRaw(requestParameters: GetMembersBySectionIdRequest): Promise<runtime.ApiResponse<Members>>;
+
+    /**
+     * List all members in this section
+     * List members by section
+     */
+    getMembersBySectionId(requestParameters: GetMembersBySectionIdRequest): Promise<Members>;
 
     /**
      * Get Section
@@ -257,6 +288,66 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
      */
     async deleteSectionById(requestParameters: DeleteSectionByIdRequest): Promise<ModelApiResponse> {
         const response = await this.deleteSectionByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * List all members in this section
+     * List members by section
+     */
+    async getMembersBySectionIdRaw(requestParameters: GetMembersBySectionIdRequest): Promise<runtime.ApiResponse<Members>> {
+        if (requestParameters.sectionId === null || requestParameters.sectionId === undefined) {
+            throw new runtime.RequiredError('sectionId','Required parameter requestParameters.sectionId was null or undefined when calling getMembersBySectionId.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/sections/{sectionId}/members`.replace(`{${"sectionId"}}`, encodeURIComponent(String(requestParameters.sectionId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MembersFromJSON(jsonValue));
+    }
+
+    /**
+     * List all members in this section
+     * List members by section
+     */
+    async getMembersBySectionId(requestParameters: GetMembersBySectionIdRequest): Promise<Members> {
+        const response = await this.getMembersBySectionIdRaw(requestParameters);
         return await response.value();
     }
 

@@ -145,6 +145,7 @@ Class | Method | HTTP request | Description
 *MembersApiInterface* | [**updateMemberById**](Resources/docs/Api/MembersApiInterface.md#updatememberbyid) | **PUT** /members/{memberId} | Update member
 *RolesApiInterface* | [**createRole**](Resources/docs/Api/RolesApiInterface.md#createrole) | **POST** /roles | Create role
 *RolesApiInterface* | [**deleteRoleById**](Resources/docs/Api/RolesApiInterface.md#deleterolebyid) | **DELETE** /roles/{roleId} | Delete role
+*RolesApiInterface* | [**getMembersByRoleId**](Resources/docs/Api/RolesApiInterface.md#getmembersbyroleid) | **GET** /roles/{roleId}/members | List members by role
 *RolesApiInterface* | [**getRoleById**](Resources/docs/Api/RolesApiInterface.md#getrolebyid) | **GET** /roles/{roleId} | Get Role
 *RolesApiInterface* | [**getRoles**](Resources/docs/Api/RolesApiInterface.md#getroles) | **GET** /roles | Get roles
 *RolesApiInterface* | [**updateRoleById**](Resources/docs/Api/RolesApiInterface.md#updaterolebyid) | **PUT** /roles/{roleId} | Update role
@@ -156,6 +157,7 @@ Class | Method | HTTP request | Description
 *ScoutGroupsApiInterface* | [**updateScoutGroupById**](Resources/docs/Api/ScoutGroupsApiInterface.md#updatescoutgroupbyid) | **PUT** /groups/{scoutGroupId} | Update Group
 *SectionsApiInterface* | [**createSection**](Resources/docs/Api/SectionsApiInterface.md#createsection) | **POST** /sections | Create Section
 *SectionsApiInterface* | [**deleteSectionById**](Resources/docs/Api/SectionsApiInterface.md#deletesectionbyid) | **DELETE** /sections/{sectionId} | Delete Section
+*SectionsApiInterface* | [**getMembersBySectionId**](Resources/docs/Api/SectionsApiInterface.md#getmembersbysectionid) | **GET** /sections/{sectionId}/members | List members by section
 *SectionsApiInterface* | [**getSectionById**](Resources/docs/Api/SectionsApiInterface.md#getsectionbyid) | **GET** /sections/{sectionId} | Get Section
 *SectionsApiInterface* | [**getSectionRolesById**](Resources/docs/Api/SectionsApiInterface.md#getsectionrolesbyid) | **GET** /sections/{sectionId}/roles | Your GET endpoint
 *SectionsApiInterface* | [**getSections**](Resources/docs/Api/SectionsApiInterface.md#getsections) | **GET** /sections | Get Sections

@@ -8,6 +8,8 @@ import {
   AddMemberRoleByIdRequest,
   DeleteMemberByIdRequest,
   RemoveMemberRoleByIdRequest,
+  GetMembersByRoleIdRequest,
+  GetMembersBySectionIdRequest,
 } from '@api/apis';
 import {
   MemberData,
@@ -103,12 +105,23 @@ export const actions: ActionTree<RootState, RootState> = {
       );
     }
   },
-  async fetchMembersByRoleId({ commit }, roleId: number) {
+  async fetchMembersByRoleId({ commit }, options: GetMembersByRoleIdRequest) {
     try {
-      // const payload = await this.$api.members.getMembersByRoleId({
-      //   roleId,
-      // });
-      // commit('setMembers', payload.members);
+      const payload = await this.$api.roles.getMembersByRoleId(options);
+      commit('setMembers', payload.members);
+      return payload;
+    } catch (e) {
+      throw new AppError(ErrorCode.InternalError, 'Unable to load members', e);
+    }
+  },
+  async fetchMembersBySectionId(
+    { commit },
+    options: GetMembersBySectionIdRequest
+  ) {
+    try {
+      const payload = await this.$api.sections.getMembersBySectionId(options);
+      commit('setMembers', payload.members);
+      return payload;
     } catch (e) {
       throw new AppError(ErrorCode.InternalError, 'Unable to load members', e);
     }

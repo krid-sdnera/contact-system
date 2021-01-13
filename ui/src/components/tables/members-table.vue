@@ -70,6 +70,7 @@ import {
   ModelApiResponse,
   SectionData,
   SectionInput,
+  RoleData,
 } from '@api/models';
 import MemberCreateDialog from '~/components/dialogs/member-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
@@ -89,6 +90,8 @@ export default class MemberTableComponent extends BaseTable<MemberData> {
   name = 'members-table';
   title = 'Members';
   @Prop(Array) readonly members!: MemberData[] | undefined;
+  @Prop(Object) readonly role: RoleData | undefined;
+  @Prop(Object) readonly section: SectionData | undefined;
 
   get items(): MemberData[] {
     if (this.members) {
@@ -122,11 +125,33 @@ export default class MemberTableComponent extends BaseTable<MemberData> {
     this.loading = true;
 
     try {
-      const payload: Members = await this.$store.dispatch(
+      let payload: Members | null = null;
+
+      if (this.role === undefined && this.section === undefined) {
+        payload = await this.$store.dispatch(
         `${member.namespace}/fetchMembers`,
         this.apiOptions
       );
+      }
+      if (this.role !== undefined && this.section === undefined) {
+        console.log(this.apiOptions);
+        payload = await this.$store.dispatch(
+          `${member.namespace}/fetchMembersByRoleId`,
+          { roleId: this.role.id, ...this.apiOptions }
+        );
+      }
+      if (this.role === undefined && this.section !== undefined) {
+        payload = await this.$store.dispatch(
+          `${member.namespace}/fetchMembersBySectionId`,
+          { sectionId: this.section.id, ...this.apiOptions }
+        );
+      }
 
+      if (payload === null) {
+        this.serverItemIdsToDisplay = [];
+        this.totalItems = 0;
+        return;
+      }
       this.serverItemIdsToDisplay = payload.members.map(
         (member: MemberData) => member.id
       );

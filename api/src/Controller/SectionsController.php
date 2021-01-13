@@ -11,6 +11,7 @@ use OpenAPI\Server\Api\SectionsApiInterface;
 
 use OpenAPI\Server\Model\SectionInput;
 
+use App\Entity\Member;
 use App\Entity\Section;
 use App\Entity\Role;
 use OpenAPI\Server\Model\ApiResponse;
@@ -102,6 +103,34 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             'type' => 'Section Deleted',
             'message' => "Section (${sectionId}) was deleted"
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMembersBySectionId(int $sectionId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
+    {
+        /** @var MemberRepository */
+        $repo = $this->getDoctrine()->getRepository(Member::class);
+
+        try {
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page,
+                ['sectionId' => $sectionId]
+            );
+
+            return $result;
+        } catch (SortKeyNotFound $e) {
+            $responseCode = 400;
+            return new ApiResponse([
+                'code' => 400,
+                'type' => 'Bad Request',
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 
     /**

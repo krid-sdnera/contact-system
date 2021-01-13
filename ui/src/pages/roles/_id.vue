@@ -68,8 +68,9 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col><p>Coming soon: Table of members</p></v-col>
-        <!-- <members-table :members="members" searchable></members-table> -->
+        <v-col>
+          <members-table :role="role" searchable></members-table>
+        </v-col>
       </v-row>
     </v-container>
     <!-- Dialogs -->
@@ -97,6 +98,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { RoleData, SectionData, ScoutGroupData, MemberData } from '@api/models';
 import RoleEditDialog from '~/components/dialogs/role-edit.vue';
+import MemberTableComponent from '~/components/tables/member-roles-table.vue';
 
 import * as member from '~/store/member';
 import * as role from '~/store/role';
@@ -105,6 +107,7 @@ import * as ui from '~/store/ui';
 @Component({
   components: {
     RoleEditDialog,
+    MemberTableComponent,
   },
 })
 export default class RoleDetailPage extends Vue {

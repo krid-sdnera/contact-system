@@ -49,6 +49,12 @@
           <roles-table :roles="roles" allow-creation></roles-table>
         </v-col>
       </v-row>
+
+      <v-row>
+        <v-col>
+          <members-table :section="section" searchable></members-table>
+        </v-col>
+      </v-row>
     </v-container>
     <!-- Dialogs -->
     <section-edit
@@ -81,6 +87,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import { SectionData, ScoutGroupData, RoleData } from '@api/models';
 import SectionEditDialog from '~/components/dialogs/section-edit.vue';
 import RoleTableComponent from '~/components/tables/roles-table.vue';
+import MemberTableComponent from '~/components/tables/member-roles-table.vue';
 
 import * as section from '~/store/section';
 import * as role from '~/store/role';
@@ -90,6 +97,7 @@ import * as ui from '~/store/ui';
   components: {
     SectionEditDialog,
     RoleTableComponent,
+    MemberTableComponent,
   },
 })
 export default class SectionDetailPage extends Vue {

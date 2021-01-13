@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Exception\SortKeyNotFound;
 use Doctrine\ORM\ORMException;
-
+use Doctrine\ORM\QueryBuilder;
 
 trait PageFetcherTrait
 {
@@ -17,7 +17,8 @@ trait PageFetcherTrait
         string $sort = null,
         int $pageSize = null,
         int $page = null,
-        string $countAggregateField = 'id'
+        string $countAggregateField = 'id',
+        QueryBuilder $customQb = null
     ) {
 
         // Compute sort options
@@ -38,13 +39,20 @@ trait PageFetcherTrait
         $offset = ($page - 1) * $pageSize;
 
         try {
-            $qb = $this->createQueryBuilder('e');
-            $qb->select('e');
+
+            if ($customQb) {
+                $qb = $customQb;
+            } else {
+                $qb =  $this->createQueryBuilder('e')->select('e');
+            }
 
             if (!empty($query) && $query !== '%%') {
                 $qb->where($expression);
                 $qb->setParameter('search', $query);
             }
+
+            // Clone before applying pagination offset and limits.
+            $cloned = clone $qb;
 
             $qb->setFirstResult($offset);
             $qb->setMaxResults($pageSize);
@@ -55,15 +63,8 @@ trait PageFetcherTrait
 
             $result = $qb->getQuery()->getResult();
 
-            $qb = $this->createQueryBuilder('e');
-            $qb->select("count(e.${countAggregateField})");
-
-            if (!empty($query) && $query !== '%%') {
-                $qb->where($expression);
-                $qb->setParameter('search', $query);
-            }
-
-            $total = $qb->getQuery()->getSingleScalarResult();
+            $cloned->select("count(e.${countAggregateField})");
+            $total = $cloned->getQuery()->getSingleScalarResult();
         } catch (ORMException $e) {
             if (strpos($e->getMessage(), "Unrecognized field") === 0) {
                 $keys = implode(',', array_keys($sortComputed));

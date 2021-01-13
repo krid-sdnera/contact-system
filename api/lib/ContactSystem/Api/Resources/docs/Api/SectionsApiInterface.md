@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createSection**](SectionsApiInterface.md#createSection) | **POST** /sections | Create Section
 [**deleteSectionById**](SectionsApiInterface.md#deleteSectionById) | **DELETE** /sections/{sectionId} | Delete Section
+[**getMembersBySectionId**](SectionsApiInterface.md#getMembersBySectionId) | **GET** /sections/{sectionId}/members | List members by section
 [**getSectionById**](SectionsApiInterface.md#getSectionById) | **GET** /sections/{sectionId} | Get Section
 [**getSectionRolesById**](SectionsApiInterface.md#getSectionRolesById) | **GET** /sections/{sectionId}/roles | Your GET endpoint
 [**getSections**](SectionsApiInterface.md#getSections) | **GET** /sections | Get Sections
@@ -136,6 +137,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getMembersBySectionId**
+> OpenAPI\Server\Model\Members getMembersBySectionId($sectionId, $query, $sort, $pageSize, $page)
+
+List members by section
+
+List all members in this section
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/SectionsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\SectionsApiInterface;
+
+class SectionsApi implements SectionsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of SectionsApiInterface#getMembersBySectionId
+     */
+    public function getMembersBySectionId(int $sectionId, string $query = null, string $sort = null, int $pageSize = null, int $page = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sectionId** | **int**|  |
+ **query** | **string**|  | [optional]
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\Members**](../Model/Members.md)
 
 ### Authorization
 

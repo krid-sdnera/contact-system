@@ -3,10 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Member;
+use App\Entity\MemberRole;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Repository\PageFetcherTrait;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method Member|null find($id, $lockMode = null, $lockVersion = null)
@@ -23,14 +25,29 @@ class MemberRepository extends ServiceEntityRepository
         parent::__construct($registry, Member::class);
     }
 
-    public function findByPage($query = null, $sort = null, $pageSize = null, $page = null)
+    public function findByPage($query = null, $sort = null, $pageSize = null, $page = null, $constraint = null)
     {
-        $qb = $this->createQueryBuilder('e');
+        $qb = $this->createQueryBuilder('e')->select('e');
+        if ($constraint) {
+
+            if (array_key_exists('roleId', $constraint)) {
+                $qb->join('e.roles', 'mr', Join::WITH, $qb->expr()->eq('mr.role', ':role'));
+                $qb->setParameter('role', $constraint['roleId']);
+            } else if (array_key_exists('sectionId', $constraint)) {
+                $qb->join('e.roles', 'mr');
+                $qb->join('mr.role', 'r');
+                $qb->join('r.section', 's', Join::WITH, $qb->expr()->eq('s.id', ':section'));
+                $qb->setParameter('section', $constraint['sectionId']);
+            }
+        }
+
         $expression = $qb->expr()->orX(
             $qb->expr()->like('e.firstname', ':search'),
             $qb->expr()->like('e.lastname', ':search'),
             $qb->expr()->like('e.membershipNumber', ':search')
         );
+
+
         return $this->pageFetcherHelper(
             $expression,
             function (Member $member) {
@@ -40,7 +57,9 @@ class MemberRepository extends ServiceEntityRepository
             "%${query}%",
             $sort,
             $pageSize,
-            $page
+            $page,
+            'id',
+            $qb
         );
     }
 

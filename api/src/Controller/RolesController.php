@@ -11,6 +11,7 @@ use OpenAPI\Server\Api\RolesApiInterface;
 
 use OpenAPI\Server\Model\RoleInput;
 
+use App\Entity\Member;
 use App\Entity\Role;
 use App\Entity\Section;
 use OpenAPI\Server\Model\ApiResponse;
@@ -102,6 +103,34 @@ class RolesController extends AbstractController implements RolesApiInterface
             'type' => 'Role Deleted',
             'message' => "Role (${roleId}) was deleted"
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */   public function getMembersByRoleId(int $roleId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
+    {
+
+        /** @var MemberRepository */
+        $repo = $this->getDoctrine()->getRepository(Member::class);
+
+        try {
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page,
+                ['roleId' => $roleId]
+            );
+
+            return $result;
+        } catch (SortKeyNotFound $e) {
+            $responseCode = 400;
+            return new ApiResponse([
+                'code' => 400,
+                'type' => 'Bad Request',
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 
     /**

@@ -516,6 +516,70 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - Roles
+  "/roles/{roleId}/members":
+    parameters:
+      - schema:
+          type: integer
+        name: roleId
+        in: path
+        required: true
+    get:
+      summary: List members by role
+      description: List all members in this role
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
+      operationId: getMembersByRoleId
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema:
+                title: Members
+                description: A list of members
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  members:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/MemberData"
+                required:
+                  - members
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
+      tags:
+        - Roles
   /contacts:
     get:
       summary: Your GET endpoint
@@ -963,6 +1027,70 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
+      tags:
+        - Sections
+  "/sections/{sectionId}/members":
+    parameters:
+      - schema:
+          type: integer
+        name: sectionId
+        in: path
+        required: true
+    get:
+      summary: List members by section
+      description: List all members in this section
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
+      operationId: getMembersBySectionId
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema:
+                title: Members
+                description: A list of members
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  members:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/MemberData"
+                required:
+                  - members
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
       tags:
         - Sections
   "/sections/{sectionId}/roles":

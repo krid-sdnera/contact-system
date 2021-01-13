@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    Members,
+    MembersFromJSON,
+    MembersToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
@@ -35,6 +38,14 @@ export interface CreateRoleRequest {
 
 export interface DeleteRoleByIdRequest {
     roleId: number;
+}
+
+export interface GetMembersByRoleIdRequest {
+    roleId: number;
+    query?: string;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
 }
 
 export interface GetRoleByIdRequest {
@@ -90,6 +101,26 @@ export interface RolesApiInterface {
      * Delete role
      */
     deleteRoleById(requestParameters: DeleteRoleByIdRequest): Promise<ModelApiResponse>;
+
+    /**
+     * List all members in this role
+     * @summary List members by role
+     * @param {number} roleId 
+     * @param {string} [query] 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RolesApiInterface
+     */
+    getMembersByRoleIdRaw(requestParameters: GetMembersByRoleIdRequest): Promise<runtime.ApiResponse<Members>>;
+
+    /**
+     * List all members in this role
+     * List members by role
+     */
+    getMembersByRoleId(requestParameters: GetMembersByRoleIdRequest): Promise<Members>;
 
     /**
      * Get role
@@ -234,6 +265,66 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      */
     async deleteRoleById(requestParameters: DeleteRoleByIdRequest): Promise<ModelApiResponse> {
         const response = await this.deleteRoleByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * List all members in this role
+     * List members by role
+     */
+    async getMembersByRoleIdRaw(requestParameters: GetMembersByRoleIdRequest): Promise<runtime.ApiResponse<Members>> {
+        if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
+            throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling getMembersByRoleId.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/roles/{roleId}/members`.replace(`{${"roleId"}}`, encodeURIComponent(String(requestParameters.roleId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MembersFromJSON(jsonValue));
+    }
+
+    /**
+     * List all members in this role
+     * List members by role
+     */
+    async getMembersByRoleId(requestParameters: GetMembersByRoleIdRequest): Promise<Members> {
+        const response = await this.getMembersByRoleIdRaw(requestParameters);
         return await response.value();
     }
 
