@@ -63,6 +63,7 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <search-table v-if="!isMobile"></search-table>
       <v-btn color="primary" v-if="!isLoggedIn" nuxt to="/login">Login</v-btn>
       <v-btn color="primary" v-else @click="handleLogout">Logout</v-btn>
     </v-app-bar>
@@ -96,10 +97,11 @@
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator';
 import Alerts from '~/components/alerts/alerts.vue';
+import SearchTable from '~/components/tables/search-table.vue';
 import * as ui from '~/store/ui';
 import * as auth from '~/store/auth';
 
-@Component({ components: { Alerts } })
+@Component({ components: { Alerts, SearchTable } })
 export default class DefaultLayout extends Vue {
   clipped = true;
   menuDrawer = false;
