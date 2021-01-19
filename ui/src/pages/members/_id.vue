@@ -367,7 +367,7 @@ export default class MemberDetailPage extends Vue {
     if (!this.member?.overrides) {
       return false;
     }
-    return this.member.overrides[fieldname] || false;
+    return this.member?.overrides[fieldname] || false;
   }
 
   getStateColor(state: ContactDataStateEnum | MemberRoleDataStateEnum): string {
