@@ -5,52 +5,58 @@ import {
   MemberRoleDataStateEnum,
   ModelApiResponse,
 } from '@api/models';
-import {
-  Vue,
-  Component,
-  Watch,
-  Prop,
-  PropSync,
-  Emit,
-} from 'vue-property-decorator';
+import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator';
 import { createAlert } from '~/common/alert';
+import { CSApiOptions } from '~/common/api-types';
+import { VuetifyTableOptions } from '~/common/vuetify-types';
 
 interface IDwise {
   id: number | string;
 }
 
-interface VuetifyTableOptions {
-  sortBy: string[];
-  sortDesc: string[];
-  page: number;
-  itemsPerPage: number;
-}
-
 @Component
 export default class BaseTable<T extends IDwise> extends Vue {
+  // Default Props
   @Prop(Boolean) readonly allowCreation!: boolean;
   @Prop(Boolean) readonly searchable!: boolean;
 
-  loading: boolean = false;
-  error: boolean = false;
-  serverItemIdsToDisplay: (string | number)[] = [];
-
-  // Config
+  // Overridable Config
   title: string = '';
+  // Headers: Config
   headers: { text: string; value: string }[] = [];
-
-  // Overrideable
+  initialHeaders: string[] = [];
+  // Table Data: methods
   get items(): T[] {
     return [];
   }
-
   async fetchItems(): Promise<void> {}
+  // Dialog controls: Config
+  async rowActionDelete(id: number | string): Promise<ModelApiResponse | void> {
+    return;
+  }
 
+  // Common methods
   async mounted() {
     this.initialiseDialogRowActionDelete();
     this.fetchItems();
+    this.initialiseHeaders();
   }
 
+  toolbarExtended: boolean = false;
+
+  // Headers
+  selectedHeaders: string[] = [];
+  initialiseHeaders() {
+    this.selectedHeaders = this.headers
+      .filter((h) => this.initialHeaders.includes(h.value))
+      .map((h) => h.value);
+  }
+  get showHeaders() {
+    return this.headers.filter((h) => this.selectedHeaders.includes(h.value));
+  }
+
+  // Dialog controls
+  dialogFields: boolean = false;
   dialogCreate: boolean = false;
   dialogRowActionDelete: { [id: string]: boolean } = {};
 
@@ -58,11 +64,6 @@ export default class BaseTable<T extends IDwise> extends Vue {
     for (const item of this.items) {
       this.$set(this.dialogRowActionDelete, item.id, false);
     }
-  }
-
-  // Overrideable
-  async rowActionDelete(id: number | string): Promise<ModelApiResponse | void> {
-    return;
   }
 
   async handleRowActionDeleteConfirm(id: number | string) {
@@ -85,6 +86,10 @@ export default class BaseTable<T extends IDwise> extends Vue {
     }
   }
 
+  // Status flags
+  loading: boolean = false;
+  error: boolean = false;
+  serverItemIdsToDisplay: (string | number)[] = [];
   search: string = '';
   totalItems: number = 0;
   options: VuetifyTableOptions = {

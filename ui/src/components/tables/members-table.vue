@@ -1,6 +1,6 @@
 <template>
   <v-data-table
-    :headers="headers"
+    :headers="showHeaders"
     :items="items"
     :options.sync="options"
     :server-items-length="totalItems"
@@ -20,15 +20,25 @@
           v-if="searchable"
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          label="Filter"
           single-line
           hide-details
         ></v-text-field>
+        <template v-slot:extension>
+          <!-- Member create modal -->
         <member-create
           v-if="allowCreation"
           :open.sync="dialogCreate"
           @submit="handleCreateSubmit"
         ></member-create>
+          <v-spacer></v-spacer>
+          <!-- Options modal -->
+          <table-options
+            :open.sync="dialogFields"
+            :selected-fields.sync="selectedHeaders"
+            :available-fields="headers"
+          ></table-options>
+        </template>
       </v-toolbar>
     </template>
     <template v-slot:[`item.state`]="{ item }">
@@ -41,8 +51,20 @@
         {{ item.managementState }}
       </v-chip>
     </template>
+    <template v-slot:[`item.id`]="{ item }">
+      <nuxt-link :to="`/members/${item.id}`">{{ item.id }}</nuxt-link>
+    </template>
+    <template v-slot:[`item.address`]="{ item }">
+      {{ item.address | address }}
+    </template>
+    <template v-slot:[`item.dateOfBirth`]="{ item }">
+      {{ item.dateOfBirth | date }}
+    </template>
+    <template v-slot:[`item.age`]="{ item }">
+      {{ item.dateOfBirth | duration(false) }}
+    </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <v-btn :to="{ path: `/members/${item.id}` }" color="primary" icon nuxt>
+      <v-btn :to="`/members/${item.id}`" color="primary" icon nuxt>
         <v-icon small>mdi-eye</v-icon>
       </v-btn>
 
@@ -59,39 +81,35 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch, Prop, PropSync } from 'vue-property-decorator';
 import {
   MemberData,
-  MemberDataManagementStateEnum,
-  MemberDataStateEnum,
   Members,
-  MemberRoleDataManagementStateEnum,
-  MemberRoleDataStateEnum,
   ModelApiResponse,
-  SectionData,
-  SectionInput,
   RoleData,
+  SectionData,
 } from '@api/models';
-import MemberCreateDialog from '~/components/dialogs/member-create.vue';
+import { Component, Prop } from 'vue-property-decorator';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
-
-import * as member from '~/store/member';
-import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
+import MemberCreateDialog from '~/components/dialogs/member-create.vue';
+import TableOptionsComponent from '~/components/tables/table-options.vue';
 import BaseTable from '~/components/tables/base-table';
+import * as member from '~/store/member';
 
 @Component({
   components: {
     MemberCreateDialog,
     DangerConfirmation,
+    TableOptionsComponent,
   },
 })
 export default class MemberTableComponent extends BaseTable<MemberData> {
-  name = 'members-table';
-  title = 'Members';
-  @Prop(Array) readonly members!: MemberData[] | undefined;
+  // Additional Props
+  @Prop(Array) readonly members: MemberData[] | undefined;
   @Prop(Object) readonly role: RoleData | undefined;
   @Prop(Object) readonly section: SectionData | undefined;
+
+  name = 'members-table';
+  title = 'Members';
 
   get items(): MemberData[] {
     if (this.members) {
@@ -111,10 +129,31 @@ export default class MemberTableComponent extends BaseTable<MemberData> {
   }
 
   headers = [
+    { text: 'ID', value: 'id', disabled: true },
     { text: 'Firstname', value: 'firstname' },
+    { text: 'Nickname', value: 'nickname' },
     { text: 'Lastname', value: 'lastname' },
     { text: 'Membership Number', value: 'membershipNumber' },
-    { text: 'Actions', value: 'actions', sortable: false },
+    { text: 'Address', value: 'address' },
+    { text: 'Date of Birth', value: 'dateOfBirth' },
+    { text: 'Age', value: 'age' },
+    { text: 'Email', value: 'email' },
+    { text: 'Home Phone', value: 'phoneHome' },
+    { text: 'Mobile Phone', value: 'phoneMobile' },
+    { text: 'Work Phone', value: 'phoneWork' },
+    { text: 'Gender', value: 'gender' },
+    { text: 'School Name', value: 'schoolName' },
+    { text: 'School Year Level', value: 'schoolYearLevel' },
+    { text: 'Actions', value: 'actions', sortable: false, disabled: true },
+  ];
+  initialHeaders = [
+    'id',
+    'firstname',
+    'lastname',
+    'email',
+    'gender',
+    'membershipNumber',
+    'actions',
   ];
 
   async fetchItems() {
