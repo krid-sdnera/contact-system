@@ -1,12 +1,13 @@
-import Vue from 'vue';
-import { GetterTree, ActionTree, MutationTree } from 'vuex';
 import {
   DeleteScoutGroupByIdRequest,
   GetScoutGroupsRequest,
   UpdateScoutGroupByIdRequest,
 } from '@api/apis';
-import { ModelApiResponse, ScoutGroupData } from '@api/models';
+import { ModelApiResponse, ScoutGroupData, ScoutGroups } from '@api/models';
+import Vue from 'vue';
+import { ActionTree, GetterTree, MutationTree } from 'vuex';
 import { AppError, ErrorCode } from '~/common/app-error';
+import { fetchAllHelper } from '~/common/store-helpers';
 
 export const namespace = 'scoutGroup';
 
@@ -45,6 +46,14 @@ export const actions: ActionTree<RootState, RootState> = {
     const payload = await this.$api.scoutGroups.getScoutGroups(options);
     commit('setScoutGroups', payload.scoutGroups);
     return payload;
+  },
+  async fetchAllScoutGroups({ dispatch }, options: GetScoutGroupsRequest) {
+    return await fetchAllHelper<GetScoutGroupsRequest, ScoutGroups>(
+      async (o: GetScoutGroupsRequest) => dispatch(`fetchScoutGroups`, o),
+      (pld: ScoutGroups) =>
+        pld.scoutGroups.map((x: ScoutGroupData): number => x.id),
+      options
+    );
   },
   async fetchScoutGroupById({ commit }, scoutGroupId: number) {
     try {

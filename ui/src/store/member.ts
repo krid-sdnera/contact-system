@@ -1,15 +1,13 @@
-import Vue from 'vue';
-import { GetterTree, ActionTree, MutationTree } from 'vuex';
 import {
-  GetMembersRequest,
-  UpdateMemberByIdRequest,
-  PatchMemberByIdRequest,
-  CreateMemberRequest,
   AddMemberRoleByIdRequest,
+  CreateMemberRequest,
   DeleteMemberByIdRequest,
-  RemoveMemberRoleByIdRequest,
   GetMembersByRoleIdRequest,
   GetMembersBySectionIdRequest,
+  GetMembersRequest,
+  PatchMemberByIdRequest,
+  RemoveMemberRoleByIdRequest,
+  UpdateMemberByIdRequest,
 } from '@api/apis';
 import {
   MemberData,
@@ -17,7 +15,10 @@ import {
   Members,
   ModelApiResponse,
 } from '@api/models';
+import Vue from 'vue';
+import { ActionTree, GetterTree, MutationTree } from 'vuex';
 import { AppError, ErrorCode } from '~/common/app-error';
+import { fetchAllHelper } from '~/common/store-helpers';
 
 export const namespace = 'member';
 
@@ -91,20 +92,6 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new AppError(ErrorCode.InternalError, 'Unable to load member', e);
     }
   },
-  async fetchRolesByMemberId({ commit }, memberId: number) {
-    try {
-      const payload = await this.$api.members.getMemberRolesById({
-        memberId,
-      });
-      commit('setMemberRoles', payload.roles);
-    } catch (e) {
-      throw new AppError(
-        ErrorCode.InternalError,
-        'Unable to load member roles',
-        e
-      );
-    }
-  },
   async fetchMembersByRoleId({ commit }, options: GetMembersByRoleIdRequest) {
     try {
       const payload = await this.$api.roles.getMembersByRoleId(options);
@@ -124,6 +111,49 @@ export const actions: ActionTree<RootState, RootState> = {
       return payload;
     } catch (e) {
       throw new AppError(ErrorCode.InternalError, 'Unable to load members', e);
+    }
+  },
+  async fetchAllMembers({ dispatch }, options: GetMembersRequest) {
+    return await fetchAllHelper<GetMembersRequest, Members>(
+      async (o: GetMembersRequest) => dispatch(`fetchMembers`, o),
+      (pld: Members) => pld.members.map((x: MemberData): number => x.id),
+      options
+    );
+  },
+  async fetchAllMembersByRoleId(
+    { dispatch },
+    options: GetMembersByRoleIdRequest
+  ) {
+    return await fetchAllHelper<GetMembersByRoleIdRequest, Members>(
+      async (o: GetMembersByRoleIdRequest) =>
+        dispatch(`fetchMembersByRoleId`, o),
+      (pld: Members) => pld.members.map((x: MemberData): number => x.id),
+      options
+    );
+  },
+  async fetchAllMembersBySectionId(
+    { dispatch },
+    options: GetMembersBySectionIdRequest
+  ) {
+    return await fetchAllHelper<GetMembersBySectionIdRequest, Members>(
+      async (o: GetMembersBySectionIdRequest) =>
+        dispatch(`fetchMembersBySectionId`, o),
+      (pld: Members) => pld.members.map((x: MemberData): number => x.id),
+      options
+    );
+  },
+  async fetchRolesByMemberId({ commit }, memberId: number) {
+    try {
+      const payload = await this.$api.members.getMemberRolesById({
+        memberId,
+      });
+      commit('setMemberRoles', payload.roles);
+    } catch (e) {
+      throw new AppError(
+        ErrorCode.InternalError,
+        'Unable to load member roles',
+        e
+      );
     }
   },
   async createMember({ commit }, { memberInput }: CreateMemberRequest) {

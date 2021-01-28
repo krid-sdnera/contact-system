@@ -27,7 +27,7 @@
               <div class="text--secondary">Date of Birth:</div>
               <div class="text--primary d-flex justify-space-between">
                 {{ member.dateOfBirth | date }}
-                ({{ member.dateOfBirth | duration }})
+                ({{ member.dateOfBirth | duration(false) }})
                 <v-icon v-if="isOverridden('dateOfBirth')">
                   mdi-backup-restore
                 </v-icon>

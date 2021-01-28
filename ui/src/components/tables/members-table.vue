@@ -32,6 +32,15 @@
           @submit="handleCreateSubmit"
         ></member-create>
           <v-spacer></v-spacer>
+          <!-- Export modal -->
+          <member-export
+            :open.sync="dialogExport"
+            :api-options="apiOptions"
+            :preset-member-fields="selectedHeaders"
+            :preset-contact-fields="[]"
+            :preset-role="role"
+            :preset-section="section"
+          ></member-export>
           <!-- Options modal -->
           <table-options
             :open.sync="dialogFields"
@@ -91,6 +100,7 @@ import {
 import { Component, Prop } from 'vue-property-decorator';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
 import MemberCreateDialog from '~/components/dialogs/member-create.vue';
+import MemberExportDialog from '~/components/export/member-export.vue';
 import TableOptionsComponent from '~/components/tables/table-options.vue';
 import BaseTable from '~/components/tables/base-table';
 import * as member from '~/store/member';
@@ -98,6 +108,7 @@ import * as member from '~/store/member';
 @Component({
   components: {
     MemberCreateDialog,
+    MemberExportDialog,
     DangerConfirmation,
     TableOptionsComponent,
   },
@@ -217,5 +228,7 @@ export default class MemberTableComponent extends BaseTable<MemberData> {
       memberId: id,
     });
   }
+
+  dialogExport: boolean = false;
 }
 </script>

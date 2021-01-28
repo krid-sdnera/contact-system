@@ -9,6 +9,7 @@ import { ContactData, Contacts, ModelApiResponse } from '@api/models';
 import Vue from 'vue';
 import { ActionTree, GetterTree, MutationTree } from 'vuex';
 import { AppError, ErrorCode } from '~/common/app-error';
+import { fetchAllHelper } from '~/common/store-helpers';
 
 export const namespace = 'contact';
 
@@ -55,6 +56,13 @@ export const actions: ActionTree<RootState, RootState> = {
     const payload = await this.$api.contacts.getContacts(options);
     commit('setContacts', payload.contacts);
     return payload;
+  },
+  async fetchAllContacts({ dispatch }, options: GetContactsRequest) {
+    return await fetchAllHelper<GetContactsRequest, Contacts>(
+      async (o: GetContactsRequest) => dispatch(`fetchContacts`, o),
+      (pld: Contacts) => pld.contacts.map((x: ContactData): number => x.id),
+      options
+    );
   },
   async fetchContactById({ commit }, contactId: number) {
     try {

@@ -1,12 +1,13 @@
-import Vue from 'vue';
-import { GetterTree, ActionTree, MutationTree } from 'vuex';
 import {
   DeleteSectionByIdRequest,
   GetSectionsRequest,
   UpdateSectionByIdRequest,
 } from '@api/apis';
-import { ModelApiResponse, SectionData } from '@api/models';
+import { ModelApiResponse, SectionData, Sections } from '@api/models';
+import Vue from 'vue';
+import { ActionTree, GetterTree, MutationTree } from 'vuex';
 import { AppError, ErrorCode } from '~/common/app-error';
+import { fetchAllHelper } from '~/common/store-helpers';
 
 export const namespace = 'section';
 
@@ -50,6 +51,13 @@ export const actions: ActionTree<RootState, RootState> = {
     const payload = await this.$api.sections.getSections(options);
     commit('setSections', payload.sections);
     return payload;
+  },
+  async fetchAllSections({ dispatch }, options: GetSectionsRequest) {
+    return await fetchAllHelper<GetSectionsRequest, Sections>(
+      async (o: GetSectionsRequest) => dispatch(`fetchSections`, o),
+      (pld: Sections) => pld.sections.map((x: SectionData): number => x.id),
+      options
+    );
   },
   async fetchSectionById({ commit }, sectionId: number) {
     try {

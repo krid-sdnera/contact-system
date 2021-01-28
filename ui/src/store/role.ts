@@ -1,12 +1,13 @@
-import Vue from 'vue';
-import { GetterTree, ActionTree, MutationTree } from 'vuex';
 import {
   DeleteRoleByIdRequest,
   GetRolesRequest,
   UpdateRoleByIdRequest,
 } from '@api/apis';
-import { ModelApiResponse, RoleData } from '@api/models';
+import { ModelApiResponse, RoleData, Roles } from '@api/models';
+import Vue from 'vue';
+import { ActionTree, GetterTree, MutationTree } from 'vuex';
 import { AppError, ErrorCode } from '~/common/app-error';
+import { fetchAllHelper } from '~/common/store-helpers';
 
 export const namespace = 'role';
 
@@ -50,6 +51,13 @@ export const actions: ActionTree<RootState, RootState> = {
     const payload = await this.$api.roles.getRoles(options ?? {});
     commit('setRoles', payload.roles);
     return payload;
+  },
+  async fetchAllRoles({ dispatch }, options: GetRolesRequest) {
+    return await fetchAllHelper<GetRolesRequest, Roles>(
+      async (o: GetRolesRequest) => dispatch(`fetchRoles`, o),
+      (pld: Roles) => pld.roles.map((x: RoleData): number => x.id),
+      options
+    );
   },
   async fetchRoleById({ commit }, roleId: number) {
     try {

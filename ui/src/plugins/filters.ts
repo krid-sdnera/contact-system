@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { AddressData } from '@api/models';
 import { DateTime, Duration } from 'luxon';
 
-Vue.filter('date', function (inDate: Date | string | undefined) {
+const dateHelper = (inDate: Date | string | undefined): DateTime | string => {
   if (!inDate) {
     return '';
   }
@@ -13,23 +13,36 @@ Vue.filter('date', function (inDate: Date | string | undefined) {
   if (dt.invalidExplanation || dt.invalidReason) {
     dt = DateTime.fromSQL(inDate as string);
     if (dt.invalidExplanation || dt.invalidReason) {
-      return dt.invalidExplanation || dt.invalidReason;
+      return dt.invalidExplanation || dt.invalidReason || '';
     }
   }
+  return dt;
+};
 
-  return dt.toLocaleString(DateTime.DATE_SHORT);
+Vue.filter('date', function (
+  inDate: Date | string | undefined,
+  format: 'ymd' | 'dmy'
+) {
+  const dt: DateTime | string = dateHelper(inDate);
+  if (typeof dt === 'string') {
+    return dt;
+  }
+
+  switch (format) {
+    case 'ymd':
+      return dt.toISODate();
+    default:
+      return dt.toLocaleString(DateTime.DATE_SHORT);
+  }
 });
 
-Vue.filter('duration', function (inDate: string | Date) {
-  let dt: DateTime;
-
-  dt = DateTime.fromJSDate(inDate as Date);
-
-  if (dt.invalidExplanation || dt.invalidReason) {
-    dt = DateTime.fromSQL(inDate as string);
-    if (dt.invalidExplanation || dt.invalidReason) {
-      return dt.invalidExplanation || dt.invalidReason;
-    }
+Vue.filter('duration', function (
+  inDate: string | Date,
+  niceText: boolean = true
+) {
+  const dt: DateTime | string = dateHelper(inDate);
+  if (typeof dt === 'string') {
+    return dt;
   }
 
   let d: Duration = dt.diffNow();
@@ -50,7 +63,7 @@ Vue.filter('duration', function (inDate: string | Date) {
   const showMinutes =
     Number(dur.minutes) > 0 && !showYears && !showMonths && !showDays;
 
-  if (future) {
+  if (future && niceText) {
     pp.push('in');
   }
   if (showYears) {
@@ -68,7 +81,7 @@ Vue.filter('duration', function (inDate: string | Date) {
   if (showMinutes) {
     pp.push(`${dur.minutes?.toFixed(0)}m`);
   }
-  if (!future) {
+  if (!future && niceText) {
     pp.push('ago');
   }
   return pp.join(' ');

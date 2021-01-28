@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" persistent scrollable max-width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="primary" v-bind="attrs" v-on="on" class="ml-2">
+      <v-btn color="primary" v-bind="attrs" v-on="on" small>
         New Local Member
       </v-btn>
     </template>
@@ -109,52 +109,52 @@
 
           <v-row>
             <v-col cols="6" class="pl-0 pb-0">
-            <!-- Address Line 1 -->
-            <base-input
-              :field.sync="newMember.address.street1"
-              label="Street Line 1"
-              field-type="text"
+              <!-- Address Line 1 -->
+              <base-input
+                :field.sync="newMember.address.street1"
+                label="Street Line 1"
+                field-type="text"
               ></base-input>
             </v-col>
             <v-col cols="6" class="pr-0 pb-0">
-                  <!-- Address Line 2 -->
-                  <base-input
-                    :field.sync="newMember.address.street2"
-                    label="Street Line 2"
-                    field-type="text"
+              <!-- Address Line 2 -->
+              <base-input
+                :field.sync="newMember.address.street2"
+                label="Street Line 2"
+                field-type="text"
                 hide-override-checkbox
-                  ></base-input>
+              ></base-input>
             </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="4" class="pl-0 pb-0">
-                    <!-- Address City -->
-                    <base-input
-                      :field.sync="newMember.address.city"
-                      label="City"
-                      field-type="text"
-                    ></base-input>
-                  </v-col>
-                  <v-col cols="4" class="pb-0">
-                    <!-- Address State -->
-                    <base-input
-                      :field.sync="newMember.address.state"
-                      label="State"
-                      field-type="text"
+          </v-row>
+          <v-row>
+            <v-col cols="4" class="pl-0 pb-0">
+              <!-- Address City -->
+              <base-input
+                :field.sync="newMember.address.city"
+                label="City"
+                field-type="text"
+              ></base-input>
+            </v-col>
+            <v-col cols="4" class="pb-0">
+              <!-- Address State -->
+              <base-input
+                :field.sync="newMember.address.state"
+                label="State"
+                field-type="text"
                 hide-override-checkbox
-                    ></base-input>
-                  </v-col>
-                  <v-col cols="4" class="pr-0 pb-0">
-                    <!-- Address Postcode -->
-                    <base-input
-                      :field.sync="newMember.address.postcode"
-                      label="Postcode"
-                      field-type="text"
+              ></base-input>
+            </v-col>
+            <v-col cols="4" class="pr-0 pb-0">
+              <!-- Address Postcode -->
+              <base-input
+                :field.sync="newMember.address.postcode"
+                label="Postcode"
+                field-type="text"
                 hide-override-checkbox
-                    ></base-input>
-                  </v-col>
-                </v-row>
-              </v-container>
+              ></base-input>
+            </v-col>
+          </v-row>
+        </v-container>
         <small>*indicates required field</small>
       </v-card-text>
       <v-card-actions>
