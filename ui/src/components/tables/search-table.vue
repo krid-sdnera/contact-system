@@ -32,25 +32,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch, Prop, PropSync } from 'vue-property-decorator';
-import {
-  MemberData,
-  MemberDataManagementStateEnum,
-  MemberDataStateEnum,
-  Members,
-  MemberRoleDataManagementStateEnum,
-  MemberRoleDataStateEnum,
-  ModelApiResponse,
-  SectionData,
-  SectionInput,
-} from '@api/models';
-import MemberCreateDialog from '~/components/dialogs/member-create.vue';
+import { MemberData, Members } from '@api/models';
+import { Component, Watch } from 'vue-property-decorator';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
-
-import * as member from '~/store/member';
-import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
+import MemberCreateDialog from '~/components/dialogs/member-create.vue';
 import BaseTable from '~/components/tables/base-table';
+import * as member from '~/store/member';
 
 @Component({
   components: {
@@ -76,7 +63,7 @@ export default class SearchTableComponent extends BaseTable<MemberData> {
   headers = [];
 
   async fetchItems() {
-    if (this.apiOptions.query === '') {
+    if (!this.apiOptions.query) {
       this.serverItemIdsToDisplay = [];
       this.totalItems = 0;
       return;
@@ -104,6 +91,8 @@ export default class SearchTableComponent extends BaseTable<MemberData> {
       this.loading = false;
     }
   }
+
+  selected: MemberData | null = null;
 
   @Watch('selected')
   handleSelectedChange(member: MemberData) {
