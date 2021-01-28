@@ -122,6 +122,7 @@ export default class MemberTableComponent extends BaseTable<
 > {
   @Prop(Object) readonly role: RoleData | undefined;
   @Prop(Object) readonly section: SectionData | undefined;
+  @Prop({ type: Boolean, default: false }) readonly invitesOnly!: boolean;
 
   name = 'members-table';
   title = 'Members';
