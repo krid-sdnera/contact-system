@@ -730,8 +730,24 @@ class ExtranetService
                 // No this contact is not in extranet
                 $member = $memberRepo->findOneBy(['id' => $memberId]);
                 $member->setManagementState(Member::UnmanagementStateManaged);
-                // TODO: Check if the expiry date is already set
-                $member->setExpiry(new DateTime());
+
+                if ($member->getExpiry() === null) {
+                    $member->setExpiry(new DateTime());
+                }
+
+                foreach ($member->getContacts() as $i => $contact) {
+                    $contact->setManagementState(Contact::UnmanagementStateManaged);
+                    if ($contact->getExpiry() === null) {
+                        $contact->setExpiry(new DateTime());
+                    }
+                }
+
+                foreach ($member->getRoles() as $i => $role) {
+                    $role->setManagementState(MemberRole::UnmanagementStateManaged);
+                    if ($role->getExpiry() === null) {
+                        $role->setExpiry(new DateTime());
+                    }
+                }
 
                 $updatedMembers[] = $member;
             }
