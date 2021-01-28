@@ -4,56 +4,50 @@
       <v-col cols="12" sm="6" md="4">
         <!-- Contact Details -->
         <v-card class="mb-6">
-          <v-card-title class="d-flex justify-space-between">
+          <base-heading
+            label="Emergency Contact"
+            :overridden="isOverridden(['firstname', 'nickname', 'lastname'])"
+          >
             {{ contact.firstname }} {{ contact.lastname }}
-            <v-icon
-              v-if="
-                isOverridden('firstname') ||
-                isOverridden('nickname') ||
-                isOverridden('lastname')
-              "
+          </base-heading>
+
+          <v-card-text>
+            <base-info
+              label="Extranet Parent Id"
+              :overridden="isOverridden('parentId')"
             >
-              mdi-backup-restore
-            </v-icon>
-          </v-card-title>
-
-          <v-card-subtitle v-if="contact.parentId">
-            <div class="text--secondary">Extranet Parent Id:</div>
-            <div class="text--primary">{{ contact.parentId }}</div>
-          </v-card-subtitle>
-
-          <v-card-text>
-            <div class="text--secondary">Primary Contact:</div>
-            <div class="text--primary d-flex justify-space-between">
+              {{ contact.parentId }}
+            </base-info>
+            <base-info
+              label="Primary Contact"
+              :overridden="isOverridden('primaryContact')"
+            >
               {{ contact.primaryContact ? 'Yes' : 'No' }}
-              <v-icon v-if="isOverridden('primaryContact')">
-                mdi-backup-restore
-              </v-icon>
-            </div>
-          </v-card-text>
-
-          <v-card-text>
-            <div class="text--secondary">Relationship:</div>
-            <div class="text--primary d-flex justify-space-between">
+            </base-info>
+            <base-info
+              label="Relationship Contact"
+              :overridden="isOverridden('relationship')"
+            >
               {{ contact.relationship }}
-              <v-icon v-if="isOverridden('relationship')">
-                mdi-backup-restore
-              </v-icon>
-            </div>
-
-            <div class="text--secondary">Occupation:</div>
-            <div class="text--primary d-flex justify-space-between">
+            </base-info>
+            <base-info
+              label="Occupation"
+              :overridden="isOverridden('occupation')"
+            >
               {{ contact.occupation }}
-              <v-icon v-if="isOverridden('occupation')">
-                mdi-backup-restore
-              </v-icon>
-            </div>
+            </base-info>
           </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click.stop="dialogContactEdit">
+              <v-icon small>mdi-pencil</v-icon> Edit
+            </v-btn>
+          </v-card-actions>
         </v-card>
 
         <!-- Contact Management -->
         <v-card>
-          <v-card-title>Administration</v-card-title>
+          <v-card-title>Advanced</v-card-title>
           <v-card-text>
             <v-chip :class="{ red: contact.state === 'disabled' }" class="mb-1">
               {{ contact.state | capitalize }}
@@ -115,121 +109,71 @@
               </v-card>
             </v-dialog>
           </v-card-text>
-          <v-card-text>
-            <v-btn color="primary" @click.stop="dialogContactEdit = true">
-              <v-icon small>mdi-pencil</v-icon> Edit
-            </v-btn>
-          </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="4">
         <!-- Contact Contacts -->
         <v-card>
-          <v-card-title>Details</v-card-title>
+          <base-heading
+            :label="`${contact.firstname} ${contact.lastname}'${
+              contact.lastname.endsWith('s') ? '' : 's'
+            }`"
+          >
+            Contact Details
+          </base-heading>
 
           <v-card-text>
-            <div class="text--secondary">Address:</div>
-            <div class="text--primary d-flex justify-space-between">
+            <base-info
+              label="Address"
+              :overridden="isOverridden('address')"
+              :to="googleMapsLink(contact.address)"
+            >
               {{ contact.address | address }}
-              <v-icon v-if="isOverridden('address')">
-                mdi-backup-restore
-              </v-icon>
-            </div>
-          </v-card-text>
-
-          <v-card-text>
-            <template v-if="contact.email">
-              <div class="text--secondary">Email:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ contact.email }}
-                <v-icon v-if="isOverridden('email')">
-                  mdi-backup-restore
-                </v-icon>
-              </div>
-            </template>
-          </v-card-text>
-
-          <v-card-text>
-            <template v-if="contact.phoneHome">
-              <div class="text--secondary">Homephone:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ contact.phoneHome | phone }}
-                <v-icon v-if="isOverridden('phoneHome')">
-                  mdi-backup-restore
-                </v-icon>
-              </div>
-            </template>
-
-            <template v-if="contact.phoneWork">
-              <div class="text--secondary">Workphone:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ contact.phoneWork | phone }}
-                <v-icon v-if="isOverridden('phoneWork')">
-                  mdi-backup-restore
-                </v-icon>
-              </div>
-            </template>
-
-            <template v-if="contact.phoneMobile">
-              <div class="text--secondary">Mobile:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ contact.phoneMobile | phone }}
-                <v-icon v-if="isOverridden('phoneMobile')">
-                  mdi-backup-restore
-                </v-icon>
-              </div>
-            </template>
+            </base-info>
+            <base-info label="Email" :overridden="isOverridden('email')">
+              {{ contact.email }}
+            </base-info>
+            <base-info
+              label="Homephone"
+              :overridden="isOverridden('phoneHome')"
+            >
+              {{ contact.phoneHome | phone }}
+            </base-info>
+            <base-info
+              label="Workphone"
+              :overridden="isOverridden('phoneWork')"
+            >
+              {{ contact.phoneWork | phone }}
+            </base-info>
+            <base-info label="Mobile" :overridden="isOverridden('phoneMobile')">
+              {{ contact.phoneMobile | phone }}
+            </base-info>
           </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="4">
         <!-- Contact member details -->
         <v-card v-if="member">
-          <v-card-title> Child / Spouse </v-card-title>
-
-          <nuxt-link :to="`/members/${member.id}`">
-            <v-card-text>
-              {{ member.firstname }} {{ member.lastname }}
-            </v-card-text>
-          </nuxt-link>
+          <base-heading label="Child / Spouse" :to="`/members/${member.id}`">
+            {{ member.firstname }} {{ member.lastname }}
+          </base-heading>
 
           <v-card-text>
-            <div class="text--secondary">Address:</div>
-            <div class="text--primary d-flex justify-space-between">
+            <base-info label="Address" :to="googleMapsLink(member.address)">
               {{ member.address | address }}
-            </div>
-          </v-card-text>
-
-          <v-card-text>
-            <template v-if="member.email">
-              <div class="text--secondary">Email:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ member.email }}
-              </div>
-            </template>
-          </v-card-text>
-
-          <v-card-text>
-            <template v-if="member.phoneHome">
-              <div class="text--secondary">Homephone:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ member.phoneHome | phone }}
-              </div>
-            </template>
-
-            <template v-if="member.phoneWork">
-              <div class="text--secondary">Workphone:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ member.phoneWork | phone }}
-              </div>
-            </template>
-
-            <template v-if="member.phoneMobile">
-              <div class="text--secondary">Mobile:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ member.phoneMobile | phone }}
-              </div>
-            </template>
+            </base-info>
+            <base-info label="Email">
+              {{ member.email }}
+            </base-info>
+            <base-info label="Homephone">
+              {{ member.phoneHome | phone }}
+            </base-info>
+            <base-info label="Workphone">
+              {{ member.phoneWork | phone }}
+            </base-info>
+            <base-info label="Mobile">
+              {{ member.phoneMobile | phone }}
+            </base-info>
           </v-card-text>
         </v-card>
       </v-col>
@@ -245,6 +189,7 @@
         ></list-rules-table>
       </v-col>
     </v-row>
+
     <!-- Dialogs -->
     <contact-edit
       :contact="contact"
@@ -282,6 +227,7 @@
 
 <script lang="ts">
 import {
+  AddressData,
   ContactData,
   ContactDataStateEnum,
   ContactOverrideData,
@@ -340,6 +286,13 @@ export default class ContactDetailPage extends BaseDisplayPage {
       `${contact.namespace}/fetchContactById`,
       this.id
     );
+    if (!this.contact?.memberId) {
+      return;
+    }
+    await this.$store.dispatch(
+      `${member.namespace}/fetchMemberById`,
+      this.contact?.memberId
+    );
   }
   async _fetchDataEntityNotFound() {
     this.$store.commit(`${contact.namespace}/removeContactById`, this.id);
@@ -350,10 +303,18 @@ export default class ContactDetailPage extends BaseDisplayPage {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }
 
-  isOverridden(fieldname: keyof ContactOverrideData): boolean {
+  isOverridden(
+    fieldname: keyof ContactOverrideData | (keyof ContactOverrideData)[]
+  ): boolean {
     if (!this.contact?.overrides) {
       return false;
     }
+    if (Array.isArray(fieldname)) {
+      return fieldname.some(
+        (field) => this.contact?.overrides?.[field] ?? false
+      );
+    }
+
     return this.contact.overrides[fieldname] || false;
   }
 
@@ -376,5 +337,11 @@ export default class ContactDetailPage extends BaseDisplayPage {
   }
 
   dialogContactEdit: boolean = false;
+
+  googleMapsLink(address: AddressData) {
+    const place = this.$root.$options.filters!.address(address);
+
+    return `https://google.com.au/maps?q=${place.replaceAll(' ', '+')}`;
+  }
 }
 </script>

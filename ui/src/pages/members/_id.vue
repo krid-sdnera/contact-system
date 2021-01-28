@@ -4,41 +4,29 @@
       <v-col cols="12" sm="6" md="4">
         <!-- Member Details -->
         <v-card class="mb-6">
-          <v-card-title class="d-flex justify-space-between">
+          <base-heading
+            label="Member"
+            :overridden="isOverridden(['firstname', 'nickname', 'lastname'])"
+          >
             {{ member.firstname }} {{ member.lastname }}
-            <v-icon
-              v-if="
-                member.overrides.firstname ||
-                member.overrides.nickname ||
-                member.overrides.lastname
-              "
-            >
-              mdi-backup-restore
-            </v-icon>
-          </v-card-title>
-
-          <v-card-subtitle v-if="member.membershipNumber">
-            <div class="text--secondary">Rego:</div>
-            <div class="text--primary">{{ member.membershipNumber }}</div>
-          </v-card-subtitle>
+          </base-heading>
 
           <v-card-text>
-            <div class="text--secondary">Date of Birth:</div>
-            <div class="text--primary d-flex justify-space-between">
+            <base-info label="Rego" :overridden="isOverridden('gender')">
+              {{ member.membershipNumber }}
+            </base-info>
+
+            <base-info
+              label="Date of Birth"
+              :overridden="isOverridden('dateOfBirth')"
+            >
               {{ member.dateOfBirth | date }}
               ({{ member.dateOfBirth | duration(false) }})
-              <v-icon v-if="isOverridden('dateOfBirth')">
-                mdi-backup-restore
-              </v-icon>
-            </div>
+            </base-info>
 
-            <div class="text--secondary">Gender:</div>
-            <div class="text--primary d-flex justify-space-between">
+            <base-info label="Gender" :overridden="isOverridden('gender')">
               {{ member.gender }}
-              <v-icon v-if="isOverridden('dateOfBirth')">
-                mdi-backup-restore
-              </v-icon>
-            </div>
+            </base-info>
           </v-card-text>
         </v-card>
 
@@ -74,136 +62,100 @@
           <template v-if="member.metaInvite">
             <template v-if="member.metaInvite.type === 'inviteActive'">
               <v-card-text>
-                <div class="text--secondary">Invitation process active:</div>
-                <div class="text--primary">
+                <base-info label="Invitation process active">
                   <v-icon class="red--text">mdi-close</v-icon>
-                  <span>Awaiting member completion </span>
-                </div>
-              </v-card-text>
-              <v-card-text>
-                <div class="text--secondary">This invite will expire on:</div>
-                <div class="text--primary">
+                  <span>Awaiting member completion</span>
+                </base-info>
+
+                <base-info label="This invite will expire on">
                   {{ member.metaInvite.expiryDate | date }}
                   ({{ member.metaInvite.expiryDate | duration }})
-                </div>
-              </v-card-text>
-              <v-card-text>
-                <div class="text--secondary">Status:</div>
-                <div class="text--primary">
+                </base-info>
+
+                <base-info label="Status">
                   {{ member.metaInvite.status }}
-                </div>
+                </base-info>
               </v-card-text>
             </template>
             <template
               v-if="member.metaInvite.type === 'inviteAwaitingApproval'"
             >
               <v-card-text>
-                <div class="text--secondary">Invitation process active:</div>
-                <div class="text--primary">
+                <base-info label="Invitation process active">
                   <v-icon class="green--text">mdi-check</v-icon>
                   Member has completed invite<br />
                   <v-icon class="red--text">mdi-close</v-icon>
                   Awaiting Group Leader approval
-                </div>
-              </v-card-text>
-              <v-card-text>
-                <div class="text--secondary">
-                  This invite was submitted on:
-                </div>
-                <div class="text--primary">
+                </base-info>
+
+                <base-info label="This invite was submitted on">
                   {{ member.metaInvite.submittedDate | date }}
                   ({{ member.metaInvite.submittedDate | duration }})
-                </div>
-              </v-card-text>
-              <v-card-text>
-                <div class="text--secondary">Level Description:</div>
-                <div class="text--primary">
+                </base-info>
+
+                <base-info label="Level Description">
                   {{ member.metaInvite.levelDescription }}
-                </div>
+                </base-info>
               </v-card-text>
             </template>
           </template>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="4">
-        <!-- Member Contacts -->
+        <!-- Member Details -->
         <v-card>
-          <v-card-title>Details</v-card-title>
+          <base-heading
+            :label="`${member.firstname} ${member.lastname}'${
+              member.lastname.endsWith('s') ? '' : 's'
+            }`"
+          >
+            Contact Details
+          </base-heading>
 
           <v-card-text>
-            <div class="text--secondary">Address:</div>
-            <div class="text--primary d-flex justify-space-between">
+            <base-info
+              label="Address"
+              :overridden="isOverridden('address')"
+              :to="googleMapsLink(member.address)"
+            >
               {{ member.address | address }}
-              <v-icon v-if="isOverridden('address')">
-                mdi-backup-restore
-              </v-icon>
-            </div>
-          </v-card-text>
+            </base-info>
 
-          <v-card-text>
-            <template v-if="member.email">
-              <div class="text--secondary">Email:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ member.email }}
-                <v-icon v-if="isOverridden('email')">
-                  mdi-backup-restore
-                </v-icon>
-              </div>
-            </template>
-          </v-card-text>
+            <base-info label="Email" :overridden="isOverridden('email')">
+              {{ member.email }}
+            </base-info>
 
-          <v-card-text>
-            <template v-if="member.phoneHome">
-              <div class="text--secondary">Homephone:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ member.phoneHome | phone }}
-                <v-icon v-if="isOverridden('phoneHome')">
-                  mdi-backup-restore
-                </v-icon>
-              </div>
-            </template>
+            <base-info
+              label="Homephone"
+              :overridden="isOverridden('phoneHome')"
+            >
+              {{ member.phoneHome | phone }}
+            </base-info>
+            <base-info
+              label="Workphone"
+              :overridden="isOverridden('phoneWork')"
+            >
+              {{ member.phoneWork | phone }}
+            </base-info>
+            <base-info label="Mobile" :overridden="isOverridden('phoneMobile')">
+              {{ member.phoneMobile | phone }}
+            </base-info>
 
-            <template v-if="member.phoneWork">
-              <div class="text--secondary">Workphone:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ member.phoneWork | phone }}
-                <v-icon v-if="isOverridden('phoneWork')">
-                  mdi-backup-restore
-                </v-icon>
-              </div>
-            </template>
-
-            <template v-if="member.phoneMobile">
-              <div class="text--secondary">Mobile:</div>
-              <div class="text--primary d-flex justify-space-between">
-                {{ member.phoneMobile | phone }}
-                <v-icon v-if="isOverridden('phoneMobile')">
-                  mdi-backup-restore
-                </v-icon>
-              </div>
-            </template>
-          </v-card-text>
-
-          <!-- Member School Details -->
-          <v-card-text v-if="member.schoolName || member.schoolYearLevel">
-            <template v-if="member.schoolName">
-              <div class="text--secondary">School Name:</div>
-              <div class="text--primary d-flex justify-space-between">
+            <!-- Member School Details -->
+            <template v-if="member.schoolName || member.schoolYearLevel">
+              <base-info
+                label="School Name"
+                :overridden="isOverridden('schoolName')"
+              >
                 {{ member.schoolName }}
-                <v-icon v-if="isOverridden('schoolName')">
-                  mdi-backup-restore
-                </v-icon>
-              </div>
-            </template>
+              </base-info>
 
-            <template v-if="member.schoolYearLevel">
-              <div class="text--secondary">School Year Level:</div>
-              <div class="text--primary d-flex justify-space-between">
+              <base-info
+                label="School Year Level"
+                :overridden="isOverridden('schoolYearLevel')"
+              >
                 {{ member.schoolYearLevel }}
-                <v-icon v-if="isOverridden('schoolYearLevel')">
-                  mdi-backup-restore
-                </v-icon>
-              </div>
+              </base-info>
             </template>
           </v-card-text>
         </v-card>
@@ -211,51 +163,44 @@
       <v-col cols="12" sm="6" md="4">
         <!-- Member Role Summary -->
         <v-card class="mb-6">
-          <v-card-title>Roles</v-card-title>
+          <base-heading label="Member">
+            Roles
+          </base-heading>
 
-          <v-list>
+          <v-card-text>
             <template v-for="item in roles">
-              <v-list-item :key="item.role.id">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.role.name }}</v-list-item-title>
-                  <v-list-item-subtitle>
-                    {{ item.role.section.name }} -
-                    {{ item.role.section.scoutGroup.name }}
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <nuxt-link :to="`/roles/${item.role.id}`">
-                    <v-icon>mdi-eye</v-icon>
-                  </nuxt-link>
-                </v-list-item-icon>
-              </v-list-item>
+              <base-info
+                label=""
+                :to="`/roles/${item.role.id}`"
+                :key="item.role.id"
+              >
+                <template slot="label">
+                  {{ item.role.section.scoutGroup.name }}<br />
+                  <i>{{ item.role.section.name }}</i>
+                </template>
+                {{ item.role.name }}
+              </base-info>
             </template>
-          </v-list>
+          </v-card-text>
         </v-card>
         <!-- Member Contacts Summary -->
         <v-card>
-          <v-card-title>Emergency Contacts</v-card-title>
+          <base-heading label="Member">
+            Emergency Contacts
+          </base-heading>
 
-          <v-list>
+          <v-card-text>
             <template v-for="item in contacts">
-              <v-list-item :key="item.id">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ item.firstname }}
-                    {{ item.lastname }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle>
-                    {{ item.relationship }}
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <nuxt-link :to="`/contacts/${item.id}`">
-                    <v-icon>mdi-eye</v-icon>
-                  </nuxt-link>
-                </v-list-item-icon>
-              </v-list-item>
+              <base-info
+                :label="item.relationship"
+                :to="`/contacts/${item.id}`"
+                :key="item.id"
+              >
+                {{ item.firstname }}
+                {{ item.lastname }}
+              </base-info>
             </template>
-          </v-list>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -320,6 +265,7 @@
 
 <script lang="ts">
 import {
+  AddressData,
   ContactData,
   ContactDataManagementStateEnum,
   ContactDataStateEnum,
@@ -403,10 +349,18 @@ export default class MemberDetailPage extends BaseDisplayPage {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }
 
-  isOverridden(fieldname: keyof MemberOverrideData): boolean {
+  isOverridden(
+    fieldname: keyof MemberOverrideData | (keyof MemberOverrideData)[]
+  ): boolean {
     if (!this.member?.overrides) {
       return false;
     }
+    if (Array.isArray(fieldname)) {
+      return fieldname.some(
+        (field) => this.member?.overrides?.[field] ?? false
+      );
+    }
+
     return this.member?.overrides[fieldname] || false;
   }
 
@@ -422,5 +376,11 @@ export default class MemberDetailPage extends BaseDisplayPage {
   }
 
   dialogMemberEdit: boolean = false;
+
+  googleMapsLink(address: AddressData) {
+    const place = this.$root.$options.filters!.address(address);
+
+    return `https://google.com.au/maps?q=${place.replaceAll(' ', '+')}`;
+  }
 }
 </script>

@@ -1,33 +1,54 @@
 <template>
   <div v-if="scoutGroup && fetchState === appFetchState.Loaded">
     <v-row>
-      <v-col cols="12" sm="6" md="4">
+      <v-col cols="12" sm="6" md="8">
         <!-- ScoutGroup Details -->
         <v-card class="mb-6">
-          <v-card-title class="justify-space-between flex-nowrap">
-            <div class="d-flex flex-column align-start">
-              <div class="text--secondary subtitle-1">Group</div>
-              <div class="text--primary">{{ scoutGroup.name }}</div>
-            </div>
-          </v-card-title>
+          <base-heading label="Group">
+            {{ scoutGroup.name }}
+          </base-heading>
 
-          <v-card-subtitle v-if="scoutGroup.externalId">
-            <div class="text--secondary">Extranet ScoutGroup Id:</div>
-            <div class="text--primary">{{ scoutGroup.externalId }}</div>
-          </v-card-subtitle>
-
-          <v-card-text>
+          <v-card-text></v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
             <v-btn color="primary" @click.stop="openEditScoutGroupModal">
               <v-icon small>mdi-pencil</v-icon> Edit
             </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" sm="6" md="4">
+        <!-- Jumps -->
+        <v-card class="mb-6">
+          <base-heading label="Jump to"></base-heading>
+
+          <v-card-text>
+            <base-info :to="{ hash: '#sections' }">
+              Sections
+            </base-info>
+            <base-info :to="{ hash: '#list-rules' }">
+              List Rules
+            </base-info>
+          </v-card-text>
+        </v-card>
+
+        <!-- Advanced Details -->
+        <v-card class="mb-6">
+          <base-heading label="Extranet">Advanced</base-heading>
+
+          <v-card-text>
+            <base-info label="Group Id">
+              {{ scoutGroup.externalId }}
+            </base-info>
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
-    <v-row>
+
+    <v-row id="sections">
       <v-col>
         <!-- Sections Table -->
-
         <sections-table
           :scout-group="scoutGroup"
           allow-creation
@@ -35,7 +56,7 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row id="list-rules">
       <v-col>
         <!-- Email Rules Table -->
         <list-rules-table
@@ -55,6 +76,9 @@
   <div v-else-if="fetchState === appFetchState.Loading">
     <!-- Skeletons -->
     <v-row>
+      <v-col cols="12" sm="6" md="8">
+        <v-skeleton-loader type="article"></v-skeleton-loader>
+      </v-col>
       <v-col cols="12" sm="6" md="4">
         <v-skeleton-loader type="article"></v-skeleton-loader>
       </v-col>

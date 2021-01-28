@@ -1,64 +1,73 @@
 <template>
   <div v-if="section && fetchState === appFetchState.Loaded">
     <v-row>
-      <v-col cols="12" sm="6" md="4">
+      <v-col cols="12" sm="6" md="8">
         <!-- Section Details -->
         <v-card class="mb-6">
-          <v-card-title class="flex-column align-start">
-            <div class="text--secondary subtitle-1">Section</div>
-            <div class="text--primary">{{ section.name }}</div>
-          </v-card-title>
-
-          <v-card-subtitle v-if="section.externalId">
-            <div class="text--secondary">Extranet Section Id:</div>
-            <div class="text--primary">{{ section.externalId }}</div>
-          </v-card-subtitle>
+          <base-heading label="Section">
+            {{ section.name }}
+          </base-heading>
 
           <v-card-text>
+            <base-info label="Group" :to="`/groups/${scoutGroup.id}`">
+              {{ scoutGroup.name }}
+            </base-info>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
             <v-btn color="primary" @click.stop="openEditSectionModal">
               <v-icon small>mdi-pencil</v-icon> Edit
             </v-btn>
-          </v-card-text>
+          </v-card-actions>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="4">
-        <!-- Scout Group Details -->
+        <!-- Jumps -->
         <v-card class="mb-6">
-          <nuxt-link
-            :to="`/groups/${scoutGroup.id}`"
-            class="text-decoration-none"
-          >
-            <v-card-title class="justify-space-between flex-nowrap">
-              <div class="d-flex flex-column align-start">
-                <div class="text--secondary subtitle-1">Group</div>
-                <div class="text--primary">{{ scoutGroup.name }}</div>
-              </div>
-              <v-icon>mdi-eye</v-icon>
-            </v-card-title>
-          </nuxt-link>
+          <base-heading label="Jump to"></base-heading>
 
-          <v-card-subtitle v-if="scoutGroup.externalId">
-            <div class="text--secondary">Extranet Group Id:</div>
-            <div class="text--primary">{{ scoutGroup.externalId }}</div>
-          </v-card-subtitle>
+          <v-card-text>
+            <base-info :to="{ hash: '#roles' }">
+              Roles
+            </base-info>
+            <base-info :to="{ hash: '#members' }">
+              Members
+            </base-info>
+            <base-info :to="{ hash: '#list-rules' }">
+              List Rules
+            </base-info>
+          </v-card-text>
+        </v-card>
+
+        <!-- Advanced Details -->
+        <v-card class="mb-6">
+          <base-heading label="Extranet">Advanced</base-heading>
+
+          <v-card-text>
+            <base-info label="Section Id">
+              {{ section.externalId }}
+            </base-info>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row id="roles">
       <v-col>
         <!-- Roles Table -->
         <roles-table :section="section" allow-creation></roles-table>
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row id="members">
       <v-col>
+        <!-- Members Table -->
         <members-table :section="section" searchable></members-table>
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row id="list-rules">
       <v-col>
         <!-- Email Rules Table -->
         <list-rules-table
@@ -68,6 +77,7 @@
         ></list-rules-table>
       </v-col>
     </v-row>
+
     <!-- Dialogs -->
     <section-edit
       :section="section"
@@ -77,7 +87,7 @@
   <div v-else-if="fetchState === appFetchState.Loading">
     <!-- Skeletons -->
     <v-row>
-      <v-col cols="12" sm="6" md="4">
+      <v-col cols="12" sm="6" md="8">
         <v-skeleton-loader type="article"></v-skeleton-loader>
       </v-col>
       <v-col cols="12" sm="6" md="4">

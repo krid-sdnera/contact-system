@@ -4,15 +4,22 @@
       <v-col cols="12" sm="6" md="4">
         <!-- List Details -->
         <v-card class="mb-6">
-          <v-card-title>{{ list.name }}</v-card-title>
-
-          <v-card-subtitle>{{ list.address }}</v-card-subtitle>
+          <base-heading label="List">
+            {{ list.name }}
+          </base-heading>
 
           <v-card-text>
+            <base-info label="Address">
+              {{ list.name }}
+            </base-info>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
             <v-btn color="primary" @click.stop="dialogListEdit = true">
               <v-icon small>mdi-pencil</v-icon> Edit
             </v-btn>
-          </v-card-text>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -34,6 +41,7 @@
         <list-members-table :list="list" searchable></list-members-table>
       </v-col>
     </v-row>
+
     <!-- Dialogs -->
     <list-edit :list="list" :open.sync="dialogListEdit"></list-edit>
   </div>
