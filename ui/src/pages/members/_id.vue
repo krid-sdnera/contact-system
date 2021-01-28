@@ -145,7 +145,7 @@
               <template v-if="member.phoneHome">
                 <div class="text--secondary">Homephone:</div>
                 <div class="text--primary d-flex justify-space-between">
-                  {{ member.phoneHome }}
+                  {{ member.phoneHome | phone }}
                   <v-icon v-if="isOverridden('phoneHome')">
                     mdi-backup-restore
                   </v-icon>
@@ -155,7 +155,7 @@
               <template v-if="member.phoneWork">
                 <div class="text--secondary">Workphone:</div>
                 <div class="text--primary d-flex justify-space-between">
-                  {{ member.phoneWork }}
+                  {{ member.phoneWork | phone }}
                   <v-icon v-if="isOverridden('phoneWork')">
                     mdi-backup-restore
                   </v-icon>
@@ -165,7 +165,7 @@
               <template v-if="member.phoneMobile">
                 <div class="text--secondary">Mobile:</div>
                 <div class="text--primary d-flex justify-space-between">
-                  {{ member.phoneMobile }}
+                  {{ member.phoneMobile | phone }}
                   <v-icon v-if="isOverridden('phoneMobile')">
                     mdi-backup-restore
                   </v-icon>

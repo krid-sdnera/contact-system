@@ -95,3 +95,21 @@ Vue.filter('address', function (address: AddressData) {
 
   return `${street1} ${street2} ${city} ${state} ${postcode}`.trim();
 });
+
+Vue.filter('phone', function (inPhone: string | undefined) {
+  if (!inPhone) {
+    return '';
+  }
+
+  inPhone.replace(/[^\d]/, '');
+
+  if (inPhone.length === 8) {
+    return inPhone.replace(/(\d{4})(\d{4})/, '$1 $2');
+  }
+  if (inPhone.length === 10) {
+    return inPhone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+  }
+  if (inPhone.length === 11) {
+    return inPhone.replace(/61(\d{3})(\d{3})(\d{3})/, '+61$1 $2 $3');
+  }
+});
