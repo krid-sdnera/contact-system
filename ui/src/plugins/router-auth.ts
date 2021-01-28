@@ -4,7 +4,7 @@ import * as auth from '~/store/auth';
 
 const routerAuth: Plugin = ({ app, store }) => {
   app.router!.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/', '/dashboard'];
+    const publicPages = ['/login'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = store.getters[`${auth.namespace}/isLoggedIn`];
 
