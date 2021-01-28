@@ -110,49 +110,51 @@
           </v-row>
 
           <v-row>
-            <!-- Address Line 1 -->
-            <base-input
-              :field.sync="newContact.address.street1"
-              label="Street Line 1"
-              field-type="text"
-            >
-              <v-container>
-                <v-row>
-                  <!-- Address Line 2 -->
-                  <base-input
-                    :field.sync="newContact.address.street2"
-                    label="Street Line 2"
-                    field-type="text"
-                  ></base-input>
-                </v-row>
-                <v-row>
-                  <v-col cols="4" class="pl-0 pb-0">
-                    <!-- Address City -->
-                    <base-input
-                      :field.sync="newContact.address.city"
-                      label="City"
-                      field-type="text"
-                    ></base-input>
-                  </v-col>
-                  <v-col cols="4" class="pb-0">
-                    <!-- Address State -->
-                    <base-input
-                      :field.sync="newContact.address.state"
-                      label="State"
-                      field-type="text"
-                    ></base-input>
-                  </v-col>
-                  <v-col cols="4" class="pr-0 pb-0">
-                    <!-- Address Postcode -->
-                    <base-input
-                      :field.sync="newContact.address.postcode"
-                      label="Postcode"
-                      field-type="text"
-                    ></base-input>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </base-input>
+            <v-col cols="6" class="pl-0 pb-0">
+              <!-- Address Line 1 -->
+              <base-input
+                :field.sync="newContact.address.street1"
+                label="Street Line 1"
+                field-type="text"
+              ></base-input>
+            </v-col>
+            <v-col cols="6" class="pr-0 pb-0">
+              <!-- Address Line 2 -->
+              <base-input
+                :field.sync="newContact.address.street2"
+                label="Street Line 2"
+                field-type="text"
+                hide-override-checkbox
+              ></base-input>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" class="pl-0 pb-0">
+              <!-- Address City -->
+              <base-input
+                :field.sync="newContact.address.city"
+                label="City"
+                field-type="text"
+              ></base-input>
+            </v-col>
+            <v-col cols="4" class="pb-0">
+              <!-- Address State -->
+              <base-input
+                :field.sync="newContact.address.state"
+                label="State"
+                field-type="text"
+                hide-override-checkbox
+              ></base-input>
+            </v-col>
+            <v-col cols="4" class="pr-0 pb-0">
+              <!-- Address Postcode -->
+              <base-input
+                :field.sync="newContact.address.postcode"
+                label="Postcode"
+                field-type="text"
+                hide-override-checkbox
+              ></base-input>
+            </v-col>
           </v-row>
         </v-container>
         <small>*indicates required field</small>

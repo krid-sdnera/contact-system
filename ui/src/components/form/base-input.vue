@@ -1,6 +1,9 @@
 <template>
-  <v-row class="flex-nowrap">
-    <v-tooltip v-if="overridable" bottom>
+  <v-row
+    class="flex-nowrap"
+    :class="{ 'pl-2': hideOverrideCheckbox && !reserveOverrideCheckboxSpace }"
+  >
+    <v-tooltip v-if="overridable && !hideOverrideCheckbox" bottom>
       <template v-slot:activator="{ on, attrs }">
         <div v-bind="attrs" v-on="on">
           <v-checkbox v-model="overrideData" class="shrink ml-2"></v-checkbox>
@@ -16,6 +19,11 @@
       </span>
       <span v-else>Something went wrong.</span>
     </v-tooltip>
+    <v-checkbox
+      v-else
+      class="shrink ml-2"
+      :class="reserveOverrideCheckboxSpace ? 'v-hidden' : 'd-none'"
+    ></v-checkbox>
     <v-text-field
       v-if="fieldType === 'text'"
       v-model="fieldData"
@@ -87,6 +95,12 @@ export default class BaseInputComponent extends Vue {
   @Prop(Boolean)
   readonly overridable: boolean | undefined;
 
+  @Prop({ type: Boolean, default: false })
+  readonly hideOverrideCheckbox!: boolean;
+
+  @Prop({ type: Boolean, default: false })
+  readonly reserveOverrideCheckboxSpace!: boolean;
+
   @Prop([String, Date, Boolean])
   readonly original: string | Date | boolean | undefined;
 
@@ -138,3 +152,9 @@ export default class BaseInputComponent extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.v-hidden {
+  visibility: hidden;
+}
+</style>

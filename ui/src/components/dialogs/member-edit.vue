@@ -135,60 +135,68 @@
           </v-row>
 
           <v-row>
-            <!-- Address Line 1 -->
-            <base-input
-              :original="member.address.street1"
-              :field.sync="newMember.address.street1"
-              :override.sync="newMember.overrides.address"
-              label="Street Line 1"
-              field-type="text"
-              overridable
-            >
-              <v-container>
-                <v-row>
-                  <!-- Address Line 2 -->
-                  <base-input
-                    :original="member.address.street2"
-                    :field.sync="newMember.address.street2"
-                    :override.sync="newMember.overrides.address"
-                    label="Street Line 2"
-                    field-type="text"
-                  ></base-input>
-                </v-row>
-                <v-row>
-                  <v-col cols="4" class="pl-0 pb-0">
-                    <!-- Address City -->
-                    <base-input
-                      :original="member.address.city"
-                      :field.sync="newMember.address.city"
-                      :override.sync="newMember.overrides.address"
-                      label="City"
-                      field-type="text"
-                    ></base-input>
-                  </v-col>
-                  <v-col cols="4" class="pb-0">
-                    <!-- Address State -->
-                    <base-input
-                      :original="member.address.state"
-                      :field.sync="newMember.address.state"
-                      :override.sync="newMember.overrides.address"
-                      label="State"
-                      field-type="text"
-                    ></base-input>
-                  </v-col>
-                  <v-col cols="4" class="pr-0 pb-0">
-                    <!-- Address Postcode -->
-                    <base-input
-                      :original="member.address.postcode"
-                      :field.sync="newMember.address.postcode"
-                      :override.sync="newMember.overrides.address"
-                      label="Postcode"
-                      field-type="text"
-                    ></base-input>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </base-input>
+            <v-col cols="6" class="pl-0 pb-0">
+              <!-- Address Line 1 -->
+              <base-input
+                :original="member.address.street1"
+                :field.sync="newMember.address.street1"
+                :override.sync="newMember.overrides.address"
+                label="Street Line 1"
+                field-type="text"
+                overridable
+              ></base-input>
+            </v-col>
+            <v-col cols="6" class="pr-0 pb-0">
+              <!-- Address Line 2 -->
+              <base-input
+                :original="member.address.street2"
+                :field.sync="newMember.address.street2"
+                :override.sync="newMember.overrides.address"
+                label="Street Line 2"
+                field-type="text"
+                overridable
+                hide-override-checkbox
+              ></base-input>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" class="pl-0 pb-0">
+              <!-- Address City -->
+              <base-input
+                :original="member.address.city"
+                :field.sync="newMember.address.city"
+                :override.sync="newMember.overrides.address"
+                label="City"
+                field-type="text"
+                overridable
+                hide-override-checkbox
+                reserve-override-checkbox-space
+              ></base-input>
+            </v-col>
+            <v-col cols="4" class="pb-0">
+              <!-- Address State -->
+              <base-input
+                :original="member.address.state"
+                :field.sync="newMember.address.state"
+                :override.sync="newMember.overrides.address"
+                label="State"
+                field-type="text"
+                overridable
+                hide-override-checkbox
+              ></base-input>
+            </v-col>
+            <v-col cols="4" class="pr-0 pb-0">
+              <!-- Address Postcode -->
+              <base-input
+                :original="member.address.postcode"
+                :field.sync="newMember.address.postcode"
+                :override.sync="newMember.overrides.address"
+                label="Postcode"
+                field-type="text"
+                overridable
+                hide-override-checkbox
+              ></base-input>
+            </v-col>
           </v-row>
         </v-container>
         <small>*indicates required field</small>
