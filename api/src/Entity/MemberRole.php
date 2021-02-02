@@ -86,7 +86,7 @@ class MemberRole
 
     /**
      * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="App\Entity\Member")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Member",  inversedBy="roles")
      */
     private $member;
 
