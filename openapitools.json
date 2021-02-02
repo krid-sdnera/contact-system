@@ -30,6 +30,14 @@
           "withInterfaces": true,
           "legacyDiscriminatorBehavior": false
         }
+      },
+      "client-perl": {
+        "generatorName": "perl",
+        "glob": "common/contact-system-api.yaml",
+        "output": "clients/perl",
+        "gitUserId": "contact-system",
+        "gitRepoId": "perl",
+        "additional-properties": {}
       }
     }
   }
