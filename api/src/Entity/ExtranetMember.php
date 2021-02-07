@@ -295,7 +295,7 @@ class ExtranetMember
 
     public function getSchoolYearLevel(): string
     {
-        return $this->schoolYearLevel || '';
+        return $this->schoolYearLevel ?: '';
     }
 
     public function setSchoolYearLevel($yearLevel): self
@@ -416,7 +416,6 @@ class ExtranetMember
         $member->setNickname($data['Preferedname']);
         $member->setLastname($data['Surname']);
         $member->setDateOfBirth($data['DOB']);
-        // $member->setGender($data['Gender']);
         $member->setHomeAddress($data['HomeAddress']);
         $member->setHomeSuburb($data['HomeSuburb']);
         $member->setHomeState($data['HomeState']);
@@ -426,20 +425,19 @@ class ExtranetMember
         $member->setMobile($data['Mobile']);
         $member->setEmail($data['Email']);
         $member->setSchoolName($data['SchoolName']);
-        // $member->setSchoolYearLevel($data['SchoolYearLevel']);
-        // $member->setMembershipUpdateLink($data['MembershipUpdateLink']);
+
         if (isset($data['Role'])) {
             $member->setRole($data['Role']);
         }
         if (isset($data['Position'])) {
             $member->setPosition($data['Position']);
         }
+        // These values are not in the csv but will be added later
+        // $member->setGender($data['Gender']);
+        // $member->setSchoolYearLevel($data['SchoolYearLevel']);
+        // $member->setMembershipUpdateLink($data['MembershipUpdateLink']);
         // $member->addSubsidiarySection($data['SubsidiarySection']);
         // $member->addContact($data['Contact']);
-
-        // var_dump($member);
-        // var_dump($data['RegID']);
-        // echo json_encode($member->toArray(), JSON_PRETTY_PRINT);
 
 
         return $member;
