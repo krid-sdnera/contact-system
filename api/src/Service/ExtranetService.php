@@ -170,6 +170,50 @@ class ExtranetService
         $cookie = $loginResponse->getHeaders()['set-cookie'][0];
         $this->setClient(self::HttpClientFactory($cookie));
 
+        $this->do2FANextStep($loginResponse);
+        $this->do2FAActionValidate($loginResponse);
+        $loginResponse = $this->do2FAConfirm($loginResponse);
+
+
+        $this->checkExtranetLoginCensus($loginResponse);
+        $this->checkExtranetLoginInsurance($loginResponse);
+        $this->checkExtranetLoginPasswordExpiry($loginResponse);
+        $this->checkExtranetLoginSuccessfull($loginResponse);
+
+        echo 'Logged in' . PHP_EOL;
+    }
+
+    private function do2FANextStep(ResponseInterface $response): void
+    {
+        echo 'Checking 2FA next step' . PHP_EOL;
+        $content = $response->getContent();
+
+        // Check that the 2FA next step is exposed.
+        preg_match(
+            '|<input type="hidden" name="nextAuthStep" id="nextAuthStep" value="1">|',
+            $content,
+            $matches
+        );
+
+        if (count($matches) !== 1) {
+            echo 'Performing 2FA next step' . PHP_EOL;
+
+            $_2fa_next_step = $this->client->request(
+                'POST',
+                '/portal/twoFactorAuth.php',
+                [
+                    'body' => [
+                        "username" => $this->credentials['username'],
+                        "password" => $this->credentials['password'],
+                        "nextAuthStep" => "1"
+                    ]
+                ]
+            );
+        }
+    }
+
+    private function do2FAActionValidate(ResponseInterface $response): void
+    {
         echo 'Sending 2FA request' . PHP_EOL;
         $_2fa_security_question = $this->client->request(
             'POST',
@@ -186,10 +230,10 @@ class ExtranetService
                 ]
             ]
         );
+    }
 
-        echo 'Letting 2FA request propogate in extranet' . PHP_EOL;
-        sleep(1);
-
+    private function do2FAConfirm(ResponseInterface $response): ResponseInterface
+    {
         echo 'Confirming 2FA request with extranet' . PHP_EOL;
         $loginResponse = $this->client->request(
             'POST',
@@ -202,12 +246,7 @@ class ExtranetService
             ]
         );
 
-        $this->checkExtranetLoginCensus($loginResponse);
-        $this->checkExtranetLoginInsurance($loginResponse);
-        $this->checkExtranetLoginPasswordExpiry($loginResponse);
-        $this->checkExtranetLoginSuccessfull($loginResponse);
-
-        echo 'Logged in' . PHP_EOL;
+        return $loginResponse;
     }
 
     private function checkExtranetLoginCensus(ResponseInterface $response): void
