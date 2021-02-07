@@ -149,6 +149,13 @@ class MemberDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "autoUpgradeEnabled"
+     */
+    public function testPropertyAutoUpgradeEnabled()
+    {
+    }
+
+    /**
      * Test attribute "email"
      */
     public function testPropertyEmail()

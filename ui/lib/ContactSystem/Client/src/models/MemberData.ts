@@ -96,6 +96,12 @@ export interface MemberData {
     membershipUpdateLink?: string;
     /**
      * 
+     * @type {boolean}
+     * @memberof MemberData
+     */
+    autoUpgradeEnabled?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof MemberData
      */
@@ -176,6 +182,7 @@ export function MemberDataFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'dateOfBirth': !exists(json, 'dateOfBirth') ? undefined : (new Date(json['dateOfBirth'])),
         'membershipNumber': !exists(json, 'membershipNumber') ? undefined : json['membershipNumber'],
         'membershipUpdateLink': !exists(json, 'membershipUpdateLink') ? undefined : json['membershipUpdateLink'],
+        'autoUpgradeEnabled': !exists(json, 'autoUpgradeEnabled') ? undefined : json['autoUpgradeEnabled'],
         'email': !exists(json, 'email') ? undefined : json['email'],
         'phoneHome': !exists(json, 'phoneHome') ? undefined : json['phoneHome'],
         'phoneMobile': !exists(json, 'phoneMobile') ? undefined : json['phoneMobile'],
@@ -208,6 +215,7 @@ export function MemberDataToJSON(value?: MemberData | null): any {
         'dateOfBirth': value.dateOfBirth === undefined ? undefined : (value.dateOfBirth.toISOString().substr(0,10)),
         'membershipNumber': value.membershipNumber,
         'membershipUpdateLink': value.membershipUpdateLink,
+        'autoUpgradeEnabled': value.autoUpgradeEnabled,
         'email': value.email,
         'phoneHome': value.phoneHome,
         'phoneMobile': value.phoneMobile,

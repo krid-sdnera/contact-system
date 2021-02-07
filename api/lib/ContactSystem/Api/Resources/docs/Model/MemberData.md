@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **dateOfBirth** | [**\DateTime**](Date.md) |  | [optional] 
 **membershipNumber** | **string** |  | [optional] 
 **membershipUpdateLink** | **string** |  | [optional] 
+**autoUpgradeEnabled** | **bool** |  | [optional] 
 **email** | **string** |  | [optional] 
 **phoneHome** | **string** |  | [optional] 
 **phoneMobile** | **string** |  | [optional] 

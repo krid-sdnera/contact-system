@@ -26,11 +26,11 @@
         ></v-text-field>
         <template v-slot:extension>
           <!-- Member create modal -->
-        <member-create
-          v-if="allowCreation"
-          :open.sync="dialogCreate"
-          @submit="handleCreateSubmit"
-        ></member-create>
+          <member-create
+            v-if="allowCreation"
+            :open.sync="dialogCreate"
+            @submit="handleCreateSubmit"
+          ></member-create>
           <v-spacer></v-spacer>
           <!-- Export modal -->
           <member-export
@@ -71,6 +71,9 @@
     </template>
     <template v-slot:[`item.age`]="{ item }">
       {{ item.dateOfBirth | duration(false) }}
+    </template>
+    <template v-slot:[`item.autoUpgradeEnabled`]="{ item }">
+      {{ item.autoUpgradeEnabled ? 'Yes' : 'No' }}
     </template>
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn :to="`/members/${item.id}`" color="primary" icon nuxt>
@@ -155,6 +158,7 @@ export default class MemberTableComponent extends BaseTable<MemberData> {
     { text: 'Gender', value: 'gender' },
     { text: 'School Name', value: 'schoolName' },
     { text: 'School Year Level', value: 'schoolYearLevel' },
+    { text: 'Auto Upgrade Enabled', value: 'autoUpgradeEnabled' },
     { text: 'Actions', value: 'actions', sortable: false, disabled: true },
   ];
   initialHeaders = [
@@ -179,9 +183,9 @@ export default class MemberTableComponent extends BaseTable<MemberData> {
 
       if (this.role === undefined && this.section === undefined) {
         payload = await this.$store.dispatch(
-        `${member.namespace}/fetchMembers`,
-        this.apiOptions
-      );
+          `${member.namespace}/fetchMembers`,
+          this.apiOptions
+        );
       }
       if (this.role !== undefined && this.section === undefined) {
         console.log(this.apiOptions);

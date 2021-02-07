@@ -127,6 +127,14 @@ class MemberData
     protected $membershipUpdateLink;
 
     /**
+     * @var bool|null
+     * @SerializedName("autoUpgradeEnabled")
+     * @Assert\Type("bool")
+     * @Type("bool")
+     */
+    protected $autoUpgradeEnabled;
+
+    /**
      * @var string|null
      * @SerializedName("email")
      * @Assert\Type("string")
@@ -223,6 +231,7 @@ class MemberData
         $this->dateOfBirth = isset($data['dateOfBirth']) ? $data['dateOfBirth'] : null;
         $this->membershipNumber = isset($data['membershipNumber']) ? $data['membershipNumber'] : null;
         $this->membershipUpdateLink = isset($data['membershipUpdateLink']) ? $data['membershipUpdateLink'] : null;
+        $this->autoUpgradeEnabled = isset($data['autoUpgradeEnabled']) ? $data['autoUpgradeEnabled'] : null;
         $this->email = isset($data['email']) ? $data['email'] : null;
         $this->phoneHome = isset($data['phoneHome']) ? $data['phoneHome'] : null;
         $this->phoneMobile = isset($data['phoneMobile']) ? $data['phoneMobile'] : null;
@@ -471,6 +480,30 @@ class MemberData
     public function setMembershipUpdateLink(string $membershipUpdateLink = null): ?string
     {
         $this->membershipUpdateLink = $membershipUpdateLink;
+
+        return $this;
+    }
+
+    /**
+     * Gets autoUpgradeEnabled.
+     *
+     * @return bool|null
+     */
+    public function isAutoUpgradeEnabled(): ?bool
+    {
+        return $this->autoUpgradeEnabled;
+    }
+
+    /**
+     * Sets autoUpgradeEnabled.
+     *
+     * @param bool|null $autoUpgradeEnabled
+     *
+     * @return $this
+     */
+    public function setAutoUpgradeEnabled(bool $autoUpgradeEnabled = null): ?bool
+    {
+        $this->autoUpgradeEnabled = $autoUpgradeEnabled;
 
         return $this;
     }

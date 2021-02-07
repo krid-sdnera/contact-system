@@ -32,6 +32,7 @@ class ExtranetMember
     private $schoolYearLevel;
 
     private $membershipUpdateLink;
+    private $autoUpgradeEnabled;
 
     private $contacts = [];
     private $role;
@@ -318,6 +319,17 @@ class ExtranetMember
         return $this;
     }
 
+    public function getAutoUpgradeEnabled(): bool
+    {
+        return ($this->autoUpgradeEnabled) ?: false;
+    }
+
+    public function setAutoUpgradeEnabled($autoUpgradeEnabled): self
+    {
+        $this->autoUpgradeEnabled = $autoUpgradeEnabled;
+
+        return $this;
+    }
 
     public function getRole(): string
     {

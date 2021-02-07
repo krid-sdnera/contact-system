@@ -55,6 +55,18 @@
               }}</v-chip>
             </v-card-text>
             <v-card-text>
+              <v-chip v-if="member.autoUpgradeEnabled === true" class="mb-1"
+                >Auto upgrade enabled</v-chip
+              >
+              <v-chip
+                v-else
+                class="mb-1 grey--text text--darken-3"
+                color="warning"
+              >
+                Auto upgrade disabled
+              </v-chip>
+            </v-card-text>
+            <v-card-text>
               <member-edit
                 :member="member"
                 :open.sync="dialogMemberEdit"

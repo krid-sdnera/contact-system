@@ -461,6 +461,7 @@ class ExtranetService
         $extranetMember = ExtranetMember::fromExtranetCsv($record);
 
         $this->getMemberDetailPage($extranetMember);
+        $this->getMemberEditPage($extranetMember);
         $this->getMemberUpdateLink($extranetMember);
         $this->getMemberContacts($extranetMember);
 
@@ -536,6 +537,31 @@ class ExtranetService
 
         $memberUpdateLink = (preg_match('|/memberportal/vic/|', $content)) ? $content : null;
         $extranetMember->setMemberUpdateLink($memberUpdateLink);
+    }
+
+    private function getMemberEditPage(ExtranetMember $extranetMember)
+    {
+        // Downloading: Member Edit Page
+        $response = $this->client->request('POST', '/portal/Interface/Report/editMemDetail.php', [
+            "body" => [
+                "CourseID" => "",
+                "RegID" => $extranetMember->getMembershipNumber(),
+                "mainWindow" => "showMemDetail.php"
+            ]
+        ]);
+        $content = $response->getContent();
+        // echo $content;
+        // Extract the member's auto upgrade status.
+        // The HTML is invalid! Attributes use single quotes!
+        preg_match(
+            "|<input type='radio' name='txtAutoUpgrade' width=\"100\" checked='checked' value='(.)' >|",
+            $content,
+            $matches
+        );
+        $checked = (count($matches) === 2) ? $matches[1] : '';
+        $autoUpgradeEnabled = $checked === "Y";
+
+        $extranetMember->setAutoUpgradeEnabled($autoUpgradeEnabled);
     }
 
     private function getMemberContacts(ExtranetMember $extranetMember)

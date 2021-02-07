@@ -126,6 +126,9 @@ class Member
         $member->setSchoolName($extranetMember->getSchoolName());
         $member->setSchoolYearLevel($extranetMember->getSchoolYearLevel());
 
+        $member->setMembershipUpdateLink($extranetMember->getMembershipUpdateLink());
+        $member->setAutoUpgradeEnabled($extranetMember->getAutoUpgradeEnabled());
+
         echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating roles" . PHP_EOL;
         $extranetRoles = Member::GenerateExpectedRole($extranetMember);
 
@@ -372,6 +375,7 @@ class Member
             'schoolYearLevel' => $this->getSchoolYearLevel(),
             'overrides' => new MemberOverrideData($this->getOverrides()),
             'membershipUpdateLink' => $this->getMembershipUpdateLink(),
+            'autoUpgradeEnabled' => $this->getAutoUpgradeEnabled(),
             'metaInvite' => new MemberMetaInviteData($this->getMetaInvite()),
         ];
 
@@ -492,6 +496,10 @@ class Member
      */
     private $membershipUpdateLink;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $autoUpgradeEnabled;
 
     public function __construct()
     {
@@ -785,6 +793,18 @@ class Member
     public function setMembershipUpdateLink($membershipUpdateLink): self
     {
         $this->membershipUpdateLink = $membershipUpdateLink;
+
+        return $this;
+    }
+
+    public function getAutoUpgradeEnabled(): bool
+    {
+        return ($this->autoUpgradeEnabled) ?: false;
+    }
+
+    public function setAutoUpgradeEnabled($autoUpgradeEnabled): self
+    {
+        $this->autoUpgradeEnabled = $autoUpgradeEnabled;
 
         return $this;
     }

@@ -276,6 +276,7 @@ export default class DialogMemberExportComponent extends Vue {
     { text: 'Gender', value: 'gender' },
     { text: 'School Name', value: 'schoolName' },
     { text: 'School Year Level', value: 'schoolYearLevel' },
+    { text: 'Auto Upgrade Enabled', value: 'autoUpgradeEnabled' },
   ];
   selectedContactFields: VuetifyTableHeader<keyof ContactData>[] = [];
   availableContactFields: VuetifyTableHeader<keyof ContactData>[] = [
