@@ -174,11 +174,15 @@ class ExtranetService
         $this->do2FAActionValidate($loginResponse);
         $loginResponse = $this->do2FAConfirm($loginResponse);
 
-
-        $this->checkExtranetLoginCensus($loginResponse);
-        $this->checkExtranetLoginInsurance($loginResponse);
-        $this->checkExtranetLoginPasswordExpiry($loginResponse);
+        if ($this->isExtranetCensusActive($loginResponse)) {
+            $this->checkExtranetLoginCensus();
+        } else if ($this->isExtranetInsuranceActive($loginResponse)) {
+            $this->checkExtranetLoginInsurance();
+        } else if ($this->isExtranetPasswordExpiryActive($loginResponse)) {
+            $this->checkExtranetLoginPasswordExpiry();
+        } else {
         $this->checkExtranetLoginSuccessfull($loginResponse);
+        }
 
         echo 'Logged in' . PHP_EOL;
     }
@@ -249,7 +253,7 @@ class ExtranetService
         return $loginResponse;
     }
 
-    private function checkExtranetLoginCensus(ResponseInterface $response): void
+    private function isExtranetCensusActive(ResponseInterface $response): bool
     {
         echo 'Checking login for census' . PHP_EOL;
         $content = $response->getContent();
@@ -262,17 +266,21 @@ class ExtranetService
         );
 
         if (count($matches) !== 2) {
-            // Census not active
-            return;
+            echo "Census not active" . PHP_EOL;
+            return false;
         }
+        return true;
+    }
 
+    private function checkExtranetLoginCensus(): void
+    {
         // Fetch Census Report page
         $censusResponse = $this->client->request('GET', '/portal/Interface/MSUCensus/CensusCount/pfcConfirmReport.php');
 
         // Check that there is a verify button
         preg_match(
             "|onclick=\"verify\(false,'(\d+)','(redirect)'\)\"|",
-            $censusResponse,
+            $censusResponse->getContent(),
             $matches
         );
 
@@ -290,10 +298,23 @@ class ExtranetService
             ]
         ]);
 
-        // TODO do we need to check the thing here?
+        echo 'Checking login for success' . PHP_EOL;
+        $content = $censusConfirmResponse->getContent();
+
+        // Check for the existance of the successful login style redirect after census.
+        preg_match(
+            '|window.location.replace\(\'\..\/..\/mainPage.php\?var=(\d+)\'\)|',
+            $content,
+            $matches
+        );
+
+        if (count($matches) !== 2) {
+            // Unable to login
+            throw new Exception('Unable to Login! Check the credentials: case census');
+    }
     }
 
-    private function checkExtranetLoginInsurance(ResponseInterface $response): void
+    private function isExtranetInsuranceActive(ResponseInterface $response): bool
     {
         echo 'Checking login for insurance' . PHP_EOL;
         $content = $response->getContent();
@@ -306,10 +327,14 @@ class ExtranetService
         );
 
         if (count($matches) !== 2) {
-            // Insurance not active
-            return;
+            echo "Insurance not active" . PHP_EOL;
+            return false;
+        }
+        return true;
         }
 
+    private function checkExtranetLoginInsurance(): void
+    {
         // Fetch Insurance Questionnaire page
         $insuranceResponse = $this->client->request('GET', '/portal/Controllers/controller_extranet.php', [
             'query' => [
@@ -321,7 +346,7 @@ class ExtranetService
         // Check that there is a verify button
         preg_match(
             "|(Proceed to Extranet)|",
-            $insuranceResponse,
+            $insuranceResponse->getContent(),
             $matches
         );
 
@@ -331,7 +356,7 @@ class ExtranetService
         }
     }
 
-    private function checkExtranetLoginPasswordExpiry(ResponseInterface $response): void
+    private function isExtranetPasswordExpiryActive(ResponseInterface $response): bool
     {
         echo 'Checking login for password expiry' . PHP_EOL;
         $content = $response->getContent();
@@ -345,9 +370,13 @@ class ExtranetService
 
         if (count($matches) !== 2) {
             // Password has not expired
-            return;
+            return false;
+        }
+        return true;
         }
 
+    private function checkExtranetLoginPasswordExpiry(): void
+    {
         // Set active module to the change password interface
         $this->client->request('POST', '/portal/Interface/mainPage.php', [
             'body' => [
@@ -368,7 +397,7 @@ class ExtranetService
         // Check that the password was updated
         preg_match(
             "|Change of password succesful. Your password will expire in (\d+) days.|",
-            $passwordChangeResponse,
+            $passwordChangeResponse->getContent(),
             $matches
         );
 
@@ -378,6 +407,17 @@ class ExtranetService
         }
 
         echo 'Password updated successfully. Your password will expire in ' . $matches[1] . ' days.' . PHP_EOL;
+
+        preg_match(
+            '|window\.location\.replace\(\'/portal/Interface/mainPage\.php\?var=(\d+)\'\)|',
+            $passwordChangeResponse->getContent(),
+            $matches
+        );
+
+        if (count($matches) !== 2) {
+            // Unable to login
+            throw new Exception('Unable to Login! Check the credentials: case pwd');
+        }
     }
 
     private function checkExtranetLoginSuccessfull(ResponseInterface $response): void
@@ -394,7 +434,7 @@ class ExtranetService
 
         if (count($matches) !== 2) {
             // Unable to login
-            throw new Exception('Unable to Login! Check the credentials');
+            throw new Exception('Unable to Login! Check the credentials: case basic');
         }
     }
 
