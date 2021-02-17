@@ -5,8 +5,11 @@
         <v-col cols="12" sm="6" md="4">
           <!-- ScoutGroup Details -->
           <v-card class="mb-6">
-            <v-card-title>
-              {{ scoutGroup.name }}
+            <v-card-title class="justify-space-between flex-nowrap">
+              <div class="d-flex flex-column align-start">
+                <div class="text--secondary subtitle-1">Group</div>
+                <div class="text--primary">{{ scoutGroup.name }}</div>
+              </div>
             </v-card-title>
 
             <v-card-subtitle v-if="scoutGroup.externalId">
