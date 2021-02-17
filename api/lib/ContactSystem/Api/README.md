@@ -135,6 +135,7 @@ Class | Method | HTTP request | Description
 *MembersApiInterface* | [**getListRulesByMemberId**](Resources/docs/Api/MembersApiInterface.md#getlistrulesbymemberid) | **GET** /members/{memberId}/list-rules | Your GET endpoint
 *MembersApiInterface* | [**getMemberById**](Resources/docs/Api/MembersApiInterface.md#getmemberbyid) | **GET** /members/{memberId} | Get member
 *MembersApiInterface* | [**getMemberContactsById**](Resources/docs/Api/MembersApiInterface.md#getmembercontactsbyid) | **GET** /members/{memberId}/contacts | List member&#39;s contacts
+*MembersApiInterface* | [**getMemberMergeSuggestions**](Resources/docs/Api/MembersApiInterface.md#getmembermergesuggestions) | **GET** /members/suggestions | List member merge suggestions
 *MembersApiInterface* | [**getMemberRolesById**](Resources/docs/Api/MembersApiInterface.md#getmemberrolesbyid) | **GET** /members/{memberId}/roles | List member&#39;s roles
 *MembersApiInterface* | [**getMembers**](Resources/docs/Api/MembersApiInterface.md#getmembers) | **GET** /members | List all members
 *MembersApiInterface* | [**mergeMember**](Resources/docs/Api/MembersApiInterface.md#mergemember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
@@ -191,7 +192,8 @@ Class | Method | HTTP request | Description
  - [MemberRoleData](Resources/docs/Model/MemberRoleData.md)
  - [MemberRoleInput](Resources/docs/Model/MemberRoleInput.md)
  - [MemberRoles](Resources/docs/Model/MemberRoles.md)
- - [MemberSuggetion](Resources/docs/Model/MemberSuggetion.md)
+ - [MemberSuggestion](Resources/docs/Model/MemberSuggestion.md)
+ - [MemberSuggestions](Resources/docs/Model/MemberSuggestions.md)
  - [Members](Resources/docs/Model/Members.md)
  - [RecipientData](Resources/docs/Model/RecipientData.md)
  - [Recipients](Resources/docs/Model/Recipients.md)

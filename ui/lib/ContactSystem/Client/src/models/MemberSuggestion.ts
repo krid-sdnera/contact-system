@@ -16,32 +16,32 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MemberSuggetion
+ * @interface MemberSuggestion
  */
-export interface MemberSuggetion {
+export interface MemberSuggestion {
     /**
-     * 
-     * @type {string}
-     * @memberof MemberSuggetion
+     * Array containg the list
+     * @type {Array<string>}
+     * @memberof MemberSuggestion
      */
-    id?: string;
+    memberIds: Array<string>;
 }
 
-export function MemberSuggetionFromJSON(json: any): MemberSuggetion {
-    return MemberSuggetionFromJSONTyped(json, false);
+export function MemberSuggestionFromJSON(json: any): MemberSuggestion {
+    return MemberSuggestionFromJSONTyped(json, false);
 }
 
-export function MemberSuggetionFromJSONTyped(json: any, ignoreDiscriminator: boolean): MemberSuggetion {
+export function MemberSuggestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): MemberSuggestion {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
+        'memberIds': json['memberIds'],
     };
 }
 
-export function MemberSuggetionToJSON(value?: MemberSuggetion | null): any {
+export function MemberSuggestionToJSON(value?: MemberSuggestion | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -50,7 +50,7 @@ export function MemberSuggetionToJSON(value?: MemberSuggetion | null): any {
     }
     return {
         
-        'id': value.id,
+        'memberIds': value.memberIds,
     };
 }
 

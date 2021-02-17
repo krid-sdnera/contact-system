@@ -63,6 +63,31 @@ class MemberRepository extends ServiceEntityRepository
         );
     }
 
+    public function findMergeSuggestionsByPage($query = null, $sort = null, $pageSize = null, $page = null, $constraint = null)
+    {
+        $qb = $this->createQueryBuilder('e')->select('e');
+
+        $expression = $qb->expr()->orX(
+            $qb->expr()->like('e.firstname', ':search'),
+            $qb->expr()->like('e.lastname', ':search'),
+            $qb->expr()->like('e.membershipNumber', ':search')
+        );
+
+        // TODO: this is not returing the correct data shape.
+        return $this->pageFetcherHelper(
+            $expression,
+            function (Member $member) {
+                return $member->toMemberData();
+            },
+            'members',
+            "%${query}%",
+            $sort,
+            $pageSize,
+            $page,
+            'id'
+        );
+    }
+
     public function findIdsBy(array $criteria)
     {
 

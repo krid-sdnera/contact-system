@@ -247,6 +247,31 @@ class MembersController extends AbstractController implements MembersApiInterfac
         }
     }
 
+    public function getMemberMergeSuggestions(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
+    {
+        /** @var MemberRepository */
+        $repo = $this->getDoctrine()->getRepository(Member::class);
+
+        try {
+            $result = $repo->findMergeSuggestionsByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page
+            );
+
+            return $result;
+        } catch (SortKeyNotFound $e) {
+            $responseCode = 400;
+            return new ApiResponse([
+                'code' => 400,
+                'type' => 'Bad Request',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+
     /**
      * {@inheritdoc}
      */

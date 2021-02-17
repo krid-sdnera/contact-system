@@ -36,6 +36,9 @@ import {
     MemberRoles,
     MemberRolesFromJSON,
     MemberRolesToJSON,
+    MemberSuggestions,
+    MemberSuggestionsFromJSON,
+    MemberSuggestionsToJSON,
     Members,
     MembersFromJSON,
     MembersToJSON,
@@ -72,6 +75,13 @@ export interface GetMemberByIdRequest {
 
 export interface GetMemberContactsByIdRequest {
     memberId: number;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
+}
+
+export interface GetMemberMergeSuggestionsRequest {
+    query?: string;
     sort?: string;
     pageSize?: number;
     page?: number;
@@ -223,6 +233,25 @@ export interface MembersApiInterface {
     getMemberContactsById(requestParameters: GetMemberContactsByIdRequest): Promise<Contacts>;
 
     /**
+     * List suggestions for members to merge
+     * @summary List member merge suggestions
+     * @param {string} [query] 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MembersApiInterface
+     */
+    getMemberMergeSuggestionsRaw(requestParameters: GetMemberMergeSuggestionsRequest): Promise<runtime.ApiResponse<MemberSuggestions>>;
+
+    /**
+     * List suggestions for members to merge
+     * List member merge suggestions
+     */
+    getMemberMergeSuggestions(requestParameters: GetMemberMergeSuggestionsRequest): Promise<MemberSuggestions>;
+
+    /**
      * List roles for this member
      * @summary List member\'s roles
      * @param {number} memberId 
@@ -269,13 +298,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    mergeMemberRaw(requestParameters: MergeMemberRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
+    mergeMemberRaw(requestParameters: MergeMemberRequest): Promise<runtime.ApiResponse<MemberData>>;
 
     /**
      * Merge member
      * Merge member
      */
-    mergeMember(requestParameters: MergeMemberRequest): Promise<ModelApiResponse>;
+    mergeMember(requestParameters: MergeMemberRequest): Promise<MemberData>;
 
     /**
      * Partially update member
@@ -638,6 +667,62 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
     }
 
     /**
+     * List suggestions for members to merge
+     * List member merge suggestions
+     */
+    async getMemberMergeSuggestionsRaw(requestParameters: GetMemberMergeSuggestionsRequest): Promise<runtime.ApiResponse<MemberSuggestions>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/members/suggestions`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MemberSuggestionsFromJSON(jsonValue));
+    }
+
+    /**
+     * List suggestions for members to merge
+     * List member merge suggestions
+     */
+    async getMemberMergeSuggestions(requestParameters: GetMemberMergeSuggestionsRequest): Promise<MemberSuggestions> {
+        const response = await this.getMemberMergeSuggestionsRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
      * List roles for this member
      * List member\'s roles
      */
@@ -753,7 +838,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Merge member
      * Merge member
      */
-    async mergeMemberRaw(requestParameters: MergeMemberRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
+    async mergeMemberRaw(requestParameters: MergeMemberRequest): Promise<runtime.ApiResponse<MemberData>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling mergeMember.');
         }
@@ -785,14 +870,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MemberDataFromJSON(jsonValue));
     }
 
     /**
      * Merge member
      * Merge member
      */
-    async mergeMember(requestParameters: MergeMemberRequest): Promise<ModelApiResponse> {
+    async mergeMember(requestParameters: MergeMemberRequest): Promise<MemberData> {
         const response = await this.mergeMemberRaw(requestParameters);
         return await response.value();
     }

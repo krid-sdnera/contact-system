@@ -182,6 +182,21 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
+     * Test case for getMemberMergeSuggestions
+     *
+     * List member merge suggestions.
+     *
+     */
+    public function testGetMemberMergeSuggestions()
+    {
+        $client = static::createClient();
+
+        $path = '/members/suggestions';
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
      * Test case for getMemberRolesById
      *
      * List member's roles.

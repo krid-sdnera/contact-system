@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**getListRulesByMemberId**](MembersApiInterface.md#getListRulesByMemberId) | **GET** /members/{memberId}/list-rules | Your GET endpoint
 [**getMemberById**](MembersApiInterface.md#getMemberById) | **GET** /members/{memberId} | Get member
 [**getMemberContactsById**](MembersApiInterface.md#getMemberContactsById) | **GET** /members/{memberId}/contacts | List member&#39;s contacts
+[**getMemberMergeSuggestions**](MembersApiInterface.md#getMemberMergeSuggestions) | **GET** /members/suggestions | List member merge suggestions
 [**getMemberRolesById**](MembersApiInterface.md#getMemberRolesById) | **GET** /members/{memberId}/roles | List member&#39;s roles
 [**getMembers**](MembersApiInterface.md#getMembers) | **GET** /members | List all members
 [**mergeMember**](MembersApiInterface.md#mergeMember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
@@ -411,6 +412,71 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+## **getMemberMergeSuggestions**
+> OpenAPI\Server\Model\MemberSuggestions getMemberMergeSuggestions($query, $sort, $pageSize, $page)
+
+List member merge suggestions
+
+List suggestions for members to merge
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/MembersApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\MembersApiInterface;
+
+class MembersApi implements MembersApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of MembersApiInterface#getMemberMergeSuggestions
+     */
+    public function getMemberMergeSuggestions(string $query = null, string $sort = null, int $pageSize = null, int $page = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | **string**|  | [optional]
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\MemberSuggestions**](../Model/MemberSuggestions.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 ## **getMemberRolesById**
 > OpenAPI\Server\Model\MemberRoles getMemberRolesById($memberId, $sort, $pageSize, $page)
 
@@ -542,7 +608,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **mergeMember**
-> OpenAPI\Server\Model\ApiResponse mergeMember($memberId, $mergeMemberId)
+> OpenAPI\Server\Model\MemberData mergeMember($memberId, $mergeMemberId)
 
 Merge member
 
@@ -591,7 +657,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
 
 ### Authorization
 

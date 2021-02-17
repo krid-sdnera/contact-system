@@ -1,6 +1,6 @@
 <?php
 /**
- * MemberSuggetion
+ * MemberSuggestion
  *
  * PHP version 5
  *
@@ -34,20 +34,25 @@ use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
 
 /**
- * Class representing the MemberSuggetion model.
+ * Class representing the MemberSuggestion model.
  *
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-class MemberSuggetion 
+class MemberSuggestion 
 {
         /**
-     * @var string|null
-     * @SerializedName("id")
-     * @Assert\Type("string")
-     * @Type("string")
+     * Array containg the list
+     *
+     * @var string[]
+     * @SerializedName("memberIds")
+     * @Assert\NotNull()
+     * @Assert\All({
+     *   @Assert\Type("string")
+     * })
+     * @Type("array<string>")
      */
-    protected $id;
+    protected $memberIds;
 
     /**
      * Constructor
@@ -55,29 +60,29 @@ class MemberSuggetion
      */
     public function __construct(array $data = null)
     {
-        $this->id = isset($data['id']) ? $data['id'] : null;
+        $this->memberIds = isset($data['memberIds']) ? $data['memberIds'] : null;
     }
 
     /**
-     * Gets id.
+     * Gets memberIds.
      *
-     * @return string|null
+     * @return string[]
      */
-    public function getId(): ?string
+    public function getMemberIds(): array
     {
-        return $this->id;
+        return $this->memberIds;
     }
 
     /**
-     * Sets id.
+     * Sets memberIds.
      *
-     * @param string|null $id
+     * @param string[] $memberIds  Array containg the list
      *
      * @return $this
      */
-    public function setId(string $id = null): ?string
+    public function setMemberIds(array $memberIds): array
     {
-        $this->id = $id;
+        $this->memberIds = $memberIds;
 
         return $this;
     }

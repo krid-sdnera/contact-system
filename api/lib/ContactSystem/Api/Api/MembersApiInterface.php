@@ -37,6 +37,7 @@ use OpenAPI\Server\Model\MemberInput;
 use OpenAPI\Server\Model\MemberRoleData;
 use OpenAPI\Server\Model\MemberRoleInput;
 use OpenAPI\Server\Model\MemberRoles;
+use OpenAPI\Server\Model\MemberSuggestions;
 use OpenAPI\Server\Model\Members;
 
 /**
@@ -162,6 +163,23 @@ interface MembersApiInterface
     public function getMemberContactsById(int $memberId, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
+     * Operation getMemberMergeSuggestions
+     *
+     * List member merge suggestions
+     *
+     * @param  string $query   (optional)
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\MemberSuggestions
+     *
+     */
+    public function getMemberMergeSuggestions(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+
+    /**
      * Operation getMemberRolesById
      *
      * List member's roles
@@ -205,7 +223,7 @@ interface MembersApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ApiResponse
+     * @return OpenAPI\Server\Model\MemberData
      *
      */
     public function mergeMember(int $memberId, int $mergeMemberId, &$responseCode, array &$responseHeaders);

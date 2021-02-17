@@ -1,6 +1,6 @@
 <?php
 /**
- * MemberSuggetionTest
+ * MemberSuggestionsTest
  *
  * PHP version 5
  *
@@ -30,16 +30,16 @@
 namespace OpenAPI\Server\Model;
 
 /**
- * MemberSuggetionTest Class Doc Comment
+ * MemberSuggestionsTest Class Doc Comment
  *
  * @category    Class */
-// * @description MemberSuggetion
+// * @description A list of member merge suggestions
 /**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
  */
-class MemberSuggetionTest extends \PHPUnit_Framework_TestCase
+class MemberSuggestionsTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -71,17 +71,45 @@ class MemberSuggetionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "MemberSuggetion"
+     * Test "MemberSuggestions"
      */
-    public function testMemberSuggetion()
+    public function testMemberSuggestions()
     {
-        $testMemberSuggetion = new MemberSuggetion();
+        $testMemberSuggestions = new MemberSuggestions();
     }
 
     /**
-     * Test attribute "id"
+     * Test attribute "totalItems"
      */
-    public function testPropertyId()
+    public function testPropertyTotalItems()
+    {
+    }
+
+    /**
+     * Test attribute "totalPages"
+     */
+    public function testPropertyTotalPages()
+    {
+    }
+
+    /**
+     * Test attribute "page"
+     */
+    public function testPropertyPage()
+    {
+    }
+
+    /**
+     * Test attribute "pageSize"
+     */
+    public function testPropertyPageSize()
+    {
+    }
+
+    /**
+     * Test attribute "suggestions"
+     */
+    public function testPropertySuggestions()
     {
     }
 }

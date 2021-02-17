@@ -334,7 +334,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: "#/components/schemas/MemberData"
     parameters:
       - schema:
           type: integer
@@ -389,6 +389,64 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - Members
+  /members/suggestions:
+    get:
+      operationId: getMemberMergeSuggestions
+      summary: List member merge suggestions
+      description: List suggestions for members to merge
+      tags:
+        - Members
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: MemberSuggestions
+                description: A list of member merge suggestions
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  suggestions:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/MemberSuggestion"
+                required:
+                  - suggestions
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
   "/members/{memberId}/list-rules":
     parameters:
       - schema:
@@ -2095,12 +2153,18 @@ components:
           type: string
       required:
         - type
-    MemberSuggetion:
-      title: MemberSuggetion
+    MemberSuggestion:
+      title: MemberSuggestion
       type: object
       properties:
-        id:
-          type: string
+        memberIds:
+          description: Array containg the list
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+      required:
+        - memberIds
     AddressData:
       title: AddressData
       type: object
