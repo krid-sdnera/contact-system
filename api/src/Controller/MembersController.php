@@ -216,9 +216,9 @@ class MembersController extends AbstractController implements MembersApiInterfac
      */
     public function getMemberContactsById(
         int $memberId,
-        $sort,
-        $pageSize,
-        $page,
+        string $sort = null,
+        int $pageSize = null,
+        int $page = null,
         &$responseCode,
         array &$responseHeaders
     ) {
@@ -226,6 +226,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $repo = $this->getDoctrine()->getRepository(Contact::class);
 
         try {
+            /** @var Members */
             $result = $repo->findByMemberIdPage(
                 $memberId,
                 $sort,
