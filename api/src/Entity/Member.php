@@ -57,14 +57,12 @@ class Member
             echo "Processing Member {$extranetMember->getMembershipNumber()}: Not found by membershipNumber, checking by name" . PHP_EOL;
             // Attempt to match up with an existing record
             $member = $memberRepo->createQueryBuilder('m')
-                ->where("m.firstname LIKE :firstname")
-                ->orWhere("m.lastname LIKE :lastname")
+                ->where("m.firstname ILIKE :firstname")
+                ->andWhere("m.lastname ILIKE :lastname")
                 ->andWhere("m.dateOfBirth = :dateOfBirth")
-                ->andWhere("m.managementState = :state")
                 ->setParameter("firstname", '%' . addcslashes($extranetMember->getFirstname(), '%_') . '%')
                 ->setParameter("lastname", '%' . addcslashes($extranetMember->getLastname(), '%_') . '%')
                 ->setParameter("dateOfBirth", $extranetMember->getDateOfBirth())
-                ->setParameter("state", 'unmanaged')
                 ->getQuery()
                 ->getOneOrNullResult();
         }
