@@ -5,21 +5,17 @@ All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createList**](ListsApiInterface.md#createList) | **POST** /lists | 
-[**createListRuleById**](ListsApiInterface.md#createListRuleById) | **POST** /lists/{listId}/rules | 
-[**createListTypes**](ListsApiInterface.md#createListTypes) | **POST** /lists/types | 
+[**createListRuleById**](ListsApiInterface.md#createListRuleById) | **POST** /lists/{listId}/list-rules | 
 [**deleteListById**](ListsApiInterface.md#deleteListById) | **DELETE** /lists/{listId} | 
 [**deleteListRuleById**](ListsApiInterface.md#deleteListRuleById) | **DELETE** /lists/{listId}/rules/{ruleId} | 
-[**deleteListTypeById**](ListsApiInterface.md#deleteListTypeById) | **DELETE** /lists/types/{listTypeId} | 
+[**getListByAddress**](ListsApiInterface.md#getListByAddress) | **GET** /lists/{listAddress} | Your GET endpoint
 [**getListById**](ListsApiInterface.md#getListById) | **GET** /lists/{listId} | Your GET endpoint
 [**getListMembersById**](ListsApiInterface.md#getListMembersById) | **GET** /lists/{listId}/members | Your GET endpoint
 [**getListRuleById**](ListsApiInterface.md#getListRuleById) | **GET** /lists/{listId}/rules/{ruleId} | Your GET endpoint
-[**getListRulesById**](ListsApiInterface.md#getListRulesById) | **GET** /lists/{listId}/rules | Your GET endpoint
-[**getListTypeById**](ListsApiInterface.md#getListTypeById) | **GET** /lists/types/{listTypeId} | Your GET endpoint
-[**getListTypes**](ListsApiInterface.md#getListTypes) | **GET** /lists/types | Your GET endpoint
+[**getListRulesByListId**](ListsApiInterface.md#getListRulesByListId) | **GET** /lists/{listId}/list-rules | Your GET endpoint
 [**getLists**](ListsApiInterface.md#getLists) | **GET** /lists | Your GET endpoint
 [**updateListById**](ListsApiInterface.md#updateListById) | **PUT** /lists/{listId} | 
 [**updateListRuleById**](ListsApiInterface.md#updateListRuleById) | **PUT** /lists/{listId}/rules/{ruleId} | 
-[**updateListTypeById**](ListsApiInterface.md#updateListTypeById) | **PUT** /lists/types/{listTypeId} | 
 
 
 ## Service Declaration
@@ -35,7 +31,7 @@ services:
 ```
 
 ## **createList**
-> OpenAPI\Server\Model\ModelList createList($modelList)
+> OpenAPI\Server\Model\ListData createList($listInput)
 
 
 
@@ -66,7 +62,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#createList
      */
-    public function createList(ModelList $modelList = null)
+    public function createList(ListInput $listInput = null)
     {
         // Implement the operation ...
     }
@@ -79,11 +75,11 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **modelList** | [**OpenAPI\Server\Model\ModelList**](../Model/ModelList.md)|  | [optional]
+ **listInput** | [**OpenAPI\Server\Model\ListInput**](../Model/ListInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\ModelList**](../Model/ModelList.md)
+[**OpenAPI\Server\Model\ListData**](../Model/ListData.md)
 
 ### Authorization
 
@@ -97,7 +93,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **createListRuleById**
-> OpenAPI\Server\Model\ListRule createListRuleById($listId, $listRule)
+> OpenAPI\Server\Model\ListRuleData createListRuleById($listId, $listRuleInput)
 
 
 
@@ -128,7 +124,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#createListRuleById
      */
-    public function createListRuleById(int $listId, ListRule $listRule = null)
+    public function createListRuleById(int $listId, ListRuleInput $listRuleInput = null)
     {
         // Implement the operation ...
     }
@@ -142,73 +138,11 @@ class ListsApi implements ListsApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **listId** | **int**|  |
- **listRule** | [**OpenAPI\Server\Model\ListRule**](../Model/ListRule.md)|  | [optional]
+ **listRuleInput** | [**OpenAPI\Server\Model\ListRuleInput**](../Model/ListRuleInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListRule**](../Model/ListRule.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **createListTypes**
-> OpenAPI\Server\Model\ListType createListTypes($listType)
-
-
-
-createListTypes
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/ListsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\ListsApiInterface;
-
-class ListsApi implements ListsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of ListsApiInterface#createListTypes
-     */
-    public function createListTypes(ListType $listType = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **listType** | [**OpenAPI\Server\Model\ListType**](../Model/ListType.md)|  | [optional]
-
-### Return type
-
-[**OpenAPI\Server\Model\ListType**](../Model/ListType.md)
+[**OpenAPI\Server\Model\ListRuleData**](../Model/ListRuleData.md)
 
 ### Authorization
 
@@ -346,12 +280,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **deleteListTypeById**
-> OpenAPI\Server\Model\ApiResponse deleteListTypeById($listTypeId)
+## **getListByAddress**
+> OpenAPI\Server\Model\ListData getListByAddress($listAddress)
 
+Your GET endpoint
 
-
-deleteListTypeById
+getListByAddress
 
 ### Example Implementation
 ```php
@@ -376,9 +310,9 @@ class ListsApi implements ListsApiInterface
     // ...
 
     /**
-     * Implementation of ListsApiInterface#deleteListTypeById
+     * Implementation of ListsApiInterface#getListByAddress
      */
-    public function deleteListTypeById(int $listTypeId)
+    public function getListByAddress(string $listAddress)
     {
         // Implement the operation ...
     }
@@ -391,11 +325,11 @@ class ListsApi implements ListsApiInterface
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listTypeId** | **int**|  |
+ **listAddress** | **string**|  |
 
 ### Return type
 
-[**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+[**OpenAPI\Server\Model\ListData**](../Model/ListData.md)
 
 ### Authorization
 
@@ -409,7 +343,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getListById**
-> OpenAPI\Server\Model\ModelList getListById($listId)
+> OpenAPI\Server\Model\ListData getListById($listId)
 
 Your GET endpoint
 
@@ -457,7 +391,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ModelList**](../Model/ModelList.md)
+[**OpenAPI\Server\Model\ListData**](../Model/ListData.md)
 
 ### Authorization
 
@@ -471,7 +405,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getListMembersById**
-> OpenAPI\Server\Model\MemberData getListMembersById($listId)
+> OpenAPI\Server\Model\Members getListMembersById($listId, $query, $sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -502,7 +436,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#getListMembersById
      */
-    public function getListMembersById(int $listId)
+    public function getListMembersById(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -516,10 +450,14 @@ class ListsApi implements ListsApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **listId** | **int**|  |
+ **query** | **string**|  | [optional]
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
+[**OpenAPI\Server\Model\Members**](../Model/Members.md)
 
 ### Authorization
 
@@ -533,7 +471,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getListRuleById**
-> OpenAPI\Server\Model\ListRule getListRuleById($listId, $ruleId)
+> OpenAPI\Server\Model\ListRuleData getListRuleById($listId, $ruleId)
 
 Your GET endpoint
 
@@ -582,7 +520,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListRule**](../Model/ListRule.md)
+[**OpenAPI\Server\Model\ListRuleData**](../Model/ListRuleData.md)
 
 ### Authorization
 
@@ -595,12 +533,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getListRulesById**
-> OpenAPI\Server\Model\ListRule getListRulesById($listId)
+## **getListRulesByListId**
+> OpenAPI\Server\Model\ListRules getListRulesByListId($listId, $query, $sort, $pageSize, $page)
 
 Your GET endpoint
 
-getListRulesById
+getListRulesByListId
 
 ### Example Implementation
 ```php
@@ -625,9 +563,9 @@ class ListsApi implements ListsApiInterface
     // ...
 
     /**
-     * Implementation of ListsApiInterface#getListRulesById
+     * Implementation of ListsApiInterface#getListRulesByListId
      */
-    public function getListRulesById(int $listId)
+    public function getListRulesByListId(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -641,129 +579,6 @@ class ListsApi implements ListsApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **listId** | **int**|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\ListRule**](../Model/ListRule.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **getListTypeById**
-> OpenAPI\Server\Model\ListType getListTypeById($listTypeId)
-
-Your GET endpoint
-
-getListTypeById
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/ListsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\ListsApiInterface;
-
-class ListsApi implements ListsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of ListsApiInterface#getListTypeById
-     */
-    public function getListTypeById(int $listTypeId)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **listTypeId** | **int**|  |
-
-### Return type
-
-[**OpenAPI\Server\Model\ListType**](../Model/ListType.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **getListTypes**
-> OpenAPI\Server\Model\ListType getListTypes($query, $sort, $pageSize, $page)
-
-Your GET endpoint
-
-getListTypes
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/ListsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\ListsApiInterface;
-
-class ListsApi implements ListsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of ListsApiInterface#getListTypes
-     */
-    public function getListTypes(string $query = null, string $sort = null, int $pageSize = null, int $page = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
  **query** | **string**|  | [optional]
  **sort** | **string**|  | [optional]
  **pageSize** | **int**|  | [optional]
@@ -771,7 +586,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListType**](../Model/ListType.md)
+[**OpenAPI\Server\Model\ListRules**](../Model/ListRules.md)
 
 ### Authorization
 
@@ -785,7 +600,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getLists**
-> OpenAPI\Server\Model\ModelList getLists($query, $sort, $pageSize, $page)
+> OpenAPI\Server\Model\Lists getLists($query, $sort, $pageSize, $page)
 
 Your GET endpoint
 
@@ -836,7 +651,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ModelList**](../Model/ModelList.md)
+[**OpenAPI\Server\Model\Lists**](../Model/Lists.md)
 
 ### Authorization
 
@@ -850,7 +665,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateListById**
-> OpenAPI\Server\Model\ModelList updateListById($listId, $modelList)
+> OpenAPI\Server\Model\ListData updateListById($listId, $listInput)
 
 
 
@@ -881,7 +696,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#updateListById
      */
-    public function updateListById(int $listId, ModelList $modelList = null)
+    public function updateListById(int $listId, ListInput $listInput = null)
     {
         // Implement the operation ...
     }
@@ -895,11 +710,11 @@ class ListsApi implements ListsApiInterface
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **listId** | **int**|  |
- **modelList** | [**OpenAPI\Server\Model\ModelList**](../Model/ModelList.md)|  | [optional]
+ **listInput** | [**OpenAPI\Server\Model\ListInput**](../Model/ListInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\ModelList**](../Model/ModelList.md)
+[**OpenAPI\Server\Model\ListData**](../Model/ListData.md)
 
 ### Authorization
 
@@ -913,7 +728,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateListRuleById**
-> OpenAPI\Server\Model\ListRule updateListRuleById($listId, $ruleId, $listRule)
+> OpenAPI\Server\Model\ListRuleData updateListRuleById($listId, $ruleId, $listRuleInput)
 
 
 
@@ -944,7 +759,7 @@ class ListsApi implements ListsApiInterface
     /**
      * Implementation of ListsApiInterface#updateListRuleById
      */
-    public function updateListRuleById(int $listId, int $ruleId, ListRule $listRule = null)
+    public function updateListRuleById(int $listId, int $ruleId, ListRuleInput $listRuleInput = null)
     {
         // Implement the operation ...
     }
@@ -959,74 +774,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **listId** | **int**|  |
  **ruleId** | **int**|  |
- **listRule** | [**OpenAPI\Server\Model\ListRule**](../Model/ListRule.md)|  | [optional]
+ **listRuleInput** | [**OpenAPI\Server\Model\ListRuleInput**](../Model/ListRuleInput.md)|  | [optional]
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListRule**](../Model/ListRule.md)
-
-### Authorization
-
-[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-## **updateListTypeById**
-> OpenAPI\Server\Model\ListType updateListTypeById($listTypeId, $listType)
-
-
-
-updateListTypeById
-
-### Example Implementation
-```php
-<?php
-// src/Acme/MyBundle/Api/ListsApiInterface.php
-
-namespace Acme\MyBundle\Api;
-
-use OpenAPI\Server\Api\ListsApiInterface;
-
-class ListsApi implements ListsApiInterface
-{
-
-    /**
-     * Configure API key authorization: contact_auth
-     */
-    public function setcontact_auth($apiKey)
-    {
-        // Retrieve logged in user from $apiKey ...
-    }
-
-    // ...
-
-    /**
-     * Implementation of ListsApiInterface#updateListTypeById
-     */
-    public function updateListTypeById(int $listTypeId, ListType $listType = null)
-    {
-        // Implement the operation ...
-    }
-
-    // ...
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **listTypeId** | **int**|  |
- **listType** | [**OpenAPI\Server\Model\ListType**](../Model/ListType.md)|  | [optional]
-
-### Return type
-
-[**OpenAPI\Server\Model\ListType**](../Model/ListType.md)
+[**OpenAPI\Server\Model\ListRuleData**](../Model/ListRuleData.md)
 
 ### Authorization
 

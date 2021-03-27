@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    ListRules,
+    ListRulesFromJSON,
+    ListRulesToJSON,
     Members,
     MembersFromJSON,
     MembersToJSON,
@@ -41,6 +44,14 @@ export interface CreateSectionRequest {
 
 export interface DeleteSectionByIdRequest {
     sectionId: number;
+}
+
+export interface GetListRulesBySectionIdRequest {
+    sectionId: number;
+    query?: string;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
 }
 
 export interface GetMembersBySectionIdRequest {
@@ -108,6 +119,26 @@ export interface SectionsApiInterface {
      * Delete Section
      */
     deleteSectionById(requestParameters: DeleteSectionByIdRequest): Promise<ModelApiResponse>;
+
+    /**
+     * getListRulesBySectionId
+     * @summary Your GET endpoint
+     * @param {number} sectionId 
+     * @param {string} [query] 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SectionsApiInterface
+     */
+    getListRulesBySectionIdRaw(requestParameters: GetListRulesBySectionIdRequest): Promise<runtime.ApiResponse<ListRules>>;
+
+    /**
+     * getListRulesBySectionId
+     * Your GET endpoint
+     */
+    getListRulesBySectionId(requestParameters: GetListRulesBySectionIdRequest): Promise<ListRules>;
 
     /**
      * List all members in this section
@@ -288,6 +319,66 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
      */
     async deleteSectionById(requestParameters: DeleteSectionByIdRequest): Promise<ModelApiResponse> {
         const response = await this.deleteSectionByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * getListRulesBySectionId
+     * Your GET endpoint
+     */
+    async getListRulesBySectionIdRaw(requestParameters: GetListRulesBySectionIdRequest): Promise<runtime.ApiResponse<ListRules>> {
+        if (requestParameters.sectionId === null || requestParameters.sectionId === undefined) {
+            throw new runtime.RequiredError('sectionId','Required parameter requestParameters.sectionId was null or undefined when calling getListRulesBySectionId.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/sections/{sectionId}/list-rules`.replace(`{${"sectionId"}}`, encodeURIComponent(String(requestParameters.sectionId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListRulesFromJSON(jsonValue));
+    }
+
+    /**
+     * getListRulesBySectionId
+     * Your GET endpoint
+     */
+    async getListRulesBySectionId(requestParameters: GetListRulesBySectionIdRequest): Promise<ListRules> {
+        const response = await this.getListRulesBySectionIdRaw(requestParameters);
         return await response.value();
     }
 

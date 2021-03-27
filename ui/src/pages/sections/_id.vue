@@ -58,6 +58,18 @@
           <members-table :section="section" searchable></members-table>
         </v-col>
       </v-row>
+
+      <v-row>
+        <v-col>
+          <!-- Email Rules Table -->
+          <list-rules-table
+            :rules="rules"
+            :preset-relation="section"
+            preset-relation-type="Section"
+            allow-creation
+          ></list-rules-table>
+        </v-col>
+      </v-row>
     </v-container>
     <!-- Dialogs -->
     <section-edit
@@ -87,13 +99,19 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { SectionData, ScoutGroupData, RoleData } from '@api/models';
+import {
+  SectionData,
+  ScoutGroupData,
+  RoleData,
+  ListRuleData,
+} from '@api/models';
 import SectionEditDialog from '~/components/dialogs/section-edit.vue';
 import RoleTableComponent from '~/components/tables/roles-table.vue';
 import MemberTableComponent from '~/components/tables/member-roles-table.vue';
 
 import * as section from '~/store/section';
 import * as role from '~/store/role';
+import * as list from '~/store/emailList';
 import * as ui from '~/store/ui';
 
 @Component({
@@ -122,6 +140,12 @@ export default class SectionDetailPage extends Vue {
     );
   }
 
+  get rules(): ListRuleData[] {
+    return this.$store.getters[`${list.namespace}/getRulesBySectionId`](
+      this.id
+    );
+  }
+
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }
@@ -135,10 +159,12 @@ export default class SectionDetailPage extends Vue {
         `${section.namespace}/fetchSectionById`,
         this.id
       );
-      await this.$store.dispatch(
-        `${role.namespace}/fetchRolesBySectionId`,
-        this.id
-      );
+      this.$store.dispatch(`${role.namespace}/fetchRolesBySectionId`, this.id);
+      this.$store.dispatch(`${list.namespace}/fetchListRulesBySectionId`, {
+        sectionId: this.id,
+      });
+      // Dont wait to load list of lists
+      this.$store.dispatch(`${list.namespace}/fetchAllLists`, {});
 
       if (!this.section) {
         this.loading = false;

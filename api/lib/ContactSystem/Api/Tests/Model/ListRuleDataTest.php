@@ -1,6 +1,6 @@
 <?php
 /**
- * ListRuleTest
+ * ListRuleDataTest
  *
  * PHP version 5
  *
@@ -30,16 +30,16 @@
 namespace OpenAPI\Server\Model;
 
 /**
- * ListRuleTest Class Doc Comment
+ * ListRuleDataTest Class Doc Comment
  *
  * @category    Class */
-// * @description ListRule
+// * @description ListRuleData
 /**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
  */
-class ListRuleTest extends \PHPUnit_Framework_TestCase
+class ListRuleDataTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -71,17 +71,87 @@ class ListRuleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "ListRule"
+     * Test "ListRuleData"
      */
-    public function testListRule()
+    public function testListRuleData()
     {
-        $testListRule = new ListRule();
+        $testListRuleData = new ListRuleData();
     }
 
     /**
      * Test attribute "id"
      */
     public function testPropertyId()
+    {
+    }
+
+    /**
+     * Test attribute "label"
+     */
+    public function testPropertyLabel()
+    {
+    }
+
+    /**
+     * Test attribute "comment"
+     */
+    public function testPropertyComment()
+    {
+    }
+
+    /**
+     * Test attribute "listId"
+     */
+    public function testPropertyListId()
+    {
+    }
+
+    /**
+     * Test attribute "listName"
+     */
+    public function testPropertyListName()
+    {
+    }
+
+    /**
+     * Test attribute "listAddress"
+     */
+    public function testPropertyListAddress()
+    {
+    }
+
+    /**
+     * Test attribute "relationType"
+     */
+    public function testPropertyRelationType()
+    {
+    }
+
+    /**
+     * Test attribute "relationId"
+     */
+    public function testPropertyRelationId()
+    {
+    }
+
+    /**
+     * Test attribute "relationName"
+     */
+    public function testPropertyRelationName()
+    {
+    }
+
+    /**
+     * Test attribute "useMember"
+     */
+    public function testPropertyUseMember()
+    {
+    }
+
+    /**
+     * Test attribute "useContact"
+     */
+    public function testPropertyUseContact()
     {
     }
 }

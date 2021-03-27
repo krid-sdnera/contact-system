@@ -107,6 +107,24 @@ class SectionsApiInterfaceTest extends WebTestCase
     }
 
     /**
+     * Test case for getListRulesBySectionId
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListRulesBySectionId()
+    {
+        $client = static::createClient();
+
+        $path = '/sections/{sectionId}/list-rules';
+        $pattern = '{sectionId}';
+        $data = $this->genTestData('\d+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
      * Test case for getMembersBySectionId
      *
      * List members by section.

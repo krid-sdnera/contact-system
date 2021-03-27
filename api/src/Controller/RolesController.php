@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\EmailListRule;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 // use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -17,6 +18,7 @@ use App\Entity\Section;
 use OpenAPI\Server\Model\ApiResponse;
 
 use App\Exception\SortKeyNotFound;
+use App\Repository\EmailListRuleRepository;
 
 class RolesController extends AbstractController implements RolesApiInterface
 {
@@ -112,6 +114,34 @@ class RolesController extends AbstractController implements RolesApiInterface
 
         /** @var MemberRepository */
         $repo = $this->getDoctrine()->getRepository(Member::class);
+
+        try {
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page,
+                ['roleId' => $roleId]
+            );
+
+            return $result;
+        } catch (SortKeyNotFound $e) {
+            $responseCode = 400;
+            return new ApiResponse([
+                'code' => 400,
+                'type' => 'Bad Request',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getListRulesByRoleId(int $roleId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
+    {
+        /** @var EmailListRuleRepository */
+        $repo = $this->getDoctrine()->getRepository(EmailListRule::class);
 
         try {
             $result = $repo->findByPage(

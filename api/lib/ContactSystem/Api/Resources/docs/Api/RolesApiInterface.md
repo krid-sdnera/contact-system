@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createRole**](RolesApiInterface.md#createRole) | **POST** /roles | Create role
 [**deleteRoleById**](RolesApiInterface.md#deleteRoleById) | **DELETE** /roles/{roleId} | Delete role
+[**getListRulesByRoleId**](RolesApiInterface.md#getListRulesByRoleId) | **GET** /roles/{roleId}/list-rules | Your GET endpoint
 [**getMembersByRoleId**](RolesApiInterface.md#getMembersByRoleId) | **GET** /roles/{roleId}/members | List members by role
 [**getRoleById**](RolesApiInterface.md#getRoleById) | **GET** /roles/{roleId} | Get Role
 [**getRoles**](RolesApiInterface.md#getRoles) | **GET** /roles | Get roles
@@ -136,6 +137,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getListRulesByRoleId**
+> OpenAPI\Server\Model\ListRules getListRulesByRoleId($roleId, $query, $sort, $pageSize, $page)
+
+Your GET endpoint
+
+getListRulesByRoleId
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/RolesApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\RolesApiInterface;
+
+class RolesApi implements RolesApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of RolesApiInterface#getListRulesByRoleId
+     */
+    public function getListRulesByRoleId(int $roleId, string $query = null, string $sort = null, int $pageSize = null, int $page = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **roleId** | **int**|  |
+ **query** | **string**|  | [optional]
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\ListRules**](../Model/ListRules.md)
 
 ### Authorization
 

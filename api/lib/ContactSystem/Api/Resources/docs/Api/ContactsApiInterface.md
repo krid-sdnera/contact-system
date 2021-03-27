@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**deleteContactById**](ContactsApiInterface.md#deleteContactById) | **DELETE** /contacts/{contactId} | 
 [**getContactById**](ContactsApiInterface.md#getContactById) | **GET** /contacts/{contactId} | Your GET endpoint
 [**getContacts**](ContactsApiInterface.md#getContacts) | **GET** /contacts | Your GET endpoint
+[**getListRulesByContactId**](ContactsApiInterface.md#getListRulesByContactId) | **GET** /contacts/{contactId}/list-rules | Your GET endpoint
 [**patchContactById**](ContactsApiInterface.md#patchContactById) | **PATCH** /contacts/{contactId} | 
 [**updateContactById**](ContactsApiInterface.md#updateContactById) | **PUT** /contacts/{contactId} | 
 
@@ -263,6 +264,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OpenAPI\Server\Model\Contacts**](../Model/Contacts.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getListRulesByContactId**
+> OpenAPI\Server\Model\ListRules getListRulesByContactId($contactId, $query, $sort, $pageSize, $page)
+
+Your GET endpoint
+
+getListRulesByContactId
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/ContactsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\ContactsApiInterface;
+
+class ContactsApi implements ContactsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of ContactsApiInterface#getListRulesByContactId
+     */
+    public function getListRulesByContactId(int $contactId, string $query = null, string $sort = null, int $pageSize = null, int $page = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contactId** | **int**|  |
+ **query** | **string**|  | [optional]
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\ListRules**](../Model/ListRules.md)
 
 ### Authorization
 

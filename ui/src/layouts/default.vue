@@ -137,6 +137,11 @@ export default class DefaultLayout extends Vue {
       title: 'Groups',
       to: '/groups',
     },
+    {
+      icon: 'mdi-email',
+      title: 'Lists',
+      to: '/lists',
+    },
   ];
 
   expandOnHover = true;

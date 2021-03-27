@@ -84,6 +84,17 @@
           <members-table :role="role" searchable></members-table>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col>
+          <!-- Email Rules Table -->
+          <list-rules-table
+            :rules="rules"
+            :preset-relation="role"
+            preset-relation-type="Role"
+            allow-creation
+          ></list-rules-table>
+        </v-col>
+      </v-row>
     </v-container>
     <!-- Dialogs -->
     <role-edit :role="role" :open.sync="dialogRoleEdit"></role-edit>
@@ -108,12 +119,19 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { RoleData, SectionData, ScoutGroupData, MemberData } from '@api/models';
+import {
+  RoleData,
+  SectionData,
+  ScoutGroupData,
+  MemberData,
+  ListRuleData,
+} from '@api/models';
 import RoleEditDialog from '~/components/dialogs/role-edit.vue';
 import MemberTableComponent from '~/components/tables/member-roles-table.vue';
 
 import * as member from '~/store/member';
 import * as role from '~/store/role';
+import * as list from '~/store/emailList';
 import * as ui from '~/store/ui';
 
 @Component({
@@ -144,6 +162,9 @@ export default class RoleDetailPage extends Vue {
       this.id
     );
   }
+  get rules(): ListRuleData[] {
+    return this.$store.getters[`${list.namespace}/getRulesByRoleId`](this.id);
+  }
 
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
@@ -163,6 +184,12 @@ export default class RoleDetailPage extends Vue {
       await this.$store.dispatch(`${member.namespace}/fetchMembersByRoleId`, {
         roleId: this.id,
       });
+
+      this.$store.dispatch(`${list.namespace}/fetchListRulesByRoleId`, {
+        roleId: this.id,
+      });
+      // Dont wait to load list of lists
+      this.$store.dispatch(`${list.namespace}/fetchAllLists`, {});
     } catch (e) {
       this.error = true;
     } finally {

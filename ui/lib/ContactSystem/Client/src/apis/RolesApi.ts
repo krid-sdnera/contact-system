@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    ListRules,
+    ListRulesFromJSON,
+    ListRulesToJSON,
     Members,
     MembersFromJSON,
     MembersToJSON,
@@ -38,6 +41,14 @@ export interface CreateRoleRequest {
 
 export interface DeleteRoleByIdRequest {
     roleId: number;
+}
+
+export interface GetListRulesByRoleIdRequest {
+    roleId: number;
+    query?: string;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
 }
 
 export interface GetMembersByRoleIdRequest {
@@ -101,6 +112,26 @@ export interface RolesApiInterface {
      * Delete role
      */
     deleteRoleById(requestParameters: DeleteRoleByIdRequest): Promise<ModelApiResponse>;
+
+    /**
+     * getListRulesByRoleId
+     * @summary Your GET endpoint
+     * @param {number} roleId 
+     * @param {string} [query] 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RolesApiInterface
+     */
+    getListRulesByRoleIdRaw(requestParameters: GetListRulesByRoleIdRequest): Promise<runtime.ApiResponse<ListRules>>;
+
+    /**
+     * getListRulesByRoleId
+     * Your GET endpoint
+     */
+    getListRulesByRoleId(requestParameters: GetListRulesByRoleIdRequest): Promise<ListRules>;
 
     /**
      * List all members in this role
@@ -265,6 +296,66 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      */
     async deleteRoleById(requestParameters: DeleteRoleByIdRequest): Promise<ModelApiResponse> {
         const response = await this.deleteRoleByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * getListRulesByRoleId
+     * Your GET endpoint
+     */
+    async getListRulesByRoleIdRaw(requestParameters: GetListRulesByRoleIdRequest): Promise<runtime.ApiResponse<ListRules>> {
+        if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
+            throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling getListRulesByRoleId.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/roles/{roleId}/list-rules`.replace(`{${"roleId"}}`, encodeURIComponent(String(requestParameters.roleId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListRulesFromJSON(jsonValue));
+    }
+
+    /**
+     * getListRulesByRoleId
+     * Your GET endpoint
+     */
+    async getListRulesByRoleId(requestParameters: GetListRulesByRoleIdRequest): Promise<ListRules> {
+        const response = await this.getListRulesByRoleIdRaw(requestParameters);
         return await response.value();
     }
 

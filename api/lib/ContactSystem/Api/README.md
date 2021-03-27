@@ -114,27 +114,25 @@ Class | Method | HTTP request | Description
 *ContactsApiInterface* | [**deleteContactById**](Resources/docs/Api/ContactsApiInterface.md#deletecontactbyid) | **DELETE** /contacts/{contactId} | 
 *ContactsApiInterface* | [**getContactById**](Resources/docs/Api/ContactsApiInterface.md#getcontactbyid) | **GET** /contacts/{contactId} | Your GET endpoint
 *ContactsApiInterface* | [**getContacts**](Resources/docs/Api/ContactsApiInterface.md#getcontacts) | **GET** /contacts | Your GET endpoint
+*ContactsApiInterface* | [**getListRulesByContactId**](Resources/docs/Api/ContactsApiInterface.md#getlistrulesbycontactid) | **GET** /contacts/{contactId}/list-rules | Your GET endpoint
 *ContactsApiInterface* | [**patchContactById**](Resources/docs/Api/ContactsApiInterface.md#patchcontactbyid) | **PATCH** /contacts/{contactId} | 
 *ContactsApiInterface* | [**updateContactById**](Resources/docs/Api/ContactsApiInterface.md#updatecontactbyid) | **PUT** /contacts/{contactId} | 
 *ListsApiInterface* | [**createList**](Resources/docs/Api/ListsApiInterface.md#createlist) | **POST** /lists | 
-*ListsApiInterface* | [**createListRuleById**](Resources/docs/Api/ListsApiInterface.md#createlistrulebyid) | **POST** /lists/{listId}/rules | 
-*ListsApiInterface* | [**createListTypes**](Resources/docs/Api/ListsApiInterface.md#createlisttypes) | **POST** /lists/types | 
+*ListsApiInterface* | [**createListRuleById**](Resources/docs/Api/ListsApiInterface.md#createlistrulebyid) | **POST** /lists/{listId}/list-rules | 
 *ListsApiInterface* | [**deleteListById**](Resources/docs/Api/ListsApiInterface.md#deletelistbyid) | **DELETE** /lists/{listId} | 
 *ListsApiInterface* | [**deleteListRuleById**](Resources/docs/Api/ListsApiInterface.md#deletelistrulebyid) | **DELETE** /lists/{listId}/rules/{ruleId} | 
-*ListsApiInterface* | [**deleteListTypeById**](Resources/docs/Api/ListsApiInterface.md#deletelisttypebyid) | **DELETE** /lists/types/{listTypeId} | 
+*ListsApiInterface* | [**getListByAddress**](Resources/docs/Api/ListsApiInterface.md#getlistbyaddress) | **GET** /lists/{listAddress} | Your GET endpoint
 *ListsApiInterface* | [**getListById**](Resources/docs/Api/ListsApiInterface.md#getlistbyid) | **GET** /lists/{listId} | Your GET endpoint
 *ListsApiInterface* | [**getListMembersById**](Resources/docs/Api/ListsApiInterface.md#getlistmembersbyid) | **GET** /lists/{listId}/members | Your GET endpoint
 *ListsApiInterface* | [**getListRuleById**](Resources/docs/Api/ListsApiInterface.md#getlistrulebyid) | **GET** /lists/{listId}/rules/{ruleId} | Your GET endpoint
-*ListsApiInterface* | [**getListRulesById**](Resources/docs/Api/ListsApiInterface.md#getlistrulesbyid) | **GET** /lists/{listId}/rules | Your GET endpoint
-*ListsApiInterface* | [**getListTypeById**](Resources/docs/Api/ListsApiInterface.md#getlisttypebyid) | **GET** /lists/types/{listTypeId} | Your GET endpoint
-*ListsApiInterface* | [**getListTypes**](Resources/docs/Api/ListsApiInterface.md#getlisttypes) | **GET** /lists/types | Your GET endpoint
+*ListsApiInterface* | [**getListRulesByListId**](Resources/docs/Api/ListsApiInterface.md#getlistrulesbylistid) | **GET** /lists/{listId}/list-rules | Your GET endpoint
 *ListsApiInterface* | [**getLists**](Resources/docs/Api/ListsApiInterface.md#getlists) | **GET** /lists | Your GET endpoint
 *ListsApiInterface* | [**updateListById**](Resources/docs/Api/ListsApiInterface.md#updatelistbyid) | **PUT** /lists/{listId} | 
 *ListsApiInterface* | [**updateListRuleById**](Resources/docs/Api/ListsApiInterface.md#updatelistrulebyid) | **PUT** /lists/{listId}/rules/{ruleId} | 
-*ListsApiInterface* | [**updateListTypeById**](Resources/docs/Api/ListsApiInterface.md#updatelisttypebyid) | **PUT** /lists/types/{listTypeId} | 
 *MembersApiInterface* | [**addMemberRoleById**](Resources/docs/Api/MembersApiInterface.md#addmemberrolebyid) | **PUT** /members/{memberId}/roles/{roleId} | Add Member Role
 *MembersApiInterface* | [**createMember**](Resources/docs/Api/MembersApiInterface.md#createmember) | **POST** /members | Create a member
 *MembersApiInterface* | [**deleteMemberById**](Resources/docs/Api/MembersApiInterface.md#deletememberbyid) | **DELETE** /members/{memberId} | Delete member
+*MembersApiInterface* | [**getListRulesByMemberId**](Resources/docs/Api/MembersApiInterface.md#getlistrulesbymemberid) | **GET** /members/{memberId}/list-rules | Your GET endpoint
 *MembersApiInterface* | [**getMemberById**](Resources/docs/Api/MembersApiInterface.md#getmemberbyid) | **GET** /members/{memberId} | Get member
 *MembersApiInterface* | [**getMemberContactsById**](Resources/docs/Api/MembersApiInterface.md#getmembercontactsbyid) | **GET** /members/{memberId}/contacts | List member&#39;s contacts
 *MembersApiInterface* | [**getMemberRolesById**](Resources/docs/Api/MembersApiInterface.md#getmemberrolesbyid) | **GET** /members/{memberId}/roles | List member&#39;s roles
@@ -145,18 +143,21 @@ Class | Method | HTTP request | Description
 *MembersApiInterface* | [**updateMemberById**](Resources/docs/Api/MembersApiInterface.md#updatememberbyid) | **PUT** /members/{memberId} | Update member
 *RolesApiInterface* | [**createRole**](Resources/docs/Api/RolesApiInterface.md#createrole) | **POST** /roles | Create role
 *RolesApiInterface* | [**deleteRoleById**](Resources/docs/Api/RolesApiInterface.md#deleterolebyid) | **DELETE** /roles/{roleId} | Delete role
+*RolesApiInterface* | [**getListRulesByRoleId**](Resources/docs/Api/RolesApiInterface.md#getlistrulesbyroleid) | **GET** /roles/{roleId}/list-rules | Your GET endpoint
 *RolesApiInterface* | [**getMembersByRoleId**](Resources/docs/Api/RolesApiInterface.md#getmembersbyroleid) | **GET** /roles/{roleId}/members | List members by role
 *RolesApiInterface* | [**getRoleById**](Resources/docs/Api/RolesApiInterface.md#getrolebyid) | **GET** /roles/{roleId} | Get Role
 *RolesApiInterface* | [**getRoles**](Resources/docs/Api/RolesApiInterface.md#getroles) | **GET** /roles | Get roles
 *RolesApiInterface* | [**updateRoleById**](Resources/docs/Api/RolesApiInterface.md#updaterolebyid) | **PUT** /roles/{roleId} | Update role
 *ScoutGroupsApiInterface* | [**createScoutGroup**](Resources/docs/Api/ScoutGroupsApiInterface.md#createscoutgroup) | **POST** /groups | Create Group
 *ScoutGroupsApiInterface* | [**deleteScoutGroupById**](Resources/docs/Api/ScoutGroupsApiInterface.md#deletescoutgroupbyid) | **DELETE** /groups/{scoutGroupId} | Delete Group
+*ScoutGroupsApiInterface* | [**getListRulesByScoutGroupId**](Resources/docs/Api/ScoutGroupsApiInterface.md#getlistrulesbyscoutgroupid) | **GET** /groups/{scoutGroupId}/list-rules | Your GET endpoint
 *ScoutGroupsApiInterface* | [**getScoutGroupById**](Resources/docs/Api/ScoutGroupsApiInterface.md#getscoutgroupbyid) | **GET** /groups/{scoutGroupId} | Get Group
 *ScoutGroupsApiInterface* | [**getScoutGroupSectionsById**](Resources/docs/Api/ScoutGroupsApiInterface.md#getscoutgroupsectionsbyid) | **GET** /groups/{scoutGroupId}/sections | Your GET endpoint
 *ScoutGroupsApiInterface* | [**getScoutGroups**](Resources/docs/Api/ScoutGroupsApiInterface.md#getscoutgroups) | **GET** /groups | Get Groups
 *ScoutGroupsApiInterface* | [**updateScoutGroupById**](Resources/docs/Api/ScoutGroupsApiInterface.md#updatescoutgroupbyid) | **PUT** /groups/{scoutGroupId} | Update Group
 *SectionsApiInterface* | [**createSection**](Resources/docs/Api/SectionsApiInterface.md#createsection) | **POST** /sections | Create Section
 *SectionsApiInterface* | [**deleteSectionById**](Resources/docs/Api/SectionsApiInterface.md#deletesectionbyid) | **DELETE** /sections/{sectionId} | Delete Section
+*SectionsApiInterface* | [**getListRulesBySectionId**](Resources/docs/Api/SectionsApiInterface.md#getlistrulesbysectionid) | **GET** /sections/{sectionId}/list-rules | Your GET endpoint
 *SectionsApiInterface* | [**getMembersBySectionId**](Resources/docs/Api/SectionsApiInterface.md#getmembersbysectionid) | **GET** /sections/{sectionId}/members | List members by section
 *SectionsApiInterface* | [**getSectionById**](Resources/docs/Api/SectionsApiInterface.md#getsectionbyid) | **GET** /sections/{sectionId} | Get Section
 *SectionsApiInterface* | [**getSectionRolesById**](Resources/docs/Api/SectionsApiInterface.md#getsectionrolesbyid) | **GET** /sections/{sectionId}/roles | Your GET endpoint
@@ -177,8 +178,12 @@ Class | Method | HTTP request | Description
  - [JwtErrorResponse](Resources/docs/Model/JwtErrorResponse.md)
  - [JwtInput](Resources/docs/Model/JwtInput.md)
  - [JwtRefreshInput](Resources/docs/Model/JwtRefreshInput.md)
- - [ListRule](Resources/docs/Model/ListRule.md)
- - [ListType](Resources/docs/Model/ListType.md)
+ - [ListData](Resources/docs/Model/ListData.md)
+ - [ListInput](Resources/docs/Model/ListInput.md)
+ - [ListRuleData](Resources/docs/Model/ListRuleData.md)
+ - [ListRuleInput](Resources/docs/Model/ListRuleInput.md)
+ - [ListRules](Resources/docs/Model/ListRules.md)
+ - [Lists](Resources/docs/Model/Lists.md)
  - [MemberData](Resources/docs/Model/MemberData.md)
  - [MemberInput](Resources/docs/Model/MemberInput.md)
  - [MemberMetaInviteData](Resources/docs/Model/MemberMetaInviteData.md)
@@ -188,7 +193,6 @@ Class | Method | HTTP request | Description
  - [MemberRoles](Resources/docs/Model/MemberRoles.md)
  - [MemberSuggetion](Resources/docs/Model/MemberSuggetion.md)
  - [Members](Resources/docs/Model/Members.md)
- - [ModelList](Resources/docs/Model/ModelList.md)
  - [RoleData](Resources/docs/Model/RoleData.md)
  - [RoleInput](Resources/docs/Model/RoleInput.md)
  - [Roles](Resources/docs/Model/Roles.md)

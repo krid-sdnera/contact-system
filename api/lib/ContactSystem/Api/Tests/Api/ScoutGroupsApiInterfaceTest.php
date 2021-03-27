@@ -107,6 +107,24 @@ class ScoutGroupsApiInterfaceTest extends WebTestCase
     }
 
     /**
+     * Test case for getListRulesByScoutGroupId
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListRulesByScoutGroupId()
+    {
+        $client = static::createClient();
+
+        $path = '/groups/{scoutGroupId}/list-rules';
+        $pattern = '{scoutGroupId}';
+        $data = $this->genTestData('\d+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
      * Test case for getScoutGroupById
      *
      * Get Group.

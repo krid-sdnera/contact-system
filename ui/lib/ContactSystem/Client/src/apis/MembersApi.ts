@@ -18,6 +18,9 @@ import {
     Contacts,
     ContactsFromJSON,
     ContactsToJSON,
+    ListRules,
+    ListRulesFromJSON,
+    ListRulesToJSON,
     MemberData,
     MemberDataFromJSON,
     MemberDataToJSON,
@@ -53,6 +56,14 @@ export interface CreateMemberRequest {
 
 export interface DeleteMemberByIdRequest {
     memberId: number;
+}
+
+export interface GetListRulesByMemberIdRequest {
+    memberId: number;
+    query?: string;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
 }
 
 export interface GetMemberByIdRequest {
@@ -155,6 +166,26 @@ export interface MembersApiInterface {
      * Delete member
      */
     deleteMemberById(requestParameters: DeleteMemberByIdRequest): Promise<ModelApiResponse>;
+
+    /**
+     * getListRulesByMemberId
+     * @summary Your GET endpoint
+     * @param {number} memberId 
+     * @param {string} [query] 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MembersApiInterface
+     */
+    getListRulesByMemberIdRaw(requestParameters: GetListRulesByMemberIdRequest): Promise<runtime.ApiResponse<ListRules>>;
+
+    /**
+     * getListRulesByMemberId
+     * Your GET endpoint
+     */
+    getListRulesByMemberId(requestParameters: GetListRulesByMemberIdRequest): Promise<ListRules>;
 
     /**
      * Get details for a member
@@ -443,6 +474,66 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      */
     async deleteMemberById(requestParameters: DeleteMemberByIdRequest): Promise<ModelApiResponse> {
         const response = await this.deleteMemberByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * getListRulesByMemberId
+     * Your GET endpoint
+     */
+    async getListRulesByMemberIdRaw(requestParameters: GetListRulesByMemberIdRequest): Promise<runtime.ApiResponse<ListRules>> {
+        if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
+            throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling getListRulesByMemberId.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/members/{memberId}/list-rules`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters.memberId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListRulesFromJSON(jsonValue));
+    }
+
+    /**
+     * getListRulesByMemberId
+     * Your GET endpoint
+     */
+    async getListRulesByMemberId(requestParameters: GetListRulesByMemberIdRequest): Promise<ListRules> {
+        const response = await this.getListRulesByMemberIdRaw(requestParameters);
         return await response.value();
     }
 

@@ -30,6 +30,7 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
+use OpenAPI\Server\Model\ListRules;
 use OpenAPI\Server\Model\ScoutGroupData;
 use OpenAPI\Server\Model\ScoutGroupInput;
 use OpenAPI\Server\Model\ScoutGroups;
@@ -91,6 +92,24 @@ interface ScoutGroupsApiInterface
      *
      */
     public function deleteScoutGroupById(int $scoutGroupId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getListRulesByScoutGroupId
+     *
+     * Your GET endpoint
+     *
+     * @param  int $scoutGroupId   (required)
+     * @param  string $query   (optional)
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\ListRules
+     *
+     */
+    public function getListRulesByScoutGroupId(int $scoutGroupId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getScoutGroupById

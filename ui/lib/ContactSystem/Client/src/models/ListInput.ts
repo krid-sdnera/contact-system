@@ -16,32 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface ListRule
+ * @interface ListInput
  */
-export interface ListRule {
+export interface ListInput {
     /**
      * 
      * @type {string}
-     * @memberof ListRule
+     * @memberof ListInput
      */
-    id?: string;
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListInput
+     */
+    address: string;
 }
 
-export function ListRuleFromJSON(json: any): ListRule {
-    return ListRuleFromJSONTyped(json, false);
+export function ListInputFromJSON(json: any): ListInput {
+    return ListInputFromJSONTyped(json, false);
 }
 
-export function ListRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): ListRule {
+export function ListInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ListInput {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
+        'name': json['name'],
+        'address': json['address'],
     };
 }
 
-export function ListRuleToJSON(value?: ListRule | null): any {
+export function ListInputToJSON(value?: ListInput | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -50,7 +57,8 @@ export function ListRuleToJSON(value?: ListRule | null): any {
     }
     return {
         
-        'id': value.id,
+        'name': value.name,
+        'address': value.address,
     };
 }
 

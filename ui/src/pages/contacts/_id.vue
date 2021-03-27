@@ -120,7 +120,7 @@
               </v-dialog>
             </v-card-text>
             <v-card-text>
-              <v-btn color="primary" @click.stop="openEditContactModal">
+              <v-btn color="primary" @click.stop="dialogContactEdit = true">
                 <v-icon small>mdi-pencil</v-icon> Edit
               </v-btn>
             </v-card-text>
@@ -371,13 +371,5 @@ export default class ContactDetailPage extends Vue {
   }
 
   dialogContactEdit: boolean = false;
-
-  openEditContactModal() {
-    this.dialogContactEdit = true;
-  }
-
-  closeEditContactModal() {
-    this.dialogContactEdit = false;
-  }
 }
 </script>

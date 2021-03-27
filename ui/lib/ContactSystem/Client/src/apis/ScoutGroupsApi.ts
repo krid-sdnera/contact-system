@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    ListRules,
+    ListRulesFromJSON,
+    ListRulesToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
@@ -38,6 +41,14 @@ export interface CreateScoutGroupRequest {
 
 export interface DeleteScoutGroupByIdRequest {
     scoutGroupId: number;
+}
+
+export interface GetListRulesByScoutGroupIdRequest {
+    scoutGroupId: number;
+    query?: string;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
 }
 
 export interface GetScoutGroupByIdRequest {
@@ -97,6 +108,26 @@ export interface ScoutGroupsApiInterface {
      * Delete Group
      */
     deleteScoutGroupById(requestParameters: DeleteScoutGroupByIdRequest): Promise<ModelApiResponse>;
+
+    /**
+     * getListRulesByScoutGroupId
+     * @summary Your GET endpoint
+     * @param {number} scoutGroupId 
+     * @param {string} [query] 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScoutGroupsApiInterface
+     */
+    getListRulesByScoutGroupIdRaw(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<runtime.ApiResponse<ListRules>>;
+
+    /**
+     * getListRulesByScoutGroupId
+     * Your GET endpoint
+     */
+    getListRulesByScoutGroupId(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<ListRules>;
 
     /**
      * Get Group
@@ -257,6 +288,66 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      */
     async deleteScoutGroupById(requestParameters: DeleteScoutGroupByIdRequest): Promise<ModelApiResponse> {
         const response = await this.deleteScoutGroupByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * getListRulesByScoutGroupId
+     * Your GET endpoint
+     */
+    async getListRulesByScoutGroupIdRaw(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<runtime.ApiResponse<ListRules>> {
+        if (requestParameters.scoutGroupId === null || requestParameters.scoutGroupId === undefined) {
+            throw new runtime.RequiredError('scoutGroupId','Required parameter requestParameters.scoutGroupId was null or undefined when calling getListRulesByScoutGroupId.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/groups/{scoutGroupId}/list-rules`.replace(`{${"scoutGroupId"}}`, encodeURIComponent(String(requestParameters.scoutGroupId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListRulesFromJSON(jsonValue));
+    }
+
+    /**
+     * getListRulesByScoutGroupId
+     * Your GET endpoint
+     */
+    async getListRulesByScoutGroupId(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<ListRules> {
+        const response = await this.getListRulesByScoutGroupIdRaw(requestParameters);
         return await response.value();
     }
 

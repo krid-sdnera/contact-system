@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\EmailListRule;
 use App\Entity\ScoutGroup;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 // use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -17,6 +18,7 @@ use App\Entity\Role;
 use OpenAPI\Server\Model\ApiResponse;
 
 use App\Exception\SortKeyNotFound;
+use App\Repository\EmailListRuleRepository;
 
 class SectionsController extends AbstractController implements SectionsApiInterface
 {
@@ -197,6 +199,34 @@ class SectionsController extends AbstractController implements SectionsApiInterf
                 $sort,
                 $pageSize,
                 $page
+            );
+
+            return $result;
+        } catch (SortKeyNotFound $e) {
+            $responseCode = 400;
+            return new ApiResponse([
+                'code' => 400,
+                'type' => 'Bad Request',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getListRulesBySectionId(int $sectionId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
+    {
+        /** @var EmailListRuleRepository */
+        $repo = $this->getDoctrine()->getRepository(EmailListRule::class);
+
+        try {
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page,
+                ['sectionId' => $sectionId]
             );
 
             return $result;

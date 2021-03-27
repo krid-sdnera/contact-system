@@ -128,6 +128,24 @@ class MembersApiInterfaceTest extends WebTestCase
     }
 
     /**
+     * Test case for getListRulesByMemberId
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListRulesByMemberId()
+    {
+        $client = static::createClient();
+
+        $path = '/members/{memberId}/list-rules';
+        $pattern = '{memberId}';
+        $data = $this->genTestData('\d+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
      * Test case for getMemberById
      *
      * Get member.

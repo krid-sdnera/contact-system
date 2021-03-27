@@ -15,34 +15,39 @@
 
 import * as runtime from '../runtime';
 import {
-    List,
-    ListFromJSON,
-    ListToJSON,
-    ListRule,
-    ListRuleFromJSON,
-    ListRuleToJSON,
-    ListType,
-    ListTypeFromJSON,
-    ListTypeToJSON,
-    MemberData,
-    MemberDataFromJSON,
-    MemberDataToJSON,
+    ListData,
+    ListDataFromJSON,
+    ListDataToJSON,
+    ListInput,
+    ListInputFromJSON,
+    ListInputToJSON,
+    ListRuleData,
+    ListRuleDataFromJSON,
+    ListRuleDataToJSON,
+    ListRuleInput,
+    ListRuleInputFromJSON,
+    ListRuleInputToJSON,
+    ListRules,
+    ListRulesFromJSON,
+    ListRulesToJSON,
+    Lists,
+    ListsFromJSON,
+    ListsToJSON,
+    Members,
+    MembersFromJSON,
+    MembersToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
 } from '../models';
 
 export interface CreateListRequest {
-    list?: List;
+    listInput?: ListInput;
 }
 
 export interface CreateListRuleByIdRequest {
     listId: number;
-    listRule?: ListRule;
-}
-
-export interface CreateListTypesRequest {
-    listType?: ListType;
+    listRuleInput?: ListRuleInput;
 }
 
 export interface DeleteListByIdRequest {
@@ -54,8 +59,8 @@ export interface DeleteListRuleByIdRequest {
     ruleId: number;
 }
 
-export interface DeleteListTypeByIdRequest {
-    listTypeId: number;
+export interface GetListByAddressRequest {
+    listAddress: string;
 }
 
 export interface GetListByIdRequest {
@@ -64,6 +69,10 @@ export interface GetListByIdRequest {
 
 export interface GetListMembersByIdRequest {
     listId: number;
+    query?: string;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
 }
 
 export interface GetListRuleByIdRequest {
@@ -71,15 +80,8 @@ export interface GetListRuleByIdRequest {
     ruleId: number;
 }
 
-export interface GetListRulesByIdRequest {
+export interface GetListRulesByListIdRequest {
     listId: number;
-}
-
-export interface GetListTypeByIdRequest {
-    listTypeId: number;
-}
-
-export interface GetListTypesRequest {
     query?: string;
     sort?: string;
     pageSize?: number;
@@ -95,18 +97,13 @@ export interface GetListsRequest {
 
 export interface UpdateListByIdRequest {
     listId: number;
-    list?: List;
+    listInput?: ListInput;
 }
 
 export interface UpdateListRuleByIdRequest {
     listId: number;
     ruleId: number;
-    listRule?: ListRule;
-}
-
-export interface UpdateListTypeByIdRequest {
-    listTypeId: number;
-    listType?: ListType;
+    listRuleInput?: ListRuleInput;
 }
 
 /**
@@ -117,46 +114,32 @@ export interface UpdateListTypeByIdRequest {
 export interface ListsApiInterface {
     /**
      * createList
-     * @param {List} [list] 
+     * @param {ListInput} [listInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    createListRaw(requestParameters: CreateListRequest): Promise<runtime.ApiResponse<List>>;
+    createListRaw(requestParameters: CreateListRequest): Promise<runtime.ApiResponse<ListData>>;
 
     /**
      * createList
      */
-    createList(requestParameters: CreateListRequest): Promise<List>;
+    createList(requestParameters: CreateListRequest): Promise<ListData>;
 
     /**
      * createListRuleById
      * @param {number} listId 
-     * @param {ListRule} [listRule] 
+     * @param {ListRuleInput} [listRuleInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    createListRuleByIdRaw(requestParameters: CreateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRule>>;
+    createListRuleByIdRaw(requestParameters: CreateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>>;
 
     /**
      * createListRuleById
      */
-    createListRuleById(requestParameters: CreateListRuleByIdRequest): Promise<ListRule>;
-
-    /**
-     * createListTypes
-     * @param {ListType} [listType] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ListsApiInterface
-     */
-    createListTypesRaw(requestParameters: CreateListTypesRequest): Promise<runtime.ApiResponse<ListType>>;
-
-    /**
-     * createListTypes
-     */
-    createListTypes(requestParameters: CreateListTypesRequest): Promise<ListType>;
+    createListRuleById(requestParameters: CreateListRuleByIdRequest): Promise<ListRuleData>;
 
     /**
      * deleteListById
@@ -188,18 +171,20 @@ export interface ListsApiInterface {
     deleteListRuleById(requestParameters: DeleteListRuleByIdRequest): Promise<ModelApiResponse>;
 
     /**
-     * deleteListTypeById
-     * @param {number} listTypeId 
+     * getListByAddress
+     * @summary Your GET endpoint
+     * @param {string} listAddress 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    deleteListTypeByIdRaw(requestParameters: DeleteListTypeByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
+    getListByAddressRaw(requestParameters: GetListByAddressRequest): Promise<runtime.ApiResponse<ListData>>;
 
     /**
-     * deleteListTypeById
+     * getListByAddress
+     * Your GET endpoint
      */
-    deleteListTypeById(requestParameters: DeleteListTypeByIdRequest): Promise<ModelApiResponse>;
+    getListByAddress(requestParameters: GetListByAddressRequest): Promise<ListData>;
 
     /**
      * getListById
@@ -209,29 +194,33 @@ export interface ListsApiInterface {
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    getListByIdRaw(requestParameters: GetListByIdRequest): Promise<runtime.ApiResponse<List>>;
+    getListByIdRaw(requestParameters: GetListByIdRequest): Promise<runtime.ApiResponse<ListData>>;
 
     /**
      * getListById
      * Your GET endpoint
      */
-    getListById(requestParameters: GetListByIdRequest): Promise<List>;
+    getListById(requestParameters: GetListByIdRequest): Promise<ListData>;
 
     /**
      * getListMembersById
      * @summary Your GET endpoint
      * @param {number} listId 
+     * @param {string} [query] 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    getListMembersByIdRaw(requestParameters: GetListMembersByIdRequest): Promise<runtime.ApiResponse<Array<MemberData>>>;
+    getListMembersByIdRaw(requestParameters: GetListMembersByIdRequest): Promise<runtime.ApiResponse<Members>>;
 
     /**
      * getListMembersById
      * Your GET endpoint
      */
-    getListMembersById(requestParameters: GetListMembersByIdRequest): Promise<Array<MemberData>>;
+    getListMembersById(requestParameters: GetListMembersByIdRequest): Promise<Members>;
 
     /**
      * getListRuleById
@@ -242,49 +231,18 @@ export interface ListsApiInterface {
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    getListRuleByIdRaw(requestParameters: GetListRuleByIdRequest): Promise<runtime.ApiResponse<ListRule>>;
+    getListRuleByIdRaw(requestParameters: GetListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>>;
 
     /**
      * getListRuleById
      * Your GET endpoint
      */
-    getListRuleById(requestParameters: GetListRuleByIdRequest): Promise<ListRule>;
+    getListRuleById(requestParameters: GetListRuleByIdRequest): Promise<ListRuleData>;
 
     /**
-     * getListRulesById
+     * getListRulesByListId
      * @summary Your GET endpoint
      * @param {number} listId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ListsApiInterface
-     */
-    getListRulesByIdRaw(requestParameters: GetListRulesByIdRequest): Promise<runtime.ApiResponse<Array<ListRule>>>;
-
-    /**
-     * getListRulesById
-     * Your GET endpoint
-     */
-    getListRulesById(requestParameters: GetListRulesByIdRequest): Promise<Array<ListRule>>;
-
-    /**
-     * getListTypeById
-     * @summary Your GET endpoint
-     * @param {number} listTypeId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ListsApiInterface
-     */
-    getListTypeByIdRaw(requestParameters: GetListTypeByIdRequest): Promise<runtime.ApiResponse<ListType>>;
-
-    /**
-     * getListTypeById
-     * Your GET endpoint
-     */
-    getListTypeById(requestParameters: GetListTypeByIdRequest): Promise<ListType>;
-
-    /**
-     * getListTypes
-     * @summary Your GET endpoint
      * @param {string} [query] 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
@@ -293,13 +251,13 @@ export interface ListsApiInterface {
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    getListTypesRaw(requestParameters: GetListTypesRequest): Promise<runtime.ApiResponse<Array<ListType>>>;
+    getListRulesByListIdRaw(requestParameters: GetListRulesByListIdRequest): Promise<runtime.ApiResponse<ListRules>>;
 
     /**
-     * getListTypes
+     * getListRulesByListId
      * Your GET endpoint
      */
-    getListTypes(requestParameters: GetListTypesRequest): Promise<Array<ListType>>;
+    getListRulesByListId(requestParameters: GetListRulesByListIdRequest): Promise<ListRules>;
 
     /**
      * getLists
@@ -312,59 +270,44 @@ export interface ListsApiInterface {
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    getListsRaw(requestParameters: GetListsRequest): Promise<runtime.ApiResponse<Array<List>>>;
+    getListsRaw(requestParameters: GetListsRequest): Promise<runtime.ApiResponse<Lists>>;
 
     /**
      * getLists
      * Your GET endpoint
      */
-    getLists(requestParameters: GetListsRequest): Promise<Array<List>>;
+    getLists(requestParameters: GetListsRequest): Promise<Lists>;
 
     /**
      * updateListById
      * @param {number} listId 
-     * @param {List} [list] 
+     * @param {ListInput} [listInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    updateListByIdRaw(requestParameters: UpdateListByIdRequest): Promise<runtime.ApiResponse<List>>;
+    updateListByIdRaw(requestParameters: UpdateListByIdRequest): Promise<runtime.ApiResponse<ListData>>;
 
     /**
      * updateListById
      */
-    updateListById(requestParameters: UpdateListByIdRequest): Promise<List>;
+    updateListById(requestParameters: UpdateListByIdRequest): Promise<ListData>;
 
     /**
      * updateListRuleById
      * @param {number} listId 
      * @param {number} ruleId 
-     * @param {ListRule} [listRule] 
+     * @param {ListRuleInput} [listRuleInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    updateListRuleByIdRaw(requestParameters: UpdateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRule>>;
+    updateListRuleByIdRaw(requestParameters: UpdateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>>;
 
     /**
      * updateListRuleById
      */
-    updateListRuleById(requestParameters: UpdateListRuleByIdRequest): Promise<ListRule>;
-
-    /**
-     * updateListTypeById
-     * @param {number} listTypeId 
-     * @param {ListType} [listType] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ListsApiInterface
-     */
-    updateListTypeByIdRaw(requestParameters: UpdateListTypeByIdRequest): Promise<runtime.ApiResponse<ListType>>;
-
-    /**
-     * updateListTypeById
-     */
-    updateListTypeById(requestParameters: UpdateListTypeByIdRequest): Promise<ListType>;
+    updateListRuleById(requestParameters: UpdateListRuleByIdRequest): Promise<ListRuleData>;
 
 }
 
@@ -376,7 +319,7 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     /**
      * createList
      */
-    async createListRaw(requestParameters: CreateListRequest): Promise<runtime.ApiResponse<List>> {
+    async createListRaw(requestParameters: CreateListRequest): Promise<runtime.ApiResponse<ListData>> {
         const queryParameters: runtime.HTTPQuery = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -400,16 +343,16 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ListToJSON(requestParameters.list),
+            body: ListInputToJSON(requestParameters.listInput),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListDataFromJSON(jsonValue));
     }
 
     /**
      * createList
      */
-    async createList(requestParameters: CreateListRequest): Promise<List> {
+    async createList(requestParameters: CreateListRequest): Promise<ListData> {
         const response = await this.createListRaw(requestParameters);
         return await response.value();
     }
@@ -417,7 +360,7 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     /**
      * createListRuleById
      */
-    async createListRuleByIdRaw(requestParameters: CreateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRule>> {
+    async createListRuleByIdRaw(requestParameters: CreateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
             throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling createListRuleById.');
         }
@@ -441,62 +384,21 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             }
         }
         const response = await this.request({
-            path: `/lists/{listId}/rules`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
+            path: `/lists/{listId}/list-rules`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ListRuleToJSON(requestParameters.listRule),
+            body: ListRuleInputToJSON(requestParameters.listRuleInput),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListRuleFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListRuleDataFromJSON(jsonValue));
     }
 
     /**
      * createListRuleById
      */
-    async createListRuleById(requestParameters: CreateListRuleByIdRequest): Promise<ListRule> {
+    async createListRuleById(requestParameters: CreateListRuleByIdRequest): Promise<ListRuleData> {
         const response = await this.createListRuleByIdRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * createListTypes
-     */
-    async createListTypesRaw(requestParameters: CreateListTypesRequest): Promise<runtime.ApiResponse<ListType>> {
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/lists/types`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: ListTypeToJSON(requestParameters.listType),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListTypeFromJSON(jsonValue));
-    }
-
-    /**
-     * createListTypes
-     */
-    async createListTypes(requestParameters: CreateListTypesRequest): Promise<ListType> {
-        const response = await this.createListTypesRaw(requestParameters);
         return await response.value();
     }
 
@@ -589,11 +491,12 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * deleteListTypeById
+     * getListByAddress
+     * Your GET endpoint
      */
-    async deleteListTypeByIdRaw(requestParameters: DeleteListTypeByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
-        if (requestParameters.listTypeId === null || requestParameters.listTypeId === undefined) {
-            throw new runtime.RequiredError('listTypeId','Required parameter requestParameters.listTypeId was null or undefined when calling deleteListTypeById.');
+    async getListByAddressRaw(requestParameters: GetListByAddressRequest): Promise<runtime.ApiResponse<ListData>> {
+        if (requestParameters.listAddress === null || requestParameters.listAddress === undefined) {
+            throw new runtime.RequiredError('listAddress','Required parameter requestParameters.listAddress was null or undefined when calling getListByAddress.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -613,20 +516,21 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             }
         }
         const response = await this.request({
-            path: `/lists/types/{listTypeId}`.replace(`{${"listTypeId"}}`, encodeURIComponent(String(requestParameters.listTypeId))),
-            method: 'DELETE',
+            path: `/lists/{listAddress}`.replace(`{${"listAddress"}}`, encodeURIComponent(String(requestParameters.listAddress))),
+            method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListDataFromJSON(jsonValue));
     }
 
     /**
-     * deleteListTypeById
+     * getListByAddress
+     * Your GET endpoint
      */
-    async deleteListTypeById(requestParameters: DeleteListTypeByIdRequest): Promise<ModelApiResponse> {
-        const response = await this.deleteListTypeByIdRaw(requestParameters);
+    async getListByAddress(requestParameters: GetListByAddressRequest): Promise<ListData> {
+        const response = await this.getListByAddressRaw(requestParameters);
         return await response.value();
     }
 
@@ -634,7 +538,7 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
      * getListById
      * Your GET endpoint
      */
-    async getListByIdRaw(requestParameters: GetListByIdRequest): Promise<runtime.ApiResponse<List>> {
+    async getListByIdRaw(requestParameters: GetListByIdRequest): Promise<runtime.ApiResponse<ListData>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
             throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListById.');
         }
@@ -662,14 +566,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListDataFromJSON(jsonValue));
     }
 
     /**
      * getListById
      * Your GET endpoint
      */
-    async getListById(requestParameters: GetListByIdRequest): Promise<List> {
+    async getListById(requestParameters: GetListByIdRequest): Promise<ListData> {
         const response = await this.getListByIdRaw(requestParameters);
         return await response.value();
     }
@@ -678,187 +582,11 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
      * getListMembersById
      * Your GET endpoint
      */
-    async getListMembersByIdRaw(requestParameters: GetListMembersByIdRequest): Promise<runtime.ApiResponse<Array<MemberData>>> {
+    async getListMembersByIdRaw(requestParameters: GetListMembersByIdRequest): Promise<runtime.ApiResponse<Members>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
             throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListMembersById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/lists/{listId}/members`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MemberDataFromJSON));
-    }
-
-    /**
-     * getListMembersById
-     * Your GET endpoint
-     */
-    async getListMembersById(requestParameters: GetListMembersByIdRequest): Promise<Array<MemberData>> {
-        const response = await this.getListMembersByIdRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * getListRuleById
-     * Your GET endpoint
-     */
-    async getListRuleByIdRaw(requestParameters: GetListRuleByIdRequest): Promise<runtime.ApiResponse<ListRule>> {
-        if (requestParameters.listId === null || requestParameters.listId === undefined) {
-            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListRuleById.');
-        }
-
-        if (requestParameters.ruleId === null || requestParameters.ruleId === undefined) {
-            throw new runtime.RequiredError('ruleId','Required parameter requestParameters.ruleId was null or undefined when calling getListRuleById.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/lists/{listId}/rules/{ruleId}`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))).replace(`{${"ruleId"}}`, encodeURIComponent(String(requestParameters.ruleId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListRuleFromJSON(jsonValue));
-    }
-
-    /**
-     * getListRuleById
-     * Your GET endpoint
-     */
-    async getListRuleById(requestParameters: GetListRuleByIdRequest): Promise<ListRule> {
-        const response = await this.getListRuleByIdRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * getListRulesById
-     * Your GET endpoint
-     */
-    async getListRulesByIdRaw(requestParameters: GetListRulesByIdRequest): Promise<runtime.ApiResponse<Array<ListRule>>> {
-        if (requestParameters.listId === null || requestParameters.listId === undefined) {
-            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListRulesById.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/lists/{listId}/rules`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ListRuleFromJSON));
-    }
-
-    /**
-     * getListRulesById
-     * Your GET endpoint
-     */
-    async getListRulesById(requestParameters: GetListRulesByIdRequest): Promise<Array<ListRule>> {
-        const response = await this.getListRulesByIdRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * getListTypeById
-     * Your GET endpoint
-     */
-    async getListTypeByIdRaw(requestParameters: GetListTypeByIdRequest): Promise<runtime.ApiResponse<ListType>> {
-        if (requestParameters.listTypeId === null || requestParameters.listTypeId === undefined) {
-            throw new runtime.RequiredError('listTypeId','Required parameter requestParameters.listTypeId was null or undefined when calling getListTypeById.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/lists/types/{listTypeId}`.replace(`{${"listTypeId"}}`, encodeURIComponent(String(requestParameters.listTypeId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListTypeFromJSON(jsonValue));
-    }
-
-    /**
-     * getListTypeById
-     * Your GET endpoint
-     */
-    async getListTypeById(requestParameters: GetListTypeByIdRequest): Promise<ListType> {
-        const response = await this.getListTypeByIdRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * getListTypes
-     * Your GET endpoint
-     */
-    async getListTypesRaw(requestParameters: GetListTypesRequest): Promise<runtime.ApiResponse<Array<ListType>>> {
         const queryParameters: runtime.HTTPQuery = {};
 
         if (requestParameters.query !== undefined) {
@@ -892,21 +620,129 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             }
         }
         const response = await this.request({
-            path: `/lists/types`,
+            path: `/lists/{listId}/members`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ListTypeFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MembersFromJSON(jsonValue));
     }
 
     /**
-     * getListTypes
+     * getListMembersById
      * Your GET endpoint
      */
-    async getListTypes(requestParameters: GetListTypesRequest): Promise<Array<ListType>> {
-        const response = await this.getListTypesRaw(requestParameters);
+    async getListMembersById(requestParameters: GetListMembersByIdRequest): Promise<Members> {
+        const response = await this.getListMembersByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * getListRuleById
+     * Your GET endpoint
+     */
+    async getListRuleByIdRaw(requestParameters: GetListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>> {
+        if (requestParameters.listId === null || requestParameters.listId === undefined) {
+            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListRuleById.');
+        }
+
+        if (requestParameters.ruleId === null || requestParameters.ruleId === undefined) {
+            throw new runtime.RequiredError('ruleId','Required parameter requestParameters.ruleId was null or undefined when calling getListRuleById.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/lists/{listId}/rules/{ruleId}`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))).replace(`{${"ruleId"}}`, encodeURIComponent(String(requestParameters.ruleId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListRuleDataFromJSON(jsonValue));
+    }
+
+    /**
+     * getListRuleById
+     * Your GET endpoint
+     */
+    async getListRuleById(requestParameters: GetListRuleByIdRequest): Promise<ListRuleData> {
+        const response = await this.getListRuleByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * getListRulesByListId
+     * Your GET endpoint
+     */
+    async getListRulesByListIdRaw(requestParameters: GetListRulesByListIdRequest): Promise<runtime.ApiResponse<ListRules>> {
+        if (requestParameters.listId === null || requestParameters.listId === undefined) {
+            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListRulesByListId.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/lists/{listId}/list-rules`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListRulesFromJSON(jsonValue));
+    }
+
+    /**
+     * getListRulesByListId
+     * Your GET endpoint
+     */
+    async getListRulesByListId(requestParameters: GetListRulesByListIdRequest): Promise<ListRules> {
+        const response = await this.getListRulesByListIdRaw(requestParameters);
         return await response.value();
     }
 
@@ -914,7 +750,7 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
      * getLists
      * Your GET endpoint
      */
-    async getListsRaw(requestParameters: GetListsRequest): Promise<runtime.ApiResponse<Array<List>>> {
+    async getListsRaw(requestParameters: GetListsRequest): Promise<runtime.ApiResponse<Lists>> {
         const queryParameters: runtime.HTTPQuery = {};
 
         if (requestParameters.query !== undefined) {
@@ -954,14 +790,14 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ListFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListsFromJSON(jsonValue));
     }
 
     /**
      * getLists
      * Your GET endpoint
      */
-    async getLists(requestParameters: GetListsRequest): Promise<Array<List>> {
+    async getLists(requestParameters: GetListsRequest): Promise<Lists> {
         const response = await this.getListsRaw(requestParameters);
         return await response.value();
     }
@@ -969,7 +805,7 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     /**
      * updateListById
      */
-    async updateListByIdRaw(requestParameters: UpdateListByIdRequest): Promise<runtime.ApiResponse<List>> {
+    async updateListByIdRaw(requestParameters: UpdateListByIdRequest): Promise<runtime.ApiResponse<ListData>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
             throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling updateListById.');
         }
@@ -997,16 +833,16 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ListToJSON(requestParameters.list),
+            body: ListInputToJSON(requestParameters.listInput),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListDataFromJSON(jsonValue));
     }
 
     /**
      * updateListById
      */
-    async updateListById(requestParameters: UpdateListByIdRequest): Promise<List> {
+    async updateListById(requestParameters: UpdateListByIdRequest): Promise<ListData> {
         const response = await this.updateListByIdRaw(requestParameters);
         return await response.value();
     }
@@ -1014,7 +850,7 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     /**
      * updateListRuleById
      */
-    async updateListRuleByIdRaw(requestParameters: UpdateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRule>> {
+    async updateListRuleByIdRaw(requestParameters: UpdateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
             throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling updateListRuleById.');
         }
@@ -1046,62 +882,17 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ListRuleToJSON(requestParameters.listRule),
+            body: ListRuleInputToJSON(requestParameters.listRuleInput),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListRuleFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListRuleDataFromJSON(jsonValue));
     }
 
     /**
      * updateListRuleById
      */
-    async updateListRuleById(requestParameters: UpdateListRuleByIdRequest): Promise<ListRule> {
+    async updateListRuleById(requestParameters: UpdateListRuleByIdRequest): Promise<ListRuleData> {
         const response = await this.updateListRuleByIdRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * updateListTypeById
-     */
-    async updateListTypeByIdRaw(requestParameters: UpdateListTypeByIdRequest): Promise<runtime.ApiResponse<ListType>> {
-        if (requestParameters.listTypeId === null || requestParameters.listTypeId === undefined) {
-            throw new runtime.RequiredError('listTypeId','Required parameter requestParameters.listTypeId was null or undefined when calling updateListTypeById.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/lists/types/{listTypeId}`.replace(`{${"listTypeId"}}`, encodeURIComponent(String(requestParameters.listTypeId))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: ListTypeToJSON(requestParameters.listType),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListTypeFromJSON(jsonValue));
-    }
-
-    /**
-     * updateListTypeById
-     */
-    async updateListTypeById(requestParameters: UpdateListTypeByIdRequest): Promise<ListType> {
-        const response = await this.updateListTypeByIdRaw(requestParameters);
         return await response.value();
     }
 

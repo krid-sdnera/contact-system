@@ -30,6 +30,7 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
+use OpenAPI\Server\Model\ListRules;
 use OpenAPI\Server\Model\Members;
 use OpenAPI\Server\Model\RoleData;
 use OpenAPI\Server\Model\RoleInput;
@@ -91,6 +92,24 @@ interface RolesApiInterface
      *
      */
     public function deleteRoleById(int $roleId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getListRulesByRoleId
+     *
+     * Your GET endpoint
+     *
+     * @param  int $roleId   (required)
+     * @param  string $query   (optional)
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\ListRules
+     *
+     */
+    public function getListRulesByRoleId(int $roleId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMembersByRoleId

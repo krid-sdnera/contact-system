@@ -1,6 +1,6 @@
 <?php
 /**
- * ListTypeTest
+ * ListRulesTest
  *
  * PHP version 5
  *
@@ -30,16 +30,16 @@
 namespace OpenAPI\Server\Model;
 
 /**
- * ListTypeTest Class Doc Comment
+ * ListRulesTest Class Doc Comment
  *
  * @category    Class */
-// * @description ListType
+// * @description A list of list rules
 /**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
  */
-class ListTypeTest extends \PHPUnit_Framework_TestCase
+class ListRulesTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -71,17 +71,45 @@ class ListTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "ListType"
+     * Test "ListRules"
      */
-    public function testListType()
+    public function testListRules()
     {
-        $testListType = new ListType();
+        $testListRules = new ListRules();
     }
 
     /**
-     * Test attribute "id"
+     * Test attribute "totalItems"
      */
-    public function testPropertyId()
+    public function testPropertyTotalItems()
+    {
+    }
+
+    /**
+     * Test attribute "totalPages"
+     */
+    public function testPropertyTotalPages()
+    {
+    }
+
+    /**
+     * Test attribute "page"
+     */
+    public function testPropertyPage()
+    {
+    }
+
+    /**
+     * Test attribute "pageSize"
+     */
+    public function testPropertyPageSize()
+    {
+    }
+
+    /**
+     * Test attribute "rules"
+     */
+    public function testPropertyRules()
     {
     }
 }

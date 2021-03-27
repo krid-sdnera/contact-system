@@ -16,32 +16,46 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface List
+ * @interface ListData
  */
-export interface List {
+export interface ListData {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListData
+     */
+    id: number;
     /**
      * 
      * @type {string}
-     * @memberof List
+     * @memberof ListData
      */
-    id?: string;
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListData
+     */
+    address: string;
 }
 
-export function ListFromJSON(json: any): List {
-    return ListFromJSONTyped(json, false);
+export function ListDataFromJSON(json: any): ListData {
+    return ListDataFromJSONTyped(json, false);
 }
 
-export function ListFromJSONTyped(json: any, ignoreDiscriminator: boolean): List {
+export function ListDataFromJSONTyped(json: any, ignoreDiscriminator: boolean): ListData {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
+        'id': json['id'],
+        'name': json['name'],
+        'address': json['address'],
     };
 }
 
-export function ListToJSON(value?: List | null): any {
+export function ListDataToJSON(value?: ListData | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -51,6 +65,8 @@ export function ListToJSON(value?: List | null): any {
     return {
         
         'id': value.id,
+        'name': value.name,
+        'address': value.address,
     };
 }
 

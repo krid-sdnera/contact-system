@@ -1,6 +1,6 @@
 <?php
 /**
- * ModelListTest
+ * ListInputTest
  *
  * PHP version 5
  *
@@ -30,16 +30,16 @@
 namespace OpenAPI\Server\Model;
 
 /**
- * ModelListTest Class Doc Comment
+ * ListInputTest Class Doc Comment
  *
  * @category    Class */
-// * @description ModelList
+// * @description ListInput
 /**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
  */
-class ModelListTest extends \PHPUnit_Framework_TestCase
+class ListInputTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -71,17 +71,24 @@ class ModelListTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "ModelList"
+     * Test "ListInput"
      */
-    public function testModelList()
+    public function testListInput()
     {
-        $testModelList = new ModelList();
+        $testListInput = new ListInput();
     }
 
     /**
-     * Test attribute "id"
+     * Test attribute "name"
      */
-    public function testPropertyId()
+    public function testPropertyName()
+    {
+    }
+
+    /**
+     * Test attribute "address"
+     */
+    public function testPropertyAddress()
     {
     }
 }

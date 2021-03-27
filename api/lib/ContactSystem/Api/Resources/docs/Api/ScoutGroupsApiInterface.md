@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createScoutGroup**](ScoutGroupsApiInterface.md#createScoutGroup) | **POST** /groups | Create Group
 [**deleteScoutGroupById**](ScoutGroupsApiInterface.md#deleteScoutGroupById) | **DELETE** /groups/{scoutGroupId} | Delete Group
+[**getListRulesByScoutGroupId**](ScoutGroupsApiInterface.md#getListRulesByScoutGroupId) | **GET** /groups/{scoutGroupId}/list-rules | Your GET endpoint
 [**getScoutGroupById**](ScoutGroupsApiInterface.md#getScoutGroupById) | **GET** /groups/{scoutGroupId} | Get Group
 [**getScoutGroupSectionsById**](ScoutGroupsApiInterface.md#getScoutGroupSectionsById) | **GET** /groups/{scoutGroupId}/sections | Your GET endpoint
 [**getScoutGroups**](ScoutGroupsApiInterface.md#getScoutGroups) | **GET** /groups | Get Groups
@@ -136,6 +137,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OpenAPI\Server\Model\ApiResponse**](../Model/ApiResponse.md)
+
+### Authorization
+
+[contact_auth](../../README.md#contact_auth), [jwt_auth](../../README.md#jwt_auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+## **getListRulesByScoutGroupId**
+> OpenAPI\Server\Model\ListRules getListRulesByScoutGroupId($scoutGroupId, $query, $sort, $pageSize, $page)
+
+Your GET endpoint
+
+getListRulesByScoutGroupId
+
+### Example Implementation
+```php
+<?php
+// src/Acme/MyBundle/Api/ScoutGroupsApiInterface.php
+
+namespace Acme\MyBundle\Api;
+
+use OpenAPI\Server\Api\ScoutGroupsApiInterface;
+
+class ScoutGroupsApi implements ScoutGroupsApiInterface
+{
+
+    /**
+     * Configure API key authorization: contact_auth
+     */
+    public function setcontact_auth($apiKey)
+    {
+        // Retrieve logged in user from $apiKey ...
+    }
+
+    // ...
+
+    /**
+     * Implementation of ScoutGroupsApiInterface#getListRulesByScoutGroupId
+     */
+    public function getListRulesByScoutGroupId(int $scoutGroupId, string $query = null, string $sort = null, int $pageSize = null, int $page = null)
+    {
+        // Implement the operation ...
+    }
+
+    // ...
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scoutGroupId** | **int**|  |
+ **query** | **string**|  | [optional]
+ **sort** | **string**|  | [optional]
+ **pageSize** | **int**|  | [optional]
+ **page** | **int**|  | [optional]
+
+### Return type
+
+[**OpenAPI\Server\Model\ListRules**](../Model/ListRules.md)
 
 ### Authorization
 

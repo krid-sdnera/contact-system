@@ -140,6 +140,24 @@ class ContactsApiInterfaceTest extends WebTestCase
     }
 
     /**
+     * Test case for getListRulesByContactId
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListRulesByContactId()
+    {
+        $client = static::createClient();
+
+        $path = '/contacts/{contactId}/list-rules';
+        $pattern = '{contactId}';
+        $data = $this->genTestData('\d+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
      * Test case for patchContactById
      *
      * .

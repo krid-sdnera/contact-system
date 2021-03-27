@@ -107,6 +107,24 @@ class RolesApiInterfaceTest extends WebTestCase
     }
 
     /**
+     * Test case for getListRulesByRoleId
+     *
+     * Your GET endpoint.
+     *
+     */
+    public function testGetListRulesByRoleId()
+    {
+        $client = static::createClient();
+
+        $path = '/roles/{roleId}/list-rules';
+        $pattern = '{roleId}';
+        $data = $this->genTestData('\d+');
+        $path = str_replace($pattern, $data, $path);
+
+        $crawler = $client->request('GET', $path);
+    }
+
+    /**
      * Test case for getMembersByRoleId
      *
      * List members by role.

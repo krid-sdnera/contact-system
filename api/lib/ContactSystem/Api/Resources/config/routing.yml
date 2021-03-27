@@ -44,6 +44,14 @@ open_api_server_contacts_getcontacts:
     defaults:
         _controller: open_api_server.controller.contacts:getContactsAction
 
+open_api_server_contacts_getlistrulesbycontactid:
+    path:     /contacts/{contactId}/list-rules
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.contacts:getListRulesByContactIdAction
+    requirements:
+        contactId: '\d+'
+
 open_api_server_contacts_patchcontactbyid:
     path:     /contacts/{contactId}
     methods:  [PATCH]
@@ -68,18 +76,12 @@ open_api_server_lists_createlist:
         _controller: open_api_server.controller.lists:createListAction
 
 open_api_server_lists_createlistrulebyid:
-    path:     /lists/{listId}/rules
+    path:     /lists/{listId}/list-rules
     methods:  [POST]
     defaults:
         _controller: open_api_server.controller.lists:createListRuleByIdAction
     requirements:
         listId: '\d+'
-
-open_api_server_lists_createlisttypes:
-    path:     /lists/types
-    methods:  [POST]
-    defaults:
-        _controller: open_api_server.controller.lists:createListTypesAction
 
 open_api_server_lists_deletelistbyid:
     path:     /lists/{listId}
@@ -98,13 +100,13 @@ open_api_server_lists_deletelistrulebyid:
         listId: '\d+'
         ruleId: '\d+'
 
-open_api_server_lists_deletelisttypebyid:
-    path:     /lists/types/{listTypeId}
-    methods:  [DELETE]
+open_api_server_lists_getlistbyaddress:
+    path:     /lists/{listAddress}
+    methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.lists:deleteListTypeByIdAction
+        _controller: open_api_server.controller.lists:getListByAddressAction
     requirements:
-        listTypeId: '\d+'
+        listAddress: '^[a-zA-Z].+$'
 
 open_api_server_lists_getlistbyid:
     path:     /lists/{listId}
@@ -131,27 +133,13 @@ open_api_server_lists_getlistrulebyid:
         listId: '\d+'
         ruleId: '\d+'
 
-open_api_server_lists_getlistrulesbyid:
-    path:     /lists/{listId}/rules
+open_api_server_lists_getlistrulesbylistid:
+    path:     /lists/{listId}/list-rules
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.lists:getListRulesByIdAction
+        _controller: open_api_server.controller.lists:getListRulesByListIdAction
     requirements:
         listId: '\d+'
-
-open_api_server_lists_getlisttypebyid:
-    path:     /lists/types/{listTypeId}
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.lists:getListTypeByIdAction
-    requirements:
-        listTypeId: '\d+'
-
-open_api_server_lists_getlisttypes:
-    path:     /lists/types
-    methods:  [GET]
-    defaults:
-        _controller: open_api_server.controller.lists:getListTypesAction
 
 open_api_server_lists_getlists:
     path:     /lists
@@ -176,14 +164,6 @@ open_api_server_lists_updatelistrulebyid:
         listId: '\d+'
         ruleId: '\d+'
 
-open_api_server_lists_updatelisttypebyid:
-    path:     /lists/types/{listTypeId}
-    methods:  [PUT]
-    defaults:
-        _controller: open_api_server.controller.lists:updateListTypeByIdAction
-    requirements:
-        listTypeId: '\d+'
-
 # members
 open_api_server_members_addmemberrolebyid:
     path:     /members/{memberId}/roles/{roleId}
@@ -205,6 +185,14 @@ open_api_server_members_deletememberbyid:
     methods:  [DELETE]
     defaults:
         _controller: open_api_server.controller.members:deleteMemberByIdAction
+    requirements:
+        memberId: '\d+'
+
+open_api_server_members_getlistrulesbymemberid:
+    path:     /members/{memberId}/list-rules
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.members:getListRulesByMemberIdAction
     requirements:
         memberId: '\d+'
 
@@ -287,6 +275,14 @@ open_api_server_roles_deleterolebyid:
     requirements:
         roleId: '\d+'
 
+open_api_server_roles_getlistrulesbyroleid:
+    path:     /roles/{roleId}/list-rules
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.roles:getListRulesByRoleIdAction
+    requirements:
+        roleId: '\d+'
+
 open_api_server_roles_getmembersbyroleid:
     path:     /roles/{roleId}/members
     methods:  [GET]
@@ -332,6 +328,14 @@ open_api_server_scoutGroups_deletescoutgroupbyid:
     requirements:
         scoutGroupId: '\d+'
 
+open_api_server_scoutGroups_getlistrulesbyscoutgroupid:
+    path:     /groups/{scoutGroupId}/list-rules
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.scoutGroups:getListRulesByScoutGroupIdAction
+    requirements:
+        scoutGroupId: '\d+'
+
 open_api_server_scoutGroups_getscoutgroupbyid:
     path:     /groups/{scoutGroupId}
     methods:  [GET]
@@ -374,6 +378,14 @@ open_api_server_sections_deletesectionbyid:
     methods:  [DELETE]
     defaults:
         _controller: open_api_server.controller.sections:deleteSectionByIdAction
+    requirements:
+        sectionId: '\d+'
+
+open_api_server_sections_getlistrulesbysectionid:
+    path:     /sections/{sectionId}/list-rules
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.sections:getListRulesBySectionIdAction
     requirements:
         sectionId: '\d+'
 

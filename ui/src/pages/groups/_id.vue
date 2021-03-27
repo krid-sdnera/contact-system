@@ -32,6 +32,18 @@
           <sections-table :sections="sections" allow-creation></sections-table>
         </v-col>
       </v-row>
+
+      <v-row>
+        <v-col>
+          <!-- Email Rules Table -->
+          <list-rules-table
+            :rules="rules"
+            :preset-relation="scoutGroup"
+            preset-relation-type="ScoutGroup"
+            allow-creation
+          ></list-rules-table>
+        </v-col>
+      </v-row>
     </v-container>
     <!-- Dialogs -->
     <scout-group-edit
@@ -58,12 +70,13 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { ScoutGroupData, SectionData } from '@api/models';
+import { ListRuleData, ScoutGroupData, SectionData } from '@api/models';
 import ScoutGroupEditDialog from '~/components/dialogs/scout-group-edit.vue';
 import SectionTableComponent from '~/components/tables/sections-table.vue';
 
 import * as scoutGroup from '~/store/scoutGroup';
 import * as section from '~/store/section';
+import * as list from '~/store/emailList';
 import * as ui from '~/store/ui';
 
 @Component({
@@ -87,6 +100,12 @@ export default class ScoutGroupDetailPage extends Vue {
     return this.$store.getters[
       `${section.namespace}/getSectionsByScoutGroupId`
     ](this.id);
+  }
+
+  get rules(): ListRuleData[] {
+    return this.$store.getters[`${list.namespace}/getRulesByScoutGroupId`](
+      this.id
+    );
   }
 
   get isAppUpdating(): boolean {
@@ -114,6 +133,11 @@ export default class ScoutGroupDetailPage extends Vue {
         `${section.namespace}/fetchSectionsByScoutGroupId`,
         this.id
       );
+      this.$store.dispatch(`${list.namespace}/fetchListRulesByScoutGroupId`, {
+        scoutGroupId: this.id,
+      });
+      // Dont wait to load list of lists
+      this.$store.dispatch(`${list.namespace}/fetchAllLists`, {});
 
       if (!this.scoutGroup) {
         this.loading = false;

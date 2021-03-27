@@ -389,6 +389,70 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - Members
+  "/members/{memberId}/list-rules":
+    parameters:
+      - schema:
+          type: integer
+        name: memberId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      description: getListRulesByMemberId
+      operationId: getListRulesByMemberId
+      tags:
+        - Members
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: ListRules
+                description: A list of list rules
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  rules:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/ListRuleData"
+                required:
+                  - rules
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
   /roles:
     get:
       summary: Get roles
@@ -580,6 +644,70 @@ paths:
                   - pageSize
       tags:
         - Roles
+  "/roles/{roleId}/list-rules":
+    parameters:
+      - schema:
+          type: integer
+        name: roleId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      description: getListRulesByRoleId
+      operationId: getListRulesByRoleId
+      tags:
+        - Roles
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: ListRules
+                description: A list of list rules
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  rules:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/ListRuleData"
+                required:
+                  - rules
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
   /contacts:
     get:
       summary: Your GET endpoint
@@ -728,6 +856,70 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - Contacts
+  "/contacts/{contactId}/list-rules":
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      description: getListRulesByContactId
+      operationId: getListRulesByContactId
+      tags:
+        - Contacts
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: ListRules
+                description: A list of list rules
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  rules:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/ListRuleData"
+                required:
+                  - rules
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
   /groups:
     get:
       summary: Get Groups
@@ -902,6 +1094,70 @@ paths:
                   - totalPages
                   - page
                   - pageSize
+  "/groups/{scoutGroupId}/list-rules":
+    parameters:
+      - schema:
+          type: integer
+        name: scoutGroupId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      description: getListRulesByScoutGroupId
+      operationId: getListRulesByScoutGroupId
+      tags:
+        - ScoutGroups
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: ListRules
+                description: A list of list rules
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  rules:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/ListRuleData"
+                required:
+                  - rules
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
   /sections:
     get:
       summary: Get Sections
@@ -1140,6 +1396,70 @@ paths:
                   - page
                   - pageSize
       operationId: getSectionRolesById
+  "/sections/{sectionId}/list-rules":
+    parameters:
+      - schema:
+          type: integer
+        name: sectionId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      description: getListRulesBySectionId
+      operationId: getListRulesBySectionId
+      tags:
+        - Sections
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: ListRules
+                description: A list of list rules
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  rules:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/ListRuleData"
+                required:
+                  - rules
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
   /lists:
     get:
       summary: Your GET endpoint
@@ -1151,9 +1471,34 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/List"
+                title: Lists
+                description: A list of lists
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  lists:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/ListData"
+                required:
+                  - lists
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
       parameters:
         - schema:
             type: string
@@ -1183,12 +1528,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/List"
+                $ref: "#/components/schemas/ListData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/List"
+              $ref: "#/components/schemas/ListInput"
       tags:
         - Lists
   "/lists/{listId}":
@@ -1210,7 +1555,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/List"
+                $ref: "#/components/schemas/ListData"
     put:
       summary: ""
       description: updateListById
@@ -1221,12 +1566,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/List"
+                $ref: "#/components/schemas/ListData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/List"
+              $ref: "#/components/schemas/ListInput"
       tags:
         - Lists
     delete:
@@ -1242,6 +1587,27 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - Lists
+  "/lists/{listAddress}":
+    parameters:
+      - schema:
+          type: string
+          pattern: ^[a-zA-Z].+$
+        name: listAddress
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      description: getListByAddress
+      operationId: getListByAddress
+      tags:
+        - Lists
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListData"
   "/lists/{listId}/members":
     parameters:
       - schema:
@@ -1262,10 +1628,51 @@ paths:
             application/json:
               schema:
                 title: Members
-                type: array
-                items:
-                  $ref: "#/components/schemas/MemberData"
-  "/lists/{listId}/rules":
+                description: A list of members
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  members:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/MemberData"
+                required:
+                  - members
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
+  "/lists/{listId}/list-rules":
     parameters:
       - schema:
           type: integer
@@ -1274,8 +1681,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
-      description: getListRulesById
-      operationId: getListRulesById
+      description: getListRulesByListId
+      operationId: getListRulesByListId
       tags:
         - Lists
       responses:
@@ -1284,9 +1691,51 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ListRule"
+                title: ListRules
+                description: A list of list rules
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  rules:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/ListRuleData"
+                required:
+                  - rules
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
     post:
       summary: ""
       description: createListRuleById
@@ -1297,12 +1746,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListRule"
+                $ref: "#/components/schemas/ListRuleData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ListRule"
+              $ref: "#/components/schemas/ListRuleInput"
       tags:
         - Lists
   "/lists/{listId}/rules/{ruleId}":
@@ -1329,7 +1778,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListRule"
+                $ref: "#/components/schemas/ListRuleData"
     put:
       summary: ""
       description: updateListRuleById
@@ -1340,120 +1789,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListRule"
+                $ref: "#/components/schemas/ListRuleData"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ListRule"
+              $ref: "#/components/schemas/ListRuleInput"
       tags:
         - Lists
     delete:
       summary: ""
       description: deleteListRuleById
       operationId: deleteListRuleById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - Lists
-  /lists/types:
-    get:
-      summary: Your GET endpoint
-      description: getListTypes
-      operationId: getListTypes
-      tags:
-        - Lists
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ListType"
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: query
-        - schema:
-            type: string
-          in: query
-          name: sort
-        - schema:
-            type: integer
-          in: query
-          name: pageSize
-        - schema:
-            type: integer
-          in: query
-          name: page
-    post:
-      summary: ""
-      description: createListTypes
-      operationId: createListTypes
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListType"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ListType"
-      tags:
-        - Lists
-  "/lists/types/{listTypeId}":
-    parameters:
-      - schema:
-          type: integer
-        name: listTypeId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: getListTypeById
-      operationId: getListTypeById
-      tags:
-        - Lists
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListType"
-    put:
-      summary: ""
-      description: updateListTypeById
-      operationId: updateListTypeById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListType"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ListType"
-      tags:
-        - Lists
-    delete:
-      summary: ""
-      description: deleteListTypeById
-      operationId: deleteListTypeById
       responses:
         "200":
           description: OK
@@ -1531,7 +1878,6 @@ components:
           type: string
         message:
           type: string
-
     JwtErrorResponse:
       oneOf:
         - $ref: "#/components/schemas/JwtData"
@@ -2035,24 +2381,101 @@ components:
         - id
         - name
         - scoutGroup
-    List:
-      title: List
+    ListInput:
+      title: ListInput
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+      required:
+        - name
+        - address
+    ListData:
+      title: ListData
       type: object
       properties:
         id:
+          type: integer
+        name:
           type: string
-    ListRule:
-      title: ListRule
+        address:
+          type: string
+      required:
+        - id
+        - name
+        - address
+    ListRuleInput:
+      title: ListRuleInput
+      type: object
+      properties:
+        label:
+          type: string
+        comment:
+          type: string
+        contactId:
+          type: integer
+          nullable: true
+        memberId:
+          type: integer
+          nullable: true
+        roleId:
+          type: integer
+          nullable: true
+        sectionId:
+          type: integer
+          nullable: true
+        scoutGroupId:
+          type: integer
+          nullable: true
+        useMember:
+          type: boolean
+        useContact:
+          type: boolean
+      required:
+        - label
+        - comment
+        - useMember
+        - useContact
+    ListRuleData:
+      title: ListRuleData
       type: object
       properties:
         id:
+          type: integer
+        label:
           type: string
-    ListType:
-      title: ListType
-      type: object
-      properties:
-        id:
+        comment:
           type: string
+        listId:
+          type: integer
+        listName:
+          type: string
+        listAddress:
+          type: string
+        relationType:
+          type: string
+        relationId:
+          type: integer
+        relationName:
+          type: string
+        useMember:
+          type: boolean
+        useContact:
+          type: boolean
+      required:
+        - id
+        - label
+        - comment
+        - listId
+        - listName
+        - listAddress
+        - relationType
+        - relationId
+        - relationName
+        - useMember
+        - useContact
   securitySchemes:
     contact_auth:
       type: apiKey

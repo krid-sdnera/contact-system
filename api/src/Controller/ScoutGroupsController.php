@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\EmailListRule;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 // use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -16,6 +17,7 @@ use App\Entity\Section;
 use OpenAPI\Server\Model\ApiResponse;
 
 use App\Exception\SortKeyNotFound;
+use App\Repository\EmailListRuleRepository;
 
 class ScoutGroupsController extends AbstractController implements ScoutGroupsApiInterface
 {
@@ -151,6 +153,34 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
                 $sort,
                 $pageSize,
                 $page
+            );
+
+            return $result;
+        } catch (SortKeyNotFound $e) {
+            $responseCode = 400;
+            return new ApiResponse([
+                'code' => 400,
+                'type' => 'Bad Request',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getListRulesByScoutGroupId(int $scoutGroupId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
+    {
+        /** @var EmailListRuleRepository */
+        $repo = $this->getDoctrine()->getRepository(EmailListRule::class);
+
+        try {
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page,
+                ['scoutGroupId' => $scoutGroupId]
             );
 
             return $result;

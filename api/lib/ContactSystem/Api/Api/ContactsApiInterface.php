@@ -33,6 +33,7 @@ use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ContactData;
 use OpenAPI\Server\Model\ContactInput;
 use OpenAPI\Server\Model\Contacts;
+use OpenAPI\Server\Model\ListRules;
 
 /**
  * ContactsApiInterface Interface Doc Comment
@@ -117,6 +118,24 @@ interface ContactsApiInterface
      *
      */
     public function getContacts(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getListRulesByContactId
+     *
+     * Your GET endpoint
+     *
+     * @param  int $contactId   (required)
+     * @param  string $query   (optional)
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\ListRules
+     *
+     */
+    public function getListRulesByContactId(int $contactId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation patchContactById

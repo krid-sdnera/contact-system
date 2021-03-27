@@ -31,6 +31,7 @@ namespace OpenAPI\Server\Api;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\Contacts;
+use OpenAPI\Server\Model\ListRules;
 use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\MemberInput;
 use OpenAPI\Server\Model\MemberRoleData;
@@ -110,6 +111,24 @@ interface MembersApiInterface
      *
      */
     public function deleteMemberById(int $memberId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getListRulesByMemberId
+     *
+     * Your GET endpoint
+     *
+     * @param  int $memberId   (required)
+     * @param  string $query   (optional)
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\ListRules
+     *
+     */
+    public function getListRulesByMemberId(int $memberId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMemberById

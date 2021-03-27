@@ -1,6 +1,6 @@
 <?php
 /**
- * ModelList
+ * ListInput
  *
  * PHP version 5
  *
@@ -34,20 +34,30 @@ use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
 
 /**
- * Class representing the ModelList model.
+ * Class representing the ListInput model.
  *
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-class ModelList 
+class ListInput 
 {
         /**
-     * @var string|null
-     * @SerializedName("id")
+     * @var string
+     * @SerializedName("name")
+     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected $id;
+    protected $name;
+
+    /**
+     * @var string
+     * @SerializedName("address")
+     * @Assert\NotNull()
+     * @Assert\Type("string")
+     * @Type("string")
+     */
+    protected $address;
 
     /**
      * Constructor
@@ -55,29 +65,54 @@ class ModelList
      */
     public function __construct(array $data = null)
     {
-        $this->id = isset($data['id']) ? $data['id'] : null;
+        $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->address = isset($data['address']) ? $data['address'] : null;
     }
 
     /**
-     * Gets id.
+     * Gets name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getId(): ?string
+    public function getName(): string
     {
-        return $this->id;
+        return $this->name;
     }
 
     /**
-     * Sets id.
+     * Sets name.
      *
-     * @param string|null $id
+     * @param string $name
      *
      * @return $this
      */
-    public function setId(string $id = null): ?string
+    public function setName(string $name): string
     {
-        $this->id = $id;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets address.
+     *
+     * @return string
+     */
+    public function getAddress(): string
+    {
+        return $this->address;
+    }
+
+    /**
+     * Sets address.
+     *
+     * @param string $address
+     *
+     * @return $this
+     */
+    public function setAddress(string $address): string
+    {
+        $this->address = $address;
 
         return $this;
     }

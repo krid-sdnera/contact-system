@@ -17,11 +17,13 @@ use OpenAPI\Server\Model\MemberRoleInput;
 
 use App\Entity\Member;
 use App\Entity\Contact;
+use App\Entity\EmailListRule;
 use App\Entity\MemberRole;
 use App\Entity\Role;
 use DateTime;
 use OpenAPI\Server\Model\ApiResponse;
 use App\Exception\SortKeyNotFound;
+use App\Repository\EmailListRuleRepository;
 
 class MembersController extends AbstractController implements MembersApiInterface
 {
@@ -301,6 +303,34 @@ class MembersController extends AbstractController implements MembersApiInterfac
                 $sort,
                 $pageSize,
                 $page
+            );
+
+            return $result;
+        } catch (SortKeyNotFound $e) {
+            $responseCode = 400;
+            return new ApiResponse([
+                'code' => 400,
+                'type' => 'Bad Request',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getListRulesByMemberId(int $memberId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
+    {
+        /** @var EmailListRuleRepository */
+        $repo = $this->getDoctrine()->getRepository(EmailListRule::class);
+
+        try {
+            $result = $repo->findByPage(
+                $query,
+                $sort,
+                $pageSize,
+                $page,
+                ['memberId' => $memberId]
             );
 
             return $result;

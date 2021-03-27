@@ -269,6 +269,8 @@
             allow-creation
           ></contacts-table>
         </v-col>
+      </v-row>
+      <v-row>
         <v-col cols="12">
           <!-- Member Role Table -->
           <member-roles-table
@@ -276,6 +278,17 @@
             :member-roles="roles"
             allow-creation
           ></member-roles-table>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <!-- Email Rules Table -->
+          <list-rules-table
+            :rules="rules"
+            :preset-relation="member"
+            preset-relation-type="Member"
+            allow-creation
+          ></list-rules-table>
         </v-col>
       </v-row>
     </v-container>
@@ -311,30 +324,30 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
 import {
-  MemberData,
-  MemberDataStateEnum,
   ContactData,
-  MemberRoleData,
-  MemberOverrideData,
-  ContactDataStateEnum,
-  MemberRoleDataStateEnum,
-  MemberRoleDataManagementStateEnum,
   ContactDataManagementStateEnum,
+  ContactDataStateEnum,
+  ListRuleData,
+  MemberData,
+  MemberOverrideData,
+  MemberRoleData,
+  MemberRoleDataManagementStateEnum,
+  MemberRoleDataStateEnum,
 } from '@api/models';
-import BaseInputComponent from '~/components/form/base-input.vue';
-import MemberEditDialog from '~/components/dialogs/member-edit.vue';
+import { Component, Vue } from 'vue-property-decorator';
 import ContactCreateDialog from '~/components/dialogs/contact-create.vue';
-import MemberRoleCreateDialog from '~/components/dialogs/member-role-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
+import MemberEditDialog from '~/components/dialogs/member-edit.vue';
+import MemberRoleCreateDialog from '~/components/dialogs/member-role-create.vue';
+import BaseInputComponent from '~/components/form/base-input.vue';
 import ContactTableComponent from '~/components/tables/contacts-table.vue';
+import ListRulesTable from '~/components/tables/list-rules-table.vue';
 import MemberRoleTableComponent from '~/components/tables/member-roles-table.vue';
-
-import * as member from '~/store/member';
 import * as contact from '~/store/contact';
+import * as member from '~/store/member';
+import * as list from '~/store/emailList';
 import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
 
 @Component({
   components: {
@@ -345,6 +358,7 @@ import { createAlert } from '~/common/alert';
     DangerConfirmation,
     ContactTableComponent,
     MemberRoleTableComponent,
+    ListRulesTable,
   },
 })
 export default class MemberDetailPage extends Vue {
@@ -366,6 +380,10 @@ export default class MemberDetailPage extends Vue {
     return this.$store.getters[`${member.namespace}/getRolesByMemberId`](
       this.id
     );
+  }
+
+  get rules(): ListRuleData[] {
+    return this.$store.getters[`${list.namespace}/getRulesByMemberId`](this.id);
   }
 
   get isAppUpdating(): boolean {
@@ -407,7 +425,19 @@ export default class MemberDetailPage extends Vue {
         `${member.namespace}/fetchRolesByMemberId`,
         this.id
       );
-      await Promise.all([memberPromise, contactsPromise, memberRolesPromise]);
+      const listRulesPromise = this.$store.dispatch(
+        `${list.namespace}/fetchListRulesByMemberId`,
+        { memberId: this.id }
+      );
+      // Dont wait to load list of lists
+      this.$store.dispatch(`${list.namespace}/fetchAllLists`, {});
+
+      await Promise.all([
+        memberPromise,
+        contactsPromise,
+        memberRolesPromise,
+        listRulesPromise,
+      ]);
     } catch (e) {
       this.error = true;
     } finally {

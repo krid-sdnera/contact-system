@@ -30,6 +30,7 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
+use OpenAPI\Server\Model\ListRules;
 use OpenAPI\Server\Model\Members;
 use OpenAPI\Server\Model\Roles;
 use OpenAPI\Server\Model\SectionData;
@@ -92,6 +93,24 @@ interface SectionsApiInterface
      *
      */
     public function deleteSectionById(int $sectionId, &$responseCode, array &$responseHeaders);
+
+    /**
+     * Operation getListRulesBySectionId
+     *
+     * Your GET endpoint
+     *
+     * @param  int $sectionId   (required)
+     * @param  string $query   (optional)
+     * @param  string $sort   (optional)
+     * @param  int $pageSize   (optional)
+     * @param  int $page   (optional)
+     * @param  integer $responseCode     The HTTP response code to return
+     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     *
+     * @return OpenAPI\Server\Model\ListRules
+     *
+     */
+    public function getListRulesBySectionId(int $sectionId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getMembersBySectionId

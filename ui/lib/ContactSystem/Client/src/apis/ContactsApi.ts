@@ -24,6 +24,9 @@ import {
     Contacts,
     ContactsFromJSON,
     ContactsToJSON,
+    ListRules,
+    ListRulesFromJSON,
+    ListRulesToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
@@ -42,6 +45,14 @@ export interface GetContactByIdRequest {
 }
 
 export interface GetContactsRequest {
+    query?: string;
+    sort?: string;
+    pageSize?: number;
+    page?: number;
+}
+
+export interface GetListRulesByContactIdRequest {
+    contactId: number;
     query?: string;
     sort?: string;
     pageSize?: number;
@@ -126,6 +137,26 @@ export interface ContactsApiInterface {
      * Your GET endpoint
      */
     getContacts(requestParameters: GetContactsRequest): Promise<Contacts>;
+
+    /**
+     * getListRulesByContactId
+     * @summary Your GET endpoint
+     * @param {number} contactId 
+     * @param {string} [query] 
+     * @param {string} [sort] 
+     * @param {number} [pageSize] 
+     * @param {number} [page] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ContactsApiInterface
+     */
+    getListRulesByContactIdRaw(requestParameters: GetListRulesByContactIdRequest): Promise<runtime.ApiResponse<ListRules>>;
+
+    /**
+     * getListRulesByContactId
+     * Your GET endpoint
+     */
+    getListRulesByContactId(requestParameters: GetListRulesByContactIdRequest): Promise<ListRules>;
 
     /**
      * patchContactById
@@ -344,6 +375,66 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
      */
     async getContacts(requestParameters: GetContactsRequest): Promise<Contacts> {
         const response = await this.getContactsRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * getListRulesByContactId
+     * Your GET endpoint
+     */
+    async getListRulesByContactIdRaw(requestParameters: GetListRulesByContactIdRequest): Promise<runtime.ApiResponse<ListRules>> {
+        if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
+            throw new runtime.RequiredError('contactId','Required parameter requestParameters.contactId was null or undefined when calling getListRulesByContactId.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters['sort'] = requestParameters.sort;
+        }
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.page !== undefined) {
+            queryParameters['page'] = requestParameters.page;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["x-auth-token"] = this.configuration.apiKey("x-auth-token"); // contact_auth authentication
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/contacts/{contactId}/list-rules`.replace(`{${"contactId"}}`, encodeURIComponent(String(requestParameters.contactId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListRulesFromJSON(jsonValue));
+    }
+
+    /**
+     * getListRulesByContactId
+     * Your GET endpoint
+     */
+    async getListRulesByContactId(requestParameters: GetListRulesByContactIdRequest): Promise<ListRules> {
+        const response = await this.getListRulesByContactIdRaw(requestParameters);
         return await response.value();
     }
 
