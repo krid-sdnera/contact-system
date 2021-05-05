@@ -59,7 +59,7 @@ const apiPlugin: Plugin = ({ app, store, env, redirect }, inject) => {
 
       const token = store.state[auth.namespace].authToken || '';
 
-      console.log(`token:${token}`);
+      console.debug(`token:${token}`);
       return token;
     },
     middleware: [
