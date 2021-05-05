@@ -7,7 +7,7 @@
     "generate": "yarn run generate:api; yarn run generate:client",
     "generate:api": "common/bin/build-api.sh",
     "generate:client": "common/bin/build-client.sh",
-    "dev:server": "php -S 127.0.0.1:8000 -t api/public/",
+    "dev:server": "php -S 127.0.0.1:8000 -t api/public/ api/public/index.php",
     "dev:ui": "yarn --cwd ui run dev",
     "dev:util:cleardb": "common/bin/initialise-db.sh",
     "build:ui": "yarn --cwd ui run build && yarn --cwd ui run export",
