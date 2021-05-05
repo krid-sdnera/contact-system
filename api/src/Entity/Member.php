@@ -297,7 +297,7 @@ class Member
                 $extranetMember->getGroupName(),
                 $extranetMember->getGroupId()
             );
-        } elseif ($extranetMember->getClassId() === 'OB') {
+        } elseif ($extranetMember->getClassId() === 'AS') {
             echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdOfficeBearer" . PHP_EOL;
             // Convert Position to Roles
             $positions = $extranetMember->getPosition();
@@ -308,7 +308,7 @@ class Member
                 foreach ($positionArray as $i => $position) {
                     $roles[] = new ExtranetRole(
                         $position,
-                        str_replace(' ', '-', strtolower($position)) . '-classIdOfficeBearer',
+                        str_replace(' ', '-', strtolower($position)) . '-classIdAdultSupporter',
                         $extranetMember->getClassId(),
                         $extranetMember->getClassId(),
                         $extranetMember->getGroupName(),

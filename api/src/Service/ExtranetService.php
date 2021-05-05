@@ -138,7 +138,7 @@ class ExtranetService
         $this->doExtranetLogin();
 
         $this->getExtranetReport('total_grand');
-        $this->getExtranetReport('ob');
+        $this->getExtranetReport('as');
 
         $this->getExtranetInvitation('active');
         $this->getExtranetInvitation('approving');
