@@ -181,7 +181,7 @@ class ExtranetService
         } else if ($this->isExtranetPasswordExpiryActive($loginResponse)) {
             $this->checkExtranetLoginPasswordExpiry();
         } else {
-        $this->checkExtranetLoginSuccessfull($loginResponse);
+            $this->checkExtranetLoginSuccessfull($loginResponse);
         }
 
         echo 'Logged in' . PHP_EOL;
@@ -277,6 +277,18 @@ class ExtranetService
         // Fetch Census Report page
         $censusResponse = $this->client->request('GET', '/portal/Interface/MSUCensus/CensusCount/pfcConfirmReport.php');
 
+        // Check for the existance of the successful login style redirect after census.
+        preg_match(
+            '|window.location.replace\(\'\..\/..\/mainPage.php\?var=(\d+)\'\)|',
+            $censusResponse->getContent(),
+            $matches
+        );
+
+        if (count($matches) === 2) {
+            // Login successful
+            return;
+        }
+
         // Check that there is a verify button
         preg_match(
             "|onclick=\"verify\(false,'(\d+)','(redirect)'\)\"|",
@@ -311,7 +323,7 @@ class ExtranetService
         if (count($matches) !== 2) {
             // Unable to login
             throw new Exception('Unable to Login! Check the credentials: case census');
-    }
+        }
     }
 
     private function isExtranetInsuranceActive(ResponseInterface $response): bool
@@ -331,7 +343,7 @@ class ExtranetService
             return false;
         }
         return true;
-        }
+    }
 
     private function checkExtranetLoginInsurance(): void
     {
@@ -373,7 +385,7 @@ class ExtranetService
             return false;
         }
         return true;
-        }
+    }
 
     private function checkExtranetLoginPasswordExpiry(): void
     {
