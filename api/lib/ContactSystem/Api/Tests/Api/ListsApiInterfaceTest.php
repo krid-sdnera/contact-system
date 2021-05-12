@@ -182,16 +182,16 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getListMembersById
+     * Test case for getListRecipientsById
      *
      * Your GET endpoint.
      *
      */
-    public function testGetListMembersById()
+    public function testGetListRecipientsById()
     {
         $client = static::createClient();
 
-        $path = '/lists/{listId}/members';
+        $path = '/lists/{listId}/recipients';
         $pattern = '{listId}';
         $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);

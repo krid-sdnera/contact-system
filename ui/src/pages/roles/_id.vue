@@ -88,7 +88,6 @@
         <v-col>
           <!-- Email Rules Table -->
           <list-rules-table
-            :rules="rules"
             :preset-relation="role"
             preset-relation-type="Role"
             allow-creation
@@ -162,9 +161,6 @@ export default class RoleDetailPage extends Vue {
       this.id
     );
   }
-  get rules(): ListRuleData[] {
-    return this.$store.getters[`${list.namespace}/getRulesByRoleId`](this.id);
-  }
 
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
@@ -184,12 +180,6 @@ export default class RoleDetailPage extends Vue {
       await this.$store.dispatch(`${member.namespace}/fetchMembersByRoleId`, {
         roleId: this.id,
       });
-
-      this.$store.dispatch(`${list.namespace}/fetchListRulesByRoleId`, {
-        roleId: this.id,
-      });
-      // Dont wait to load list of lists
-      this.$store.dispatch(`${list.namespace}/fetchAllLists`, {});
     } catch (e) {
       this.error = true;
     } finally {

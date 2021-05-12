@@ -1608,7 +1608,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ListData"
-  "/lists/{listId}/members":
+  "/lists/{listId}/recipients":
     parameters:
       - schema:
           type: integer
@@ -1617,8 +1617,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
-      description: getListMembersById
-      operationId: getListMembersById
+      description: getListRecipientsById
+      operationId: getListRecipientsById
       tags:
         - Lists
       responses:
@@ -1627,8 +1627,8 @@ paths:
           content:
             application/json:
               schema:
-                title: Members
-                description: A list of members
+                title: Recipients
+                description: A list of recipients
                 type: object
                 properties:
                   totalItems:
@@ -1643,14 +1643,14 @@ paths:
                   pageSize:
                     description: Number of items in this page
                     type: integer
-                  members:
+                  recipients:
                     description: Array containg the list
                     type: array
                     uniqueItems: true
                     items:
-                      $ref: "#/components/schemas/MemberData"
+                      $ref: "#/components/schemas/RecipientData"
                 required:
-                  - members
+                  - recipients
                   - totalItems
                   - totalPages
                   - page
@@ -2157,6 +2157,41 @@ components:
         - id
         - name
         - section
+    RecipientData:
+      title: RecipientData
+      type: object
+      properties:
+        rowId:
+          type: string
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        address:
+          type: string
+        listId:
+          type: integer
+        listName:
+          type: string
+        listAddress:
+          type: string
+        contributingRuleIds:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+      required:
+        - rowId
+        - id
+        - name
+        - type
+        - address
+        - listId
+        - listName
+        - listAddress
+        - contributingRuleIds
     MemberRoleInput:
       title: MemberRoleInput
       type: object

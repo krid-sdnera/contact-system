@@ -124,6 +124,8 @@ export default class DialogListEditComponent extends Vue {
         listInput: this.newList,
       });
 
+      this.$router.push(`/lists/${this.newList?.address}`);
+
       this.dialog = false;
       this.newList = null;
       this.originalChanged = false;

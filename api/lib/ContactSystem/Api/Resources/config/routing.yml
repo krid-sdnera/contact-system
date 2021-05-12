@@ -116,11 +116,11 @@ open_api_server_lists_getlistbyid:
     requirements:
         listId: '\d+'
 
-open_api_server_lists_getlistmembersbyid:
-    path:     /lists/{listId}/members
+open_api_server_lists_getlistrecipientsbyid:
+    path:     /lists/{listId}/recipients
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.lists:getListMembersByIdAction
+        _controller: open_api_server.controller.lists:getListRecipientsByIdAction
     requirements:
         listId: '\d+'
 

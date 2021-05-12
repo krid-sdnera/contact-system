@@ -284,7 +284,6 @@
         <v-col>
           <!-- Email Rules Table -->
           <list-rules-table
-            :rules="rules"
             :preset-relation="member"
             preset-relation-type="Member"
             allow-creation
@@ -382,10 +381,6 @@ export default class MemberDetailPage extends Vue {
     );
   }
 
-  get rules(): ListRuleData[] {
-    return this.$store.getters[`${list.namespace}/getRulesByMemberId`](this.id);
-  }
-
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }
@@ -425,19 +420,8 @@ export default class MemberDetailPage extends Vue {
         `${member.namespace}/fetchRolesByMemberId`,
         this.id
       );
-      const listRulesPromise = this.$store.dispatch(
-        `${list.namespace}/fetchListRulesByMemberId`,
-        { memberId: this.id }
-      );
-      // Dont wait to load list of lists
-      this.$store.dispatch(`${list.namespace}/fetchAllLists`, {});
 
-      await Promise.all([
-        memberPromise,
-        contactsPromise,
-        memberRolesPromise,
-        listRulesPromise,
-      ]);
+      await Promise.all([memberPromise, contactsPromise, memberRolesPromise]);
     } catch (e) {
       this.error = true;
     } finally {

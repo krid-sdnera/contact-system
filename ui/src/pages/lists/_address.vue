@@ -28,6 +28,13 @@
           ></list-rules-table>
         </v-col>
       </v-row>
+
+      <v-row>
+        <v-col>
+          <!-- Members Table -->
+          <list-members-table :list="list" searchable></list-members-table>
+        </v-col>
+      </v-row>
     </v-container>
     <!-- Dialogs -->
     <list-edit :list="list" :open.sync="dialogListEdit"></list-edit>
@@ -50,13 +57,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import {
-  ListData,
-  ListRuleData,
-  // ListDataStateEnum,
-  MemberData,
-  // ListOverrideData,
-} from '@api/models';
+import { ListData, ListRuleData } from '@api/models';
 import BaseInputComponent from '~/components/form/base-input.vue';
 import ListEditDialog from '~/components/dialogs/list-edit.vue';
 import ListRulesTable from '~/components/tables/list-rules-table.vue';
@@ -82,16 +83,6 @@ export default class ListDetailPage extends Vue {
     );
   }
 
-  get rules(): ListRuleData[] {
-    if (!this.list) {
-      return [];
-    }
-
-    return this.$store.getters[`${list.namespace}/getRulesByListId`](
-      this.list.id
-    );
-  }
-
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }
@@ -106,14 +97,6 @@ export default class ListDetailPage extends Vue {
         `${list.namespace}/fetchEmailListByAddress`,
         this.address
       );
-
-      if (!this.list) {
-        throw new Error('list not loaded. cant load rules');
-      }
-
-      await this.$store.dispatch(`${list.namespace}/fetchListRulesByListId`, {
-        listId: this.list.id,
-      });
     } catch (e) {
       this.error = true;
     } finally {

@@ -103,8 +103,7 @@ export default class ListRuleTableComponent extends BaseTable<ListRuleData> {
   name = 'list-rules-table';
   title = 'List Rules';
 
-  @Prop(Array) readonly rules!: ListRuleData[];
-  @Prop(Object) readonly list!: ListData[];
+  @Prop(Object) readonly list!: ListData;
 
   @Prop(Object) readonly presetRelation!:
     | ContactData
@@ -116,8 +115,14 @@ export default class ListRuleTableComponent extends BaseTable<ListRuleData> {
   @Prop(String) readonly presetRelationType!: string | undefined;
 
   get items(): ListRuleData[] {
-    this.totalItems = this.rules.length;
-    return this.rules;
+    const itemIdsToDisplay: number[] = this.serverItemIdsToDisplay as number[];
+    console.log(itemIdsToDisplay);
+
+    return this.$store.getters[`${list.namespace}/getRules`]
+      .filter((x: ListRuleData) => itemIdsToDisplay.includes(x.id))
+      .sort((a: ListRuleData, b: ListRuleData) => {
+        return itemIdsToDisplay.indexOf(a.id) - itemIdsToDisplay.indexOf(b.id);
+      });
   }
 
   relationPath(relationType: string) {
@@ -141,8 +146,77 @@ export default class ListRuleTableComponent extends BaseTable<ListRuleData> {
     { text: 'Actions', value: 'actions' },
   ];
 
+  async fetchListRules(): Promise<ListRules> {
+    switch (this.presetRelationType) {
+      case 'Contact':
+        return this.$store.dispatch(
+          `${list.namespace}/fetchListRulesByContactId`,
+          {
+            ...this.apiOptions,
+            contactId: this.presetRelation.id,
+          }
+        );
+      case 'Member':
+        return this.$store.dispatch(
+          `${list.namespace}/fetchListRulesByMemberId`,
+          {
+            ...this.apiOptions,
+            memberId: this.presetRelation.id,
+          }
+        );
+      case 'Role':
+        return this.$store.dispatch(
+          `${list.namespace}/fetchListRulesByRoleId`,
+          {
+            ...this.apiOptions,
+            roleId: this.presetRelation.id,
+          }
+        );
+      case 'Section':
+        return this.$store.dispatch(
+          `${list.namespace}/fetchListRulesBySectionId`,
+          {
+            ...this.apiOptions,
+            sectionId: this.presetRelation.id,
+          }
+        );
+      case 'ScoutGroup':
+        return this.$store.dispatch(
+          `${list.namespace}/fetchListRulesByScoutGroupId`,
+          {
+            ...this.apiOptions,
+            scoutGroupId: this.presetRelation.id,
+          }
+        );
+      default:
+        return this.$store.dispatch(
+          `${list.namespace}/fetchListRulesByListId`,
+          {
+            ...this.apiOptions,
+            listId: this.list?.id,
+          }
+        );
+    }
+  }
+
   async fetchItems() {
-    this.loading = false;
+    this.loading = true;
+
+    try {
+      const payload = await this.fetchListRules();
+      this.serverItemIdsToDisplay = payload.rules.map(
+        (recipient: ListRuleData) => recipient.id
+      );
+      this.totalItems = payload.totalItems;
+      if (this.apiOptions.page > payload.totalPages) {
+        this.options.page = payload.totalPages;
+      }
+      this.error = false;
+    } catch (e) {
+      this.error = true;
+    } finally {
+      this.loading = false;
+    }
   }
 
   handleCreateSubmit(response: ListData) {

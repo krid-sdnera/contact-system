@@ -123,7 +123,7 @@ Class | Method | HTTP request | Description
 *ListsApiInterface* | [**deleteListRuleById**](Resources/docs/Api/ListsApiInterface.md#deletelistrulebyid) | **DELETE** /lists/{listId}/rules/{ruleId} | 
 *ListsApiInterface* | [**getListByAddress**](Resources/docs/Api/ListsApiInterface.md#getlistbyaddress) | **GET** /lists/{listAddress} | Your GET endpoint
 *ListsApiInterface* | [**getListById**](Resources/docs/Api/ListsApiInterface.md#getlistbyid) | **GET** /lists/{listId} | Your GET endpoint
-*ListsApiInterface* | [**getListMembersById**](Resources/docs/Api/ListsApiInterface.md#getlistmembersbyid) | **GET** /lists/{listId}/members | Your GET endpoint
+*ListsApiInterface* | [**getListRecipientsById**](Resources/docs/Api/ListsApiInterface.md#getlistrecipientsbyid) | **GET** /lists/{listId}/recipients | Your GET endpoint
 *ListsApiInterface* | [**getListRuleById**](Resources/docs/Api/ListsApiInterface.md#getlistrulebyid) | **GET** /lists/{listId}/rules/{ruleId} | Your GET endpoint
 *ListsApiInterface* | [**getListRulesByListId**](Resources/docs/Api/ListsApiInterface.md#getlistrulesbylistid) | **GET** /lists/{listId}/list-rules | Your GET endpoint
 *ListsApiInterface* | [**getLists**](Resources/docs/Api/ListsApiInterface.md#getlists) | **GET** /lists | Your GET endpoint
@@ -193,6 +193,8 @@ Class | Method | HTTP request | Description
  - [MemberRoles](Resources/docs/Model/MemberRoles.md)
  - [MemberSuggetion](Resources/docs/Model/MemberSuggetion.md)
  - [Members](Resources/docs/Model/Members.md)
+ - [RecipientData](Resources/docs/Model/RecipientData.md)
+ - [Recipients](Resources/docs/Model/Recipients.md)
  - [RoleData](Resources/docs/Model/RoleData.md)
  - [RoleInput](Resources/docs/Model/RoleInput.md)
  - [Roles](Resources/docs/Model/Roles.md)

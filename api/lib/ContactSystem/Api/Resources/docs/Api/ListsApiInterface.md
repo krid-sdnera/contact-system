@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**deleteListRuleById**](ListsApiInterface.md#deleteListRuleById) | **DELETE** /lists/{listId}/rules/{ruleId} | 
 [**getListByAddress**](ListsApiInterface.md#getListByAddress) | **GET** /lists/{listAddress} | Your GET endpoint
 [**getListById**](ListsApiInterface.md#getListById) | **GET** /lists/{listId} | Your GET endpoint
-[**getListMembersById**](ListsApiInterface.md#getListMembersById) | **GET** /lists/{listId}/members | Your GET endpoint
+[**getListRecipientsById**](ListsApiInterface.md#getListRecipientsById) | **GET** /lists/{listId}/recipients | Your GET endpoint
 [**getListRuleById**](ListsApiInterface.md#getListRuleById) | **GET** /lists/{listId}/rules/{ruleId} | Your GET endpoint
 [**getListRulesByListId**](ListsApiInterface.md#getListRulesByListId) | **GET** /lists/{listId}/list-rules | Your GET endpoint
 [**getLists**](ListsApiInterface.md#getLists) | **GET** /lists | Your GET endpoint
@@ -404,12 +404,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getListMembersById**
-> OpenAPI\Server\Model\Members getListMembersById($listId, $query, $sort, $pageSize, $page)
+## **getListRecipientsById**
+> OpenAPI\Server\Model\Recipients getListRecipientsById($listId, $query, $sort, $pageSize, $page)
 
 Your GET endpoint
 
-getListMembersById
+getListRecipientsById
 
 ### Example Implementation
 ```php
@@ -434,9 +434,9 @@ class ListsApi implements ListsApiInterface
     // ...
 
     /**
-     * Implementation of ListsApiInterface#getListMembersById
+     * Implementation of ListsApiInterface#getListRecipientsById
      */
-    public function getListMembersById(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null)
+    public function getListRecipientsById(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\Members**](../Model/Members.md)
+[**OpenAPI\Server\Model\Recipients**](../Model/Recipients.md)
 
 ### Authorization
 

@@ -238,6 +238,17 @@
           </v-card>
         </v-col>
       </v-row>
+
+      <v-row>
+        <v-col>
+          <!-- Email Rules Table -->
+          <list-rules-table
+            :preset-relation="contact"
+            preset-relation-type="Contact"
+            allow-creation
+          ></list-rules-table>
+        </v-col>
+      </v-row>
     </v-container>
     <!-- Dialogs -->
     <contact-edit

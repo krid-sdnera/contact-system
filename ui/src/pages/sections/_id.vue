@@ -63,7 +63,6 @@
         <v-col>
           <!-- Email Rules Table -->
           <list-rules-table
-            :rules="rules"
             :preset-relation="section"
             preset-relation-type="Section"
             allow-creation
@@ -140,12 +139,6 @@ export default class SectionDetailPage extends Vue {
     );
   }
 
-  get rules(): ListRuleData[] {
-    return this.$store.getters[`${list.namespace}/getRulesBySectionId`](
-      this.id
-    );
-  }
-
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }
@@ -160,11 +153,6 @@ export default class SectionDetailPage extends Vue {
         this.id
       );
       this.$store.dispatch(`${role.namespace}/fetchRolesBySectionId`, this.id);
-      this.$store.dispatch(`${list.namespace}/fetchListRulesBySectionId`, {
-        sectionId: this.id,
-      });
-      // Dont wait to load list of lists
-      this.$store.dispatch(`${list.namespace}/fetchAllLists`, {});
 
       if (!this.section) {
         this.loading = false;

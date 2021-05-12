@@ -11,6 +11,7 @@ use Doctrine\ORM\ORMException;
 use OpenAPI\Server\Api\ListsApiInterface;
 
 use App\Entity\EmailList;
+use App\Entity\EmailListRecipient;
 use App\Entity\EmailListRule;
 use App\Entity\Member;
 use App\Entity\Role;
@@ -297,7 +298,7 @@ class ListsController extends AbstractController implements ListsApiInterface
     /**
      * {@inheritdoc}
      */
-    public function getListMembersById(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
+    public function getListRecipientsById(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
     {
         /** @var EmailList */
         $emailList = $this->getDoctrine()
@@ -312,50 +313,96 @@ class ListsController extends AbstractController implements ListsApiInterface
                 'message' => "List (${listId}) not found"
             ]);
         }
-
         /** @var MemberRepository */
-        $memberRepo = $this->getDoctrine()->getRepository(MemberScoutGroup::class);
+        $memberRepo = $this->getDoctrine()->getRepository(Member::class);
+        /** @var ContactRepository */
+        $contactRepo = $this->getDoctrine()->getRepository(Contact::class);
+        /** @var EmailListRecipientRepository */
+        $emailListRecipientRepo = $this->getDoctrine()->getRepository(EmailListRecipient::class);
+
+        $memberToRule = [];
+        $contactToRule = [];
+        function addMemberById(&$memberToRule, int $memberId, EmailListRule $rule)
+        {
+            if ($rule->getUseMember()) {
+                $memberToRule[$memberId][] = $rule->getId();
+            }
+        }
+        function addContactFromMember(&$contactToRule, Member $member, EmailListRule $rule)
+        {
+            if ($rule->getUseContact()) {
+                foreach ($member->getContacts() as $i => $contact) {
+                    $contactToRule[$contact->getId()][] = $rule->getId();
+                }
+            }
+        }
+        function addContactById(&$contactToRule, int $contactId, EmailListRule $rule)
+        {
+            if ($rule->getUseContact()) {
+                $contactToRule[$contactId][] = $rule->getId();
+            }
+        }
 
         $rules = $emailList->getEmailListRules();
-        $memberToRule = [];
-        $ruleMap = [];
         foreach ($rules as $i => $rule) {
-            $ruleMap[$rule->getId()] = $rule;
 
-            if ($rule->getMember()) {
-                $member = $rule->getMember();
-                $memberToRule[$member->getId()] = $rule->getId();
-            } else if ($rule->getContact()) {
-                $contact = $rule->getContact();
-                $memberToRule[$contact->getMemberId()] = $rule->getId();
-            } else if ($rule->getRole()) {
-                $role = $rule->getRole();
+            if ($member = $rule->getMember()) {
+                addMemberById($memberToRule, $member->getId(), $rule);
+                addContactFromMember($contactToRule, $member, $rule);
+            } else if ($contact = $rule->getContact()) {
+                addContactById($contactToRule, $contact->getId(), $rule);
+            } else if ($role = $rule->getRole()) {
 
+                // Get members of this role.
                 $qb = $memberRepo->createQueryBuilder('m');
                 $qb->select('m.id');
                 $qb->join('m.roles', 'mr', Join::WITH, $qb->expr()->eq('mr.role', ':role'));
                 $qb->setParameter('role', $role->getId());
+                $result = $qb->getQuery()->getScalarResult();
+
+                foreach ($result as $i => $memberId) {
+                    addMemberById($memberToRule, $memberId['id'], $rule);
+                }
+
+                // Get contacts of this role.
+                $qb = $contactRepo->createQueryBuilder('c');
+                $qb->select('c.id');
+                $qb->join('c.member', 'm');
+                $qb->join('m.roles', 'mr', Join::WITH, $qb->expr()->eq('mr.role', ':role'));
+                $qb->setParameter('role', $role->getId());
+                $result = $qb->getQuery()->getScalarResult();
+
+                foreach ($result as $i => $contactId) {
+                    addContactById($contactToRule, $contactId['id'], $rule);
+                }
+            } else if ($section = $rule->getSection()) {
+                // Get members of this section.
+                $qb = $memberRepo->createQueryBuilder('m');
+                $qb->select('m.id');
+                $qb->join('m.roles', 'mr');
+                $qb->join('mr.role', 'r', Join::WITH, $qb->expr()->eq('r.section', ':section'));
+                $qb->setParameter('section', $section->getId());                // echo 'here2';
 
                 $result = $qb->getQuery()->getScalarResult();
                 foreach ($result as $i => $memberId) {
-                    $memberToRule[$memberId] = $rule->getId();
+                    addMemberById($memberToRule, $memberId['id'], $rule);
                 }
-            } else if ($rule->getSection()) {
-                $section = $rule->getSection();
 
-                $qb = $memberRepo->createQueryBuilder('m');
-                $qb->select('m.id');
+                // Get contacts of this section.
+                $qb = $contactRepo->createQueryBuilder('c');
+                $qb->select('c.id');
+                $qb->join('c.member', 'm');
                 $qb->join('m.roles', 'mr');
                 $qb->join('mr.role', 'r', Join::WITH, $qb->expr()->eq('r.section', ':section'));
                 $qb->setParameter('section', $section->getId());
 
                 $result = $qb->getQuery()->getScalarResult();
-                foreach ($result as $i => $memberId) {
-                    $memberToRule[$memberId] = $rule->getId();
+                foreach ($result as $i => $contactId) {
+                    addContactById($contactToRule, $contactId['id'], $rule);
                 }
-            } else if ($rule->getScoutGroup()) {
-                $scoutGroup = $rule->getscoutGroup();
+            } else if ($scoutGroup = $rule->getScoutGroup()) {
 
+                // Get members of this scout group.
                 $qb = $memberRepo->createQueryBuilder('m');
                 $qb->select('m.id');
                 $qb->join('m.roles', 'mr');
@@ -365,7 +412,21 @@ class ListsController extends AbstractController implements ListsApiInterface
 
                 $result = $qb->getQuery()->getScalarResult();
                 foreach ($result as $i => $memberId) {
-                    $memberToRule[$memberId] = $rule->getId();
+                    addMemberById($memberToRule, $memberId['id'], $rule);
+                }
+
+                // Get contacts of this scout group.
+                $qb = $contactRepo->createQueryBuilder('c');
+                $qb->select('c.id');
+                $qb->join('c.member', 'm');
+                $qb->join('m.roles', 'mr');
+                $qb->join('mr.role', 'r');
+                $qb->join('r.section', 's', Join::WITH, $qb->expr()->eq('s.scoutGroup', ':scoutGroup'));
+                $qb->setParameter('scoutGroup', $scoutGroup->getId());
+
+                $result = $qb->getQuery()->getScalarResult();
+                foreach ($result as $i => $contactId) {
+                    addContactById($contactToRule, $contactId['id'], $rule);
                 }
             } else {
                 // Intentionally left empty.
@@ -373,11 +434,23 @@ class ListsController extends AbstractController implements ListsApiInterface
         }
 
         $memberIds = array_keys($memberToRule);
+        $contactIds = array_keys($contactToRule);
 
-        $qb = $memberRepo->createQueryBuilder('m')->select('m');
-        $qb->where($qb->expr()->in('m.id', ':memberIds'));
+        $qb = $emailListRecipientRepo->createQueryBuilder('e')->select('e');
+        $qb->where($qb->expr()->orX(
+            $qb->expr()->andX(
+                $qb->expr()->in('e.id', ':memberIds'),
+                $qb->expr()->eq('e.type', ':memberType')
+            ),
+            $qb->expr()->andX(
+                $qb->expr()->in('e.id', ':contactIds'),
+                $qb->expr()->eq('e.type', ':contactType')
+            )
+        ));
         $qb->setParameter('memberIds', $memberIds);
-
+        $qb->setParameter('memberType', 'member');
+        $qb->setParameter('contactIds', $contactIds);
+        $qb->setParameter('contactType', 'contact');
 
         $expression = $qb->expr()->orX(
             $qb->expr()->like('e.firstname', ':search'),
@@ -385,16 +458,21 @@ class ListsController extends AbstractController implements ListsApiInterface
             $qb->expr()->like('e.membershipNumber', ':search')
         );
 
-
-
         try {
-            return $memberRepo->pageFetcherHelper(
+            return $emailListRecipientRepo->pageFetcherHelper(
                 $expression,
-                function (Member $member) use ($memberToRule, $ruleMap) {
-                    $rule = $ruleMap[$memberToRule[$member->getId()]];
-                    return $member->toListMemberData($rule);
+                function (EmailListRecipient $recipient) use ($emailList, $memberToRule, $contactToRule) {
+                    if ($recipient->getType() === 'member') {
+                        $contributingRuleIds = $memberToRule[$recipient->getId()];
+                    } else if ($recipient->getType() === 'contact') {
+                        $contributingRuleIds = $contactToRule[$recipient->getId()];
+                    } else {
+                        $contributingRuleIds = [];
+                    }
+
+                    return $recipient->toListRecipientData($emailList, $contributingRuleIds);
                 },
-                'members',
+                'recipients',
                 "%${query}%",
                 $sort,
                 $pageSize,
@@ -402,7 +480,6 @@ class ListsController extends AbstractController implements ListsApiInterface
                 'id',
                 $qb
             );
-
 
             return $result;
         } catch (SortKeyNotFound $e) {
@@ -527,7 +604,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             ->getRepository(EmailList::class)
             ->findBy(['address' => $emailAddress]);
 
-        if (!$emailList) {
+        if ($emailList) {
             $responseCode = 500;
             return new ApiResponse([
                 'code' => 500,

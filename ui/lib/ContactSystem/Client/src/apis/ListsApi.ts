@@ -33,12 +33,12 @@ import {
     Lists,
     ListsFromJSON,
     ListsToJSON,
-    Members,
-    MembersFromJSON,
-    MembersToJSON,
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
+    Recipients,
+    RecipientsFromJSON,
+    RecipientsToJSON,
 } from '../models';
 
 export interface CreateListRequest {
@@ -67,7 +67,7 @@ export interface GetListByIdRequest {
     listId: number;
 }
 
-export interface GetListMembersByIdRequest {
+export interface GetListRecipientsByIdRequest {
     listId: number;
     query?: string;
     sort?: string;
@@ -203,7 +203,7 @@ export interface ListsApiInterface {
     getListById(requestParameters: GetListByIdRequest): Promise<ListData>;
 
     /**
-     * getListMembersById
+     * getListRecipientsById
      * @summary Your GET endpoint
      * @param {number} listId 
      * @param {string} [query] 
@@ -214,13 +214,13 @@ export interface ListsApiInterface {
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    getListMembersByIdRaw(requestParameters: GetListMembersByIdRequest): Promise<runtime.ApiResponse<Members>>;
+    getListRecipientsByIdRaw(requestParameters: GetListRecipientsByIdRequest): Promise<runtime.ApiResponse<Recipients>>;
 
     /**
-     * getListMembersById
+     * getListRecipientsById
      * Your GET endpoint
      */
-    getListMembersById(requestParameters: GetListMembersByIdRequest): Promise<Members>;
+    getListRecipientsById(requestParameters: GetListRecipientsByIdRequest): Promise<Recipients>;
 
     /**
      * getListRuleById
@@ -579,12 +579,12 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * getListMembersById
+     * getListRecipientsById
      * Your GET endpoint
      */
-    async getListMembersByIdRaw(requestParameters: GetListMembersByIdRequest): Promise<runtime.ApiResponse<Members>> {
+    async getListRecipientsByIdRaw(requestParameters: GetListRecipientsByIdRequest): Promise<runtime.ApiResponse<Recipients>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
-            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListMembersById.');
+            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListRecipientsById.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -620,21 +620,21 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             }
         }
         const response = await this.request({
-            path: `/lists/{listId}/members`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
+            path: `/lists/{listId}/recipients`.replace(`{${"listId"}}`, encodeURIComponent(String(requestParameters.listId))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MembersFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => RecipientsFromJSON(jsonValue));
     }
 
     /**
-     * getListMembersById
+     * getListRecipientsById
      * Your GET endpoint
      */
-    async getListMembersById(requestParameters: GetListMembersByIdRequest): Promise<Members> {
-        const response = await this.getListMembersByIdRaw(requestParameters);
+    async getListRecipientsById(requestParameters: GetListRecipientsByIdRequest): Promise<Recipients> {
+        const response = await this.getListRecipientsByIdRaw(requestParameters);
         return await response.value();
     }
 

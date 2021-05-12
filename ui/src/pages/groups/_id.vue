@@ -37,7 +37,6 @@
         <v-col>
           <!-- Email Rules Table -->
           <list-rules-table
-            :rules="rules"
             :preset-relation="scoutGroup"
             preset-relation-type="ScoutGroup"
             allow-creation
@@ -102,12 +101,6 @@ export default class ScoutGroupDetailPage extends Vue {
     ](this.id);
   }
 
-  get rules(): ListRuleData[] {
-    return this.$store.getters[`${list.namespace}/getRulesByScoutGroupId`](
-      this.id
-    );
-  }
-
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }
@@ -133,11 +126,6 @@ export default class ScoutGroupDetailPage extends Vue {
         `${section.namespace}/fetchSectionsByScoutGroupId`,
         this.id
       );
-      this.$store.dispatch(`${list.namespace}/fetchListRulesByScoutGroupId`, {
-        scoutGroupId: this.id,
-      });
-      // Dont wait to load list of lists
-      this.$store.dispatch(`${list.namespace}/fetchAllLists`, {});
 
       if (!this.scoutGroup) {
         this.loading = false;

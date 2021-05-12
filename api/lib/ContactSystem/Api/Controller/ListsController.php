@@ -44,7 +44,7 @@ use OpenAPI\Server\Model\ListRuleData;
 use OpenAPI\Server\Model\ListRuleInput;
 use OpenAPI\Server\Model\ListRules;
 use OpenAPI\Server\Model\Lists;
-use OpenAPI\Server\Model\Members;
+use OpenAPI\Server\Model\Recipients;
 
 /**
  * ListsController Class Doc Comment
@@ -625,14 +625,14 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation getListMembersById
+     * Operation getListRecipientsById
      *
      * Your GET endpoint
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getListMembersByIdAction(Request $request, $listId)
+    public function getListRecipientsByIdAction(Request $request, $listId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -715,7 +715,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getListMembersById($listId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
+            $result = $handler->getListRecipientsById($listId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

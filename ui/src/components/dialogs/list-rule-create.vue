@@ -171,6 +171,9 @@ export default class DialogListRuleCreateComponent extends Vue {
       useMember: this.presetRelationType === 'Member' ? true : false,
       useContact: this.presetRelationType === 'Contact' ? true : false,
     } as ListRuleInput);
+
+    // Dont wait to load list of lists
+    this.$store.dispatch(`${list.namespace}/fetchAllLists`, {});
   }
 
   closeCreateListModal() {

@@ -24,6 +24,8 @@ export * from './MemberRoles';
 export * from './MemberSuggetion';
 export * from './Members';
 export * from './ModelApiResponse';
+export * from './RecipientData';
+export * from './Recipients';
 export * from './RoleData';
 export * from './RoleInput';
 export * from './Roles';

@@ -36,7 +36,7 @@ use OpenAPI\Server\Model\ListRuleData;
 use OpenAPI\Server\Model\ListRuleInput;
 use OpenAPI\Server\Model\ListRules;
 use OpenAPI\Server\Model\Lists;
-use OpenAPI\Server\Model\Members;
+use OpenAPI\Server\Model\Recipients;
 
 /**
  * ListsApiInterface Interface Doc Comment
@@ -146,7 +146,7 @@ interface ListsApiInterface
     public function getListById(int $listId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getListMembersById
+     * Operation getListRecipientsById
      *
      * Your GET endpoint
      *
@@ -158,10 +158,10 @@ interface ListsApiInterface
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Members
+     * @return OpenAPI\Server\Model\Recipients
      *
      */
-    public function getListMembersById(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getListRecipientsById(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListRuleById

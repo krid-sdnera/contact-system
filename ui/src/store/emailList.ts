@@ -3,6 +3,7 @@ import {
   CreateListRuleByIdRequest,
   DeleteListByIdRequest,
   DeleteListRuleByIdRequest,
+  GetListRecipientsByIdRequest,
   GetListRuleByIdRequest,
   GetListRulesByContactIdRequest,
   GetListRulesByListIdRequest,
@@ -20,6 +21,8 @@ import {
   ListRules,
   Lists,
   ModelApiResponse,
+  RecipientData,
+  Recipients,
 } from '@api/models';
 import Vue from 'vue';
 import { ActionTree, GetterTree, MutationTree } from 'vuex';
@@ -32,9 +35,11 @@ export const state = () =>
   ({
     emailLists: {},
     rules: {},
+    recipients: {},
   } as {
     emailLists: Record<number, ListData>;
     rules: Record<number, ListRuleData>;
+    recipients: Record<number, RecipientData>;
   });
 
 export type RootState = ReturnType<typeof state>;
@@ -52,6 +57,17 @@ export const getters: GetterTree<RootState, RootState> = {
     );
 
     return emailList || null;
+  },
+  getRecipients: (state): RecipientData[] => {
+    return Object.values(state.recipients);
+  },
+  getRecipientsByListId: (state) => (listId: number): RecipientData[] => {
+    return Object.values(state.recipients).filter(
+      (recipient): boolean => recipient.listId === listId
+    );
+  },
+  getRules: (state): ListRuleData[] => {
+    return Object.values(state.rules);
   },
   getRuleById: (state) => (ruleId: number): ListRuleData => {
     return state.rules[ruleId] || null;
@@ -114,6 +130,17 @@ export const mutations: MutationTree<RootState> = {
   setListRules: (state, rules: Array<ListRuleData>) => {
     rules.forEach((rule) => {
       Vue.set(state.rules, rule.id, rule);
+    });
+  },
+  setRecipientsById: (state, recipient: RecipientData) => {
+    Vue.set(state.recipients, recipient.rowId, recipient);
+  },
+  removeRecipientsById: (state, recipientRowId: number) => {
+    Vue.delete(state.recipients, recipientRowId);
+  },
+  setRecipients: (state, recipients: Array<RecipientData>) => {
+    recipients.forEach((recipient) => {
+      Vue.set(state.recipients, recipient.rowId, recipient);
     });
   },
 };
@@ -219,6 +246,14 @@ export const actions: ActionTree<RootState, RootState> = {
         e
       );
     }
+  },
+  async fetchListRecipientsById(
+    { commit },
+    options: GetListRecipientsByIdRequest
+  ): Promise<Recipients> {
+    const payload = await this.$api.lists.getListRecipientsById(options);
+    commit('setRecipients', payload.recipients);
+    return payload;
   },
   async fetchListRulesByListId(
     { commit },
