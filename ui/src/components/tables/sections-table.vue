@@ -66,6 +66,7 @@ import {
   ModelApiResponse,
   SectionData,
   SectionInput,
+  ScoutGroupData,
 } from '@api/models';
 // import SectionCreateDialog from '~/components/dialogs/section-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
@@ -81,19 +82,16 @@ import BaseTable from '~/components/tables/base-table';
     DangerConfirmation,
   },
 })
-export default class SectionTableComponent extends BaseTable<SectionData> {
+export default class SectionTableComponent extends BaseTable<
+  SectionData,
+  number
+> {
   name = 'sections-table';
   title = 'Sections';
-  @Prop(Array) readonly sections!: SectionData[] | undefined;
+  @Prop(Object) readonly scoutGroup: ScoutGroupData | undefined;
 
   get items(): SectionData[] {
-    if (this.sections) {
-      this.totalItems = this.sections?.length || 0;
-
-      // @TODO: potentially apply in browser filter if sections are supplied.
-      return this.sections || [];
-    }
-    const itemIdsToDisplay: number[] = this.serverItemIdsToDisplay as number[];
+    const itemIdsToDisplay = this.serverItemIdsToDisplay;
     console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${section.namespace}/getSections`]
@@ -110,18 +108,21 @@ export default class SectionTableComponent extends BaseTable<SectionData> {
   ];
 
   async fetchItems() {
-    if (this.sections) {
-      this.totalItems = this.sections.length;
-      return;
-    }
     this.loading = true;
 
     try {
-      const payload: Sections = await this.$store.dispatch(
-        `${section.namespace}/fetchSections`,
-        this.apiOptions
-      );
-
+      let payload: Sections;
+      if (this.scoutGroup) {
+        payload = await this.$store.dispatch(
+          `${section.namespace}/fetchSectionsByScoutGroupId`,
+          { ...this.apiOptions, scoutGroupId: this.scoutGroup.id }
+        );
+      } else {
+        payload = await this.$store.dispatch(
+          `${section.namespace}/fetchSections`,
+          this.apiOptions
+        );
+      }
       this.serverItemIdsToDisplay = payload.sections.map(
         (section: SectionData) => section.id
       );

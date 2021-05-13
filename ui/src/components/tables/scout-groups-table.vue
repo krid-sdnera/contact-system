@@ -83,20 +83,14 @@ import BaseTable from '~/components/tables/base-table';
   },
 })
 export default class ScoutgroupTableComponent extends BaseTable<
-  ScoutGroupData
+  ScoutGroupData,
+  number
 > {
   name = 'scout-groups-table';
   title = 'Groups';
-  @Prop(Array) readonly scoutGroups!: ScoutGroupData[] | undefined;
 
   get items(): ScoutGroupData[] {
-    if (this.scoutGroups) {
-      this.totalItems = this.scoutGroups?.length || 0;
-
-      // @TODO: potentially apply in browser filter if scoutgroups are supplied.
-      return this.scoutGroups || [];
-    }
-    const itemIdsToDisplay: number[] = this.serverItemIdsToDisplay as number[];
+    const itemIdsToDisplay = this.serverItemIdsToDisplay;
     console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${scoutGroup.namespace}/getScoutGroups`]
@@ -112,10 +106,6 @@ export default class ScoutgroupTableComponent extends BaseTable<
   ];
 
   async fetchItems() {
-    if (this.scoutGroups) {
-      this.totalItems = this.scoutGroups.length;
-      return;
-    }
     this.loading = true;
 
     try {

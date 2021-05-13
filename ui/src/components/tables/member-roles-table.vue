@@ -85,19 +85,25 @@ import BaseTable from '~/components/tables/base-table';
   },
 })
 export default class MemberRoleTableComponent extends BaseTable<
-  MemberRoleData
+  MemberRoleData,
+  string
 > {
   name = 'member-roles-table';
   title = 'Roles';
-  @Prop(Object) readonly member!: MemberData | undefined;
-  @Prop(Array) readonly memberRoles!: MemberRoleData[] | undefined;
+  @Prop({ type: Object, required: true }) readonly member!: MemberData;
 
   get items(): MemberRoleData[] {
-    this.totalItems = this.memberRoles?.length || 0;
+    const itemIdsToDisplay = this.serverItemIdsToDisplay;
+    console.log(itemIdsToDisplay);
 
-    return this.memberRoles || [];
+    return this.$store.getters[`${member.namespace}/getRolesByMemberId`](
+      this.member.id
+    )
+      .filter((x: MemberRoleData) => itemIdsToDisplay.includes(x.id))
+      .sort((a: MemberRoleData, b: MemberRoleData) => {
+        return itemIdsToDisplay.indexOf(a.id) - itemIdsToDisplay.indexOf(b.id);
+      });
   }
-
   headers = [
     { text: 'Role', value: 'role.name' },
     { text: 'Section', value: 'role.section.name' },
@@ -107,8 +113,34 @@ export default class MemberRoleTableComponent extends BaseTable<
     { text: 'Actions', value: 'actions' },
   ];
 
-  async fetchItems() {}
+  async fetchItems() {
+    this.loading = true;
 
+    try {
+      const payload: MemberRoles = await this.$store.dispatch(
+        `${member.namespace}/fetchRolesByMemberId`,
+        { ...this.apiOptions, memberId: this.member.id }
+      );
+
+      if (payload === null) {
+        this.serverItemIdsToDisplay = [];
+        this.totalItems = 0;
+        return;
+      }
+      this.serverItemIdsToDisplay = payload.roles.map(
+        (memberRole: MemberRoleData) => memberRole.id
+      );
+      this.totalItems = payload.totalItems;
+      if (this.apiOptions.page > payload.totalPages) {
+        this.options.page = payload.totalPages;
+      }
+      this.error = false;
+    } catch (e) {
+      this.error = true;
+    } finally {
+      this.loading = false;
+    }
+  }
   async rowActionDelete(
     compositeId: number | string
   ): Promise<ModelApiResponse | void> {

@@ -156,12 +156,6 @@ export default class RoleDetailPage extends Vue {
     return this.section ? this.section.scoutGroup : null;
   }
 
-  get members(): MemberData[] {
-    return this.$store.getters[`${member.namespace}/getMembersByRoleId`](
-      this.id
-    );
-  }
-
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }

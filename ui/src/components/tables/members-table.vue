@@ -116,9 +116,10 @@ import * as member from '~/store/member';
     TableOptionsComponent,
   },
 })
-export default class MemberTableComponent extends BaseTable<MemberData> {
-  // Additional Props
-  @Prop(Array) readonly members: MemberData[] | undefined;
+export default class MemberTableComponent extends BaseTable<
+  MemberData,
+  number
+> {
   @Prop(Object) readonly role: RoleData | undefined;
   @Prop(Object) readonly section: SectionData | undefined;
 
@@ -126,13 +127,7 @@ export default class MemberTableComponent extends BaseTable<MemberData> {
   title = 'Members';
 
   get items(): MemberData[] {
-    if (this.members) {
-      this.totalItems = this.members?.length || 0;
-
-      // @TODO: potentially apply in browser filter if members are supplied.
-      return this.members || [];
-    }
-    const itemIdsToDisplay: number[] = this.serverItemIdsToDisplay as number[];
+    const itemIdsToDisplay = this.serverItemIdsToDisplay;
     console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${member.namespace}/getMembers`]
@@ -172,32 +167,25 @@ export default class MemberTableComponent extends BaseTable<MemberData> {
   ];
 
   async fetchItems() {
-    if (this.members) {
-      this.totalItems = this.members.length;
-      return;
-    }
     this.loading = true;
 
     try {
       let payload: Members | null = null;
 
-      if (this.role === undefined && this.section === undefined) {
-        payload = await this.$store.dispatch(
-          `${member.namespace}/fetchMembers`,
-          this.apiOptions
-        );
-      }
-      if (this.role !== undefined && this.section === undefined) {
-        console.log(this.apiOptions);
+      if (this.role) {
         payload = await this.$store.dispatch(
           `${member.namespace}/fetchMembersByRoleId`,
           { roleId: this.role.id, ...this.apiOptions }
         );
-      }
-      if (this.role === undefined && this.section !== undefined) {
+      } else if (this.section) {
         payload = await this.$store.dispatch(
           `${member.namespace}/fetchMembersBySectionId`,
           { sectionId: this.section.id, ...this.apiOptions }
+        );
+      } else {
+        payload = await this.$store.dispatch(
+          `${member.namespace}/fetchMembers`,
+          this.apiOptions
         );
       }
 

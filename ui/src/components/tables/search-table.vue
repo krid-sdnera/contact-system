@@ -45,12 +45,15 @@ import * as member from '~/store/member';
     DangerConfirmation,
   },
 })
-export default class SearchTableComponent extends BaseTable<MemberData> {
+export default class SearchTableComponent extends BaseTable<
+  MemberData,
+  number
+> {
   name = 'search-table';
   title = 'Search';
 
   get items(): MemberData[] {
-    const itemIdsToDisplay: number[] = this.serverItemIdsToDisplay as number[];
+    const itemIdsToDisplay = this.serverItemIdsToDisplay;
     console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${member.namespace}/getMembers`]

@@ -49,7 +49,7 @@
       <v-row>
         <v-col>
           <!-- Roles Table -->
-          <roles-table :roles="roles" allow-creation></roles-table>
+          <roles-table :section="section" allow-creation></roles-table>
         </v-col>
       </v-row>
 
@@ -131,12 +131,6 @@ export default class SectionDetailPage extends Vue {
 
   get scoutGroup(): ScoutGroupData | null {
     return this.section ? this.section.scoutGroup : null;
-  }
-
-  get roles(): RoleData[] {
-    return this.$store.getters[`${role.namespace}/getRolesBySectionId`](
-      this.id
-    );
   }
 
   get isAppUpdating(): boolean {

@@ -2,6 +2,7 @@ import {
   CreateContactRequest,
   DeleteContactByIdRequest,
   GetContactsRequest,
+  GetMemberContactsByIdRequest,
   PatchContactByIdRequest,
   UpdateContactByIdRequest,
 } from '@api/apis';
@@ -74,12 +75,10 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async fetchContactsByMemberId(
     { commit },
-    memberId: number
+    options: GetMemberContactsByIdRequest
   ): Promise<Contacts> {
     try {
-      const payload = await this.$api.members.getMemberContactsById({
-        memberId,
-      });
+      const payload = await this.$api.members.getMemberContactsById(options);
       commit('setContacts', payload.contacts);
       return payload;
     } catch (e) {

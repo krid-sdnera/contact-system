@@ -2,6 +2,7 @@ import {
   AddMemberRoleByIdRequest,
   CreateMemberRequest,
   DeleteMemberByIdRequest,
+  GetMemberRolesByIdRequest,
   GetMembersByRoleIdRequest,
   GetMembersBySectionIdRequest,
   GetMembersRequest,
@@ -142,12 +143,11 @@ export const actions: ActionTree<RootState, RootState> = {
       options
     );
   },
-  async fetchRolesByMemberId({ commit }, memberId: number) {
+  async fetchRolesByMemberId({ commit }, options: GetMemberRolesByIdRequest) {
     try {
-      const payload = await this.$api.members.getMemberRolesById({
-        memberId,
-      });
+      const payload = await this.$api.members.getMemberRolesById(options);
       commit('setMemberRoles', payload.roles);
+      return payload;
     } catch (e) {
       throw new AppError(
         ErrorCode.InternalError,

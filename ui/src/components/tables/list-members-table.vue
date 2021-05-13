@@ -62,20 +62,17 @@ import * as list from '~/store/emailList';
     DangerConfirmation,
   },
 })
-export default class ListMemberTableComponent extends BaseTable<RecipientData> {
+export default class ListMemberTableComponent extends BaseTable<
+  RecipientData,
+  string
+> {
   name = 'list-members-table';
   title = 'List Members';
 
   @Prop(Object) readonly list: ListData | undefined;
 
   get items(): RecipientData[] {
-    // if (this.contacts) {
-    //   this.totalItems = this.contacts?.length || 0;
-
-    //   // @TODO: potentially apply in browser filter if contacts are supplied.
-    //   return this.contacts || [];
-    // }
-    const itemIdsToDisplay: string[] = this.serverItemIdsToDisplay as string[];
+    const itemIdsToDisplay = this.serverItemIdsToDisplay;
     console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${list.namespace}/getRecipients`]
@@ -97,10 +94,6 @@ export default class ListMemberTableComponent extends BaseTable<RecipientData> {
   ];
 
   async fetchItems() {
-    // if (this.contacts) {
-    //   this.totalItems = this.contacts.length;
-    //   return;
-    // }
     this.loading = true;
 
     try {
@@ -113,7 +106,7 @@ export default class ListMemberTableComponent extends BaseTable<RecipientData> {
       );
 
       this.serverItemIdsToDisplay = payload.recipients.map(
-        (recipient: RecipientData) => String(recipient.rowId)
+        (recipient: RecipientData) => recipient.rowId
       );
       this.totalItems = payload.totalItems;
       if (this.apiOptions.page > payload.totalPages) {

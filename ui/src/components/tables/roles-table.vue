@@ -60,21 +60,20 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch, Prop, PropSync } from 'vue-property-decorator';
 import {
+  MemberData,
+  ModelApiResponse,
   RoleData,
   Roles,
-  ModelApiResponse,
   SectionData,
-  SectionInput,
 } from '@api/models';
+import { Component, Prop } from 'vue-property-decorator';
 // import RoleCreateDialog from '~/components/dialogs/role-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
-
-import * as role from '~/store/role';
-import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
 import BaseTable from '~/components/tables/base-table';
+import * as member from '~/store/member';
+import * as role from '~/store/role';
+import * as section from '~/store/section';
 
 @Component({
   components: {
@@ -82,19 +81,15 @@ import BaseTable from '~/components/tables/base-table';
     DangerConfirmation,
   },
 })
-export default class RoleTableComponent extends BaseTable<RoleData> {
+export default class RoleTableComponent extends BaseTable<RoleData, number> {
   name = 'roles-table';
   title = 'Roles';
-  @Prop(Array) readonly roles!: RoleData[] | undefined;
+
+  // @Prop(Object) readonly member: MemberData | undefined;
+  @Prop(Object) readonly section: SectionData | undefined;
 
   get items(): RoleData[] {
-    if (this.roles) {
-      this.totalItems = this.roles?.length || 0;
-
-      // @TODO: potentially apply in browser filter if roles are supplied.
-      return this.roles || [];
-    }
-    const itemIdsToDisplay: number[] = this.serverItemIdsToDisplay as number[];
+    const itemIdsToDisplay = this.serverItemIdsToDisplay;
     console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${role.namespace}/getRoles`]
@@ -112,18 +107,27 @@ export default class RoleTableComponent extends BaseTable<RoleData> {
   ];
 
   async fetchItems() {
-    if (this.roles) {
-      this.totalItems = this.roles.length;
-      return;
-    }
     this.loading = true;
 
     try {
-      const payload: Roles = await this.$store.dispatch(
-        `${role.namespace}/fetchRoles`,
-        this.apiOptions
-      );
-
+      let payload: Roles;
+      // if (this.member) {
+      //   payload = await this.$store.dispatch(
+      //     `${member.namespace}/fetchRolesByMemberId`,
+      //     { ...this.apiOptions, memberId: this.member.id }
+      //   );
+      // } else
+      if (this.section) {
+        payload = await this.$store.dispatch(
+          `${role.namespace}/fetchRolesBySectionId`,
+          { ...this.apiOptions, sectionId: this.section.id }
+        );
+      } else {
+        payload = await this.$store.dispatch(
+          `${role.namespace}/fetchRoles`,
+          this.apiOptions
+        );
+      }
       this.serverItemIdsToDisplay = payload.roles.map(
         (role: RoleData) => role.id
       );

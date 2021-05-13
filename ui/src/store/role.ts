@@ -1,6 +1,7 @@
 import {
   DeleteRoleByIdRequest,
   GetRolesRequest,
+  GetSectionRolesByIdRequest,
   UpdateRoleByIdRequest,
 } from '@api/apis';
 import { ModelApiResponse, RoleData, Roles } from '@api/models';
@@ -67,14 +68,13 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new AppError(ErrorCode.InternalError, 'Unable to load role', e);
     }
   },
-  async fetchRolesBySectionId({ commit }, sectionId: number) {
+  async fetchRolesBySectionId({ commit }, options: GetSectionRolesByIdRequest) {
     try {
-      const payload = await this.$api.sections.getSectionRolesById({
-        sectionId,
-      });
+      const payload = await this.$api.sections.getSectionRolesById(options);
       commit('setRoles', payload.roles);
+      return payload;
     } catch (e) {
-      throw new AppError(ErrorCode.InternalError, 'Unable to load sections', e);
+      throw new AppError(ErrorCode.InternalError, 'Unable to load roles', e);
     }
   },
   async updateRoleById(

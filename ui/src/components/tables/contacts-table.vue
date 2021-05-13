@@ -88,20 +88,16 @@ import BaseTable from '~/components/tables/base-table';
     DangerConfirmation,
   },
 })
-export default class ContactTableComponent extends BaseTable<ContactData> {
+export default class ContactTableComponent extends BaseTable<
+  ContactData,
+  number
+> {
   name = 'contacts-table';
   title = 'Contacts';
-  @Prop(Object) readonly member!: MemberData | undefined;
-  @Prop(Array) readonly contacts!: ContactData[] | undefined;
+  @Prop(Object) readonly member: MemberData | undefined;
 
   get items(): ContactData[] {
-    if (this.contacts) {
-      this.totalItems = this.contacts?.length || 0;
-
-      // @TODO: potentially apply in browser filter if contacts are supplied.
-      return this.contacts || [];
-    }
-    const itemIdsToDisplay: number[] = this.serverItemIdsToDisplay as number[];
+    const itemIdsToDisplay = this.serverItemIdsToDisplay;
     console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${contact.namespace}/getContacts`]
@@ -126,17 +122,21 @@ export default class ContactTableComponent extends BaseTable<ContactData> {
   ];
 
   async fetchItems() {
-    if (this.contacts) {
-      this.totalItems = this.contacts.length;
-      return;
-    }
     this.loading = true;
 
     try {
-      const payload: Contacts = await this.$store.dispatch(
-        `${contact.namespace}/fetchContacts`,
-        this.apiOptions
-      );
+      let payload: Contacts;
+      if (this.member) {
+        payload = await this.$store.dispatch(
+          `${contact.namespace}/fetchContactsByMemberId`,
+          { ...this.apiOptions, memberId: this.member.id }
+        );
+      } else {
+        payload = await this.$store.dispatch(
+          `${contact.namespace}/fetchContacts`,
+          this.apiOptions
+        );
+      }
 
       this.serverItemIdsToDisplay = payload.contacts.map(
         (contact: ContactData) => contact.id

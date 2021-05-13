@@ -1,5 +1,6 @@
 import {
   DeleteSectionByIdRequest,
+  GetScoutGroupSectionsByIdRequest,
   GetSectionsRequest,
   UpdateSectionByIdRequest,
 } from '@api/apis';
@@ -67,12 +68,16 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new AppError(ErrorCode.InternalError, 'Unable to load section', e);
     }
   },
-  async fetchSectionsByScoutGroupId({ commit }, scoutGroupId: number) {
+  async fetchSectionsByScoutGroupId(
+    { commit },
+    options: GetScoutGroupSectionsByIdRequest
+  ) {
     try {
-      const payload = await this.$api.scoutGroups.getScoutGroupSectionsById({
-        scoutGroupId,
-      });
+      const payload = await this.$api.scoutGroups.getScoutGroupSectionsById(
+        options
+      );
       commit('setSections', payload.sections);
+      return payload;
     } catch (e) {
       throw new AppError(ErrorCode.InternalError, 'Unable to load sections', e);
     }

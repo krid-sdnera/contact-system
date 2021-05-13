@@ -275,7 +275,6 @@
           <!-- Member Role Table -->
           <member-roles-table
             :member="member"
-            :member-roles="roles"
             allow-creation
           ></member-roles-table>
         </v-col>
@@ -408,20 +407,10 @@ export default class MemberDetailPage extends Vue {
 
   async mounted() {
     try {
-      const memberPromise = this.$store.dispatch(
+      await this.$store.dispatch(
         `${member.namespace}/fetchMemberById`,
         this.id
       );
-      const contactsPromise = this.$store.dispatch(
-        `${contact.namespace}/fetchContactsByMemberId`,
-        this.id
-      );
-      const memberRolesPromise = this.$store.dispatch(
-        `${member.namespace}/fetchRolesByMemberId`,
-        this.id
-      );
-
-      await Promise.all([memberPromise, contactsPromise, memberRolesPromise]);
     } catch (e) {
       this.error = true;
     } finally {

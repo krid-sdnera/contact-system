@@ -371,7 +371,7 @@ export default class DialogMemberExportComponent extends Vue {
     try {
       await this.$store.dispatch(
         `${contact.namespace}/fetchContactsByMemberId`,
-        memberId
+        { memberId }
       );
       this.error = false;
     } catch (e) {

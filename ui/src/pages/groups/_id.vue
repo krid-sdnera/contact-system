@@ -29,7 +29,10 @@
         <v-col>
           <!-- Sections Table -->
 
-          <sections-table :sections="sections" allow-creation></sections-table>
+          <sections-table
+            :scout-group="scoutGroup"
+            allow-creation
+          ></sections-table>
         </v-col>
       </v-row>
 
@@ -120,10 +123,6 @@ export default class ScoutGroupDetailPage extends Vue {
     try {
       await this.$store.dispatch(
         `${scoutGroup.namespace}/fetchScoutGroupById`,
-        this.id
-      );
-      await this.$store.dispatch(
-        `${section.namespace}/fetchSectionsByScoutGroupId`,
         this.id
       );
 

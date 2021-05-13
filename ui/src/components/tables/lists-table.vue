@@ -60,7 +60,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import { ListData, Lists, ModelApiResponse } from '@api/models';
+import { ListData, Lists, MemberData, ModelApiResponse } from '@api/models';
 import ListCreateDialog from '~/components/dialogs/list-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
 
@@ -75,13 +75,15 @@ import BaseTable from '~/components/tables/base-table';
     DangerConfirmation,
   },
 })
-export default class ListTableComponent extends BaseTable<ListData> {
+export default class ListTableComponent extends BaseTable<ListData, number> {
   name = 'lists-table';
   title = 'Lists';
-  @Prop(Array) readonly lists!: ListData[] | undefined;
+
+  // TODO
+  @Prop(Object) readonly member: MemberData[] | undefined;
 
   get items(): ListData[] {
-    const itemIdsToDisplay: number[] = this.serverItemIdsToDisplay as number[];
+    const itemIdsToDisplay = this.serverItemIdsToDisplay;
 
     return this.$store.getters[`${list.namespace}/getEmailLists`]
       .filter((x: ListData) => itemIdsToDisplay.includes(x.id))
@@ -97,10 +99,6 @@ export default class ListTableComponent extends BaseTable<ListData> {
   ];
 
   async fetchItems() {
-    if (this.lists) {
-      this.totalItems = this.lists.length;
-      return;
-    }
     this.loading = true;
 
     try {

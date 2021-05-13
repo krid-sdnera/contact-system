@@ -7,7 +7,6 @@ import {
 } from '@api/models';
 import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator';
 import { createAlert } from '~/common/alert';
-import { CSApiOptions } from '~/common/api-types';
 import { VuetifyTableOptions } from '~/common/vuetify-types';
 
 interface IDwise {
@@ -15,7 +14,10 @@ interface IDwise {
 }
 
 @Component
-export default class BaseTable<T extends IDwise> extends Vue {
+export default class BaseTable<
+  T extends IDwise,
+  idT extends string | number
+> extends Vue {
   // Default Props
   @Prop(Boolean) readonly allowCreation!: boolean;
   @Prop(Boolean) readonly searchable!: boolean;
@@ -89,7 +91,7 @@ export default class BaseTable<T extends IDwise> extends Vue {
   // Status flags
   loading: boolean = false;
   error: boolean = false;
-  serverItemIdsToDisplay: (string | number)[] = [];
+  serverItemIdsToDisplay: idT[] = [];
   search: string = '';
   totalItems: number = 0;
   options: VuetifyTableOptions = {

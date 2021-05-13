@@ -99,23 +99,26 @@ import * as list from '~/store/emailList';
     DangerConfirmation,
   },
 })
-export default class ListRuleTableComponent extends BaseTable<ListRuleData> {
+export default class ListRuleTableComponent extends BaseTable<
+  ListRuleData,
+  number
+> {
   name = 'list-rules-table';
   title = 'List Rules';
 
-  @Prop(Object) readonly list!: ListData;
+  @Prop(Object) readonly list: ListData | undefined;
 
-  @Prop(Object) readonly presetRelation!:
+  @Prop(Object) readonly presetRelation:
     | ContactData
     | MemberData
     | RoleData
     | SectionData
     | ScoutGroupData
     | undefined;
-  @Prop(String) readonly presetRelationType!: string | undefined;
+  @Prop(String) readonly presetRelationType: string | undefined;
 
   get items(): ListRuleData[] {
-    const itemIdsToDisplay: number[] = this.serverItemIdsToDisplay as number[];
+    const itemIdsToDisplay = this.serverItemIdsToDisplay;
     console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${list.namespace}/getRules`]
@@ -147,6 +150,13 @@ export default class ListRuleTableComponent extends BaseTable<ListRuleData> {
   ];
 
   async fetchListRules(): Promise<ListRules> {
+    if (!this.presetRelation) {
+      return this.$store.dispatch(`${list.namespace}/fetchListRulesByListId`, {
+        ...this.apiOptions,
+        listId: this.list?.id,
+      });
+    }
+
     switch (this.presetRelationType) {
       case 'Contact':
         return this.$store.dispatch(
@@ -189,13 +199,13 @@ export default class ListRuleTableComponent extends BaseTable<ListRuleData> {
           }
         );
       default:
-        return this.$store.dispatch(
-          `${list.namespace}/fetchListRulesByListId`,
-          {
-            ...this.apiOptions,
-            listId: this.list?.id,
-          }
-        );
+        return {
+          totalItems: 0,
+          totalPages: 0,
+          page: 0,
+          pageSize: 0,
+          rules: [],
+        };
     }
   }
 
