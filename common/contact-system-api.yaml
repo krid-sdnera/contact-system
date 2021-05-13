@@ -1591,7 +1591,7 @@ paths:
     parameters:
       - schema:
           type: string
-          pattern: ^[a-zA-Z].+$
+          pattern: ^([a-zA-Z]|\%\d+).+$
         name: listAddress
         in: path
         required: true

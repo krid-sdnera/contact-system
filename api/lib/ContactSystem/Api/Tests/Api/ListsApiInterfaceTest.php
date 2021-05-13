@@ -157,7 +157,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists/{listAddress}';
         $pattern = '{listAddress}';
-        $data = $this->genTestData('^[a-zA-Z].+$');
+        $data = $this->genTestData('^([a-zA-Z]|\\%\\d+).+$');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
