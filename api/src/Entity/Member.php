@@ -54,18 +54,14 @@ class Member
         ]);
 
         if (!$member) {
-            // SQLite defaults LIKE expressions to case-insensitive.
-            $sqliteInUse = self::$entityManager->getConnection()->getDatabasePlatform()->getName() === 'sqlite';
-            $likeExpression = ($sqliteInUse) ? "LIKE" : "ILIKE";
-
             echo "Processing Member {$extranetMember->getMembershipNumber()}: Not found by membershipNumber, checking by name" . PHP_EOL;
             // Attempt to match up with an existing record
             $member = $memberRepo->createQueryBuilder('m')
-                ->where("m.firstname ${likeExpression} :firstname")
-                ->andWhere("m.lastname ${likeExpression} :lastname")
+                ->where("lower(m.firstname) LIKE :firstname")
+                ->andWhere("lower(m.lastname) LIKE :lastname")
                 ->andWhere("m.dateOfBirth = :dateOfBirth")
-                ->setParameter("firstname", '%' . addcslashes($extranetMember->getFirstname(), '%_') . '%')
-                ->setParameter("lastname", '%' . addcslashes($extranetMember->getLastname(), '%_') . '%')
+                ->setParameter("firstname", '%' . strtolower(addcslashes($extranetMember->getFirstname(), '%_')) . '%')
+                ->setParameter("lastname", '%' . strtolower(addcslashes($extranetMember->getLastname(), '%_')) . '%')
                 ->setParameter("dateOfBirth", $extranetMember->getDateOfBirth())
                 ->getQuery()
                 ->getOneOrNullResult();
@@ -302,7 +298,7 @@ class Member
                 $extranetMember->getGroupId()
             );
         } elseif ($extranetMember->getClassId() === 'AS') {
-            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdOfficeBearer" . PHP_EOL;
+            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdAdultSupporter" . PHP_EOL;
             // Convert Position to Roles
             $positions = $extranetMember->getPosition();
 
