@@ -138,23 +138,27 @@ export default class DialogListRuleCreateComponent extends Vue {
   }
 
   get contactId(): number | null {
-    return this.presetRelationType === 'Contact'
+    return this.presetRelationType === 'Contact' && this.presetRelation
       ? this.presetRelation.id
       : null;
   }
   get memberId(): number | null {
-    return this.presetRelationType === 'Member' ? this.presetRelation.id : null;
+    return this.presetRelationType === 'Member' && this.presetRelation
+      ? this.presetRelation.id
+      : null;
   }
   get roleId(): number | null {
-    return this.presetRelationType === 'Role' ? this.presetRelation.id : null;
+    return this.presetRelationType === 'Role' && this.presetRelation
+      ? this.presetRelation.id
+      : null;
   }
   get sectionId(): number | null {
-    return this.presetRelationType === 'Section'
+    return this.presetRelationType === 'Section' && this.presetRelation
       ? this.presetRelation.id
       : null;
   }
   get scoutGroupId(): number | null {
-    return this.presetRelationType === 'ScoutGroup'
+    return this.presetRelationType === 'ScoutGroup' && this.presetRelation
       ? this.presetRelation.id
       : null;
   }
@@ -185,6 +189,7 @@ export default class DialogListRuleCreateComponent extends Vue {
     try {
       console.log(this.newListRule);
       if (
+        this.newListRule &&
         this.newListRule.useMember === false &&
         this.newListRule.useContact === false
       ) {
@@ -222,6 +227,9 @@ export default class DialogListRuleCreateComponent extends Vue {
   selectedListId: string | null = null;
 
   get listOptions(): { label: string; value: string }[] {
+    if (!this.presetRelation) {
+      return [];
+    }
     const listsAlreadyAssigned: number[] = this.$store.getters[
       `${list.namespace}/getRulesBy${this.presetRelationType}Id`
     ](this.presetRelation.id).map((x: ListRuleData): number => x.listId);
