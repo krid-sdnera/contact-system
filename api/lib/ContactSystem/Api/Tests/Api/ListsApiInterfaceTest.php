@@ -155,9 +155,9 @@ class ListsApiInterfaceTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $path = '/lists/{listAddress}';
+        $path = '/lists/address/{listAddress}';
         $pattern = '{listAddress}';
-        $data = $this->genTestData('^([a-zA-Z]|\\%\\d+).+$');
+        $data = $this->genTestData('[a-z0-9]+');
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);

@@ -1587,11 +1587,10 @@ paths:
                 $ref: "#/components/schemas/ApiResponse"
       tags:
         - Lists
-  "/lists/{listAddress}":
+  "/lists/address/{listAddress}":
     parameters:
       - schema:
           type: string
-          pattern: ^([a-zA-Z]|\%\d+).+$
         name: listAddress
         in: path
         required: true

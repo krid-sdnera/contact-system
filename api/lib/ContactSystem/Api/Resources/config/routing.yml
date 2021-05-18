@@ -101,12 +101,12 @@ open_api_server_lists_deletelistrulebyid:
         ruleId: '\d+'
 
 open_api_server_lists_getlistbyaddress:
-    path:     /lists/{listAddress}
+    path:     /lists/address/{listAddress}
     methods:  [GET]
     defaults:
         _controller: open_api_server.controller.lists:getListByAddressAction
     requirements:
-        listAddress: '^([a-zA-Z]|\\%\\d+).+$'
+        listAddress: '[a-z0-9]+'
 
 open_api_server_lists_getlistbyid:
     path:     /lists/{listId}

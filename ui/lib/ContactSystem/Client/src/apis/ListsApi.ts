@@ -516,7 +516,7 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
             }
         }
         const response = await this.request({
-            path: `/lists/{listAddress}`.replace(`{${"listAddress"}}`, encodeURIComponent(String(requestParameters.listAddress))),
+            path: `/lists/address/{listAddress}`.replace(`{${"listAddress"}}`, encodeURIComponent(String(requestParameters.listAddress))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

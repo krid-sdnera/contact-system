@@ -121,7 +121,7 @@ Class | Method | HTTP request | Description
 *ListsApiInterface* | [**createListRuleById**](Resources/docs/Api/ListsApiInterface.md#createlistrulebyid) | **POST** /lists/{listId}/list-rules | 
 *ListsApiInterface* | [**deleteListById**](Resources/docs/Api/ListsApiInterface.md#deletelistbyid) | **DELETE** /lists/{listId} | 
 *ListsApiInterface* | [**deleteListRuleById**](Resources/docs/Api/ListsApiInterface.md#deletelistrulebyid) | **DELETE** /lists/{listId}/rules/{ruleId} | 
-*ListsApiInterface* | [**getListByAddress**](Resources/docs/Api/ListsApiInterface.md#getlistbyaddress) | **GET** /lists/{listAddress} | Your GET endpoint
+*ListsApiInterface* | [**getListByAddress**](Resources/docs/Api/ListsApiInterface.md#getlistbyaddress) | **GET** /lists/address/{listAddress} | Your GET endpoint
 *ListsApiInterface* | [**getListById**](Resources/docs/Api/ListsApiInterface.md#getlistbyid) | **GET** /lists/{listId} | Your GET endpoint
 *ListsApiInterface* | [**getListRecipientsById**](Resources/docs/Api/ListsApiInterface.md#getlistrecipientsbyid) | **GET** /lists/{listId}/recipients | Your GET endpoint
 *ListsApiInterface* | [**getListRuleById**](Resources/docs/Api/ListsApiInterface.md#getlistrulebyid) | **GET** /lists/{listId}/rules/{ruleId} | Your GET endpoint

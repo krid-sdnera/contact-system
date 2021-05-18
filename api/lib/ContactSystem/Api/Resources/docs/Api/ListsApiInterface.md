@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**createListRuleById**](ListsApiInterface.md#createListRuleById) | **POST** /lists/{listId}/list-rules | 
 [**deleteListById**](ListsApiInterface.md#deleteListById) | **DELETE** /lists/{listId} | 
 [**deleteListRuleById**](ListsApiInterface.md#deleteListRuleById) | **DELETE** /lists/{listId}/rules/{ruleId} | 
-[**getListByAddress**](ListsApiInterface.md#getListByAddress) | **GET** /lists/{listAddress} | Your GET endpoint
+[**getListByAddress**](ListsApiInterface.md#getListByAddress) | **GET** /lists/address/{listAddress} | Your GET endpoint
 [**getListById**](ListsApiInterface.md#getListById) | **GET** /lists/{listId} | Your GET endpoint
 [**getListRecipientsById**](ListsApiInterface.md#getListRecipientsById) | **GET** /lists/{listId}/recipients | Your GET endpoint
 [**getListRuleById**](ListsApiInterface.md#getListRuleById) | **GET** /lists/{listId}/rules/{ruleId} | Your GET endpoint
