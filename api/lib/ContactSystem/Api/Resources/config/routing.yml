@@ -106,7 +106,7 @@ open_api_server_lists_getlistbyaddress:
     defaults:
         _controller: open_api_server.controller.lists:getListByAddressAction
     requirements:
-        listAddress: '[a-z0-9]+'
+        listAddress: '.+'
 
 open_api_server_lists_getlistbyid:
     path:     /lists/{listId}

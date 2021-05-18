@@ -485,6 +485,7 @@ class ListsController extends Controller
         $asserts = [];
         $asserts[] = new Assert\NotNull();
         $asserts[] = new Assert\Type("string");
+        $asserts[] = new Assert\Regex("/.+/");
         $response = $this->validate($listAddress, $asserts);
         if ($response instanceof Response) {
             return $response;

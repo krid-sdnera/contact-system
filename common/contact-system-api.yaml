@@ -1591,6 +1591,7 @@ paths:
     parameters:
       - schema:
           type: string
+          pattern: .+
         name: listAddress
         in: path
         required: true
