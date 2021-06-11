@@ -66,7 +66,7 @@ export default class SearchTableComponent extends BaseTable<
   headers = [];
 
   async fetchItems() {
-    if (!this.apiOptions.query) {
+    if (!this.apiOptions.query || this.apiOptions.query === null) {
       this.serverItemIdsToDisplay = [];
       this.totalItems = 0;
       return;

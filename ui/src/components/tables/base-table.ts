@@ -99,6 +99,10 @@ export default class BaseTable<
     sortDesc: [],
     page: 1,
     itemsPerPage: 10,
+    groupBy: [],
+    groupDesc: [],
+    multiSort: false,
+    mustSort: false,
   };
 
   get apiOptions() {
@@ -126,7 +130,23 @@ export default class BaseTable<
 
   @Watch('options', { deep: true })
   @Emit('options-changed')
-  onOptionsChange() {
+  onOptionsChange(
+    newOptions: VuetifyTableOptions,
+    oldOptions: VuetifyTableOptions
+  ) {
+    if (
+      newOptions.sortBy === oldOptions.sortBy &&
+      newOptions.sortDesc === oldOptions.sortDesc &&
+      newOptions.page === oldOptions.page &&
+      newOptions.itemsPerPage === oldOptions.itemsPerPage &&
+      newOptions.groupBy === oldOptions.groupBy &&
+      newOptions.groupDesc === oldOptions.groupDesc &&
+      newOptions.multiSort === oldOptions.multiSort &&
+      newOptions.mustSort === oldOptions.mustSort
+    ) {
+      return this.apiOptions;
+    }
+
     this.fetchItems();
     return this.apiOptions;
   }

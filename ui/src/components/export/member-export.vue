@@ -112,7 +112,8 @@ export default class DialogMemberExportComponent extends Vue {
   }
 
   mounted() {
-    this.initialiseSelectedFields();
+    // Don't load this data on mounted hook, for every page load.
+    // Wait till the dialog is opened and the user wants this ui element.
   }
 
   @Watch('dialog')

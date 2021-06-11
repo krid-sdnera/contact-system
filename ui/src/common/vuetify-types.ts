@@ -3,6 +3,10 @@ export interface VuetifyTableOptions {
   sortDesc: string[];
   page: number;
   itemsPerPage: number;
+  groupBy: string[];
+  groupDesc: string[];
+  multiSort: boolean;
+  mustSort: boolean;
 }
 
 export interface VuetifyTableHeader<T = string> {
