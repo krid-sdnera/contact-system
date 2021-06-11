@@ -459,7 +459,7 @@ class ListsController extends AbstractController implements ListsApiInterface
         );
 
         try {
-            return $emailListRecipientRepo->pageFetcherHelper(
+            $result = $emailListRecipientRepo->pageFetcherHelper(
                 $expression,
                 function (EmailListRecipient $recipient) use ($emailList, $memberToRule, $contactToRule) {
                     if ($recipient->getType() === 'member') {
