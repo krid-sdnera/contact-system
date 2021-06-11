@@ -64,6 +64,7 @@ export const actions: ActionTree<RootState, RootState> = {
       createAlert(this, {
         message: 'Session expired. Please login again.',
         type: 'error',
+        deduplicate: true,
       });
     };
 

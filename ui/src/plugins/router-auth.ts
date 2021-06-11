@@ -14,6 +14,7 @@ const routerAuth: Plugin = ({ app, store }) => {
       createAlert(store, {
         message: 'Session expired. Please login again',
         type: 'error',
+        deduplicate: true,
       });
 
       next('/login');

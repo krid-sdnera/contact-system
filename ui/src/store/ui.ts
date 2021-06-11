@@ -40,7 +40,15 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-  async addAlert({ commit }, appAlert: AppAlert) {
+  async addAlert({ commit, getters }, appAlert: AppAlert) {
+    if (
+      appAlert.deduplicate &&
+      getters.alerts.find((alert: AppAlert) => alert.equals(appAlert))
+    ) {
+      // This message is already in the active alert list.
+      // TODO: maybe reset the timer, that that would be more involved.
+      return;
+    }
     commit('addAlert', appAlert);
   },
   async expireAlert({ commit }, appAlert: AppAlert) {
