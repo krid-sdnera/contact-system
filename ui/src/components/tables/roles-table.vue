@@ -90,7 +90,6 @@ export default class RoleTableComponent extends BaseTable<RoleData, number> {
 
   get items(): RoleData[] {
     const itemIdsToDisplay = this.serverItemIdsToDisplay;
-    console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${role.namespace}/getRoles`]
       .filter((x: RoleData) => itemIdsToDisplay.includes(x.id))

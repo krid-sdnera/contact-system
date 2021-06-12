@@ -95,7 +95,6 @@ export default class DialogListCreateComponent extends Vue {
   @Emit('submit')
   async saveCreateListModal() {
     try {
-      console.log(this.newList);
       const listResponse = await this.$store.dispatch(
         `${list.namespace}/createEmailList`,
         { listInput: this.newList }

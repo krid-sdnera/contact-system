@@ -187,7 +187,6 @@ export default class DialogListRuleCreateComponent extends Vue {
   @Emit('submit')
   async saveCreateListModal() {
     try {
-      console.log(this.newListRule);
       if (
         this.newListRule &&
         this.newListRule.useMember === false &&

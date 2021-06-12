@@ -91,7 +91,6 @@ export default class ScoutgroupTableComponent extends BaseTable<
 
   get items(): ScoutGroupData[] {
     const itemIdsToDisplay = this.serverItemIdsToDisplay;
-    console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${scoutGroup.namespace}/getScoutGroups`]
       .filter((x: ScoutGroupData) => itemIdsToDisplay.includes(x.id))

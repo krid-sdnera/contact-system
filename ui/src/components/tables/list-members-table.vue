@@ -73,7 +73,6 @@ export default class ListMemberTableComponent extends BaseTable<
 
   get items(): RecipientData[] {
     const itemIdsToDisplay = this.serverItemIdsToDisplay;
-    console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${list.namespace}/getRecipients`]
       .filter((x: RecipientData) => itemIdsToDisplay.includes(x.rowId))

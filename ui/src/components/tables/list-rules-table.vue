@@ -119,7 +119,6 @@ export default class ListRuleTableComponent extends BaseTable<
 
   get items(): ListRuleData[] {
     const itemIdsToDisplay = this.serverItemIdsToDisplay;
-    console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${list.namespace}/getRules`]
       .filter((x: ListRuleData) => itemIdsToDisplay.includes(x.id))

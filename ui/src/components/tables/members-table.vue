@@ -128,7 +128,6 @@ export default class MemberTableComponent extends BaseTable<
 
   get items(): MemberData[] {
     const itemIdsToDisplay = this.serverItemIdsToDisplay;
-    console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${member.namespace}/getMembers`]
       .filter((x: MemberData) => itemIdsToDisplay.includes(x.id))

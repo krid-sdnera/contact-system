@@ -54,7 +54,6 @@ export default class SearchTableComponent extends BaseTable<
 
   get items(): MemberData[] {
     const itemIdsToDisplay = this.serverItemIdsToDisplay;
-    console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${member.namespace}/getMembers`]
       .filter((x: MemberData) => itemIdsToDisplay.includes(x.id))
@@ -99,7 +98,6 @@ export default class SearchTableComponent extends BaseTable<
 
   @Watch('selected')
   handleSelectedChange(member: MemberData) {
-    console.log(member);
     if (member.id) {
       this.$router.push(`/members/${member.id}`);
     }

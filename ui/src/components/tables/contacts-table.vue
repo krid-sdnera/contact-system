@@ -98,7 +98,6 @@ export default class ContactTableComponent extends BaseTable<
 
   get items(): ContactData[] {
     const itemIdsToDisplay = this.serverItemIdsToDisplay;
-    console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${contact.namespace}/getContacts`]
       .filter((x: ContactData) => itemIdsToDisplay.includes(x.id))

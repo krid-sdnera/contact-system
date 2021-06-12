@@ -92,7 +92,6 @@ export default class SectionTableComponent extends BaseTable<
 
   get items(): SectionData[] {
     const itemIdsToDisplay = this.serverItemIdsToDisplay;
-    console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${section.namespace}/getSections`]
       .filter((x: SectionData) => itemIdsToDisplay.includes(x.id))

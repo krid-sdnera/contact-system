@@ -94,7 +94,6 @@ export default class MemberRoleTableComponent extends BaseTable<
 
   get items(): MemberRoleData[] {
     const itemIdsToDisplay = this.serverItemIdsToDisplay;
-    console.log(itemIdsToDisplay);
 
     return this.$store.getters[`${member.namespace}/getRolesByMemberId`](
       this.member.id
