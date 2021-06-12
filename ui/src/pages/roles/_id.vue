@@ -117,20 +117,13 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import {
-  RoleData,
-  SectionData,
-  ScoutGroupData,
-  MemberData,
-  ListRuleData,
-} from '@api/models';
+import { RoleData, ScoutGroupData, SectionData } from '@api/models';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import RoleEditDialog from '~/components/dialogs/role-edit.vue';
 import MemberTableComponent from '~/components/tables/member-roles-table.vue';
-
 import * as member from '~/store/member';
 import * as role from '~/store/role';
-import * as list from '~/store/emailList';
 import * as ui from '~/store/ui';
 
 @Component({
@@ -140,6 +133,22 @@ import * as ui from '~/store/ui';
   },
 })
 export default class RoleDetailPage extends Vue {
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [
+      { to: '/', label: 'Dashboard' },
+      { to: '/roles', label: 'Roles' },
+      {
+        to: null,
+        label: this.role ? `${this.role.name}` : 'Loading',
+      },
+    ];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
+
   get id(): number {
     return Number(this.$route.params.id);
   }

@@ -71,14 +71,13 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import { ListRuleData, ScoutGroupData, SectionData } from '@api/models';
+import { ScoutGroupData, SectionData } from '@api/models';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import ScoutGroupEditDialog from '~/components/dialogs/scout-group-edit.vue';
 import SectionTableComponent from '~/components/tables/sections-table.vue';
-
 import * as scoutGroup from '~/store/scoutGroup';
 import * as section from '~/store/section';
-import * as list from '~/store/emailList';
 import * as ui from '~/store/ui';
 
 @Component({
@@ -88,6 +87,22 @@ import * as ui from '~/store/ui';
   },
 })
 export default class ScoutGroupDetailPage extends Vue {
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [
+      { to: '/', label: 'Dashboard' },
+      { to: '/groups', label: 'Groups' },
+      {
+        to: null,
+        label: this.scoutGroup ? `${this.scoutGroup.name}` : 'Loading',
+      },
+    ];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
+
   get id(): number {
     return Number(this.$route.params.id);
   }

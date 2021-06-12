@@ -1,11 +1,30 @@
 <template>
-  <members-table allow-creation searchable></members-table>
+  <v-container>
+    <v-row>
+      <v-col>
+        <members-table allow-creation searchable></members-table>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import MemberTableComponent from '~/components/tables/member-roles-table.vue';
 
 @Component({ components: { MemberTableComponent } })
-export default class MembersListPage extends Vue {}
+export default class MembersListPage extends Vue {
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [
+      { to: '/', label: 'Dashboard' },
+      { to: null, label: 'Members' },
+    ];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
+}
 </script>

@@ -56,12 +56,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import { ListData, ListRuleData } from '@api/models';
-import BaseInputComponent from '~/components/form/base-input.vue';
+import { ListData } from '@api/models';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import ListEditDialog from '~/components/dialogs/list-edit.vue';
+import BaseInputComponent from '~/components/form/base-input.vue';
 import ListRulesTable from '~/components/tables/list-rules-table.vue';
-
 import * as list from '~/store/emailList';
 import * as ui from '~/store/ui';
 
@@ -73,6 +73,22 @@ import * as ui from '~/store/ui';
   },
 })
 export default class ListDetailPage extends Vue {
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [
+      { to: '/', label: 'Dashboard' },
+      { to: '/lists', label: 'Lists' },
+      {
+        to: null,
+        label: this.list ? `${this.list.address}` : 'Loading',
+      },
+    ];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
+
   get address(): string {
     return String(this.$route.params.address);
   }

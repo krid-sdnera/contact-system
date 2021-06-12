@@ -67,41 +67,46 @@
       <v-btn color="primary" v-if="!isLoggedIn" nuxt to="/login">Login</v-btn>
       <v-btn color="primary" v-else @click="handleLogout">Logout</v-btn>
     </v-app-bar>
-    <v-dialog
-      v-model="isUpdateApiRequestInProgress"
-      hide-overlay
-      persistent
-      width="300"
-    >
-      <v-card color="primary">
-        <v-card-text>
-          Saving data
-          <v-progress-linear
-            indeterminate
-            color="white"
-            class="mb-0"
-          ></v-progress-linear>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
 
     <v-main>
       <v-container>
+        <v-container class="py-0 status-container">
+          <v-row>
+            <v-col class="pb-0">
+              <v-card>
+                <v-card-text class="d-flex flex-row justify-space-between">
+                  <breadcrumbs></breadcrumbs>
+                  <span>s</span>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+
         <nuxt />
       </v-container>
     </v-main>
     <alerts></alerts>
+    <api-activity-indicator></api-activity-indicator>
   </v-app>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import Alerts from '~/components/alerts/alerts.vue';
+import ApiActivityIndicator from '~/components/layout/api-activity-indicator.vue';
+import Breadcrumbs from '~/components/layout/breadcrumbs.vue';
 import SearchTable from '~/components/tables/search-table.vue';
-import * as ui from '~/store/ui';
 import * as auth from '~/store/auth';
 
-@Component({ components: { Alerts, SearchTable } })
+@Component({
+  components: {
+    Alerts,
+    SearchTable,
+    Breadcrumbs,
+    ApiActivityIndicator,
+  },
+})
 export default class DefaultLayout extends Vue {
   clipped = true;
   menuDrawer = false;
@@ -171,10 +176,6 @@ export default class DefaultLayout extends Vue {
     this.expandOnHover = !isMobile;
     this.clipped = !isMobile;
     this.menuDrawer = !isMobile;
-  }
-
-  get isUpdateApiRequestInProgress(): boolean {
-    return this.$store.getters[`${ui.namespace}/isUpdateApiRequestInProgress`];
   }
 
   async handleLogout() {

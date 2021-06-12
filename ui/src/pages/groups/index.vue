@@ -1,11 +1,30 @@
 <template>
-  <scout-groups-table allow-creation searchable></scout-groups-table>
+  <v-container>
+    <v-row>
+      <v-col>
+        <scout-groups-table allow-creation searchable></scout-groups-table>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import ScoutGroupTableComponent from '~/components/tables/scout-groups-table.vue';
 
 @Component({ components: { ScoutGroupTableComponent } })
-export default class GroupsListPage extends Vue {}
+export default class GroupsListPage extends Vue {
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [
+      { to: '/', label: 'Dashboard' },
+      { to: null, label: 'Groups' },
+    ];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
+}
 </script>

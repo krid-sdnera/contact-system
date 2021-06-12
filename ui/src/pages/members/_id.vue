@@ -326,14 +326,14 @@ import {
   ContactData,
   ContactDataManagementStateEnum,
   ContactDataStateEnum,
-  ListRuleData,
   MemberData,
   MemberOverrideData,
   MemberRoleData,
   MemberRoleDataManagementStateEnum,
   MemberRoleDataStateEnum,
 } from '@api/models';
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import ContactCreateDialog from '~/components/dialogs/contact-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
 import MemberEditDialog from '~/components/dialogs/member-edit.vue';
@@ -344,7 +344,6 @@ import ListRulesTable from '~/components/tables/list-rules-table.vue';
 import MemberRoleTableComponent from '~/components/tables/member-roles-table.vue';
 import * as contact from '~/store/contact';
 import * as member from '~/store/member';
-import * as list from '~/store/emailList';
 import * as ui from '~/store/ui';
 
 @Component({
@@ -360,6 +359,24 @@ import * as ui from '~/store/ui';
   },
 })
 export default class MemberDetailPage extends Vue {
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [
+      { to: '/', label: 'Dashboard' },
+      { to: '/members', label: 'Members' },
+      {
+        to: null,
+        label: this.member
+          ? `${this.member.firstname} ${this.member.lastname}`
+          : 'Loading',
+      },
+    ];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
+
   get id(): number {
     return Number(this.$route.params.id);
   }

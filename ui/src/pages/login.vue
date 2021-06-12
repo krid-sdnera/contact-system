@@ -21,8 +21,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch } from 'vue-property-decorator';
-import { MemberData } from '@api/models';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import * as auth from '~/store/auth';
 
 @Component
@@ -31,6 +31,18 @@ export default class LoginPage extends Vue {
   password: string = '';
   loading: boolean = false;
   error: boolean = false;
+
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [
+      { to: '/', label: 'Dashboard' },
+      { to: null, label: 'Login' },
+    ];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
 
   get isLoggedIn(): boolean {
     return this.$store.getters[`${auth.namespace}/isLoggedIn`];

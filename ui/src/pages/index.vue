@@ -74,11 +74,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { ScoutGroupData, SectionData } from '@api/models';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import MemberExportDialog from '~/components/export/member-export.vue';
-import * as section from '~/store/section';
 import * as scoutGroup from '~/store/scoutGroup';
-import { SectionData, ScoutGroupData } from '@api/models';
+import * as section from '~/store/section';
 
 @Component({
   components: {
@@ -86,6 +87,15 @@ import { SectionData, ScoutGroupData } from '@api/models';
   },
 })
 export default class HomePage extends Vue {
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [{ to: null, label: 'Dashboard' }];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
+
   dialogExport: boolean = false;
   get sections() {
     return this.$store.getters[`${section.namespace}/getSections`];

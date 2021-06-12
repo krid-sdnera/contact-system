@@ -1,9 +1,16 @@
 <template>
-  <contacts-table searchable></contacts-table>
+  <v-container>
+    <v-row>
+      <v-col>
+        <contacts-table searchable></contacts-table>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import ContactTableComponent from '~/components/tables/contacts-table.vue';
 
 @Component({
@@ -11,5 +18,17 @@ import ContactTableComponent from '~/components/tables/contacts-table.vue';
     ContactTableComponent,
   },
 })
-export default class ContactsListPage extends Vue {}
+export default class ContactsListPage extends Vue {
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [
+      { to: '/', label: 'Dashboard' },
+      { to: null, label: 'Contacts' },
+    ];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
+}
 </script>

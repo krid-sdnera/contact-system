@@ -97,20 +97,14 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import {
-  SectionData,
-  ScoutGroupData,
-  RoleData,
-  ListRuleData,
-} from '@api/models';
+import { ScoutGroupData, SectionData } from '@api/models';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import SectionEditDialog from '~/components/dialogs/section-edit.vue';
-import RoleTableComponent from '~/components/tables/roles-table.vue';
 import MemberTableComponent from '~/components/tables/member-roles-table.vue';
-
-import * as section from '~/store/section';
+import RoleTableComponent from '~/components/tables/roles-table.vue';
 import * as role from '~/store/role';
-import * as list from '~/store/emailList';
+import * as section from '~/store/section';
 import * as ui from '~/store/ui';
 
 @Component({
@@ -121,6 +115,22 @@ import * as ui from '~/store/ui';
   },
 })
 export default class SectionDetailPage extends Vue {
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [
+      { to: '/', label: 'Dashboard' },
+      { to: '/sections', label: 'Sections' },
+      {
+        to: null,
+        label: this.section ? `${this.section.name}` : 'Loading',
+      },
+    ];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
+
   get id(): number {
     return Number(this.$route.params.id);
   }

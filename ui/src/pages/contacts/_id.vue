@@ -287,18 +287,18 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
 import {
   ContactData,
   ContactDataStateEnum,
-  MemberData,
   ContactOverrideData,
+  MemberData,
 } from '@api/models';
-import BaseInputComponent from '~/components/form/base-input.vue';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
 import ContactEditDialog from '~/components/dialogs/contact-edit.vue';
-
-import * as member from '~/store/member';
+import BaseInputComponent from '~/components/form/base-input.vue';
 import * as contact from '~/store/contact';
+import * as member from '~/store/member';
 import * as ui from '~/store/ui';
 
 @Component({
@@ -308,6 +308,24 @@ import * as ui from '~/store/ui';
   },
 })
 export default class ContactDetailPage extends Vue {
+  get breadcrumbs(): AppBreadcrumbOptions[] {
+    return [
+      { to: '/', label: 'Dashboard' },
+      { to: '/contacts', label: 'Contacts' },
+      {
+        to: null,
+        label: this.contact
+          ? `${this.contact.firstname} ${this.contact.lastname}`
+          : 'Loading',
+      },
+    ];
+  }
+
+  @Watch('breadcrumbs', { immediate: true })
+  watchBreadcrumbs() {
+    setBreadcrumbs(this.$store, this.breadcrumbs);
+  }
+
   get id(): number {
     return Number(this.$route.params.id);
   }
