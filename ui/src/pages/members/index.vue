@@ -10,7 +10,10 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
+import {
+  AppBreadcrumbOptions,
+  setBreadcrumbs,
+} from '~/common/helper-factories';
 import MemberTableComponent from '~/components/tables/member-roles-table.vue';
 
 @Component({ components: { MemberTableComponent } })

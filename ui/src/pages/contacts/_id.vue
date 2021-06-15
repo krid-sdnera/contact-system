@@ -294,7 +294,10 @@ import {
   MemberData,
 } from '@api/models';
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
+import {
+  AppBreadcrumbOptions,
+  setBreadcrumbs,
+} from '~/common/helper-factories';
 import ContactEditDialog from '~/components/dialogs/contact-edit.vue';
 import BaseInputComponent from '~/components/form/base-input.vue';
 import * as contact from '~/store/contact';

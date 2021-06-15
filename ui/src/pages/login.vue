@@ -22,7 +22,10 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
+import {
+  AppBreadcrumbOptions,
+  setBreadcrumbs,
+} from '~/common/helper-factories';
 import * as auth from '~/store/auth';
 
 @Component

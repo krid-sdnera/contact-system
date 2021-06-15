@@ -12,4 +12,5 @@ export class AppError {
 export enum ErrorCode {
   InternalError = 'InternalError',
   AuthRefreshTokenInvalid = 'AuthRefreshTokenInvalid',
+  EntityNotFound = 'EntityNotFound',
 }

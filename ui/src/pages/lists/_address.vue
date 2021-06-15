@@ -58,7 +58,10 @@
 <script lang="ts">
 import { ListData } from '@api/models';
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
+import {
+  AppBreadcrumbOptions,
+  setBreadcrumbs,
+} from '~/common/helper-factories';
 import ListEditDialog from '~/components/dialogs/list-edit.vue';
 import BaseInputComponent from '~/components/form/base-input.vue';
 import ListRulesTable from '~/components/tables/list-rules-table.vue';

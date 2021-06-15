@@ -1,5 +1,3 @@
-import { Store } from 'vuex/types/index';
-
 export interface AppAlertOptions {
   heading?: string;
   message: string;
@@ -28,12 +26,4 @@ export class AppAlert {
       this.deduplicate === other.deduplicate
     );
   }
-}
-
-import * as ui from '~/store/ui';
-
-export function createAlert(store: Store<any>, options: AppAlertOptions) {
-  store.dispatch(`${ui.namespace}/addAlert`, new AppAlert(options), {
-    root: true,
-  });
 }

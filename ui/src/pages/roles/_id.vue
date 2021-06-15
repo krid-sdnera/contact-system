@@ -119,7 +119,10 @@
 <script lang="ts">
 import { RoleData, ScoutGroupData, SectionData } from '@api/models';
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
+import {
+  AppBreadcrumbOptions,
+  setBreadcrumbs,
+} from '~/common/helper-factories';
 import RoleEditDialog from '~/components/dialogs/role-edit.vue';
 import MemberTableComponent from '~/components/tables/member-roles-table.vue';
 import * as member from '~/store/member';

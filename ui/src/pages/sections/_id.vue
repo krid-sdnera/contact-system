@@ -99,7 +99,10 @@
 <script lang="ts">
 import { ScoutGroupData, SectionData } from '@api/models';
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
+import {
+  AppBreadcrumbOptions,
+  setBreadcrumbs,
+} from '~/common/helper-factories';
 import SectionEditDialog from '~/components/dialogs/section-edit.vue';
 import MemberTableComponent from '~/components/tables/member-roles-table.vue';
 import RoleTableComponent from '~/components/tables/roles-table.vue';
