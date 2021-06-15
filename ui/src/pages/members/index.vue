@@ -1,11 +1,9 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <members-table allow-creation searchable></members-table>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row>
+    <v-col>
+      <members-table allow-creation searchable></members-table>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

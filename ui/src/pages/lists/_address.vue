@@ -1,45 +1,43 @@
 <template>
   <div v-if="list">
-    <v-container>
-      <v-row>
-        <v-col cols="12" sm="6" md="4">
-          <!-- List Details -->
-          <v-card class="mb-6">
-            <v-card-title>{{ list.name }}</v-card-title>
+    <v-row>
+      <v-col cols="12" sm="6" md="4">
+        <!-- List Details -->
+        <v-card class="mb-6">
+          <v-card-title>{{ list.name }}</v-card-title>
 
-            <v-card-subtitle>{{ list.address }}</v-card-subtitle>
+          <v-card-subtitle>{{ list.address }}</v-card-subtitle>
 
-            <v-card-text>
-              <v-btn color="primary" @click.stop="dialogListEdit = true">
-                <v-icon small>mdi-pencil</v-icon> Edit
-              </v-btn>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+          <v-card-text>
+            <v-btn color="primary" @click.stop="dialogListEdit = true">
+              <v-icon small>mdi-pencil</v-icon> Edit
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
 
-      <v-row>
-        <v-col>
-          <!-- Rules Table -->
-          <list-rules-table
-            :list="list"
-            :rules="rules"
-            searchable
-          ></list-rules-table>
-        </v-col>
-      </v-row>
+    <v-row>
+      <v-col>
+        <!-- Rules Table -->
+        <list-rules-table
+          :list="list"
+          :rules="rules"
+          searchable
+        ></list-rules-table>
+      </v-col>
+    </v-row>
 
-      <v-row>
-        <v-col>
-          <!-- Members Table -->
-          <list-members-table :list="list" searchable></list-members-table>
-        </v-col>
-      </v-row>
-    </v-container>
+    <v-row>
+      <v-col>
+        <!-- Members Table -->
+        <list-members-table :list="list" searchable></list-members-table>
+      </v-col>
+    </v-row>
     <!-- Dialogs -->
     <list-edit :list="list" :open.sync="dialogListEdit"></list-edit>
   </div>
-  <v-container v-else-if="loading">
+  <div v-else-if="loading">
     <!-- Skeletons -->
     <v-row>
       <v-col cols="12" sm="6" md="4">
@@ -50,7 +48,7 @@
         <v-skeleton-loader type="article"></v-skeleton-loader>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
   <div v-else-if="error">Error loading list details</div>
   <div v-else>List not found!</div>
 </template>

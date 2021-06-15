@@ -1,11 +1,9 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <scout-groups-table allow-creation searchable></scout-groups-table>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row>
+    <v-col>
+      <scout-groups-table allow-creation searchable></scout-groups-table>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

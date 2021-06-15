@@ -83,7 +83,9 @@
           </v-row>
         </v-container>
 
-        <nuxt />
+        <v-container>
+          <nuxt />
+        </v-container>
       </v-container>
     </v-main>
     <alerts></alerts>

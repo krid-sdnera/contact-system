@@ -1,76 +1,74 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <v-card>
-          <v-card-title class="headline">
-            The Contact system
-          </v-card-title>
-          <v-card-text>
-            <v-list>
-              <v-list-item to="/members" nuxt>
-                <v-list-item-icon>
-                  <v-icon color="green">mdi-account</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  View current members
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item to="/members/invites" nuxt>
-                <v-list-item-icon>
-                  <v-icon color="green">mdi-account-multiple-plus</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  View invited members (TODO)
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-card-text>
-          <v-card-actions> </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col>
-        <v-card>
-          <v-card-title class="headline">
-            Quick Access
-          </v-card-title>
-          <v-card-text>
-            <v-treeview :items="exportTreeItems" open-on-click>
-              <template v-slot:append="{ item }">
-                <member-export
-                  v-if="!item.children"
-                  :open.sync="item.dialogExport"
-                  :api-options="{}"
-                  :preset-member-fields="[
-                    'firstname',
-                    'lastname',
-                    'membershipNumber',
-                    'age',
-                  ]"
-                  :preset-contact-fields="[
-                    'firstname',
-                    'lastname',
-                    'phoneMobile',
-                  ]"
-                  :preset-section="item.section"
-                  :btn-label="`Export members`"
-                ></member-export>
-                <v-btn
-                  :to="`/${item.scoutGroup ? 'groups' : 'sections'}/${item.id}`"
-                  color="primary"
-                  icon
-                  nuxt
-                >
-                  <v-icon>mdi-eye</v-icon>
-                </v-btn>
-              </template>
-            </v-treeview>
-          </v-card-text>
-          <v-card-actions> </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row>
+    <v-col>
+      <v-card>
+        <v-card-title class="headline">
+          The Contact system
+        </v-card-title>
+        <v-card-text>
+          <v-list>
+            <v-list-item to="/members" nuxt>
+              <v-list-item-icon>
+                <v-icon color="green">mdi-account</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                View current members
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item to="/members/invites" nuxt>
+              <v-list-item-icon>
+                <v-icon color="green">mdi-account-multiple-plus</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                View invited members (TODO)
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-card-text>
+        <v-card-actions> </v-card-actions>
+      </v-card>
+    </v-col>
+    <v-col>
+      <v-card>
+        <v-card-title class="headline">
+          Quick Access
+        </v-card-title>
+        <v-card-text>
+          <v-treeview :items="exportTreeItems" open-on-click>
+            <template v-slot:append="{ item }">
+              <member-export
+                v-if="!item.children"
+                :open.sync="item.dialogExport"
+                :api-options="{}"
+                :preset-member-fields="[
+                  'firstname',
+                  'lastname',
+                  'membershipNumber',
+                  'age',
+                ]"
+                :preset-contact-fields="[
+                  'firstname',
+                  'lastname',
+                  'phoneMobile',
+                ]"
+                :preset-section="item.section"
+                :btn-label="`Export members`"
+              ></member-export>
+              <v-btn
+                :to="`/${item.scoutGroup ? 'groups' : 'sections'}/${item.id}`"
+                color="primary"
+                icon
+                nuxt
+              >
+                <v-icon>mdi-eye</v-icon>
+              </v-btn>
+            </template>
+          </v-treeview>
+        </v-card-text>
+        <v-card-actions> </v-card-actions>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

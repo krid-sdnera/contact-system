@@ -1,11 +1,9 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <sections-table allow-creation searchable></sections-table>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row>
+    <v-col>
+      <sections-table allow-creation searchable></sections-table>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

@@ -1,11 +1,9 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <roles-table allow-creation searchable></roles-table>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row>
+    <v-col>
+      <roles-table allow-creation searchable></roles-table>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
