@@ -186,8 +186,7 @@ import { MemberInput, MemberInputStateEnum, MemberData } from '@api/models';
 
 import * as member from '~/store/member';
 import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
-
+import { createAlert } from '~/common/helper-factories';
 @Component
 export default class DialogMemberCreateComponent extends Vue {
   @PropSync('open', Boolean)

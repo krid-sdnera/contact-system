@@ -6,7 +6,7 @@ import {
   ModelApiResponse,
 } from '@api/models';
 import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator';
-import { createAlert } from '~/common/alert';
+import { createAlert } from '~/common/helper-factories';
 import { VuetifyTableOptions } from '~/common/vuetify-types';
 
 interface IDwise {

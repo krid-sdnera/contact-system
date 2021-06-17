@@ -59,15 +59,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
-import { ListData, Lists, MemberData, ModelApiResponse } from '@api/models';
-import ListCreateDialog from '~/components/dialogs/list-create.vue';
+import { ListData, Lists, MemberData } from '@api/models';
+import { Component, Prop } from 'vue-property-decorator';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
-
-import * as list from '~/store/emailList';
-import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
+import ListCreateDialog from '~/components/dialogs/list-create.vue';
 import BaseTable from '~/components/tables/base-table';
+import * as list from '~/store/emailList';
 
 @Component({
   components: {

@@ -60,21 +60,17 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch, Prop, PropSync } from 'vue-property-decorator';
 import {
-  Sections,
   ModelApiResponse,
-  SectionData,
-  SectionInput,
   ScoutGroupData,
+  SectionData,
+  Sections,
 } from '@api/models';
+import { Component, Prop } from 'vue-property-decorator';
 // import SectionCreateDialog from '~/components/dialogs/section-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
-
-import * as section from '~/store/section';
-import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
 import BaseTable from '~/components/tables/base-table';
+import * as section from '~/store/section';
 
 @Component({
   components: {

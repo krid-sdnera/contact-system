@@ -183,12 +183,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch, Prop, PropSync } from 'vue-property-decorator';
 import { ContactInput, ContactInputStateEnum, MemberData } from '@api/models';
-
+import { Component, Prop, PropSync, Vue, Watch } from 'vue-property-decorator';
+import { createAlert } from '~/common/helper-factories';
 import * as contact from '~/store/contact';
 import * as ui from '~/store/ui';
-import { AppAlert, createAlert } from '~/common/alert';
 
 @Component
 export default class DialogContactCreateComponent extends Vue {

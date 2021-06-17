@@ -60,21 +60,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch, Prop, PropSync } from 'vue-property-decorator';
-import {
-  ScoutGroupData,
-  ScoutGroups,
-  ModelApiResponse,
-  SectionData,
-  SectionInput,
-} from '@api/models';
-// import ScoutGroupCreateDialog from '~/components/dialogs/scout-group-create.vue';
+import { ModelApiResponse, ScoutGroupData, ScoutGroups } from '@api/models';
+import { Component } from 'vue-property-decorator';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
-
-import * as scoutGroup from '~/store/scoutGroup';
-import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
 import BaseTable from '~/components/tables/base-table';
+import * as scoutGroup from '~/store/scoutGroup';
 
 @Component({
   components: {

@@ -235,8 +235,7 @@ import { ContactData, ContactInput, ContactInputStateEnum } from '@api/models';
 
 import * as contact from '~/store/contact';
 import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
-
+import { createAlert } from '~/common/helper-factories';
 @Component
 export default class DialogContactEditComponent extends Vue {
   @PropSync('open', Boolean)

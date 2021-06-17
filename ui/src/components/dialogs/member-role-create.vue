@@ -61,8 +61,7 @@ import {
 import * as member from '~/store/member';
 import * as role from '~/store/role';
 import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
-
+import { createAlert } from '~/common/helper-factories';
 @Component
 export default class DialogMemberRoleCreateComponent extends Vue {
   @PropSync('open', Boolean)

@@ -1,7 +1,6 @@
 import { JwtData } from '@api/models';
 import { ActionTree, GetterTree, MutationTree } from 'vuex';
-import { createAlert } from '~/common/alert';
-
+import { createAlert } from '~/common/helper-factories';
 export const namespace = 'auth';
 
 export const state = () =>

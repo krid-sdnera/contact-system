@@ -84,8 +84,7 @@ import { RoleData, RoleInput } from '@api/models';
 
 import * as role from '~/store/role';
 import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
-
+import { createAlert } from '~/common/helper-factories';
 @Component
 export default class DialogRoleEditComponent extends Vue {
   @PropSync('open', Boolean)

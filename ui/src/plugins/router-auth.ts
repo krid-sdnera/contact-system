@@ -1,5 +1,5 @@
 import { Plugin } from '@nuxt/types';
-import { createAlert } from '~/common/alert';
+import { createAlert } from '~/common/helper-factories';
 import * as auth from '~/store/auth';
 
 const routerAuth: Plugin = ({ app, store }) => {

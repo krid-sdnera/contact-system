@@ -105,7 +105,7 @@ import {
   Vue,
   Watch,
 } from 'vue-property-decorator';
-import { createAlert } from '~/common/alert';
+import { createAlert } from '~/common/helper-factories';
 import * as list from '~/store/emailList';
 import * as ui from '~/store/ui';
 

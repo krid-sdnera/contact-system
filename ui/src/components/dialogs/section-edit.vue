@@ -66,8 +66,7 @@ import { SectionData, SectionInput } from '@api/models';
 
 import * as section from '~/store/section';
 import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
-
+import { createAlert } from '~/common/helper-factories';
 @Component
 export default class DialogSectionEditComponent extends Vue {
   @PropSync('open', Boolean)

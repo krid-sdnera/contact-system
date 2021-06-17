@@ -64,8 +64,7 @@ import { ListData, ListInput } from '@api/models';
 
 import * as list from '~/store/emailList';
 import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
-
+import { createAlert } from '~/common/helper-factories';
 @Component
 export default class DialogListEditComponent extends Vue {
   @PropSync('open', Boolean)

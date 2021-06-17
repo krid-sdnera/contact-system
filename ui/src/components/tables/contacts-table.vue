@@ -60,27 +60,17 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch, Prop, PropSync } from 'vue-property-decorator';
 import {
   ContactData,
-  ContactDataManagementStateEnum,
-  ContactDataStateEnum,
   Contacts,
   MemberData,
-  MemberRoleDataManagementStateEnum,
-  MemberRoleDataStateEnum,
   ModelApiResponse,
-  SectionData,
-  SectionInput,
 } from '@api/models';
+import { Component, Prop } from 'vue-property-decorator';
 import ContactCreateDialog from '~/components/dialogs/contact-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
-
-import * as member from '~/store/member';
-import * as contact from '~/store/contact';
-import * as ui from '~/store/ui';
-import { createAlert } from '~/common/alert';
 import BaseTable from '~/components/tables/base-table';
+import * as contact from '~/store/contact';
 
 @Component({
   components: {
