@@ -91,6 +91,9 @@ class Member
         if ($member->overridable('gender')) {
             $member->setGender($extranetMember->getGender());
         }
+        if ($member->overridable('email')) {
+            $member->setEmail($extranetMember->getEmail());
+        }
 
         // Update address        
         if ($member->overridable('address')) {
