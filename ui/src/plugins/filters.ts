@@ -120,7 +120,10 @@ Vue.filter('phone', function (inPhone: string | undefined) {
     return inPhone.replace(/(\d{4})(\d{4})/, '$1 $2');
   }
   if (inPhone.length === 10) {
-    return inPhone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+    if (inPhone.startsWith('04')) {
+      return inPhone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+    }
+    return inPhone.replace(/(\d{2})(\d{4})(\d{4})/, '$1 $2 $3');
   }
   if (inPhone.length === 11) {
     return inPhone.replace(/61(\d{3})(\d{3})(\d{3})/, '+61$1 $2 $3');
