@@ -6,6 +6,7 @@ use Exception;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 use League\Csv\Reader;
 
@@ -23,6 +24,11 @@ use App\Entity\ExtranetContact;
 
 class ExtranetService
 {
+    /**
+     * @var Stopwatch
+     */
+    private $stopwatch;
+
     private $_useCache = false;
     private $credentials = [
         'username' => '',
@@ -39,9 +45,10 @@ class ExtranetService
     // I don't really want to assume but... VicScouts likes javascript ambiguities
     const MemberContactHeaders = ['Relationship', 'Title', 'Firstname', 'Surname', 'Preferedname', 'Occupation', 'Contact', 'Address', 'PrimaryContact'];
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, Stopwatch $stopwatch)
     {
         $this->em = $entityManager;
+        $this->stopwatch = $stopwatch;
     }
 
     public function setCacheDirectory($cacheDirectory): self
@@ -87,6 +94,9 @@ class ExtranetService
 
     public function doExtract()
     {
+
+        $this->stopwatch->openSection();
+
         $this->getExtranetData();
 
         Member::setEntityManager($this->em);
@@ -96,6 +106,34 @@ class ExtranetService
         Section::setEntityManager($this->em);
         ScoutGroup::setEntityManager($this->em);
 
+        $convertedExtranetEntities = $this->convertExtranetObjectsToDBEntities();
+
+        // TODO: Rename to something like `difflocalandextranettogetalistofupdates()`
+        $this->stopwatch->start('analyse-management-state');
+        $membersToPersist =  $this->extranet_import($convertedExtranetEntities);
+        $this->stopwatch->stop('analyse-management-state');
+
+
+        $this->stopwatch->start('persist-data');
+        foreach ($membersToPersist as $i => $member) {
+            $this->em->persist($member);
+            $event = $this->stopwatch->lap('persist-data');
+            $period = $event->getPeriods()[count($event->getPeriods()) - 1];
+            $timingStr = sprintf('%s: %.2F MiB - %d ms', 'period', $period->getMemory() / 1024 / 1024, $period->getDuration());
+            echo 'persist-data ' . $timingStr  . PHP_EOL;
+        }
+
+        $this->em->flush();
+        $this->stopwatch->stop('persist-data');
+        echo 'persist-data ' . (string) $this->stopwatch->getEvent('persist-data') . PHP_EOL;
+
+        $this->stopwatch->stopSection('extranet-sync');
+    }
+
+    private function convertExtranetObjectsToDBEntities()
+    {
+        $this->stopwatch->start('convert-record');
+
         /** @var Member[] */
         $members = [];
         foreach ($this->extranetMembers as $i => $extranetMember) {
@@ -103,20 +141,22 @@ class ExtranetService
             /** @var Member */
             $member = Member::fromExtranetMember($extranetMember);
             $members[] = $member;
+            $event = $this->stopwatch->lap('convert-record');
+            $period = $event->getPeriods()[count($event->getPeriods()) - 1];
+            $timingStr = sprintf('%s: %.2F MiB - %d ms', 'period', $period->getMemory() / 1024 / 1024, $period->getDuration());
+            echo 'convert-record' . $timingStr  . PHP_EOL;
         }
 
-        $membersToPersist =  $this->extranet_import($members);
+        $this->stopwatch->stop('convert-record');
+        echo 'convert-record' . (string) $this->stopwatch->getEvent('convert-record') . PHP_EOL;
 
-        foreach ($membersToPersist as $i => $member) {
-            $this->em->persist($member);
-        }
-
-        $this->em->flush();
+        return  $members;
     }
 
     private function getExtranetData()
     {
         if ($this->_useCache) {
+            $this->stopwatch->start('fetch-data-from-cache');
             echo 'Using cache data' . PHP_EOL;
 
             $data = json_decode(file_get_contents($this->cacheDirectory . 'extranet-data.json'), true);
@@ -129,10 +169,13 @@ class ExtranetService
             );
 
             echo 'Cache data loaded successfully' . PHP_EOL;
+            $this->stopwatch->stop('fetch-data-from-cache');
+            echo 'fetch-data-from-cache' . (string) $this->stopwatch->getEvent('fetch-data-from-cache') . PHP_EOL;
 
             return;
         }
 
+        $this->stopwatch->start('fetch-data-from-extranet');
         $this->setClient(self::HttpClientFactory());
 
         $this->doExtranetLogin();
@@ -153,6 +196,8 @@ class ExtranetService
                 $this->extranetMembers
             ), JSON_PRETTY_PRINT)
         );
+        $this->stopwatch->stop('fetch-data-from-extranet');
+        echo 'fetch-data-from-extranet' . (string) $this->stopwatch->getEvent('fetch-data-from-extranet');
     }
 
     private function doExtranetLogin(): void
@@ -501,9 +546,19 @@ class ExtranetService
         // $header = $csv->getHeader();
         $records = $csv->getRecords();
 
+        $this->stopwatch->start('fetch-record');
         foreach ($records as $i => $record) {
+
+
             $this->processReportRecord($record);
+            $event = $this->stopwatch->lap('fetch-record');
+            $period = $event->getPeriods()[count($event->getPeriods()) - 1];
+            $timingStr = sprintf('%s: %.2F MiB - %d ms', 'period', $period->getMemory() / 1024 / 1024, $period->getDuration());
+            echo 'fetch-record' . $timingStr  . PHP_EOL;
         }
+
+        $this->stopwatch->stop('fetch-record');
+        echo 'fetch-record' . (string) $this->stopwatch->getEvent('fetch-record') . PHP_EOL;
     }
 
     private function processReportRecord($record)
