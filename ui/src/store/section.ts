@@ -65,7 +65,15 @@ export const actions: ActionTree<RootState, RootState> = {
       const payload = await this.$api.sections.getSectionById({ sectionId });
       commit('setSectionById', payload);
     } catch (e) {
-      throw new AppError(ErrorCode.InternalError, 'Unable to load section', e);
+      if (e.status === 404) {
+        throw new AppError(ErrorCode.EntityNotFound, `Section not found`, e);
+      } else {
+        throw new AppError(
+          ErrorCode.InternalError,
+          `Unable to load section: ${e.statusText}`,
+          e
+        );
+      }
     }
   },
   async fetchSectionsByScoutGroupId(

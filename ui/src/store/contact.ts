@@ -70,7 +70,15 @@ export const actions: ActionTree<RootState, RootState> = {
       const payload = await this.$api.contacts.getContactById({ contactId });
       commit('setContactById', payload);
     } catch (e) {
-      throw new AppError(ErrorCode.InternalError, 'Unable to load contact', e);
+      if (e.status === 404) {
+        throw new AppError(ErrorCode.EntityNotFound, `Contact not found`, e);
+      } else {
+        throw new AppError(
+          ErrorCode.InternalError,
+          `Unable to load contact: ${e.statusText}`,
+          e
+        );
+      }
     }
   },
   async fetchContactsByMemberId(

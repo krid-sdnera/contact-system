@@ -26,9 +26,6 @@ export const getters: GetterTree<RootState, RootState> = {
   getRoleById: (state) => (id: number): RoleData | null => {
     return state.roles[id] || null;
   },
-  removeRoleById: (state, roleId: number) => {
-    Vue.delete(state.roles, roleId);
-  },
   getRolesBySectionId: (state) => (id: number): RoleData[] => {
     return Object.values(state.roles).filter(
       (role: RoleData): boolean => role.section.id === id
@@ -44,6 +41,9 @@ export const mutations: MutationTree<RootState> = {
     roles.forEach((role) => {
       Vue.set(state.roles, role.id, role);
     });
+  },
+  removeRoleById: (state, roleId: number) => {
+    Vue.delete(state.roles, roleId);
   },
 };
 
@@ -65,7 +65,15 @@ export const actions: ActionTree<RootState, RootState> = {
       const payload = await this.$api.roles.getRoleById({ roleId });
       commit('setRoleById', payload);
     } catch (e) {
-      throw new AppError(ErrorCode.InternalError, 'Unable to load role', e);
+      if (e.status === 404) {
+        throw new AppError(ErrorCode.EntityNotFound, `Role not found`, e);
+      } else {
+        throw new AppError(
+          ErrorCode.InternalError,
+          `Unable to load role: ${e.statusText}`,
+          e
+        );
+      }
     }
   },
   async fetchRolesBySectionId({ commit }, options: GetSectionRolesByIdRequest) {

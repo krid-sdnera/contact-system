@@ -1,5 +1,5 @@
 <template>
-  <div v-if="member">
+  <div v-if="member && fetchState === appFetchState.Loaded">
     <v-row>
       <v-col cols="12" sm="6" md="4">
         <!-- Member Details -->
@@ -289,7 +289,7 @@
       </v-col>
     </v-row>
   </div>
-  <div v-else-if="loading">
+  <div v-else-if="fetchState === appFetchState.Loading">
     <!-- Skeletons -->
     <v-row>
       <v-col cols="12" sm="6" md="4">
@@ -315,8 +315,7 @@
       </v-col>
     </v-row>
   </div>
-  <div v-else-if="error">Error loading member details</div>
-  <div v-else>Member not found!</div>
+  <error-display v-else :error="error"></error-display>
 </template>
 
 <script lang="ts">
@@ -330,8 +329,7 @@ import {
   MemberRoleDataManagementStateEnum,
   MemberRoleDataStateEnum,
 } from '@api/models';
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import { AppBreadcrumbOptions, setBreadcrumbs } from '~/common/breadcrumb';
+import { Component } from 'vue-property-decorator';
 import ContactCreateDialog from '~/components/dialogs/contact-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
 import MemberEditDialog from '~/components/dialogs/member-edit.vue';
@@ -340,6 +338,7 @@ import BaseInputComponent from '~/components/form/base-input.vue';
 import ContactTableComponent from '~/components/tables/contacts-table.vue';
 import ListRulesTable from '~/components/tables/list-rules-table.vue';
 import MemberRoleTableComponent from '~/components/tables/member-roles-table.vue';
+import BaseDisplayPage from '~/pages/base-detail-page';
 import * as contact from '~/store/contact';
 import * as member from '~/store/member';
 import * as ui from '~/store/ui';
@@ -356,25 +355,8 @@ import * as ui from '~/store/ui';
     ListRulesTable,
   },
 })
-export default class MemberDetailPage extends Vue {
-  get breadcrumbs(): AppBreadcrumbOptions[] {
-    return [
-      { to: '/', label: 'Dashboard' },
-      { to: '/members', label: 'Members' },
-      {
-        to: null,
-        label: this.member
-          ? `${this.member.firstname} ${this.member.lastname}`
-          : 'Loading',
-      },
-    ];
-  }
-
-  @Watch('breadcrumbs', { immediate: true })
-  watchBreadcrumbs() {
-    setBreadcrumbs(this.$store, this.breadcrumbs);
-  }
-
+export default class MemberDetailPage extends BaseDisplayPage {
+  // Getters
   get id(): number {
     return Number(this.$route.params.id);
   }
@@ -395,12 +377,31 @@ export default class MemberDetailPage extends Vue {
     );
   }
 
+  // Configurables
+  breadcrumbParents = [
+    {
+      to: '/members',
+      label: 'Members',
+    },
+  ];
+  get breadcrumbLabel(): string | null {
+    return this.member
+      ? `${this.member.firstname} ${this.member.lastname}`
+      : null;
+  }
+
+  fetchApiStatusMsg = 'Fetching Member Data';
+  async _fetchApiData() {
+    await this.$store.dispatch(`${member.namespace}/fetchMemberById`, this.id);
+  }
+  async _fetchDataEntityNotFound() {
+    this.$store.commit(`${member.namespace}/removeMemberById`, this.id);
+  }
+
+  // Additional logic
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }
-
-  error = false;
-  loading = true;
 
   isOverridden(fieldname: keyof MemberOverrideData): boolean {
     if (!this.member?.overrides) {
@@ -418,19 +419,6 @@ export default class MemberDetailPage extends Vue {
     return state === ContactDataManagementStateEnum.Managed
       ? 'green'
       : 'orange';
-  }
-
-  async mounted() {
-    try {
-      await this.$store.dispatch(
-        `${member.namespace}/fetchMemberById`,
-        this.id
-      );
-    } catch (e) {
-      this.error = true;
-    } finally {
-      this.loading = false;
-    }
   }
 
   dialogMemberEdit: boolean = false;

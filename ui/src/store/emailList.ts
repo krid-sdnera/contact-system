@@ -165,11 +165,15 @@ export const actions: ActionTree<RootState, RootState> = {
       });
       commit('setEmailListById', payload);
     } catch (e) {
-      throw new AppError(
-        ErrorCode.InternalError,
-        'Unable to load emailList',
-        e
-      );
+      if (e.status === 404) {
+        throw new AppError(ErrorCode.EntityNotFound, `Email list not found`, e);
+      } else {
+        throw new AppError(
+          ErrorCode.InternalError,
+          `Unable to load email list: ${e.statusText}`,
+          e
+        );
+      }
     }
   },
   async fetchEmailListByAddress({ commit }, listAddress: string) {
@@ -179,11 +183,15 @@ export const actions: ActionTree<RootState, RootState> = {
       });
       commit('setEmailListById', payload);
     } catch (e) {
-      throw new AppError(
-        ErrorCode.InternalError,
-        'Unable to load emailList',
-        e
-      );
+      if (e.status === 404) {
+        throw new AppError(ErrorCode.EntityNotFound, `Email list not found`, e);
+      } else {
+        throw new AppError(
+          ErrorCode.InternalError,
+          `Unable to load email list: ${e.statusText}`,
+          e
+        );
+      }
     }
   },
   async createEmailList({ commit }, { listInput }: CreateListRequest) {

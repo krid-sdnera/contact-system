@@ -1,5 +1,5 @@
 <template>
-  <div v-if="section">
+  <div v-if="section && fetchState === appFetchState.Loaded">
     <v-row>
       <v-col cols="12" sm="6" md="4">
         <!-- Section Details -->
@@ -74,7 +74,7 @@
       :open.sync="dialogSectionEdit"
     ></section-edit>
   </div>
-  <div v-else-if="loading">
+  <div v-else-if="fetchState === appFetchState.Loading">
     <!-- Skeletons -->
     <v-row>
       <v-col cols="12" sm="6" md="4">
@@ -90,23 +90,17 @@
       </v-col>
     </v-row>
   </div>
-  <div v-else-if="error">Error loading section details</div>
-  <div v-else>Section not found!</div>
+  <error-display v-else :error="error"></error-display>
 </template>
 
 <script lang="ts">
 import { ScoutGroupData, SectionData } from '@api/models';
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import {
-  AppBreadcrumbOptions,
-  setBreadcrumbs,
-} from '~/common/helper-factories';
+import { Component } from 'vue-property-decorator';
 import SectionEditDialog from '~/components/dialogs/section-edit.vue';
 import MemberTableComponent from '~/components/tables/member-roles-table.vue';
 import RoleTableComponent from '~/components/tables/roles-table.vue';
-import * as role from '~/store/role';
 import * as section from '~/store/section';
-import * as ui from '~/store/ui';
+import BaseDisplayPage from '../base-detail-page';
 
 @Component({
   components: {
@@ -115,23 +109,8 @@ import * as ui from '~/store/ui';
     MemberTableComponent,
   },
 })
-export default class SectionDetailPage extends Vue {
-  get breadcrumbs(): AppBreadcrumbOptions[] {
-    return [
-      { to: '/', label: 'Dashboard' },
-      { to: '/sections', label: 'Sections' },
-      {
-        to: null,
-        label: this.section ? `${this.section.name}` : 'Loading',
-      },
-    ];
-  }
-
-  @Watch('breadcrumbs', { immediate: true })
-  watchBreadcrumbs() {
-    setBreadcrumbs(this.$store, this.breadcrumbs);
-  }
-
+export default class SectionDetailPage extends BaseDisplayPage {
+  // Getters
   get id(): number {
     return Number(this.$route.params.id);
   }
@@ -144,32 +123,29 @@ export default class SectionDetailPage extends Vue {
     return this.section ? this.section.scoutGroup : null;
   }
 
-  get isAppUpdating(): boolean {
-    return this.$store.getters[`${ui.namespace}/isAppUpdating`];
+  // Configurables
+  breadcrumbParents = [
+    {
+      to: '/sections',
+      label: 'Sections',
+    },
+  ];
+  get breadcrumbLabel(): string | null {
+    return this.section ? `${this.section.name}` : null;
   }
 
-  error = false;
-  loading = true;
-
-  async mounted() {
-    try {
-      await this.$store.dispatch(
-        `${section.namespace}/fetchSectionById`,
-        this.id
-      );
-      this.$store.dispatch(`${role.namespace}/fetchRolesBySectionId`, this.id);
-
-      if (!this.section) {
-        this.loading = false;
-        return;
-      }
-    } catch (e) {
-      this.error = true;
-    } finally {
-      this.loading = false;
-    }
+  fetchApiStatusMsg = 'Fetching Section Data';
+  async _fetchApiData() {
+    await this.$store.dispatch(
+      `${section.namespace}/fetchSectionById`,
+      this.id
+    );
+  }
+  async _fetchDataEntityNotFound() {
+    this.$store.commit(`${section.namespace}/removeSectionById`, this.id);
   }
 
+  // Additional logic
   dialogSectionEdit: boolean = false;
 
   openEditSectionModal() {

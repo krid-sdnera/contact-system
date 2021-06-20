@@ -90,7 +90,15 @@ export const actions: ActionTree<RootState, RootState> = {
       const payload = await this.$api.members.getMemberById({ memberId });
       commit('setMemberById', payload);
     } catch (e) {
-      throw new AppError(ErrorCode.InternalError, 'Unable to load member', e);
+      if (e.status === 404) {
+        throw new AppError(ErrorCode.EntityNotFound, `Member not found`, e);
+      } else {
+        throw new AppError(
+          ErrorCode.InternalError,
+          `Unable to load member: ${e.statusText}`,
+          e
+        );
+      }
     }
   },
   async fetchMembersByRoleId({ commit }, options: GetMembersByRoleIdRequest) {

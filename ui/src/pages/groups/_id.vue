@@ -1,5 +1,5 @@
 <template>
-  <div v-if="scoutGroup">
+  <div v-if="scoutGroup && fetchState === appFetchState.Loaded">
     <v-row>
       <v-col cols="12" sm="6" md="4">
         <!-- ScoutGroup Details -->
@@ -52,7 +52,7 @@
       :open.sync="dialogScoutGroupEdit"
     ></scout-group-edit>
   </div>
-  <div v-else-if="loading">
+  <div v-else-if="fetchState === appFetchState.Loading">
     <!-- Skeletons -->
     <v-row>
       <v-col cols="12" sm="6" md="4">
@@ -65,22 +65,18 @@
       </v-col>
     </v-row>
   </div>
-  <div v-else-if="error">Error loading scoutGroup details</div>
-  <div v-else>ScoutGroup not found!</div>
+  <error-display v-else :error="error"></error-display>
 </template>
 
 <script lang="ts">
 import { ScoutGroupData, SectionData } from '@api/models';
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import {
-  AppBreadcrumbOptions,
-  setBreadcrumbs,
-} from '~/common/helper-factories';
+import { Component, Vue } from 'vue-property-decorator';
+import { AppBreadcrumbOptions } from '~/common/breadcrumb';
 import ScoutGroupEditDialog from '~/components/dialogs/scout-group-edit.vue';
 import SectionTableComponent from '~/components/tables/sections-table.vue';
 import * as scoutGroup from '~/store/scoutGroup';
 import * as section from '~/store/section';
-import * as ui from '~/store/ui';
+import BaseDisplayPage from '../base-detail-page';
 
 @Component({
   components: {
@@ -88,23 +84,8 @@ import * as ui from '~/store/ui';
     SectionTableComponent,
   },
 })
-export default class ScoutGroupDetailPage extends Vue {
-  get breadcrumbs(): AppBreadcrumbOptions[] {
-    return [
-      { to: '/', label: 'Dashboard' },
-      { to: '/groups', label: 'Groups' },
-      {
-        to: null,
-        label: this.scoutGroup ? `${this.scoutGroup.name}` : 'Loading',
-      },
-    ];
-  }
-
-  @Watch('breadcrumbs', { immediate: true })
-  watchBreadcrumbs() {
-    setBreadcrumbs(this.$store, this.breadcrumbs);
-  }
-
+export default class ScoutGroupDetailPage extends BaseDisplayPage {
+  // Getters
   get id(): number {
     return Number(this.$route.params.id);
   }
@@ -121,13 +102,6 @@ export default class ScoutGroupDetailPage extends Vue {
     ](this.id);
   }
 
-  get isAppUpdating(): boolean {
-    return this.$store.getters[`${ui.namespace}/isAppUpdating`];
-  }
-
-  error = false;
-  loading = true;
-
   headers = {
     sections: [
       { text: 'Name', value: 'name' },
@@ -136,24 +110,29 @@ export default class ScoutGroupDetailPage extends Vue {
     ],
   };
 
-  async mounted() {
-    try {
-      await this.$store.dispatch(
-        `${scoutGroup.namespace}/fetchScoutGroupById`,
-        this.id
-      );
-
-      if (!this.scoutGroup) {
-        this.loading = false;
-        return;
-      }
-    } catch (e) {
-      this.error = true;
-    } finally {
-      this.loading = false;
-    }
+  // Configurables
+  breadcrumbParents = [
+    {
+      to: '/groups',
+      label: 'Groups',
+    },
+  ];
+  get breadcrumbLabel(): string | null {
+    return this.scoutGroup ? `${this.scoutGroup.name}` : null;
   }
 
+  fetchApiStatusMsg = 'Fetching Group Data';
+  async _fetchApiData() {
+    await this.$store.dispatch(
+      `${scoutGroup.namespace}/fetchScoutGroupById`,
+      this.id
+    );
+  }
+  async _fetchDataEntityNotFound() {
+    this.$store.commit(`${scoutGroup.namespace}/removeScoutGroupById`, this.id);
+  }
+
+  // Additional logic
   dialogScoutGroupEdit: boolean = false;
 
   openEditScoutGroupModal() {

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="contact">
+  <div v-if="contact && fetchState === appFetchState.Loaded">
     <v-row>
       <v-col cols="12" sm="6" md="4">
         <!-- Contact Details -->
@@ -251,7 +251,7 @@
       :open.sync="dialogContactEdit"
     ></contact-edit>
   </div>
-  <div v-else-if="loading">
+  <div v-else-if="fetchState === appFetchState.Loading">
     <!-- Skeletons -->
     <v-row>
       <v-col cols="12" sm="6" md="4">
@@ -277,8 +277,7 @@
       </v-col>
     </v-row> -->
   </div>
-  <div v-else-if="error">Error loading contact details</div>
-  <div v-else>Contact not found!</div>
+  <error-display v-else :error="error"></error-display>
 </template>
 
 <script lang="ts">
@@ -288,13 +287,11 @@ import {
   ContactOverrideData,
   MemberData,
 } from '@api/models';
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import {
-  AppBreadcrumbOptions,
-  setBreadcrumbs,
-} from '~/common/helper-factories';
+import { Component } from 'vue-property-decorator';
+import { AppBreadcrumbOptions } from '~/common/breadcrumb';
 import ContactEditDialog from '~/components/dialogs/contact-edit.vue';
 import BaseInputComponent from '~/components/form/base-input.vue';
+import BaseDisplayPage from '~/pages/base-detail-page';
 import * as contact from '~/store/contact';
 import * as member from '~/store/member';
 import * as ui from '~/store/ui';
@@ -305,25 +302,8 @@ import * as ui from '~/store/ui';
     ContactEditDialog,
   },
 })
-export default class ContactDetailPage extends Vue {
-  get breadcrumbs(): AppBreadcrumbOptions[] {
-    return [
-      { to: '/', label: 'Dashboard' },
-      { to: '/contacts', label: 'Contacts' },
-      {
-        to: null,
-        label: this.contact
-          ? `${this.contact.firstname} ${this.contact.lastname}`
-          : 'Loading',
-      },
-    ];
-  }
-
-  @Watch('breadcrumbs', { immediate: true })
-  watchBreadcrumbs() {
-    setBreadcrumbs(this.$store, this.breadcrumbs);
-  }
-
+export default class ContactDetailPage extends BaseDisplayPage {
+  // Getters
   get id(): number {
     return Number(this.$route.params.id);
   }
@@ -341,6 +321,31 @@ export default class ContactDetailPage extends Vue {
     );
   }
 
+  // Configurables
+  breadcrumbParents = [
+    {
+      to: '/contacts',
+      label: 'Contacts',
+    },
+  ];
+  get breadcrumbLabel(): string | null {
+    return this.contact
+      ? `${this.contact.firstname} ${this.contact.lastname}`
+      : null;
+  }
+
+  fetchApiStatusMsg = 'Fetching Contact Data';
+  async _fetchApiData() {
+    await this.$store.dispatch(
+      `${contact.namespace}/fetchContactById`,
+      this.id
+    );
+  }
+  async _fetchDataEntityNotFound() {
+    this.$store.commit(`${contact.namespace}/removeContactById`, this.id);
+  }
+
+  // Additional logic
   get isAppUpdating(): boolean {
     return this.$store.getters[`${ui.namespace}/isAppUpdating`];
   }
@@ -350,33 +355,6 @@ export default class ContactDetailPage extends Vue {
       return false;
     }
     return this.contact.overrides[fieldname] || false;
-  }
-
-  error = false;
-  loading = true;
-
-  async mounted() {
-    try {
-      await this.$store.dispatch(
-        `${contact.namespace}/fetchContactById`,
-        this.id
-      );
-      if (!this.contact) {
-        console.log(
-          'unable to load the member data for this contact. id not avaliable'
-        );
-        this.loading = false;
-        return;
-      }
-      await this.$store.dispatch(
-        `${member.namespace}/fetchMemberById`,
-        this.contact.memberId
-      );
-    } catch (e) {
-      this.error = true;
-    } finally {
-      this.loading = false;
-    }
   }
 
   dialogStateConfirm = false;

@@ -76,7 +76,7 @@
               <v-card>
                 <v-card-text class="d-flex flex-row justify-space-between">
                   <breadcrumbs></breadcrumbs>
-                  <span>s</span>
+                  <api-activity-indicator></api-activity-indicator>
                 </v-card-text>
               </v-card>
             </v-col>
@@ -89,7 +89,6 @@
       </v-container>
     </v-main>
     <alerts></alerts>
-    <api-activity-indicator></api-activity-indicator>
   </v-app>
 </template>
 

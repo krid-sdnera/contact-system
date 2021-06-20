@@ -8,10 +8,14 @@ export const namespace = 'ui';
 export const state = () =>
   ({
     updateApiRequestInProgress: false,
+    apiStatus: [],
+    dataRefreshRequest: false,
     breadcrumbs: [],
     alerts: [],
   } as {
     updateApiRequestInProgress: boolean;
+    apiStatus: string[];
+    dataRefreshRequest: boolean;
     breadcrumbs: AppBreadcrumb[];
     alerts: AppAlert[];
   });
@@ -24,6 +28,12 @@ export const getters: GetterTree<RootState, RootState> = {
   },
   isUpdateApiRequestInProgress: (state): boolean => {
     return state.updateApiRequestInProgress;
+  },
+  apiStatus: (state): string[] => {
+    return state.apiStatus;
+  },
+  dataRefreshRequest: (state): boolean => {
+    return state.dataRefreshRequest;
   },
   alerts: (state): AppAlert[] => {
     return state.alerts;
@@ -40,6 +50,18 @@ export const mutations: MutationTree<RootState> = {
   stopUpdateApiRequestInProgress: (state) => {
     Vue.set(state, 'updateApiRequestInProgress', false);
   },
+  apiStatusStart: (state, apiStatus: string) => {
+    Vue.set(state.apiStatus, state.apiStatus.length, apiStatus);
+  },
+  apiStatusEnd: (state, apiStatus: string) => {
+    state.apiStatus.splice(state.apiStatus.indexOf(apiStatus), 1);
+  },
+  requestDataRefresh: (state) => {
+    Vue.set(state, 'dataRefreshRequest', true);
+  },
+  completeDataRefresh: (state) => {
+    Vue.set(state, 'dataRefreshRequest', false);
+  },
   addAlert: (state, appAlert) => {
     Vue.set(state.alerts, state.alerts.length, appAlert);
   },
@@ -52,6 +74,12 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
+  async apiStatusStart({ commit }, apiStatus: string) {
+    commit('apiStatusStart', apiStatus);
+  },
+  async apiStatusEnd({ commit }, apiStatus: string) {
+    commit('apiStatusEnd', apiStatus);
+  },
   async addAlert({ commit, getters }, appAlert: AppAlert) {
     if (
       appAlert.deduplicate &&

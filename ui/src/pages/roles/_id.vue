@@ -1,5 +1,5 @@
 <template>
-  <div v-if="role">
+  <div v-if="role && fetchState === appFetchState.Loaded">
     <v-row>
       <v-col cols="12" sm="6" md="4">
         <!-- Role Details -->
@@ -97,7 +97,7 @@
     <!-- Dialogs -->
     <role-edit :role="role" :open.sync="dialogRoleEdit"></role-edit>
   </div>
-  <div v-else-if="loading">
+  <div v-else-if="fetchState === appFetchState.Loading">
     <!-- Skeletons -->
     <v-row>
       <v-col cols="12" sm="6" md="4">
@@ -111,22 +111,16 @@
       </v-col>
     </v-row>
   </div>
-  <div v-else-if="error">Error loading role details</div>
-  <div v-else>Role not found!</div>
+  <error-display v-else :error="error"></error-display>
 </template>
 
 <script lang="ts">
 import { RoleData, ScoutGroupData, SectionData } from '@api/models';
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import {
-  AppBreadcrumbOptions,
-  setBreadcrumbs,
-} from '~/common/helper-factories';
+import { Component } from 'vue-property-decorator';
 import RoleEditDialog from '~/components/dialogs/role-edit.vue';
 import MemberTableComponent from '~/components/tables/member-roles-table.vue';
-import * as member from '~/store/member';
 import * as role from '~/store/role';
-import * as ui from '~/store/ui';
+import BaseDisplayPage from '../base-detail-page';
 
 @Component({
   components: {
@@ -134,23 +128,8 @@ import * as ui from '~/store/ui';
     MemberTableComponent,
   },
 })
-export default class RoleDetailPage extends Vue {
-  get breadcrumbs(): AppBreadcrumbOptions[] {
-    return [
-      { to: '/', label: 'Dashboard' },
-      { to: '/roles', label: 'Roles' },
-      {
-        to: null,
-        label: this.role ? `${this.role.name}` : 'Loading',
-      },
-    ];
-  }
-
-  @Watch('breadcrumbs', { immediate: true })
-  watchBreadcrumbs() {
-    setBreadcrumbs(this.$store, this.breadcrumbs);
-  }
-
+export default class RoleDetailPage extends BaseDisplayPage {
+  // Getters
   get id(): number {
     return Number(this.$route.params.id);
   }
@@ -167,31 +146,26 @@ export default class RoleDetailPage extends Vue {
     return this.section ? this.section.scoutGroup : null;
   }
 
-  get isAppUpdating(): boolean {
-    return this.$store.getters[`${ui.namespace}/isAppUpdating`];
+  // Configurables
+  breadcrumbParents = [
+    {
+      to: '/roles',
+      label: 'Roles',
+    },
+  ];
+  get breadcrumbLabel(): string | null {
+    return this.role ? `${this.role.name}` : null;
   }
 
-  error = false;
-  loading = true;
-
-  async mounted() {
-    try {
-      await this.$store.dispatch(`${role.namespace}/fetchRoleById`, this.id);
-      if (!this.role) {
-        this.loading = false;
-        return;
-      }
-
-      await this.$store.dispatch(`${member.namespace}/fetchMembersByRoleId`, {
-        roleId: this.id,
-      });
-    } catch (e) {
-      this.error = true;
-    } finally {
-      this.loading = false;
-    }
+  fetchApiStatusMsg = 'Fetching Role Data';
+  async _fetchApiData() {
+    await this.$store.dispatch(`${role.namespace}/fetchRoleById`, this.id);
+  }
+  async _fetchDataEntityNotFound() {
+    this.$store.commit(`${role.namespace}/removeRoleById`, this.id);
   }
 
+  // Additional logic
   dialogRoleEdit: boolean = false;
 
   openEditRoleModal() {

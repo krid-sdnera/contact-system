@@ -62,11 +62,15 @@ export const actions: ActionTree<RootState, RootState> = {
       });
       commit('setScoutGroupById', payload);
     } catch (e) {
-      throw new AppError(
-        ErrorCode.InternalError,
-        'Unable to load scout group',
-        e
-      );
+      if (e.status === 404) {
+        throw new AppError(ErrorCode.EntityNotFound, `Group not found`, e);
+      } else {
+        throw new AppError(
+          ErrorCode.InternalError,
+          `Unable to load group: ${e.statusText}`,
+          e
+        );
+      }
     }
   },
   async updateScoutGroupById(
