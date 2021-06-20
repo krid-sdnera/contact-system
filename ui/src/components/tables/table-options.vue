@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="500">
+  <v-dialog v-model="dialog" max-width="500" scrollable>
     <template v-slot:activator="{ on, attrs }">
       <v-btn v-bind="attrs" v-on="on" small>
         Options
@@ -14,7 +14,7 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
-      <v-card-text style="max-height: 70vh;">
+      <v-card-text>
         <v-checkbox
           v-for="field in availableFields"
           :key="field.value"
