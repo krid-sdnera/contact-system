@@ -52,7 +52,7 @@ class Contact
             // Attempt to match up with an existing record
             $contact = $contactRepo->createQueryBuilder('m')
                 ->where("m.firstname LIKE :firstname")
-                ->orWhere("m.firstname LIKE :lastname")
+                ->andWhere("m.lastname LIKE :lastname")
                 ->andWhere("m.relationship = :relationship")
                 ->andWhere("m.managementState = :state")
                 ->setParameter("firstname", '%' . addcslashes($extranetContact->getFirstname(), '%_') . '%')
