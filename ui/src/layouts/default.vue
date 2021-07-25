@@ -63,13 +63,20 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <search-table v-if="!isMobile"></search-table>
+      <v-text-field
+        v-if="!isMobile"
+        v-model="searchQuery"
+        hide-details
+        clearable
+        label="Search"
+        class="mr-4"
+      ></v-text-field>
       <v-btn color="primary" v-if="!isLoggedIn" nuxt to="/login">Login</v-btn>
       <v-btn color="primary" v-else @click="handleLogout">Logout</v-btn>
     </v-app-bar>
 
     <v-main>
-      <v-container>
+      <v-container v-show="!showSearchOverlay">
         <v-container class="py-0 status-container">
           <v-row>
             <v-col class="pb-0">
@@ -85,6 +92,14 @@
 
         <v-container>
           <nuxt />
+        </v-container>
+      </v-container>
+      <v-container v-show="showSearchOverlay">
+        <v-container>
+          <search-table
+            :searchQuery="searchQuery"
+            @clear-search-query="clearSearchQuery"
+          ></search-table>
         </v-container>
       </v-container>
     </v-main>
@@ -185,6 +200,17 @@ export default class DefaultLayout extends Vue {
 
   get isLoggedIn(): boolean {
     return this.$store.getters[`${auth.namespace}/isLoggedIn`];
+  }
+
+  // Search related props
+  searchQuery: string = '';
+
+  get showSearchOverlay(): boolean {
+    return !!this.searchQuery;
+  }
+
+  clearSearchQuery() {
+    this.searchQuery = '';
   }
 }
 </script>

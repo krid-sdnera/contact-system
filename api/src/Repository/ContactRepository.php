@@ -28,7 +28,8 @@ class ContactRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('e');
         $expression = $qb->expr()->orX(
             $qb->expr()->like('e.firstname', ':search'),
-            $qb->expr()->like('e.lastname', ':search')
+            $qb->expr()->like('e.lastname', ':search'),
+            $qb->expr()->like('e.email', ':search')
         );
         return $this->pageFetcherHelper(
             $expression,

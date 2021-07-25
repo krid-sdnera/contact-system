@@ -44,7 +44,8 @@ class MemberRepository extends ServiceEntityRepository
         $expression = $qb->expr()->orX(
             $qb->expr()->like('e.firstname', ':search'),
             $qb->expr()->like('e.lastname', ':search'),
-            $qb->expr()->like('e.membershipNumber', ':search')
+            $qb->expr()->like('e.membershipNumber', ':search'),
+            $qb->expr()->like('e.email', ':search')
         );
 
 
