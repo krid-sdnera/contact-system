@@ -30,7 +30,7 @@ export default class BaseHeadingComponent extends Vue {
   label!: string;
 
   @Prop()
-  to: string | undefined;
+  to: string | { path?: string; hash?: string } | undefined;
 
   @Prop({ type: Boolean, default: false })
   overridden!: boolean;
