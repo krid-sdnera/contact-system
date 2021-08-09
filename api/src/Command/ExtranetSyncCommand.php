@@ -8,6 +8,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 
 class ExtranetSyncCommand extends Command
 {
@@ -40,11 +41,14 @@ class ExtranetSyncCommand extends Command
         $username = $_ENV['EXTRANET_USERNAME'];
         $password = $_ENV['EXTRANET_PASSWORD'];
 
-        $output->writeln('Starting sync');
+        $logger = new ConsoleLogger($output);
+
+        $logger->info('Starting sync');
 
         $this->cache = ($input->getArgument('cache') === 'use-cache');
 
         $this->extranetService
+            ->setLogger($logger)
             ->setCacheDirectory('api/var/cache/')
             ->setCredentials($username, $password)
             ->useCache($this->cache)

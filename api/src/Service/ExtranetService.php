@@ -7,6 +7,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Psr\Log\LoggerInterface;
 
 use League\Csv\Reader;
 
@@ -28,6 +29,10 @@ class ExtranetService
      * @var Stopwatch
      */
     private $stopwatch;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     private $_useCache = false;
     private $credentials = [
@@ -49,6 +54,12 @@ class ExtranetService
     {
         $this->em = $entityManager;
         $this->stopwatch = $stopwatch;
+    }
+
+    public function setLogger($logger): self
+    {
+        $this->logger = $logger;
+        return $this;
     }
 
     public function setCacheDirectory($cacheDirectory): self
@@ -106,26 +117,33 @@ class ExtranetService
         Section::setEntityManager($this->em);
         ScoutGroup::setEntityManager($this->em);
 
+        Member::setLogger($this->logger);
+        Contact::setLogger($this->logger);
+        MemberRole::setLogger($this->logger);
+        Role::setLogger($this->logger);
+        Section::setLogger($this->logger);
+        ScoutGroup::setLogger($this->logger);
+
         $convertedExtranetEntities = $this->convertExtranetObjectsToDBEntities();
 
         // TODO: Rename to something like `difflocalandextranettogetalistofupdates()`
         $this->stopwatch->start('analyse-management-state');
-        $membersToPersist =  $this->extranet_import($convertedExtranetEntities);
+        $membersToPersist =  $this->unmanageEntities($convertedExtranetEntities);
         $this->stopwatch->stop('analyse-management-state');
-
+        $this->logger->debug(
+            $this->loopLoggerHelper('analyse-management-state', 1)
+        );
 
         $this->stopwatch->start('persist-data');
         foreach ($membersToPersist as $i => $member) {
             $this->em->persist($member);
-            $event = $this->stopwatch->lap('persist-data');
-            $period = $event->getPeriods()[count($event->getPeriods()) - 1];
-            $timingStr = sprintf('%s: %.2F MiB - %d ms', 'period', $period->getMemory() / 1024 / 1024, $period->getDuration());
-            echo 'persist-data ' . $timingStr  . PHP_EOL;
         }
 
         $this->em->flush();
         $this->stopwatch->stop('persist-data');
-        echo 'persist-data ' . (string) $this->stopwatch->getEvent('persist-data') . PHP_EOL;
+        $this->logger->debug(
+            $this->loopLoggerHelper('persist-data', count($membersToPersist))
+        );
 
         $this->stopwatch->stopSection('extranet-sync');
     }
@@ -137,18 +155,19 @@ class ExtranetService
         /** @var Member[] */
         $members = [];
         foreach ($this->extranetMembers as $i => $extranetMember) {
-            echo "Processing Member {$extranetMember->getMembershipNumber()}" . PHP_EOL;
             /** @var Member */
             $member = Member::fromExtranetMember($extranetMember);
             $members[] = $member;
             $event = $this->stopwatch->lap('convert-record');
-            $period = $event->getPeriods()[count($event->getPeriods()) - 1];
-            $timingStr = sprintf('%s: %.2F MiB - %d ms', 'period', $period->getMemory() / 1024 / 1024, $period->getDuration());
-            echo 'convert-record' . $timingStr  . PHP_EOL;
+            $this->logger->debug(
+                $this->loopLoggerHelper('convert-record', count($this->extranetMembers), ['lap' => true])
+            );
         }
 
         $this->stopwatch->stop('convert-record');
-        echo 'convert-record' . (string) $this->stopwatch->getEvent('convert-record') . PHP_EOL;
+        $this->logger->debug(
+            $this->loopLoggerHelper('convert-record', count($this->extranetMembers))
+        );
 
         return  $members;
     }
@@ -157,7 +176,7 @@ class ExtranetService
     {
         if ($this->_useCache) {
             $this->stopwatch->start('fetch-data-from-cache');
-            echo 'Using cache data' . PHP_EOL;
+            $this->logger->info('Using cache data');
 
             $data = json_decode(file_get_contents($this->cacheDirectory . 'extranet-data.json'), true);
 
@@ -168,9 +187,11 @@ class ExtranetService
                 $data
             );
 
-            echo 'Cache data loaded successfully' . PHP_EOL;
+            $this->logger->info('Cache data loaded successfully');
             $this->stopwatch->stop('fetch-data-from-cache');
-            echo 'fetch-data-from-cache' . (string) $this->stopwatch->getEvent('fetch-data-from-cache') . PHP_EOL;
+            $this->logger->debug(
+                $this->loopLoggerHelper('fetch-data-from-cache', count($this->extranetMembers))
+            );
 
             return;
         }
@@ -197,12 +218,17 @@ class ExtranetService
             ), JSON_PRETTY_PRINT)
         );
         $this->stopwatch->stop('fetch-data-from-extranet');
-        echo 'fetch-data-from-extranet' . (string) $this->stopwatch->getEvent('fetch-data-from-extranet');
+        $this->logger->info("Data cached");
+
+        $this->logger->debug(
+            $this->loopLoggerHelper('fetch-data-from-extranet', count($this->extranetMembers))
+        );
     }
 
     private function doExtranetLogin(): void
     {
-        echo 'Doing login' . PHP_EOL;
+        $this->stopwatch->start('extranet-login');
+        $this->logger->info('Doing login');
         $loginResponse = $this->client->request('POST', '/portal/loginCheck.php?var=', [
             'body' => [
                 'username' => $this->credentials['username'],
@@ -229,12 +255,16 @@ class ExtranetService
             $this->checkExtranetLoginSuccessfull($loginResponse);
         }
 
-        echo 'Logged in' . PHP_EOL;
+        $this->logger->info('Logged in');
+        $this->stopwatch->stop('extranet-login');
+        $this->logger->debug(
+            $this->loopLoggerHelper('extranet-login', 1)
+        );
     }
 
     private function do2FANextStep(ResponseInterface $response): void
     {
-        echo 'Checking 2FA next step' . PHP_EOL;
+        $this->logger->info('Checking 2FA next step');
         $content = $response->getContent();
 
         // Check that the 2FA next step is exposed.
@@ -245,7 +275,7 @@ class ExtranetService
         );
 
         if (count($matches) !== 1) {
-            echo 'Performing 2FA next step' . PHP_EOL;
+            $this->logger->info('Performing 2FA next step');
 
             $_2fa_next_step = $this->client->request(
                 'POST',
@@ -263,7 +293,7 @@ class ExtranetService
 
     private function do2FAActionValidate(ResponseInterface $response): void
     {
-        echo 'Sending 2FA request' . PHP_EOL;
+        $this->logger->info('Sending 2FA request');
         $_2fa_security_question = $this->client->request(
             'POST',
             '/portal/twoFactorAuth.php',
@@ -283,7 +313,7 @@ class ExtranetService
 
     private function do2FAConfirm(ResponseInterface $response): ResponseInterface
     {
-        echo 'Confirming 2FA request with extranet' . PHP_EOL;
+        $this->logger->info('Confirming 2FA request with extranet');
         $loginResponse = $this->client->request(
             'POST',
             '/portal/authNext.php',
@@ -300,7 +330,7 @@ class ExtranetService
 
     private function isExtranetCensusActive(ResponseInterface $response): bool
     {
-        echo 'Checking login for census' . PHP_EOL;
+        $this->logger->info('Checking login for census');
         $content = $response->getContent();
 
         // Check for the existance of the census style redirect
@@ -311,7 +341,7 @@ class ExtranetService
         );
 
         if (count($matches) !== 2) {
-            echo "Census not active" . PHP_EOL;
+            $this->logger->info("Census not active");
             return false;
         }
         return true;
@@ -355,7 +385,7 @@ class ExtranetService
             ]
         ]);
 
-        echo 'Checking login for success' . PHP_EOL;
+        $this->logger->info('Checking login for success');
         $content = $censusConfirmResponse->getContent();
 
         // Check for the existance of the successful login style redirect after census.
@@ -373,7 +403,7 @@ class ExtranetService
 
     private function isExtranetInsuranceActive(ResponseInterface $response): bool
     {
-        echo 'Checking login for insurance' . PHP_EOL;
+        $this->logger->info('Checking login for insurance');
         $content = $response->getContent();
 
         // Check for the existance of the insurance style redirect
@@ -384,7 +414,7 @@ class ExtranetService
         );
 
         if (count($matches) !== 2) {
-            echo "Insurance not active" . PHP_EOL;
+            $this->logger->info("Insurance not active");
             return false;
         }
         return true;
@@ -415,7 +445,7 @@ class ExtranetService
 
     private function isExtranetPasswordExpiryActive(ResponseInterface $response): bool
     {
-        echo 'Checking login for password expiry' . PHP_EOL;
+        $this->logger->info('Checking login for password expiry');
         $content = $response->getContent();
 
         // Check for the existance of the password expiry style redirect
@@ -463,7 +493,7 @@ class ExtranetService
             throw new Exception('Password expiring: cannot update password');
         }
 
-        echo 'Password updated successfully. Your password will expire in ' . $matches[1] . ' days.' . PHP_EOL;
+        $this->logger->notice('Password updated successfully. Your password will expire in ' . $matches[1] . ' days.');
 
         preg_match(
             '|window\.location\.replace\(\'/portal/Interface/mainPage\.php\?var=(\d+)\'\)|',
@@ -479,7 +509,7 @@ class ExtranetService
 
     private function checkExtranetLoginSuccessfull(ResponseInterface $response): void
     {
-        echo 'Checking login for success' . PHP_EOL;
+        $this->logger->info('Checking login for success');
         $content = $response->getContent();
 
         // Check for the existance of the successful login style redirect
@@ -497,7 +527,8 @@ class ExtranetService
 
     public function getExtranetReport($reportName)
     {
-        echo 'Begin report ' . $reportName . PHP_EOL;
+        $this->stopwatch->start('fetch-report-' . $reportName);
+        $this->logger->info('Begin report ' . $reportName);
         $response = $this->client->request('POST', '/portal/Interface/Report/XMLReport/Listing/listLevel.php', [
             'query' => [
                 'setting' => 'activememberlisting',
@@ -533,6 +564,7 @@ class ExtranetService
 
         $response = $this->client->request('GET', '/portal/Interface/Include/getCSV2.php?f=/data/apache/www.vicscouts.asn.au/root/portal/PDF/csv' . $matches[1] . '.csv');
         $content = $response->getContent();
+        $expectedCSVRowCount = substr_count($content, "\n") - 1; // minus the header
 
         // Update Cache
         file_put_contents(
@@ -545,25 +577,29 @@ class ExtranetService
 
         // $header = $csv->getHeader();
         $records = $csv->getRecords();
+        $this->stopwatch->stop('fetch-report-' . $reportName);
+        $this->logger->debug(
+            $this->loopLoggerHelper('fetch-report-' . $reportName, 1)
+        );
 
         $this->stopwatch->start('fetch-record');
         foreach ($records as $i => $record) {
-
-
             $this->processReportRecord($record);
-            $event = $this->stopwatch->lap('fetch-record');
-            $period = $event->getPeriods()[count($event->getPeriods()) - 1];
-            $timingStr = sprintf('%s: %.2F MiB - %d ms', 'period', $period->getMemory() / 1024 / 1024, $period->getDuration());
-            echo 'fetch-record' . $timingStr  . PHP_EOL;
+            $this->stopwatch->lap('fetch-record');
+            $this->logger->debug(
+                $this->loopLoggerHelper('fetch-record', $expectedCSVRowCount, ["lap" => true, "approx" => true])
+            );
         }
 
         $this->stopwatch->stop('fetch-record');
-        echo 'fetch-record' . (string) $this->stopwatch->getEvent('fetch-record') . PHP_EOL;
+        $this->logger->debug(
+            $this->loopLoggerHelper('fetch-record', count($this->extranetMembers))
+        );
     }
 
     private function processReportRecord($record)
     {
-        echo 'Processing ' . $record['RegID'] . PHP_EOL;
+        $this->logger->info('Processing ' . $record['RegID']);
 
         $extranetMember = ExtranetMember::fromExtranetCsv($record);
 
@@ -657,7 +693,7 @@ class ExtranetService
             ]
         ]);
         $content = $response->getContent();
-        // echo $content;
+        // $this->logger->info($content);
         // Extract the member's auto upgrade status.
         // The HTML is invalid! Attributes use single quotes!
         preg_match(
@@ -739,7 +775,7 @@ class ExtranetService
 
     private function getExtranetInvitation($type)
     {
-        echo 'Begin invitation - ' . $type . PHP_EOL;
+        $this->logger->info('Begin invitation - ' . $type);
         if ($type === 'active') {
             $response = $this->client->request('GET', '/portal/membership/ajax-get-invitation-list/type/' . $type);
         } else if ($type === 'approving') {
@@ -748,7 +784,7 @@ class ExtranetService
         $content = json_decode($response->getContent(), true);
 
         foreach ($content as $i => $record) {
-            echo 'Processing ' . $record['id'] . PHP_EOL;
+            $this->logger->info('Processing ' . $record['id']);
 
             $extranetMember = ExtranetMember::fromExtranetInvitation($record, $type);
 
@@ -756,50 +792,69 @@ class ExtranetService
         }
     }
 
-    private function extranet_import(array $members)
+    private function unmanageEntities(array $convertedExtranetEntities)
     {
 
         /** @var MemberRepository */
         $memberRepo = $this->em->getRepository(Member::class);
 
+        // Find all managed members.
         $managedMemberIds = $memberRepo->findIdsBy([
             'managementState' => Member::ManagementStateManaged
         ]);
 
+        // Collate all member IDs.
+        // (which are in the extranet export AND
+        //  were not created during this run)
         $extranetMembersConsidered = [];
-        foreach ($members as $i => $member) {
+        foreach ($convertedExtranetEntities as $i => $member) {
+            // For members which are not persisted at all,
+            // (ie. new members) they will not be in the entity manager.
+            // This also means they do not need to be considered.
             if ($this->em->contains($member)) {
                 $extranetMembersConsidered[] = $member->getId();
             }
         }
 
-        /** @var MemberRepository */
-        $memberRepo = $this->em->getRepository(Member::class);
-
+        // Check all currently managed memebers.
+        // If the member is in the dataset we got from Extranet, all good.
+        // Otherwise, they have dropped off the extranet list, so we need to
+        // unmanage them.
         $updatedMembers = [];
         foreach ($managedMemberIds as $i => $memberId) {
             // Is this member also in extranet?
             if (in_array($memberId, $extranetMembersConsidered)) {
-                // Yes this member is in extranet
+                // Yes this member is in extranet.
+                // Don't change any states.
             } else {
                 // No this contact is not in extranet
+                /** @var Member */
                 $member = $memberRepo->findOneBy(['id' => $memberId]);
-                $member->setManagementState(Member::UnmanagementStateManaged);
+                $member->setManagementState(Member::ManagementStateUnmanaged);
 
                 if ($member->getExpiry() === null) {
                     $member->setExpiry(new DateTime());
                 }
 
+                $logPrefix = "[member id={$member->getId()}]";
+
+                $memberToString = "[member id={$member->getId()} firstname={$member->getFirstname()} lastname={$member->getLastname()}]";
+                $this->logger->notice("{$logPrefix} Unmanaging {$memberToString}");
+
                 foreach ($member->getContacts() as $i => $contact) {
-                    $contact->setManagementState(Contact::UnmanagementStateManaged);
+                    $contact->setManagementState(Contact::ManagementStateUnmanaged);
                     if ($contact->getExpiry() === null) {
+                        $contactToString = "[contact id={$contact->getId()} firstname={$contact->getFirstname()} lastname={$contact->getLastname()}]";
+                        $this->logger->notice("{$logPrefix} Unmanaging {$contactToString}");
                         $contact->setExpiry(new DateTime());
                     }
                 }
 
                 foreach ($member->getRoles() as $i => $role) {
-                    $role->setManagementState(MemberRole::UnmanagementStateManaged);
+                    $role->setManagementState(MemberRole::ManagementStateUnmanaged);
                     if ($role->getExpiry() === null) {
+                        $roleToString = "[member-role id={$role->getId()} roleName={$role->getRole()->getName()}]";
+                        $this->logger->notice("{$logPrefix} Unmanaging {$roleToString}");
                         $role->setExpiry(new DateTime());
                     }
                 }
@@ -808,7 +863,7 @@ class ExtranetService
             }
         }
 
-        return $members + $updatedMembers;
+        return $convertedExtranetEntities + $updatedMembers;
 
 
         // find existing extranet member
@@ -894,5 +949,39 @@ class ExtranetService
         // compare ids of processed, vs not processed
         // loop
         //   if not processed, then set to unmanaged and expiry
+    }
+
+    function loopLoggerHelper(string $eventName, int $entityCount, $options = [])
+    {
+        $event = $this->stopwatch->getEvent($eventName);
+        if (isset($options['lap']) && $options['lap'] === true) {
+            $period = $event->getPeriods()[count($event->getPeriods()) - 1];
+            $lapMemory = $period->getMemory() / 1024 / 1024;
+            $lapDuration = $period->getDuration();
+
+            return sprintf(
+                '[timings] %s entity index %d/%s%d, current: %.2F MiB - %d ms',
+                $eventName,
+                count($event->getPeriods()),
+                (isset($options['approx']) && $options['approx'] === true) ? '~' : '',
+                $entityCount,
+                $lapMemory,
+                $lapDuration
+            );
+        }
+
+        $event = $this->stopwatch->getEvent($eventName);
+        $memory = $event->getMemory() / 1024 / 1024;
+        $duration = $event->getDuration();
+
+        return sprintf(
+            '[timings] %s entity count %d, average: %.2F MiB - %d ms total: %.2F MiB - %d ms',
+            $eventName,
+            $entityCount,
+            $memory / $entityCount,
+            $duration / $entityCount,
+            $memory,
+            $duration
+        );
     }
 }

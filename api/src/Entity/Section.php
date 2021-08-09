@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\SectionData;
+use Psr\Log\LoggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SectionRepository")
@@ -16,24 +17,39 @@ use OpenAPI\Server\Model\SectionData;
 class Section
 {
 
+    /**
+     * @var EntityManagerInterface
+     */
     private static $entityManager;
+    /**
+     * @var LoggerInterface
+     */
+    private static $logger;
 
     public static function setEntityManager(EntityManagerInterface $entityManager)
     {
         self::$entityManager = $entityManager;
     }
 
+    public static function setLogger(LoggerInterface $logger)
+    {
+        self::$logger = $logger;
+    }
+
+
     public static function fromExtranetRole(ExtranetRole $extranetRole)
     {
 
-        if (empty(self::$entityManager)) {
-            throw new Exception('Missing entity manager in section entity');
+        if (empty(self::$entityManager) || empty(self::$logger)) {
+            throw new Exception('Missing entity manager or logger in section entity');
         }
+
+        $logPrefix = "[section extranet={$extranetRole->getExternalId()}]";
 
         /** @var SectionRepository */
         $sectionRepo = self::$entityManager->getRepository(self::class);
 
-        echo "Processing Section {$extranetRole->getSectionId()}: Checking by externalId" . PHP_EOL;
+        self::$logger->info("{$logPrefix} Checking by externalId");
         // Look for for section by external id
         /** @var Section */
         $section = $sectionRepo->findOneBy([
@@ -41,7 +57,8 @@ class Section
         ]);
 
         if (!$section) {
-            echo "Processing Section {$extranetRole->getExternalId()}: Not found by externalId, creating" . PHP_EOL;
+            $sectionToString = "[section name={$extranetRole->getSectionName()} classId={$extranetRole->getNormalisedClassId()}]";
+            self::$logger->notice("{$logPrefix} Not found by externalId, creating {$sectionToString}");
             // Still no section matched. Let's create one.
             $section = new self();
             $section->setName($extranetRole->getSectionName());
@@ -49,6 +66,9 @@ class Section
 
             $section->setScoutGroup(ScoutGroup::fromExtranetRole($extranetRole));
         }
+
+        $_loggableId = $section->getId() ? $section->getId() : 'known after creation';
+        self::$logger->debug("{$logPrefix} Entity loaded at id: {$_loggableId}");
 
         return $section;
     }

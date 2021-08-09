@@ -9,30 +9,45 @@ use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\ScoutGroupData;
+use Psr\Log\LoggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ScoutGroupRepository")
  */
 class ScoutGroup
 {
+    /**
+     * @var EntityManagerInterface
+     */
     private static $entityManager;
+    /**
+     * @var LoggerInterface
+     */
+    private static $logger;
 
     public static function setEntityManager(EntityManagerInterface $entityManager)
     {
         self::$entityManager = $entityManager;
     }
 
+    public static function setLogger(LoggerInterface $logger)
+    {
+        self::$logger = $logger;
+    }
+
     public static function fromExtranetRole(ExtranetRole $extranetRole)
     {
 
-        if (empty(self::$entityManager)) {
-            throw new Exception('Missing entity manager in scout group entity');
+        if (empty(self::$entityManager) || empty(self::$logger)) {
+            throw new Exception('Missing entity manager or logger in scout group entity');
         }
+
+        $logPrefix = "[scout-group extranet={$extranetRole->getExternalId()}]";
 
         /** @var ScoutGroupRepository */
         $scoutGroupRepo = self::$entityManager->getRepository(self::class);
 
-        echo "Processing ScoutGroup {$extranetRole->getExternalId()}: Checking by externalId" . PHP_EOL;
+        self::$logger->info("{$logPrefix} Checking by externalId");
         // Look for for scout group by external id
         /** @var ScoutGroup */
         $scoutGroup = $scoutGroupRepo->findOneBy([
@@ -40,12 +55,16 @@ class ScoutGroup
         ]);
 
         if (!$scoutGroup) {
-            echo "Processing ScoutGroup {$extranetRole->getExternalId()}: Not found by externalId, creating" . PHP_EOL;
+            $groupToString = "[group name={$extranetRole->getGroupName()} classId={$extranetRole->getNormalisedClassId()}]";
+            self::$logger->notice("{$logPrefix} Not found by externalId, creating {$groupToString}");
             // Still no scout group matched. Let's create one.
             $scoutGroup = new self();
             $scoutGroup->setName($extranetRole->getGroupName());
             $scoutGroup->setExternalId($extranetRole->getGroupId());
         }
+
+        $_loggableId = $scoutGroup->getId() ? $scoutGroup->getId() : 'known after creation';
+        self::$logger->debug("{$logPrefix} Entity loaded at id: {$_loggableId}");
 
         return $scoutGroup;
     }

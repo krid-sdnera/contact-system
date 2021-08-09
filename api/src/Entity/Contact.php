@@ -9,6 +9,7 @@ use Exception;
 use OpenAPI\Server\Model\AddressData;
 use OpenAPI\Server\Model\ContactData;
 use OpenAPI\Server\Model\ContactOverrideData;
+use Psr\Log\LoggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
@@ -21,26 +22,39 @@ class Contact
     const DefaultOverrides = [];
 
     const ManagementStateManaged = 'managed';
-    const UnmanagementStateManaged = 'unmanaged';
+    const ManagementStateUnmanaged = 'unmanaged';
 
+    /**
+     * @var EntityManagerInterface
+     */
     private static $entityManager;
+    /**
+     * @var LoggerInterface
+     */
+    private static $logger;
 
     public static function setEntityManager(EntityManagerInterface $entityManager)
     {
         self::$entityManager = $entityManager;
     }
 
+    public static function setLogger(LoggerInterface $logger)
+    {
+        self::$logger = $logger;
+    }
+
     public static function fromExtranetContact(ExtranetContact $extranetContact)
     {
-
-        if (empty(self::$entityManager)) {
-            throw new Exception('Missing entity manager in contact entity');
+        if (empty(self::$entityManager) || empty(self::$logger)) {
+            throw new Exception('Missing entity manager or logger in contact entity');
         }
+
+        $logPrefix = "[contact extranet={$extranetContact->getParentId()}]";
 
         /** @var ContactRepository */
         $contactRepo = self::$entityManager->getRepository(self::class);
 
-        echo "Processing Contact {$extranetContact->getParentId()}: Checking by parentId" . PHP_EOL;
+        self::$logger->info("{$logPrefix} Checking by parentId");
         // Look for for contact by parentId
         /** @var Contact */
         $contact = $contactRepo->findOneBy([
@@ -48,7 +62,7 @@ class Contact
         ]);
 
         if (!$contact) {
-            echo "Processing Contact {$extranetContact->getParentId()}: Not found by parentId, checking by name" . PHP_EOL;
+            self::$logger->info("{$logPrefix} Not found by parentId, checking by name");
             // Attempt to match up with an existing record
             $contact = $contactRepo->createQueryBuilder('m')
                 ->where("m.firstname LIKE :firstname")
@@ -64,11 +78,15 @@ class Contact
         }
 
         if (!$contact) {
-            echo "Processing Contact {$extranetContact->getParentId()}: Not found by name, creating" . PHP_EOL;
+            $contactToString = "[contact firstname={$extranetContact->getFirstname()} lastname={$extranetContact->getLastname()}]";
+            self::$logger->notice("{$logPrefix} Not found by name, creating {$contactToString}");
             // Still no contact matched. Let's create one.
             $contact = new self();
             $contact->setState(self::DefaultState);
         }
+
+        $_loggableId = $contact->getId() ? $contact->getId() : 'known after creation';
+        self::$logger->debug("{$logPrefix} Entity loaded at id: {$_loggableId}");
 
         // Update name fields
         if ($contact->overridable('firstname')) {

@@ -8,6 +8,7 @@ use DateTimeInterface;
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\MemberRoleData;
+use Psr\Log\LoggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRoleRepository")
@@ -20,21 +21,35 @@ class MemberRole
     const DefaultOverrides = [];
 
     const ManagementStateManaged = 'managed';
-    const UnmanagementStateManaged = 'unmanaged';
+    const ManagementStateUnmanaged = 'unmanaged';
 
+    /**
+     * @var EntityManagerInterface
+     */
     private static $entityManager;
+    /**
+     * @var LoggerInterface
+     */
+    private static $logger;
 
     public static function setEntityManager(EntityManagerInterface $entityManager)
     {
         self::$entityManager = $entityManager;
     }
 
+    public static function setLogger(LoggerInterface $logger)
+    {
+        self::$logger = $logger;
+    }
+
     public static function fromExtranetRole(Member $member, ExtranetRole $extranetRole)
     {
 
-        if (empty(self::$entityManager)) {
-            throw new Exception('Missing entity manager in member role entity');
+        if (empty(self::$entityManager) || empty(self::$logger)) {
+            throw new Exception('Missing entity manager or logger in member role entity');
         }
+
+        $logPrefix = "[member-role extranet={$extranetRole->getExternalId()}]";
 
         /** @var MemberRoleRepository */
         $memberRoleRepo = self::$entityManager->getRepository(self::class);
@@ -42,7 +57,7 @@ class MemberRole
         // Get new or existing role.
         $role = Role::fromExtranetRole($extranetRole);
 
-        echo "Processing MemberRole {$extranetRole->getExternalId()}: Checking by member and role" . PHP_EOL;
+        self::$logger->info("{$logPrefix} Checking by member and role");
         // Lets check for a relationship entity
         /** @var MemberRole */
         $relationshipEntity = $memberRoleRepo->findOneBy([
@@ -51,13 +66,18 @@ class MemberRole
         ]);
 
         if (!$relationshipEntity) {
-            echo "Processing MemberRole {$extranetRole->getExternalId()}: Not found by member and role, creating" . PHP_EOL;
+            $memberToString = "[member firstname={$member->getFirstname()} lastname={$member->getLastname()}]";
+            $roleToString = "[role name={$extranetRole->getRoleName()} classId={$extranetRole->getNormalisedClassId()}]";
+            self::$logger->info("{$logPrefix} Not found by member and role, creating member-role relation {$memberToString} {$roleToString}");
             // We can create one
             $relationshipEntity = new self();
             $relationshipEntity->setMember($member);
             $relationshipEntity->setRole($role);
             $relationshipEntity->setState(self::DefaultState);
         }
+
+        $_loggableId = $relationshipEntity->getId() ? $relationshipEntity->getId() : 'known after creation';
+        self::$logger->debug("{$logPrefix} Entity loaded at id: {$_loggableId}");
 
         $relationshipEntity->setManagementState(self::ManagementStateManaged);
         $relationshipEntity->setExpiry(null);

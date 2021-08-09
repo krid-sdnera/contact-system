@@ -15,6 +15,7 @@ use OpenAPI\Server\Model\AddressData;
 use OpenAPI\Server\Model\MemberOverrideData;
 use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\MemberMetaInviteData;
+use Psr\Log\LoggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
@@ -27,26 +28,40 @@ class Member
     const DefaultOverrides = [];
 
     const ManagementStateManaged = 'managed';
-    const UnmanagementStateManaged = 'unmanaged';
+    const ManagementStateUnmanaged = 'unmanaged';
 
+    /**
+     * @var EntityManagerInterface
+     */
     private static $entityManager;
+    /**
+     * @var LoggerInterface
+     */
+    private static $logger;
 
     public static function setEntityManager(EntityManagerInterface $entityManager)
     {
         self::$entityManager = $entityManager;
     }
 
+    public static function setLogger(LoggerInterface $logger)
+    {
+        self::$logger = $logger;
+    }
+
     public static function fromExtranetMember(ExtranetMember $extranetMember)
     {
 
-        if (empty(self::$entityManager)) {
-            throw new Exception('Missing entity manager in member entity');
+        if (empty(self::$entityManager) || empty(self::$logger)) {
+            throw new Exception('Missing entity manager or logger in member entity');
         }
+
+        $logPrefix = "[member extranet={$extranetMember->getMembershipNumber()}]";
 
         /** @var MemberRepository */
         $memberRepo = self::$entityManager->getRepository(self::class);
 
-        echo "Processing Member {$extranetMember->getMembershipNumber()}: Checking by membershipNumber" . PHP_EOL;
+        self::$logger->info("{$logPrefix} Checking by membershipNumber");
         // Look for for member by membershipNumber
         /** @var Member */
         $member = $memberRepo->findOneBy([
@@ -54,7 +69,7 @@ class Member
         ]);
 
         if (!$member) {
-            echo "Processing Member {$extranetMember->getMembershipNumber()}: Not found by membershipNumber, checking by name" . PHP_EOL;
+            self::$logger->info("{$logPrefix} Not found by membershipNumber, checking by name");
             // Attempt to match up with an existing record
             $member = $memberRepo->createQueryBuilder('m')
                 ->where("lower(m.firstname) LIKE :firstname")
@@ -68,12 +83,15 @@ class Member
         }
 
         if (!$member) {
-            echo "Processing Member {$extranetMember->getMembershipNumber()}: Not found by name, creating" . PHP_EOL;
+            $memberToString = "[member firstname={$extranetMember->getFirstname()} lastname={$extranetMember->getLastname()}]";
+            self::$logger->notice("{$logPrefix} Not found by name, creating {$memberToString}");
             // Still no member matched. Let's create one.
             $member = new self();
             $member->setState(self::DefaultState);
         }
 
+        $_loggableId = $member->getId() ? $member->getId() : 'known after creation';
+        self::$logger->debug("{$logPrefix} Entity loaded at id: {$_loggableId}");
 
         // Update name fields
         if ($member->overridable('firstname')) {
@@ -130,7 +148,7 @@ class Member
         $member->setMembershipUpdateLink($extranetMember->getMembershipUpdateLink());
         $member->setAutoUpgradeEnabled($extranetMember->getAutoUpgradeEnabled());
 
-        echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating roles" . PHP_EOL;
+        self::$logger->info("{$logPrefix} Generating roles");
         $extranetRoles = Member::GenerateExpectedRole($extranetMember);
 
         /**
@@ -158,10 +176,10 @@ class Member
                 continue;
             }
 
-            echo "Processing Member {$extranetMember->getMembershipNumber()}: Unmanaging role {$relatioshipEntity->getId()} because !isNew or isAssigned" . PHP_EOL;
+            self::$logger->info("{$logPrefix} Unmanaging role {$relatioshipEntity->getId()} because !isNew or isAssigned");
 
             // No this role is not in extranet
-            $relatioshipEntity->setManagementState(MemberRole::UnmanagementStateManaged);
+            $relatioshipEntity->setManagementState(MemberRole::ManagementStateUnmanaged);
             // TODO: Check if the expiry date is already set
             $relatioshipEntity->setExpiry(new DateTime());
         }
@@ -192,15 +210,15 @@ class Member
                 continue;
             }
 
-            echo "Processing Member {$extranetMember->getMembershipNumber()}: Unmanaging contact {$contact->getId()} because !isNew or isAssigned" . PHP_EOL;
+            self::$logger->info("{$logPrefix} Unmanaging contact {$contact->getId()} because !isNew or isAssigned");
 
             // No this contact is not in extranet
-            $contact->setManagementState(Contact::UnmanagementStateManaged);
+            $contact->setManagementState(Contact::ManagementStateUnmanaged);
             // TODO: Check if the expiry date is already set
             $contact->setExpiry(new DateTime());
         }
 
-        echo "Processing Member {$extranetMember->getMembershipNumber()}: Always manage member" . PHP_EOL;
+        self::$logger->info("{$logPrefix} Always manage member");
 
         // Always do these fields.
         $member->setMembershipNumber($extranetMember->getMembershipNumber());
@@ -224,6 +242,7 @@ class Member
 
     public static function GenerateExpectedRole(ExtranetMember $extranetMember): array
     {
+        $logPrefix = "[member extranet={$extranetMember->getMembershipNumber()}] [role]";
 
         // Build expected roles.
         $roles = [];
@@ -240,7 +259,7 @@ class Member
         $extranetMember->setGroupName(str_replace(' SEA SCOUTS', '', $extranetMember->getGroupName()));
 
         if (in_array($extranetMember->getClassId(), $youthClassIds)) {
-            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdYouth" . PHP_EOL;
+            self::$logger->info("{$logPrefix} Generating role: classIdYouth");
             $roles[] = new ExtranetRole(
                 'Youth',
                 'youth-classIdYouth',
@@ -252,7 +271,7 @@ class Member
                 $extranetMember->getGroupId()
             );
         } elseif ($extranetMember->getClassId() === 'LDR') {
-            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdLeader" . PHP_EOL;
+            self::$logger->info("{$logPrefix} Generating role: classIdLeader");
             preg_match(
                 '/(?:A-Z\s)?(JOEY SCOUT|CUB SCOUT|SCOUT|VENTURER|ROVER|GROUP)\s+(?:LDR|LEADER)/',
                 $extranetMember->getRole(),
@@ -301,7 +320,7 @@ class Member
                 $extranetMember->getGroupId()
             );
         } elseif ($extranetMember->getClassId() === 'AS') {
-            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdAdultSupporter" . PHP_EOL;
+            self::$logger->info("{$logPrefix} Generating role: classIdAdultSupporter");
             // Convert Position to Roles
             $positions = $extranetMember->getPosition();
 
@@ -322,7 +341,7 @@ class Member
                 }
             }
         } elseif ($extranetMember->getClassId() === 'AH') {
-            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: classIdAdultHelper" . PHP_EOL;
+            self::$logger->info("{$logPrefix} Generating role: classIdAdultHelper");
             $roles[] = new ExtranetRole(
                 'Adult Helper',
                 'adult-helper-classIdAdultHelper',
@@ -338,7 +357,7 @@ class Member
         // Convert Subsidiary Sections to Roles
         $subSections = $extranetMember->getSubsidiarySections();
         foreach ($subSections as $i => $section) {
-            echo "Processing Member {$extranetMember->getMembershipNumber()}: Generating role: subsidiarySection {$i}: {$section['SectionName']}" . PHP_EOL;
+            self::$logger->info("{$logPrefix} Generating role: subsidiarySection {$i}: {$section['SectionName']}");
             $roles[] = new ExtranetRole(
                 'Youth',
                 'youth-subsidiarySection',

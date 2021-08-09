@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\RoleData;
+use Psr\Log\LoggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RoleRepository")
@@ -16,24 +17,37 @@ use OpenAPI\Server\Model\RoleData;
 class Role
 {
 
+    /**
+     * @var EntityManagerInterface
+     */
     private static $entityManager;
+    /**
+     * @var LoggerInterface
+     */
+    private static $logger;
 
     public static function setEntityManager(EntityManagerInterface $entityManager)
     {
         self::$entityManager = $entityManager;
     }
 
+    public static function setLogger(LoggerInterface $logger)
+    {
+        self::$logger = $logger;
+    }
+
     public static function fromExtranetRole(ExtranetRole $extranetRole)
     {
-
-        if (empty(self::$entityManager)) {
-            throw new Exception('Missing entity manager in role entity');
+        if (empty(self::$entityManager) || empty(self::$logger)) {
+            throw new Exception('Missing entity manager or logger in role entity');
         }
+
+        $logPrefix = "[role extranet={$extranetRole->getExternalId()}]";
 
         /** @var RoleRepository */
         $roleRepo = self::$entityManager->getRepository(self::class);
 
-        echo "Processing Role {$extranetRole->getExternalId()}: Checking by externalId" . PHP_EOL;
+        self::$logger->info("{$logPrefix} Checking by externalId");
         // Look for for role by external id
         /** @var Role */
         $role = $roleRepo->findOneBy([
@@ -41,7 +55,8 @@ class Role
         ]);
 
         if (!$role) {
-            echo "Processing Role {$extranetRole->getExternalId()}: Not found by externalId, creating" . PHP_EOL;
+            $roleToString = "[role name={$extranetRole->getRoleName()} classId={$extranetRole->getNormalisedClassId()}]";
+            self::$logger->notice("{$logPrefix} Not found by externalId, creating {$roleToString}");
             // No role matched. Let's create one.
             $role = new self();
             $role->setName($extranetRole->getRoleName());
@@ -51,6 +66,9 @@ class Role
 
             $role->setSection(Section::fromExtranetRole($extranetRole));
         }
+
+        $_loggableId = $role->getId() ? $role->getId() : 'known after creation';
+        self::$logger->debug("{$logPrefix} Entity loaded at id: {$_loggableId}");
 
         return $role;
     }
