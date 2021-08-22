@@ -1,13 +1,13 @@
 openapi: 3.0.0
 servers:
-  - url: "https://{subdomain}.mooneevalleyscouts.org.au/{version}"
+  - url: "https://{subdomain}.essendonseascouts.org.au/api/{version}"
     variables:
       subdomain:
         description: "Subdomain, related to environment"
-        default: members
+        default: membership
         enum:
-          - stg-members
-          - members
+          - stg-membership
+          - membership
       version:
         description: API Version
         default: v1
@@ -31,10 +31,8 @@ info:
     email: dirk@arends.com.au
     name: Dirk Arends
 tags:
-  - name: ScoutGroups
-    description: Everything you need to handle `groups`
-  - name: Lists
-    description: Everything you need to handle `lists`
+  - name: Auth
+    description: Everything you need to handle `auth`
   - name: Members
     description: Everything you need to handle `members`
   - name: Contacts
@@ -43,34 +41,17 @@ tags:
     description: Everything you need to handle `roles`
   - name: Sections
     description: Everything you need to handle `sections`
-  - name: Auth
-    description: Everything you need to handle `auth`
+  - name: ScoutGroups
+    description: Everything you need to handle `groups`
+  - name: Lists
+    description: Everything you need to handle `lists`
 paths:
   /members:
-    post:
-      tags:
-        - Members
-      summary: Create a member
-      description: Create a member
-      operationId: createMember
-      requestBody:
-        description: ""
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/MemberInput"
-      parameters: []
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MemberData"
     get:
+      operationId: getMembers
       summary: List all members
       description: List all members
+      tags: [Members]
       parameters:
         - schema:
             type: string
@@ -88,7 +69,6 @@ paths:
             type: integer
           in: query
           name: page
-      operationId: getMembers
       responses:
         "200":
           description: Default response
@@ -123,14 +103,37 @@ paths:
                   - totalPages
                   - page
                   - pageSize
-      tags:
-        - Members
+    post:
+      operationId: createMember
+      summary: Create a member
+      description: Create a member
+      tags: [Members]
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemberData"
   "/members/{memberId}":
+    parameters:
+      - schema:
+          type: integer
+        name: memberId
+        in: path
+        required: true
     get:
-      summary: Get member
-      description: Get details for a member
-      parameters: []
       operationId: getMemberById
+      summary: Get Member
+      description: Get details for a member
+      tags: [Members]
       responses:
         "200":
           description: Default response
@@ -138,13 +141,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MemberData"
-      tags:
-        - Members
     put:
-      summary: Update member
-      description: Update member
-      parameters: []
       operationId: updateMemberById
+      summary: Update Member
+      description: Update member
+      tags: [Members]
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberInput"
       responses:
         "200":
           description: Default response
@@ -152,19 +159,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MemberData"
-      tags:
-        - Members
-      requestBody:
-        description: ""
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/MemberInput"
     patch:
-      summary: Partially update member
-      description: Partially update member
-      parameters: []
       operationId: patchMemberById
+      summary: Partial Update Member
+      description: Partially update member
+      tags: [Members]
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberInput"
       responses:
         "200":
           description: Default response
@@ -172,19 +177,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MemberData"
-      tags:
-        - Members
-      requestBody:
-        description: ""
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/MemberInput"
     delete:
+      operationId: deleteMemberById
       summary: Delete member
       description: Delete a member
-      parameters: []
-      operationId: deleteMemberById
+      tags: [Members]
       responses:
         "200":
           description: Default response
@@ -192,14 +189,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - Members
-    parameters:
-      - schema:
-          type: integer
-        name: memberId
-        in: path
-        required: true
   "/members/{memberId}/contacts":
     parameters:
       - schema:
@@ -211,8 +200,7 @@ paths:
       operationId: getMemberContactsById
       summary: List member's contacts
       description: List contacts for this member
-      tags:
-        - Members
+      tags: [Members]
       parameters:
         - schema:
             type: string
@@ -271,8 +259,7 @@ paths:
       operationId: getMemberRolesById
       summary: List member's roles
       description: List roles for this member
-      tags:
-        - Members
+      tags: [Members]
       parameters:
         - schema:
             type: string
@@ -320,32 +307,6 @@ paths:
                   - totalPages
                   - page
                   - pageSize
-  "/members/{memberId}/merge_into/{mergeMemberId}":
-    post:
-      summary: Merge member
-      description: Merge member
-      parameters: []
-      operationId: mergeMember
-      tags:
-        - Members
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-    parameters:
-      - schema:
-          type: integer
-        name: memberId
-        in: path
-        required: true
-      - schema:
-          type: integer
-        name: mergeMemberId
-        in: path
-        required: true
   "/members/{memberId}/roles/{roleId}":
     parameters:
       - schema:
@@ -359,9 +320,15 @@ paths:
         in: path
         required: true
     put:
-      summary: Add Member Role
-      description: addMemberRoleById
       operationId: addMemberRoleById
+      summary: Add Member Role
+      description: Add Member Role
+      tags: [Members]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberRoleInput"
       responses:
         "200":
           description: OK
@@ -369,17 +336,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MemberRoleData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/MemberRoleInput"
-      tags:
-        - Members
     delete:
-      summary: Remove Member Role
-      description: removeMemberRoleById
       operationId: removeMemberRoleById
+      summary: Remove Member Role
+      description: Remove Member Role
+      tags: [Members]
       responses:
         "200":
           description: OK
@@ -387,8 +348,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - Members
   "/members/{memberId}/list-rules":
     parameters:
       - schema:
@@ -397,11 +356,27 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: getListRulesByMemberId
       operationId: getListRulesByMemberId
-      tags:
-        - Members
+      summary: Get List Rules by Member ID
+      description: Get List Rules by Member ID
+      tags: [Members]
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
       responses:
         "200":
           description: OK
@@ -436,6 +411,36 @@ paths:
                   - totalPages
                   - page
                   - pageSize
+  "/members/{memberId}/merge_into/{mergeMemberId}":
+    parameters:
+      - schema:
+          type: integer
+        name: memberId
+        in: path
+        required: true
+      - schema:
+          type: integer
+        name: mergeMemberId
+        in: path
+        required: true
+    post:
+      operationId: mergeMember
+      summary: Merge member
+      description: Merge member
+      tags: [Members]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+  /roles:
+    get:
+      operationId: getRoles
+      summary: Get roles
+      description: Get roles
+      tags: [Roles]
       parameters:
         - schema:
             type: string
@@ -453,13 +458,6 @@ paths:
             type: integer
           in: query
           name: page
-  /roles:
-    get:
-      summary: Get roles
-      description: Get roles
-      operationId: getRoles
-      tags:
-        - Roles
       responses:
         "200":
           description: OK
@@ -494,27 +492,16 @@ paths:
                   - totalPages
                   - page
                   - pageSize
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: query
-        - schema:
-            type: string
-          in: query
-          name: sort
-        - schema:
-            type: integer
-          in: query
-          name: pageSize
-        - schema:
-            type: integer
-          in: query
-          name: page
     post:
+      operationId: createRole
       summary: Create role
       description: Create role
-      operationId: createRole
+      tags: [Roles]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleInput"
       responses:
         "200":
           description: OK
@@ -522,13 +509,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RoleData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RoleInput"
-      tags:
-        - Roles
   "/roles/{roleId}":
     parameters:
       - schema:
@@ -537,10 +517,10 @@ paths:
         in: path
         required: true
     get:
+      operationId: getRoleById
       summary: Get Role
       description: Get role
-      tags:
-        - Roles
+      tags: [Roles]
       responses:
         "200":
           description: OK
@@ -548,29 +528,28 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RoleData"
-      operationId: getRoleById
     put:
+      operationId: updateRoleById
       summary: Update role
       description: Update role
-      operationId: updateRoleById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RoleData"
+      tags: [Roles]
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/RoleInput"
-      tags:
-        - Roles
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleData"
     delete:
+      operationId: deleteRoleById
       summary: Delete role
       description: Delete role
-      operationId: deleteRoleById
+      tags: [Roles]
       responses:
         "200":
           description: OK
@@ -578,8 +557,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - Roles
   "/roles/{roleId}/members":
     parameters:
       - schema:
@@ -588,8 +565,10 @@ paths:
         in: path
         required: true
     get:
+      operationId: getMembersByRoleId
       summary: List members by role
       description: List all members in this role
+      tags: [Roles]
       parameters:
         - schema:
             type: string
@@ -607,7 +586,6 @@ paths:
             type: integer
           in: query
           name: page
-      operationId: getMembersByRoleId
       responses:
         "200":
           description: Default response
@@ -642,8 +620,6 @@ paths:
                   - totalPages
                   - page
                   - pageSize
-      tags:
-        - Roles
   "/roles/{roleId}/list-rules":
     parameters:
       - schema:
@@ -652,11 +628,27 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: getListRulesByRoleId
       operationId: getListRulesByRoleId
-      tags:
-        - Roles
+      summary: List Rules by Role ID
+      description: List Rules by Role ID
+      tags: [Roles]
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
       responses:
         "200":
           description: OK
@@ -691,6 +683,12 @@ paths:
                   - totalPages
                   - page
                   - pageSize
+  /contacts:
+    get:
+      operationId: getContacts
+      summary: List Contacts
+      description: Returns a list of Contacts
+      tags: [Contacts]
       parameters:
         - schema:
             type: string
@@ -708,12 +706,6 @@ paths:
             type: integer
           in: query
           name: page
-  /contacts:
-    get:
-      summary: Your GET endpoint
-      description: Your GET endpoint
-      tags:
-        - Contacts
       responses:
         "200":
           description: OK
@@ -748,7 +740,103 @@ paths:
                   - totalPages
                   - page
                   - pageSize
-      operationId: getContacts
+    post:
+      operationId: createContact
+      summary: Create Contact
+      description: create Contact
+      tags: [Contacts]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactInput"
+        description: ""
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactData"
+  "/contacts/{contactId}":
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      operationId: getContactById
+      summary: Get Contact By ID
+      description: Get Contact By ID
+      tags: [Contacts]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactData"
+    put:
+      operationId: updateContactById
+      summary: Update Contact By ID
+      description: Update Contact By ID
+      tags: [Contacts]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactInput"
+        description: ""
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactData"
+    patch:
+      operationId: patchContactById
+      summary: Patch Contact By ID
+      description: Patch Contact By ID
+      tags: [Contacts]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactInput"
+        description: ""
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactData"
+    delete:
+      operationId: deleteContactById
+      summary: Delete Contact By ID
+      description: Delete Contact By ID
+      tags: [Contacts]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+  "/contacts/{contactId}/list-rules":
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      operationId: getListRulesByContactId
+      summary: Get List Rules By Contact ID
+      description: Get List Rules By Contact ID
+      tags: [Contacts]
       parameters:
         - schema:
             type: string
@@ -766,109 +854,6 @@ paths:
             type: integer
           in: query
           name: page
-    post:
-      summary: ""
-      description: createContact
-      operationId: createContact
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ContactData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ContactInput"
-        description: ""
-      tags:
-        - Contacts
-  "/contacts/{contactId}":
-    parameters:
-      - schema:
-          type: integer
-        name: contactId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: getContactById
-      tags:
-        - Contacts
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ContactData"
-      operationId: getContactById
-    put:
-      summary: ""
-      description: updateContactById
-      operationId: updateContactById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ContactData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ContactInput"
-        description: ""
-      tags:
-        - Contacts
-    patch:
-      summary: ""
-      description: patchContactById
-      operationId: patchContactById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ContactData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ContactInput"
-        description: ""
-      tags:
-        - Contacts
-    delete:
-      summary: ""
-      description: deleteContactById
-      operationId: deleteContactById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - Contacts
-  "/contacts/{contactId}/list-rules":
-    parameters:
-      - schema:
-          type: integer
-        name: contactId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: getListRulesByContactId
-      operationId: getListRulesByContactId
-      tags:
-        - Contacts
       responses:
         "200":
           description: OK
@@ -903,6 +888,12 @@ paths:
                   - totalPages
                   - page
                   - pageSize
+  /groups:
+    get:
+      operationId: getScoutGroups
+      summary: Get Groups
+      description: Get Groups
+      tags: [ScoutGroups]
       parameters:
         - schema:
             type: string
@@ -920,12 +911,6 @@ paths:
             type: integer
           in: query
           name: page
-  /groups:
-    get:
-      summary: Get Groups
-      description: Get Groups
-      tags:
-        - ScoutGroups
       responses:
         "200":
           description: OK
@@ -960,28 +945,16 @@ paths:
                   - totalPages
                   - page
                   - pageSize
-      operationId: getScoutGroups
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: query
-        - schema:
-            type: string
-          in: query
-          name: sort
-        - schema:
-            type: integer
-          in: query
-          name: pageSize
-        - schema:
-            type: integer
-          in: query
-          name: page
     post:
+      operationId: createScoutGroup
       summary: Create Group
       description: Create Group
-      operationId: createScoutGroup
+      tags: [ScoutGroups]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScoutGroupInput"
       responses:
         "200":
           description: OK
@@ -989,13 +962,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ScoutGroupData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ScoutGroupInput"
-      tags:
-        - ScoutGroups
   "/groups/{scoutGroupId}":
     parameters:
       - schema:
@@ -1004,10 +970,10 @@ paths:
         in: path
         required: true
     get:
+      operationId: getScoutGroupById
       summary: Get Group
       description: Get Group
-      tags:
-        - ScoutGroups
+      tags: [ScoutGroups]
       responses:
         "200":
           description: "OK  "
@@ -1015,11 +981,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ScoutGroupData"
-      operationId: getScoutGroupById
     put:
+      operationId: updateScoutGroupById
       summary: Update Group
       description: Update Group
-      operationId: updateScoutGroupById
+      tags: [ScoutGroups]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScoutGroupInput"
       responses:
         "200":
           description: OK
@@ -1027,17 +998,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ScoutGroupData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ScoutGroupInput"
-      tags:
-        - ScoutGroups
     delete:
+      operationId: deleteScoutGroupById
       summary: Delete Group
       description: Delete Group
-      operationId: deleteScoutGroupById
+      tags: [ScoutGroups]
       responses:
         "200":
           description: OK
@@ -1045,8 +1010,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - ScoutGroups
   "/groups/{scoutGroupId}/sections":
     parameters:
       - schema:
@@ -1055,11 +1018,10 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: getScoutGroupSectionsById
-      operationId: getScoutGroupSectionsById
-      tags:
-        - ScoutGroups
+      operationId: getScoutGroupSectionsByScoutGroupId
+      summary: Get Scout Group Sections By Scout Group ID
+      description: Get Scout Group Sections By Scout Group ID
+      tags: [ScoutGroups]
       responses:
         "200":
           description: OK
@@ -1102,11 +1064,27 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: getListRulesByScoutGroupId
       operationId: getListRulesByScoutGroupId
-      tags:
-        - ScoutGroups
+      summary: Get List Rules By Scout Group ID
+      description: Get List Rules By Scout Group ID
+      tags: [ScoutGroups]
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
       responses:
         "200":
           description: OK
@@ -1141,6 +1119,12 @@ paths:
                   - totalPages
                   - page
                   - pageSize
+  /sections:
+    get:
+      operationId: getSections
+      summary: Get Sections
+      description: Get Sections
+      tags: [Sections]
       parameters:
         - schema:
             type: string
@@ -1158,13 +1142,6 @@ paths:
             type: integer
           in: query
           name: page
-  /sections:
-    get:
-      summary: Get Sections
-      description: Get Sections
-      operationId: getSections
-      tags:
-        - Sections
       responses:
         "200":
           description: OK
@@ -1199,27 +1176,11 @@ paths:
                   - totalPages
                   - page
                   - pageSize
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: query
-        - schema:
-            type: string
-          in: query
-          name: sort
-        - schema:
-            type: integer
-          in: query
-          name: pageSize
-        - schema:
-            type: integer
-          in: query
-          name: page
     post:
+      operationId: createSection
       summary: Create Section
       description: Create Section
-      operationId: createSection
+      tags: [Sections]
       responses:
         "200":
           description: OK
@@ -1232,8 +1193,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/SectionInput"
-      tags:
-        - Sections
   "/sections/{sectionId}":
     parameters:
       - schema:
@@ -1242,11 +1201,10 @@ paths:
         in: path
         required: true
     get:
+      operationId: getSectionById
       summary: Get Section
       description: Get Section
-      operationId: getSectionById
-      tags:
-        - Sections
+      tags: [Sections]
       responses:
         "200":
           description: OK
@@ -1255,9 +1213,15 @@ paths:
               schema:
                 $ref: "#/components/schemas/SectionData"
     put:
+      operationId: updateSectionById
       summary: Update Section
       description: Update Section
-      operationId: updateSectionById
+      tags: [Sections]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SectionInput"
       responses:
         "200":
           description: OK
@@ -1265,17 +1229,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SectionData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SectionInput"
-      tags:
-        - Sections
     delete:
+      operationId: deleteSectionById
       summary: Delete Section
       description: Delete Section
-      operationId: deleteSectionById
+      tags: [Sections]
       responses:
         "200":
           description: OK
@@ -1283,8 +1241,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - Sections
   "/sections/{sectionId}/members":
     parameters:
       - schema:
@@ -1293,8 +1249,10 @@ paths:
         in: path
         required: true
     get:
+      operationId: getMembersBySectionId
       summary: List members by section
       description: List all members in this section
+      tags: [Sections]
       parameters:
         - schema:
             type: string
@@ -1312,7 +1270,6 @@ paths:
             type: integer
           in: query
           name: page
-      operationId: getMembersBySectionId
       responses:
         "200":
           description: Default response
@@ -1347,8 +1304,6 @@ paths:
                   - totalPages
                   - page
                   - pageSize
-      tags:
-        - Sections
   "/sections/{sectionId}/roles":
     parameters:
       - schema:
@@ -1357,10 +1312,10 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: Your GET endpoint
-      tags:
-        - Sections
+      operationId: getSectionRolesBySectionId
+      summary: List Section Roles By Section ID
+      description: List Section Roles By Section ID
+      tags: [Sections]
       responses:
         "200":
           description: OK
@@ -1395,7 +1350,6 @@ paths:
                   - totalPages
                   - page
                   - pageSize
-      operationId: getSectionRolesById
   "/sections/{sectionId}/list-rules":
     parameters:
       - schema:
@@ -1404,11 +1358,27 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: getListRulesBySectionId
       operationId: getListRulesBySectionId
-      tags:
-        - Sections
+      summary: Get List Rules By Section ID
+      description: Get List Rules By Section ID
+      tags: [Sections]
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
       responses:
         "200":
           description: OK
@@ -1443,6 +1413,12 @@ paths:
                   - totalPages
                   - page
                   - pageSize
+  /lists:
+    get:
+      operationId: getLists
+      summary: Get Lists
+      description: Get Lists
+      tags: [Lists]
       parameters:
         - schema:
             type: string
@@ -1460,11 +1436,6 @@ paths:
             type: integer
           in: query
           name: page
-  /lists:
-    get:
-      summary: Your GET endpoint
-      description: getLists
-      operationId: getLists
       responses:
         "200":
           description: OK
@@ -1499,6 +1470,103 @@ paths:
                   - totalPages
                   - page
                   - pageSize
+    post:
+      operationId: createList
+      summary: Create List
+      description: Create List
+      tags: [Lists]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListData"
+  "/lists/{listId}":
+    parameters:
+      - schema:
+          type: integer
+        name: listId
+        in: path
+        required: true
+    get:
+      operationId: getListById
+      summary: Get List By ID
+      description: Get List By ID
+      tags: [Lists]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListData"
+    put:
+      operationId: updateListById
+      summary: Update List By ID
+      description: Update List By ID
+      tags: [Lists]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListData"
+    delete:
+      operationId: deleteListById
+      summary: Delete List By ID
+      description: Delete List By ID
+      tags: [Lists]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+  "/lists/address/{listAddress}":
+    parameters:
+      - schema:
+          type: string
+          pattern: .+
+        name: listAddress
+        in: path
+        required: true
+    get:
+      operationId: getListByAddress
+      summary: Get List By Address
+      description: Get List By Address
+      tags: [Lists]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListData"
+  "/lists/{listId}/recipients":
+    parameters:
+      - schema:
+          type: integer
+        name: listId
+        in: path
+        required: true
+    get:
+      operationId: getListRecipientsByListId
+      summary: Get List Recipients By List ID
+      description: Get List Recipients By List ID
+      tags: [Lists]
       parameters:
         - schema:
             type: string
@@ -1516,111 +1584,6 @@ paths:
             type: integer
           in: query
           name: page
-      tags:
-        - Lists
-    post:
-      summary: ""
-      description: createList
-      operationId: createList
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ListInput"
-      tags:
-        - Lists
-  "/lists/{listId}":
-    parameters:
-      - schema:
-          type: integer
-        name: listId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: getListById
-      operationId: getListById
-      tags:
-        - Lists
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListData"
-    put:
-      summary: ""
-      description: updateListById
-      operationId: updateListById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ListInput"
-      tags:
-        - Lists
-    delete:
-      summary: ""
-      description: deleteListById
-      operationId: deleteListById
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - Lists
-  "/lists/address/{listAddress}":
-    parameters:
-      - schema:
-          type: string
-          pattern: .+
-        name: listAddress
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: getListByAddress
-      operationId: getListByAddress
-      tags:
-        - Lists
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListData"
-  "/lists/{listId}/recipients":
-    parameters:
-      - schema:
-          type: integer
-        name: listId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: getListRecipientsById
-      operationId: getListRecipientsById
-      tags:
-        - Lists
       responses:
         "200":
           description: OK
@@ -1655,6 +1618,18 @@ paths:
                   - totalPages
                   - page
                   - pageSize
+  "/lists/{listId}/list-rules":
+    parameters:
+      - schema:
+          type: integer
+        name: listId
+        in: path
+        required: true
+    get:
+      operationId: getListRulesByListId
+      summary: Get List Rules By List ID
+      description: Get List Rule By List ID
+      tags: [Lists]
       parameters:
         - schema:
             type: string
@@ -1672,19 +1647,6 @@ paths:
             type: integer
           in: query
           name: page
-  "/lists/{listId}/list-rules":
-    parameters:
-      - schema:
-          type: integer
-        name: listId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      description: getListRulesByListId
-      operationId: getListRulesByListId
-      tags:
-        - Lists
       responses:
         "200":
           description: OK
@@ -1719,27 +1681,16 @@ paths:
                   - totalPages
                   - page
                   - pageSize
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: query
-        - schema:
-            type: string
-          in: query
-          name: sort
-        - schema:
-            type: integer
-          in: query
-          name: pageSize
-        - schema:
-            type: integer
-          in: query
-          name: page
     post:
-      summary: ""
-      description: createListRuleById
-      operationId: createListRuleById
+      operationId: createListRuleByListId
+      summary: Create List Rule By List ID
+      description: Create List Rule By List ID
+      tags: [Lists]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListRuleInput"
       responses:
         "200":
           description: OK
@@ -1747,13 +1698,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ListRuleData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ListRuleInput"
-      tags:
-        - Lists
   "/lists/{listId}/rules/{ruleId}":
     parameters:
       - schema:
@@ -1767,11 +1711,10 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      description: getListRuleById
-      operationId: getListRuleById
-      tags:
-        - Lists
+      operationId: getListRuleByListId
+      summary: Get List Rule By List ID
+      description: Get List Rule By List ID
+      tags: [Lists]
       responses:
         "200":
           description: OK
@@ -1780,9 +1723,15 @@ paths:
               schema:
                 $ref: "#/components/schemas/ListRuleData"
     put:
-      summary: ""
-      description: updateListRuleById
-      operationId: updateListRuleById
+      operationId: updateListRuleByListId
+      summary: Update List Rule By List ID
+      description: Update List Rule By List ID
+      tags: [Lists]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListRuleInput"
       responses:
         "200":
           description: OK
@@ -1790,17 +1739,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ListRuleData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ListRuleInput"
-      tags:
-        - Lists
     delete:
-      summary: ""
-      description: deleteListRuleById
-      operationId: deleteListRuleById
+      operationId: deleteListRuleByListId
+      summary: Delete List Rule By List ID
+      description: Delete List Rule By List ID
+      tags: [Lists]
       responses:
         "200":
           description: OK
@@ -1808,36 +1751,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
-      tags:
-        - Lists
   /auth/token:
     post:
+      operationId: getJWT
       summary: Get JWT
       description: Get a JWT
-      tags:
-        - Auth
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/JwtErrorResponse"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-      operationId: getJWT
+      tags: [Auth]
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/JwtInput"
-      security: []
-  /auth/token/refresh:
-    post:
-      summary: Refresh JWT
-      description: Refresh a JWT
-      tags:
-        - Auth
       responses:
         "200":
           description: OK
@@ -1847,7 +1771,13 @@ paths:
                 $ref: "#/components/schemas/JwtErrorResponse"
         "401":
           $ref: "#/components/responses/UnauthorizedError"
+      security: []
+  /auth/token/refresh:
+    post:
       operationId: refreshJWT
+      summary: Refresh JWT
+      description: Refresh a JWT
+      tags: [Auth]
       requestBody:
         required: true
         content:
@@ -1856,6 +1786,15 @@ paths:
               $ref: "#/components/schemas/JwtRefreshInput"
             example:
               refresh_token: "..."
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JwtErrorResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
       security: []
 components:
   responses:

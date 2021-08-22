@@ -70,6 +70,8 @@ interface ListsApiInterface
     /**
      * Operation createList
      *
+     * Create List
+     *
      * @param  OpenAPI\Server\Model\ListInput $listInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -80,7 +82,9 @@ interface ListsApiInterface
     public function createList(ListInput $listInput = null, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation createListRuleById
+     * Operation createListRuleByListId
+     *
+     * Create List Rule By List ID
      *
      * @param  int $listId   (required)
      * @param  OpenAPI\Server\Model\ListRuleInput $listRuleInput   (optional)
@@ -90,10 +94,12 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListRuleData
      *
      */
-    public function createListRuleById(int $listId, ListRuleInput $listRuleInput = null, &$responseCode, array &$responseHeaders);
+    public function createListRuleByListId(int $listId, ListRuleInput $listRuleInput = null, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation deleteListById
+     *
+     * Delete List By ID
      *
      * @param  int $listId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -105,7 +111,9 @@ interface ListsApiInterface
     public function deleteListById(int $listId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation deleteListRuleById
+     * Operation deleteListRuleByListId
+     *
+     * Delete List Rule By List ID
      *
      * @param  int $listId   (required)
      * @param  int $ruleId   (required)
@@ -115,12 +123,12 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ApiResponse
      *
      */
-    public function deleteListRuleById(int $listId, int $ruleId, &$responseCode, array &$responseHeaders);
+    public function deleteListRuleByListId(int $listId, int $ruleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListByAddress
      *
-     * Your GET endpoint
+     * Get List By Address
      *
      * @param  string $listAddress   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -134,7 +142,7 @@ interface ListsApiInterface
     /**
      * Operation getListById
      *
-     * Your GET endpoint
+     * Get List By ID
      *
      * @param  int $listId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -146,9 +154,9 @@ interface ListsApiInterface
     public function getListById(int $listId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getListRecipientsById
+     * Operation getListRecipientsByListId
      *
-     * Your GET endpoint
+     * Get List Recipients By List ID
      *
      * @param  int $listId   (required)
      * @param  string $query   (optional)
@@ -161,12 +169,12 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\Recipients
      *
      */
-    public function getListRecipientsById(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
+    public function getListRecipientsByListId(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getListRuleById
+     * Operation getListRuleByListId
      *
-     * Your GET endpoint
+     * Get List Rule By List ID
      *
      * @param  int $listId   (required)
      * @param  int $ruleId   (required)
@@ -176,12 +184,12 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListRuleData
      *
      */
-    public function getListRuleById(int $listId, int $ruleId, &$responseCode, array &$responseHeaders);
+    public function getListRuleByListId(int $listId, int $ruleId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getListRulesByListId
      *
-     * Your GET endpoint
+     * Get List Rules By List ID
      *
      * @param  int $listId   (required)
      * @param  string $query   (optional)
@@ -199,7 +207,7 @@ interface ListsApiInterface
     /**
      * Operation getLists
      *
-     * Your GET endpoint
+     * Get Lists
      *
      * @param  string $query   (optional)
      * @param  string $sort   (optional)
@@ -216,6 +224,8 @@ interface ListsApiInterface
     /**
      * Operation updateListById
      *
+     * Update List By ID
+     *
      * @param  int $listId   (required)
      * @param  OpenAPI\Server\Model\ListInput $listInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
@@ -227,7 +237,9 @@ interface ListsApiInterface
     public function updateListById(int $listId, ListInput $listInput = null, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation updateListRuleById
+     * Operation updateListRuleByListId
+     *
+     * Update List Rule By List ID
      *
      * @param  int $listId   (required)
      * @param  int $ruleId   (required)
@@ -238,5 +250,5 @@ interface ListsApiInterface
      * @return OpenAPI\Server\Model\ListRuleData
      *
      */
-    public function updateListRuleById(int $listId, int $ruleId, ListRuleInput $listRuleInput = null, &$responseCode, array &$responseHeaders);
+    public function updateListRuleByListId(int $listId, int $ruleId, ListRuleInput $listRuleInput = null, &$responseCode, array &$responseHeaders);
 }

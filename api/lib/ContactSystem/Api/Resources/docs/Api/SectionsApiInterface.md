@@ -1,15 +1,15 @@
 # OpenAPI\Server\Api\SectionsApiInterface
 
-All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
+All URIs are relative to *https://membership.essendonseascouts.org.au/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createSection**](SectionsApiInterface.md#createSection) | **POST** /sections | Create Section
 [**deleteSectionById**](SectionsApiInterface.md#deleteSectionById) | **DELETE** /sections/{sectionId} | Delete Section
-[**getListRulesBySectionId**](SectionsApiInterface.md#getListRulesBySectionId) | **GET** /sections/{sectionId}/list-rules | Your GET endpoint
+[**getListRulesBySectionId**](SectionsApiInterface.md#getListRulesBySectionId) | **GET** /sections/{sectionId}/list-rules | Get List Rules By Section ID
 [**getMembersBySectionId**](SectionsApiInterface.md#getMembersBySectionId) | **GET** /sections/{sectionId}/members | List members by section
 [**getSectionById**](SectionsApiInterface.md#getSectionById) | **GET** /sections/{sectionId} | Get Section
-[**getSectionRolesById**](SectionsApiInterface.md#getSectionRolesById) | **GET** /sections/{sectionId}/roles | Your GET endpoint
+[**getSectionRolesBySectionId**](SectionsApiInterface.md#getSectionRolesBySectionId) | **GET** /sections/{sectionId}/roles | List Section Roles By Section ID
 [**getSections**](SectionsApiInterface.md#getSections) | **GET** /sections | Get Sections
 [**updateSectionById**](SectionsApiInterface.md#updateSectionById) | **PUT** /sections/{sectionId} | Update Section
 
@@ -153,9 +153,9 @@ Name | Type | Description  | Notes
 ## **getListRulesBySectionId**
 > OpenAPI\Server\Model\ListRules getListRulesBySectionId($sectionId, $query, $sort, $pageSize, $page)
 
-Your GET endpoint
+Get List Rules By Section ID
 
-getListRulesBySectionId
+Get List Rules By Section ID
 
 ### Example Implementation
 ```php
@@ -344,12 +344,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getSectionRolesById**
-> OpenAPI\Server\Model\Roles getSectionRolesById($sectionId)
+## **getSectionRolesBySectionId**
+> OpenAPI\Server\Model\Roles getSectionRolesBySectionId($sectionId)
 
-Your GET endpoint
+List Section Roles By Section ID
 
-Your GET endpoint
+List Section Roles By Section ID
 
 ### Example Implementation
 ```php
@@ -374,9 +374,9 @@ class SectionsApi implements SectionsApiInterface
     // ...
 
     /**
-     * Implementation of SectionsApiInterface#getSectionRolesById
+     * Implementation of SectionsApiInterface#getSectionRolesBySectionId
      */
-    public function getSectionRolesById(int $sectionId)
+    public function getSectionRolesBySectionId(int $sectionId)
     {
         // Implement the operation ...
     }

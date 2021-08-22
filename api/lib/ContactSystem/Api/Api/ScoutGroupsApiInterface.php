@@ -96,7 +96,7 @@ interface ScoutGroupsApiInterface
     /**
      * Operation getListRulesByScoutGroupId
      *
-     * Your GET endpoint
+     * Get List Rules By Scout Group ID
      *
      * @param  int $scoutGroupId   (required)
      * @param  string $query   (optional)
@@ -126,9 +126,9 @@ interface ScoutGroupsApiInterface
     public function getScoutGroupById(int $scoutGroupId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getScoutGroupSectionsById
+     * Operation getScoutGroupSectionsByScoutGroupId
      *
-     * Your GET endpoint
+     * Get Scout Group Sections By Scout Group ID
      *
      * @param  int $scoutGroupId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -137,7 +137,7 @@ interface ScoutGroupsApiInterface
      * @return OpenAPI\Server\Model\Sections
      *
      */
-    public function getScoutGroupSectionsById(int $scoutGroupId, &$responseCode, array &$responseHeaders);
+    public function getScoutGroupSectionsByScoutGroupId(int $scoutGroupId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getScoutGroups

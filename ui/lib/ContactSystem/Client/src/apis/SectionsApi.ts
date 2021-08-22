@@ -66,7 +66,7 @@ export interface GetSectionByIdRequest {
     sectionId: number;
 }
 
-export interface GetSectionRolesByIdRequest {
+export interface GetSectionRolesBySectionIdRequest {
     sectionId: number;
 }
 
@@ -121,8 +121,8 @@ export interface SectionsApiInterface {
     deleteSectionById(requestParameters: DeleteSectionByIdRequest): Promise<ModelApiResponse>;
 
     /**
-     * getListRulesBySectionId
-     * @summary Your GET endpoint
+     * Get List Rules By Section ID
+     * @summary Get List Rules By Section ID
      * @param {number} sectionId 
      * @param {string} [query] 
      * @param {string} [sort] 
@@ -135,8 +135,8 @@ export interface SectionsApiInterface {
     getListRulesBySectionIdRaw(requestParameters: GetListRulesBySectionIdRequest): Promise<runtime.ApiResponse<ListRules>>;
 
     /**
-     * getListRulesBySectionId
-     * Your GET endpoint
+     * Get List Rules By Section ID
+     * Get List Rules By Section ID
      */
     getListRulesBySectionId(requestParameters: GetListRulesBySectionIdRequest): Promise<ListRules>;
 
@@ -177,20 +177,20 @@ export interface SectionsApiInterface {
     getSectionById(requestParameters: GetSectionByIdRequest): Promise<SectionData>;
 
     /**
-     * Your GET endpoint
-     * @summary Your GET endpoint
+     * List Section Roles By Section ID
+     * @summary List Section Roles By Section ID
      * @param {number} sectionId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
      */
-    getSectionRolesByIdRaw(requestParameters: GetSectionRolesByIdRequest): Promise<runtime.ApiResponse<Roles>>;
+    getSectionRolesBySectionIdRaw(requestParameters: GetSectionRolesBySectionIdRequest): Promise<runtime.ApiResponse<Roles>>;
 
     /**
-     * Your GET endpoint
-     * Your GET endpoint
+     * List Section Roles By Section ID
+     * List Section Roles By Section ID
      */
-    getSectionRolesById(requestParameters: GetSectionRolesByIdRequest): Promise<Roles>;
+    getSectionRolesBySectionId(requestParameters: GetSectionRolesBySectionIdRequest): Promise<Roles>;
 
     /**
      * Get Sections
@@ -323,8 +323,8 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
     }
 
     /**
-     * getListRulesBySectionId
-     * Your GET endpoint
+     * Get List Rules By Section ID
+     * Get List Rules By Section ID
      */
     async getListRulesBySectionIdRaw(requestParameters: GetListRulesBySectionIdRequest): Promise<runtime.ApiResponse<ListRules>> {
         if (requestParameters.sectionId === null || requestParameters.sectionId === undefined) {
@@ -374,8 +374,8 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
     }
 
     /**
-     * getListRulesBySectionId
-     * Your GET endpoint
+     * Get List Rules By Section ID
+     * Get List Rules By Section ID
      */
     async getListRulesBySectionId(requestParameters: GetListRulesBySectionIdRequest): Promise<ListRules> {
         const response = await this.getListRulesBySectionIdRaw(requestParameters);
@@ -487,12 +487,12 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
     }
 
     /**
-     * Your GET endpoint
-     * Your GET endpoint
+     * List Section Roles By Section ID
+     * List Section Roles By Section ID
      */
-    async getSectionRolesByIdRaw(requestParameters: GetSectionRolesByIdRequest): Promise<runtime.ApiResponse<Roles>> {
+    async getSectionRolesBySectionIdRaw(requestParameters: GetSectionRolesBySectionIdRequest): Promise<runtime.ApiResponse<Roles>> {
         if (requestParameters.sectionId === null || requestParameters.sectionId === undefined) {
-            throw new runtime.RequiredError('sectionId','Required parameter requestParameters.sectionId was null or undefined when calling getSectionRolesById.');
+            throw new runtime.RequiredError('sectionId','Required parameter requestParameters.sectionId was null or undefined when calling getSectionRolesBySectionId.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -522,11 +522,11 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
     }
 
     /**
-     * Your GET endpoint
-     * Your GET endpoint
+     * List Section Roles By Section ID
+     * List Section Roles By Section ID
      */
-    async getSectionRolesById(requestParameters: GetSectionRolesByIdRequest): Promise<Roles> {
-        const response = await this.getSectionRolesByIdRaw(requestParameters);
+    async getSectionRolesBySectionId(requestParameters: GetSectionRolesBySectionIdRequest): Promise<Roles> {
+        const response = await this.getSectionRolesBySectionIdRaw(requestParameters);
         return await response.value();
     }
 

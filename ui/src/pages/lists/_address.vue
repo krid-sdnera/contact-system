@@ -27,11 +27,7 @@
     <v-row>
       <v-col>
         <!-- Rules Table -->
-        <list-rules-table
-          :list="list"
-          :rules="rules"
-          searchable
-        ></list-rules-table>
+        <list-rules-table :list="list" searchable></list-rules-table>
       </v-col>
     </v-row>
 

@@ -366,7 +366,7 @@ class MembersController extends Controller
     /**
      * Operation getListRulesByMemberId
      *
-     * Your GET endpoint
+     * Get List Rules by Member ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -488,7 +488,7 @@ class MembersController extends Controller
     /**
      * Operation getMemberById
      *
-     * Get member
+     * Get Member
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -1018,7 +1018,7 @@ class MembersController extends Controller
     /**
      * Operation patchMemberById
      *
-     * Partially update member
+     * Partial Update Member
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -1223,7 +1223,7 @@ class MembersController extends Controller
     /**
      * Operation updateMemberById
      *
-     * Update member
+     * Update Member
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.

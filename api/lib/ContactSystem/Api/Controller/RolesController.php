@@ -247,7 +247,7 @@ class RolesController extends Controller
     /**
      * Operation getListRulesByRoleId
      *
-     * Your GET endpoint
+     * List Rules by Role ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.

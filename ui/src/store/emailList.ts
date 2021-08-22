@@ -1,10 +1,10 @@
 import {
   CreateListRequest,
-  CreateListRuleByIdRequest,
+  CreateListRuleByListIdRequest,
   DeleteListByIdRequest,
-  DeleteListRuleByIdRequest,
-  GetListRecipientsByIdRequest,
-  GetListRuleByIdRequest,
+  DeleteListRuleByListIdRequest,
+  GetListRecipientsByListIdRequest,
+  GetListRuleByListIdRequest,
   GetListRulesByContactIdRequest,
   GetListRulesByListIdRequest,
   GetListRulesByMemberIdRequest,
@@ -13,7 +13,7 @@ import {
   GetListRulesBySectionIdRequest,
   GetListsRequest,
   UpdateListByIdRequest,
-  UpdateListRuleByIdRequest,
+  UpdateListRuleByListIdRequest,
 } from '@api/apis';
 import {
   ListData,
@@ -257,9 +257,9 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async fetchListRecipientsById(
     { commit },
-    options: GetListRecipientsByIdRequest
+    options: GetListRecipientsByListIdRequest
   ): Promise<Recipients> {
-    const payload = await this.$api.lists.getListRecipientsById(options);
+    const payload = await this.$api.lists.getListRecipientsByListId(options);
     commit('setRecipients', payload.recipients);
     return payload;
   },
@@ -313,9 +313,12 @@ export const actions: ActionTree<RootState, RootState> = {
     commit('setListRules', payload.rules);
     return payload;
   },
-  async fetchEmailListRuleById({ commit }, options: GetListRuleByIdRequest) {
+  async fetchEmailListRuleById(
+    { commit },
+    options: GetListRuleByListIdRequest
+  ) {
     try {
-      const payload = await this.$api.lists.getListRuleById(options);
+      const payload = await this.$api.lists.getListRuleByListId(options);
       commit('setEmailListRuleById', payload);
     } catch (e) {
       throw new AppError(
@@ -327,11 +330,11 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async createEmailListRuleById(
     { commit },
-    options: CreateListRuleByIdRequest
+    options: CreateListRuleByListIdRequest
   ) {
     try {
       commit('ui/startUpdateApiRequestInProgress', null, { root: true });
-      const payload: ListRuleData = await this.$api.lists.createListRuleById(
+      const payload: ListRuleData = await this.$api.lists.createListRuleByListId(
         options
       );
       commit('setEmailListRuleById', payload);
@@ -348,11 +351,11 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async updateEmailListRuleById(
     { commit },
-    options: UpdateListRuleByIdRequest
+    options: UpdateListRuleByListIdRequest
   ) {
     try {
       commit('ui/startUpdateApiRequestInProgress', null, { root: true });
-      const payload: ListRuleData = await this.$api.lists.updateListRuleById(
+      const payload: ListRuleData = await this.$api.lists.updateListRuleByListId(
         options
       );
       commit('setEmailListRuleById', payload);
@@ -369,11 +372,11 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async deleteEmailListRuleById(
     { commit },
-    options: DeleteListRuleByIdRequest
+    options: DeleteListRuleByListIdRequest
   ): Promise<ModelApiResponse> {
     try {
       commit('ui/startUpdateApiRequestInProgress', null, { root: true });
-      const payload: ModelApiResponse = await this.$api.lists.deleteListRuleById(
+      const payload: ModelApiResponse = await this.$api.lists.deleteListRuleByListId(
         options
       );
       commit('removeEmailListRuleById', options.ruleId);

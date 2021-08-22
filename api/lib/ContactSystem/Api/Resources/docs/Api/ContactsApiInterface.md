@@ -1,16 +1,16 @@
 # OpenAPI\Server\Api\ContactsApiInterface
 
-All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
+All URIs are relative to *https://membership.essendonseascouts.org.au/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createContact**](ContactsApiInterface.md#createContact) | **POST** /contacts | 
-[**deleteContactById**](ContactsApiInterface.md#deleteContactById) | **DELETE** /contacts/{contactId} | 
-[**getContactById**](ContactsApiInterface.md#getContactById) | **GET** /contacts/{contactId} | Your GET endpoint
-[**getContacts**](ContactsApiInterface.md#getContacts) | **GET** /contacts | Your GET endpoint
-[**getListRulesByContactId**](ContactsApiInterface.md#getListRulesByContactId) | **GET** /contacts/{contactId}/list-rules | Your GET endpoint
-[**patchContactById**](ContactsApiInterface.md#patchContactById) | **PATCH** /contacts/{contactId} | 
-[**updateContactById**](ContactsApiInterface.md#updateContactById) | **PUT** /contacts/{contactId} | 
+[**createContact**](ContactsApiInterface.md#createContact) | **POST** /contacts | Create Contact
+[**deleteContactById**](ContactsApiInterface.md#deleteContactById) | **DELETE** /contacts/{contactId} | Delete Contact By ID
+[**getContactById**](ContactsApiInterface.md#getContactById) | **GET** /contacts/{contactId} | Get Contact By ID
+[**getContacts**](ContactsApiInterface.md#getContacts) | **GET** /contacts | List Contacts
+[**getListRulesByContactId**](ContactsApiInterface.md#getListRulesByContactId) | **GET** /contacts/{contactId}/list-rules | Get List Rules By Contact ID
+[**patchContactById**](ContactsApiInterface.md#patchContactById) | **PATCH** /contacts/{contactId} | Patch Contact By ID
+[**updateContactById**](ContactsApiInterface.md#updateContactById) | **PUT** /contacts/{contactId} | Update Contact By ID
 
 
 ## Service Declaration
@@ -28,9 +28,9 @@ services:
 ## **createContact**
 > OpenAPI\Server\Model\ContactData createContact($contactInput)
 
+Create Contact
 
-
-createContact
+create Contact
 
 ### Example Implementation
 ```php
@@ -90,9 +90,9 @@ Name | Type | Description  | Notes
 ## **deleteContactById**
 > OpenAPI\Server\Model\ApiResponse deleteContactById($contactId)
 
+Delete Contact By ID
 
-
-deleteContactById
+Delete Contact By ID
 
 ### Example Implementation
 ```php
@@ -152,9 +152,9 @@ Name | Type | Description  | Notes
 ## **getContactById**
 > OpenAPI\Server\Model\ContactData getContactById($contactId)
 
-Your GET endpoint
+Get Contact By ID
 
-getContactById
+Get Contact By ID
 
 ### Example Implementation
 ```php
@@ -214,9 +214,9 @@ Name | Type | Description  | Notes
 ## **getContacts**
 > OpenAPI\Server\Model\Contacts getContacts($query, $sort, $pageSize, $page)
 
-Your GET endpoint
+List Contacts
 
-Your GET endpoint
+Returns a list of Contacts
 
 ### Example Implementation
 ```php
@@ -279,9 +279,9 @@ Name | Type | Description  | Notes
 ## **getListRulesByContactId**
 > OpenAPI\Server\Model\ListRules getListRulesByContactId($contactId, $query, $sort, $pageSize, $page)
 
-Your GET endpoint
+Get List Rules By Contact ID
 
-getListRulesByContactId
+Get List Rules By Contact ID
 
 ### Example Implementation
 ```php
@@ -345,9 +345,9 @@ Name | Type | Description  | Notes
 ## **patchContactById**
 > OpenAPI\Server\Model\ContactData patchContactById($contactId, $contactInput)
 
+Patch Contact By ID
 
-
-patchContactById
+Patch Contact By ID
 
 ### Example Implementation
 ```php
@@ -408,9 +408,9 @@ Name | Type | Description  | Notes
 ## **updateContactById**
 > OpenAPI\Server\Model\ContactData updateContactById($contactId, $contactInput)
 
+Update Contact By ID
 
-
-updateContactById
+Update Contact By ID
 
 ### Example Implementation
 ```php

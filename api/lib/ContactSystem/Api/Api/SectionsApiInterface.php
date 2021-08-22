@@ -97,7 +97,7 @@ interface SectionsApiInterface
     /**
      * Operation getListRulesBySectionId
      *
-     * Your GET endpoint
+     * Get List Rules By Section ID
      *
      * @param  int $sectionId   (required)
      * @param  string $query   (optional)
@@ -145,9 +145,9 @@ interface SectionsApiInterface
     public function getSectionById(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
-     * Operation getSectionRolesById
+     * Operation getSectionRolesBySectionId
      *
-     * Your GET endpoint
+     * List Section Roles By Section ID
      *
      * @param  int $sectionId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -156,7 +156,7 @@ interface SectionsApiInterface
      * @return OpenAPI\Server\Model\Roles
      *
      */
-    public function getSectionRolesById(int $sectionId, &$responseCode, array &$responseHeaders);
+    public function getSectionRolesBySectionId(int $sectionId, &$responseCode, array &$responseHeaders);
 
     /**
      * Operation getSections

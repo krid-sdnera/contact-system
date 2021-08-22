@@ -78,7 +78,7 @@ class ListsController extends AbstractController implements ListsApiInterface
     /**
      * {@inheritdoc}
      */
-    public function createListRuleById(int $listId, ListRuleInput $listRule = null, &$responseCode, array &$responseHeaders)
+    public function createListRuleByListId(int $listId, ListRuleInput $listRule = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -202,7 +202,7 @@ class ListsController extends AbstractController implements ListsApiInterface
     /**
      * {@inheritdoc}
      */
-    public function deleteListRuleById(int $listId, int $ruleId, &$responseCode, array &$responseHeaders)
+    public function deleteListRuleByListId(int $listId, int $ruleId, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -298,7 +298,7 @@ class ListsController extends AbstractController implements ListsApiInterface
     /**
      * {@inheritdoc}
      */
-    public function getListRecipientsById(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
+    public function getListRecipientsByListId(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
     {
         /** @var EmailList */
         $emailList = $this->getDoctrine()
@@ -495,7 +495,7 @@ class ListsController extends AbstractController implements ListsApiInterface
     /**
      * {@inheritdoc}
      */
-    public function getListRuleById(int $listId, int $ruleId, &$responseCode, array &$responseHeaders)
+    public function getListRuleByListId(int $listId, int $ruleId, &$responseCode, array &$responseHeaders)
     {
         /** @var EmailListRule */
         $emailListMem = $this->getDoctrine()
@@ -625,7 +625,7 @@ class ListsController extends AbstractController implements ListsApiInterface
     /**
      * {@inheritdoc}
      */
-    public function updateListRuleById(int $listId, int $ruleId, ListRuleInput $listRule = null, &$responseCode, array &$responseHeaders)
+    public function updateListRuleByListId(int $listId, int $ruleId, ListRuleInput $listRule = null, &$responseCode, array &$responseHeaders)
     {
         $entityManager = $this->getDoctrine()->getManager();
 

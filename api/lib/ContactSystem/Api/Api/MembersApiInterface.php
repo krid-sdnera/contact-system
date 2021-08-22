@@ -115,7 +115,7 @@ interface MembersApiInterface
     /**
      * Operation getListRulesByMemberId
      *
-     * Your GET endpoint
+     * Get List Rules by Member ID
      *
      * @param  int $memberId   (required)
      * @param  string $query   (optional)
@@ -133,7 +133,7 @@ interface MembersApiInterface
     /**
      * Operation getMemberById
      *
-     * Get member
+     * Get Member
      *
      * @param  int $memberId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -213,7 +213,7 @@ interface MembersApiInterface
     /**
      * Operation patchMemberById
      *
-     * Partially update member
+     * Partial Update Member
      *
      * @param  int $memberId   (required)
      * @param  OpenAPI\Server\Model\MemberInput $memberInput   (optional)
@@ -243,7 +243,7 @@ interface MembersApiInterface
     /**
      * Operation updateMemberById
      *
-     * Update member
+     * Update Member
      *
      * @param  int $memberId   (required)
      * @param  OpenAPI\Server\Model\MemberInput $memberInput   (optional)

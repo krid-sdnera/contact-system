@@ -67,6 +67,8 @@ interface ContactsApiInterface
     /**
      * Operation createContact
      *
+     * Create Contact
+     *
      * @param  OpenAPI\Server\Model\ContactInput $contactInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
      * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
@@ -78,6 +80,8 @@ interface ContactsApiInterface
 
     /**
      * Operation deleteContactById
+     *
+     * Delete Contact By ID
      *
      * @param  int $contactId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -91,7 +95,7 @@ interface ContactsApiInterface
     /**
      * Operation getContactById
      *
-     * Your GET endpoint
+     * Get Contact By ID
      *
      * @param  int $contactId   (required)
      * @param  integer $responseCode     The HTTP response code to return
@@ -105,7 +109,7 @@ interface ContactsApiInterface
     /**
      * Operation getContacts
      *
-     * Your GET endpoint
+     * List Contacts
      *
      * @param  string $query   (optional)
      * @param  string $sort   (optional)
@@ -122,7 +126,7 @@ interface ContactsApiInterface
     /**
      * Operation getListRulesByContactId
      *
-     * Your GET endpoint
+     * Get List Rules By Contact ID
      *
      * @param  int $contactId   (required)
      * @param  string $query   (optional)
@@ -140,6 +144,8 @@ interface ContactsApiInterface
     /**
      * Operation patchContactById
      *
+     * Patch Contact By ID
+     *
      * @param  int $contactId   (required)
      * @param  OpenAPI\Server\Model\ContactInput $contactInput   (optional)
      * @param  integer $responseCode     The HTTP response code to return
@@ -152,6 +158,8 @@ interface ContactsApiInterface
 
     /**
      * Operation updateContactById
+     *
+     * Update Contact By ID
      *
      * @param  int $contactId   (required)
      * @param  OpenAPI\Server\Model\ContactInput $contactInput   (optional)

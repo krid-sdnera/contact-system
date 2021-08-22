@@ -60,6 +60,8 @@ class ListsController extends Controller
     /**
      * Operation createList
      *
+     * Create List
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -155,12 +157,14 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation createListRuleById
+     * Operation createListRuleByListId
+     *
+     * Create List Rule By List ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function createListRuleByIdAction(Request $request, $listId)
+    public function createListRuleByListIdAction(Request $request, $listId)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -228,7 +232,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->createListRuleById($listId, $listRuleInput, $responseCode, $responseHeaders);
+            $result = $handler->createListRuleByListId($listId, $listRuleInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -261,6 +265,8 @@ class ListsController extends Controller
 
     /**
      * Operation deleteListById
+     *
+     * Delete List By ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -348,12 +354,14 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation deleteListRuleById
+     * Operation deleteListRuleByListId
+     *
+     * Delete List Rule By List ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function deleteListRuleByIdAction(Request $request, $listId, $ruleId)
+    public function deleteListRuleByListIdAction(Request $request, $listId, $ruleId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -412,7 +420,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->deleteListRuleById($listId, $ruleId, $responseCode, $responseHeaders);
+            $result = $handler->deleteListRuleByListId($listId, $ruleId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -446,7 +454,7 @@ class ListsController extends Controller
     /**
      * Operation getListByAddress
      *
-     * Your GET endpoint
+     * Get List By Address
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -537,7 +545,7 @@ class ListsController extends Controller
     /**
      * Operation getListById
      *
-     * Your GET endpoint
+     * Get List By ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -625,14 +633,14 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation getListRecipientsById
+     * Operation getListRecipientsByListId
      *
-     * Your GET endpoint
+     * Get List Recipients By List ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getListRecipientsByIdAction(Request $request, $listId)
+    public function getListRecipientsByListIdAction(Request $request, $listId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -715,7 +723,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getListRecipientsById($listId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
+            $result = $handler->getListRecipientsByListId($listId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -747,14 +755,14 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation getListRuleById
+     * Operation getListRuleByListId
      *
-     * Your GET endpoint
+     * Get List Rule By List ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getListRuleByIdAction(Request $request, $listId, $ruleId)
+    public function getListRuleByListIdAction(Request $request, $listId, $ruleId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -813,7 +821,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getListRuleById($listId, $ruleId, $responseCode, $responseHeaders);
+            $result = $handler->getListRuleByListId($listId, $ruleId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';
@@ -847,7 +855,7 @@ class ListsController extends Controller
     /**
      * Operation getListRulesByListId
      *
-     * Your GET endpoint
+     * Get List Rules By List ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -969,7 +977,7 @@ class ListsController extends Controller
     /**
      * Operation getLists
      *
-     * Your GET endpoint
+     * Get Lists
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -1083,6 +1091,8 @@ class ListsController extends Controller
     /**
      * Operation updateListById
      *
+     * Update List By ID
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -1186,12 +1196,14 @@ class ListsController extends Controller
     }
 
     /**
-     * Operation updateListRuleById
+     * Operation updateListRuleByListId
+     *
+     * Update List Rule By List ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function updateListRuleByIdAction(Request $request, $listId, $ruleId)
+    public function updateListRuleByListIdAction(Request $request, $listId, $ruleId)
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
@@ -1267,7 +1279,7 @@ class ListsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->updateListRuleById($listId, $ruleId, $listRuleInput, $responseCode, $responseHeaders);
+            $result = $handler->updateListRuleByListId($listId, $ruleId, $listRuleInput, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

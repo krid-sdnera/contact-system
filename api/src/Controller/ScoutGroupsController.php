@@ -115,7 +115,7 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
     /**
      * {@inheritdoc}
      */
-    public function getScoutGroupSectionsById(int $scoutGroupId, &$responseCode, array &$responseHeaders)
+    public function getScoutGroupSectionsByScoutGroupId(int $scoutGroupId, &$responseCode, array &$responseHeaders)
     {
 
         /** @var SectionRepository */

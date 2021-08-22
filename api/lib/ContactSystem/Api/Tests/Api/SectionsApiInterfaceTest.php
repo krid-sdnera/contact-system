@@ -109,7 +109,7 @@ class SectionsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getListRulesBySectionId
      *
-     * Your GET endpoint.
+     * Get List Rules By Section ID.
      *
      */
     public function testGetListRulesBySectionId()
@@ -161,12 +161,12 @@ class SectionsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getSectionRolesById
+     * Test case for getSectionRolesBySectionId
      *
-     * Your GET endpoint.
+     * List Section Roles By Section ID.
      *
      */
-    public function testGetSectionRolesById()
+    public function testGetSectionRolesBySectionId()
     {
         $client = static::createClient();
 

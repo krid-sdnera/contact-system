@@ -45,7 +45,7 @@ export interface CreateListRequest {
     listInput?: ListInput;
 }
 
-export interface CreateListRuleByIdRequest {
+export interface CreateListRuleByListIdRequest {
     listId: number;
     listRuleInput?: ListRuleInput;
 }
@@ -54,7 +54,7 @@ export interface DeleteListByIdRequest {
     listId: number;
 }
 
-export interface DeleteListRuleByIdRequest {
+export interface DeleteListRuleByListIdRequest {
     listId: number;
     ruleId: number;
 }
@@ -67,7 +67,7 @@ export interface GetListByIdRequest {
     listId: number;
 }
 
-export interface GetListRecipientsByIdRequest {
+export interface GetListRecipientsByListIdRequest {
     listId: number;
     query?: string;
     sort?: string;
@@ -75,7 +75,7 @@ export interface GetListRecipientsByIdRequest {
     page?: number;
 }
 
-export interface GetListRuleByIdRequest {
+export interface GetListRuleByListIdRequest {
     listId: number;
     ruleId: number;
 }
@@ -100,7 +100,7 @@ export interface UpdateListByIdRequest {
     listInput?: ListInput;
 }
 
-export interface UpdateListRuleByIdRequest {
+export interface UpdateListRuleByListIdRequest {
     listId: number;
     ruleId: number;
     listRuleInput?: ListRuleInput;
@@ -113,7 +113,8 @@ export interface UpdateListRuleByIdRequest {
  */
 export interface ListsApiInterface {
     /**
-     * createList
+     * Create List
+     * @summary Create List
      * @param {ListInput} [listInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -122,27 +123,31 @@ export interface ListsApiInterface {
     createListRaw(requestParameters: CreateListRequest): Promise<runtime.ApiResponse<ListData>>;
 
     /**
-     * createList
+     * Create List
+     * Create List
      */
     createList(requestParameters: CreateListRequest): Promise<ListData>;
 
     /**
-     * createListRuleById
+     * Create List Rule By List ID
+     * @summary Create List Rule By List ID
      * @param {number} listId 
      * @param {ListRuleInput} [listRuleInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    createListRuleByIdRaw(requestParameters: CreateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>>;
+    createListRuleByListIdRaw(requestParameters: CreateListRuleByListIdRequest): Promise<runtime.ApiResponse<ListRuleData>>;
 
     /**
-     * createListRuleById
+     * Create List Rule By List ID
+     * Create List Rule By List ID
      */
-    createListRuleById(requestParameters: CreateListRuleByIdRequest): Promise<ListRuleData>;
+    createListRuleByListId(requestParameters: CreateListRuleByListIdRequest): Promise<ListRuleData>;
 
     /**
-     * deleteListById
+     * Delete List By ID
+     * @summary Delete List By ID
      * @param {number} listId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -151,28 +156,31 @@ export interface ListsApiInterface {
     deleteListByIdRaw(requestParameters: DeleteListByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
 
     /**
-     * deleteListById
+     * Delete List By ID
+     * Delete List By ID
      */
     deleteListById(requestParameters: DeleteListByIdRequest): Promise<ModelApiResponse>;
 
     /**
-     * deleteListRuleById
+     * Delete List Rule By List ID
+     * @summary Delete List Rule By List ID
      * @param {number} listId 
      * @param {number} ruleId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    deleteListRuleByIdRaw(requestParameters: DeleteListRuleByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
+    deleteListRuleByListIdRaw(requestParameters: DeleteListRuleByListIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
 
     /**
-     * deleteListRuleById
+     * Delete List Rule By List ID
+     * Delete List Rule By List ID
      */
-    deleteListRuleById(requestParameters: DeleteListRuleByIdRequest): Promise<ModelApiResponse>;
+    deleteListRuleByListId(requestParameters: DeleteListRuleByListIdRequest): Promise<ModelApiResponse>;
 
     /**
-     * getListByAddress
-     * @summary Your GET endpoint
+     * Get List By Address
+     * @summary Get List By Address
      * @param {string} listAddress 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -181,14 +189,14 @@ export interface ListsApiInterface {
     getListByAddressRaw(requestParameters: GetListByAddressRequest): Promise<runtime.ApiResponse<ListData>>;
 
     /**
-     * getListByAddress
-     * Your GET endpoint
+     * Get List By Address
+     * Get List By Address
      */
     getListByAddress(requestParameters: GetListByAddressRequest): Promise<ListData>;
 
     /**
-     * getListById
-     * @summary Your GET endpoint
+     * Get List By ID
+     * @summary Get List By ID
      * @param {number} listId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -197,14 +205,14 @@ export interface ListsApiInterface {
     getListByIdRaw(requestParameters: GetListByIdRequest): Promise<runtime.ApiResponse<ListData>>;
 
     /**
-     * getListById
-     * Your GET endpoint
+     * Get List By ID
+     * Get List By ID
      */
     getListById(requestParameters: GetListByIdRequest): Promise<ListData>;
 
     /**
-     * getListRecipientsById
-     * @summary Your GET endpoint
+     * Get List Recipients By List ID
+     * @summary Get List Recipients By List ID
      * @param {number} listId 
      * @param {string} [query] 
      * @param {string} [sort] 
@@ -214,34 +222,34 @@ export interface ListsApiInterface {
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    getListRecipientsByIdRaw(requestParameters: GetListRecipientsByIdRequest): Promise<runtime.ApiResponse<Recipients>>;
+    getListRecipientsByListIdRaw(requestParameters: GetListRecipientsByListIdRequest): Promise<runtime.ApiResponse<Recipients>>;
 
     /**
-     * getListRecipientsById
-     * Your GET endpoint
+     * Get List Recipients By List ID
+     * Get List Recipients By List ID
      */
-    getListRecipientsById(requestParameters: GetListRecipientsByIdRequest): Promise<Recipients>;
+    getListRecipientsByListId(requestParameters: GetListRecipientsByListIdRequest): Promise<Recipients>;
 
     /**
-     * getListRuleById
-     * @summary Your GET endpoint
+     * Get List Rule By List ID
+     * @summary Get List Rule By List ID
      * @param {number} listId 
      * @param {number} ruleId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    getListRuleByIdRaw(requestParameters: GetListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>>;
+    getListRuleByListIdRaw(requestParameters: GetListRuleByListIdRequest): Promise<runtime.ApiResponse<ListRuleData>>;
 
     /**
-     * getListRuleById
-     * Your GET endpoint
+     * Get List Rule By List ID
+     * Get List Rule By List ID
      */
-    getListRuleById(requestParameters: GetListRuleByIdRequest): Promise<ListRuleData>;
+    getListRuleByListId(requestParameters: GetListRuleByListIdRequest): Promise<ListRuleData>;
 
     /**
-     * getListRulesByListId
-     * @summary Your GET endpoint
+     * Get List Rule By List ID
+     * @summary Get List Rules By List ID
      * @param {number} listId 
      * @param {string} [query] 
      * @param {string} [sort] 
@@ -254,14 +262,14 @@ export interface ListsApiInterface {
     getListRulesByListIdRaw(requestParameters: GetListRulesByListIdRequest): Promise<runtime.ApiResponse<ListRules>>;
 
     /**
-     * getListRulesByListId
-     * Your GET endpoint
+     * Get List Rule By List ID
+     * Get List Rules By List ID
      */
     getListRulesByListId(requestParameters: GetListRulesByListIdRequest): Promise<ListRules>;
 
     /**
-     * getLists
-     * @summary Your GET endpoint
+     * Get Lists
+     * @summary Get Lists
      * @param {string} [query] 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
@@ -273,13 +281,14 @@ export interface ListsApiInterface {
     getListsRaw(requestParameters: GetListsRequest): Promise<runtime.ApiResponse<Lists>>;
 
     /**
-     * getLists
-     * Your GET endpoint
+     * Get Lists
+     * Get Lists
      */
     getLists(requestParameters: GetListsRequest): Promise<Lists>;
 
     /**
-     * updateListById
+     * Update List By ID
+     * @summary Update List By ID
      * @param {number} listId 
      * @param {ListInput} [listInput] 
      * @param {*} [options] Override http request option.
@@ -289,12 +298,14 @@ export interface ListsApiInterface {
     updateListByIdRaw(requestParameters: UpdateListByIdRequest): Promise<runtime.ApiResponse<ListData>>;
 
     /**
-     * updateListById
+     * Update List By ID
+     * Update List By ID
      */
     updateListById(requestParameters: UpdateListByIdRequest): Promise<ListData>;
 
     /**
-     * updateListRuleById
+     * Update List Rule By List ID
+     * @summary Update List Rule By List ID
      * @param {number} listId 
      * @param {number} ruleId 
      * @param {ListRuleInput} [listRuleInput] 
@@ -302,12 +313,13 @@ export interface ListsApiInterface {
      * @throws {RequiredError}
      * @memberof ListsApiInterface
      */
-    updateListRuleByIdRaw(requestParameters: UpdateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>>;
+    updateListRuleByListIdRaw(requestParameters: UpdateListRuleByListIdRequest): Promise<runtime.ApiResponse<ListRuleData>>;
 
     /**
-     * updateListRuleById
+     * Update List Rule By List ID
+     * Update List Rule By List ID
      */
-    updateListRuleById(requestParameters: UpdateListRuleByIdRequest): Promise<ListRuleData>;
+    updateListRuleByListId(requestParameters: UpdateListRuleByListIdRequest): Promise<ListRuleData>;
 
 }
 
@@ -317,7 +329,8 @@ export interface ListsApiInterface {
 export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
 
     /**
-     * createList
+     * Create List
+     * Create List
      */
     async createListRaw(requestParameters: CreateListRequest): Promise<runtime.ApiResponse<ListData>> {
         const queryParameters: runtime.HTTPQuery = {};
@@ -350,7 +363,8 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * createList
+     * Create List
+     * Create List
      */
     async createList(requestParameters: CreateListRequest): Promise<ListData> {
         const response = await this.createListRaw(requestParameters);
@@ -358,11 +372,12 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * createListRuleById
+     * Create List Rule By List ID
+     * Create List Rule By List ID
      */
-    async createListRuleByIdRaw(requestParameters: CreateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>> {
+    async createListRuleByListIdRaw(requestParameters: CreateListRuleByListIdRequest): Promise<runtime.ApiResponse<ListRuleData>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
-            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling createListRuleById.');
+            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling createListRuleByListId.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -395,15 +410,17 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * createListRuleById
+     * Create List Rule By List ID
+     * Create List Rule By List ID
      */
-    async createListRuleById(requestParameters: CreateListRuleByIdRequest): Promise<ListRuleData> {
-        const response = await this.createListRuleByIdRaw(requestParameters);
+    async createListRuleByListId(requestParameters: CreateListRuleByListIdRequest): Promise<ListRuleData> {
+        const response = await this.createListRuleByListIdRaw(requestParameters);
         return await response.value();
     }
 
     /**
-     * deleteListById
+     * Delete List By ID
+     * Delete List By ID
      */
     async deleteListByIdRaw(requestParameters: DeleteListByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
@@ -437,7 +454,8 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * deleteListById
+     * Delete List By ID
+     * Delete List By ID
      */
     async deleteListById(requestParameters: DeleteListByIdRequest): Promise<ModelApiResponse> {
         const response = await this.deleteListByIdRaw(requestParameters);
@@ -445,15 +463,16 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * deleteListRuleById
+     * Delete List Rule By List ID
+     * Delete List Rule By List ID
      */
-    async deleteListRuleByIdRaw(requestParameters: DeleteListRuleByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
+    async deleteListRuleByListIdRaw(requestParameters: DeleteListRuleByListIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
-            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling deleteListRuleById.');
+            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling deleteListRuleByListId.');
         }
 
         if (requestParameters.ruleId === null || requestParameters.ruleId === undefined) {
-            throw new runtime.RequiredError('ruleId','Required parameter requestParameters.ruleId was null or undefined when calling deleteListRuleById.');
+            throw new runtime.RequiredError('ruleId','Required parameter requestParameters.ruleId was null or undefined when calling deleteListRuleByListId.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -483,16 +502,17 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * deleteListRuleById
+     * Delete List Rule By List ID
+     * Delete List Rule By List ID
      */
-    async deleteListRuleById(requestParameters: DeleteListRuleByIdRequest): Promise<ModelApiResponse> {
-        const response = await this.deleteListRuleByIdRaw(requestParameters);
+    async deleteListRuleByListId(requestParameters: DeleteListRuleByListIdRequest): Promise<ModelApiResponse> {
+        const response = await this.deleteListRuleByListIdRaw(requestParameters);
         return await response.value();
     }
 
     /**
-     * getListByAddress
-     * Your GET endpoint
+     * Get List By Address
+     * Get List By Address
      */
     async getListByAddressRaw(requestParameters: GetListByAddressRequest): Promise<runtime.ApiResponse<ListData>> {
         if (requestParameters.listAddress === null || requestParameters.listAddress === undefined) {
@@ -526,8 +546,8 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * getListByAddress
-     * Your GET endpoint
+     * Get List By Address
+     * Get List By Address
      */
     async getListByAddress(requestParameters: GetListByAddressRequest): Promise<ListData> {
         const response = await this.getListByAddressRaw(requestParameters);
@@ -535,8 +555,8 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * getListById
-     * Your GET endpoint
+     * Get List By ID
+     * Get List By ID
      */
     async getListByIdRaw(requestParameters: GetListByIdRequest): Promise<runtime.ApiResponse<ListData>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
@@ -570,8 +590,8 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * getListById
-     * Your GET endpoint
+     * Get List By ID
+     * Get List By ID
      */
     async getListById(requestParameters: GetListByIdRequest): Promise<ListData> {
         const response = await this.getListByIdRaw(requestParameters);
@@ -579,12 +599,12 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * getListRecipientsById
-     * Your GET endpoint
+     * Get List Recipients By List ID
+     * Get List Recipients By List ID
      */
-    async getListRecipientsByIdRaw(requestParameters: GetListRecipientsByIdRequest): Promise<runtime.ApiResponse<Recipients>> {
+    async getListRecipientsByListIdRaw(requestParameters: GetListRecipientsByListIdRequest): Promise<runtime.ApiResponse<Recipients>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
-            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListRecipientsById.');
+            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListRecipientsByListId.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -630,25 +650,25 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * getListRecipientsById
-     * Your GET endpoint
+     * Get List Recipients By List ID
+     * Get List Recipients By List ID
      */
-    async getListRecipientsById(requestParameters: GetListRecipientsByIdRequest): Promise<Recipients> {
-        const response = await this.getListRecipientsByIdRaw(requestParameters);
+    async getListRecipientsByListId(requestParameters: GetListRecipientsByListIdRequest): Promise<Recipients> {
+        const response = await this.getListRecipientsByListIdRaw(requestParameters);
         return await response.value();
     }
 
     /**
-     * getListRuleById
-     * Your GET endpoint
+     * Get List Rule By List ID
+     * Get List Rule By List ID
      */
-    async getListRuleByIdRaw(requestParameters: GetListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>> {
+    async getListRuleByListIdRaw(requestParameters: GetListRuleByListIdRequest): Promise<runtime.ApiResponse<ListRuleData>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
-            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListRuleById.');
+            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling getListRuleByListId.');
         }
 
         if (requestParameters.ruleId === null || requestParameters.ruleId === undefined) {
-            throw new runtime.RequiredError('ruleId','Required parameter requestParameters.ruleId was null or undefined when calling getListRuleById.');
+            throw new runtime.RequiredError('ruleId','Required parameter requestParameters.ruleId was null or undefined when calling getListRuleByListId.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -678,17 +698,17 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * getListRuleById
-     * Your GET endpoint
+     * Get List Rule By List ID
+     * Get List Rule By List ID
      */
-    async getListRuleById(requestParameters: GetListRuleByIdRequest): Promise<ListRuleData> {
-        const response = await this.getListRuleByIdRaw(requestParameters);
+    async getListRuleByListId(requestParameters: GetListRuleByListIdRequest): Promise<ListRuleData> {
+        const response = await this.getListRuleByListIdRaw(requestParameters);
         return await response.value();
     }
 
     /**
-     * getListRulesByListId
-     * Your GET endpoint
+     * Get List Rule By List ID
+     * Get List Rules By List ID
      */
     async getListRulesByListIdRaw(requestParameters: GetListRulesByListIdRequest): Promise<runtime.ApiResponse<ListRules>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
@@ -738,8 +758,8 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * getListRulesByListId
-     * Your GET endpoint
+     * Get List Rule By List ID
+     * Get List Rules By List ID
      */
     async getListRulesByListId(requestParameters: GetListRulesByListIdRequest): Promise<ListRules> {
         const response = await this.getListRulesByListIdRaw(requestParameters);
@@ -747,8 +767,8 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * getLists
-     * Your GET endpoint
+     * Get Lists
+     * Get Lists
      */
     async getListsRaw(requestParameters: GetListsRequest): Promise<runtime.ApiResponse<Lists>> {
         const queryParameters: runtime.HTTPQuery = {};
@@ -794,8 +814,8 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * getLists
-     * Your GET endpoint
+     * Get Lists
+     * Get Lists
      */
     async getLists(requestParameters: GetListsRequest): Promise<Lists> {
         const response = await this.getListsRaw(requestParameters);
@@ -803,7 +823,8 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * updateListById
+     * Update List By ID
+     * Update List By ID
      */
     async updateListByIdRaw(requestParameters: UpdateListByIdRequest): Promise<runtime.ApiResponse<ListData>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
@@ -840,7 +861,8 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * updateListById
+     * Update List By ID
+     * Update List By ID
      */
     async updateListById(requestParameters: UpdateListByIdRequest): Promise<ListData> {
         const response = await this.updateListByIdRaw(requestParameters);
@@ -848,15 +870,16 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * updateListRuleById
+     * Update List Rule By List ID
+     * Update List Rule By List ID
      */
-    async updateListRuleByIdRaw(requestParameters: UpdateListRuleByIdRequest): Promise<runtime.ApiResponse<ListRuleData>> {
+    async updateListRuleByListIdRaw(requestParameters: UpdateListRuleByListIdRequest): Promise<runtime.ApiResponse<ListRuleData>> {
         if (requestParameters.listId === null || requestParameters.listId === undefined) {
-            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling updateListRuleById.');
+            throw new runtime.RequiredError('listId','Required parameter requestParameters.listId was null or undefined when calling updateListRuleByListId.');
         }
 
         if (requestParameters.ruleId === null || requestParameters.ruleId === undefined) {
-            throw new runtime.RequiredError('ruleId','Required parameter requestParameters.ruleId was null or undefined when calling updateListRuleById.');
+            throw new runtime.RequiredError('ruleId','Required parameter requestParameters.ruleId was null or undefined when calling updateListRuleByListId.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -889,10 +912,11 @@ export class ListsApi extends runtime.BaseAPI implements ListsApiInterface {
     }
 
     /**
-     * updateListRuleById
+     * Update List Rule By List ID
+     * Update List Rule By List ID
      */
-    async updateListRuleById(requestParameters: UpdateListRuleByIdRequest): Promise<ListRuleData> {
-        const response = await this.updateListRuleByIdRaw(requestParameters);
+    async updateListRuleByListId(requestParameters: UpdateListRuleByListIdRequest): Promise<ListRuleData> {
+        const response = await this.updateListRuleByListIdRaw(requestParameters);
         return await response.value();
     }
 

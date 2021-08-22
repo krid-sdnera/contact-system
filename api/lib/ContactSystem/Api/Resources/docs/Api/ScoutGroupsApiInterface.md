@@ -1,14 +1,14 @@
 # OpenAPI\Server\Api\ScoutGroupsApiInterface
 
-All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
+All URIs are relative to *https://membership.essendonseascouts.org.au/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createScoutGroup**](ScoutGroupsApiInterface.md#createScoutGroup) | **POST** /groups | Create Group
 [**deleteScoutGroupById**](ScoutGroupsApiInterface.md#deleteScoutGroupById) | **DELETE** /groups/{scoutGroupId} | Delete Group
-[**getListRulesByScoutGroupId**](ScoutGroupsApiInterface.md#getListRulesByScoutGroupId) | **GET** /groups/{scoutGroupId}/list-rules | Your GET endpoint
+[**getListRulesByScoutGroupId**](ScoutGroupsApiInterface.md#getListRulesByScoutGroupId) | **GET** /groups/{scoutGroupId}/list-rules | Get List Rules By Scout Group ID
 [**getScoutGroupById**](ScoutGroupsApiInterface.md#getScoutGroupById) | **GET** /groups/{scoutGroupId} | Get Group
-[**getScoutGroupSectionsById**](ScoutGroupsApiInterface.md#getScoutGroupSectionsById) | **GET** /groups/{scoutGroupId}/sections | Your GET endpoint
+[**getScoutGroupSectionsByScoutGroupId**](ScoutGroupsApiInterface.md#getScoutGroupSectionsByScoutGroupId) | **GET** /groups/{scoutGroupId}/sections | Get Scout Group Sections By Scout Group ID
 [**getScoutGroups**](ScoutGroupsApiInterface.md#getScoutGroups) | **GET** /groups | Get Groups
 [**updateScoutGroupById**](ScoutGroupsApiInterface.md#updateScoutGroupById) | **PUT** /groups/{scoutGroupId} | Update Group
 
@@ -152,9 +152,9 @@ Name | Type | Description  | Notes
 ## **getListRulesByScoutGroupId**
 > OpenAPI\Server\Model\ListRules getListRulesByScoutGroupId($scoutGroupId, $query, $sort, $pageSize, $page)
 
-Your GET endpoint
+Get List Rules By Scout Group ID
 
-getListRulesByScoutGroupId
+Get List Rules By Scout Group ID
 
 ### Example Implementation
 ```php
@@ -277,12 +277,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getScoutGroupSectionsById**
-> OpenAPI\Server\Model\Sections getScoutGroupSectionsById($scoutGroupId)
+## **getScoutGroupSectionsByScoutGroupId**
+> OpenAPI\Server\Model\Sections getScoutGroupSectionsByScoutGroupId($scoutGroupId)
 
-Your GET endpoint
+Get Scout Group Sections By Scout Group ID
 
-getScoutGroupSectionsById
+Get Scout Group Sections By Scout Group ID
 
 ### Example Implementation
 ```php
@@ -307,9 +307,9 @@ class ScoutGroupsApi implements ScoutGroupsApiInterface
     // ...
 
     /**
-     * Implementation of ScoutGroupsApiInterface#getScoutGroupSectionsById
+     * Implementation of ScoutGroupsApiInterface#getScoutGroupSectionsByScoutGroupId
      */
-    public function getScoutGroupSectionsById(int $scoutGroupId)
+    public function getScoutGroupSectionsByScoutGroupId(int $scoutGroupId)
     {
         // Implement the operation ...
     }

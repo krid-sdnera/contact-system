@@ -76,7 +76,7 @@ class ContactsApiInterfaceTest extends WebTestCase
     /**
      * Test case for createContact
      *
-     * .
+     * Create Contact.
      *
      */
     public function testCreateContact()
@@ -91,7 +91,7 @@ class ContactsApiInterfaceTest extends WebTestCase
     /**
      * Test case for deleteContactById
      *
-     * .
+     * Delete Contact By ID.
      *
      */
     public function testDeleteContactById()
@@ -109,7 +109,7 @@ class ContactsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getContactById
      *
-     * Your GET endpoint.
+     * Get Contact By ID.
      *
      */
     public function testGetContactById()
@@ -127,7 +127,7 @@ class ContactsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getContacts
      *
-     * Your GET endpoint.
+     * List Contacts.
      *
      */
     public function testGetContacts()
@@ -142,7 +142,7 @@ class ContactsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getListRulesByContactId
      *
-     * Your GET endpoint.
+     * Get List Rules By Contact ID.
      *
      */
     public function testGetListRulesByContactId()
@@ -160,7 +160,7 @@ class ContactsApiInterfaceTest extends WebTestCase
     /**
      * Test case for patchContactById
      *
-     * .
+     * Patch Contact By ID.
      *
      */
     public function testPatchContactById()
@@ -178,7 +178,7 @@ class ContactsApiInterfaceTest extends WebTestCase
     /**
      * Test case for updateContactById
      *
-     * .
+     * Update Contact By ID.
      *
      */
     public function testUpdateContactById()

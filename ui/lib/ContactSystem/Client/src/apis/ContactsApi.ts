@@ -76,7 +76,8 @@ export interface UpdateContactByIdRequest {
  */
 export interface ContactsApiInterface {
     /**
-     * createContact
+     * create Contact
+     * @summary Create Contact
      * @param {ContactInput} [contactInput] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -85,12 +86,14 @@ export interface ContactsApiInterface {
     createContactRaw(requestParameters: CreateContactRequest): Promise<runtime.ApiResponse<ContactData>>;
 
     /**
-     * createContact
+     * create Contact
+     * Create Contact
      */
     createContact(requestParameters: CreateContactRequest): Promise<ContactData>;
 
     /**
-     * deleteContactById
+     * Delete Contact By ID
+     * @summary Delete Contact By ID
      * @param {number} contactId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -99,13 +102,14 @@ export interface ContactsApiInterface {
     deleteContactByIdRaw(requestParameters: DeleteContactByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
 
     /**
-     * deleteContactById
+     * Delete Contact By ID
+     * Delete Contact By ID
      */
     deleteContactById(requestParameters: DeleteContactByIdRequest): Promise<ModelApiResponse>;
 
     /**
-     * getContactById
-     * @summary Your GET endpoint
+     * Get Contact By ID
+     * @summary Get Contact By ID
      * @param {number} contactId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -114,14 +118,14 @@ export interface ContactsApiInterface {
     getContactByIdRaw(requestParameters: GetContactByIdRequest): Promise<runtime.ApiResponse<ContactData>>;
 
     /**
-     * getContactById
-     * Your GET endpoint
+     * Get Contact By ID
+     * Get Contact By ID
      */
     getContactById(requestParameters: GetContactByIdRequest): Promise<ContactData>;
 
     /**
-     * Your GET endpoint
-     * @summary Your GET endpoint
+     * Returns a list of Contacts
+     * @summary List Contacts
      * @param {string} [query] 
      * @param {string} [sort] 
      * @param {number} [pageSize] 
@@ -133,14 +137,14 @@ export interface ContactsApiInterface {
     getContactsRaw(requestParameters: GetContactsRequest): Promise<runtime.ApiResponse<Contacts>>;
 
     /**
-     * Your GET endpoint
-     * Your GET endpoint
+     * Returns a list of Contacts
+     * List Contacts
      */
     getContacts(requestParameters: GetContactsRequest): Promise<Contacts>;
 
     /**
-     * getListRulesByContactId
-     * @summary Your GET endpoint
+     * Get List Rules By Contact ID
+     * @summary Get List Rules By Contact ID
      * @param {number} contactId 
      * @param {string} [query] 
      * @param {string} [sort] 
@@ -153,13 +157,14 @@ export interface ContactsApiInterface {
     getListRulesByContactIdRaw(requestParameters: GetListRulesByContactIdRequest): Promise<runtime.ApiResponse<ListRules>>;
 
     /**
-     * getListRulesByContactId
-     * Your GET endpoint
+     * Get List Rules By Contact ID
+     * Get List Rules By Contact ID
      */
     getListRulesByContactId(requestParameters: GetListRulesByContactIdRequest): Promise<ListRules>;
 
     /**
-     * patchContactById
+     * Patch Contact By ID
+     * @summary Patch Contact By ID
      * @param {number} contactId 
      * @param {ContactInput} [contactInput] 
      * @param {*} [options] Override http request option.
@@ -169,12 +174,14 @@ export interface ContactsApiInterface {
     patchContactByIdRaw(requestParameters: PatchContactByIdRequest): Promise<runtime.ApiResponse<ContactData>>;
 
     /**
-     * patchContactById
+     * Patch Contact By ID
+     * Patch Contact By ID
      */
     patchContactById(requestParameters: PatchContactByIdRequest): Promise<ContactData>;
 
     /**
-     * updateContactById
+     * Update Contact By ID
+     * @summary Update Contact By ID
      * @param {number} contactId 
      * @param {ContactInput} [contactInput] 
      * @param {*} [options] Override http request option.
@@ -184,7 +191,8 @@ export interface ContactsApiInterface {
     updateContactByIdRaw(requestParameters: UpdateContactByIdRequest): Promise<runtime.ApiResponse<ContactData>>;
 
     /**
-     * updateContactById
+     * Update Contact By ID
+     * Update Contact By ID
      */
     updateContactById(requestParameters: UpdateContactByIdRequest): Promise<ContactData>;
 
@@ -196,7 +204,8 @@ export interface ContactsApiInterface {
 export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface {
 
     /**
-     * createContact
+     * create Contact
+     * Create Contact
      */
     async createContactRaw(requestParameters: CreateContactRequest): Promise<runtime.ApiResponse<ContactData>> {
         const queryParameters: runtime.HTTPQuery = {};
@@ -229,7 +238,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * createContact
+     * create Contact
+     * Create Contact
      */
     async createContact(requestParameters: CreateContactRequest): Promise<ContactData> {
         const response = await this.createContactRaw(requestParameters);
@@ -237,7 +247,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * deleteContactById
+     * Delete Contact By ID
+     * Delete Contact By ID
      */
     async deleteContactByIdRaw(requestParameters: DeleteContactByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
         if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
@@ -271,7 +282,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * deleteContactById
+     * Delete Contact By ID
+     * Delete Contact By ID
      */
     async deleteContactById(requestParameters: DeleteContactByIdRequest): Promise<ModelApiResponse> {
         const response = await this.deleteContactByIdRaw(requestParameters);
@@ -279,8 +291,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * getContactById
-     * Your GET endpoint
+     * Get Contact By ID
+     * Get Contact By ID
      */
     async getContactByIdRaw(requestParameters: GetContactByIdRequest): Promise<runtime.ApiResponse<ContactData>> {
         if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
@@ -314,8 +326,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * getContactById
-     * Your GET endpoint
+     * Get Contact By ID
+     * Get Contact By ID
      */
     async getContactById(requestParameters: GetContactByIdRequest): Promise<ContactData> {
         const response = await this.getContactByIdRaw(requestParameters);
@@ -323,8 +335,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * Your GET endpoint
-     * Your GET endpoint
+     * Returns a list of Contacts
+     * List Contacts
      */
     async getContactsRaw(requestParameters: GetContactsRequest): Promise<runtime.ApiResponse<Contacts>> {
         const queryParameters: runtime.HTTPQuery = {};
@@ -370,8 +382,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * Your GET endpoint
-     * Your GET endpoint
+     * Returns a list of Contacts
+     * List Contacts
      */
     async getContacts(requestParameters: GetContactsRequest): Promise<Contacts> {
         const response = await this.getContactsRaw(requestParameters);
@@ -379,8 +391,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * getListRulesByContactId
-     * Your GET endpoint
+     * Get List Rules By Contact ID
+     * Get List Rules By Contact ID
      */
     async getListRulesByContactIdRaw(requestParameters: GetListRulesByContactIdRequest): Promise<runtime.ApiResponse<ListRules>> {
         if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
@@ -430,8 +442,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * getListRulesByContactId
-     * Your GET endpoint
+     * Get List Rules By Contact ID
+     * Get List Rules By Contact ID
      */
     async getListRulesByContactId(requestParameters: GetListRulesByContactIdRequest): Promise<ListRules> {
         const response = await this.getListRulesByContactIdRaw(requestParameters);
@@ -439,7 +451,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * patchContactById
+     * Patch Contact By ID
+     * Patch Contact By ID
      */
     async patchContactByIdRaw(requestParameters: PatchContactByIdRequest): Promise<runtime.ApiResponse<ContactData>> {
         if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
@@ -476,7 +489,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * patchContactById
+     * Patch Contact By ID
+     * Patch Contact By ID
      */
     async patchContactById(requestParameters: PatchContactByIdRequest): Promise<ContactData> {
         const response = await this.patchContactByIdRaw(requestParameters);
@@ -484,7 +498,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * updateContactById
+     * Update Contact By ID
+     * Update Contact By ID
      */
     async updateContactByIdRaw(requestParameters: UpdateContactByIdRequest): Promise<runtime.ApiResponse<ContactData>> {
         if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
@@ -521,7 +536,8 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
     }
 
     /**
-     * updateContactById
+     * Update Contact By ID
+     * Update Contact By ID
      */
     async updateContactById(requestParameters: UpdateContactByIdRequest): Promise<ContactData> {
         const response = await this.updateContactByIdRaw(requestParameters);

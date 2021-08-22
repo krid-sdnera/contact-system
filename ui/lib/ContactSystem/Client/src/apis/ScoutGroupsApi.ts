@@ -55,7 +55,7 @@ export interface GetScoutGroupByIdRequest {
     scoutGroupId: number;
 }
 
-export interface GetScoutGroupSectionsByIdRequest {
+export interface GetScoutGroupSectionsByScoutGroupIdRequest {
     scoutGroupId: number;
 }
 
@@ -110,8 +110,8 @@ export interface ScoutGroupsApiInterface {
     deleteScoutGroupById(requestParameters: DeleteScoutGroupByIdRequest): Promise<ModelApiResponse>;
 
     /**
-     * getListRulesByScoutGroupId
-     * @summary Your GET endpoint
+     * Get List Rules By Scout Group ID
+     * @summary Get List Rules By Scout Group ID
      * @param {number} scoutGroupId 
      * @param {string} [query] 
      * @param {string} [sort] 
@@ -124,8 +124,8 @@ export interface ScoutGroupsApiInterface {
     getListRulesByScoutGroupIdRaw(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<runtime.ApiResponse<ListRules>>;
 
     /**
-     * getListRulesByScoutGroupId
-     * Your GET endpoint
+     * Get List Rules By Scout Group ID
+     * Get List Rules By Scout Group ID
      */
     getListRulesByScoutGroupId(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<ListRules>;
 
@@ -146,20 +146,20 @@ export interface ScoutGroupsApiInterface {
     getScoutGroupById(requestParameters: GetScoutGroupByIdRequest): Promise<ScoutGroupData>;
 
     /**
-     * getScoutGroupSectionsById
-     * @summary Your GET endpoint
+     * Get Scout Group Sections By Scout Group ID
+     * @summary Get Scout Group Sections By Scout Group ID
      * @param {number} scoutGroupId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ScoutGroupsApiInterface
      */
-    getScoutGroupSectionsByIdRaw(requestParameters: GetScoutGroupSectionsByIdRequest): Promise<runtime.ApiResponse<Sections>>;
+    getScoutGroupSectionsByScoutGroupIdRaw(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest): Promise<runtime.ApiResponse<Sections>>;
 
     /**
-     * getScoutGroupSectionsById
-     * Your GET endpoint
+     * Get Scout Group Sections By Scout Group ID
+     * Get Scout Group Sections By Scout Group ID
      */
-    getScoutGroupSectionsById(requestParameters: GetScoutGroupSectionsByIdRequest): Promise<Sections>;
+    getScoutGroupSectionsByScoutGroupId(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest): Promise<Sections>;
 
     /**
      * Get Groups
@@ -292,8 +292,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
     }
 
     /**
-     * getListRulesByScoutGroupId
-     * Your GET endpoint
+     * Get List Rules By Scout Group ID
+     * Get List Rules By Scout Group ID
      */
     async getListRulesByScoutGroupIdRaw(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<runtime.ApiResponse<ListRules>> {
         if (requestParameters.scoutGroupId === null || requestParameters.scoutGroupId === undefined) {
@@ -343,8 +343,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
     }
 
     /**
-     * getListRulesByScoutGroupId
-     * Your GET endpoint
+     * Get List Rules By Scout Group ID
+     * Get List Rules By Scout Group ID
      */
     async getListRulesByScoutGroupId(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<ListRules> {
         const response = await this.getListRulesByScoutGroupIdRaw(requestParameters);
@@ -396,12 +396,12 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
     }
 
     /**
-     * getScoutGroupSectionsById
-     * Your GET endpoint
+     * Get Scout Group Sections By Scout Group ID
+     * Get Scout Group Sections By Scout Group ID
      */
-    async getScoutGroupSectionsByIdRaw(requestParameters: GetScoutGroupSectionsByIdRequest): Promise<runtime.ApiResponse<Sections>> {
+    async getScoutGroupSectionsByScoutGroupIdRaw(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest): Promise<runtime.ApiResponse<Sections>> {
         if (requestParameters.scoutGroupId === null || requestParameters.scoutGroupId === undefined) {
-            throw new runtime.RequiredError('scoutGroupId','Required parameter requestParameters.scoutGroupId was null or undefined when calling getScoutGroupSectionsById.');
+            throw new runtime.RequiredError('scoutGroupId','Required parameter requestParameters.scoutGroupId was null or undefined when calling getScoutGroupSectionsByScoutGroupId.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -431,11 +431,11 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
     }
 
     /**
-     * getScoutGroupSectionsById
-     * Your GET endpoint
+     * Get Scout Group Sections By Scout Group ID
+     * Get Scout Group Sections By Scout Group ID
      */
-    async getScoutGroupSectionsById(requestParameters: GetScoutGroupSectionsByIdRequest): Promise<Sections> {
-        const response = await this.getScoutGroupSectionsByIdRaw(requestParameters);
+    async getScoutGroupSectionsByScoutGroupId(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest): Promise<Sections> {
+        const response = await this.getScoutGroupSectionsByScoutGroupIdRaw(requestParameters);
         return await response.value();
     }
 

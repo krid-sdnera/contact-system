@@ -1,12 +1,12 @@
 # OpenAPI\Server\Api\RolesApiInterface
 
-All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
+All URIs are relative to *https://membership.essendonseascouts.org.au/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createRole**](RolesApiInterface.md#createRole) | **POST** /roles | Create role
 [**deleteRoleById**](RolesApiInterface.md#deleteRoleById) | **DELETE** /roles/{roleId} | Delete role
-[**getListRulesByRoleId**](RolesApiInterface.md#getListRulesByRoleId) | **GET** /roles/{roleId}/list-rules | Your GET endpoint
+[**getListRulesByRoleId**](RolesApiInterface.md#getListRulesByRoleId) | **GET** /roles/{roleId}/list-rules | List Rules by Role ID
 [**getMembersByRoleId**](RolesApiInterface.md#getMembersByRoleId) | **GET** /roles/{roleId}/members | List members by role
 [**getRoleById**](RolesApiInterface.md#getRoleById) | **GET** /roles/{roleId} | Get Role
 [**getRoles**](RolesApiInterface.md#getRoles) | **GET** /roles | Get roles
@@ -152,9 +152,9 @@ Name | Type | Description  | Notes
 ## **getListRulesByRoleId**
 > OpenAPI\Server\Model\ListRules getListRulesByRoleId($roleId, $query, $sort, $pageSize, $page)
 
-Your GET endpoint
+List Rules by Role ID
 
-getListRulesByRoleId
+List Rules by Role ID
 
 ### Example Implementation
 ```php

@@ -1,21 +1,21 @@
 # OpenAPI\Server\Api\ListsApiInterface
 
-All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
+All URIs are relative to *https://membership.essendonseascouts.org.au/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createList**](ListsApiInterface.md#createList) | **POST** /lists | 
-[**createListRuleById**](ListsApiInterface.md#createListRuleById) | **POST** /lists/{listId}/list-rules | 
-[**deleteListById**](ListsApiInterface.md#deleteListById) | **DELETE** /lists/{listId} | 
-[**deleteListRuleById**](ListsApiInterface.md#deleteListRuleById) | **DELETE** /lists/{listId}/rules/{ruleId} | 
-[**getListByAddress**](ListsApiInterface.md#getListByAddress) | **GET** /lists/address/{listAddress} | Your GET endpoint
-[**getListById**](ListsApiInterface.md#getListById) | **GET** /lists/{listId} | Your GET endpoint
-[**getListRecipientsById**](ListsApiInterface.md#getListRecipientsById) | **GET** /lists/{listId}/recipients | Your GET endpoint
-[**getListRuleById**](ListsApiInterface.md#getListRuleById) | **GET** /lists/{listId}/rules/{ruleId} | Your GET endpoint
-[**getListRulesByListId**](ListsApiInterface.md#getListRulesByListId) | **GET** /lists/{listId}/list-rules | Your GET endpoint
-[**getLists**](ListsApiInterface.md#getLists) | **GET** /lists | Your GET endpoint
-[**updateListById**](ListsApiInterface.md#updateListById) | **PUT** /lists/{listId} | 
-[**updateListRuleById**](ListsApiInterface.md#updateListRuleById) | **PUT** /lists/{listId}/rules/{ruleId} | 
+[**createList**](ListsApiInterface.md#createList) | **POST** /lists | Create List
+[**createListRuleByListId**](ListsApiInterface.md#createListRuleByListId) | **POST** /lists/{listId}/list-rules | Create List Rule By List ID
+[**deleteListById**](ListsApiInterface.md#deleteListById) | **DELETE** /lists/{listId} | Delete List By ID
+[**deleteListRuleByListId**](ListsApiInterface.md#deleteListRuleByListId) | **DELETE** /lists/{listId}/rules/{ruleId} | Delete List Rule By List ID
+[**getListByAddress**](ListsApiInterface.md#getListByAddress) | **GET** /lists/address/{listAddress} | Get List By Address
+[**getListById**](ListsApiInterface.md#getListById) | **GET** /lists/{listId} | Get List By ID
+[**getListRecipientsByListId**](ListsApiInterface.md#getListRecipientsByListId) | **GET** /lists/{listId}/recipients | Get List Recipients By List ID
+[**getListRuleByListId**](ListsApiInterface.md#getListRuleByListId) | **GET** /lists/{listId}/rules/{ruleId} | Get List Rule By List ID
+[**getListRulesByListId**](ListsApiInterface.md#getListRulesByListId) | **GET** /lists/{listId}/list-rules | Get List Rules By List ID
+[**getLists**](ListsApiInterface.md#getLists) | **GET** /lists | Get Lists
+[**updateListById**](ListsApiInterface.md#updateListById) | **PUT** /lists/{listId} | Update List By ID
+[**updateListRuleByListId**](ListsApiInterface.md#updateListRuleByListId) | **PUT** /lists/{listId}/rules/{ruleId} | Update List Rule By List ID
 
 
 ## Service Declaration
@@ -33,9 +33,9 @@ services:
 ## **createList**
 > OpenAPI\Server\Model\ListData createList($listInput)
 
+Create List
 
-
-createList
+Create List
 
 ### Example Implementation
 ```php
@@ -92,12 +92,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **createListRuleById**
-> OpenAPI\Server\Model\ListRuleData createListRuleById($listId, $listRuleInput)
+## **createListRuleByListId**
+> OpenAPI\Server\Model\ListRuleData createListRuleByListId($listId, $listRuleInput)
 
+Create List Rule By List ID
 
-
-createListRuleById
+Create List Rule By List ID
 
 ### Example Implementation
 ```php
@@ -122,9 +122,9 @@ class ListsApi implements ListsApiInterface
     // ...
 
     /**
-     * Implementation of ListsApiInterface#createListRuleById
+     * Implementation of ListsApiInterface#createListRuleByListId
      */
-    public function createListRuleById(int $listId, ListRuleInput $listRuleInput = null)
+    public function createListRuleByListId(int $listId, ListRuleInput $listRuleInput = null)
     {
         // Implement the operation ...
     }
@@ -158,9 +158,9 @@ Name | Type | Description  | Notes
 ## **deleteListById**
 > OpenAPI\Server\Model\ApiResponse deleteListById($listId)
 
+Delete List By ID
 
-
-deleteListById
+Delete List By ID
 
 ### Example Implementation
 ```php
@@ -217,12 +217,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **deleteListRuleById**
-> OpenAPI\Server\Model\ApiResponse deleteListRuleById($listId, $ruleId)
+## **deleteListRuleByListId**
+> OpenAPI\Server\Model\ApiResponse deleteListRuleByListId($listId, $ruleId)
 
+Delete List Rule By List ID
 
-
-deleteListRuleById
+Delete List Rule By List ID
 
 ### Example Implementation
 ```php
@@ -247,9 +247,9 @@ class ListsApi implements ListsApiInterface
     // ...
 
     /**
-     * Implementation of ListsApiInterface#deleteListRuleById
+     * Implementation of ListsApiInterface#deleteListRuleByListId
      */
-    public function deleteListRuleById(int $listId, int $ruleId)
+    public function deleteListRuleByListId(int $listId, int $ruleId)
     {
         // Implement the operation ...
     }
@@ -283,9 +283,9 @@ Name | Type | Description  | Notes
 ## **getListByAddress**
 > OpenAPI\Server\Model\ListData getListByAddress($listAddress)
 
-Your GET endpoint
+Get List By Address
 
-getListByAddress
+Get List By Address
 
 ### Example Implementation
 ```php
@@ -345,9 +345,9 @@ Name | Type | Description  | Notes
 ## **getListById**
 > OpenAPI\Server\Model\ListData getListById($listId)
 
-Your GET endpoint
+Get List By ID
 
-getListById
+Get List By ID
 
 ### Example Implementation
 ```php
@@ -404,12 +404,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getListRecipientsById**
-> OpenAPI\Server\Model\Recipients getListRecipientsById($listId, $query, $sort, $pageSize, $page)
+## **getListRecipientsByListId**
+> OpenAPI\Server\Model\Recipients getListRecipientsByListId($listId, $query, $sort, $pageSize, $page)
 
-Your GET endpoint
+Get List Recipients By List ID
 
-getListRecipientsById
+Get List Recipients By List ID
 
 ### Example Implementation
 ```php
@@ -434,9 +434,9 @@ class ListsApi implements ListsApiInterface
     // ...
 
     /**
-     * Implementation of ListsApiInterface#getListRecipientsById
+     * Implementation of ListsApiInterface#getListRecipientsByListId
      */
-    public function getListRecipientsById(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null)
+    public function getListRecipientsByListId(int $listId, string $query = null, string $sort = null, int $pageSize = null, int $page = null)
     {
         // Implement the operation ...
     }
@@ -470,12 +470,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **getListRuleById**
-> OpenAPI\Server\Model\ListRuleData getListRuleById($listId, $ruleId)
+## **getListRuleByListId**
+> OpenAPI\Server\Model\ListRuleData getListRuleByListId($listId, $ruleId)
 
-Your GET endpoint
+Get List Rule By List ID
 
-getListRuleById
+Get List Rule By List ID
 
 ### Example Implementation
 ```php
@@ -500,9 +500,9 @@ class ListsApi implements ListsApiInterface
     // ...
 
     /**
-     * Implementation of ListsApiInterface#getListRuleById
+     * Implementation of ListsApiInterface#getListRuleByListId
      */
-    public function getListRuleById(int $listId, int $ruleId)
+    public function getListRuleByListId(int $listId, int $ruleId)
     {
         // Implement the operation ...
     }
@@ -536,9 +536,9 @@ Name | Type | Description  | Notes
 ## **getListRulesByListId**
 > OpenAPI\Server\Model\ListRules getListRulesByListId($listId, $query, $sort, $pageSize, $page)
 
-Your GET endpoint
+Get List Rules By List ID
 
-getListRulesByListId
+Get List Rule By List ID
 
 ### Example Implementation
 ```php
@@ -602,9 +602,9 @@ Name | Type | Description  | Notes
 ## **getLists**
 > OpenAPI\Server\Model\Lists getLists($query, $sort, $pageSize, $page)
 
-Your GET endpoint
+Get Lists
 
-getLists
+Get Lists
 
 ### Example Implementation
 ```php
@@ -667,9 +667,9 @@ Name | Type | Description  | Notes
 ## **updateListById**
 > OpenAPI\Server\Model\ListData updateListById($listId, $listInput)
 
+Update List By ID
 
-
-updateListById
+Update List By ID
 
 ### Example Implementation
 ```php
@@ -727,12 +727,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-## **updateListRuleById**
-> OpenAPI\Server\Model\ListRuleData updateListRuleById($listId, $ruleId, $listRuleInput)
+## **updateListRuleByListId**
+> OpenAPI\Server\Model\ListRuleData updateListRuleByListId($listId, $ruleId, $listRuleInput)
 
+Update List Rule By List ID
 
-
-updateListRuleById
+Update List Rule By List ID
 
 ### Example Implementation
 ```php
@@ -757,9 +757,9 @@ class ListsApi implements ListsApiInterface
     // ...
 
     /**
-     * Implementation of ListsApiInterface#updateListRuleById
+     * Implementation of ListsApiInterface#updateListRuleByListId
      */
-    public function updateListRuleById(int $listId, int $ruleId, ListRuleInput $listRuleInput = null)
+    public function updateListRuleByListId(int $listId, int $ruleId, ListRuleInput $listRuleInput = null)
     {
         // Implement the operation ...
     }

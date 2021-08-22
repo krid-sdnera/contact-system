@@ -1,7 +1,7 @@
 import {
   DeleteRoleByIdRequest,
   GetRolesRequest,
-  GetSectionRolesByIdRequest,
+  GetSectionRolesBySectionIdRequest,
   UpdateRoleByIdRequest,
 } from '@api/apis';
 import { ModelApiResponse, RoleData, Roles } from '@api/models';
@@ -76,9 +76,14 @@ export const actions: ActionTree<RootState, RootState> = {
       }
     }
   },
-  async fetchRolesBySectionId({ commit }, options: GetSectionRolesByIdRequest) {
+  async fetchRolesBySectionId(
+    { commit },
+    options: GetSectionRolesBySectionIdRequest
+  ) {
     try {
-      const payload = await this.$api.sections.getSectionRolesById(options);
+      const payload = await this.$api.sections.getSectionRolesBySectionId(
+        options
+      );
       commit('setRoles', payload.roles);
       return payload;
     } catch (e) {

@@ -114,8 +114,8 @@ export interface RolesApiInterface {
     deleteRoleById(requestParameters: DeleteRoleByIdRequest): Promise<ModelApiResponse>;
 
     /**
-     * getListRulesByRoleId
-     * @summary Your GET endpoint
+     * List Rules by Role ID
+     * @summary List Rules by Role ID
      * @param {number} roleId 
      * @param {string} [query] 
      * @param {string} [sort] 
@@ -128,8 +128,8 @@ export interface RolesApiInterface {
     getListRulesByRoleIdRaw(requestParameters: GetListRulesByRoleIdRequest): Promise<runtime.ApiResponse<ListRules>>;
 
     /**
-     * getListRulesByRoleId
-     * Your GET endpoint
+     * List Rules by Role ID
+     * List Rules by Role ID
      */
     getListRulesByRoleId(requestParameters: GetListRulesByRoleIdRequest): Promise<ListRules>;
 
@@ -300,8 +300,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
     }
 
     /**
-     * getListRulesByRoleId
-     * Your GET endpoint
+     * List Rules by Role ID
+     * List Rules by Role ID
      */
     async getListRulesByRoleIdRaw(requestParameters: GetListRulesByRoleIdRequest): Promise<runtime.ApiResponse<ListRules>> {
         if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
@@ -351,8 +351,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
     }
 
     /**
-     * getListRulesByRoleId
-     * Your GET endpoint
+     * List Rules by Role ID
+     * List Rules by Role ID
      */
     async getListRulesByRoleId(requestParameters: GetListRulesByRoleIdRequest): Promise<ListRules> {
         const response = await this.getListRulesByRoleIdRaw(requestParameters);

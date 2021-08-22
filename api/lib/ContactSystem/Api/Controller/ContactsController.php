@@ -57,6 +57,8 @@ class ContactsController extends Controller
     /**
      * Operation createContact
      *
+     * Create Contact
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -154,6 +156,8 @@ class ContactsController extends Controller
     /**
      * Operation deleteContactById
      *
+     * Delete Contact By ID
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -242,7 +246,7 @@ class ContactsController extends Controller
     /**
      * Operation getContactById
      *
-     * Your GET endpoint
+     * Get Contact By ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -332,7 +336,7 @@ class ContactsController extends Controller
     /**
      * Operation getContacts
      *
-     * Your GET endpoint
+     * List Contacts
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -446,7 +450,7 @@ class ContactsController extends Controller
     /**
      * Operation getListRulesByContactId
      *
-     * Your GET endpoint
+     * Get List Rules By Contact ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -568,6 +572,8 @@ class ContactsController extends Controller
     /**
      * Operation patchContactById
      *
+     * Patch Contact By ID
+     *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
@@ -672,6 +678,8 @@ class ContactsController extends Controller
 
     /**
      * Operation updateContactById
+     *
+     * Update Contact By ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.

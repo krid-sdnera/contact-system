@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = "https://members.mooneevalleyscouts.org.au/v1".replace(/\/+$/, "");
+export const BASE_PATH = "https://membership.essendonseascouts.org.au/api/v1".replace(/\/+$/, "");
 
 const isBlob = (value: any) => typeof Blob !== 'undefined' && value instanceof Blob;
 

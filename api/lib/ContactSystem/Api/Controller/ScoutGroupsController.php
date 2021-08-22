@@ -247,7 +247,7 @@ class ScoutGroupsController extends Controller
     /**
      * Operation getListRulesByScoutGroupId
      *
-     * Your GET endpoint
+     * Get List Rules By Scout Group ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -457,14 +457,14 @@ class ScoutGroupsController extends Controller
     }
 
     /**
-     * Operation getScoutGroupSectionsById
+     * Operation getScoutGroupSectionsByScoutGroupId
      *
-     * Your GET endpoint
+     * Get Scout Group Sections By Scout Group ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getScoutGroupSectionsByIdAction(Request $request, $scoutGroupId)
+    public function getScoutGroupSectionsByScoutGroupIdAction(Request $request, $scoutGroupId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -515,7 +515,7 @@ class ScoutGroupsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getScoutGroupSectionsById($scoutGroupId, $responseCode, $responseHeaders);
+            $result = $handler->getScoutGroupSectionsByScoutGroupId($scoutGroupId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

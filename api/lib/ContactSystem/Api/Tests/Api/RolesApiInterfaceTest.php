@@ -109,7 +109,7 @@ class RolesApiInterfaceTest extends WebTestCase
     /**
      * Test case for getListRulesByRoleId
      *
-     * Your GET endpoint.
+     * List Rules by Role ID.
      *
      */
     public function testGetListRulesByRoleId()

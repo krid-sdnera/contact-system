@@ -160,7 +160,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
     /**
      * {@inheritdoc}
      */
-    public function getSectionRolesById(int $sectionId, &$responseCode, array &$responseHeaders)
+    public function getSectionRolesBySectionId(int $sectionId, &$responseCode, array &$responseHeaders)
     {
 
         /** @var RoleRepository */

@@ -248,7 +248,7 @@ class SectionsController extends Controller
     /**
      * Operation getListRulesBySectionId
      *
-     * Your GET endpoint
+     * Get List Rules By Section ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
@@ -580,14 +580,14 @@ class SectionsController extends Controller
     }
 
     /**
-     * Operation getSectionRolesById
+     * Operation getSectionRolesBySectionId
      *
-     * Your GET endpoint
+     * List Section Roles By Section ID
      *
      * @param Request $request The Symfony request to handle.
      * @return Response The Symfony response.
      */
-    public function getSectionRolesByIdAction(Request $request, $sectionId)
+    public function getSectionRolesBySectionIdAction(Request $request, $sectionId)
     {
         // Figure out what data format to return to the client
         $produces = ['application/json'];
@@ -638,7 +638,7 @@ class SectionsController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-            $result = $handler->getSectionRolesById($sectionId, $responseCode, $responseHeaders);
+            $result = $handler->getSectionRolesBySectionId($sectionId, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'OK';

@@ -96,7 +96,7 @@ interface RolesApiInterface
     /**
      * Operation getListRulesByRoleId
      *
-     * Your GET endpoint
+     * List Rules by Role ID
      *
      * @param  int $roleId   (required)
      * @param  string $query   (optional)

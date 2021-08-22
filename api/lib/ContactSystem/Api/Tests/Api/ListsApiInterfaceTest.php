@@ -76,7 +76,7 @@ class ListsApiInterfaceTest extends WebTestCase
     /**
      * Test case for createList
      *
-     * .
+     * Create List.
      *
      */
     public function testCreateList()
@@ -89,12 +89,12 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for createListRuleById
+     * Test case for createListRuleByListId
      *
-     * .
+     * Create List Rule By List ID.
      *
      */
-    public function testCreateListRuleById()
+    public function testCreateListRuleByListId()
     {
         $client = static::createClient();
 
@@ -109,7 +109,7 @@ class ListsApiInterfaceTest extends WebTestCase
     /**
      * Test case for deleteListById
      *
-     * .
+     * Delete List By ID.
      *
      */
     public function testDeleteListById()
@@ -125,12 +125,12 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for deleteListRuleById
+     * Test case for deleteListRuleByListId
      *
-     * .
+     * Delete List Rule By List ID.
      *
      */
-    public function testDeleteListRuleById()
+    public function testDeleteListRuleByListId()
     {
         $client = static::createClient();
 
@@ -148,7 +148,7 @@ class ListsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getListByAddress
      *
-     * Your GET endpoint.
+     * Get List By Address.
      *
      */
     public function testGetListByAddress()
@@ -166,7 +166,7 @@ class ListsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getListById
      *
-     * Your GET endpoint.
+     * Get List By ID.
      *
      */
     public function testGetListById()
@@ -182,12 +182,12 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getListRecipientsById
+     * Test case for getListRecipientsByListId
      *
-     * Your GET endpoint.
+     * Get List Recipients By List ID.
      *
      */
-    public function testGetListRecipientsById()
+    public function testGetListRecipientsByListId()
     {
         $client = static::createClient();
 
@@ -200,12 +200,12 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getListRuleById
+     * Test case for getListRuleByListId
      *
-     * Your GET endpoint.
+     * Get List Rule By List ID.
      *
      */
-    public function testGetListRuleById()
+    public function testGetListRuleByListId()
     {
         $client = static::createClient();
 
@@ -223,7 +223,7 @@ class ListsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getListRulesByListId
      *
-     * Your GET endpoint.
+     * Get List Rules By List ID.
      *
      */
     public function testGetListRulesByListId()
@@ -241,7 +241,7 @@ class ListsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getLists
      *
-     * Your GET endpoint.
+     * Get Lists.
      *
      */
     public function testGetLists()
@@ -256,7 +256,7 @@ class ListsApiInterfaceTest extends WebTestCase
     /**
      * Test case for updateListById
      *
-     * .
+     * Update List By ID.
      *
      */
     public function testUpdateListById()
@@ -272,12 +272,12 @@ class ListsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for updateListRuleById
+     * Test case for updateListRuleByListId
      *
-     * .
+     * Update List Rule By List ID.
      *
      */
-    public function testUpdateListRuleById()
+    public function testUpdateListRuleByListId()
     {
         $client = static::createClient();
 

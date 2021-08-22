@@ -109,7 +109,7 @@ class ScoutGroupsApiInterfaceTest extends WebTestCase
     /**
      * Test case for getListRulesByScoutGroupId
      *
-     * Your GET endpoint.
+     * Get List Rules By Scout Group ID.
      *
      */
     public function testGetListRulesByScoutGroupId()
@@ -143,12 +143,12 @@ class ScoutGroupsApiInterfaceTest extends WebTestCase
     }
 
     /**
-     * Test case for getScoutGroupSectionsById
+     * Test case for getScoutGroupSectionsByScoutGroupId
      *
-     * Your GET endpoint.
+     * Get Scout Group Sections By Scout Group ID.
      *
      */
-    public function testGetScoutGroupSectionsById()
+    public function testGetScoutGroupSectionsByScoutGroupId()
     {
         $client = static::createClient();
 

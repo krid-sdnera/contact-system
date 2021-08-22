@@ -130,7 +130,7 @@ class MembersApiInterfaceTest extends WebTestCase
     /**
      * Test case for getListRulesByMemberId
      *
-     * Your GET endpoint.
+     * Get List Rules by Member ID.
      *
      */
     public function testGetListRulesByMemberId()
@@ -148,7 +148,7 @@ class MembersApiInterfaceTest extends WebTestCase
     /**
      * Test case for getMemberById
      *
-     * Get member.
+     * Get Member.
      *
      */
     public function testGetMemberById()
@@ -238,7 +238,7 @@ class MembersApiInterfaceTest extends WebTestCase
     /**
      * Test case for patchMemberById
      *
-     * Partially update member.
+     * Partial Update Member.
      *
      */
     public function testPatchMemberById()
@@ -277,7 +277,7 @@ class MembersApiInterfaceTest extends WebTestCase
     /**
      * Test case for updateMemberById
      *
-     * Update member.
+     * Update Member.
      *
      */
     public function testUpdateMemberById()

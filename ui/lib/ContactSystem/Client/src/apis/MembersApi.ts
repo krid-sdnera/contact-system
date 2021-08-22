@@ -118,7 +118,7 @@ export interface UpdateMemberByIdRequest {
  */
 export interface MembersApiInterface {
     /**
-     * addMemberRoleById
+     * Add Member Role
      * @summary Add Member Role
      * @param {number} memberId 
      * @param {number} roleId 
@@ -130,7 +130,7 @@ export interface MembersApiInterface {
     addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest): Promise<runtime.ApiResponse<MemberRoleData>>;
 
     /**
-     * addMemberRoleById
+     * Add Member Role
      * Add Member Role
      */
     addMemberRoleById(requestParameters: AddMemberRoleByIdRequest): Promise<MemberRoleData>;
@@ -168,8 +168,8 @@ export interface MembersApiInterface {
     deleteMemberById(requestParameters: DeleteMemberByIdRequest): Promise<ModelApiResponse>;
 
     /**
-     * getListRulesByMemberId
-     * @summary Your GET endpoint
+     * Get List Rules by Member ID
+     * @summary Get List Rules by Member ID
      * @param {number} memberId 
      * @param {string} [query] 
      * @param {string} [sort] 
@@ -182,14 +182,14 @@ export interface MembersApiInterface {
     getListRulesByMemberIdRaw(requestParameters: GetListRulesByMemberIdRequest): Promise<runtime.ApiResponse<ListRules>>;
 
     /**
-     * getListRulesByMemberId
-     * Your GET endpoint
+     * Get List Rules by Member ID
+     * Get List Rules by Member ID
      */
     getListRulesByMemberId(requestParameters: GetListRulesByMemberIdRequest): Promise<ListRules>;
 
     /**
      * Get details for a member
-     * @summary Get member
+     * @summary Get Member
      * @param {number} memberId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -199,7 +199,7 @@ export interface MembersApiInterface {
 
     /**
      * Get details for a member
-     * Get member
+     * Get Member
      */
     getMemberById(requestParameters: GetMemberByIdRequest): Promise<MemberData>;
 
@@ -279,7 +279,7 @@ export interface MembersApiInterface {
 
     /**
      * Partially update member
-     * @summary Partially update member
+     * @summary Partial Update Member
      * @param {number} memberId 
      * @param {MemberInput} [memberInput] 
      * @param {*} [options] Override http request option.
@@ -290,12 +290,12 @@ export interface MembersApiInterface {
 
     /**
      * Partially update member
-     * Partially update member
+     * Partial Update Member
      */
     patchMemberById(requestParameters: PatchMemberByIdRequest): Promise<MemberData>;
 
     /**
-     * removeMemberRoleById
+     * Remove Member Role
      * @summary Remove Member Role
      * @param {number} memberId 
      * @param {number} roleId 
@@ -306,14 +306,14 @@ export interface MembersApiInterface {
     removeMemberRoleByIdRaw(requestParameters: RemoveMemberRoleByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
 
     /**
-     * removeMemberRoleById
+     * Remove Member Role
      * Remove Member Role
      */
     removeMemberRoleById(requestParameters: RemoveMemberRoleByIdRequest): Promise<ModelApiResponse>;
 
     /**
      * Update member
-     * @summary Update member
+     * @summary Update Member
      * @param {number} memberId 
      * @param {MemberInput} [memberInput] 
      * @param {*} [options] Override http request option.
@@ -324,7 +324,7 @@ export interface MembersApiInterface {
 
     /**
      * Update member
-     * Update member
+     * Update Member
      */
     updateMemberById(requestParameters: UpdateMemberByIdRequest): Promise<MemberData>;
 
@@ -336,7 +336,7 @@ export interface MembersApiInterface {
 export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
     /**
-     * addMemberRoleById
+     * Add Member Role
      * Add Member Role
      */
     async addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest): Promise<runtime.ApiResponse<MemberRoleData>> {
@@ -378,7 +378,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
     }
 
     /**
-     * addMemberRoleById
+     * Add Member Role
      * Add Member Role
      */
     async addMemberRoleById(requestParameters: AddMemberRoleByIdRequest): Promise<MemberRoleData> {
@@ -478,8 +478,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
     }
 
     /**
-     * getListRulesByMemberId
-     * Your GET endpoint
+     * Get List Rules by Member ID
+     * Get List Rules by Member ID
      */
     async getListRulesByMemberIdRaw(requestParameters: GetListRulesByMemberIdRequest): Promise<runtime.ApiResponse<ListRules>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
@@ -529,8 +529,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
     }
 
     /**
-     * getListRulesByMemberId
-     * Your GET endpoint
+     * Get List Rules by Member ID
+     * Get List Rules by Member ID
      */
     async getListRulesByMemberId(requestParameters: GetListRulesByMemberIdRequest): Promise<ListRules> {
         const response = await this.getListRulesByMemberIdRaw(requestParameters);
@@ -539,7 +539,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
     /**
      * Get details for a member
-     * Get member
+     * Get Member
      */
     async getMemberByIdRaw(requestParameters: GetMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
@@ -574,7 +574,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
     /**
      * Get details for a member
-     * Get member
+     * Get Member
      */
     async getMemberById(requestParameters: GetMemberByIdRequest): Promise<MemberData> {
         const response = await this.getMemberByIdRaw(requestParameters);
@@ -799,7 +799,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
     /**
      * Partially update member
-     * Partially update member
+     * Partial Update Member
      */
     async patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
@@ -837,7 +837,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
     /**
      * Partially update member
-     * Partially update member
+     * Partial Update Member
      */
     async patchMemberById(requestParameters: PatchMemberByIdRequest): Promise<MemberData> {
         const response = await this.patchMemberByIdRaw(requestParameters);
@@ -845,7 +845,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
     }
 
     /**
-     * removeMemberRoleById
+     * Remove Member Role
      * Remove Member Role
      */
     async removeMemberRoleByIdRaw(requestParameters: RemoveMemberRoleByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
@@ -884,7 +884,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
     }
 
     /**
-     * removeMemberRoleById
+     * Remove Member Role
      * Remove Member Role
      */
     async removeMemberRoleById(requestParameters: RemoveMemberRoleByIdRequest): Promise<ModelApiResponse> {
@@ -894,7 +894,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
     /**
      * Update member
-     * Update member
+     * Update Member
      */
     async updateMemberByIdRaw(requestParameters: UpdateMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
@@ -932,7 +932,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
     /**
      * Update member
-     * Update member
+     * Update Member
      */
     async updateMemberById(requestParameters: UpdateMemberByIdRequest): Promise<MemberData> {
         const response = await this.updateMemberByIdRaw(requestParameters);

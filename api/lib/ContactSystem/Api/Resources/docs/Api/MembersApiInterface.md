@@ -1,21 +1,21 @@
 # OpenAPI\Server\Api\MembersApiInterface
 
-All URIs are relative to *https://members.mooneevalleyscouts.org.au/v1*
+All URIs are relative to *https://membership.essendonseascouts.org.au/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addMemberRoleById**](MembersApiInterface.md#addMemberRoleById) | **PUT** /members/{memberId}/roles/{roleId} | Add Member Role
 [**createMember**](MembersApiInterface.md#createMember) | **POST** /members | Create a member
 [**deleteMemberById**](MembersApiInterface.md#deleteMemberById) | **DELETE** /members/{memberId} | Delete member
-[**getListRulesByMemberId**](MembersApiInterface.md#getListRulesByMemberId) | **GET** /members/{memberId}/list-rules | Your GET endpoint
-[**getMemberById**](MembersApiInterface.md#getMemberById) | **GET** /members/{memberId} | Get member
+[**getListRulesByMemberId**](MembersApiInterface.md#getListRulesByMemberId) | **GET** /members/{memberId}/list-rules | Get List Rules by Member ID
+[**getMemberById**](MembersApiInterface.md#getMemberById) | **GET** /members/{memberId} | Get Member
 [**getMemberContactsById**](MembersApiInterface.md#getMemberContactsById) | **GET** /members/{memberId}/contacts | List member&#39;s contacts
 [**getMemberRolesById**](MembersApiInterface.md#getMemberRolesById) | **GET** /members/{memberId}/roles | List member&#39;s roles
 [**getMembers**](MembersApiInterface.md#getMembers) | **GET** /members | List all members
 [**mergeMember**](MembersApiInterface.md#mergeMember) | **POST** /members/{memberId}/merge_into/{mergeMemberId} | Merge member
-[**patchMemberById**](MembersApiInterface.md#patchMemberById) | **PATCH** /members/{memberId} | Partially update member
+[**patchMemberById**](MembersApiInterface.md#patchMemberById) | **PATCH** /members/{memberId} | Partial Update Member
 [**removeMemberRoleById**](MembersApiInterface.md#removeMemberRoleById) | **DELETE** /members/{memberId}/roles/{roleId} | Remove Member Role
-[**updateMemberById**](MembersApiInterface.md#updateMemberById) | **PUT** /members/{memberId} | Update member
+[**updateMemberById**](MembersApiInterface.md#updateMemberById) | **PUT** /members/{memberId} | Update Member
 
 
 ## Service Declaration
@@ -35,7 +35,7 @@ services:
 
 Add Member Role
 
-addMemberRoleById
+Add Member Role
 
 ### Example Implementation
 ```php
@@ -221,9 +221,9 @@ Name | Type | Description  | Notes
 ## **getListRulesByMemberId**
 > OpenAPI\Server\Model\ListRules getListRulesByMemberId($memberId, $query, $sort, $pageSize, $page)
 
-Your GET endpoint
+Get List Rules by Member ID
 
-getListRulesByMemberId
+Get List Rules by Member ID
 
 ### Example Implementation
 ```php
@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 ## **getMemberById**
 > OpenAPI\Server\Model\MemberData getMemberById($memberId)
 
-Get member
+Get Member
 
 Get details for a member
 
@@ -607,7 +607,7 @@ Name | Type | Description  | Notes
 ## **patchMemberById**
 > OpenAPI\Server\Model\MemberData patchMemberById($memberId, $memberInput)
 
-Partially update member
+Partial Update Member
 
 Partially update member
 
@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 
 Remove Member Role
 
-removeMemberRoleById
+Remove Member Role
 
 ### Example Implementation
 ```php
@@ -733,7 +733,7 @@ Name | Type | Description  | Notes
 ## **updateMemberById**
 > OpenAPI\Server\Model\MemberData updateMemberById($memberId, $memberInput)
 
-Update member
+Update Member
 
 Update member
 

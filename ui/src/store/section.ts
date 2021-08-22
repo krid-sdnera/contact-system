@@ -1,6 +1,6 @@
 import {
   DeleteSectionByIdRequest,
-  GetScoutGroupSectionsByIdRequest,
+  GetScoutGroupSectionsByScoutGroupIdRequest,
   GetSectionsRequest,
   UpdateSectionByIdRequest,
 } from '@api/apis';
@@ -78,10 +78,10 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async fetchSectionsByScoutGroupId(
     { commit },
-    options: GetScoutGroupSectionsByIdRequest
+    options: GetScoutGroupSectionsByScoutGroupIdRequest
   ) {
     try {
-      const payload = await this.$api.scoutGroups.getScoutGroupSectionsById(
+      const payload = await this.$api.scoutGroups.getScoutGroupSectionsByScoutGroupId(
         options
       );
       commit('setSections', payload.sections);

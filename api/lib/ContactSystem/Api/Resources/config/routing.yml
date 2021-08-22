@@ -75,11 +75,11 @@ open_api_server_lists_createlist:
     defaults:
         _controller: open_api_server.controller.lists:createListAction
 
-open_api_server_lists_createlistrulebyid:
+open_api_server_lists_createlistrulebylistid:
     path:     /lists/{listId}/list-rules
     methods:  [POST]
     defaults:
-        _controller: open_api_server.controller.lists:createListRuleByIdAction
+        _controller: open_api_server.controller.lists:createListRuleByListIdAction
     requirements:
         listId: '\d+'
 
@@ -91,11 +91,11 @@ open_api_server_lists_deletelistbyid:
     requirements:
         listId: '\d+'
 
-open_api_server_lists_deletelistrulebyid:
+open_api_server_lists_deletelistrulebylistid:
     path:     /lists/{listId}/rules/{ruleId}
     methods:  [DELETE]
     defaults:
-        _controller: open_api_server.controller.lists:deleteListRuleByIdAction
+        _controller: open_api_server.controller.lists:deleteListRuleByListIdAction
     requirements:
         listId: '\d+'
         ruleId: '\d+'
@@ -116,19 +116,19 @@ open_api_server_lists_getlistbyid:
     requirements:
         listId: '\d+'
 
-open_api_server_lists_getlistrecipientsbyid:
+open_api_server_lists_getlistrecipientsbylistid:
     path:     /lists/{listId}/recipients
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.lists:getListRecipientsByIdAction
+        _controller: open_api_server.controller.lists:getListRecipientsByListIdAction
     requirements:
         listId: '\d+'
 
-open_api_server_lists_getlistrulebyid:
+open_api_server_lists_getlistrulebylistid:
     path:     /lists/{listId}/rules/{ruleId}
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.lists:getListRuleByIdAction
+        _controller: open_api_server.controller.lists:getListRuleByListIdAction
     requirements:
         listId: '\d+'
         ruleId: '\d+'
@@ -155,11 +155,11 @@ open_api_server_lists_updatelistbyid:
     requirements:
         listId: '\d+'
 
-open_api_server_lists_updatelistrulebyid:
+open_api_server_lists_updatelistrulebylistid:
     path:     /lists/{listId}/rules/{ruleId}
     methods:  [PUT]
     defaults:
-        _controller: open_api_server.controller.lists:updateListRuleByIdAction
+        _controller: open_api_server.controller.lists:updateListRuleByListIdAction
     requirements:
         listId: '\d+'
         ruleId: '\d+'
@@ -344,11 +344,11 @@ open_api_server_scoutGroups_getscoutgroupbyid:
     requirements:
         scoutGroupId: '\d+'
 
-open_api_server_scoutGroups_getscoutgroupsectionsbyid:
+open_api_server_scoutGroups_getscoutgroupsectionsbyscoutgroupid:
     path:     /groups/{scoutGroupId}/sections
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.scoutGroups:getScoutGroupSectionsByIdAction
+        _controller: open_api_server.controller.scoutGroups:getScoutGroupSectionsByScoutGroupIdAction
     requirements:
         scoutGroupId: '\d+'
 
@@ -405,11 +405,11 @@ open_api_server_sections_getsectionbyid:
     requirements:
         sectionId: '\d+'
 
-open_api_server_sections_getsectionrolesbyid:
+open_api_server_sections_getsectionrolesbysectionid:
     path:     /sections/{sectionId}/roles
     methods:  [GET]
     defaults:
-        _controller: open_api_server.controller.sections:getSectionRolesByIdAction
+        _controller: open_api_server.controller.sections:getSectionRolesBySectionIdAction
     requirements:
         sectionId: '\d+'
 
