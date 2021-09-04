@@ -2,7 +2,7 @@
 /**
  * SectionData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -71,6 +71,7 @@ class SectionData
      * @var OpenAPI\Server\Model\ScoutGroupData
      * @SerializedName("scoutGroup")
      * @Assert\NotNull()
+     * @Assert\Valid()
      * @Assert\Type("OpenAPI\Server\Model\ScoutGroupData")
      * @Type("OpenAPI\Server\Model\ScoutGroupData")
      */
@@ -105,7 +106,7 @@ class SectionData
      *
      * @return $this
      */
-    public function setId(int $id): int
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -129,7 +130,7 @@ class SectionData
      *
      * @return $this
      */
-    public function setName(string $name): string
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -153,7 +154,7 @@ class SectionData
      *
      * @return $this
      */
-    public function setExternalId(string $externalId = null): ?string
+    public function setExternalId(string $externalId = null)
     {
         $this->externalId = $externalId;
 
@@ -177,7 +178,7 @@ class SectionData
      *
      * @return $this
      */
-    public function setScoutGroup(ScoutGroupData $scoutGroup): ScoutGroupData
+    public function setScoutGroup(ScoutGroupData $scoutGroup)
     {
         $this->scoutGroup = $scoutGroup;
 

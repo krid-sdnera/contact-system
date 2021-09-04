@@ -1,7 +1,7 @@
 <?php
 /**
  * SectionsApiInterface
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server
@@ -71,12 +71,11 @@ interface SectionsApiInterface
      *
      * Create Section
      *
-     * @param  OpenAPI\Server\Model\SectionInput $sectionInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \OpenAPI\Server\Model\SectionInput $sectionInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\SectionData
-     *
+     * @return \OpenAPI\Server\Model\SectionData
      */
     public function createSection(SectionInput $sectionInput = null, &$responseCode, array &$responseHeaders);
 
@@ -85,12 +84,11 @@ interface SectionsApiInterface
      *
      * Delete Section
      *
-     * @param  int $sectionId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $sectionId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
+     * @return \OpenAPI\Server\Model\ApiResponse
      */
     public function deleteSectionById(int $sectionId, &$responseCode, array &$responseHeaders);
 
@@ -99,16 +97,15 @@ interface SectionsApiInterface
      *
      * Get List Rules By Section ID
      *
-     * @param  int $sectionId   (required)
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $sectionId   (required)
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ListRules
-     *
+     * @return \OpenAPI\Server\Model\ListRules
      */
     public function getListRulesBySectionId(int $sectionId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -117,16 +114,15 @@ interface SectionsApiInterface
      *
      * List members by section
      *
-     * @param  int $sectionId   (required)
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $sectionId   (required)
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Members
-     *
+     * @return \OpenAPI\Server\Model\Members
      */
     public function getMembersBySectionId(int $sectionId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -135,12 +131,11 @@ interface SectionsApiInterface
      *
      * Get Section
      *
-     * @param  int $sectionId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $sectionId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\SectionData
-     *
+     * @return \OpenAPI\Server\Model\SectionData
      */
     public function getSectionById(int $sectionId, &$responseCode, array &$responseHeaders);
 
@@ -149,12 +144,11 @@ interface SectionsApiInterface
      *
      * List Section Roles By Section ID
      *
-     * @param  int $sectionId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $sectionId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Roles
-     *
+     * @return \OpenAPI\Server\Model\Roles
      */
     public function getSectionRolesBySectionId(int $sectionId, &$responseCode, array &$responseHeaders);
 
@@ -163,15 +157,14 @@ interface SectionsApiInterface
      *
      * Get Sections
      *
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Sections
-     *
+     * @return \OpenAPI\Server\Model\Sections
      */
     public function getSections(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -180,13 +173,12 @@ interface SectionsApiInterface
      *
      * Update Section
      *
-     * @param  int $sectionId   (required)
-     * @param  OpenAPI\Server\Model\SectionInput $sectionInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $sectionId   (required)
+     * @param  \OpenAPI\Server\Model\SectionInput $sectionInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\SectionData
-     *
+     * @return \OpenAPI\Server\Model\SectionData
      */
     public function updateSectionById(int $sectionId, SectionInput $sectionInput = null, &$responseCode, array &$responseHeaders);
 }

@@ -2,7 +2,7 @@
 /**
  * MemberMetaInviteData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -130,7 +130,7 @@ class MemberMetaInviteData
      *
      * @return $this
      */
-    public function setType(string $type): string
+    public function setType(string $type)
     {
         $this->type = $type;
 
@@ -154,7 +154,7 @@ class MemberMetaInviteData
      *
      * @return $this
      */
-    public function setExpiryDate(string $expiryDate = null): ?string
+    public function setExpiryDate(string $expiryDate = null)
     {
         $this->expiryDate = $expiryDate;
 
@@ -178,7 +178,7 @@ class MemberMetaInviteData
      *
      * @return $this
      */
-    public function setStatus(string $status = null): ?string
+    public function setStatus(string $status = null)
     {
         $this->status = $status;
 
@@ -202,7 +202,7 @@ class MemberMetaInviteData
      *
      * @return $this
      */
-    public function setSubmittedDate(string $submittedDate = null): ?string
+    public function setSubmittedDate(string $submittedDate = null)
     {
         $this->submittedDate = $submittedDate;
 
@@ -226,7 +226,7 @@ class MemberMetaInviteData
      *
      * @return $this
      */
-    public function setLevelDescription(string $levelDescription = null): ?string
+    public function setLevelDescription(string $levelDescription = null)
     {
         $this->levelDescription = $levelDescription;
 
@@ -250,7 +250,7 @@ class MemberMetaInviteData
      *
      * @return $this
      */
-    public function setAppAge(string $appAge = null): ?string
+    public function setAppAge(string $appAge = null)
     {
         $this->appAge = $appAge;
 
@@ -274,7 +274,7 @@ class MemberMetaInviteData
      *
      * @return $this
      */
-    public function setCurrentAppTimestamp(string $currentAppTimestamp = null): ?string
+    public function setCurrentAppTimestamp(string $currentAppTimestamp = null)
     {
         $this->currentAppTimestamp = $currentAppTimestamp;
 

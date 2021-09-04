@@ -1,7 +1,7 @@
 <?php
 /**
  * RolesApiInterface
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server
@@ -70,12 +70,11 @@ interface RolesApiInterface
      *
      * Create role
      *
-     * @param  OpenAPI\Server\Model\RoleInput $roleInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \OpenAPI\Server\Model\RoleInput $roleInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\RoleData
-     *
+     * @return \OpenAPI\Server\Model\RoleData
      */
     public function createRole(RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
 
@@ -84,12 +83,11 @@ interface RolesApiInterface
      *
      * Delete role
      *
-     * @param  int $roleId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $roleId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
+     * @return \OpenAPI\Server\Model\ApiResponse
      */
     public function deleteRoleById(int $roleId, &$responseCode, array &$responseHeaders);
 
@@ -98,16 +96,15 @@ interface RolesApiInterface
      *
      * List Rules by Role ID
      *
-     * @param  int $roleId   (required)
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $roleId   (required)
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ListRules
-     *
+     * @return \OpenAPI\Server\Model\ListRules
      */
     public function getListRulesByRoleId(int $roleId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -116,16 +113,15 @@ interface RolesApiInterface
      *
      * List members by role
      *
-     * @param  int $roleId   (required)
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $roleId   (required)
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Members
-     *
+     * @return \OpenAPI\Server\Model\Members
      */
     public function getMembersByRoleId(int $roleId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -134,12 +130,11 @@ interface RolesApiInterface
      *
      * Get Role
      *
-     * @param  int $roleId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $roleId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\RoleData
-     *
+     * @return \OpenAPI\Server\Model\RoleData
      */
     public function getRoleById(int $roleId, &$responseCode, array &$responseHeaders);
 
@@ -148,15 +143,14 @@ interface RolesApiInterface
      *
      * Get roles
      *
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Roles
-     *
+     * @return \OpenAPI\Server\Model\Roles
      */
     public function getRoles(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -165,13 +159,12 @@ interface RolesApiInterface
      *
      * Update role
      *
-     * @param  int $roleId   (required)
-     * @param  OpenAPI\Server\Model\RoleInput $roleInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $roleId   (required)
+     * @param  \OpenAPI\Server\Model\RoleInput $roleInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\RoleData
-     *
+     * @return \OpenAPI\Server\Model\RoleData
      */
     public function updateRoleById(int $roleId, RoleInput $roleInput = null, &$responseCode, array &$responseHeaders);
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * ContactsApiInterface
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server
@@ -69,12 +69,11 @@ interface ContactsApiInterface
      *
      * Create Contact
      *
-     * @param  OpenAPI\Server\Model\ContactInput $contactInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \OpenAPI\Server\Model\ContactInput $contactInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ContactData
-     *
+     * @return \OpenAPI\Server\Model\ContactData
      */
     public function createContact(ContactInput $contactInput = null, &$responseCode, array &$responseHeaders);
 
@@ -83,12 +82,11 @@ interface ContactsApiInterface
      *
      * Delete Contact By ID
      *
-     * @param  int $contactId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $contactId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
+     * @return \OpenAPI\Server\Model\ApiResponse
      */
     public function deleteContactById(int $contactId, &$responseCode, array &$responseHeaders);
 
@@ -97,12 +95,11 @@ interface ContactsApiInterface
      *
      * Get Contact By ID
      *
-     * @param  int $contactId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $contactId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ContactData
-     *
+     * @return \OpenAPI\Server\Model\ContactData
      */
     public function getContactById(int $contactId, &$responseCode, array &$responseHeaders);
 
@@ -111,15 +108,14 @@ interface ContactsApiInterface
      *
      * List Contacts
      *
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Contacts
-     *
+     * @return \OpenAPI\Server\Model\Contacts
      */
     public function getContacts(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -128,16 +124,15 @@ interface ContactsApiInterface
      *
      * Get List Rules By Contact ID
      *
-     * @param  int $contactId   (required)
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $contactId   (required)
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ListRules
-     *
+     * @return \OpenAPI\Server\Model\ListRules
      */
     public function getListRulesByContactId(int $contactId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -146,13 +141,12 @@ interface ContactsApiInterface
      *
      * Patch Contact By ID
      *
-     * @param  int $contactId   (required)
-     * @param  OpenAPI\Server\Model\ContactInput $contactInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $contactId   (required)
+     * @param  \OpenAPI\Server\Model\ContactInput $contactInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ContactData
-     *
+     * @return \OpenAPI\Server\Model\ContactData
      */
     public function patchContactById(int $contactId, ContactInput $contactInput = null, &$responseCode, array &$responseHeaders);
 
@@ -161,13 +155,12 @@ interface ContactsApiInterface
      *
      * Update Contact By ID
      *
-     * @param  int $contactId   (required)
-     * @param  OpenAPI\Server\Model\ContactInput $contactInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $contactId   (required)
+     * @param  \OpenAPI\Server\Model\ContactInput $contactInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ContactData
-     *
+     * @return \OpenAPI\Server\Model\ContactData
      */
     public function updateContactById(int $contactId, ContactInput $contactInput = null, &$responseCode, array &$responseHeaders);
 }

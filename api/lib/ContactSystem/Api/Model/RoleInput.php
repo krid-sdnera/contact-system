@@ -2,7 +2,7 @@
 /**
  * RoleInput
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -113,7 +113,7 @@ class RoleInput
      *
      * @return $this
      */
-    public function setName(string $name): string
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -137,7 +137,7 @@ class RoleInput
      *
      * @return $this
      */
-    public function setClassId(string $classId = null): ?string
+    public function setClassId(string $classId = null)
     {
         $this->classId = $classId;
 
@@ -161,7 +161,7 @@ class RoleInput
      *
      * @return $this
      */
-    public function setNormalisedClassId(string $normalisedClassId = null): ?string
+    public function setNormalisedClassId(string $normalisedClassId = null)
     {
         $this->normalisedClassId = $normalisedClassId;
 
@@ -185,7 +185,7 @@ class RoleInput
      *
      * @return $this
      */
-    public function setExternalId(string $externalId = null): ?string
+    public function setExternalId(string $externalId = null)
     {
         $this->externalId = $externalId;
 
@@ -209,7 +209,7 @@ class RoleInput
      *
      * @return $this
      */
-    public function setSectionId(int $sectionId): int
+    public function setSectionId(int $sectionId)
     {
         $this->sectionId = $sectionId;
 

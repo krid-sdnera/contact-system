@@ -113,6 +113,7 @@ export interface UpdateMemberByIdRequest {
 
 /**
  * MembersApi - interface
+ * 
  * @export
  * @interface MembersApiInterface
  */
@@ -127,13 +128,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest): Promise<runtime.ApiResponse<MemberRoleData>>;
+    addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberRoleData>>;
 
     /**
      * Add Member Role
      * Add Member Role
      */
-    addMemberRoleById(requestParameters: AddMemberRoleByIdRequest): Promise<MemberRoleData>;
+    addMemberRoleById(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<MemberRoleData>;
 
     /**
      * Create a member
@@ -143,13 +144,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    createMemberRaw(requestParameters: CreateMemberRequest): Promise<runtime.ApiResponse<MemberData>>;
+    createMemberRaw(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>>;
 
     /**
      * Create a member
      * Create a member
      */
-    createMember(requestParameters: CreateMemberRequest): Promise<MemberData>;
+    createMember(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<MemberData>;
 
     /**
      * Delete a member
@@ -159,13 +160,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    deleteMemberByIdRaw(requestParameters: DeleteMemberByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
+    deleteMemberByIdRaw(requestParameters: DeleteMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ModelApiResponse>>;
 
     /**
      * Delete a member
      * Delete member
      */
-    deleteMemberById(requestParameters: DeleteMemberByIdRequest): Promise<ModelApiResponse>;
+    deleteMemberById(requestParameters: DeleteMemberByIdRequest, initOverrides?: RequestInit): Promise<ModelApiResponse>;
 
     /**
      * Get List Rules by Member ID
@@ -179,13 +180,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    getListRulesByMemberIdRaw(requestParameters: GetListRulesByMemberIdRequest): Promise<runtime.ApiResponse<ListRules>>;
+    getListRulesByMemberIdRaw(requestParameters: GetListRulesByMemberIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ListRules>>;
 
     /**
      * Get List Rules by Member ID
      * Get List Rules by Member ID
      */
-    getListRulesByMemberId(requestParameters: GetListRulesByMemberIdRequest): Promise<ListRules>;
+    getListRulesByMemberId(requestParameters: GetListRulesByMemberIdRequest, initOverrides?: RequestInit): Promise<ListRules>;
 
     /**
      * Get details for a member
@@ -195,13 +196,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    getMemberByIdRaw(requestParameters: GetMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>>;
+    getMemberByIdRaw(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>>;
 
     /**
      * Get details for a member
      * Get Member
      */
-    getMemberById(requestParameters: GetMemberByIdRequest): Promise<MemberData>;
+    getMemberById(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData>;
 
     /**
      * List contacts for this member
@@ -214,13 +215,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    getMemberContactsByIdRaw(requestParameters: GetMemberContactsByIdRequest): Promise<runtime.ApiResponse<Contacts>>;
+    getMemberContactsByIdRaw(requestParameters: GetMemberContactsByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Contacts>>;
 
     /**
      * List contacts for this member
      * List member\'s contacts
      */
-    getMemberContactsById(requestParameters: GetMemberContactsByIdRequest): Promise<Contacts>;
+    getMemberContactsById(requestParameters: GetMemberContactsByIdRequest, initOverrides?: RequestInit): Promise<Contacts>;
 
     /**
      * List roles for this member
@@ -233,13 +234,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    getMemberRolesByIdRaw(requestParameters: GetMemberRolesByIdRequest): Promise<runtime.ApiResponse<MemberRoles>>;
+    getMemberRolesByIdRaw(requestParameters: GetMemberRolesByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberRoles>>;
 
     /**
      * List roles for this member
      * List member\'s roles
      */
-    getMemberRolesById(requestParameters: GetMemberRolesByIdRequest): Promise<MemberRoles>;
+    getMemberRolesById(requestParameters: GetMemberRolesByIdRequest, initOverrides?: RequestInit): Promise<MemberRoles>;
 
     /**
      * List all members
@@ -252,13 +253,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    getMembersRaw(requestParameters: GetMembersRequest): Promise<runtime.ApiResponse<Members>>;
+    getMembersRaw(requestParameters: GetMembersRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Members>>;
 
     /**
      * List all members
      * List all members
      */
-    getMembers(requestParameters: GetMembersRequest): Promise<Members>;
+    getMembers(requestParameters: GetMembersRequest, initOverrides?: RequestInit): Promise<Members>;
 
     /**
      * Merge member
@@ -269,13 +270,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    mergeMemberRaw(requestParameters: MergeMemberRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
+    mergeMemberRaw(requestParameters: MergeMemberRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ModelApiResponse>>;
 
     /**
      * Merge member
      * Merge member
      */
-    mergeMember(requestParameters: MergeMemberRequest): Promise<ModelApiResponse>;
+    mergeMember(requestParameters: MergeMemberRequest, initOverrides?: RequestInit): Promise<ModelApiResponse>;
 
     /**
      * Partially update member
@@ -286,13 +287,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>>;
+    patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>>;
 
     /**
      * Partially update member
      * Partial Update Member
      */
-    patchMemberById(requestParameters: PatchMemberByIdRequest): Promise<MemberData>;
+    patchMemberById(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData>;
 
     /**
      * Remove Member Role
@@ -303,13 +304,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    removeMemberRoleByIdRaw(requestParameters: RemoveMemberRoleByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
+    removeMemberRoleByIdRaw(requestParameters: RemoveMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ModelApiResponse>>;
 
     /**
      * Remove Member Role
      * Remove Member Role
      */
-    removeMemberRoleById(requestParameters: RemoveMemberRoleByIdRequest): Promise<ModelApiResponse>;
+    removeMemberRoleById(requestParameters: RemoveMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<ModelApiResponse>;
 
     /**
      * Update member
@@ -320,18 +321,18 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    updateMemberByIdRaw(requestParameters: UpdateMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>>;
+    updateMemberByIdRaw(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>>;
 
     /**
      * Update member
      * Update Member
      */
-    updateMemberById(requestParameters: UpdateMemberByIdRequest): Promise<MemberData>;
+    updateMemberById(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData>;
 
 }
 
 /**
- * no description
+ * 
  */
 export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
@@ -339,7 +340,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Add Member Role
      * Add Member Role
      */
-    async addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest): Promise<runtime.ApiResponse<MemberRoleData>> {
+    async addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberRoleData>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling addMemberRoleById.');
         }
@@ -348,7 +349,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling addMemberRoleById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -360,7 +361,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -372,7 +373,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headers: headerParameters,
             query: queryParameters,
             body: MemberRoleInputToJSON(requestParameters.memberRoleInput),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MemberRoleDataFromJSON(jsonValue));
     }
@@ -381,8 +382,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Add Member Role
      * Add Member Role
      */
-    async addMemberRoleById(requestParameters: AddMemberRoleByIdRequest): Promise<MemberRoleData> {
-        const response = await this.addMemberRoleByIdRaw(requestParameters);
+    async addMemberRoleById(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<MemberRoleData> {
+        const response = await this.addMemberRoleByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -390,12 +391,12 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Create a member
      * Create a member
      */
-    async createMemberRaw(requestParameters: CreateMemberRequest): Promise<runtime.ApiResponse<MemberData>> {
+    async createMemberRaw(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>> {
         if (requestParameters.memberInput === null || requestParameters.memberInput === undefined) {
             throw new runtime.RequiredError('memberInput','Required parameter requestParameters.memberInput was null or undefined when calling createMember.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -407,7 +408,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -419,7 +420,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headers: headerParameters,
             query: queryParameters,
             body: MemberInputToJSON(requestParameters.memberInput),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MemberDataFromJSON(jsonValue));
     }
@@ -428,8 +429,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Create a member
      * Create a member
      */
-    async createMember(requestParameters: CreateMemberRequest): Promise<MemberData> {
-        const response = await this.createMemberRaw(requestParameters);
+    async createMember(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<MemberData> {
+        const response = await this.createMemberRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -437,12 +438,12 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Delete a member
      * Delete member
      */
-    async deleteMemberByIdRaw(requestParameters: DeleteMemberByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
+    async deleteMemberByIdRaw(requestParameters: DeleteMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ModelApiResponse>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling deleteMemberById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -452,7 +453,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -463,7 +464,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
     }
@@ -472,8 +473,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Delete a member
      * Delete member
      */
-    async deleteMemberById(requestParameters: DeleteMemberByIdRequest): Promise<ModelApiResponse> {
-        const response = await this.deleteMemberByIdRaw(requestParameters);
+    async deleteMemberById(requestParameters: DeleteMemberByIdRequest, initOverrides?: RequestInit): Promise<ModelApiResponse> {
+        const response = await this.deleteMemberByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -481,12 +482,12 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Get List Rules by Member ID
      * Get List Rules by Member ID
      */
-    async getListRulesByMemberIdRaw(requestParameters: GetListRulesByMemberIdRequest): Promise<runtime.ApiResponse<ListRules>> {
+    async getListRulesByMemberIdRaw(requestParameters: GetListRulesByMemberIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ListRules>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling getListRulesByMemberId.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         if (requestParameters.query !== undefined) {
             queryParameters['query'] = requestParameters.query;
@@ -512,7 +513,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -523,7 +524,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ListRulesFromJSON(jsonValue));
     }
@@ -532,8 +533,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Get List Rules by Member ID
      * Get List Rules by Member ID
      */
-    async getListRulesByMemberId(requestParameters: GetListRulesByMemberIdRequest): Promise<ListRules> {
-        const response = await this.getListRulesByMemberIdRaw(requestParameters);
+    async getListRulesByMemberId(requestParameters: GetListRulesByMemberIdRequest, initOverrides?: RequestInit): Promise<ListRules> {
+        const response = await this.getListRulesByMemberIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -541,12 +542,12 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Get details for a member
      * Get Member
      */
-    async getMemberByIdRaw(requestParameters: GetMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>> {
+    async getMemberByIdRaw(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling getMemberById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -556,7 +557,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -567,7 +568,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MemberDataFromJSON(jsonValue));
     }
@@ -576,8 +577,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Get details for a member
      * Get Member
      */
-    async getMemberById(requestParameters: GetMemberByIdRequest): Promise<MemberData> {
-        const response = await this.getMemberByIdRaw(requestParameters);
+    async getMemberById(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData> {
+        const response = await this.getMemberByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -585,12 +586,12 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * List contacts for this member
      * List member\'s contacts
      */
-    async getMemberContactsByIdRaw(requestParameters: GetMemberContactsByIdRequest): Promise<runtime.ApiResponse<Contacts>> {
+    async getMemberContactsByIdRaw(requestParameters: GetMemberContactsByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Contacts>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling getMemberContactsById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
             queryParameters['sort'] = requestParameters.sort;
@@ -612,7 +613,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -623,7 +624,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContactsFromJSON(jsonValue));
     }
@@ -632,8 +633,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * List contacts for this member
      * List member\'s contacts
      */
-    async getMemberContactsById(requestParameters: GetMemberContactsByIdRequest): Promise<Contacts> {
-        const response = await this.getMemberContactsByIdRaw(requestParameters);
+    async getMemberContactsById(requestParameters: GetMemberContactsByIdRequest, initOverrides?: RequestInit): Promise<Contacts> {
+        const response = await this.getMemberContactsByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -641,12 +642,12 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * List roles for this member
      * List member\'s roles
      */
-    async getMemberRolesByIdRaw(requestParameters: GetMemberRolesByIdRequest): Promise<runtime.ApiResponse<MemberRoles>> {
+    async getMemberRolesByIdRaw(requestParameters: GetMemberRolesByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberRoles>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling getMemberRolesById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
             queryParameters['sort'] = requestParameters.sort;
@@ -668,7 +669,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -679,7 +680,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MemberRolesFromJSON(jsonValue));
     }
@@ -688,8 +689,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * List roles for this member
      * List member\'s roles
      */
-    async getMemberRolesById(requestParameters: GetMemberRolesByIdRequest): Promise<MemberRoles> {
-        const response = await this.getMemberRolesByIdRaw(requestParameters);
+    async getMemberRolesById(requestParameters: GetMemberRolesByIdRequest, initOverrides?: RequestInit): Promise<MemberRoles> {
+        const response = await this.getMemberRolesByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -697,8 +698,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * List all members
      * List all members
      */
-    async getMembersRaw(requestParameters: GetMembersRequest): Promise<runtime.ApiResponse<Members>> {
-        const queryParameters: runtime.HTTPQuery = {};
+    async getMembersRaw(requestParameters: GetMembersRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Members>> {
+        const queryParameters: any = {};
 
         if (requestParameters.query !== undefined) {
             queryParameters['query'] = requestParameters.query;
@@ -724,7 +725,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -735,7 +736,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MembersFromJSON(jsonValue));
     }
@@ -744,8 +745,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * List all members
      * List all members
      */
-    async getMembers(requestParameters: GetMembersRequest): Promise<Members> {
-        const response = await this.getMembersRaw(requestParameters);
+    async getMembers(requestParameters: GetMembersRequest, initOverrides?: RequestInit): Promise<Members> {
+        const response = await this.getMembersRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -753,7 +754,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Merge member
      * Merge member
      */
-    async mergeMemberRaw(requestParameters: MergeMemberRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
+    async mergeMemberRaw(requestParameters: MergeMemberRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ModelApiResponse>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling mergeMember.');
         }
@@ -762,7 +763,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             throw new runtime.RequiredError('mergeMemberId','Required parameter requestParameters.mergeMemberId was null or undefined when calling mergeMember.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -772,7 +773,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -783,7 +784,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
     }
@@ -792,8 +793,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Merge member
      * Merge member
      */
-    async mergeMember(requestParameters: MergeMemberRequest): Promise<ModelApiResponse> {
-        const response = await this.mergeMemberRaw(requestParameters);
+    async mergeMember(requestParameters: MergeMemberRequest, initOverrides?: RequestInit): Promise<ModelApiResponse> {
+        const response = await this.mergeMemberRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -801,12 +802,12 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Partially update member
      * Partial Update Member
      */
-    async patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>> {
+    async patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling patchMemberById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -818,7 +819,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -830,7 +831,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headers: headerParameters,
             query: queryParameters,
             body: MemberInputToJSON(requestParameters.memberInput),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MemberDataFromJSON(jsonValue));
     }
@@ -839,8 +840,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Partially update member
      * Partial Update Member
      */
-    async patchMemberById(requestParameters: PatchMemberByIdRequest): Promise<MemberData> {
-        const response = await this.patchMemberByIdRaw(requestParameters);
+    async patchMemberById(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData> {
+        const response = await this.patchMemberByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -848,7 +849,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Remove Member Role
      * Remove Member Role
      */
-    async removeMemberRoleByIdRaw(requestParameters: RemoveMemberRoleByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
+    async removeMemberRoleByIdRaw(requestParameters: RemoveMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ModelApiResponse>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling removeMemberRoleById.');
         }
@@ -857,7 +858,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling removeMemberRoleById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -867,7 +868,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -878,7 +879,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
     }
@@ -887,8 +888,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Remove Member Role
      * Remove Member Role
      */
-    async removeMemberRoleById(requestParameters: RemoveMemberRoleByIdRequest): Promise<ModelApiResponse> {
-        const response = await this.removeMemberRoleByIdRaw(requestParameters);
+    async removeMemberRoleById(requestParameters: RemoveMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<ModelApiResponse> {
+        const response = await this.removeMemberRoleByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -896,12 +897,12 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Update member
      * Update Member
      */
-    async updateMemberByIdRaw(requestParameters: UpdateMemberByIdRequest): Promise<runtime.ApiResponse<MemberData>> {
+    async updateMemberByIdRaw(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling updateMemberById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -913,7 +914,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -925,7 +926,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             headers: headerParameters,
             query: queryParameters,
             body: MemberInputToJSON(requestParameters.memberInput),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MemberDataFromJSON(jsonValue));
     }
@@ -934,8 +935,8 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Update member
      * Update Member
      */
-    async updateMemberById(requestParameters: UpdateMemberByIdRequest): Promise<MemberData> {
-        const response = await this.updateMemberByIdRaw(requestParameters);
+    async updateMemberById(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData> {
+        const response = await this.updateMemberByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

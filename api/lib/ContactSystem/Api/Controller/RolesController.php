@@ -2,7 +2,7 @@
 
 /**
  * RolesController
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Controller
@@ -67,8 +67,7 @@ class RolesController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -97,6 +96,7 @@ class RolesController extends Controller
 
         // Deserialize the input values that needs it
         try {
+            $inputFormat = $request->getMimeType($request->getContentType());
             $roleInput = $this->deserialize($roleInput, 'OpenAPI\Server\Model\RoleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -126,7 +126,7 @@ class RolesController extends Controller
             $result = $handler->createRole($roleInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -216,7 +216,7 @@ class RolesController extends Controller
             $result = $handler->deleteRoleById($roleId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -338,7 +338,7 @@ class RolesController extends Controller
             $result = $handler->getListRulesByRoleId($roleId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -460,7 +460,7 @@ class RolesController extends Controller
             $result = $handler->getMembersByRoleId($roleId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'Default response';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -550,7 +550,7 @@ class RolesController extends Controller
             $result = $handler->getRoleById($roleId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -664,7 +664,7 @@ class RolesController extends Controller
             $result = $handler->getRoles($query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -704,8 +704,7 @@ class RolesController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -735,6 +734,7 @@ class RolesController extends Controller
         // Deserialize the input values that needs it
         try {
             $roleId = $this->deserialize($roleId, 'int', 'string');
+            $inputFormat = $request->getMimeType($request->getContentType());
             $roleInput = $this->deserialize($roleInput, 'OpenAPI\Server\Model\RoleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -771,7 +771,7 @@ class RolesController extends Controller
             $result = $handler->updateRoleById($roleId, $roleInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {

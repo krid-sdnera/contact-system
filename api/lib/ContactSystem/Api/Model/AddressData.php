@@ -2,7 +2,7 @@
 /**
  * AddressData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -115,7 +115,7 @@ class AddressData
      *
      * @return $this
      */
-    public function setStreet1(string $street1): string
+    public function setStreet1(string $street1)
     {
         $this->street1 = $street1;
 
@@ -139,7 +139,7 @@ class AddressData
      *
      * @return $this
      */
-    public function setStreet2(string $street2 = null): ?string
+    public function setStreet2(string $street2 = null)
     {
         $this->street2 = $street2;
 
@@ -163,7 +163,7 @@ class AddressData
      *
      * @return $this
      */
-    public function setCity(string $city): string
+    public function setCity(string $city)
     {
         $this->city = $city;
 
@@ -187,7 +187,7 @@ class AddressData
      *
      * @return $this
      */
-    public function setState(string $state): string
+    public function setState(string $state)
     {
         $this->state = $state;
 
@@ -211,7 +211,7 @@ class AddressData
      *
      * @return $this
      */
-    public function setPostcode(string $postcode): string
+    public function setPostcode(string $postcode)
     {
         $this->postcode = $postcode;
 

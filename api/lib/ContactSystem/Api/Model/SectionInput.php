@@ -2,7 +2,7 @@
 /**
  * SectionInput
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -95,7 +95,7 @@ class SectionInput
      *
      * @return $this
      */
-    public function setName(string $name): string
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -119,7 +119,7 @@ class SectionInput
      *
      * @return $this
      */
-    public function setExternalId(string $externalId = null): ?string
+    public function setExternalId(string $externalId = null)
     {
         $this->externalId = $externalId;
 
@@ -143,7 +143,7 @@ class SectionInput
      *
      * @return $this
      */
-    public function setScoutGroupId(int $scoutGroupId): int
+    public function setScoutGroupId(int $scoutGroupId)
     {
         $this->scoutGroupId = $scoutGroupId;
 

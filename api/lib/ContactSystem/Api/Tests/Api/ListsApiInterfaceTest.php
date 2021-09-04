@@ -1,7 +1,7 @@
 <?php
 /**
  * ListsApiInterfaceTest
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Tests\Api
@@ -85,7 +85,7 @@ class ListsApiInterfaceTest extends WebTestCase
 
         $path = '/lists';
 
-        $crawler = $client->request('POST', $path);
+        $crawler = $client->request('POST', $path, [], [], ['CONTENT_TYPE' => 'application/json']);
     }
 
     /**
@@ -103,7 +103,7 @@ class ListsApiInterfaceTest extends WebTestCase
         $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
-        $crawler = $client->request('POST', $path);
+        $crawler = $client->request('POST', $path, [], [], ['CONTENT_TYPE' => 'application/json']);
     }
 
     /**
@@ -268,7 +268,7 @@ class ListsApiInterfaceTest extends WebTestCase
         $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
-        $crawler = $client->request('PUT', $path);
+        $crawler = $client->request('PUT', $path, [], [], ['CONTENT_TYPE' => 'application/json']);
     }
 
     /**
@@ -289,7 +289,7 @@ class ListsApiInterfaceTest extends WebTestCase
         $data = $this->genTestData('\d+');
         $path = str_replace($pattern, $data, $path);
 
-        $crawler = $client->request('PUT', $path);
+        $crawler = $client->request('PUT', $path, [], [], ['CONTENT_TYPE' => 'application/json']);
     }
 
     protected function genTestData($regexp)

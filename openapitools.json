@@ -1,0 +1,36 @@
+{
+  "$schema": "node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "5.2.1",
+    "generators": {
+      "server-php": {
+        "generatorName": "php-symfony",
+        "glob": "common/contact-system-api.yaml",
+        "output": "api/lib/ContactSystem/Api",
+        "gitUserId": "contact-system",
+        "gitRepoId": "api",
+        "additional-properties": {
+          "phpLegacySupport": false,
+          "composerProjectName": "contact-system",
+          "composerVendorName": "api"
+        }
+      },
+      "client-ts": {
+        "generatorName": "typescript-fetch",
+        "glob": "common/contact-system-api.yaml",
+        "output": "ui/lib/ContactSystem/Client",
+        "gitUserId": "contact-system",
+        "gitRepoId": "ui",
+        "additional-properties": {
+          "npmRepository": "contact-system",
+          "npmName": "ui",
+          "supportsES6": true,
+          "typescriptThreePlus": true,
+          "withInterfaces": true,
+          "legacyDiscriminatorBehavior": false
+        }
+      }
+    }
+  }
+}

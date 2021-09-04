@@ -52,10 +52,10 @@ export interface Contacts {
     pageSize: number;
     /**
      * Array containg the list
-     * @type {Array<ContactData>}
+     * @type {Set<ContactData>}
      * @memberof Contacts
      */
-    contacts: Array<ContactData>;
+    contacts: Set<ContactData>;
 }
 
 export function ContactsFromJSON(json: any): Contacts {
@@ -72,7 +72,7 @@ export function ContactsFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'totalPages': json['totalPages'],
         'page': json['page'],
         'pageSize': json['pageSize'],
-        'contacts': ((json['contacts'] as Array<any>).map(ContactDataFromJSON)),
+        'contacts': (new Set((json['contacts'] as Array<any>).map(ContactDataFromJSON))),
     };
 }
 
@@ -89,7 +89,7 @@ export function ContactsToJSON(value?: Contacts | null): any {
         'totalPages': value.totalPages,
         'page': value.page,
         'pageSize': value.pageSize,
-        'contacts': ((value.contacts as Array<any>).map(ContactDataToJSON)),
+        'contacts': (Array.from(value.contacts as Set<any>).map(ContactDataToJSON)),
     };
 }
 

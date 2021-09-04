@@ -2,7 +2,7 @@
 /**
  * MemberData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -261,7 +261,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setId(int $id): int
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -285,7 +285,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setState(string $state = null): ?string
+    public function setState(string $state = null)
     {
         $this->state = $state;
 
@@ -309,7 +309,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setManagementState(string $managementState = null): ?string
+    public function setManagementState(string $managementState = null)
     {
         $this->managementState = $managementState;
 
@@ -333,7 +333,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setFirstname(string $firstname): string
+    public function setFirstname(string $firstname)
     {
         $this->firstname = $firstname;
 
@@ -357,7 +357,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setLastname(string $lastname): string
+    public function setLastname(string $lastname)
     {
         $this->lastname = $lastname;
 
@@ -381,7 +381,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setNickname(string $nickname = null): ?string
+    public function setNickname(string $nickname = null)
     {
         $this->nickname = $nickname;
 
@@ -405,7 +405,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setAddress(AddressData $address = null): ?AddressData
+    public function setAddress(AddressData $address = null)
     {
         $this->address = $address;
 
@@ -429,7 +429,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setDateOfBirth(\DateTime $dateOfBirth = null): ?\DateTime
+    public function setDateOfBirth(\DateTime $dateOfBirth = null)
     {
         $this->dateOfBirth = $dateOfBirth;
 
@@ -453,7 +453,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setMembershipNumber(string $membershipNumber = null): ?string
+    public function setMembershipNumber(string $membershipNumber = null)
     {
         $this->membershipNumber = $membershipNumber;
 
@@ -477,7 +477,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setMembershipUpdateLink(string $membershipUpdateLink = null): ?string
+    public function setMembershipUpdateLink(string $membershipUpdateLink = null)
     {
         $this->membershipUpdateLink = $membershipUpdateLink;
 
@@ -501,7 +501,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setAutoUpgradeEnabled(bool $autoUpgradeEnabled = null): ?bool
+    public function setAutoUpgradeEnabled(bool $autoUpgradeEnabled = null)
     {
         $this->autoUpgradeEnabled = $autoUpgradeEnabled;
 
@@ -525,7 +525,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setEmail(string $email = null): ?string
+    public function setEmail(string $email = null)
     {
         $this->email = $email;
 
@@ -549,7 +549,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setPhoneHome(string $phoneHome = null): ?string
+    public function setPhoneHome(string $phoneHome = null)
     {
         $this->phoneHome = $phoneHome;
 
@@ -573,7 +573,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setPhoneMobile(string $phoneMobile = null): ?string
+    public function setPhoneMobile(string $phoneMobile = null)
     {
         $this->phoneMobile = $phoneMobile;
 
@@ -597,7 +597,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setPhoneWork(string $phoneWork = null): ?string
+    public function setPhoneWork(string $phoneWork = null)
     {
         $this->phoneWork = $phoneWork;
 
@@ -621,7 +621,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setGender(string $gender = null): ?string
+    public function setGender(string $gender = null)
     {
         $this->gender = $gender;
 
@@ -645,7 +645,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setSchoolName(string $schoolName = null): ?string
+    public function setSchoolName(string $schoolName = null)
     {
         $this->schoolName = $schoolName;
 
@@ -669,7 +669,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setSchoolYearLevel(string $schoolYearLevel = null): ?string
+    public function setSchoolYearLevel(string $schoolYearLevel = null)
     {
         $this->schoolYearLevel = $schoolYearLevel;
 
@@ -693,7 +693,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setExpiry(string $expiry = null): ?string
+    public function setExpiry(string $expiry = null)
     {
         $this->expiry = $expiry;
 
@@ -717,7 +717,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setOverrides(MemberOverrideData $overrides = null): ?MemberOverrideData
+    public function setOverrides(MemberOverrideData $overrides = null)
     {
         $this->overrides = $overrides;
 
@@ -741,7 +741,7 @@ class MemberData
      *
      * @return $this
      */
-    public function setMetaInvite(MemberMetaInviteData $metaInvite = null): ?MemberMetaInviteData
+    public function setMetaInvite(MemberMetaInviteData $metaInvite = null)
     {
         $this->metaInvite = $metaInvite;
 

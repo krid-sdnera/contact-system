@@ -2,7 +2,7 @@
 
 /**
  * ScoutGroupsController
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Controller
@@ -67,8 +67,7 @@ class ScoutGroupsController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -97,6 +96,7 @@ class ScoutGroupsController extends Controller
 
         // Deserialize the input values that needs it
         try {
+            $inputFormat = $request->getMimeType($request->getContentType());
             $scoutGroupInput = $this->deserialize($scoutGroupInput, 'OpenAPI\Server\Model\ScoutGroupInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -126,7 +126,7 @@ class ScoutGroupsController extends Controller
             $result = $handler->createScoutGroup($scoutGroupInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -216,7 +216,7 @@ class ScoutGroupsController extends Controller
             $result = $handler->deleteScoutGroupById($scoutGroupId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -338,7 +338,7 @@ class ScoutGroupsController extends Controller
             $result = $handler->getListRulesByScoutGroupId($scoutGroupId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -428,7 +428,7 @@ class ScoutGroupsController extends Controller
             $result = $handler->getScoutGroupById($scoutGroupId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -518,7 +518,7 @@ class ScoutGroupsController extends Controller
             $result = $handler->getScoutGroupSectionsByScoutGroupId($scoutGroupId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -632,7 +632,7 @@ class ScoutGroupsController extends Controller
             $result = $handler->getScoutGroups($query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -672,8 +672,7 @@ class ScoutGroupsController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -703,6 +702,7 @@ class ScoutGroupsController extends Controller
         // Deserialize the input values that needs it
         try {
             $scoutGroupId = $this->deserialize($scoutGroupId, 'int', 'string');
+            $inputFormat = $request->getMimeType($request->getContentType());
             $scoutGroupInput = $this->deserialize($scoutGroupInput, 'OpenAPI\Server\Model\ScoutGroupInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -739,7 +739,7 @@ class ScoutGroupsController extends Controller
             $result = $handler->updateScoutGroupById($scoutGroupId, $scoutGroupInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {

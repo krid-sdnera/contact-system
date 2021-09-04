@@ -2,7 +2,7 @@
 /**
  * MemberRoleData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -92,6 +92,7 @@ class MemberRoleData
      * @var OpenAPI\Server\Model\RoleData
      * @SerializedName("role")
      * @Assert\NotNull()
+     * @Assert\Valid()
      * @Assert\Type("OpenAPI\Server\Model\RoleData")
      * @Type("OpenAPI\Server\Model\RoleData")
      */
@@ -128,7 +129,7 @@ class MemberRoleData
      *
      * @return $this
      */
-    public function setId(string $id): string
+    public function setId(string $id)
     {
         $this->id = $id;
 
@@ -152,7 +153,7 @@ class MemberRoleData
      *
      * @return $this
      */
-    public function setState(string $state): string
+    public function setState(string $state)
     {
         $this->state = $state;
 
@@ -176,7 +177,7 @@ class MemberRoleData
      *
      * @return $this
      */
-    public function setManagementState(string $managementState): string
+    public function setManagementState(string $managementState)
     {
         $this->managementState = $managementState;
 
@@ -200,7 +201,7 @@ class MemberRoleData
      *
      * @return $this
      */
-    public function setExpiry(string $expiry = null): ?string
+    public function setExpiry(string $expiry = null)
     {
         $this->expiry = $expiry;
 
@@ -224,7 +225,7 @@ class MemberRoleData
      *
      * @return $this
      */
-    public function setMemberId(int $memberId): int
+    public function setMemberId(int $memberId)
     {
         $this->memberId = $memberId;
 
@@ -248,7 +249,7 @@ class MemberRoleData
      *
      * @return $this
      */
-    public function setRole(RoleData $role): RoleData
+    public function setRole(RoleData $role)
     {
         $this->role = $role;
 

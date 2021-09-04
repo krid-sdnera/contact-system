@@ -128,6 +128,15 @@ export interface ContactInput {
     overrides?: ContactOverrideData;
 }
 
+/**
+* @export
+* @enum {string}
+*/
+export enum ContactInputStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
+}
+
 export function ContactInputFromJSON(json: any): ContactInput {
     return ContactInputFromJSONTyped(json, false);
 }
@@ -183,15 +192,6 @@ export function ContactInputToJSON(value?: ContactInput | null): any {
         'expiry': value.expiry,
         'overrides': ContactOverrideDataToJSON(value.overrides),
     };
-}
-
-/**
-* @export
-* @enum {string}
-*/
-export enum ContactInputStateEnum {
-    Enabled = 'enabled',
-    Disabled = 'disabled'
 }
 
 

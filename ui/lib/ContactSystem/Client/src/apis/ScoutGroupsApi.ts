@@ -73,6 +73,7 @@ export interface UpdateScoutGroupByIdRequest {
 
 /**
  * ScoutGroupsApi - interface
+ * 
  * @export
  * @interface ScoutGroupsApiInterface
  */
@@ -85,13 +86,13 @@ export interface ScoutGroupsApiInterface {
      * @throws {RequiredError}
      * @memberof ScoutGroupsApiInterface
      */
-    createScoutGroupRaw(requestParameters: CreateScoutGroupRequest): Promise<runtime.ApiResponse<ScoutGroupData>>;
+    createScoutGroupRaw(requestParameters: CreateScoutGroupRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ScoutGroupData>>;
 
     /**
      * Create Group
      * Create Group
      */
-    createScoutGroup(requestParameters: CreateScoutGroupRequest): Promise<ScoutGroupData>;
+    createScoutGroup(requestParameters: CreateScoutGroupRequest, initOverrides?: RequestInit): Promise<ScoutGroupData>;
 
     /**
      * Delete Group
@@ -101,13 +102,13 @@ export interface ScoutGroupsApiInterface {
      * @throws {RequiredError}
      * @memberof ScoutGroupsApiInterface
      */
-    deleteScoutGroupByIdRaw(requestParameters: DeleteScoutGroupByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
+    deleteScoutGroupByIdRaw(requestParameters: DeleteScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ModelApiResponse>>;
 
     /**
      * Delete Group
      * Delete Group
      */
-    deleteScoutGroupById(requestParameters: DeleteScoutGroupByIdRequest): Promise<ModelApiResponse>;
+    deleteScoutGroupById(requestParameters: DeleteScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<ModelApiResponse>;
 
     /**
      * Get List Rules By Scout Group ID
@@ -121,13 +122,13 @@ export interface ScoutGroupsApiInterface {
      * @throws {RequiredError}
      * @memberof ScoutGroupsApiInterface
      */
-    getListRulesByScoutGroupIdRaw(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<runtime.ApiResponse<ListRules>>;
+    getListRulesByScoutGroupIdRaw(requestParameters: GetListRulesByScoutGroupIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ListRules>>;
 
     /**
      * Get List Rules By Scout Group ID
      * Get List Rules By Scout Group ID
      */
-    getListRulesByScoutGroupId(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<ListRules>;
+    getListRulesByScoutGroupId(requestParameters: GetListRulesByScoutGroupIdRequest, initOverrides?: RequestInit): Promise<ListRules>;
 
     /**
      * Get Group
@@ -137,13 +138,13 @@ export interface ScoutGroupsApiInterface {
      * @throws {RequiredError}
      * @memberof ScoutGroupsApiInterface
      */
-    getScoutGroupByIdRaw(requestParameters: GetScoutGroupByIdRequest): Promise<runtime.ApiResponse<ScoutGroupData>>;
+    getScoutGroupByIdRaw(requestParameters: GetScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ScoutGroupData>>;
 
     /**
      * Get Group
      * Get Group
      */
-    getScoutGroupById(requestParameters: GetScoutGroupByIdRequest): Promise<ScoutGroupData>;
+    getScoutGroupById(requestParameters: GetScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<ScoutGroupData>;
 
     /**
      * Get Scout Group Sections By Scout Group ID
@@ -153,13 +154,13 @@ export interface ScoutGroupsApiInterface {
      * @throws {RequiredError}
      * @memberof ScoutGroupsApiInterface
      */
-    getScoutGroupSectionsByScoutGroupIdRaw(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest): Promise<runtime.ApiResponse<Sections>>;
+    getScoutGroupSectionsByScoutGroupIdRaw(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Sections>>;
 
     /**
      * Get Scout Group Sections By Scout Group ID
      * Get Scout Group Sections By Scout Group ID
      */
-    getScoutGroupSectionsByScoutGroupId(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest): Promise<Sections>;
+    getScoutGroupSectionsByScoutGroupId(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest, initOverrides?: RequestInit): Promise<Sections>;
 
     /**
      * Get Groups
@@ -172,13 +173,13 @@ export interface ScoutGroupsApiInterface {
      * @throws {RequiredError}
      * @memberof ScoutGroupsApiInterface
      */
-    getScoutGroupsRaw(requestParameters: GetScoutGroupsRequest): Promise<runtime.ApiResponse<ScoutGroups>>;
+    getScoutGroupsRaw(requestParameters: GetScoutGroupsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ScoutGroups>>;
 
     /**
      * Get Groups
      * Get Groups
      */
-    getScoutGroups(requestParameters: GetScoutGroupsRequest): Promise<ScoutGroups>;
+    getScoutGroups(requestParameters: GetScoutGroupsRequest, initOverrides?: RequestInit): Promise<ScoutGroups>;
 
     /**
      * Update Group
@@ -189,18 +190,18 @@ export interface ScoutGroupsApiInterface {
      * @throws {RequiredError}
      * @memberof ScoutGroupsApiInterface
      */
-    updateScoutGroupByIdRaw(requestParameters: UpdateScoutGroupByIdRequest): Promise<runtime.ApiResponse<ScoutGroupData>>;
+    updateScoutGroupByIdRaw(requestParameters: UpdateScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ScoutGroupData>>;
 
     /**
      * Update Group
      * Update Group
      */
-    updateScoutGroupById(requestParameters: UpdateScoutGroupByIdRequest): Promise<ScoutGroupData>;
+    updateScoutGroupById(requestParameters: UpdateScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<ScoutGroupData>;
 
 }
 
 /**
- * no description
+ * 
  */
 export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInterface {
 
@@ -208,8 +209,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Create Group
      * Create Group
      */
-    async createScoutGroupRaw(requestParameters: CreateScoutGroupRequest): Promise<runtime.ApiResponse<ScoutGroupData>> {
-        const queryParameters: runtime.HTTPQuery = {};
+    async createScoutGroupRaw(requestParameters: CreateScoutGroupRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ScoutGroupData>> {
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -221,7 +222,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -233,7 +234,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             headers: headerParameters,
             query: queryParameters,
             body: ScoutGroupInputToJSON(requestParameters.scoutGroupInput),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ScoutGroupDataFromJSON(jsonValue));
     }
@@ -242,8 +243,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Create Group
      * Create Group
      */
-    async createScoutGroup(requestParameters: CreateScoutGroupRequest): Promise<ScoutGroupData> {
-        const response = await this.createScoutGroupRaw(requestParameters);
+    async createScoutGroup(requestParameters: CreateScoutGroupRequest, initOverrides?: RequestInit): Promise<ScoutGroupData> {
+        const response = await this.createScoutGroupRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -251,12 +252,12 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Delete Group
      * Delete Group
      */
-    async deleteScoutGroupByIdRaw(requestParameters: DeleteScoutGroupByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
+    async deleteScoutGroupByIdRaw(requestParameters: DeleteScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ModelApiResponse>> {
         if (requestParameters.scoutGroupId === null || requestParameters.scoutGroupId === undefined) {
             throw new runtime.RequiredError('scoutGroupId','Required parameter requestParameters.scoutGroupId was null or undefined when calling deleteScoutGroupById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -266,7 +267,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -277,7 +278,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
     }
@@ -286,8 +287,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Delete Group
      * Delete Group
      */
-    async deleteScoutGroupById(requestParameters: DeleteScoutGroupByIdRequest): Promise<ModelApiResponse> {
-        const response = await this.deleteScoutGroupByIdRaw(requestParameters);
+    async deleteScoutGroupById(requestParameters: DeleteScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<ModelApiResponse> {
+        const response = await this.deleteScoutGroupByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -295,12 +296,12 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Get List Rules By Scout Group ID
      * Get List Rules By Scout Group ID
      */
-    async getListRulesByScoutGroupIdRaw(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<runtime.ApiResponse<ListRules>> {
+    async getListRulesByScoutGroupIdRaw(requestParameters: GetListRulesByScoutGroupIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ListRules>> {
         if (requestParameters.scoutGroupId === null || requestParameters.scoutGroupId === undefined) {
             throw new runtime.RequiredError('scoutGroupId','Required parameter requestParameters.scoutGroupId was null or undefined when calling getListRulesByScoutGroupId.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         if (requestParameters.query !== undefined) {
             queryParameters['query'] = requestParameters.query;
@@ -326,7 +327,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -337,7 +338,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ListRulesFromJSON(jsonValue));
     }
@@ -346,8 +347,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Get List Rules By Scout Group ID
      * Get List Rules By Scout Group ID
      */
-    async getListRulesByScoutGroupId(requestParameters: GetListRulesByScoutGroupIdRequest): Promise<ListRules> {
-        const response = await this.getListRulesByScoutGroupIdRaw(requestParameters);
+    async getListRulesByScoutGroupId(requestParameters: GetListRulesByScoutGroupIdRequest, initOverrides?: RequestInit): Promise<ListRules> {
+        const response = await this.getListRulesByScoutGroupIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -355,12 +356,12 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Get Group
      * Get Group
      */
-    async getScoutGroupByIdRaw(requestParameters: GetScoutGroupByIdRequest): Promise<runtime.ApiResponse<ScoutGroupData>> {
+    async getScoutGroupByIdRaw(requestParameters: GetScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ScoutGroupData>> {
         if (requestParameters.scoutGroupId === null || requestParameters.scoutGroupId === undefined) {
             throw new runtime.RequiredError('scoutGroupId','Required parameter requestParameters.scoutGroupId was null or undefined when calling getScoutGroupById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -370,7 +371,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -381,7 +382,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ScoutGroupDataFromJSON(jsonValue));
     }
@@ -390,8 +391,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Get Group
      * Get Group
      */
-    async getScoutGroupById(requestParameters: GetScoutGroupByIdRequest): Promise<ScoutGroupData> {
-        const response = await this.getScoutGroupByIdRaw(requestParameters);
+    async getScoutGroupById(requestParameters: GetScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<ScoutGroupData> {
+        const response = await this.getScoutGroupByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -399,12 +400,12 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Get Scout Group Sections By Scout Group ID
      * Get Scout Group Sections By Scout Group ID
      */
-    async getScoutGroupSectionsByScoutGroupIdRaw(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest): Promise<runtime.ApiResponse<Sections>> {
+    async getScoutGroupSectionsByScoutGroupIdRaw(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Sections>> {
         if (requestParameters.scoutGroupId === null || requestParameters.scoutGroupId === undefined) {
             throw new runtime.RequiredError('scoutGroupId','Required parameter requestParameters.scoutGroupId was null or undefined when calling getScoutGroupSectionsByScoutGroupId.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -414,7 +415,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -425,7 +426,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SectionsFromJSON(jsonValue));
     }
@@ -434,8 +435,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Get Scout Group Sections By Scout Group ID
      * Get Scout Group Sections By Scout Group ID
      */
-    async getScoutGroupSectionsByScoutGroupId(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest): Promise<Sections> {
-        const response = await this.getScoutGroupSectionsByScoutGroupIdRaw(requestParameters);
+    async getScoutGroupSectionsByScoutGroupId(requestParameters: GetScoutGroupSectionsByScoutGroupIdRequest, initOverrides?: RequestInit): Promise<Sections> {
+        const response = await this.getScoutGroupSectionsByScoutGroupIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -443,8 +444,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Get Groups
      * Get Groups
      */
-    async getScoutGroupsRaw(requestParameters: GetScoutGroupsRequest): Promise<runtime.ApiResponse<ScoutGroups>> {
-        const queryParameters: runtime.HTTPQuery = {};
+    async getScoutGroupsRaw(requestParameters: GetScoutGroupsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ScoutGroups>> {
+        const queryParameters: any = {};
 
         if (requestParameters.query !== undefined) {
             queryParameters['query'] = requestParameters.query;
@@ -470,7 +471,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -481,7 +482,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ScoutGroupsFromJSON(jsonValue));
     }
@@ -490,8 +491,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Get Groups
      * Get Groups
      */
-    async getScoutGroups(requestParameters: GetScoutGroupsRequest): Promise<ScoutGroups> {
-        const response = await this.getScoutGroupsRaw(requestParameters);
+    async getScoutGroups(requestParameters: GetScoutGroupsRequest, initOverrides?: RequestInit): Promise<ScoutGroups> {
+        const response = await this.getScoutGroupsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -499,12 +500,12 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Update Group
      * Update Group
      */
-    async updateScoutGroupByIdRaw(requestParameters: UpdateScoutGroupByIdRequest): Promise<runtime.ApiResponse<ScoutGroupData>> {
+    async updateScoutGroupByIdRaw(requestParameters: UpdateScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ScoutGroupData>> {
         if (requestParameters.scoutGroupId === null || requestParameters.scoutGroupId === undefined) {
             throw new runtime.RequiredError('scoutGroupId','Required parameter requestParameters.scoutGroupId was null or undefined when calling updateScoutGroupById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -516,7 +517,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -528,7 +529,7 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
             headers: headerParameters,
             query: queryParameters,
             body: ScoutGroupInputToJSON(requestParameters.scoutGroupInput),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ScoutGroupDataFromJSON(jsonValue));
     }
@@ -537,8 +538,8 @@ export class ScoutGroupsApi extends runtime.BaseAPI implements ScoutGroupsApiInt
      * Update Group
      * Update Group
      */
-    async updateScoutGroupById(requestParameters: UpdateScoutGroupByIdRequest): Promise<ScoutGroupData> {
-        const response = await this.updateScoutGroupByIdRaw(requestParameters);
+    async updateScoutGroupById(requestParameters: UpdateScoutGroupByIdRequest, initOverrides?: RequestInit): Promise<ScoutGroupData> {
+        const response = await this.updateScoutGroupByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

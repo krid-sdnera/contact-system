@@ -2,7 +2,7 @@
 
 /**
  * ListsController
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Controller
@@ -69,8 +69,7 @@ class ListsController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -99,6 +98,7 @@ class ListsController extends Controller
 
         // Deserialize the input values that needs it
         try {
+            $inputFormat = $request->getMimeType($request->getContentType());
             $listInput = $this->deserialize($listInput, 'OpenAPI\Server\Model\ListInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -128,7 +128,7 @@ class ListsController extends Controller
             $result = $handler->createList($listInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -168,8 +168,7 @@ class ListsController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -199,6 +198,7 @@ class ListsController extends Controller
         // Deserialize the input values that needs it
         try {
             $listId = $this->deserialize($listId, 'int', 'string');
+            $inputFormat = $request->getMimeType($request->getContentType());
             $listRuleInput = $this->deserialize($listRuleInput, 'OpenAPI\Server\Model\ListRuleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -235,7 +235,7 @@ class ListsController extends Controller
             $result = $handler->createListRuleByListId($listId, $listRuleInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -325,7 +325,7 @@ class ListsController extends Controller
             $result = $handler->deleteListById($listId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -423,7 +423,7 @@ class ListsController extends Controller
             $result = $handler->deleteListRuleByListId($listId, $ruleId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -514,7 +514,7 @@ class ListsController extends Controller
             $result = $handler->getListByAddress($listAddress, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -604,7 +604,7 @@ class ListsController extends Controller
             $result = $handler->getListById($listId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -726,7 +726,7 @@ class ListsController extends Controller
             $result = $handler->getListRecipientsByListId($listId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -824,7 +824,7 @@ class ListsController extends Controller
             $result = $handler->getListRuleByListId($listId, $ruleId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -946,7 +946,7 @@ class ListsController extends Controller
             $result = $handler->getListRulesByListId($listId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -1060,7 +1060,7 @@ class ListsController extends Controller
             $result = $handler->getLists($query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -1100,8 +1100,7 @@ class ListsController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -1131,6 +1130,7 @@ class ListsController extends Controller
         // Deserialize the input values that needs it
         try {
             $listId = $this->deserialize($listId, 'int', 'string');
+            $inputFormat = $request->getMimeType($request->getContentType());
             $listInput = $this->deserialize($listInput, 'OpenAPI\Server\Model\ListInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -1167,7 +1167,7 @@ class ListsController extends Controller
             $result = $handler->updateListById($listId, $listInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -1207,8 +1207,7 @@ class ListsController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -1239,6 +1238,7 @@ class ListsController extends Controller
         try {
             $listId = $this->deserialize($listId, 'int', 'string');
             $ruleId = $this->deserialize($ruleId, 'int', 'string');
+            $inputFormat = $request->getMimeType($request->getContentType());
             $listRuleInput = $this->deserialize($listRuleInput, 'OpenAPI\Server\Model\ListRuleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -1282,7 +1282,7 @@ class ListsController extends Controller
             $result = $handler->updateListRuleByListId($listId, $ruleId, $listRuleInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {

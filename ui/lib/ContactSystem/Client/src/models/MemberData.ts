@@ -162,6 +162,22 @@ export interface MemberData {
     metaInvite?: MemberMetaInviteData | null;
 }
 
+/**
+* @export
+* @enum {string}
+*/
+export enum MemberDataStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
+}/**
+* @export
+* @enum {string}
+*/
+export enum MemberDataManagementStateEnum {
+    Managed = 'managed',
+    Unmanaged = 'unmanaged'
+}
+
 export function MemberDataFromJSON(json: any): MemberData {
     return MemberDataFromJSONTyped(json, false);
 }
@@ -227,23 +243,6 @@ export function MemberDataToJSON(value?: MemberData | null): any {
         'overrides': MemberOverrideDataToJSON(value.overrides),
         'metaInvite': MemberMetaInviteDataToJSON(value.metaInvite),
     };
-}
-
-/**
-* @export
-* @enum {string}
-*/
-export enum MemberDataStateEnum {
-    Enabled = 'enabled',
-    Disabled = 'disabled'
-}
-/**
-* @export
-* @enum {string}
-*/
-export enum MemberDataManagementStateEnum {
-    Managed = 'managed',
-    Unmanaged = 'unmanaged'
 }
 
 

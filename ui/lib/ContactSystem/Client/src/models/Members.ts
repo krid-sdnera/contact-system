@@ -52,10 +52,10 @@ export interface Members {
     pageSize: number;
     /**
      * Array containg the list
-     * @type {Array<MemberData>}
+     * @type {Set<MemberData>}
      * @memberof Members
      */
-    members: Array<MemberData>;
+    members: Set<MemberData>;
 }
 
 export function MembersFromJSON(json: any): Members {
@@ -72,7 +72,7 @@ export function MembersFromJSONTyped(json: any, ignoreDiscriminator: boolean): M
         'totalPages': json['totalPages'],
         'page': json['page'],
         'pageSize': json['pageSize'],
-        'members': ((json['members'] as Array<any>).map(MemberDataFromJSON)),
+        'members': (new Set((json['members'] as Array<any>).map(MemberDataFromJSON))),
     };
 }
 
@@ -89,7 +89,7 @@ export function MembersToJSON(value?: Members | null): any {
         'totalPages': value.totalPages,
         'page': value.page,
         'pageSize': value.pageSize,
-        'members': ((value.members as Array<any>).map(MemberDataToJSON)),
+        'members': (Array.from(value.members as Set<any>).map(MemberDataToJSON)),
     };
 }
 

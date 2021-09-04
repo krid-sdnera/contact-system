@@ -52,10 +52,10 @@ export interface ListRules {
     pageSize: number;
     /**
      * Array containg the list
-     * @type {Array<ListRuleData>}
+     * @type {Set<ListRuleData>}
      * @memberof ListRules
      */
-    rules: Array<ListRuleData>;
+    rules: Set<ListRuleData>;
 }
 
 export function ListRulesFromJSON(json: any): ListRules {
@@ -72,7 +72,7 @@ export function ListRulesFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'totalPages': json['totalPages'],
         'page': json['page'],
         'pageSize': json['pageSize'],
-        'rules': ((json['rules'] as Array<any>).map(ListRuleDataFromJSON)),
+        'rules': (new Set((json['rules'] as Array<any>).map(ListRuleDataFromJSON))),
     };
 }
 
@@ -89,7 +89,7 @@ export function ListRulesToJSON(value?: ListRules | null): any {
         'totalPages': value.totalPages,
         'page': value.page,
         'pageSize': value.pageSize,
-        'rules': ((value.rules as Array<any>).map(ListRuleDataToJSON)),
+        'rules': (Array.from(value.rules as Set<any>).map(ListRuleDataToJSON)),
     };
 }
 

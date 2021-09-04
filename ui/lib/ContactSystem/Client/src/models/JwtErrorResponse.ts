@@ -23,6 +23,7 @@ import {
 
 /**
  * @type JwtErrorResponse
+ * 
  * @export
  */
 export type JwtErrorResponse = JwtData | JwtErrorData;

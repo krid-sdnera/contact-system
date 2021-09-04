@@ -1,7 +1,7 @@
 <?php
 /**
  * AuthApiInterfaceTest
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Tests\Api
@@ -85,7 +85,7 @@ class AuthApiInterfaceTest extends WebTestCase
 
         $path = '/auth/token';
 
-        $crawler = $client->request('POST', $path);
+        $crawler = $client->request('POST', $path, [], [], ['CONTENT_TYPE' => 'application/json']);
     }
 
     /**

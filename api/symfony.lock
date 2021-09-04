@@ -26,6 +26,9 @@
     "doctrine/dbal": {
         "version": "v2.10.1"
     },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.0",
         "recipe": {
@@ -78,50 +81,11 @@
     "doctrine/reflection": {
         "version": "1.2.1"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.1"
+    },
     "gesdinet/jwt-refresh-token-bundle": {
         "version": "v0.9.1"
-    },
-    "hoa/compiler": {
-        "version": "3.17.08.08"
-    },
-    "hoa/consistency": {
-        "version": "1.17.05.02"
-    },
-    "hoa/event": {
-        "version": "1.17.01.13"
-    },
-    "hoa/exception": {
-        "version": "1.17.01.16"
-    },
-    "hoa/file": {
-        "version": "1.17.07.11"
-    },
-    "hoa/iterator": {
-        "version": "2.17.01.10"
-    },
-    "hoa/math": {
-        "version": "1.17.05.16"
-    },
-    "hoa/protocol": {
-        "version": "1.17.01.14"
-    },
-    "hoa/regex": {
-        "version": "1.17.01.13"
-    },
-    "hoa/stream": {
-        "version": "1.17.02.21"
-    },
-    "hoa/ustring": {
-        "version": "4.17.01.16"
-    },
-    "hoa/visitor": {
-        "version": "2.17.01.16"
-    },
-    "hoa/zformat": {
-        "version": "1.17.01.10"
-    },
-    "jdorn/sql-formatter": {
-        "version": "v1.2.17"
     },
     "jms/metadata": {
         "version": "2.1.0"
@@ -142,6 +106,12 @@
             "config/packages/jms_serializer.yaml",
             "config/packages/prod/jms_serializer.yaml"
         ]
+    },
+    "laminas/laminas-code": {
+        "version": "4.4.2"
+    },
+    "lcobucci/clock": {
+        "version": "2.0.0"
     },
     "lcobucci/jwt": {
         "version": "3.3.3"
@@ -178,6 +148,9 @@
     },
     "php": {
         "version": "7.4"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.5.5"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -230,6 +203,9 @@
     },
     "symfony/dependency-injection": {
         "version": "v5.0.7"
+    },
+    "symfony/deprecation-contracts": {
+        "version": "v2.4.0"
     },
     "symfony/doctrine-bridge": {
         "version": "v5.0.7"
@@ -334,11 +310,17 @@
     "symfony/polyfill-intl-idn": {
         "version": "v1.15.0"
     },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.23.0"
+    },
     "symfony/polyfill-mbstring": {
         "version": "v1.15.0"
     },
     "symfony/polyfill-php73": {
         "version": "v1.15.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.23.1"
     },
     "symfony/profiler-pack": {
         "version": "v1.0.4"
@@ -448,11 +430,5 @@
     },
     "twig/twig": {
         "version": "v3.0.3"
-    },
-    "zendframework/zend-code": {
-        "version": "3.4.1"
-    },
-    "zendframework/zend-eventmanager": {
-        "version": "3.2.1"
     }
 }

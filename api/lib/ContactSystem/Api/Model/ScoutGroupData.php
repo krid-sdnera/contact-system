@@ -2,7 +2,7 @@
 /**
  * ScoutGroupData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -95,7 +95,7 @@ class ScoutGroupData
      *
      * @return $this
      */
-    public function setId(int $id): int
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -119,7 +119,7 @@ class ScoutGroupData
      *
      * @return $this
      */
-    public function setName(string $name): string
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -143,7 +143,7 @@ class ScoutGroupData
      *
      * @return $this
      */
-    public function setExternalId(string $externalId = null): ?string
+    public function setExternalId(string $externalId = null)
     {
         $this->externalId = $externalId;
 

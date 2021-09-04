@@ -1,3 +1,5 @@
+/* tslint:disable */
+/* eslint-disable */
 export * from './AddressData';
 export * from './ContactData';
 export * from './ContactInput';
@@ -7,7 +9,6 @@ export * from './JwtData';
 export * from './JwtErrorData';
 export * from './JwtErrorResponse';
 export * from './JwtInput';
-export * from './JwtRefreshInput';
 export * from './ListData';
 export * from './ListInput';
 export * from './ListRuleData';

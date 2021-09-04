@@ -2,7 +2,7 @@
 /**
  * ContactInput
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -212,7 +212,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setState(string $state = null): ?string
+    public function setState(string $state = null)
     {
         $this->state = $state;
 
@@ -236,7 +236,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setFirstname(string $firstname = null): ?string
+    public function setFirstname(string $firstname = null)
     {
         $this->firstname = $firstname;
 
@@ -260,7 +260,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setNickname(string $nickname = null): ?string
+    public function setNickname(string $nickname = null)
     {
         $this->nickname = $nickname;
 
@@ -284,7 +284,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setLastname(string $lastname = null): ?string
+    public function setLastname(string $lastname = null)
     {
         $this->lastname = $lastname;
 
@@ -308,7 +308,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setAddress(AddressData $address = null): ?AddressData
+    public function setAddress(AddressData $address = null)
     {
         $this->address = $address;
 
@@ -332,7 +332,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setPhoneHome(string $phoneHome = null): ?string
+    public function setPhoneHome(string $phoneHome = null)
     {
         $this->phoneHome = $phoneHome;
 
@@ -356,7 +356,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setPhoneMobile(string $phoneMobile = null): ?string
+    public function setPhoneMobile(string $phoneMobile = null)
     {
         $this->phoneMobile = $phoneMobile;
 
@@ -380,7 +380,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setPhoneWork(string $phoneWork = null): ?string
+    public function setPhoneWork(string $phoneWork = null)
     {
         $this->phoneWork = $phoneWork;
 
@@ -404,7 +404,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setRelationship(string $relationship = null): ?string
+    public function setRelationship(string $relationship = null)
     {
         $this->relationship = $relationship;
 
@@ -428,7 +428,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setPrimaryContact(bool $primaryContact = null): ?bool
+    public function setPrimaryContact(bool $primaryContact = null)
     {
         $this->primaryContact = $primaryContact;
 
@@ -452,7 +452,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setEmail(string $email = null): ?string
+    public function setEmail(string $email = null)
     {
         $this->email = $email;
 
@@ -476,7 +476,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setOccupation(string $occupation = null): ?string
+    public function setOccupation(string $occupation = null)
     {
         $this->occupation = $occupation;
 
@@ -500,7 +500,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setMemberId(int $memberId = null): ?int
+    public function setMemberId(int $memberId = null)
     {
         $this->memberId = $memberId;
 
@@ -524,7 +524,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setParentId(int $parentId = null): ?int
+    public function setParentId(int $parentId = null)
     {
         $this->parentId = $parentId;
 
@@ -548,7 +548,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setExpiry(string $expiry = null): ?string
+    public function setExpiry(string $expiry = null)
     {
         $this->expiry = $expiry;
 
@@ -572,7 +572,7 @@ class ContactInput
      *
      * @return $this
      */
-    public function setOverrides(ContactOverrideData $overrides = null): ?ContactOverrideData
+    public function setOverrides(ContactOverrideData $overrides = null)
     {
         $this->overrides = $overrides;
 

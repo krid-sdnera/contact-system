@@ -52,10 +52,10 @@ export interface ScoutGroups {
     pageSize: number;
     /**
      * Array containg the list
-     * @type {Array<ScoutGroupData>}
+     * @type {Set<ScoutGroupData>}
      * @memberof ScoutGroups
      */
-    scoutGroups: Array<ScoutGroupData>;
+    scoutGroups: Set<ScoutGroupData>;
 }
 
 export function ScoutGroupsFromJSON(json: any): ScoutGroups {
@@ -72,7 +72,7 @@ export function ScoutGroupsFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'totalPages': json['totalPages'],
         'page': json['page'],
         'pageSize': json['pageSize'],
-        'scoutGroups': ((json['scoutGroups'] as Array<any>).map(ScoutGroupDataFromJSON)),
+        'scoutGroups': (new Set((json['scoutGroups'] as Array<any>).map(ScoutGroupDataFromJSON))),
     };
 }
 
@@ -89,7 +89,7 @@ export function ScoutGroupsToJSON(value?: ScoutGroups | null): any {
         'totalPages': value.totalPages,
         'page': value.page,
         'pageSize': value.pageSize,
-        'scoutGroups': ((value.scoutGroups as Array<any>).map(ScoutGroupDataToJSON)),
+        'scoutGroups': (Array.from(value.scoutGroups as Set<any>).map(ScoutGroupDataToJSON)),
     };
 }
 

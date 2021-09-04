@@ -64,6 +64,22 @@ export interface MemberRoleData {
     role: RoleData;
 }
 
+/**
+* @export
+* @enum {string}
+*/
+export enum MemberRoleDataStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
+}/**
+* @export
+* @enum {string}
+*/
+export enum MemberRoleDataManagementStateEnum {
+    Managed = 'managed',
+    Unmanaged = 'unmanaged'
+}
+
 export function MemberRoleDataFromJSON(json: any): MemberRoleData {
     return MemberRoleDataFromJSONTyped(json, false);
 }
@@ -99,23 +115,6 @@ export function MemberRoleDataToJSON(value?: MemberRoleData | null): any {
         'memberId': value.memberId,
         'role': RoleDataToJSON(value.role),
     };
-}
-
-/**
-* @export
-* @enum {string}
-*/
-export enum MemberRoleDataStateEnum {
-    Enabled = 'enabled',
-    Disabled = 'disabled'
-}
-/**
-* @export
-* @enum {string}
-*/
-export enum MemberRoleDataManagementStateEnum {
-    Managed = 'managed',
-    Unmanaged = 'unmanaged'
 }
 
 

@@ -2,7 +2,7 @@
 /**
  * JwtErrorData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -92,7 +92,7 @@ class JwtErrorData
      *
      * @return $this
      */
-    public function setCode(int $code): int
+    public function setCode(int $code)
     {
         $this->code = $code;
 
@@ -116,7 +116,7 @@ class JwtErrorData
      *
      * @return $this
      */
-    public function setMessage(string $message): string
+    public function setMessage(string $message)
     {
         $this->message = $message;
 

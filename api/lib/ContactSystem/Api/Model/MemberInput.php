@@ -2,7 +2,7 @@
 /**
  * MemberInput
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -213,7 +213,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setState(string $state = null): ?string
+    public function setState(string $state = null)
     {
         $this->state = $state;
 
@@ -237,7 +237,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setFirstname(string $firstname = null): ?string
+    public function setFirstname(string $firstname = null)
     {
         $this->firstname = $firstname;
 
@@ -261,7 +261,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setLastname(string $lastname = null): ?string
+    public function setLastname(string $lastname = null)
     {
         $this->lastname = $lastname;
 
@@ -285,7 +285,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setNickname(string $nickname = null): ?string
+    public function setNickname(string $nickname = null)
     {
         $this->nickname = $nickname;
 
@@ -309,7 +309,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setAddress(AddressData $address = null): ?AddressData
+    public function setAddress(AddressData $address = null)
     {
         $this->address = $address;
 
@@ -333,7 +333,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setDateOfBirth(string $dateOfBirth = null): ?string
+    public function setDateOfBirth(string $dateOfBirth = null)
     {
         $this->dateOfBirth = $dateOfBirth;
 
@@ -357,7 +357,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setMembershipNumber(string $membershipNumber = null): ?string
+    public function setMembershipNumber(string $membershipNumber = null)
     {
         $this->membershipNumber = $membershipNumber;
 
@@ -381,7 +381,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setPhoneHome(string $phoneHome = null): ?string
+    public function setPhoneHome(string $phoneHome = null)
     {
         $this->phoneHome = $phoneHome;
 
@@ -405,7 +405,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setPhoneMobile(string $phoneMobile = null): ?string
+    public function setPhoneMobile(string $phoneMobile = null)
     {
         $this->phoneMobile = $phoneMobile;
 
@@ -429,7 +429,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setPhoneWork(string $phoneWork = null): ?string
+    public function setPhoneWork(string $phoneWork = null)
     {
         $this->phoneWork = $phoneWork;
 
@@ -453,7 +453,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setGender(string $gender = null): ?string
+    public function setGender(string $gender = null)
     {
         $this->gender = $gender;
 
@@ -477,7 +477,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setEmail(string $email = null): ?string
+    public function setEmail(string $email = null)
     {
         $this->email = $email;
 
@@ -501,7 +501,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setSchoolName(string $schoolName = null): ?string
+    public function setSchoolName(string $schoolName = null)
     {
         $this->schoolName = $schoolName;
 
@@ -525,7 +525,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setSchoolYearLevel(string $schoolYearLevel = null): ?string
+    public function setSchoolYearLevel(string $schoolYearLevel = null)
     {
         $this->schoolYearLevel = $schoolYearLevel;
 
@@ -549,7 +549,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setExpiry(string $expiry = null): ?string
+    public function setExpiry(string $expiry = null)
     {
         $this->expiry = $expiry;
 
@@ -573,7 +573,7 @@ class MemberInput
      *
      * @return $this
      */
-    public function setOverrides(MemberOverrideData $overrides = null): ?MemberOverrideData
+    public function setOverrides(MemberOverrideData $overrides = null)
     {
         $this->overrides = $overrides;
 

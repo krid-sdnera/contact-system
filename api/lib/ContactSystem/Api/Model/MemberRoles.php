@@ -2,7 +2,7 @@
 /**
  * MemberRoles
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -93,6 +93,7 @@ class MemberRoles
      * @var OpenAPI\Server\Model\MemberRoleData[]
      * @SerializedName("roles")
      * @Assert\NotNull()
+     * @Assert\Valid()
      * @Assert\All({
      *   @Assert\Type("OpenAPI\Server\Model\MemberRoleData")
      * })
@@ -130,7 +131,7 @@ class MemberRoles
      *
      * @return $this
      */
-    public function setTotalItems(int $totalItems): int
+    public function setTotalItems(int $totalItems)
     {
         $this->totalItems = $totalItems;
 
@@ -154,7 +155,7 @@ class MemberRoles
      *
      * @return $this
      */
-    public function setTotalPages(int $totalPages): int
+    public function setTotalPages(int $totalPages)
     {
         $this->totalPages = $totalPages;
 
@@ -178,7 +179,7 @@ class MemberRoles
      *
      * @return $this
      */
-    public function setPage(int $page): int
+    public function setPage(int $page)
     {
         $this->page = $page;
 
@@ -202,7 +203,7 @@ class MemberRoles
      *
      * @return $this
      */
-    public function setPageSize(int $pageSize): int
+    public function setPageSize(int $pageSize)
     {
         $this->pageSize = $pageSize;
 
@@ -226,7 +227,7 @@ class MemberRoles
      *
      * @return $this
      */
-    public function setRoles(array $roles): array
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
 

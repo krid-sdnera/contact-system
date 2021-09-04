@@ -2,7 +2,7 @@
 
 /**
  * SectionsController
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Controller
@@ -68,8 +68,7 @@ class SectionsController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -98,6 +97,7 @@ class SectionsController extends Controller
 
         // Deserialize the input values that needs it
         try {
+            $inputFormat = $request->getMimeType($request->getContentType());
             $sectionInput = $this->deserialize($sectionInput, 'OpenAPI\Server\Model\SectionInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -127,7 +127,7 @@ class SectionsController extends Controller
             $result = $handler->createSection($sectionInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -217,7 +217,7 @@ class SectionsController extends Controller
             $result = $handler->deleteSectionById($sectionId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -339,7 +339,7 @@ class SectionsController extends Controller
             $result = $handler->getListRulesBySectionId($sectionId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -461,7 +461,7 @@ class SectionsController extends Controller
             $result = $handler->getMembersBySectionId($sectionId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'Default response';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -551,7 +551,7 @@ class SectionsController extends Controller
             $result = $handler->getSectionById($sectionId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -641,7 +641,7 @@ class SectionsController extends Controller
             $result = $handler->getSectionRolesBySectionId($sectionId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -755,7 +755,7 @@ class SectionsController extends Controller
             $result = $handler->getSections($query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -795,8 +795,7 @@ class SectionsController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -826,6 +825,7 @@ class SectionsController extends Controller
         // Deserialize the input values that needs it
         try {
             $sectionId = $this->deserialize($sectionId, 'int', 'string');
+            $inputFormat = $request->getMimeType($request->getContentType());
             $sectionInput = $this->deserialize($sectionInput, 'OpenAPI\Server\Model\SectionInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -862,7 +862,7 @@ class SectionsController extends Controller
             $result = $handler->updateSectionById($sectionId, $sectionInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {

@@ -2,7 +2,7 @@
 /**
  * JwtData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -92,7 +92,7 @@ class JwtData
      *
      * @return $this
      */
-    public function setToken(string $token): string
+    public function setToken(string $token)
     {
         $this->token = $token;
 
@@ -116,7 +116,7 @@ class JwtData
      *
      * @return $this
      */
-    public function setRefreshToken(string $refreshToken): string
+    public function setRefreshToken(string $refreshToken)
     {
         $this->refreshToken = $refreshToken;
 

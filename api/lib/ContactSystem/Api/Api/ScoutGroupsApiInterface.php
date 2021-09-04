@@ -1,7 +1,7 @@
 <?php
 /**
  * ScoutGroupsApiInterface
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server
@@ -70,12 +70,11 @@ interface ScoutGroupsApiInterface
      *
      * Create Group
      *
-     * @param  OpenAPI\Server\Model\ScoutGroupInput $scoutGroupInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \OpenAPI\Server\Model\ScoutGroupInput $scoutGroupInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ScoutGroupData
-     *
+     * @return \OpenAPI\Server\Model\ScoutGroupData
      */
     public function createScoutGroup(ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
 
@@ -84,12 +83,11 @@ interface ScoutGroupsApiInterface
      *
      * Delete Group
      *
-     * @param  int $scoutGroupId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $scoutGroupId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
+     * @return \OpenAPI\Server\Model\ApiResponse
      */
     public function deleteScoutGroupById(int $scoutGroupId, &$responseCode, array &$responseHeaders);
 
@@ -98,16 +96,15 @@ interface ScoutGroupsApiInterface
      *
      * Get List Rules By Scout Group ID
      *
-     * @param  int $scoutGroupId   (required)
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $scoutGroupId   (required)
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ListRules
-     *
+     * @return \OpenAPI\Server\Model\ListRules
      */
     public function getListRulesByScoutGroupId(int $scoutGroupId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -116,12 +113,11 @@ interface ScoutGroupsApiInterface
      *
      * Get Group
      *
-     * @param  int $scoutGroupId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $scoutGroupId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ScoutGroupData
-     *
+     * @return \OpenAPI\Server\Model\ScoutGroupData
      */
     public function getScoutGroupById(int $scoutGroupId, &$responseCode, array &$responseHeaders);
 
@@ -130,12 +126,11 @@ interface ScoutGroupsApiInterface
      *
      * Get Scout Group Sections By Scout Group ID
      *
-     * @param  int $scoutGroupId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $scoutGroupId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Sections
-     *
+     * @return \OpenAPI\Server\Model\Sections
      */
     public function getScoutGroupSectionsByScoutGroupId(int $scoutGroupId, &$responseCode, array &$responseHeaders);
 
@@ -144,15 +139,14 @@ interface ScoutGroupsApiInterface
      *
      * Get Groups
      *
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ScoutGroups
-     *
+     * @return \OpenAPI\Server\Model\ScoutGroups
      */
     public function getScoutGroups(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -161,13 +155,12 @@ interface ScoutGroupsApiInterface
      *
      * Update Group
      *
-     * @param  int $scoutGroupId   (required)
-     * @param  OpenAPI\Server\Model\ScoutGroupInput $scoutGroupInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $scoutGroupId   (required)
+     * @param  \OpenAPI\Server\Model\ScoutGroupInput $scoutGroupInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ScoutGroupData
-     *
+     * @return \OpenAPI\Server\Model\ScoutGroupData
      */
     public function updateScoutGroupById(int $scoutGroupId, ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
 }

@@ -52,10 +52,10 @@ export interface MemberRoles {
     pageSize: number;
     /**
      * Array containg the list
-     * @type {Array<MemberRoleData>}
+     * @type {Set<MemberRoleData>}
      * @memberof MemberRoles
      */
-    roles: Array<MemberRoleData>;
+    roles: Set<MemberRoleData>;
 }
 
 export function MemberRolesFromJSON(json: any): MemberRoles {
@@ -72,7 +72,7 @@ export function MemberRolesFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'totalPages': json['totalPages'],
         'page': json['page'],
         'pageSize': json['pageSize'],
-        'roles': ((json['roles'] as Array<any>).map(MemberRoleDataFromJSON)),
+        'roles': (new Set((json['roles'] as Array<any>).map(MemberRoleDataFromJSON))),
     };
 }
 
@@ -89,7 +89,7 @@ export function MemberRolesToJSON(value?: MemberRoles | null): any {
         'totalPages': value.totalPages,
         'page': value.page,
         'pageSize': value.pageSize,
-        'roles': ((value.roles as Array<any>).map(MemberRoleDataToJSON)),
+        'roles': (Array.from(value.roles as Set<any>).map(MemberRoleDataToJSON)),
     };
 }
 

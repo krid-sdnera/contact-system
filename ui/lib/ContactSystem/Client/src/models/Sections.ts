@@ -52,10 +52,10 @@ export interface Sections {
     pageSize: number;
     /**
      * Array containg the list
-     * @type {Array<SectionData>}
+     * @type {Set<SectionData>}
      * @memberof Sections
      */
-    sections: Array<SectionData>;
+    sections: Set<SectionData>;
 }
 
 export function SectionsFromJSON(json: any): Sections {
@@ -72,7 +72,7 @@ export function SectionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'totalPages': json['totalPages'],
         'page': json['page'],
         'pageSize': json['pageSize'],
-        'sections': ((json['sections'] as Array<any>).map(SectionDataFromJSON)),
+        'sections': (new Set((json['sections'] as Array<any>).map(SectionDataFromJSON))),
     };
 }
 
@@ -89,7 +89,7 @@ export function SectionsToJSON(value?: Sections | null): any {
         'totalPages': value.totalPages,
         'page': value.page,
         'pageSize': value.pageSize,
-        'sections': ((value.sections as Array<any>).map(SectionDataToJSON)),
+        'sections': (Array.from(value.sections as Set<any>).map(SectionDataToJSON)),
     };
 }
 

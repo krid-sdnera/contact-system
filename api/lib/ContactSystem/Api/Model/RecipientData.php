@@ -2,7 +2,7 @@
 /**
  * RecipientData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -158,7 +158,7 @@ class RecipientData
      *
      * @return $this
      */
-    public function setRowId(string $rowId): string
+    public function setRowId(string $rowId)
     {
         $this->rowId = $rowId;
 
@@ -182,7 +182,7 @@ class RecipientData
      *
      * @return $this
      */
-    public function setId(int $id): int
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -206,7 +206,7 @@ class RecipientData
      *
      * @return $this
      */
-    public function setName(string $name): string
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -230,7 +230,7 @@ class RecipientData
      *
      * @return $this
      */
-    public function setType(string $type): string
+    public function setType(string $type)
     {
         $this->type = $type;
 
@@ -254,7 +254,7 @@ class RecipientData
      *
      * @return $this
      */
-    public function setAddress(string $address): string
+    public function setAddress(string $address)
     {
         $this->address = $address;
 
@@ -278,7 +278,7 @@ class RecipientData
      *
      * @return $this
      */
-    public function setListId(int $listId): int
+    public function setListId(int $listId)
     {
         $this->listId = $listId;
 
@@ -302,7 +302,7 @@ class RecipientData
      *
      * @return $this
      */
-    public function setListName(string $listName): string
+    public function setListName(string $listName)
     {
         $this->listName = $listName;
 
@@ -326,7 +326,7 @@ class RecipientData
      *
      * @return $this
      */
-    public function setListAddress(string $listAddress): string
+    public function setListAddress(string $listAddress)
     {
         $this->listAddress = $listAddress;
 
@@ -350,7 +350,7 @@ class RecipientData
      *
      * @return $this
      */
-    public function setContributingRuleIds(array $contributingRuleIds): array
+    public function setContributingRuleIds(array $contributingRuleIds)
     {
         $this->contributingRuleIds = $contributingRuleIds;
 

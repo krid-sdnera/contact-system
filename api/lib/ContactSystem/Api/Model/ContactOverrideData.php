@@ -2,7 +2,7 @@
 /**
  * ContactOverrideData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -165,7 +165,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setFirstname(bool $firstname = null): ?bool
+    public function setFirstname(bool $firstname = null)
     {
         $this->firstname = $firstname;
 
@@ -189,7 +189,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setNickname(bool $nickname = null): ?bool
+    public function setNickname(bool $nickname = null)
     {
         $this->nickname = $nickname;
 
@@ -213,7 +213,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setLastname(bool $lastname = null): ?bool
+    public function setLastname(bool $lastname = null)
     {
         $this->lastname = $lastname;
 
@@ -237,7 +237,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setAddress(bool $address = null): ?bool
+    public function setAddress(bool $address = null)
     {
         $this->address = $address;
 
@@ -261,7 +261,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setPhoneHome(bool $phoneHome = null): ?bool
+    public function setPhoneHome(bool $phoneHome = null)
     {
         $this->phoneHome = $phoneHome;
 
@@ -285,7 +285,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setPhoneMobile(bool $phoneMobile = null): ?bool
+    public function setPhoneMobile(bool $phoneMobile = null)
     {
         $this->phoneMobile = $phoneMobile;
 
@@ -309,7 +309,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setPhoneWork(bool $phoneWork = null): ?bool
+    public function setPhoneWork(bool $phoneWork = null)
     {
         $this->phoneWork = $phoneWork;
 
@@ -333,7 +333,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setRelationship(bool $relationship = null): ?bool
+    public function setRelationship(bool $relationship = null)
     {
         $this->relationship = $relationship;
 
@@ -357,7 +357,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setPrimaryContact(bool $primaryContact = null): ?bool
+    public function setPrimaryContact(bool $primaryContact = null)
     {
         $this->primaryContact = $primaryContact;
 
@@ -381,7 +381,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setEmail(bool $email = null): ?bool
+    public function setEmail(bool $email = null)
     {
         $this->email = $email;
 
@@ -405,7 +405,7 @@ class ContactOverrideData
      *
      * @return $this
      */
-    public function setOccupation(bool $occupation = null): ?bool
+    public function setOccupation(bool $occupation = null)
     {
         $this->occupation = $occupation;
 

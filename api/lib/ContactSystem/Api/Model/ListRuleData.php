@@ -2,7 +2,7 @@
 /**
  * ListRuleData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -176,7 +176,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setId(int $id): int
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -200,7 +200,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setLabel(string $label): string
+    public function setLabel(string $label)
     {
         $this->label = $label;
 
@@ -224,7 +224,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setComment(string $comment): string
+    public function setComment(string $comment)
     {
         $this->comment = $comment;
 
@@ -248,7 +248,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setListId(int $listId): int
+    public function setListId(int $listId)
     {
         $this->listId = $listId;
 
@@ -272,7 +272,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setListName(string $listName): string
+    public function setListName(string $listName)
     {
         $this->listName = $listName;
 
@@ -296,7 +296,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setListAddress(string $listAddress): string
+    public function setListAddress(string $listAddress)
     {
         $this->listAddress = $listAddress;
 
@@ -320,7 +320,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setRelationType(string $relationType): string
+    public function setRelationType(string $relationType)
     {
         $this->relationType = $relationType;
 
@@ -344,7 +344,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setRelationId(int $relationId): int
+    public function setRelationId(int $relationId)
     {
         $this->relationId = $relationId;
 
@@ -368,7 +368,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setRelationName(string $relationName): string
+    public function setRelationName(string $relationName)
     {
         $this->relationName = $relationName;
 
@@ -392,7 +392,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setUseMember(bool $useMember): bool
+    public function setUseMember(bool $useMember)
     {
         $this->useMember = $useMember;
 
@@ -416,7 +416,7 @@ class ListRuleData
      *
      * @return $this
      */
-    public function setUseContact(bool $useContact): bool
+    public function setUseContact(bool $useContact)
     {
         $this->useContact = $useContact;
 

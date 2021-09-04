@@ -140,6 +140,22 @@ export interface ContactData {
     overrides?: ContactOverrideData;
 }
 
+/**
+* @export
+* @enum {string}
+*/
+export enum ContactDataStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
+}/**
+* @export
+* @enum {string}
+*/
+export enum ContactDataManagementStateEnum {
+    Managed = 'managed',
+    Unmanaged = 'unmanaged'
+}
+
 export function ContactDataFromJSON(json: any): ContactData {
     return ContactDataFromJSONTyped(json, false);
 }
@@ -199,23 +215,6 @@ export function ContactDataToJSON(value?: ContactData | null): any {
         'expiry': value.expiry,
         'overrides': ContactOverrideDataToJSON(value.overrides),
     };
-}
-
-/**
-* @export
-* @enum {string}
-*/
-export enum ContactDataStateEnum {
-    Enabled = 'enabled',
-    Disabled = 'disabled'
-}
-/**
-* @export
-* @enum {string}
-*/
-export enum ContactDataManagementStateEnum {
-    Managed = 'managed',
-    Unmanaged = 'unmanaged'
 }
 
 

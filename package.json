@@ -15,6 +15,6 @@
     "extranet:sync:cache": "php api/bin/console app:extranetsync use-cache"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0"
+    "@openapitools/openapi-generator-cli": "^2.3.10"
   }
 }

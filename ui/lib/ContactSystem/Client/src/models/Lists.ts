@@ -52,10 +52,10 @@ export interface Lists {
     pageSize: number;
     /**
      * Array containg the list
-     * @type {Array<ListData>}
+     * @type {Set<ListData>}
      * @memberof Lists
      */
-    lists: Array<ListData>;
+    lists: Set<ListData>;
 }
 
 export function ListsFromJSON(json: any): Lists {
@@ -72,7 +72,7 @@ export function ListsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Lis
         'totalPages': json['totalPages'],
         'page': json['page'],
         'pageSize': json['pageSize'],
-        'lists': ((json['lists'] as Array<any>).map(ListDataFromJSON)),
+        'lists': (new Set((json['lists'] as Array<any>).map(ListDataFromJSON))),
     };
 }
 
@@ -89,7 +89,7 @@ export function ListsToJSON(value?: Lists | null): any {
         'totalPages': value.totalPages,
         'page': value.page,
         'pageSize': value.pageSize,
-        'lists': ((value.lists as Array<any>).map(ListDataToJSON)),
+        'lists': (Array.from(value.lists as Set<any>).map(ListDataToJSON)),
     };
 }
 

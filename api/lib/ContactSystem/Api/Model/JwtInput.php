@@ -2,7 +2,7 @@
 /**
  * JwtInput
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -92,7 +92,7 @@ class JwtInput
      *
      * @return $this
      */
-    public function setUsername(string $username): string
+    public function setUsername(string $username)
     {
         $this->username = $username;
 
@@ -116,7 +116,7 @@ class JwtInput
      *
      * @return $this
      */
-    public function setPassword(string $password): string
+    public function setPassword(string $password)
     {
         $this->password = $password;
 

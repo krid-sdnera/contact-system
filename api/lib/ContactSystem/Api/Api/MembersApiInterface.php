@@ -1,7 +1,7 @@
 <?php
 /**
  * MembersApiInterface
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server
@@ -73,14 +73,13 @@ interface MembersApiInterface
      *
      * Add Member Role
      *
-     * @param  int $memberId   (required)
-     * @param  int $roleId   (required)
-     * @param  OpenAPI\Server\Model\MemberRoleInput $memberRoleInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $memberId   (required)
+     * @param  \int $roleId   (required)
+     * @param  \OpenAPI\Server\Model\MemberRoleInput $memberRoleInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberRoleData
-     *
+     * @return \OpenAPI\Server\Model\MemberRoleData
      */
     public function addMemberRoleById(int $memberId, int $roleId, MemberRoleInput $memberRoleInput = null, &$responseCode, array &$responseHeaders);
 
@@ -89,12 +88,11 @@ interface MembersApiInterface
      *
      * Create a member
      *
-     * @param  OpenAPI\Server\Model\MemberInput $memberInput   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \OpenAPI\Server\Model\MemberInput $memberInput   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberData
-     *
+     * @return \OpenAPI\Server\Model\MemberData
      */
     public function createMember(MemberInput $memberInput, &$responseCode, array &$responseHeaders);
 
@@ -103,12 +101,11 @@ interface MembersApiInterface
      *
      * Delete member
      *
-     * @param  int $memberId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $memberId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
+     * @return \OpenAPI\Server\Model\ApiResponse
      */
     public function deleteMemberById(int $memberId, &$responseCode, array &$responseHeaders);
 
@@ -117,16 +114,15 @@ interface MembersApiInterface
      *
      * Get List Rules by Member ID
      *
-     * @param  int $memberId   (required)
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $memberId   (required)
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ListRules
-     *
+     * @return \OpenAPI\Server\Model\ListRules
      */
     public function getListRulesByMemberId(int $memberId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -135,12 +131,11 @@ interface MembersApiInterface
      *
      * Get Member
      *
-     * @param  int $memberId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $memberId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberData
-     *
+     * @return \OpenAPI\Server\Model\MemberData
      */
     public function getMemberById(int $memberId, &$responseCode, array &$responseHeaders);
 
@@ -149,15 +144,14 @@ interface MembersApiInterface
      *
      * List member's contacts
      *
-     * @param  int $memberId   (required)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $memberId   (required)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Contacts
-     *
+     * @return \OpenAPI\Server\Model\Contacts
      */
     public function getMemberContactsById(int $memberId, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -166,15 +160,14 @@ interface MembersApiInterface
      *
      * List member's roles
      *
-     * @param  int $memberId   (required)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $memberId   (required)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberRoles
-     *
+     * @return \OpenAPI\Server\Model\MemberRoles
      */
     public function getMemberRolesById(int $memberId, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -183,15 +176,14 @@ interface MembersApiInterface
      *
      * List all members
      *
-     * @param  string $query   (optional)
-     * @param  string $sort   (optional)
-     * @param  int $pageSize   (optional)
-     * @param  int $page   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \string $query   (optional)
+     * @param  \string $sort   (optional)
+     * @param  \int $pageSize   (optional)
+     * @param  \int $page   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\Members
-     *
+     * @return \OpenAPI\Server\Model\Members
      */
     public function getMembers(string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders);
 
@@ -200,13 +192,12 @@ interface MembersApiInterface
      *
      * Merge member
      *
-     * @param  int $memberId   (required)
-     * @param  int $mergeMemberId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $memberId   (required)
+     * @param  \int $mergeMemberId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
+     * @return \OpenAPI\Server\Model\ApiResponse
      */
     public function mergeMember(int $memberId, int $mergeMemberId, &$responseCode, array &$responseHeaders);
 
@@ -215,13 +206,12 @@ interface MembersApiInterface
      *
      * Partial Update Member
      *
-     * @param  int $memberId   (required)
-     * @param  OpenAPI\Server\Model\MemberInput $memberInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $memberId   (required)
+     * @param  \OpenAPI\Server\Model\MemberInput $memberInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberData
-     *
+     * @return \OpenAPI\Server\Model\MemberData
      */
     public function patchMemberById(int $memberId, MemberInput $memberInput = null, &$responseCode, array &$responseHeaders);
 
@@ -230,13 +220,12 @@ interface MembersApiInterface
      *
      * Remove Member Role
      *
-     * @param  int $memberId   (required)
-     * @param  int $roleId   (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $memberId   (required)
+     * @param  \int $roleId   (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\ApiResponse
-     *
+     * @return \OpenAPI\Server\Model\ApiResponse
      */
     public function removeMemberRoleById(int $memberId, int $roleId, &$responseCode, array &$responseHeaders);
 
@@ -245,13 +234,12 @@ interface MembersApiInterface
      *
      * Update Member
      *
-     * @param  int $memberId   (required)
-     * @param  OpenAPI\Server\Model\MemberInput $memberInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \int $memberId   (required)
+     * @param  \OpenAPI\Server\Model\MemberInput $memberInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\MemberData
-     *
+     * @return \OpenAPI\Server\Model\MemberData
      */
     public function updateMemberById(int $memberId, MemberInput $memberInput = null, &$responseCode, array &$responseHeaders);
 }

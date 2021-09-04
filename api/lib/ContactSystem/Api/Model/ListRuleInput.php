@@ -2,7 +2,7 @@
 /**
  * ListRuleInput
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -151,7 +151,7 @@ class ListRuleInput
      *
      * @return $this
      */
-    public function setLabel(string $label): string
+    public function setLabel(string $label)
     {
         $this->label = $label;
 
@@ -175,7 +175,7 @@ class ListRuleInput
      *
      * @return $this
      */
-    public function setComment(string $comment): string
+    public function setComment(string $comment)
     {
         $this->comment = $comment;
 
@@ -199,7 +199,7 @@ class ListRuleInput
      *
      * @return $this
      */
-    public function setContactId(int $contactId = null): ?int
+    public function setContactId(int $contactId = null)
     {
         $this->contactId = $contactId;
 
@@ -223,7 +223,7 @@ class ListRuleInput
      *
      * @return $this
      */
-    public function setMemberId(int $memberId = null): ?int
+    public function setMemberId(int $memberId = null)
     {
         $this->memberId = $memberId;
 
@@ -247,7 +247,7 @@ class ListRuleInput
      *
      * @return $this
      */
-    public function setRoleId(int $roleId = null): ?int
+    public function setRoleId(int $roleId = null)
     {
         $this->roleId = $roleId;
 
@@ -271,7 +271,7 @@ class ListRuleInput
      *
      * @return $this
      */
-    public function setSectionId(int $sectionId = null): ?int
+    public function setSectionId(int $sectionId = null)
     {
         $this->sectionId = $sectionId;
 
@@ -295,7 +295,7 @@ class ListRuleInput
      *
      * @return $this
      */
-    public function setScoutGroupId(int $scoutGroupId = null): ?int
+    public function setScoutGroupId(int $scoutGroupId = null)
     {
         $this->scoutGroupId = $scoutGroupId;
 
@@ -319,7 +319,7 @@ class ListRuleInput
      *
      * @return $this
      */
-    public function setUseMember(bool $useMember): bool
+    public function setUseMember(bool $useMember)
     {
         $this->useMember = $useMember;
 
@@ -343,7 +343,7 @@ class ListRuleInput
      *
      * @return $this
      */
-    public function setUseContact(bool $useContact): bool
+    public function setUseContact(bool $useContact)
     {
         $this->useContact = $useContact;
 

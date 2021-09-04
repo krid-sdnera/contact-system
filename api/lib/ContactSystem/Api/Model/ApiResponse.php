@@ -2,7 +2,7 @@
 /**
  * ApiResponse
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -93,7 +93,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setCode(int $code = null): ?int
+    public function setCode(int $code = null)
     {
         $this->code = $code;
 
@@ -117,7 +117,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setType(string $type = null): ?string
+    public function setType(string $type = null)
     {
         $this->type = $type;
 
@@ -141,7 +141,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setMessage(string $message = null): ?string
+    public function setMessage(string $message = null)
     {
         $this->message = $message;
 

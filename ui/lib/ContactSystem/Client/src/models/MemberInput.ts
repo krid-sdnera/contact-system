@@ -128,6 +128,15 @@ export interface MemberInput {
     overrides?: MemberOverrideData;
 }
 
+/**
+* @export
+* @enum {string}
+*/
+export enum MemberInputStateEnum {
+    Enabled = 'enabled',
+    Disabled = 'disabled'
+}
+
 export function MemberInputFromJSON(json: any): MemberInput {
     return MemberInputFromJSONTyped(json, false);
 }
@@ -183,15 +192,6 @@ export function MemberInputToJSON(value?: MemberInput | null): any {
         'expiry': value.expiry,
         'overrides': MemberOverrideDataToJSON(value.overrides),
     };
-}
-
-/**
-* @export
-* @enum {string}
-*/
-export enum MemberInputStateEnum {
-    Enabled = 'enabled',
-    Disabled = 'disabled'
 }
 
 

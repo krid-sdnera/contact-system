@@ -2,7 +2,7 @@
 /**
  * ContactData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -237,7 +237,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setId(int $id): int
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -261,7 +261,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setState(string $state): string
+    public function setState(string $state)
     {
         $this->state = $state;
 
@@ -285,7 +285,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setManagementState(string $managementState): string
+    public function setManagementState(string $managementState)
     {
         $this->managementState = $managementState;
 
@@ -309,7 +309,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setMemberId(int $memberId): int
+    public function setMemberId(int $memberId)
     {
         $this->memberId = $memberId;
 
@@ -333,7 +333,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setParentId(int $parentId = null): ?int
+    public function setParentId(int $parentId = null)
     {
         $this->parentId = $parentId;
 
@@ -357,7 +357,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setFirstname(string $firstname): string
+    public function setFirstname(string $firstname)
     {
         $this->firstname = $firstname;
 
@@ -381,7 +381,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setNickname(string $nickname = null): ?string
+    public function setNickname(string $nickname = null)
     {
         $this->nickname = $nickname;
 
@@ -405,7 +405,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setLastname(string $lastname): string
+    public function setLastname(string $lastname)
     {
         $this->lastname = $lastname;
 
@@ -429,7 +429,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setAddress(AddressData $address = null): ?AddressData
+    public function setAddress(AddressData $address = null)
     {
         $this->address = $address;
 
@@ -453,7 +453,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setPhoneHome(string $phoneHome = null): ?string
+    public function setPhoneHome(string $phoneHome = null)
     {
         $this->phoneHome = $phoneHome;
 
@@ -477,7 +477,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setPhoneMobile(string $phoneMobile = null): ?string
+    public function setPhoneMobile(string $phoneMobile = null)
     {
         $this->phoneMobile = $phoneMobile;
 
@@ -501,7 +501,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setPhoneWork(string $phoneWork = null): ?string
+    public function setPhoneWork(string $phoneWork = null)
     {
         $this->phoneWork = $phoneWork;
 
@@ -525,7 +525,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setRelationship(string $relationship = null): ?string
+    public function setRelationship(string $relationship = null)
     {
         $this->relationship = $relationship;
 
@@ -549,7 +549,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setPrimaryContact(bool $primaryContact = null): ?bool
+    public function setPrimaryContact(bool $primaryContact = null)
     {
         $this->primaryContact = $primaryContact;
 
@@ -573,7 +573,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setEmail(string $email = null): ?string
+    public function setEmail(string $email = null)
     {
         $this->email = $email;
 
@@ -597,7 +597,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setOccupation(string $occupation = null): ?string
+    public function setOccupation(string $occupation = null)
     {
         $this->occupation = $occupation;
 
@@ -621,7 +621,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setExpiry(string $expiry = null): ?string
+    public function setExpiry(string $expiry = null)
     {
         $this->expiry = $expiry;
 
@@ -645,7 +645,7 @@ class ContactData
      *
      * @return $this
      */
-    public function setOverrides(ContactOverrideData $overrides = null): ?ContactOverrideData
+    public function setOverrides(ContactOverrideData $overrides = null)
     {
         $this->overrides = $overrides;
 

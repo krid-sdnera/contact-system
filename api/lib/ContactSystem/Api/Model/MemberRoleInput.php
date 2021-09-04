@@ -2,7 +2,7 @@
 /**
  * MemberRoleInput
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -86,7 +86,7 @@ class MemberRoleInput
      *
      * @return $this
      */
-    public function setState(string $state = null): ?string
+    public function setState(string $state = null)
     {
         $this->state = $state;
 
@@ -110,7 +110,7 @@ class MemberRoleInput
      *
      * @return $this
      */
-    public function setExpiry(string $expiry = null): ?string
+    public function setExpiry(string $expiry = null)
     {
         $this->expiry = $expiry;
 

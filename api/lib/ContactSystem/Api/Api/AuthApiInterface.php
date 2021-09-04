@@ -1,7 +1,7 @@
 <?php
 /**
  * AuthApiInterface
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server
@@ -49,12 +49,11 @@ interface AuthApiInterface
      *
      * Get JWT
      *
-     * @param  OpenAPI\Server\Model\JwtInput $jwtInput   (optional)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \OpenAPI\Server\Model\JwtInput $jwtInput   (optional)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\JwtErrorResponse
-     *
+     * @return \OpenAPI\Server\Model\JwtErrorResponse
      */
     public function getJWT(JwtInput $jwtInput = null, &$responseCode, array &$responseHeaders);
 
@@ -63,12 +62,11 @@ interface AuthApiInterface
      *
      * Refresh JWT
      *
-     * @param  string $refreshToken  The refresh token (required)
-     * @param  integer $responseCode     The HTTP response code to return
-     * @param  array   $responseHeaders  Additional HTTP headers to return with the response ()
+     * @param  \string $refreshToken  The refresh token (required)
+     * @param  \int $responseCode     The HTTP response code to return
+     * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return OpenAPI\Server\Model\JwtErrorResponse
-     *
+     * @return \OpenAPI\Server\Model\JwtErrorResponse
      */
     public function refreshJWT(string $refreshToken, &$responseCode, array &$responseHeaders);
 }

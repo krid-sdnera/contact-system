@@ -2,7 +2,7 @@
 /**
  * ListData
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -96,7 +96,7 @@ class ListData
      *
      * @return $this
      */
-    public function setId(int $id): int
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -120,7 +120,7 @@ class ListData
      *
      * @return $this
      */
-    public function setName(string $name): string
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -144,7 +144,7 @@ class ListData
      *
      * @return $this
      */
-    public function setAddress(string $address): string
+    public function setAddress(string $address)
     {
         $this->address = $address;
 

@@ -2,7 +2,7 @@
 
 /**
  * MembersController
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Controller
@@ -70,8 +70,7 @@ class MembersController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -102,6 +101,7 @@ class MembersController extends Controller
         try {
             $memberId = $this->deserialize($memberId, 'int', 'string');
             $roleId = $this->deserialize($roleId, 'int', 'string');
+            $inputFormat = $request->getMimeType($request->getContentType());
             $memberRoleInput = $this->deserialize($memberRoleInput, 'OpenAPI\Server\Model\MemberRoleInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -145,7 +145,7 @@ class MembersController extends Controller
             $result = $handler->addMemberRoleById($memberId, $roleId, $memberRoleInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -185,8 +185,7 @@ class MembersController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -215,6 +214,7 @@ class MembersController extends Controller
 
         // Deserialize the input values that needs it
         try {
+            $inputFormat = $request->getMimeType($request->getContentType());
             $memberInput = $this->deserialize($memberInput, 'OpenAPI\Server\Model\MemberInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -245,7 +245,7 @@ class MembersController extends Controller
             $result = $handler->createMember($memberInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -335,7 +335,7 @@ class MembersController extends Controller
             $result = $handler->deleteMemberById($memberId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'Default response';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -457,7 +457,7 @@ class MembersController extends Controller
             $result = $handler->getListRulesByMemberId($memberId, $query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -547,7 +547,7 @@ class MembersController extends Controller
             $result = $handler->getMemberById($memberId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'Default response';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -661,7 +661,7 @@ class MembersController extends Controller
             $result = $handler->getMemberContactsById($memberId, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -775,7 +775,7 @@ class MembersController extends Controller
             $result = $handler->getMemberRolesById($memberId, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -889,7 +889,7 @@ class MembersController extends Controller
             $result = $handler->getMembers($query, $sort, $pageSize, $page, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'Default response';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -987,7 +987,7 @@ class MembersController extends Controller
             $result = $handler->mergeMember($memberId, $mergeMemberId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -1027,8 +1027,7 @@ class MembersController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -1058,6 +1057,7 @@ class MembersController extends Controller
         // Deserialize the input values that needs it
         try {
             $memberId = $this->deserialize($memberId, 'int', 'string');
+            $inputFormat = $request->getMimeType($request->getContentType());
             $memberInput = $this->deserialize($memberInput, 'OpenAPI\Server\Model\MemberInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -1094,7 +1094,7 @@ class MembersController extends Controller
             $result = $handler->patchMemberById($memberId, $memberInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'Default response';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -1192,7 +1192,7 @@ class MembersController extends Controller
             $result = $handler->removeMemberRoleById($memberId, $roleId, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'OK';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {
@@ -1232,8 +1232,7 @@ class MembersController extends Controller
     {
         // Make sure that the client is providing something that we can consume
         $consumes = ['application/json'];
-        $inputFormat = $request->headers->has('Content-Type')?$request->headers->get('Content-Type'):$consumes[0];
-        if (!in_array($inputFormat, $consumes)) {
+        if (!static::isContentTypeAllowed($request, $consumes)) {
             // We can't consume the content that the client is sending us
             return new Response('', 415);
         }
@@ -1263,6 +1262,7 @@ class MembersController extends Controller
         // Deserialize the input values that needs it
         try {
             $memberId = $this->deserialize($memberId, 'int', 'string');
+            $inputFormat = $request->getMimeType($request->getContentType());
             $memberInput = $this->deserialize($memberInput, 'OpenAPI\Server\Model\MemberInput', $inputFormat);
         } catch (SerializerRuntimeException $exception) {
             return $this->createBadRequestResponse($exception->getMessage());
@@ -1299,7 +1299,7 @@ class MembersController extends Controller
             $result = $handler->updateMemberById($memberId, $memberInput, $responseCode, $responseHeaders);
 
             // Find default response message
-            $message = 'Default response';
+            $message = '';
 
             // Find a more specific message, if available
             switch ($responseCode) {

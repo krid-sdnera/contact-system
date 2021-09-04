@@ -52,10 +52,10 @@ export interface Recipients {
     pageSize: number;
     /**
      * Array containg the list
-     * @type {Array<RecipientData>}
+     * @type {Set<RecipientData>}
      * @memberof Recipients
      */
-    recipients: Array<RecipientData>;
+    recipients: Set<RecipientData>;
 }
 
 export function RecipientsFromJSON(json: any): Recipients {
@@ -72,7 +72,7 @@ export function RecipientsFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'totalPages': json['totalPages'],
         'page': json['page'],
         'pageSize': json['pageSize'],
-        'recipients': ((json['recipients'] as Array<any>).map(RecipientDataFromJSON)),
+        'recipients': (new Set((json['recipients'] as Array<any>).map(RecipientDataFromJSON))),
     };
 }
 
@@ -89,7 +89,7 @@ export function RecipientsToJSON(value?: Recipients | null): any {
         'totalPages': value.totalPages,
         'page': value.page,
         'pageSize': value.pageSize,
-        'recipients': ((value.recipients as Array<any>).map(RecipientDataToJSON)),
+        'recipients': (Array.from(value.recipients as Set<any>).map(RecipientDataToJSON)),
     };
 }
 

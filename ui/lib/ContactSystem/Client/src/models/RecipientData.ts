@@ -69,10 +69,10 @@ export interface RecipientData {
     listAddress: string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Set<string>}
      * @memberof RecipientData
      */
-    contributingRuleIds: Array<string>;
+    contributingRuleIds: Set<string>;
 }
 
 export function RecipientDataFromJSON(json: any): RecipientData {

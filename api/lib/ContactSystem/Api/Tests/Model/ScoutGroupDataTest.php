@@ -2,7 +2,7 @@
 /**
  * ScoutGroupDataTest
  *
- * PHP version 5
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Tests\Model
@@ -29,6 +29,8 @@
 
 namespace OpenAPI\Server\Model;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * ScoutGroupDataTest Class Doc Comment
  *
@@ -39,7 +41,7 @@ namespace OpenAPI\Server\Model;
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
  */
-class ScoutGroupDataTest extends \PHPUnit_Framework_TestCase
+class ScoutGroupDataTest extends TestCase
 {
 
     /**

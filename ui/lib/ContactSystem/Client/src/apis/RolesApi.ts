@@ -77,6 +77,7 @@ export interface UpdateRoleByIdRequest {
 
 /**
  * RolesApi - interface
+ * 
  * @export
  * @interface RolesApiInterface
  */
@@ -89,13 +90,13 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    createRoleRaw(requestParameters: CreateRoleRequest): Promise<runtime.ApiResponse<RoleData>>;
+    createRoleRaw(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>>;
 
     /**
      * Create role
      * Create role
      */
-    createRole(requestParameters: CreateRoleRequest): Promise<RoleData>;
+    createRole(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<RoleData>;
 
     /**
      * Delete role
@@ -105,13 +106,13 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    deleteRoleByIdRaw(requestParameters: DeleteRoleByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>>;
+    deleteRoleByIdRaw(requestParameters: DeleteRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ModelApiResponse>>;
 
     /**
      * Delete role
      * Delete role
      */
-    deleteRoleById(requestParameters: DeleteRoleByIdRequest): Promise<ModelApiResponse>;
+    deleteRoleById(requestParameters: DeleteRoleByIdRequest, initOverrides?: RequestInit): Promise<ModelApiResponse>;
 
     /**
      * List Rules by Role ID
@@ -125,13 +126,13 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    getListRulesByRoleIdRaw(requestParameters: GetListRulesByRoleIdRequest): Promise<runtime.ApiResponse<ListRules>>;
+    getListRulesByRoleIdRaw(requestParameters: GetListRulesByRoleIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ListRules>>;
 
     /**
      * List Rules by Role ID
      * List Rules by Role ID
      */
-    getListRulesByRoleId(requestParameters: GetListRulesByRoleIdRequest): Promise<ListRules>;
+    getListRulesByRoleId(requestParameters: GetListRulesByRoleIdRequest, initOverrides?: RequestInit): Promise<ListRules>;
 
     /**
      * List all members in this role
@@ -145,13 +146,13 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    getMembersByRoleIdRaw(requestParameters: GetMembersByRoleIdRequest): Promise<runtime.ApiResponse<Members>>;
+    getMembersByRoleIdRaw(requestParameters: GetMembersByRoleIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Members>>;
 
     /**
      * List all members in this role
      * List members by role
      */
-    getMembersByRoleId(requestParameters: GetMembersByRoleIdRequest): Promise<Members>;
+    getMembersByRoleId(requestParameters: GetMembersByRoleIdRequest, initOverrides?: RequestInit): Promise<Members>;
 
     /**
      * Get role
@@ -161,13 +162,13 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    getRoleByIdRaw(requestParameters: GetRoleByIdRequest): Promise<runtime.ApiResponse<RoleData>>;
+    getRoleByIdRaw(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>>;
 
     /**
      * Get role
      * Get Role
      */
-    getRoleById(requestParameters: GetRoleByIdRequest): Promise<RoleData>;
+    getRoleById(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleData>;
 
     /**
      * Get roles
@@ -180,13 +181,13 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    getRolesRaw(requestParameters: GetRolesRequest): Promise<runtime.ApiResponse<Roles>>;
+    getRolesRaw(requestParameters: GetRolesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Roles>>;
 
     /**
      * Get roles
      * Get roles
      */
-    getRoles(requestParameters: GetRolesRequest): Promise<Roles>;
+    getRoles(requestParameters: GetRolesRequest, initOverrides?: RequestInit): Promise<Roles>;
 
     /**
      * Update role
@@ -197,18 +198,18 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    updateRoleByIdRaw(requestParameters: UpdateRoleByIdRequest): Promise<runtime.ApiResponse<RoleData>>;
+    updateRoleByIdRaw(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>>;
 
     /**
      * Update role
      * Update role
      */
-    updateRoleById(requestParameters: UpdateRoleByIdRequest): Promise<RoleData>;
+    updateRoleById(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleData>;
 
 }
 
 /**
- * no description
+ * 
  */
 export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
 
@@ -216,8 +217,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Create role
      * Create role
      */
-    async createRoleRaw(requestParameters: CreateRoleRequest): Promise<runtime.ApiResponse<RoleData>> {
-        const queryParameters: runtime.HTTPQuery = {};
+    async createRoleRaw(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>> {
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -229,7 +230,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -241,7 +242,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             headers: headerParameters,
             query: queryParameters,
             body: RoleInputToJSON(requestParameters.roleInput),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RoleDataFromJSON(jsonValue));
     }
@@ -250,8 +251,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Create role
      * Create role
      */
-    async createRole(requestParameters: CreateRoleRequest): Promise<RoleData> {
-        const response = await this.createRoleRaw(requestParameters);
+    async createRole(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<RoleData> {
+        const response = await this.createRoleRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -259,12 +260,12 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Delete role
      * Delete role
      */
-    async deleteRoleByIdRaw(requestParameters: DeleteRoleByIdRequest): Promise<runtime.ApiResponse<ModelApiResponse>> {
+    async deleteRoleByIdRaw(requestParameters: DeleteRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ModelApiResponse>> {
         if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
             throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling deleteRoleById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -274,7 +275,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -285,7 +286,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
     }
@@ -294,8 +295,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Delete role
      * Delete role
      */
-    async deleteRoleById(requestParameters: DeleteRoleByIdRequest): Promise<ModelApiResponse> {
-        const response = await this.deleteRoleByIdRaw(requestParameters);
+    async deleteRoleById(requestParameters: DeleteRoleByIdRequest, initOverrides?: RequestInit): Promise<ModelApiResponse> {
+        const response = await this.deleteRoleByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -303,12 +304,12 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * List Rules by Role ID
      * List Rules by Role ID
      */
-    async getListRulesByRoleIdRaw(requestParameters: GetListRulesByRoleIdRequest): Promise<runtime.ApiResponse<ListRules>> {
+    async getListRulesByRoleIdRaw(requestParameters: GetListRulesByRoleIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ListRules>> {
         if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
             throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling getListRulesByRoleId.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         if (requestParameters.query !== undefined) {
             queryParameters['query'] = requestParameters.query;
@@ -334,7 +335,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -345,7 +346,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ListRulesFromJSON(jsonValue));
     }
@@ -354,8 +355,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * List Rules by Role ID
      * List Rules by Role ID
      */
-    async getListRulesByRoleId(requestParameters: GetListRulesByRoleIdRequest): Promise<ListRules> {
-        const response = await this.getListRulesByRoleIdRaw(requestParameters);
+    async getListRulesByRoleId(requestParameters: GetListRulesByRoleIdRequest, initOverrides?: RequestInit): Promise<ListRules> {
+        const response = await this.getListRulesByRoleIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -363,12 +364,12 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * List all members in this role
      * List members by role
      */
-    async getMembersByRoleIdRaw(requestParameters: GetMembersByRoleIdRequest): Promise<runtime.ApiResponse<Members>> {
+    async getMembersByRoleIdRaw(requestParameters: GetMembersByRoleIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Members>> {
         if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
             throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling getMembersByRoleId.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         if (requestParameters.query !== undefined) {
             queryParameters['query'] = requestParameters.query;
@@ -394,7 +395,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -405,7 +406,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MembersFromJSON(jsonValue));
     }
@@ -414,8 +415,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * List all members in this role
      * List members by role
      */
-    async getMembersByRoleId(requestParameters: GetMembersByRoleIdRequest): Promise<Members> {
-        const response = await this.getMembersByRoleIdRaw(requestParameters);
+    async getMembersByRoleId(requestParameters: GetMembersByRoleIdRequest, initOverrides?: RequestInit): Promise<Members> {
+        const response = await this.getMembersByRoleIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -423,12 +424,12 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Get role
      * Get Role
      */
-    async getRoleByIdRaw(requestParameters: GetRoleByIdRequest): Promise<runtime.ApiResponse<RoleData>> {
+    async getRoleByIdRaw(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>> {
         if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
             throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling getRoleById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -438,7 +439,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -449,7 +450,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RoleDataFromJSON(jsonValue));
     }
@@ -458,8 +459,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Get role
      * Get Role
      */
-    async getRoleById(requestParameters: GetRoleByIdRequest): Promise<RoleData> {
-        const response = await this.getRoleByIdRaw(requestParameters);
+    async getRoleById(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleData> {
+        const response = await this.getRoleByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -467,8 +468,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Get roles
      * Get roles
      */
-    async getRolesRaw(requestParameters: GetRolesRequest): Promise<runtime.ApiResponse<Roles>> {
-        const queryParameters: runtime.HTTPQuery = {};
+    async getRolesRaw(requestParameters: GetRolesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Roles>> {
+        const queryParameters: any = {};
 
         if (requestParameters.query !== undefined) {
             queryParameters['query'] = requestParameters.query;
@@ -494,7 +495,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -505,7 +506,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RolesFromJSON(jsonValue));
     }
@@ -514,8 +515,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Get roles
      * Get roles
      */
-    async getRoles(requestParameters: GetRolesRequest): Promise<Roles> {
-        const response = await this.getRolesRaw(requestParameters);
+    async getRoles(requestParameters: GetRolesRequest, initOverrides?: RequestInit): Promise<Roles> {
+        const response = await this.getRolesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -523,12 +524,12 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Update role
      * Update role
      */
-    async updateRoleByIdRaw(requestParameters: UpdateRoleByIdRequest): Promise<runtime.ApiResponse<RoleData>> {
+    async updateRoleByIdRaw(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>> {
         if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
             throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling updateRoleById.');
         }
 
-        const queryParameters: runtime.HTTPQuery = {};
+        const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -540,7 +541,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("jwt_auth", []) : token;
+            const tokenString = await token("jwt_auth", []);
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -552,7 +553,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             headers: headerParameters,
             query: queryParameters,
             body: RoleInputToJSON(requestParameters.roleInput),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RoleDataFromJSON(jsonValue));
     }
@@ -561,8 +562,8 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Update role
      * Update role
      */
-    async updateRoleById(requestParameters: UpdateRoleByIdRequest): Promise<RoleData> {
-        const response = await this.updateRoleByIdRaw(requestParameters);
+    async updateRoleById(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleData> {
+        const response = await this.updateRoleByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
