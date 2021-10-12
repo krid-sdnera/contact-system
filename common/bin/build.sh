@@ -71,3 +71,6 @@ sed $SEDOPTION -e 's/@Assert\\Regex("\/^\\\\d{4}-\\\\d{2}-\\\\d{2}\$\/")/@Assert
 
 echo "> Adding type assistance to a union type"
 sed $SEDOPTION -e 's/return { ...JwtDataToJSON(value), ...JwtErrorDataToJSON(value) };/return { ...JwtDataToJSON(value as JwtData), ...JwtErrorDataToJSON(value as JwtErrorData) };/' ui/lib/ContactSystem/Client/src/models/JwtErrorResponse.ts
+
+echo "> Handle possible undefined fetchApi"
+sed $SEDOPTION -e 's/return this.configuration.fetchApi;/return this.configuration.fetchApi!;/' ui/lib/ContactSystem/Client/src/runtime.ts

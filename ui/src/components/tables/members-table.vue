@@ -193,7 +193,7 @@ export default class MemberTableComponent extends BaseTable<
         this.totalItems = 0;
         return;
       }
-      this.serverItemIdsToDisplay = payload.members.map(
+      this.serverItemIdsToDisplay = Array.from(payload.members).map(
         (member: MemberData) => member.id
       );
       this.totalItems = payload.totalItems;

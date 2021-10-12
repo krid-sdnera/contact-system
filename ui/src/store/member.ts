@@ -125,7 +125,8 @@ export const actions: ActionTree<RootState, RootState> = {
   async fetchAllMembers({ dispatch }, options: GetMembersRequest) {
     return await fetchAllHelper<GetMembersRequest, Members>(
       async (o: GetMembersRequest) => dispatch(`fetchMembers`, o),
-      (pld: Members) => pld.members.map((x: MemberData): number => x.id),
+      (pld: Members) =>
+        Array.from(pld.members).map((x: MemberData): number => x.id),
       options
     );
   },
@@ -136,7 +137,8 @@ export const actions: ActionTree<RootState, RootState> = {
     return await fetchAllHelper<GetMembersByRoleIdRequest, Members>(
       async (o: GetMembersByRoleIdRequest) =>
         dispatch(`fetchMembersByRoleId`, o),
-      (pld: Members) => pld.members.map((x: MemberData): number => x.id),
+      (pld: Members) =>
+        Array.from(pld.members).map((x: MemberData): number => x.id),
       options
     );
   },
@@ -147,7 +149,8 @@ export const actions: ActionTree<RootState, RootState> = {
     return await fetchAllHelper<GetMembersBySectionIdRequest, Members>(
       async (o: GetMembersBySectionIdRequest) =>
         dispatch(`fetchMembersBySectionId`, o),
-      (pld: Members) => pld.members.map((x: MemberData): number => x.id),
+      (pld: Members) =>
+        Array.from(pld.members).map((x: MemberData): number => x.id),
       options
     );
   },

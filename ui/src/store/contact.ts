@@ -61,7 +61,8 @@ export const actions: ActionTree<RootState, RootState> = {
   async fetchAllContacts({ dispatch }, options: GetContactsRequest) {
     return await fetchAllHelper<GetContactsRequest, Contacts>(
       async (o: GetContactsRequest) => dispatch(`fetchContacts`, o),
-      (pld: Contacts) => pld.contacts.map((x: ContactData): number => x.id),
+      (pld: Contacts) =>
+        Array.from(pld.contacts).map((x: ContactData): number => x.id),
       options
     );
   },

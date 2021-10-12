@@ -101,6 +101,7 @@ export default class HomePage extends Vue {
   get sections() {
     return this.$store.getters[`${section.namespace}/getSections`];
   }
+
   get sectionsInScoutGroup() {
     return (scoutGroupId: number) => {
       return this.$store.getters[
@@ -108,6 +109,7 @@ export default class HomePage extends Vue {
       ](scoutGroupId);
     };
   }
+
   get scoutGroups() {
     return this.$store.getters[`${scoutGroup.namespace}/getScoutGroups`];
   }

@@ -52,7 +52,7 @@
         title="Removing Role"
         :message="`Remove the role, ${item.firstname}`"
         icon="mdi-delete"
-        v-on:confirm="handleRowActionDeleteConfirm"
+        @:confirm="handleRowActionDeleteConfirm"
       ></danger-confirmation>
     </template>
   </v-data-table>
@@ -96,6 +96,7 @@ export default class MemberRoleTableComponent extends BaseTable<
         return itemIdsToDisplay.indexOf(a.id) - itemIdsToDisplay.indexOf(b.id);
       });
   }
+
   headers = [
     { text: 'Role', value: 'role.name' },
     { text: 'Section', value: 'role.section.name' },
@@ -119,7 +120,7 @@ export default class MemberRoleTableComponent extends BaseTable<
         this.totalItems = 0;
         return;
       }
-      this.serverItemIdsToDisplay = payload.roles.map(
+      this.serverItemIdsToDisplay = Array.from(payload.roles).map(
         (memberRole: MemberRoleData) => memberRole.id
       );
       this.totalItems = payload.totalItems;
@@ -133,6 +134,7 @@ export default class MemberRoleTableComponent extends BaseTable<
       this.loading = false;
     }
   }
+
   async rowActionDelete(
     compositeId: number | string
   ): Promise<ModelApiResponse | void> {

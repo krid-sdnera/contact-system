@@ -127,7 +127,7 @@ export default class RoleTableComponent extends BaseTable<RoleData, number> {
           this.apiOptions
         );
       }
-      this.serverItemIdsToDisplay = payload.roles.map(
+      this.serverItemIdsToDisplay = Array.from(payload.roles).map(
         (role: RoleData) => role.id
       );
       this.totalItems = payload.totalItems;

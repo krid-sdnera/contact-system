@@ -56,7 +56,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async fetchAllRoles({ dispatch }, options: GetRolesRequest) {
     return await fetchAllHelper<GetRolesRequest, Roles>(
       async (o: GetRolesRequest) => dispatch(`fetchRoles`, o),
-      (pld: Roles) => pld.roles.map((x: RoleData): number => x.id),
+      (pld: Roles) => Array.from(pld.roles).map((x: RoleData): number => x.id),
       options
     );
   },

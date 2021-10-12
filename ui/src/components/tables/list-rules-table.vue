@@ -203,7 +203,7 @@ export default class ListRuleTableComponent extends BaseTable<
           totalPages: 0,
           page: 0,
           pageSize: 0,
-          rules: [],
+          rules: new Set(),
         };
     }
   }
@@ -213,7 +213,7 @@ export default class ListRuleTableComponent extends BaseTable<
 
     try {
       const payload = await this.fetchListRules();
-      this.serverItemIdsToDisplay = payload.rules.map(
+      this.serverItemIdsToDisplay = Array.from(payload.rules).map(
         (recipient: ListRuleData) => recipient.id
       );
       this.totalItems = payload.totalItems;
@@ -228,7 +228,7 @@ export default class ListRuleTableComponent extends BaseTable<
     }
   }
 
-  handleCreateSubmit(response: ListData) {
+  handleCreateSubmit(_response: ListData) {
     this.fetchItems();
   }
 

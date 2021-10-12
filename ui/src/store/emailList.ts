@@ -154,7 +154,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async fetchAllLists({ dispatch }, options: GetListsRequest) {
     return await fetchAllHelper<GetListsRequest, Lists>(
       async (o: GetListsRequest) => dispatch(`fetchLists`, o),
-      (pld: Lists) => pld.lists.map((x: ListData): number => x.id),
+      (pld: Lists) => Array.from(pld.lists).map((x: ListData): number => x.id),
       options
     );
   },

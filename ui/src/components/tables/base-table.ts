@@ -53,6 +53,7 @@ export default class BaseTable<
       .filter((h) => this.initialHeaders.includes(h.value))
       .map((h) => h.value);
   }
+
   get showHeaders() {
     return this.headers.filter((h) => this.selectedHeaders.includes(h.value));
   }

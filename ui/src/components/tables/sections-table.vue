@@ -118,7 +118,7 @@ export default class SectionTableComponent extends BaseTable<
           this.apiOptions
         );
       }
-      this.serverItemIdsToDisplay = payload.sections.map(
+      this.serverItemIdsToDisplay = Array.from(payload.sections).map(
         (section: SectionData) => section.id
       );
       this.totalItems = payload.totalItems;

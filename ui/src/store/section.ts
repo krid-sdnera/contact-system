@@ -56,7 +56,8 @@ export const actions: ActionTree<RootState, RootState> = {
   async fetchAllSections({ dispatch }, options: GetSectionsRequest) {
     return await fetchAllHelper<GetSectionsRequest, Sections>(
       async (o: GetSectionsRequest) => dispatch(`fetchSections`, o),
-      (pld: Sections) => pld.sections.map((x: SectionData): number => x.id),
+      (pld: Sections) =>
+        Array.from(pld.sections).map((x: SectionData): number => x.id),
       options
     );
   },

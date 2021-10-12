@@ -111,6 +111,7 @@ export default class SearchTableComponent extends BaseTable<
     { text: 'Mobile Phone', value: 'phoneMobile' },
     { text: 'Work Phone', value: 'phoneWork' },
   ];
+
   initialHeaders = [
     'id',
     'firstname',
@@ -145,10 +146,11 @@ export default class SearchTableComponent extends BaseTable<
       ]);
 
       const memberIds =
-        members?.members?.map((member: MemberData) => `member:${member.id}`) ??
-        [];
+        Array.from(members?.members)?.map(
+          (member: MemberData) => `member:${member.id}`
+        ) ?? [];
       const contactIds =
-        contacts?.contacts?.map(
+        Array.from(contacts?.contacts)?.map(
           (contact: ContactData) => `contact:${contact.id}`
         ) ?? [];
 

@@ -104,7 +104,7 @@ export default class ListTableComponent extends BaseTable<ListData, number> {
         this.apiOptions
       );
 
-      this.serverItemIdsToDisplay = payload.lists.map(
+      this.serverItemIdsToDisplay = Array.from(payload.lists).map(
         (list: ListData) => list.id
       );
       this.totalItems = payload.totalItems;

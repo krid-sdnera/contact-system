@@ -230,7 +230,7 @@ export default class DialogMemberExportComponent extends Vue {
     }
 
     const escapeCSVCell = (item: any) =>
-      typeof item === 'string' && item.indexOf(',') >= 0
+      typeof item === 'string' && item.includes(',')
         ? `"${item}"`
         : String(item);
 

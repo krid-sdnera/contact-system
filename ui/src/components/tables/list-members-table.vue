@@ -104,7 +104,7 @@ export default class ListMemberTableComponent extends BaseTable<
         }
       );
 
-      this.serverItemIdsToDisplay = payload.recipients.map(
+      this.serverItemIdsToDisplay = Array.from(payload.recipients).map(
         (recipient: RecipientData) => recipient.rowId
       );
       this.totalItems = payload.totalItems;
@@ -119,7 +119,7 @@ export default class ListMemberTableComponent extends BaseTable<
     }
   }
 
-  handleCreateSubmit(response: ListData) {
+  handleCreateSubmit(_response: ListData) {
     this.fetchItems();
   }
 

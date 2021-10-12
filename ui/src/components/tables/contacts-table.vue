@@ -127,7 +127,7 @@ export default class ContactTableComponent extends BaseTable<
         );
       }
 
-      this.serverItemIdsToDisplay = payload.contacts.map(
+      this.serverItemIdsToDisplay = Array.from(payload.contacts).map(
         (contact: ContactData) => contact.id
       );
       this.totalItems = payload.totalItems;

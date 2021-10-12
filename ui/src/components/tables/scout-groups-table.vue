@@ -103,7 +103,7 @@ export default class ScoutgroupTableComponent extends BaseTable<
         this.apiOptions
       );
 
-      this.serverItemIdsToDisplay = payload.scoutGroups.map(
+      this.serverItemIdsToDisplay = Array.from(payload.scoutGroups).map(
         (scoutgroup: ScoutGroupData) => scoutgroup.id
       );
       this.totalItems = payload.totalItems;

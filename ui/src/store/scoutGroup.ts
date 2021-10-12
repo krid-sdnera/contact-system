@@ -51,7 +51,7 @@ export const actions: ActionTree<RootState, RootState> = {
     return await fetchAllHelper<GetScoutGroupsRequest, ScoutGroups>(
       async (o: GetScoutGroupsRequest) => dispatch(`fetchScoutGroups`, o),
       (pld: ScoutGroups) =>
-        pld.scoutGroups.map((x: ScoutGroupData): number => x.id),
+        Array.from(pld.scoutGroups).map((x: ScoutGroupData): number => x.id),
       options
     );
   },
