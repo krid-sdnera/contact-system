@@ -1,4 +1,5 @@
 import {
+  CreateRoleRequest,
   DeleteRoleByIdRequest,
   GetRolesRequest,
   GetSectionRolesBySectionIdRequest,
@@ -106,6 +107,23 @@ export const actions: ActionTree<RootState, RootState> = {
     } catch (e) {
       commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
       throw new AppError(ErrorCode.InternalError, 'Unable to update role', e);
+    }
+  },
+  async createRole(
+    { commit },
+    { roleInput }: CreateRoleRequest
+  ): Promise<RoleData> {
+    try {
+      commit('ui/startUpdateApiRequestInProgress', null, { root: true });
+      const payload: RoleData = await this.$api.roles.createRole({
+        roleInput,
+      });
+      commit('setRoleById', payload);
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      return payload;
+    } catch (e) {
+      commit('ui/stopUpdateApiRequestInProgress', null, { root: true });
+      throw new AppError(ErrorCode.InternalError, 'Unable to create role', e);
     }
   },
   async deleteroleById(

@@ -80,6 +80,53 @@
         @input="datePickerModal = false"
       ></v-date-picker>
     </v-menu>
+    <v-row v-if="fieldType === 'address'">
+      <v-col cols="6" class="pr-0 pb-0">
+        <!-- Address Line 1 -->
+        <v-text-field
+          v-model="fieldData.street1"
+          label="Street Line 1"
+          :disabled="!isOverridden"
+        ></v-text-field>
+      </v-col>
+
+      <v-col cols="6" class="pl-0 pb-0">
+        <!-- Address Line 2 -->
+        <v-text-field
+          v-model="fieldData.street2"
+          label="Street Line 2"
+          :disabled="!isOverridden"
+        ></v-text-field>
+      </v-col>
+
+      <v-col cols="4" class="pr-0 pb-0">
+        <!-- Address City -->
+        <v-text-field
+          v-model="fieldData.city"
+          label="City"
+          :disabled="!isOverridden"
+        ></v-text-field>
+      </v-col>
+
+      <v-col cols="4" class="px-0 pb-0">
+        <!-- Address State -->
+        <v-text-field
+          v-model="fieldData.state"
+          label="State"
+          :disabled="!isOverridden"
+        ></v-text-field>
+      </v-col>
+
+      <v-col cols="4" class="pl-0 pb-0">
+        <!-- Address Postcode -->
+        <v-text-field
+          v-model="fieldData.postcode"
+          label="Postcode"
+          :disabled="!isOverridden"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+
     <slot></slot>
   </v-row>
 </template>
@@ -101,8 +148,8 @@ export default class BaseInputComponent extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly reserveOverrideCheckboxSpace!: boolean;
 
-  @Prop([String, Date, Boolean])
-  readonly original: string | Date | boolean | undefined;
+  @Prop([String, Date, Number, Boolean, Object])
+  readonly original: string | Date | number | boolean | Object | undefined;
 
   @Prop(String)
   readonly fieldType!: string;
@@ -110,8 +157,8 @@ export default class BaseInputComponent extends Vue {
   @Prop(Array)
   readonly selectOptions: { label: string; value: string }[] | undefined;
 
-  @PropSync('field', { type: [String, Boolean] })
-  fieldData!: string | boolean;
+  @PropSync('field', { type: [String, Number, Boolean, Object] })
+  fieldData!: string | number | boolean | Object;
 
   @PropSync('override', { type: Boolean })
   overrideData: boolean | undefined;

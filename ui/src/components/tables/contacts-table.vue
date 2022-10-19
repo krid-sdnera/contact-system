@@ -24,12 +24,17 @@
           single-line
           hide-details
         ></v-text-field>
-        <contact-create
-          v-if="allowCreation"
-          :member="member"
-          :open.sync="dialogCreate"
-          @submit="handleCreateSubmit"
-        ></contact-create>
+        <span v-if="allowCreation">
+          <v-btn color="primary" @click.stop="dialogCreate = true" class="mb-2">
+            New Local Contact
+          </v-btn>
+          <contact-edit
+            mode="create"
+            :member="member"
+            :open.sync="dialogCreate"
+            @submit="handleCreateSubmit"
+          ></contact-edit>
+        </span>
       </v-toolbar>
     </template>
     <template v-slot:[`item.state`]="{ item }">
@@ -67,14 +72,14 @@ import {
   ModelApiResponse,
 } from '@api/models';
 import { Component, Prop } from 'vue-property-decorator';
-import ContactCreateDialog from '~/components/dialogs/contact-create.vue';
+import ContactEditDialog from '~/components/dialogs/contact-edit.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
 import BaseTable from '~/components/tables/base-table';
 import * as contact from '~/store/contact';
 
 @Component({
   components: {
-    ContactCreateDialog,
+    ContactEditDialog,
     DangerConfirmation,
   },
 })
@@ -156,5 +161,7 @@ export default class ContactTableComponent extends BaseTable<
       }
     );
   }
+
+  dialogCreate = false;
 }
 </script>

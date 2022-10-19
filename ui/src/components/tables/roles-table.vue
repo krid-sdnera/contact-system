@@ -24,12 +24,16 @@
           single-line
           hide-details
         ></v-text-field>
-        <!-- <role-create
-          v-if="allowCreation"
-          :role="role"
-          :open.sync="dialogCreate"
-          @submit="handleCreateSubmit"
-        ></role-create> -->
+        <span v-if="allowCreation">
+          <v-btn color="primary" @click.stop="dialogCreate = true" class="mb-2">
+            New Local Role
+          </v-btn>
+          <role-edit
+            mode="create"
+            :open.sync="dialogCreate"
+            @submit="handleCreateSubmit"
+          ></role-edit>
+        </span>
       </v-toolbar>
     </template>
     <template v-slot:[`item.state`]="{ item }">
@@ -60,24 +64,16 @@
 </template>
 
 <script lang="ts">
-import {
-  MemberData,
-  ModelApiResponse,
-  RoleData,
-  Roles,
-  SectionData,
-} from '@api/models';
+import { ModelApiResponse, RoleData, Roles, SectionData } from '@api/models';
 import { Component, Prop } from 'vue-property-decorator';
-// import RoleCreateDialog from '~/components/dialogs/role-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
+import RoleEditDialog from '~/components/dialogs/role-edit.vue';
 import BaseTable from '~/components/tables/base-table';
-import * as member from '~/store/member';
 import * as role from '~/store/role';
-import * as section from '~/store/section';
 
 @Component({
   components: {
-    // RoleCreateDialog,
+    RoleEditDialog,
     DangerConfirmation,
   },
 })
@@ -141,6 +137,8 @@ export default class RoleTableComponent extends BaseTable<RoleData, number> {
       this.loading = false;
     }
   }
+
+  dialogCreate: boolean = false;
 
   handleCreateSubmit(response: RoleData) {
     if (response?.id) {

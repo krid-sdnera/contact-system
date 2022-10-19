@@ -26,11 +26,20 @@
         ></v-text-field>
         <template v-slot:extension>
           <!-- Member create modal -->
-          <member-create
-            v-if="allowCreation"
-            :open.sync="dialogCreate"
-            @submit="handleCreateSubmit"
-          ></member-create>
+          <span v-if="allowCreation">
+            <v-btn
+              color="primary"
+              @click.stop="dialogCreate = true"
+              class="mb-2"
+            >
+              New Local Member
+            </v-btn>
+            <contact-edit
+              mode="create"
+              :open.sync="dialogCreate"
+              @submit="handleCreateSubmit"
+            ></contact-edit>
+          </span>
           <v-spacer></v-spacer>
           <!-- Export modal -->
           <member-export
@@ -102,7 +111,7 @@ import {
 } from '@api/models';
 import { Component, Prop } from 'vue-property-decorator';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
-import MemberCreateDialog from '~/components/dialogs/member-create.vue';
+import MemberEditDialog from '~/components/dialogs/member-edit.vue';
 import MemberExportDialog from '~/components/export/member-export.vue';
 import TableOptionsComponent from '~/components/tables/table-options.vue';
 import BaseTable from '~/components/tables/base-table';
@@ -110,7 +119,7 @@ import * as member from '~/store/member';
 
 @Component({
   components: {
-    MemberCreateDialog,
+    MemberEditDialog,
     MemberExportDialog,
     DangerConfirmation,
     TableOptionsComponent,

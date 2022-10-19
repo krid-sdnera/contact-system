@@ -53,12 +53,13 @@
               Auto upgrade disabled
             </v-chip>
           </v-card-text>
-          <v-card-text>
-            <member-edit
-              :member="member"
-              :open.sync="dialogMemberEdit"
-            ></member-edit>
-          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click.stop="dialogMemberEdit = true">
+              <v-icon small>mdi-pencil</v-icon> Edit
+            </v-btn>
+          </v-card-actions>
+
           <template v-if="member.metaInvite">
             <template v-if="member.metaInvite.type === 'inviteActive'">
               <v-card-text>
@@ -233,6 +234,13 @@
         ></list-rules-table>
       </v-col>
     </v-row>
+
+    <!-- Dialogs -->
+    <member-edit
+      mode="update"
+      :data="member"
+      :open.sync="dialogMemberEdit"
+    ></member-edit>
   </div>
   <div v-else-if="fetchState === appFetchState.Loading">
     <!-- Skeletons -->
@@ -276,7 +284,6 @@ import {
   MemberRoleDataStateEnum,
 } from '@api/models';
 import { Component } from 'vue-property-decorator';
-import ContactCreateDialog from '~/components/dialogs/contact-create.vue';
 import DangerConfirmation from '~/components/dialogs/danger-confirmation.vue';
 import MemberEditDialog from '~/components/dialogs/member-edit.vue';
 import MemberRoleCreateDialog from '~/components/dialogs/member-role-create.vue';
@@ -293,7 +300,6 @@ import * as ui from '~/store/ui';
   components: {
     BaseInputComponent,
     MemberEditDialog,
-    ContactCreateDialog,
     MemberRoleCreateDialog,
     DangerConfirmation,
     ContactTableComponent,

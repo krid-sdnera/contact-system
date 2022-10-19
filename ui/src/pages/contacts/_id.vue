@@ -39,7 +39,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click.stop="dialogContactEdit">
+            <v-btn color="primary" @click.stop="dialogContactEdit = true">
               <v-icon small>mdi-pencil</v-icon> Edit
             </v-btn>
           </v-card-actions>
@@ -192,7 +192,8 @@
 
     <!-- Dialogs -->
     <contact-edit
-      :contact="contact"
+      mode="update"
+      :data="contact"
       :open.sync="dialogContactEdit"
     ></contact-edit>
   </div>
