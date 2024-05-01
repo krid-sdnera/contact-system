@@ -5,7 +5,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   SEDOPTION="-i ''"
 fi
 
-cd "$(dirname -- $(readlink -f "$0"))/../.."
+cd "$(dirname -- $(readlink -f "$0"))/.."
 
 echo "> Remove existing generation"
 rm -fr api/lib/ContactSystem/Api/*

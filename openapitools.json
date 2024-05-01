@@ -6,7 +6,7 @@
     "generators": {
       "server-php": {
         "generatorName": "php-symfony",
-        "glob": "common/contact-system-api.yaml",
+        "glob": "contact-system-api.yaml",
         "output": "api/lib/ContactSystem/Api",
         "gitUserId": "contact-system",
         "gitRepoId": "api",
@@ -18,7 +18,7 @@
       },
       "client-ts": {
         "generatorName": "typescript-fetch",
-        "glob": "common/contact-system-api.yaml",
+        "glob": "contact-system-api.yaml",
         "output": "ui/lib/ContactSystem/Client",
         "gitUserId": "contact-system",
         "gitRepoId": "ui",
@@ -33,7 +33,7 @@
       },
       "client-perl": {
         "generatorName": "perl",
-        "glob": "common/contact-system-api.yaml",
+        "glob": "contact-system-api.yaml",
         "output": "clients/perl",
         "gitUserId": "contact-system",
         "gitRepoId": "perl",

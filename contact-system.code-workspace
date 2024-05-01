@@ -1,17 +1,9 @@
 {
   "folders": [
-    {
-      "path": "ui"
-    },
-    {
-      "path": "api"
-    },
-    {
-      "path": "clients/perl"
-    },
-    {
-      "path": "common"
-    }
+    { "name": "Root", "path": "./" },
+    { "name": "UI", "path": "ui" },
+    { "name": "API", "path": "api" },
+    { "name": "Clients/Perl", "path": "clients/perl" }
   ],
   "settings": {
     "editor.formatOnSave": true
