@@ -49,7 +49,10 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
         $entityManager->persist($newGroup);
         $entityManager->flush();
 
-        return $newGroup->toScoutGroupData();
+        return [
+            'success' => true,
+            'scoutGroup' => $newGroup->toScoutGroupData(),
+        ];
     }
 
     /**
@@ -109,7 +112,10 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
             ]);
         }
 
-        return $group->toScoutGroupData();
+        return [
+            'success' => true,
+            'scoutGroup' => $group->toScoutGroupData(),
+        ];
     }
 
     /**
@@ -219,6 +225,9 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
         $entityManager->persist($groupToUpdate);
         $entityManager->flush();
 
-        return $groupToUpdate->toScoutGroupData();
+        return [
+            'success' => true,
+            'scoutGroup' => $groupToUpdate->toScoutGroupData(),
+        ];
     }
 }

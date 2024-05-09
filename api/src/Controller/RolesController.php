@@ -65,7 +65,10 @@ class RolesController extends AbstractController implements RolesApiInterface
         $entityManager->persist($newRole);
         $entityManager->flush();
 
-        return $newRole->toRoleData();
+        return [
+            'success' => true,
+            'role' => $newRole->toRoleData(),
+        ];
     }
 
     /**
@@ -109,7 +112,8 @@ class RolesController extends AbstractController implements RolesApiInterface
 
     /**
      * {@inheritdoc}
-     */   public function getMembersByRoleId(int $roleId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
+     */
+    public function getMembersByRoleId(int $roleId, string $query = null, string $sort = null, int $pageSize = null, int $page = null, &$responseCode, array &$responseHeaders)
     {
 
         /** @var MemberRepository */
@@ -181,7 +185,10 @@ class RolesController extends AbstractController implements RolesApiInterface
             ]);
         }
 
-        return $role->toRoleData();
+        return [
+            'success' => true,
+            'role' => $role->toRoleData(),
+        ];
     }
 
     /**
@@ -259,6 +266,9 @@ class RolesController extends AbstractController implements RolesApiInterface
         $entityManager->persist($roleToUpdate);
         $entityManager->flush();
 
-        return $roleToUpdate->toRoleData();
+        return [
+            'success' => true,
+            'role' => $roleToUpdate->toRoleData(),
+        ];
     }
 }

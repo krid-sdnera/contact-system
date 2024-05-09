@@ -121,7 +121,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberData"
+                title: MemberResponse
+                type: object
+                required:
+                  - success
+                  - member
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  member:
+                    $ref: "#/components/schemas/MemberData"
   "/members/{memberId}":
     parameters:
       - schema:
@@ -140,7 +150,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberData"
+                title: MemberResponse
+                type: object
+                required:
+                  - success
+                  - member
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  member:
+                    $ref: "#/components/schemas/MemberData"
     put:
       operationId: updateMemberById
       summary: Update Member
@@ -158,7 +178,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberData"
+                title: MemberResponse
+                type: object
+                required:
+                  - success
+                  - member
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  member:
+                    $ref: "#/components/schemas/MemberData"
     patch:
       operationId: patchMemberById
       summary: Partial Update Member
@@ -176,7 +206,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberData"
+                title: MemberResponse
+                type: object
+                required:
+                  - success
+                  - member
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  member:
+                    $ref: "#/components/schemas/MemberData"
     delete:
       operationId: deleteMemberById
       summary: Delete member
@@ -335,7 +375,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MemberRoleData"
+                title: MemberRoleResponse
+                type: object
+                required:
+                  - success
+                  - memberRole
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  memberRole:
+                    $ref: "#/components/schemas/MemberRoleData"
     delete:
       operationId: removeMemberRoleById
       summary: Remove Member Role
@@ -508,7 +558,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RoleData"
+                title: RoleResponse
+                type: object
+                required:
+                  - success
+                  - role
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  role:
+                    $ref: "#/components/schemas/RoleData"
   "/roles/{roleId}":
     parameters:
       - schema:
@@ -527,7 +587,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RoleData"
+                title: RoleResponse
+                type: object
+                required:
+                  - success
+                  - role
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  role:
+                    $ref: "#/components/schemas/RoleData"
     put:
       operationId: updateRoleById
       summary: Update role
@@ -544,7 +614,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RoleData"
+                title: RoleResponse
+                type: object
+                required:
+                  - success
+                  - role
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  role:
+                    $ref: "#/components/schemas/RoleData"
     delete:
       operationId: deleteRoleById
       summary: Delete role
@@ -757,7 +837,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ContactData"
+                title: ContactResponse
+                type: object
+                required:
+                  - success
+                  - contact
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  contact:
+                    $ref: "#/components/schemas/ContactData"
   "/contacts/{contactId}":
     parameters:
       - schema:
@@ -776,7 +866,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ContactData"
+                title: ContactResponse
+                type: object
+                required:
+                  - success
+                  - contact
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  contact:
+                    $ref: "#/components/schemas/ContactData"
     put:
       operationId: updateContactById
       summary: Update Contact By ID
@@ -794,7 +894,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ContactData"
+                title: ContactResponse
+                type: object
+                required:
+                  - success
+                  - contact
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  contact:
+                    $ref: "#/components/schemas/ContactData"
     patch:
       operationId: patchContactById
       summary: Patch Contact By ID
@@ -812,7 +922,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ContactData"
+                title: ContactResponse
+                type: object
+                required:
+                  - success
+                  - contact
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  contact:
+                    $ref: "#/components/schemas/ContactData"
     delete:
       operationId: deleteContactById
       summary: Delete Contact By ID
@@ -961,7 +1081,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ScoutGroupData"
+                title: ScoutGroupResponse
+                type: object
+                required:
+                  - success
+                  - scoutGroup
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  scoutGroup:
+                    $ref: "#/components/schemas/ScoutGroupData"
   "/groups/{scoutGroupId}":
     parameters:
       - schema:
@@ -976,11 +1106,21 @@ paths:
       tags: [ScoutGroups]
       responses:
         "200":
-          description: "OK  "
+          description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ScoutGroupData"
+                title: ScoutGroupResponse
+                type: object
+                required:
+                  - success
+                  - scoutGroup
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  scoutGroup:
+                    $ref: "#/components/schemas/ScoutGroupData"
     put:
       operationId: updateScoutGroupById
       summary: Update Group
@@ -997,7 +1137,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ScoutGroupData"
+                title: ScoutGroupResponse
+                type: object
+                required:
+                  - success
+                  - scoutGroup
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  scoutGroup:
+                    $ref: "#/components/schemas/ScoutGroupData"
     delete:
       operationId: deleteScoutGroupById
       summary: Delete Group
@@ -1181,18 +1331,28 @@ paths:
       summary: Create Section
       description: Create Section
       tags: [Sections]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SectionInput"
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SectionData"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SectionInput"
+                title: SectionResponse
+                type: object
+                required:
+                  - success
+                  - section
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  section:
+                    $ref: "#/components/schemas/SectionData"
   "/sections/{sectionId}":
     parameters:
       - schema:
@@ -1211,7 +1371,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SectionData"
+                title: SectionResponse
+                type: object
+                required:
+                  - success
+                  - section
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  section:
+                    $ref: "#/components/schemas/SectionData"
     put:
       operationId: updateSectionById
       summary: Update Section
@@ -1228,7 +1398,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SectionData"
+                title: SectionResponse
+                type: object
+                required:
+                  - success
+                  - section
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  section:
+                    $ref: "#/components/schemas/SectionData"
     delete:
       operationId: deleteSectionById
       summary: Delete Section
@@ -1486,7 +1666,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListData"
+                title: ListResponse
+                type: object
+                required:
+                  - success
+                  - list
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  list:
+                    $ref: "#/components/schemas/ListData"
   "/lists/{listId}":
     parameters:
       - schema:
@@ -1505,7 +1695,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListData"
+                title: ListResponse
+                type: object
+                required:
+                  - success
+                  - list
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  list:
+                    $ref: "#/components/schemas/ListData"
     put:
       operationId: updateListById
       summary: Update List By ID
@@ -1522,7 +1722,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListData"
+                title: ListResponse
+                type: object
+                required:
+                  - success
+                  - list
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  list:
+                    $ref: "#/components/schemas/ListData"
     delete:
       operationId: deleteListById
       summary: Delete List By ID
@@ -1554,7 +1764,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListData"
+                title: ListResponse
+                type: object
+                required:
+                  - success
+                  - list
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  list:
+                    $ref: "#/components/schemas/ListData"
   "/lists/{listId}/recipients":
     parameters:
       - schema:
@@ -1697,7 +1917,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListRuleData"
+                title: ListRuleResponse
+                type: object
+                required:
+                  - success
+                  - listRule
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  listRule:
+                    $ref: "#/components/schemas/ListRuleData"
   "/lists/{listId}/rules/{ruleId}":
     parameters:
       - schema:
@@ -1721,7 +1951,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListRuleData"
+                title: ListRuleResponse
+                type: object
+                required:
+                  - success
+                  - listRule
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  listRule:
+                    $ref: "#/components/schemas/ListRuleData"
     put:
       operationId: updateListRuleByListId
       summary: Update List Rule By List ID
@@ -1738,7 +1978,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListRuleData"
+                title: ListRuleResponse
+                type: object
+                required:
+                  - success
+                  - listRule
+                properties:
+                  success:
+                    description: Whether the request was successful or not
+                    type: boolean
+                  listRule:
+                    $ref: "#/components/schemas/ListRuleData"
     delete:
       operationId: deleteListRuleByListId
       summary: Delete List Rule By List ID

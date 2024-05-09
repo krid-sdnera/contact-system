@@ -65,7 +65,10 @@ class SectionsController extends AbstractController implements SectionsApiInterf
         $entityManager->persist($newSection);
         $entityManager->flush();
 
-        return $newSection->toSectionData();
+        return [
+            'success' => true,
+            'section' => $newSection->toSectionData(),
+        ];
     }
 
     /**
@@ -153,7 +156,10 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             ]);
         }
 
-        return $section->toSectionData();
+        return [
+            'success' => true,
+            'section' => $section->toSectionData(),
+        ];
     }
 
 
@@ -280,6 +286,9 @@ class SectionsController extends AbstractController implements SectionsApiInterf
         $entityManager->persist($sectionToUpdate);
         $entityManager->flush();
 
-        return $sectionToUpdate->toSectionData();
+        return [
+            'success' => true,
+            'section' => $sectionToUpdate->toSectionData(),
+        ];
     }
 }

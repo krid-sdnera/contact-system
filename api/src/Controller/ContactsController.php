@@ -86,7 +86,10 @@ class ContactsController extends AbstractController implements ContactsApiInterf
         $entityManager->persist($newContact);
         $entityManager->flush();
 
-        return $newContact->toContactData();
+        return [
+            'success' => true,
+            'contact' => $newContact->toContactData(),
+        ];
     }
 
     /**
@@ -137,7 +140,10 @@ class ContactsController extends AbstractController implements ContactsApiInterf
             ]);
         }
 
-        return $contact->toContactData();
+        return [
+            'success' => true,
+            'contact' => $contact->toContactData(),
+        ];
     }
 
     /**
@@ -310,7 +316,10 @@ class ContactsController extends AbstractController implements ContactsApiInterf
         $entityManager->persist($contactToUpdate);
         $entityManager->flush();
 
-        return $contactToUpdate->toContactData();
+        return [
+            'success' => true,
+            'contact' => $contactToUpdate->toContactData(),
+        ];
     }
 
     /**
@@ -389,6 +398,9 @@ class ContactsController extends AbstractController implements ContactsApiInterf
         $entityManager->persist($contactToUpdate);
         $entityManager->flush();
 
-        return $contactToUpdate->toContactData();
+        return [
+            'success' => true,
+            'contact' => $contactToUpdate->toContactData(),
+        ];
     }
 }

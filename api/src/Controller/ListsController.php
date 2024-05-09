@@ -72,7 +72,10 @@ class ListsController extends AbstractController implements ListsApiInterface
         $entityManager->persist($newEmailList);
         $entityManager->flush();
 
-        return $newEmailList->toListData();
+        return [
+            'success' => true,
+            'list' => $newEmailList->toListData(),
+        ];
     }
 
     /**
@@ -166,7 +169,10 @@ class ListsController extends AbstractController implements ListsApiInterface
         $entityManager->persist($newEmailListMem);
         $entityManager->flush();
 
-        return $newEmailListMem->toListRuleData();
+        return [
+            'success' => true,
+            'listRule' => $newEmailListMem->toListRuleData(),
+        ];
     }
 
     /**
@@ -262,7 +268,10 @@ class ListsController extends AbstractController implements ListsApiInterface
             ]);
         }
 
-        return $emailList->toListData();
+        return [
+            'success' => true,
+            'list' => $emailList->toListData(),
+        ];
     }
 
     /**
@@ -292,7 +301,10 @@ class ListsController extends AbstractController implements ListsApiInterface
             ]);
         }
 
-        return $emailList->toListData();
+        return [
+            'success' => true,
+            'list' => $emailList->toListData(),
+        ];
     }
 
     /**
@@ -437,16 +449,18 @@ class ListsController extends AbstractController implements ListsApiInterface
         $contactIds = array_keys($contactToRule);
 
         $qb = $emailListRecipientRepo->createQueryBuilder('e')->select('e');
-        $qb->where($qb->expr()->orX(
-            $qb->expr()->andX(
-                $qb->expr()->in('e.id', ':memberIds'),
-                $qb->expr()->eq('e.type', ':memberType')
-            ),
-            $qb->expr()->andX(
-                $qb->expr()->in('e.id', ':contactIds'),
-                $qb->expr()->eq('e.type', ':contactType')
+        $qb->where(
+            $qb->expr()->orX(
+                $qb->expr()->andX(
+                    $qb->expr()->in('e.id', ':memberIds'),
+                    $qb->expr()->eq('e.type', ':memberType')
+                ),
+                $qb->expr()->andX(
+                    $qb->expr()->in('e.id', ':contactIds'),
+                    $qb->expr()->eq('e.type', ':contactType')
+                )
             )
-        ));
+        );
         $qb->setParameter('memberIds', $memberIds);
         $qb->setParameter('memberType', 'member');
         $qb->setParameter('contactIds', $contactIds);
@@ -520,7 +534,10 @@ class ListsController extends AbstractController implements ListsApiInterface
             ]);
         }
 
-        return $emailListMem->toListRuleData();
+        return [
+            'success' => true,
+            'listRule' => $emailListMem->toListRuleData(),
+        ];
     }
 
     /**
@@ -619,7 +636,10 @@ class ListsController extends AbstractController implements ListsApiInterface
         $entityManager->persist($emailListToUpdate);
         $entityManager->flush();
 
-        return $emailListToUpdate->toListData();
+        return [
+            'success' => true,
+            'list' => $emailListToUpdate->toListData(),
+        ];
     }
 
     /**
@@ -709,6 +729,9 @@ class ListsController extends AbstractController implements ListsApiInterface
         $entityManager->persist($emailListRuleToUpdate);
         $entityManager->flush();
 
-        return $emailListRuleToUpdate->toListRuleData();
+        return [
+            'success' => true,
+            'listRule' => $emailListRuleToUpdate->toListRuleData(),
+        ];
     }
 }

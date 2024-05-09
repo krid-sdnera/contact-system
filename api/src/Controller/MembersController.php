@@ -114,7 +114,10 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $entityManager->persist($roleRelation);
         $entityManager->flush();
 
-        return $roleRelation->toMemberRoleData();
+        return [
+            'success' => true,
+            'role' => $roleRelation->toMemberRoleData(),
+        ];
     }
 
 
@@ -159,7 +162,10 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $entityManager->persist($newMember);
         $entityManager->flush();
 
-        return $newMember;
+        return [
+            'success' => true,
+            'member' => $newMember,
+        ];
     }
 
     /**
@@ -210,7 +216,10 @@ class MembersController extends AbstractController implements MembersApiInterfac
             ]);
         }
 
-        return $member->toMemberData();
+        return [
+            'success' => true,
+            'member' => $member->toMemberData(),
+        ];
     }
 
     /**
@@ -458,7 +467,10 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $entityManager->persist($memberToUpdate);
         $entityManager->flush();
 
-        return $memberToUpdate->toMemberData();
+        return [
+            'success' => true,
+            'member' => $memberToUpdate->toMemberData(),
+        ];
     }
 
     /**
@@ -576,6 +588,9 @@ class MembersController extends AbstractController implements MembersApiInterfac
         $entityManager->persist($memberToUpdate);
         $entityManager->flush();
 
-        return $memberToUpdate->toMemberData();
+        return [
+            'success' => true,
+            'member' => $memberToUpdate->toMemberData(),
+        ];
     }
 }
