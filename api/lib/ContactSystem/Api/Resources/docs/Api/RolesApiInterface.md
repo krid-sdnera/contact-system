@@ -26,7 +26,7 @@ services:
 ```
 
 ## **createRole**
-> OpenAPI\Server\Model\RoleData createRole($roleInput)
+> OpenAPI\Server\Model\RoleResponse createRole($roleInput)
 
 Create role
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\RoleData**](../Model/RoleData.md)
+[**OpenAPI\Server\Model\RoleResponse**](../Model/RoleResponse.md)
 
 ### Authorization
 
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getRoleById**
-> OpenAPI\Server\Model\RoleData getRoleById($roleId)
+> OpenAPI\Server\Model\RoleResponse getRoleById($roleId)
 
 Get Role
 
@@ -330,7 +330,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\RoleData**](../Model/RoleData.md)
+[**OpenAPI\Server\Model\RoleResponse**](../Model/RoleResponse.md)
 
 ### Authorization
 
@@ -409,7 +409,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateRoleById**
-> OpenAPI\Server\Model\RoleData updateRoleById($roleId, $roleInput)
+> OpenAPI\Server\Model\RoleResponse updateRoleById($roleId, $roleInput)
 
 Update role
 
@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\RoleData**](../Model/RoleData.md)
+[**OpenAPI\Server\Model\RoleResponse**](../Model/RoleResponse.md)
 
 ### Authorization
 

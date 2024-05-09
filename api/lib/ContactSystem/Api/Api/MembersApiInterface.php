@@ -32,10 +32,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\Contacts;
 use OpenAPI\Server\Model\ListRules;
-use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\MemberInput;
-use OpenAPI\Server\Model\MemberRoleData;
+use OpenAPI\Server\Model\MemberResponse;
 use OpenAPI\Server\Model\MemberRoleInput;
+use OpenAPI\Server\Model\MemberRoleResponse;
 use OpenAPI\Server\Model\MemberRoles;
 use OpenAPI\Server\Model\Members;
 
@@ -79,7 +79,7 @@ interface MembersApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\MemberRoleData
+     * @return \OpenAPI\Server\Model\MemberRoleResponse
      */
     public function addMemberRoleById(int $memberId, int $roleId, MemberRoleInput $memberRoleInput = null, &$responseCode, array &$responseHeaders);
 
@@ -92,7 +92,7 @@ interface MembersApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\MemberData
+     * @return \OpenAPI\Server\Model\MemberResponse
      */
     public function createMember(MemberInput $memberInput, &$responseCode, array &$responseHeaders);
 
@@ -135,7 +135,7 @@ interface MembersApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\MemberData
+     * @return \OpenAPI\Server\Model\MemberResponse
      */
     public function getMemberById(int $memberId, &$responseCode, array &$responseHeaders);
 
@@ -211,7 +211,7 @@ interface MembersApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\MemberData
+     * @return \OpenAPI\Server\Model\MemberResponse
      */
     public function patchMemberById(int $memberId, MemberInput $memberInput = null, &$responseCode, array &$responseHeaders);
 
@@ -239,7 +239,7 @@ interface MembersApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\MemberData
+     * @return \OpenAPI\Server\Model\MemberResponse
      */
     public function updateMemberById(int $memberId, MemberInput $memberInput = null, &$responseCode, array &$responseHeaders);
 }

@@ -65,10 +65,10 @@ sub new {
     __PACKAGE__->method_documentation->{ 'create_contact' } = { 
         summary => 'Create Contact',
         params => $params,
-        returns => 'ContactData',
+        returns => 'ContactResponse',
         };
 }
-# @return ContactData
+# @return ContactResponse
 #
 sub create_contact {
     my ($self, %args) = @_;
@@ -104,7 +104,7 @@ sub create_contact {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ContactData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ContactResponse', $response);
     return $_response_object;
 }
 
@@ -192,10 +192,10 @@ sub delete_contact_by_id {
     __PACKAGE__->method_documentation->{ 'get_contact_by_id' } = { 
         summary => 'Get Contact By ID',
         params => $params,
-        returns => 'ContactData',
+        returns => 'ContactResponse',
         };
 }
-# @return ContactData
+# @return ContactResponse
 #
 sub get_contact_by_id {
     my ($self, %args) = @_;
@@ -238,7 +238,7 @@ sub get_contact_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ContactData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ContactResponse', $response);
     return $_response_object;
 }
 
@@ -469,10 +469,10 @@ sub get_list_rules_by_contact_id {
     __PACKAGE__->method_documentation->{ 'patch_contact_by_id' } = { 
         summary => 'Patch Contact By ID',
         params => $params,
-        returns => 'ContactData',
+        returns => 'ContactResponse',
         };
 }
-# @return ContactData
+# @return ContactResponse
 #
 sub patch_contact_by_id {
     my ($self, %args) = @_;
@@ -520,7 +520,7 @@ sub patch_contact_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ContactData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ContactResponse', $response);
     return $_response_object;
 }
 
@@ -547,10 +547,10 @@ sub patch_contact_by_id {
     __PACKAGE__->method_documentation->{ 'update_contact_by_id' } = { 
         summary => 'Update Contact By ID',
         params => $params,
-        returns => 'ContactData',
+        returns => 'ContactResponse',
         };
 }
-# @return ContactData
+# @return ContactResponse
 #
 sub update_contact_by_id {
     my ($self, %args) = @_;
@@ -598,7 +598,7 @@ sub update_contact_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ContactData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ContactResponse', $response);
     return $_response_object;
 }
 

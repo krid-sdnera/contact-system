@@ -30,10 +30,10 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\ListData;
 use OpenAPI\Server\Model\ListInput;
-use OpenAPI\Server\Model\ListRuleData;
+use OpenAPI\Server\Model\ListResponse;
 use OpenAPI\Server\Model\ListRuleInput;
+use OpenAPI\Server\Model\ListRuleResponse;
 use OpenAPI\Server\Model\ListRules;
 use OpenAPI\Server\Model\Lists;
 use OpenAPI\Server\Model\Recipients;
@@ -76,7 +76,7 @@ interface ListsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ListData
+     * @return \OpenAPI\Server\Model\ListResponse
      */
     public function createList(ListInput $listInput = null, &$responseCode, array &$responseHeaders);
 
@@ -90,7 +90,7 @@ interface ListsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ListRuleData
+     * @return \OpenAPI\Server\Model\ListRuleResponse
      */
     public function createListRuleByListId(int $listId, ListRuleInput $listRuleInput = null, &$responseCode, array &$responseHeaders);
 
@@ -130,7 +130,7 @@ interface ListsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ListData
+     * @return \OpenAPI\Server\Model\ListResponse
      */
     public function getListByAddress(string $listAddress, &$responseCode, array &$responseHeaders);
 
@@ -143,7 +143,7 @@ interface ListsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ListData
+     * @return \OpenAPI\Server\Model\ListResponse
      */
     public function getListById(int $listId, &$responseCode, array &$responseHeaders);
 
@@ -174,7 +174,7 @@ interface ListsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ListRuleData
+     * @return \OpenAPI\Server\Model\ListRuleResponse
      */
     public function getListRuleByListId(int $listId, int $ruleId, &$responseCode, array &$responseHeaders);
 
@@ -221,7 +221,7 @@ interface ListsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ListData
+     * @return \OpenAPI\Server\Model\ListResponse
      */
     public function updateListById(int $listId, ListInput $listInput = null, &$responseCode, array &$responseHeaders);
 
@@ -236,7 +236,7 @@ interface ListsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ListRuleData
+     * @return \OpenAPI\Server\Model\ListRuleResponse
      */
     public function updateListRuleByListId(int $listId, int $ruleId, ListRuleInput $listRuleInput = null, &$responseCode, array &$responseHeaders);
 }

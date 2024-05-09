@@ -40,8 +40,8 @@ use OpenAPI\Server\Api\RolesApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ListRules;
 use OpenAPI\Server\Model\Members;
-use OpenAPI\Server\Model\RoleData;
 use OpenAPI\Server\Model\RoleInput;
+use OpenAPI\Server\Model\RoleResponse;
 use OpenAPI\Server\Model\Roles;
 
 /**

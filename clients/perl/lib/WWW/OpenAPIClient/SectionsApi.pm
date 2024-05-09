@@ -65,10 +65,10 @@ sub new {
     __PACKAGE__->method_documentation->{ 'create_section' } = { 
         summary => 'Create Section',
         params => $params,
-        returns => 'SectionData',
+        returns => 'SectionResponse',
         };
 }
-# @return SectionData
+# @return SectionResponse
 #
 sub create_section {
     my ($self, %args) = @_;
@@ -104,7 +104,7 @@ sub create_section {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('SectionData', $response);
+    my $_response_object = $self->{api_client}->deserialize('SectionResponse', $response);
     return $_response_object;
 }
 
@@ -414,10 +414,10 @@ sub get_members_by_section_id {
     __PACKAGE__->method_documentation->{ 'get_section_by_id' } = { 
         summary => 'Get Section',
         params => $params,
-        returns => 'SectionData',
+        returns => 'SectionResponse',
         };
 }
-# @return SectionData
+# @return SectionResponse
 #
 sub get_section_by_id {
     my ($self, %args) = @_;
@@ -460,7 +460,7 @@ sub get_section_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('SectionData', $response);
+    my $_response_object = $self->{api_client}->deserialize('SectionResponse', $response);
     return $_response_object;
 }
 
@@ -647,10 +647,10 @@ sub get_sections {
     __PACKAGE__->method_documentation->{ 'update_section_by_id' } = { 
         summary => 'Update Section',
         params => $params,
-        returns => 'SectionData',
+        returns => 'SectionResponse',
         };
 }
-# @return SectionData
+# @return SectionResponse
 #
 sub update_section_by_id {
     my ($self, %args) = @_;
@@ -698,7 +698,7 @@ sub update_section_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('SectionData', $response);
+    my $_response_object = $self->{api_client}->deserialize('SectionResponse', $response);
     return $_response_object;
 }
 

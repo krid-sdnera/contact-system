@@ -40,10 +40,10 @@ use OpenAPI\Server\Api\MembersApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\Contacts;
 use OpenAPI\Server\Model\ListRules;
-use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\MemberInput;
-use OpenAPI\Server\Model\MemberRoleData;
+use OpenAPI\Server\Model\MemberResponse;
 use OpenAPI\Server\Model\MemberRoleInput;
+use OpenAPI\Server\Model\MemberRoleResponse;
 use OpenAPI\Server\Model\MemberRoles;
 use OpenAPI\Server\Model\Members;
 

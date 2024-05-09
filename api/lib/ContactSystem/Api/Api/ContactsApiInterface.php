@@ -30,8 +30,8 @@ namespace OpenAPI\Server\Api;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
-use OpenAPI\Server\Model\ContactData;
 use OpenAPI\Server\Model\ContactInput;
+use OpenAPI\Server\Model\ContactResponse;
 use OpenAPI\Server\Model\Contacts;
 use OpenAPI\Server\Model\ListRules;
 
@@ -73,7 +73,7 @@ interface ContactsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ContactData
+     * @return \OpenAPI\Server\Model\ContactResponse
      */
     public function createContact(ContactInput $contactInput = null, &$responseCode, array &$responseHeaders);
 
@@ -99,7 +99,7 @@ interface ContactsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ContactData
+     * @return \OpenAPI\Server\Model\ContactResponse
      */
     public function getContactById(int $contactId, &$responseCode, array &$responseHeaders);
 
@@ -146,7 +146,7 @@ interface ContactsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ContactData
+     * @return \OpenAPI\Server\Model\ContactResponse
      */
     public function patchContactById(int $contactId, ContactInput $contactInput = null, &$responseCode, array &$responseHeaders);
 
@@ -160,7 +160,7 @@ interface ContactsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ContactData
+     * @return \OpenAPI\Server\Model\ContactResponse
      */
     public function updateContactById(int $contactId, ContactInput $contactInput = null, &$responseCode, array &$responseHeaders);
 }

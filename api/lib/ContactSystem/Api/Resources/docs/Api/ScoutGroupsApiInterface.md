@@ -26,7 +26,7 @@ services:
 ```
 
 ## **createScoutGroup**
-> OpenAPI\Server\Model\ScoutGroupData createScoutGroup($scoutGroupInput)
+> OpenAPI\Server\Model\ScoutGroupResponse createScoutGroup($scoutGroupInput)
 
 Create Group
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ScoutGroupData**](../Model/ScoutGroupData.md)
+[**OpenAPI\Server\Model\ScoutGroupResponse**](../Model/ScoutGroupResponse.md)
 
 ### Authorization
 
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getScoutGroupById**
-> OpenAPI\Server\Model\ScoutGroupData getScoutGroupById($scoutGroupId)
+> OpenAPI\Server\Model\ScoutGroupResponse getScoutGroupById($scoutGroupId)
 
 Get Group
 
@@ -264,7 +264,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ScoutGroupData**](../Model/ScoutGroupData.md)
+[**OpenAPI\Server\Model\ScoutGroupResponse**](../Model/ScoutGroupResponse.md)
 
 ### Authorization
 
@@ -405,7 +405,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateScoutGroupById**
-> OpenAPI\Server\Model\ScoutGroupData updateScoutGroupById($scoutGroupId, $scoutGroupInput)
+> OpenAPI\Server\Model\ScoutGroupResponse updateScoutGroupById($scoutGroupId, $scoutGroupInput)
 
 Update Group
 
@@ -454,7 +454,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ScoutGroupData**](../Model/ScoutGroupData.md)
+[**OpenAPI\Server\Model\ScoutGroupResponse**](../Model/ScoutGroupResponse.md)
 
 ### Authorization
 

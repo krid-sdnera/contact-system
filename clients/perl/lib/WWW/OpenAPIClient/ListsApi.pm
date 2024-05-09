@@ -65,10 +65,10 @@ sub new {
     __PACKAGE__->method_documentation->{ 'create_list' } = { 
         summary => 'Create List',
         params => $params,
-        returns => 'ListData',
+        returns => 'ListResponse',
         };
 }
-# @return ListData
+# @return ListResponse
 #
 sub create_list {
     my ($self, %args) = @_;
@@ -104,7 +104,7 @@ sub create_list {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ListData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ListResponse', $response);
     return $_response_object;
 }
 
@@ -131,10 +131,10 @@ sub create_list {
     __PACKAGE__->method_documentation->{ 'create_list_rule_by_list_id' } = { 
         summary => 'Create List Rule By List ID',
         params => $params,
-        returns => 'ListRuleData',
+        returns => 'ListRuleResponse',
         };
 }
-# @return ListRuleData
+# @return ListRuleResponse
 #
 sub create_list_rule_by_list_id {
     my ($self, %args) = @_;
@@ -182,7 +182,7 @@ sub create_list_rule_by_list_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ListRuleData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ListRuleResponse', $response);
     return $_response_object;
 }
 
@@ -355,10 +355,10 @@ sub delete_list_rule_by_list_id {
     __PACKAGE__->method_documentation->{ 'get_list_by_address' } = { 
         summary => 'Get List By Address',
         params => $params,
-        returns => 'ListData',
+        returns => 'ListResponse',
         };
 }
-# @return ListData
+# @return ListResponse
 #
 sub get_list_by_address {
     my ($self, %args) = @_;
@@ -401,7 +401,7 @@ sub get_list_by_address {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ListData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ListResponse', $response);
     return $_response_object;
 }
 
@@ -422,10 +422,10 @@ sub get_list_by_address {
     __PACKAGE__->method_documentation->{ 'get_list_by_id' } = { 
         summary => 'Get List By ID',
         params => $params,
-        returns => 'ListData',
+        returns => 'ListResponse',
         };
 }
-# @return ListData
+# @return ListResponse
 #
 sub get_list_by_id {
     my ($self, %args) = @_;
@@ -468,7 +468,7 @@ sub get_list_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ListData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ListResponse', $response);
     return $_response_object;
 }
 
@@ -606,10 +606,10 @@ sub get_list_recipients_by_list_id {
     __PACKAGE__->method_documentation->{ 'get_list_rule_by_list_id' } = { 
         summary => 'Get List Rule By List ID',
         params => $params,
-        returns => 'ListRuleData',
+        returns => 'ListRuleResponse',
         };
 }
-# @return ListRuleData
+# @return ListRuleResponse
 #
 sub get_list_rule_by_list_id {
     my ($self, %args) = @_;
@@ -664,7 +664,7 @@ sub get_list_rule_by_list_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ListRuleData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ListRuleResponse', $response);
     return $_response_object;
 }
 
@@ -895,10 +895,10 @@ sub get_lists {
     __PACKAGE__->method_documentation->{ 'update_list_by_id' } = { 
         summary => 'Update List By ID',
         params => $params,
-        returns => 'ListData',
+        returns => 'ListResponse',
         };
 }
-# @return ListData
+# @return ListResponse
 #
 sub update_list_by_id {
     my ($self, %args) = @_;
@@ -946,7 +946,7 @@ sub update_list_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ListData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ListResponse', $response);
     return $_response_object;
 }
 
@@ -979,10 +979,10 @@ sub update_list_by_id {
     __PACKAGE__->method_documentation->{ 'update_list_rule_by_list_id' } = { 
         summary => 'Update List Rule By List ID',
         params => $params,
-        returns => 'ListRuleData',
+        returns => 'ListRuleResponse',
         };
 }
-# @return ListRuleData
+# @return ListRuleResponse
 #
 sub update_list_rule_by_list_id {
     my ($self, %args) = @_;
@@ -1042,7 +1042,7 @@ sub update_list_rule_by_list_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ListRuleData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ListRuleResponse', $response);
     return $_response_object;
 }
 

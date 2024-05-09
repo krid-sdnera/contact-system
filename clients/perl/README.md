@@ -247,6 +247,7 @@ use WWW::OpenAPIClient::Object::ApiResponse;
 use WWW::OpenAPIClient::Object::ContactData;
 use WWW::OpenAPIClient::Object::ContactInput;
 use WWW::OpenAPIClient::Object::ContactOverrideData;
+use WWW::OpenAPIClient::Object::ContactResponse;
 use WWW::OpenAPIClient::Object::Contacts;
 use WWW::OpenAPIClient::Object::JwtData;
 use WWW::OpenAPIClient::Object::JwtErrorData;
@@ -254,16 +255,20 @@ use WWW::OpenAPIClient::Object::JwtErrorResponse;
 use WWW::OpenAPIClient::Object::JwtInput;
 use WWW::OpenAPIClient::Object::ListData;
 use WWW::OpenAPIClient::Object::ListInput;
+use WWW::OpenAPIClient::Object::ListResponse;
 use WWW::OpenAPIClient::Object::ListRuleData;
 use WWW::OpenAPIClient::Object::ListRuleInput;
+use WWW::OpenAPIClient::Object::ListRuleResponse;
 use WWW::OpenAPIClient::Object::ListRules;
 use WWW::OpenAPIClient::Object::Lists;
 use WWW::OpenAPIClient::Object::MemberData;
 use WWW::OpenAPIClient::Object::MemberInput;
 use WWW::OpenAPIClient::Object::MemberMetaInviteData;
 use WWW::OpenAPIClient::Object::MemberOverrideData;
+use WWW::OpenAPIClient::Object::MemberResponse;
 use WWW::OpenAPIClient::Object::MemberRoleData;
 use WWW::OpenAPIClient::Object::MemberRoleInput;
+use WWW::OpenAPIClient::Object::MemberRoleResponse;
 use WWW::OpenAPIClient::Object::MemberRoles;
 use WWW::OpenAPIClient::Object::MemberSuggetion;
 use WWW::OpenAPIClient::Object::Members;
@@ -271,12 +276,15 @@ use WWW::OpenAPIClient::Object::RecipientData;
 use WWW::OpenAPIClient::Object::Recipients;
 use WWW::OpenAPIClient::Object::RoleData;
 use WWW::OpenAPIClient::Object::RoleInput;
+use WWW::OpenAPIClient::Object::RoleResponse;
 use WWW::OpenAPIClient::Object::Roles;
 use WWW::OpenAPIClient::Object::ScoutGroupData;
 use WWW::OpenAPIClient::Object::ScoutGroupInput;
+use WWW::OpenAPIClient::Object::ScoutGroupResponse;
 use WWW::OpenAPIClient::Object::ScoutGroups;
 use WWW::OpenAPIClient::Object::SectionData;
 use WWW::OpenAPIClient::Object::SectionInput;
+use WWW::OpenAPIClient::Object::SectionResponse;
 use WWW::OpenAPIClient::Object::Sections;
 
 ````
@@ -303,6 +311,7 @@ use WWW::OpenAPIClient::Object::ApiResponse;
 use WWW::OpenAPIClient::Object::ContactData;
 use WWW::OpenAPIClient::Object::ContactInput;
 use WWW::OpenAPIClient::Object::ContactOverrideData;
+use WWW::OpenAPIClient::Object::ContactResponse;
 use WWW::OpenAPIClient::Object::Contacts;
 use WWW::OpenAPIClient::Object::JwtData;
 use WWW::OpenAPIClient::Object::JwtErrorData;
@@ -310,16 +319,20 @@ use WWW::OpenAPIClient::Object::JwtErrorResponse;
 use WWW::OpenAPIClient::Object::JwtInput;
 use WWW::OpenAPIClient::Object::ListData;
 use WWW::OpenAPIClient::Object::ListInput;
+use WWW::OpenAPIClient::Object::ListResponse;
 use WWW::OpenAPIClient::Object::ListRuleData;
 use WWW::OpenAPIClient::Object::ListRuleInput;
+use WWW::OpenAPIClient::Object::ListRuleResponse;
 use WWW::OpenAPIClient::Object::ListRules;
 use WWW::OpenAPIClient::Object::Lists;
 use WWW::OpenAPIClient::Object::MemberData;
 use WWW::OpenAPIClient::Object::MemberInput;
 use WWW::OpenAPIClient::Object::MemberMetaInviteData;
 use WWW::OpenAPIClient::Object::MemberOverrideData;
+use WWW::OpenAPIClient::Object::MemberResponse;
 use WWW::OpenAPIClient::Object::MemberRoleData;
 use WWW::OpenAPIClient::Object::MemberRoleInput;
+use WWW::OpenAPIClient::Object::MemberRoleResponse;
 use WWW::OpenAPIClient::Object::MemberRoles;
 use WWW::OpenAPIClient::Object::MemberSuggetion;
 use WWW::OpenAPIClient::Object::Members;
@@ -327,12 +340,15 @@ use WWW::OpenAPIClient::Object::RecipientData;
 use WWW::OpenAPIClient::Object::Recipients;
 use WWW::OpenAPIClient::Object::RoleData;
 use WWW::OpenAPIClient::Object::RoleInput;
+use WWW::OpenAPIClient::Object::RoleResponse;
 use WWW::OpenAPIClient::Object::Roles;
 use WWW::OpenAPIClient::Object::ScoutGroupData;
 use WWW::OpenAPIClient::Object::ScoutGroupInput;
+use WWW::OpenAPIClient::Object::ScoutGroupResponse;
 use WWW::OpenAPIClient::Object::ScoutGroups;
 use WWW::OpenAPIClient::Object::SectionData;
 use WWW::OpenAPIClient::Object::SectionInput;
+use WWW::OpenAPIClient::Object::SectionResponse;
 use WWW::OpenAPIClient::Object::Sections;
 
 # for displaying the API response data
@@ -423,6 +439,7 @@ Class | Method | HTTP request | Description
  - [WWW::OpenAPIClient::Object::ContactData](docs/ContactData.md)
  - [WWW::OpenAPIClient::Object::ContactInput](docs/ContactInput.md)
  - [WWW::OpenAPIClient::Object::ContactOverrideData](docs/ContactOverrideData.md)
+ - [WWW::OpenAPIClient::Object::ContactResponse](docs/ContactResponse.md)
  - [WWW::OpenAPIClient::Object::Contacts](docs/Contacts.md)
  - [WWW::OpenAPIClient::Object::JwtData](docs/JwtData.md)
  - [WWW::OpenAPIClient::Object::JwtErrorData](docs/JwtErrorData.md)
@@ -430,16 +447,20 @@ Class | Method | HTTP request | Description
  - [WWW::OpenAPIClient::Object::JwtInput](docs/JwtInput.md)
  - [WWW::OpenAPIClient::Object::ListData](docs/ListData.md)
  - [WWW::OpenAPIClient::Object::ListInput](docs/ListInput.md)
+ - [WWW::OpenAPIClient::Object::ListResponse](docs/ListResponse.md)
  - [WWW::OpenAPIClient::Object::ListRuleData](docs/ListRuleData.md)
  - [WWW::OpenAPIClient::Object::ListRuleInput](docs/ListRuleInput.md)
+ - [WWW::OpenAPIClient::Object::ListRuleResponse](docs/ListRuleResponse.md)
  - [WWW::OpenAPIClient::Object::ListRules](docs/ListRules.md)
  - [WWW::OpenAPIClient::Object::Lists](docs/Lists.md)
  - [WWW::OpenAPIClient::Object::MemberData](docs/MemberData.md)
  - [WWW::OpenAPIClient::Object::MemberInput](docs/MemberInput.md)
  - [WWW::OpenAPIClient::Object::MemberMetaInviteData](docs/MemberMetaInviteData.md)
  - [WWW::OpenAPIClient::Object::MemberOverrideData](docs/MemberOverrideData.md)
+ - [WWW::OpenAPIClient::Object::MemberResponse](docs/MemberResponse.md)
  - [WWW::OpenAPIClient::Object::MemberRoleData](docs/MemberRoleData.md)
  - [WWW::OpenAPIClient::Object::MemberRoleInput](docs/MemberRoleInput.md)
+ - [WWW::OpenAPIClient::Object::MemberRoleResponse](docs/MemberRoleResponse.md)
  - [WWW::OpenAPIClient::Object::MemberRoles](docs/MemberRoles.md)
  - [WWW::OpenAPIClient::Object::MemberSuggetion](docs/MemberSuggetion.md)
  - [WWW::OpenAPIClient::Object::Members](docs/Members.md)
@@ -447,12 +468,15 @@ Class | Method | HTTP request | Description
  - [WWW::OpenAPIClient::Object::Recipients](docs/Recipients.md)
  - [WWW::OpenAPIClient::Object::RoleData](docs/RoleData.md)
  - [WWW::OpenAPIClient::Object::RoleInput](docs/RoleInput.md)
+ - [WWW::OpenAPIClient::Object::RoleResponse](docs/RoleResponse.md)
  - [WWW::OpenAPIClient::Object::Roles](docs/Roles.md)
  - [WWW::OpenAPIClient::Object::ScoutGroupData](docs/ScoutGroupData.md)
  - [WWW::OpenAPIClient::Object::ScoutGroupInput](docs/ScoutGroupInput.md)
+ - [WWW::OpenAPIClient::Object::ScoutGroupResponse](docs/ScoutGroupResponse.md)
  - [WWW::OpenAPIClient::Object::ScoutGroups](docs/ScoutGroups.md)
  - [WWW::OpenAPIClient::Object::SectionData](docs/SectionData.md)
  - [WWW::OpenAPIClient::Object::SectionInput](docs/SectionInput.md)
+ - [WWW::OpenAPIClient::Object::SectionResponse](docs/SectionResponse.md)
  - [WWW::OpenAPIClient::Object::Sections](docs/Sections.md)
 
 

@@ -33,8 +33,8 @@ use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ListRules;
 use OpenAPI\Server\Model\Members;
 use OpenAPI\Server\Model\Roles;
-use OpenAPI\Server\Model\SectionData;
 use OpenAPI\Server\Model\SectionInput;
+use OpenAPI\Server\Model\SectionResponse;
 use OpenAPI\Server\Model\Sections;
 
 /**
@@ -75,7 +75,7 @@ interface SectionsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\SectionData
+     * @return \OpenAPI\Server\Model\SectionResponse
      */
     public function createSection(SectionInput $sectionInput = null, &$responseCode, array &$responseHeaders);
 
@@ -135,7 +135,7 @@ interface SectionsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\SectionData
+     * @return \OpenAPI\Server\Model\SectionResponse
      */
     public function getSectionById(int $sectionId, &$responseCode, array &$responseHeaders);
 
@@ -178,7 +178,7 @@ interface SectionsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\SectionData
+     * @return \OpenAPI\Server\Model\SectionResponse
      */
     public function updateSectionById(int $sectionId, SectionInput $sectionInput = null, &$responseCode, array &$responseHeaders);
 }

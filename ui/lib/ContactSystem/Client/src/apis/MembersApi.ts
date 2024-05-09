@@ -21,18 +21,18 @@ import {
     ListRules,
     ListRulesFromJSON,
     ListRulesToJSON,
-    MemberData,
-    MemberDataFromJSON,
-    MemberDataToJSON,
     MemberInput,
     MemberInputFromJSON,
     MemberInputToJSON,
-    MemberRoleData,
-    MemberRoleDataFromJSON,
-    MemberRoleDataToJSON,
+    MemberResponse,
+    MemberResponseFromJSON,
+    MemberResponseToJSON,
     MemberRoleInput,
     MemberRoleInputFromJSON,
     MemberRoleInputToJSON,
+    MemberRoleResponse,
+    MemberRoleResponseFromJSON,
+    MemberRoleResponseToJSON,
     MemberRoles,
     MemberRolesFromJSON,
     MemberRolesToJSON,
@@ -128,13 +128,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberRoleData>>;
+    addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberRoleResponse>>;
 
     /**
      * Add Member Role
      * Add Member Role
      */
-    addMemberRoleById(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<MemberRoleData>;
+    addMemberRoleById(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<MemberRoleResponse>;
 
     /**
      * Create a member
@@ -144,13 +144,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    createMemberRaw(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>>;
+    createMemberRaw(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberResponse>>;
 
     /**
      * Create a member
      * Create a member
      */
-    createMember(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<MemberData>;
+    createMember(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<MemberResponse>;
 
     /**
      * Delete a member
@@ -196,13 +196,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    getMemberByIdRaw(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>>;
+    getMemberByIdRaw(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberResponse>>;
 
     /**
      * Get details for a member
      * Get Member
      */
-    getMemberById(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData>;
+    getMemberById(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberResponse>;
 
     /**
      * List contacts for this member
@@ -287,13 +287,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>>;
+    patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberResponse>>;
 
     /**
      * Partially update member
      * Partial Update Member
      */
-    patchMemberById(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData>;
+    patchMemberById(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberResponse>;
 
     /**
      * Remove Member Role
@@ -321,13 +321,13 @@ export interface MembersApiInterface {
      * @throws {RequiredError}
      * @memberof MembersApiInterface
      */
-    updateMemberByIdRaw(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>>;
+    updateMemberByIdRaw(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberResponse>>;
 
     /**
      * Update member
      * Update Member
      */
-    updateMemberById(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData>;
+    updateMemberById(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberResponse>;
 
 }
 
@@ -340,7 +340,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Add Member Role
      * Add Member Role
      */
-    async addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberRoleData>> {
+    async addMemberRoleByIdRaw(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberRoleResponse>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling addMemberRoleById.');
         }
@@ -375,14 +375,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             body: MemberRoleInputToJSON(requestParameters.memberRoleInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MemberRoleDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MemberRoleResponseFromJSON(jsonValue));
     }
 
     /**
      * Add Member Role
      * Add Member Role
      */
-    async addMemberRoleById(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<MemberRoleData> {
+    async addMemberRoleById(requestParameters: AddMemberRoleByIdRequest, initOverrides?: RequestInit): Promise<MemberRoleResponse> {
         const response = await this.addMemberRoleByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -391,7 +391,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Create a member
      * Create a member
      */
-    async createMemberRaw(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>> {
+    async createMemberRaw(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberResponse>> {
         if (requestParameters.memberInput === null || requestParameters.memberInput === undefined) {
             throw new runtime.RequiredError('memberInput','Required parameter requestParameters.memberInput was null or undefined when calling createMember.');
         }
@@ -422,14 +422,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             body: MemberInputToJSON(requestParameters.memberInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MemberDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MemberResponseFromJSON(jsonValue));
     }
 
     /**
      * Create a member
      * Create a member
      */
-    async createMember(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<MemberData> {
+    async createMember(requestParameters: CreateMemberRequest, initOverrides?: RequestInit): Promise<MemberResponse> {
         const response = await this.createMemberRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -542,7 +542,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Get details for a member
      * Get Member
      */
-    async getMemberByIdRaw(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>> {
+    async getMemberByIdRaw(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberResponse>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling getMemberById.');
         }
@@ -570,14 +570,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MemberDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MemberResponseFromJSON(jsonValue));
     }
 
     /**
      * Get details for a member
      * Get Member
      */
-    async getMemberById(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData> {
+    async getMemberById(requestParameters: GetMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberResponse> {
         const response = await this.getMemberByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -802,7 +802,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Partially update member
      * Partial Update Member
      */
-    async patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>> {
+    async patchMemberByIdRaw(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberResponse>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling patchMemberById.');
         }
@@ -833,14 +833,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             body: MemberInputToJSON(requestParameters.memberInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MemberDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MemberResponseFromJSON(jsonValue));
     }
 
     /**
      * Partially update member
      * Partial Update Member
      */
-    async patchMemberById(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData> {
+    async patchMemberById(requestParameters: PatchMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberResponse> {
         const response = await this.patchMemberByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -897,7 +897,7 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
      * Update member
      * Update Member
      */
-    async updateMemberByIdRaw(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberData>> {
+    async updateMemberByIdRaw(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MemberResponse>> {
         if (requestParameters.memberId === null || requestParameters.memberId === undefined) {
             throw new runtime.RequiredError('memberId','Required parameter requestParameters.memberId was null or undefined when calling updateMemberById.');
         }
@@ -928,14 +928,14 @@ export class MembersApi extends runtime.BaseAPI implements MembersApiInterface {
             body: MemberInputToJSON(requestParameters.memberInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MemberDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MemberResponseFromJSON(jsonValue));
     }
 
     /**
      * Update member
      * Update Member
      */
-    async updateMemberById(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberData> {
+    async updateMemberById(requestParameters: UpdateMemberByIdRequest, initOverrides?: RequestInit): Promise<MemberResponse> {
         const response = await this.updateMemberByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }

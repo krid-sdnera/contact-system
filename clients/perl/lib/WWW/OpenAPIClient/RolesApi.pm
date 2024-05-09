@@ -65,10 +65,10 @@ sub new {
     __PACKAGE__->method_documentation->{ 'create_role' } = { 
         summary => 'Create role',
         params => $params,
-        returns => 'RoleData',
+        returns => 'RoleResponse',
         };
 }
-# @return RoleData
+# @return RoleResponse
 #
 sub create_role {
     my ($self, %args) = @_;
@@ -104,7 +104,7 @@ sub create_role {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('RoleData', $response);
+    my $_response_object = $self->{api_client}->deserialize('RoleResponse', $response);
     return $_response_object;
 }
 
@@ -414,10 +414,10 @@ sub get_members_by_role_id {
     __PACKAGE__->method_documentation->{ 'get_role_by_id' } = { 
         summary => 'Get Role',
         params => $params,
-        returns => 'RoleData',
+        returns => 'RoleResponse',
         };
 }
-# @return RoleData
+# @return RoleResponse
 #
 sub get_role_by_id {
     my ($self, %args) = @_;
@@ -460,7 +460,7 @@ sub get_role_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('RoleData', $response);
+    my $_response_object = $self->{api_client}->deserialize('RoleResponse', $response);
     return $_response_object;
 }
 
@@ -580,10 +580,10 @@ sub get_roles {
     __PACKAGE__->method_documentation->{ 'update_role_by_id' } = { 
         summary => 'Update role',
         params => $params,
-        returns => 'RoleData',
+        returns => 'RoleResponse',
         };
 }
-# @return RoleData
+# @return RoleResponse
 #
 sub update_role_by_id {
     my ($self, %args) = @_;
@@ -631,7 +631,7 @@ sub update_role_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('RoleData', $response);
+    my $_response_object = $self->{api_client}->deserialize('RoleResponse', $response);
     return $_response_object;
 }
 

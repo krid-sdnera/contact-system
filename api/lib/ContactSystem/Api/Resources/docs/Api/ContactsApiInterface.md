@@ -26,7 +26,7 @@ services:
 ```
 
 ## **createContact**
-> OpenAPI\Server\Model\ContactData createContact($contactInput)
+> OpenAPI\Server\Model\ContactResponse createContact($contactInput)
 
 Create Contact
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ContactData**](../Model/ContactData.md)
+[**OpenAPI\Server\Model\ContactResponse**](../Model/ContactResponse.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getContactById**
-> OpenAPI\Server\Model\ContactData getContactById($contactId)
+> OpenAPI\Server\Model\ContactResponse getContactById($contactId)
 
 Get Contact By ID
 
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ContactData**](../Model/ContactData.md)
+[**OpenAPI\Server\Model\ContactResponse**](../Model/ContactResponse.md)
 
 ### Authorization
 
@@ -343,7 +343,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **patchContactById**
-> OpenAPI\Server\Model\ContactData patchContactById($contactId, $contactInput)
+> OpenAPI\Server\Model\ContactResponse patchContactById($contactId, $contactInput)
 
 Patch Contact By ID
 
@@ -392,7 +392,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ContactData**](../Model/ContactData.md)
+[**OpenAPI\Server\Model\ContactResponse**](../Model/ContactResponse.md)
 
 ### Authorization
 
@@ -406,7 +406,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateContactById**
-> OpenAPI\Server\Model\ContactData updateContactById($contactId, $contactInput)
+> OpenAPI\Server\Model\ContactResponse updateContactById($contactId, $contactInput)
 
 Update Contact By ID
 
@@ -455,7 +455,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ContactData**](../Model/ContactData.md)
+[**OpenAPI\Server\Model\ContactResponse**](../Model/ContactResponse.md)
 
 ### Authorization
 

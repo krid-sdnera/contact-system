@@ -41,8 +41,8 @@ use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ListRules;
 use OpenAPI\Server\Model\Members;
 use OpenAPI\Server\Model\Roles;
-use OpenAPI\Server\Model\SectionData;
 use OpenAPI\Server\Model\SectionInput;
+use OpenAPI\Server\Model\SectionResponse;
 use OpenAPI\Server\Model\Sections;
 
 /**

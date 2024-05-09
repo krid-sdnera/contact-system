@@ -65,10 +65,10 @@ sub new {
     __PACKAGE__->method_documentation->{ 'create_scout_group' } = { 
         summary => 'Create Group',
         params => $params,
-        returns => 'ScoutGroupData',
+        returns => 'ScoutGroupResponse',
         };
 }
-# @return ScoutGroupData
+# @return ScoutGroupResponse
 #
 sub create_scout_group {
     my ($self, %args) = @_;
@@ -104,7 +104,7 @@ sub create_scout_group {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ScoutGroupData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ScoutGroupResponse', $response);
     return $_response_object;
 }
 
@@ -303,10 +303,10 @@ sub get_list_rules_by_scout_group_id {
     __PACKAGE__->method_documentation->{ 'get_scout_group_by_id' } = { 
         summary => 'Get Group',
         params => $params,
-        returns => 'ScoutGroupData',
+        returns => 'ScoutGroupResponse',
         };
 }
-# @return ScoutGroupData
+# @return ScoutGroupResponse
 #
 sub get_scout_group_by_id {
     my ($self, %args) = @_;
@@ -349,7 +349,7 @@ sub get_scout_group_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ScoutGroupData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ScoutGroupResponse', $response);
     return $_response_object;
 }
 
@@ -536,10 +536,10 @@ sub get_scout_groups {
     __PACKAGE__->method_documentation->{ 'update_scout_group_by_id' } = { 
         summary => 'Update Group',
         params => $params,
-        returns => 'ScoutGroupData',
+        returns => 'ScoutGroupResponse',
         };
 }
-# @return ScoutGroupData
+# @return ScoutGroupResponse
 #
 sub update_scout_group_by_id {
     my ($self, %args) = @_;
@@ -587,7 +587,7 @@ sub update_scout_group_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('ScoutGroupData', $response);
+    my $_response_object = $self->{api_client}->deserialize('ScoutGroupResponse', $response);
     return $_response_object;
 }
 

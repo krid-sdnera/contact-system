@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 
 # **create_contact**
-> ContactData create_contact(contact_input => $contact_input)
+> ContactResponse create_contact(contact_input => $contact_input)
 
 Create Contact
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ContactData**](ContactData.md)
+[**ContactResponse**](ContactResponse.md)
 
 ### Authorization
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_contact_by_id**
-> ContactData get_contact_by_id(contact_id => $contact_id)
+> ContactResponse get_contact_by_id(contact_id => $contact_id)
 
 Get Contact By ID
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ContactData**](ContactData.md)
+[**ContactResponse**](ContactResponse.md)
 
 ### Authorization
 
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_contact_by_id**
-> ContactData patch_contact_by_id(contact_id => $contact_id, contact_input => $contact_input)
+> ContactResponse patch_contact_by_id(contact_id => $contact_id, contact_input => $contact_input)
 
 Patch Contact By ID
 
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ContactData**](ContactData.md)
+[**ContactResponse**](ContactResponse.md)
 
 ### Authorization
 
@@ -365,7 +365,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_contact_by_id**
-> ContactData update_contact_by_id(contact_id => $contact_id, contact_input => $contact_input)
+> ContactResponse update_contact_by_id(contact_id => $contact_id, contact_input => $contact_input)
 
 Update Contact By ID
 
@@ -408,7 +408,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ContactData**](ContactData.md)
+[**ContactResponse**](ContactResponse.md)
 
 ### Authorization
 

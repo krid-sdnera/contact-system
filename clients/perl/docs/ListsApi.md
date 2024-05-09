@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 
 # **create_list**
-> ListData create_list(list_input => $list_input)
+> ListResponse create_list(list_input => $list_input)
 
 Create List
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListData**](ListData.md)
+[**ListResponse**](ListResponse.md)
 
 ### Authorization
 
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_list_rule_by_list_id**
-> ListRuleData create_list_rule_by_list_id(list_id => $list_id, list_rule_input => $list_rule_input)
+> ListRuleResponse create_list_rule_by_list_id(list_id => $list_id, list_rule_input => $list_rule_input)
 
 Create List Rule By List ID
 
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRuleData**](ListRuleData.md)
+[**ListRuleResponse**](ListRuleResponse.md)
 
 ### Authorization
 
@@ -248,7 +248,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_list_by_address**
-> ListData get_list_by_address(list_address => $list_address)
+> ListResponse get_list_by_address(list_address => $list_address)
 
 Get List By Address
 
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListData**](ListData.md)
+[**ListResponse**](ListResponse.md)
 
 ### Authorization
 
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_list_by_id**
-> ListData get_list_by_id(list_id => $list_id)
+> ListResponse get_list_by_id(list_id => $list_id)
 
 Get List By ID
 
@@ -344,7 +344,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListData**](ListData.md)
+[**ListResponse**](ListResponse.md)
 
 ### Authorization
 
@@ -421,7 +421,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_list_rule_by_list_id**
-> ListRuleData get_list_rule_by_list_id(list_id => $list_id, rule_id => $rule_id)
+> ListRuleResponse get_list_rule_by_list_id(list_id => $list_id, rule_id => $rule_id)
 
 Get List Rule By List ID
 
@@ -464,7 +464,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRuleData**](ListRuleData.md)
+[**ListRuleResponse**](ListRuleResponse.md)
 
 ### Authorization
 
@@ -602,7 +602,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_list_by_id**
-> ListData update_list_by_id(list_id => $list_id, list_input => $list_input)
+> ListResponse update_list_by_id(list_id => $list_id, list_input => $list_input)
 
 Update List By ID
 
@@ -645,7 +645,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListData**](ListData.md)
+[**ListResponse**](ListResponse.md)
 
 ### Authorization
 
@@ -659,7 +659,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_list_rule_by_list_id**
-> ListRuleData update_list_rule_by_list_id(list_id => $list_id, rule_id => $rule_id, list_rule_input => $list_rule_input)
+> ListRuleResponse update_list_rule_by_list_id(list_id => $list_id, rule_id => $rule_id, list_rule_input => $list_rule_input)
 
 Update List Rule By List ID
 
@@ -704,7 +704,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListRuleData**](ListRuleData.md)
+[**ListRuleResponse**](ListRuleResponse.md)
 
 ### Authorization
 

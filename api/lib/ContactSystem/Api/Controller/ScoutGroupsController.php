@@ -39,8 +39,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use OpenAPI\Server\Api\ScoutGroupsApiInterface;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ListRules;
-use OpenAPI\Server\Model\ScoutGroupData;
 use OpenAPI\Server\Model\ScoutGroupInput;
+use OpenAPI\Server\Model\ScoutGroupResponse;
 use OpenAPI\Server\Model\ScoutGroups;
 use OpenAPI\Server\Model\Sections;
 

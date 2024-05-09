@@ -31,7 +31,7 @@ services:
 ```
 
 ## **addMemberRoleById**
-> OpenAPI\Server\Model\MemberRoleData addMemberRoleById($memberId, $roleId, $memberRoleInput)
+> OpenAPI\Server\Model\MemberRoleResponse addMemberRoleById($memberId, $roleId, $memberRoleInput)
 
 Add Member Role
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberRoleData**](../Model/MemberRoleData.md)
+[**OpenAPI\Server\Model\MemberRoleResponse**](../Model/MemberRoleResponse.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **createMember**
-> OpenAPI\Server\Model\MemberData createMember($memberInput)
+> OpenAPI\Server\Model\MemberResponse createMember($memberInput)
 
 Create a member
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
+[**OpenAPI\Server\Model\MemberResponse**](../Model/MemberResponse.md)
 
 ### Authorization
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getMemberById**
-> OpenAPI\Server\Model\MemberData getMemberById($memberId)
+> OpenAPI\Server\Model\MemberResponse getMemberById($memberId)
 
 Get Member
 
@@ -333,7 +333,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
+[**OpenAPI\Server\Model\MemberResponse**](../Model/MemberResponse.md)
 
 ### Authorization
 
@@ -605,7 +605,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **patchMemberById**
-> OpenAPI\Server\Model\MemberData patchMemberById($memberId, $memberInput)
+> OpenAPI\Server\Model\MemberResponse patchMemberById($memberId, $memberInput)
 
 Partial Update Member
 
@@ -654,7 +654,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
+[**OpenAPI\Server\Model\MemberResponse**](../Model/MemberResponse.md)
 
 ### Authorization
 
@@ -731,7 +731,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateMemberById**
-> OpenAPI\Server\Model\MemberData updateMemberById($memberId, $memberInput)
+> OpenAPI\Server\Model\MemberResponse updateMemberById($memberId, $memberInput)
 
 Update Member
 
@@ -780,7 +780,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\MemberData**](../Model/MemberData.md)
+[**OpenAPI\Server\Model\MemberResponse**](../Model/MemberResponse.md)
 
 ### Authorization
 

@@ -77,10 +77,10 @@ sub new {
     __PACKAGE__->method_documentation->{ 'add_member_role_by_id' } = { 
         summary => 'Add Member Role',
         params => $params,
-        returns => 'MemberRoleData',
+        returns => 'MemberRoleResponse',
         };
 }
-# @return MemberRoleData
+# @return MemberRoleResponse
 #
 sub add_member_role_by_id {
     my ($self, %args) = @_;
@@ -140,7 +140,7 @@ sub add_member_role_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('MemberRoleData', $response);
+    my $_response_object = $self->{api_client}->deserialize('MemberRoleResponse', $response);
     return $_response_object;
 }
 
@@ -161,10 +161,10 @@ sub add_member_role_by_id {
     __PACKAGE__->method_documentation->{ 'create_member' } = { 
         summary => 'Create a member',
         params => $params,
-        returns => 'MemberData',
+        returns => 'MemberResponse',
         };
 }
-# @return MemberData
+# @return MemberResponse
 #
 sub create_member {
     my ($self, %args) = @_;
@@ -205,7 +205,7 @@ sub create_member {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('MemberData', $response);
+    my $_response_object = $self->{api_client}->deserialize('MemberResponse', $response);
     return $_response_object;
 }
 
@@ -404,10 +404,10 @@ sub get_list_rules_by_member_id {
     __PACKAGE__->method_documentation->{ 'get_member_by_id' } = { 
         summary => 'Get Member',
         params => $params,
-        returns => 'MemberData',
+        returns => 'MemberResponse',
         };
 }
-# @return MemberData
+# @return MemberResponse
 #
 sub get_member_by_id {
     my ($self, %args) = @_;
@@ -450,7 +450,7 @@ sub get_member_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('MemberData', $response);
+    my $_response_object = $self->{api_client}->deserialize('MemberResponse', $response);
     return $_response_object;
 }
 
@@ -855,10 +855,10 @@ sub merge_member {
     __PACKAGE__->method_documentation->{ 'patch_member_by_id' } = { 
         summary => 'Partial Update Member',
         params => $params,
-        returns => 'MemberData',
+        returns => 'MemberResponse',
         };
 }
-# @return MemberData
+# @return MemberResponse
 #
 sub patch_member_by_id {
     my ($self, %args) = @_;
@@ -906,7 +906,7 @@ sub patch_member_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('MemberData', $response);
+    my $_response_object = $self->{api_client}->deserialize('MemberResponse', $response);
     return $_response_object;
 }
 
@@ -1018,10 +1018,10 @@ sub remove_member_role_by_id {
     __PACKAGE__->method_documentation->{ 'update_member_by_id' } = { 
         summary => 'Update Member',
         params => $params,
-        returns => 'MemberData',
+        returns => 'MemberResponse',
         };
 }
-# @return MemberData
+# @return MemberResponse
 #
 sub update_member_by_id {
     my ($self, %args) = @_;
@@ -1069,7 +1069,7 @@ sub update_member_by_id {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('MemberData', $response);
+    my $_response_object = $self->{api_client}->deserialize('MemberResponse', $response);
     return $_response_object;
 }
 

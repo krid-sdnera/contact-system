@@ -27,7 +27,7 @@ services:
 ```
 
 ## **createSection**
-> OpenAPI\Server\Model\SectionData createSection($sectionInput)
+> OpenAPI\Server\Model\SectionResponse createSection($sectionInput)
 
 Create Section
 
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\SectionData**](../Model/SectionData.md)
+[**OpenAPI\Server\Model\SectionResponse**](../Model/SectionResponse.md)
 
 ### Authorization
 
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getSectionById**
-> OpenAPI\Server\Model\SectionData getSectionById($sectionId)
+> OpenAPI\Server\Model\SectionResponse getSectionById($sectionId)
 
 Get Section
 
@@ -331,7 +331,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\SectionData**](../Model/SectionData.md)
+[**OpenAPI\Server\Model\SectionResponse**](../Model/SectionResponse.md)
 
 ### Authorization
 
@@ -472,7 +472,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateSectionById**
-> OpenAPI\Server\Model\SectionData updateSectionById($sectionId, $sectionInput)
+> OpenAPI\Server\Model\SectionResponse updateSectionById($sectionId, $sectionInput)
 
 Update Section
 
@@ -521,7 +521,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\SectionData**](../Model/SectionData.md)
+[**OpenAPI\Server\Model\SectionResponse**](../Model/SectionResponse.md)
 
 ### Authorization
 

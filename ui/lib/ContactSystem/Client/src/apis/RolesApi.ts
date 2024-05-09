@@ -24,12 +24,12 @@ import {
     ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
-    RoleData,
-    RoleDataFromJSON,
-    RoleDataToJSON,
     RoleInput,
     RoleInputFromJSON,
     RoleInputToJSON,
+    RoleResponse,
+    RoleResponseFromJSON,
+    RoleResponseToJSON,
     Roles,
     RolesFromJSON,
     RolesToJSON,
@@ -90,13 +90,13 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    createRoleRaw(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>>;
+    createRoleRaw(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleResponse>>;
 
     /**
      * Create role
      * Create role
      */
-    createRole(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<RoleData>;
+    createRole(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<RoleResponse>;
 
     /**
      * Delete role
@@ -162,13 +162,13 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    getRoleByIdRaw(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>>;
+    getRoleByIdRaw(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleResponse>>;
 
     /**
      * Get role
      * Get Role
      */
-    getRoleById(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleData>;
+    getRoleById(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleResponse>;
 
     /**
      * Get roles
@@ -198,13 +198,13 @@ export interface RolesApiInterface {
      * @throws {RequiredError}
      * @memberof RolesApiInterface
      */
-    updateRoleByIdRaw(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>>;
+    updateRoleByIdRaw(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleResponse>>;
 
     /**
      * Update role
      * Update role
      */
-    updateRoleById(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleData>;
+    updateRoleById(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleResponse>;
 
 }
 
@@ -217,7 +217,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Create role
      * Create role
      */
-    async createRoleRaw(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>> {
+    async createRoleRaw(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -244,14 +244,14 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             body: RoleInputToJSON(requestParameters.roleInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => RoleDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => RoleResponseFromJSON(jsonValue));
     }
 
     /**
      * Create role
      * Create role
      */
-    async createRole(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<RoleData> {
+    async createRole(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<RoleResponse> {
         const response = await this.createRoleRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -424,7 +424,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Get role
      * Get Role
      */
-    async getRoleByIdRaw(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>> {
+    async getRoleByIdRaw(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleResponse>> {
         if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
             throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling getRoleById.');
         }
@@ -452,14 +452,14 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => RoleDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => RoleResponseFromJSON(jsonValue));
     }
 
     /**
      * Get role
      * Get Role
      */
-    async getRoleById(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleData> {
+    async getRoleById(requestParameters: GetRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleResponse> {
         const response = await this.getRoleByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -524,7 +524,7 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
      * Update role
      * Update role
      */
-    async updateRoleByIdRaw(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleData>> {
+    async updateRoleByIdRaw(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleResponse>> {
         if (requestParameters.roleId === null || requestParameters.roleId === undefined) {
             throw new runtime.RequiredError('roleId','Required parameter requestParameters.roleId was null or undefined when calling updateRoleById.');
         }
@@ -555,14 +555,14 @@ export class RolesApi extends runtime.BaseAPI implements RolesApiInterface {
             body: RoleInputToJSON(requestParameters.roleInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => RoleDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => RoleResponseFromJSON(jsonValue));
     }
 
     /**
      * Update role
      * Update role
      */
-    async updateRoleById(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleData> {
+    async updateRoleById(requestParameters: UpdateRoleByIdRequest, initOverrides?: RequestInit): Promise<RoleResponse> {
         const response = await this.updateRoleByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }

@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 
 # **create_section**
-> SectionData create_section(section_input => $section_input)
+> SectionResponse create_section(section_input => $section_input)
 
 Create Section
 
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SectionData**](SectionData.md)
+[**SectionResponse**](SectionResponse.md)
 
 ### Authorization
 
@@ -256,7 +256,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_section_by_id**
-> SectionData get_section_by_id(section_id => $section_id)
+> SectionResponse get_section_by_id(section_id => $section_id)
 
 Get Section
 
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SectionData**](SectionData.md)
+[**SectionResponse**](SectionResponse.md)
 
 ### Authorization
 
@@ -427,7 +427,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_section_by_id**
-> SectionData update_section_by_id(section_id => $section_id, section_input => $section_input)
+> SectionResponse update_section_by_id(section_id => $section_id, section_input => $section_input)
 
 Update Section
 
@@ -470,7 +470,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SectionData**](SectionData.md)
+[**SectionResponse**](SectionResponse.md)
 
 ### Authorization
 

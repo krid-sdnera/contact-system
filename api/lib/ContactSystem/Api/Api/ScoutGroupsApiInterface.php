@@ -31,8 +31,8 @@ namespace OpenAPI\Server\Api;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OpenAPI\Server\Model\ApiResponse;
 use OpenAPI\Server\Model\ListRules;
-use OpenAPI\Server\Model\ScoutGroupData;
 use OpenAPI\Server\Model\ScoutGroupInput;
+use OpenAPI\Server\Model\ScoutGroupResponse;
 use OpenAPI\Server\Model\ScoutGroups;
 use OpenAPI\Server\Model\Sections;
 
@@ -74,7 +74,7 @@ interface ScoutGroupsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ScoutGroupData
+     * @return \OpenAPI\Server\Model\ScoutGroupResponse
      */
     public function createScoutGroup(ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
 
@@ -117,7 +117,7 @@ interface ScoutGroupsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ScoutGroupData
+     * @return \OpenAPI\Server\Model\ScoutGroupResponse
      */
     public function getScoutGroupById(int $scoutGroupId, &$responseCode, array &$responseHeaders);
 
@@ -160,7 +160,7 @@ interface ScoutGroupsApiInterface
      * @param  \int $responseCode     The HTTP response code to return
      * @param  \array   $responseHeaders  Additional HTTP headers to return with the response ()
      *
-     * @return \OpenAPI\Server\Model\ScoutGroupData
+     * @return \OpenAPI\Server\Model\ScoutGroupResponse
      */
     public function updateScoutGroupById(int $scoutGroupId, ScoutGroupInput $scoutGroupInput = null, &$responseCode, array &$responseHeaders);
 }

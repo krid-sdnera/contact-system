@@ -15,12 +15,12 @@
 
 import * as runtime from '../runtime';
 import {
-    ContactData,
-    ContactDataFromJSON,
-    ContactDataToJSON,
     ContactInput,
     ContactInputFromJSON,
     ContactInputToJSON,
+    ContactResponse,
+    ContactResponseFromJSON,
+    ContactResponseToJSON,
     Contacts,
     ContactsFromJSON,
     ContactsToJSON,
@@ -84,13 +84,13 @@ export interface ContactsApiInterface {
      * @throws {RequiredError}
      * @memberof ContactsApiInterface
      */
-    createContactRaw(requestParameters: CreateContactRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactData>>;
+    createContactRaw(requestParameters: CreateContactRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactResponse>>;
 
     /**
      * create Contact
      * Create Contact
      */
-    createContact(requestParameters: CreateContactRequest, initOverrides?: RequestInit): Promise<ContactData>;
+    createContact(requestParameters: CreateContactRequest, initOverrides?: RequestInit): Promise<ContactResponse>;
 
     /**
      * Delete Contact By ID
@@ -116,13 +116,13 @@ export interface ContactsApiInterface {
      * @throws {RequiredError}
      * @memberof ContactsApiInterface
      */
-    getContactByIdRaw(requestParameters: GetContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactData>>;
+    getContactByIdRaw(requestParameters: GetContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactResponse>>;
 
     /**
      * Get Contact By ID
      * Get Contact By ID
      */
-    getContactById(requestParameters: GetContactByIdRequest, initOverrides?: RequestInit): Promise<ContactData>;
+    getContactById(requestParameters: GetContactByIdRequest, initOverrides?: RequestInit): Promise<ContactResponse>;
 
     /**
      * Returns a list of Contacts
@@ -172,13 +172,13 @@ export interface ContactsApiInterface {
      * @throws {RequiredError}
      * @memberof ContactsApiInterface
      */
-    patchContactByIdRaw(requestParameters: PatchContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactData>>;
+    patchContactByIdRaw(requestParameters: PatchContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactResponse>>;
 
     /**
      * Patch Contact By ID
      * Patch Contact By ID
      */
-    patchContactById(requestParameters: PatchContactByIdRequest, initOverrides?: RequestInit): Promise<ContactData>;
+    patchContactById(requestParameters: PatchContactByIdRequest, initOverrides?: RequestInit): Promise<ContactResponse>;
 
     /**
      * Update Contact By ID
@@ -189,13 +189,13 @@ export interface ContactsApiInterface {
      * @throws {RequiredError}
      * @memberof ContactsApiInterface
      */
-    updateContactByIdRaw(requestParameters: UpdateContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactData>>;
+    updateContactByIdRaw(requestParameters: UpdateContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactResponse>>;
 
     /**
      * Update Contact By ID
      * Update Contact By ID
      */
-    updateContactById(requestParameters: UpdateContactByIdRequest, initOverrides?: RequestInit): Promise<ContactData>;
+    updateContactById(requestParameters: UpdateContactByIdRequest, initOverrides?: RequestInit): Promise<ContactResponse>;
 
 }
 
@@ -208,7 +208,7 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
      * create Contact
      * Create Contact
      */
-    async createContactRaw(requestParameters: CreateContactRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactData>> {
+    async createContactRaw(requestParameters: CreateContactRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -235,14 +235,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             body: ContactInputToJSON(requestParameters.contactInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ContactDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ContactResponseFromJSON(jsonValue));
     }
 
     /**
      * create Contact
      * Create Contact
      */
-    async createContact(requestParameters: CreateContactRequest, initOverrides?: RequestInit): Promise<ContactData> {
+    async createContact(requestParameters: CreateContactRequest, initOverrides?: RequestInit): Promise<ContactResponse> {
         const response = await this.createContactRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -295,7 +295,7 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
      * Get Contact By ID
      * Get Contact By ID
      */
-    async getContactByIdRaw(requestParameters: GetContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactData>> {
+    async getContactByIdRaw(requestParameters: GetContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactResponse>> {
         if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
             throw new runtime.RequiredError('contactId','Required parameter requestParameters.contactId was null or undefined when calling getContactById.');
         }
@@ -323,14 +323,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ContactDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ContactResponseFromJSON(jsonValue));
     }
 
     /**
      * Get Contact By ID
      * Get Contact By ID
      */
-    async getContactById(requestParameters: GetContactByIdRequest, initOverrides?: RequestInit): Promise<ContactData> {
+    async getContactById(requestParameters: GetContactByIdRequest, initOverrides?: RequestInit): Promise<ContactResponse> {
         const response = await this.getContactByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -455,7 +455,7 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
      * Patch Contact By ID
      * Patch Contact By ID
      */
-    async patchContactByIdRaw(requestParameters: PatchContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactData>> {
+    async patchContactByIdRaw(requestParameters: PatchContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactResponse>> {
         if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
             throw new runtime.RequiredError('contactId','Required parameter requestParameters.contactId was null or undefined when calling patchContactById.');
         }
@@ -486,14 +486,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             body: ContactInputToJSON(requestParameters.contactInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ContactDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ContactResponseFromJSON(jsonValue));
     }
 
     /**
      * Patch Contact By ID
      * Patch Contact By ID
      */
-    async patchContactById(requestParameters: PatchContactByIdRequest, initOverrides?: RequestInit): Promise<ContactData> {
+    async patchContactById(requestParameters: PatchContactByIdRequest, initOverrides?: RequestInit): Promise<ContactResponse> {
         const response = await this.patchContactByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -502,7 +502,7 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
      * Update Contact By ID
      * Update Contact By ID
      */
-    async updateContactByIdRaw(requestParameters: UpdateContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactData>> {
+    async updateContactByIdRaw(requestParameters: UpdateContactByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ContactResponse>> {
         if (requestParameters.contactId === null || requestParameters.contactId === undefined) {
             throw new runtime.RequiredError('contactId','Required parameter requestParameters.contactId was null or undefined when calling updateContactById.');
         }
@@ -533,14 +533,14 @@ export class ContactsApi extends runtime.BaseAPI implements ContactsApiInterface
             body: ContactInputToJSON(requestParameters.contactInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ContactDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ContactResponseFromJSON(jsonValue));
     }
 
     /**
      * Update Contact By ID
      * Update Contact By ID
      */
-    async updateContactById(requestParameters: UpdateContactByIdRequest, initOverrides?: RequestInit): Promise<ContactData> {
+    async updateContactById(requestParameters: UpdateContactByIdRequest, initOverrides?: RequestInit): Promise<ContactResponse> {
         const response = await this.updateContactByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }

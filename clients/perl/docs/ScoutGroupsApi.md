@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 
 # **create_scout_group**
-> ScoutGroupData create_scout_group(scout_group_input => $scout_group_input)
+> ScoutGroupResponse create_scout_group(scout_group_input => $scout_group_input)
 
 Create Group
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ScoutGroupData**](ScoutGroupData.md)
+[**ScoutGroupResponse**](ScoutGroupResponse.md)
 
 ### Authorization
 
@@ -192,7 +192,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_scout_group_by_id**
-> ScoutGroupData get_scout_group_by_id(scout_group_id => $scout_group_id)
+> ScoutGroupResponse get_scout_group_by_id(scout_group_id => $scout_group_id)
 
 Get Group
 
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ScoutGroupData**](ScoutGroupData.md)
+[**ScoutGroupResponse**](ScoutGroupResponse.md)
 
 ### Authorization
 
@@ -363,7 +363,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_scout_group_by_id**
-> ScoutGroupData update_scout_group_by_id(scout_group_id => $scout_group_id, scout_group_input => $scout_group_input)
+> ScoutGroupResponse update_scout_group_by_id(scout_group_id => $scout_group_id, scout_group_input => $scout_group_input)
 
 Update Group
 
@@ -406,7 +406,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ScoutGroupData**](ScoutGroupData.md)
+[**ScoutGroupResponse**](ScoutGroupResponse.md)
 
 ### Authorization
 

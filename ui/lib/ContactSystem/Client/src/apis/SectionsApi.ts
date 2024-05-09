@@ -27,12 +27,12 @@ import {
     Roles,
     RolesFromJSON,
     RolesToJSON,
-    SectionData,
-    SectionDataFromJSON,
-    SectionDataToJSON,
     SectionInput,
     SectionInputFromJSON,
     SectionInputToJSON,
+    SectionResponse,
+    SectionResponseFromJSON,
+    SectionResponseToJSON,
     Sections,
     SectionsFromJSON,
     SectionsToJSON,
@@ -97,13 +97,13 @@ export interface SectionsApiInterface {
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
      */
-    createSectionRaw(requestParameters: CreateSectionRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionData>>;
+    createSectionRaw(requestParameters: CreateSectionRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionResponse>>;
 
     /**
      * Create Section
      * Create Section
      */
-    createSection(requestParameters: CreateSectionRequest, initOverrides?: RequestInit): Promise<SectionData>;
+    createSection(requestParameters: CreateSectionRequest, initOverrides?: RequestInit): Promise<SectionResponse>;
 
     /**
      * Delete Section
@@ -169,13 +169,13 @@ export interface SectionsApiInterface {
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
      */
-    getSectionByIdRaw(requestParameters: GetSectionByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionData>>;
+    getSectionByIdRaw(requestParameters: GetSectionByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionResponse>>;
 
     /**
      * Get Section
      * Get Section
      */
-    getSectionById(requestParameters: GetSectionByIdRequest, initOverrides?: RequestInit): Promise<SectionData>;
+    getSectionById(requestParameters: GetSectionByIdRequest, initOverrides?: RequestInit): Promise<SectionResponse>;
 
     /**
      * List Section Roles By Section ID
@@ -221,13 +221,13 @@ export interface SectionsApiInterface {
      * @throws {RequiredError}
      * @memberof SectionsApiInterface
      */
-    updateSectionByIdRaw(requestParameters: UpdateSectionByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionData>>;
+    updateSectionByIdRaw(requestParameters: UpdateSectionByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionResponse>>;
 
     /**
      * Update Section
      * Update Section
      */
-    updateSectionById(requestParameters: UpdateSectionByIdRequest, initOverrides?: RequestInit): Promise<SectionData>;
+    updateSectionById(requestParameters: UpdateSectionByIdRequest, initOverrides?: RequestInit): Promise<SectionResponse>;
 
 }
 
@@ -240,7 +240,7 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
      * Create Section
      * Create Section
      */
-    async createSectionRaw(requestParameters: CreateSectionRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionData>> {
+    async createSectionRaw(requestParameters: CreateSectionRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -267,14 +267,14 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
             body: SectionInputToJSON(requestParameters.sectionInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => SectionDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SectionResponseFromJSON(jsonValue));
     }
 
     /**
      * Create Section
      * Create Section
      */
-    async createSection(requestParameters: CreateSectionRequest, initOverrides?: RequestInit): Promise<SectionData> {
+    async createSection(requestParameters: CreateSectionRequest, initOverrides?: RequestInit): Promise<SectionResponse> {
         const response = await this.createSectionRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -447,7 +447,7 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
      * Get Section
      * Get Section
      */
-    async getSectionByIdRaw(requestParameters: GetSectionByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionData>> {
+    async getSectionByIdRaw(requestParameters: GetSectionByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionResponse>> {
         if (requestParameters.sectionId === null || requestParameters.sectionId === undefined) {
             throw new runtime.RequiredError('sectionId','Required parameter requestParameters.sectionId was null or undefined when calling getSectionById.');
         }
@@ -475,14 +475,14 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => SectionDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SectionResponseFromJSON(jsonValue));
     }
 
     /**
      * Get Section
      * Get Section
      */
-    async getSectionById(requestParameters: GetSectionByIdRequest, initOverrides?: RequestInit): Promise<SectionData> {
+    async getSectionById(requestParameters: GetSectionByIdRequest, initOverrides?: RequestInit): Promise<SectionResponse> {
         const response = await this.getSectionByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -591,7 +591,7 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
      * Update Section
      * Update Section
      */
-    async updateSectionByIdRaw(requestParameters: UpdateSectionByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionData>> {
+    async updateSectionByIdRaw(requestParameters: UpdateSectionByIdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<SectionResponse>> {
         if (requestParameters.sectionId === null || requestParameters.sectionId === undefined) {
             throw new runtime.RequiredError('sectionId','Required parameter requestParameters.sectionId was null or undefined when calling updateSectionById.');
         }
@@ -622,14 +622,14 @@ export class SectionsApi extends runtime.BaseAPI implements SectionsApiInterface
             body: SectionInputToJSON(requestParameters.sectionInput),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => SectionDataFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SectionResponseFromJSON(jsonValue));
     }
 
     /**
      * Update Section
      * Update Section
      */
-    async updateSectionById(requestParameters: UpdateSectionByIdRequest, initOverrides?: RequestInit): Promise<SectionData> {
+    async updateSectionById(requestParameters: UpdateSectionByIdRequest, initOverrides?: RequestInit): Promise<SectionResponse> {
         const response = await this.updateSectionByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }

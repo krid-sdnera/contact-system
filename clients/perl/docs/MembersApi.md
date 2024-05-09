@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 
 # **add_member_role_by_id**
-> MemberRoleData add_member_role_by_id(member_id => $member_id, role_id => $role_id, member_role_input => $member_role_input)
+> MemberRoleResponse add_member_role_by_id(member_id => $member_id, role_id => $role_id, member_role_input => $member_role_input)
 
 Add Member Role
 
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MemberRoleData**](MemberRoleData.md)
+[**MemberRoleResponse**](MemberRoleResponse.md)
 
 ### Authorization
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_member**
-> MemberData create_member(member_input => $member_input)
+> MemberResponse create_member(member_input => $member_input)
 
 Create a member
 
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MemberData**](MemberData.md)
+[**MemberResponse**](MemberResponse.md)
 
 ### Authorization
 
@@ -256,7 +256,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_member_by_id**
-> MemberData get_member_by_id(member_id => $member_id)
+> MemberResponse get_member_by_id(member_id => $member_id)
 
 Get Member
 
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MemberData**](MemberData.md)
+[**MemberResponse**](MemberResponse.md)
 
 ### Authorization
 
@@ -551,7 +551,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_member_by_id**
-> MemberData patch_member_by_id(member_id => $member_id, member_input => $member_input)
+> MemberResponse patch_member_by_id(member_id => $member_id, member_input => $member_input)
 
 Partial Update Member
 
@@ -594,7 +594,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MemberData**](MemberData.md)
+[**MemberResponse**](MemberResponse.md)
 
 ### Authorization
 
@@ -665,7 +665,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_member_by_id**
-> MemberData update_member_by_id(member_id => $member_id, member_input => $member_input)
+> MemberResponse update_member_by_id(member_id => $member_id, member_input => $member_input)
 
 Update Member
 
@@ -708,7 +708,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MemberData**](MemberData.md)
+[**MemberResponse**](MemberResponse.md)
 
 ### Authorization
 

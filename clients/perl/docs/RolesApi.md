@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 
 # **create_role**
-> RoleData create_role(role_input => $role_input)
+> RoleResponse create_role(role_input => $role_input)
 
 Create role
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RoleData**](RoleData.md)
+[**RoleResponse**](RoleResponse.md)
 
 ### Authorization
 
@@ -255,7 +255,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_role_by_id**
-> RoleData get_role_by_id(role_id => $role_id)
+> RoleResponse get_role_by_id(role_id => $role_id)
 
 Get Role
 
@@ -296,7 +296,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RoleData**](RoleData.md)
+[**RoleResponse**](RoleResponse.md)
 
 ### Authorization
 
@@ -371,7 +371,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_role_by_id**
-> RoleData update_role_by_id(role_id => $role_id, role_input => $role_input)
+> RoleResponse update_role_by_id(role_id => $role_id, role_input => $role_input)
 
 Update role
 
@@ -414,7 +414,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RoleData**](RoleData.md)
+[**RoleResponse**](RoleResponse.md)
 
 ### Authorization
 

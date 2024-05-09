@@ -31,7 +31,7 @@ services:
 ```
 
 ## **createList**
-> OpenAPI\Server\Model\ListData createList($listInput)
+> OpenAPI\Server\Model\ListResponse createList($listInput)
 
 Create List
 
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListData**](../Model/ListData.md)
+[**OpenAPI\Server\Model\ListResponse**](../Model/ListResponse.md)
 
 ### Authorization
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **createListRuleByListId**
-> OpenAPI\Server\Model\ListRuleData createListRuleByListId($listId, $listRuleInput)
+> OpenAPI\Server\Model\ListRuleResponse createListRuleByListId($listId, $listRuleInput)
 
 Create List Rule By List ID
 
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListRuleData**](../Model/ListRuleData.md)
+[**OpenAPI\Server\Model\ListRuleResponse**](../Model/ListRuleResponse.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getListByAddress**
-> OpenAPI\Server\Model\ListData getListByAddress($listAddress)
+> OpenAPI\Server\Model\ListResponse getListByAddress($listAddress)
 
 Get List By Address
 
@@ -329,7 +329,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListData**](../Model/ListData.md)
+[**OpenAPI\Server\Model\ListResponse**](../Model/ListResponse.md)
 
 ### Authorization
 
@@ -343,7 +343,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getListById**
-> OpenAPI\Server\Model\ListData getListById($listId)
+> OpenAPI\Server\Model\ListResponse getListById($listId)
 
 Get List By ID
 
@@ -391,7 +391,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListData**](../Model/ListData.md)
+[**OpenAPI\Server\Model\ListResponse**](../Model/ListResponse.md)
 
 ### Authorization
 
@@ -471,7 +471,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **getListRuleByListId**
-> OpenAPI\Server\Model\ListRuleData getListRuleByListId($listId, $ruleId)
+> OpenAPI\Server\Model\ListRuleResponse getListRuleByListId($listId, $ruleId)
 
 Get List Rule By List ID
 
@@ -520,7 +520,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListRuleData**](../Model/ListRuleData.md)
+[**OpenAPI\Server\Model\ListRuleResponse**](../Model/ListRuleResponse.md)
 
 ### Authorization
 
@@ -665,7 +665,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateListById**
-> OpenAPI\Server\Model\ListData updateListById($listId, $listInput)
+> OpenAPI\Server\Model\ListResponse updateListById($listId, $listInput)
 
 Update List By ID
 
@@ -714,7 +714,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListData**](../Model/ListData.md)
+[**OpenAPI\Server\Model\ListResponse**](../Model/ListResponse.md)
 
 ### Authorization
 
@@ -728,7 +728,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 ## **updateListRuleByListId**
-> OpenAPI\Server\Model\ListRuleData updateListRuleByListId($listId, $ruleId, $listRuleInput)
+> OpenAPI\Server\Model\ListRuleResponse updateListRuleByListId($listId, $ruleId, $listRuleInput)
 
 Update List Rule By List ID
 
@@ -778,7 +778,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OpenAPI\Server\Model\ListRuleData**](../Model/ListRuleData.md)
+[**OpenAPI\Server\Model\ListRuleResponse**](../Model/ListRuleResponse.md)
 
 ### Authorization
 
