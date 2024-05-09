@@ -1,68 +1,61 @@
-import { Plugin } from '@nuxt/types';
-import * as auth from '~/store/auth';
-
-import { Configuration, ResponseContext } from '@api/runtime';
+import {
+  Configuration,
+  type ResponseContext,
+} from '~/lib/ContactSystem/Client/src/runtime';
 import {
   AuthApi,
-  AuthApiInterface,
+  type AuthApiInterface,
   ContactsApi,
-  ContactsApiInterface,
+  type ContactsApiInterface,
   ScoutGroupsApi,
-  ScoutGroupsApiInterface,
+  type ScoutGroupsApiInterface,
   ListsApi,
-  ListsApiInterface,
+  type ListsApiInterface,
   MembersApi,
-  MembersApiInterface,
+  type MembersApiInterface,
   RolesApi,
-  RolesApiInterface,
+  type RolesApiInterface,
   SectionsApi,
-  SectionsApiInterface,
-} from '@api/apis';
-import { ErrorCode } from '~/common/app-error';
+  type SectionsApiInterface,
+} from '~/lib/ContactSystem/Client/src/apis';
 
-export interface VueApiInterface {
-  auth: AuthApiInterface;
-  contacts: ContactsApiInterface;
-  scoutGroups: ScoutGroupsApiInterface;
-  lists: ListsApiInterface;
-  members: MembersApiInterface;
-  roles: RolesApiInterface;
-  sections: SectionsApiInterface;
-}
+const { tokens, refreshToken } = useAuth();
 
-declare module 'vue/types/vue' {
-  interface Vue {
-    $api: VueApiInterface;
-  }
-}
+const globalPending = ref<boolean>(false);
+const globalError = ref<boolean>(false);
 
-declare module '@nuxt/types' {
-  interface NuxtAppOptions {
-    $api: VueApiInterface;
-  }
-}
-
-declare module 'vuex/types/index' {
-  interface Store<S> {
-    $api: VueApiInterface;
-  }
-}
-
-const apiPlugin: Plugin = ({ app, store, env, redirect }, inject) => {
+export function useApi(): AllApiInterface {
   const configuration = new Configuration({
-    basePath: env.API_BASE,
+    basePath: useRuntimeConfig().public.baseApiUrl,
     accessToken: function (name?: string, _scopes?: string[]): string {
       if (name !== 'jwt_auth') {
         console.warn(`Unsupported accessToken type: "${name}"`);
         return '';
       }
 
-      const token = store.state[auth.namespace].authToken || '';
+      const token = tokens.value.auth || '';
 
       console.debug(`token:${token}`);
       return token;
     },
     middleware: [
+      {
+        pre: async (context: ResponseContext) => {
+          globalPending.value = true;
+          globalError.value = false;
+        },
+      },
+      {
+        post: async (context: ResponseContext) => {
+          globalPending.value = false;
+          if (context.response.status !== 200) {
+            globalError.value = true;
+            setTimeout(() => {
+              globalError.value = false;
+            }, 1000);
+          }
+        },
+      },
       {
         post: async function (
           context: ResponseContext
@@ -76,7 +69,7 @@ const apiPlugin: Plugin = ({ app, store, env, redirect }, inject) => {
           }
 
           try {
-            await store.dispatch(`${auth.namespace}/refreshToken`);
+            await refreshToken();
           } catch (e) {
             return context.response;
           }
@@ -104,7 +97,9 @@ const apiPlugin: Plugin = ({ app, store, env, redirect }, inject) => {
     ],
   });
 
-  const api: VueApiInterface = {
+  return {
+    globalPending,
+    globalError,
     auth: new AuthApi(configuration),
     contacts: new ContactsApi(configuration),
     scoutGroups: new ScoutGroupsApi(configuration),
@@ -113,8 +108,16 @@ const apiPlugin: Plugin = ({ app, store, env, redirect }, inject) => {
     roles: new RolesApi(configuration),
     sections: new SectionsApi(configuration),
   };
+}
 
-  inject('api', api);
-};
-
-export default apiPlugin;
+export interface AllApiInterface {
+  globalPending: Ref<boolean>;
+  globalError: Ref<boolean>;
+  auth: AuthApiInterface;
+  contacts: ContactsApiInterface;
+  scoutGroups: ScoutGroupsApiInterface;
+  lists: ListsApiInterface;
+  members: MembersApiInterface;
+  roles: RolesApiInterface;
+  sections: SectionsApiInterface;
+}
