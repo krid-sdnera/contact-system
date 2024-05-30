@@ -26,9 +26,10 @@ services:
       context: .
       dockerfile: ui.Dockerfile
     ports:
-      - 9000:80
+      - 3000:3000
     depends_on:
       - api
+    command: npm run dev --host
     develop:
       watch:
         - action: sync
