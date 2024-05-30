@@ -60,6 +60,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
 
         $newSection = new Section();
         $newSection->setName($section->getName());
+        $newSection->setExternalId($section->getExternalId());
         $newSection->setScoutGroup($group);
 
         $entityManager->persist($newSection);
@@ -281,6 +282,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
         }
 
         $sectionToUpdate->setName($section->getName());
+        $sectionToUpdate->setExternalId($section->getExternalId());
         $sectionToUpdate->setScoutGroup($group);
 
         $entityManager->persist($sectionToUpdate);

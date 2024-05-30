@@ -1,23 +1,25 @@
+import type { AsyncDataRequestStatus } from '#app';
+import type { ModelApiResponse } from '~/lib/ContactSystem/Client/src';
+import {
+  AuthApi,
+  ContactsApi,
+  ListsApi,
+  MembersApi,
+  RolesApi,
+  ScoutGroupsApi,
+  SectionsApi,
+  type AuthApiInterface,
+  type ContactsApiInterface,
+  type ListsApiInterface,
+  type MembersApiInterface,
+  type RolesApiInterface,
+  type ScoutGroupsApiInterface,
+  type SectionsApiInterface,
+} from '~/lib/ContactSystem/Client/src/apis';
 import {
   Configuration,
   type ResponseContext,
 } from '~/lib/ContactSystem/Client/src/runtime';
-import {
-  AuthApi,
-  type AuthApiInterface,
-  ContactsApi,
-  type ContactsApiInterface,
-  ScoutGroupsApi,
-  type ScoutGroupsApiInterface,
-  ListsApi,
-  type ListsApiInterface,
-  MembersApi,
-  type MembersApiInterface,
-  RolesApi,
-  type RolesApiInterface,
-  SectionsApi,
-  type SectionsApiInterface,
-} from '~/lib/ContactSystem/Client/src/apis';
 
 const { tokens, refreshToken } = useAuth();
 
@@ -86,7 +88,7 @@ export function useApi(): AllApiInterface {
             }`,
           };
 
-          const response = await configuration.fetchApi(
+          const response = await (configuration.fetchApi || fetch)(
             context.url,
             context.init
           );
@@ -120,4 +122,107 @@ export interface AllApiInterface {
   members: MembersApiInterface;
   roles: RolesApiInterface;
   sections: SectionsApiInterface;
+}
+
+interface UseApiFetchOptions {
+  immediate: boolean;
+}
+
+export interface _AsyncData<DataT, ErrorT> {
+  data: Ref<DataT>;
+  /**
+   * @deprecated Use `status` instead. This may be removed in a future major version.
+   */
+  pending: Ref<boolean>;
+  refresh: () => Promise<void>;
+  execute: () => Promise<void>;
+  clear: () => void;
+  error: Ref<ErrorT | null>;
+  status: Ref<AsyncDataRequestStatus>;
+}
+
+export type AsyncData<Data, Error> = _AsyncData<Data, Error> &
+  Promise<_AsyncData<Data, Error>>;
+
+export type { AsyncDataRequestStatus };
+
+export function useApiFetch<DataT extends Record<string, any>>(
+  fetchCB: (api: ReturnType<typeof useApi>) => Promise<DataT>,
+  opts?: Partial<UseApiFetchOptions>
+): AsyncData<DataT | undefined, Error> {
+  const data = ref<DataT>();
+  const pending = ref<boolean>(false);
+  const error = ref<Error | null>(null);
+  const status = ref<AsyncDataRequestStatus>('idle');
+
+  const api = useApi();
+
+  let returnPromiseResolve:
+    | ((
+        value:
+          | _AsyncData<DataT | undefined, Error>
+          | PromiseLike<_AsyncData<DataT | undefined, Error>>
+      ) => void)
+    | null = null;
+  let returnPromiseReject: ((reason?: any) => void) | null = null;
+
+  async function makeCall(): Promise<void> {
+    status.value = 'pending';
+    const fetchPromise = fetchCB(api)
+      .then((res) => {
+        data.value = res;
+        status.value = 'success';
+
+        returnPromiseResolve?.(asyncData);
+      })
+      .catch((err) => {
+        error.value = err;
+        status.value = 'error';
+
+        returnPromiseReject?.(err);
+      })
+      .finally(() => {
+        pending.value = false;
+      });
+
+    return fetchPromise;
+  }
+
+  if (opts?.immediate !== false) {
+    makeCall();
+  }
+
+  const asyncData: _AsyncData<DataT | undefined, Error> = {
+    data: data,
+    pending: pending,
+    refresh: makeCall,
+    execute: makeCall,
+    clear() {
+      status.value = 'idle';
+      error.value = null;
+    },
+    error: error,
+    status: status,
+  };
+
+  const returnPromise = new Promise<_AsyncData<DataT | undefined, Error>>(
+    (resolve, reject) => {
+      returnPromiseResolve = resolve;
+      returnPromiseReject = reject;
+    }
+  );
+
+  // return {
+  //   ...asyncData,
+  //   ...returnPromise,
+  // };
+
+  // Allow directly awaiting on asyncData.
+  // https://github.com/nuxt/nuxt/blob/main/packages/nuxt/src/app/composables/asyncData.ts#L396
+  const asyncDataPromise = Promise.resolve(returnPromise).then(
+    () => asyncData
+  ) as AsyncData<DataT, Error>;
+  Object.assign(asyncDataPromise, asyncData);
+
+  return asyncDataPromise as AsyncData<DataT, Error>;
 }

@@ -45,6 +45,7 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
 
         $newGroup = new ScoutGroup();
         $newGroup->setName($groupInput->getName());
+        $newGroup->setExternalId($groupInput->getExternalId());
 
         $entityManager->persist($newGroup);
         $entityManager->flush();
@@ -221,6 +222,7 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
         }
 
         $groupToUpdate->setName($groupInput->getName());
+        $groupToUpdate->setExternalId($groupInput->getExternalId());
 
         $entityManager->persist($groupToUpdate);
         $entityManager->flush();

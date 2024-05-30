@@ -1,31 +1,21 @@
+<script setup lang="ts">
+useHead({
+  title: 'Sections',
+});
+
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumbs: useBuildBreadcrumbs([
+    { to: `/`, label: `Home` },
+    { to: `/sections`, label: `Sections` },
+  ]),
+});
+</script>
+
 <template>
   <v-row>
     <v-col>
-      <sections-table allow-creation searchable></sections-table>
+      <SectionsList allow-creation searchable></SectionsList>
     </v-col>
   </v-row>
 </template>
-
-<script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import {
-  AppBreadcrumbOptions,
-  setBreadcrumbs,
-} from '~/common/helper-factories';
-import SectionTableComponent from '~/components/tables/sections-table.vue';
-
-@Component({ components: { SectionTableComponent } })
-export default class SectionsListPage extends Vue {
-  get breadcrumbs(): AppBreadcrumbOptions[] {
-    return [
-      { to: '/', label: 'Dashboard' },
-      { to: null, label: 'Sections' },
-    ];
-  }
-
-  @Watch('breadcrumbs', { immediate: true })
-  watchBreadcrumbs() {
-    setBreadcrumbs(this.$store, this.breadcrumbs);
-  }
-}
-</script>

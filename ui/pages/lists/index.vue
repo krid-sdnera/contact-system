@@ -1,35 +1,21 @@
+<script setup lang="ts">
+useHead({
+  title: 'Lists',
+});
+
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumbs: useBuildBreadcrumbs([
+    { to: `/`, label: `Home` },
+    { to: `/lists`, label: `Lists` },
+  ]),
+});
+</script>
+
 <template>
   <v-row>
     <v-col>
-      <lists-table searchable allow-creation></lists-table>
+      <ListsList allow-creation searchable></ListsList>
     </v-col>
   </v-row>
 </template>
-
-<script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import {
-  AppBreadcrumbOptions,
-  setBreadcrumbs,
-} from '~/common/helper-factories';
-import ListTableComponent from '~/components/tables/lists-table.vue';
-
-@Component({
-  components: {
-    ListTableComponent,
-  },
-})
-export default class ListsListPage extends Vue {
-  get breadcrumbs(): AppBreadcrumbOptions[] {
-    return [
-      { to: '/', label: 'Dashboard' },
-      { to: null, label: 'Lists' },
-    ];
-  }
-
-  @Watch('breadcrumbs', { immediate: true })
-  watchBreadcrumbs() {
-    setBreadcrumbs(this.$store, this.breadcrumbs);
-  }
-}
-</script>

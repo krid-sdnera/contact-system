@@ -12,7 +12,7 @@ const { breadcrumbs } = useBreadcrumbs();
       {{ breadcrumb.label }}
     </v-btn>
     <v-divider
-      class="mx-1 align-self-center"
+      class="breadcrumb-separator mx-1 align-self-center border-opacity-75"
       length="24"
       thickness="2"
       vertical
@@ -25,5 +25,9 @@ const { breadcrumbs } = useBreadcrumbs();
 <style>
 .breadcrumb.v-btn--active > .v-btn__overlay {
   opacity: 0 !important;
+}
+
+.breadcrumb-separator {
+  transform: rotate(25deg);
 }
 </style>

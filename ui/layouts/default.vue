@@ -11,10 +11,14 @@ watch(searchQuery, (newQuery, oldQuery) => {
   }
 
   if (newQuery !== '' && searchDialog.value === false) {
-    // Old query was empty, but new query has data, open dialog.\
+    // Old query was empty, but new query has data, open dialog.
     searchDialog.value = true;
   }
 });
+function searchClose() {
+  searchDialog.value = false;
+  searchQuery.value = '';
+}
 
 import { useStorage } from '@vueuse/core';
 const drawer = useStorage<boolean>('drawer', true);
@@ -114,26 +118,18 @@ const items = [
         <slot />
       </v-container>
 
-      <v-dialog v-model="searchDialog" width="500">
+      <v-dialog
+        content-class="dialog-position-top"
+        v-model="searchDialog"
+        :location="'top'"
+        min-height="50vh"
+      >
         <v-card>
           <v-card-text>
-            <v-row dense>
-              <v-col cols="12">
-                <v-text-field
-                  hide-details
-                  clearable
-                  label="Search"
-                  class="mr-4"
-                  v-model="searchQuery"
-                  autofocus
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-list>
-                  <v-list-item> results? </v-list-item>
-                </v-list>
-              </v-col>
-            </v-row>
+            <SearchList
+              v-model="searchQuery"
+              @close="searchClose()"
+            ></SearchList>
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -142,3 +138,9 @@ const items = [
     <AlertList />
   </v-app>
 </template>
+
+<style scoped>
+:deep(.dialog-position-top) {
+  align-self: flex-start;
+}
+</style>

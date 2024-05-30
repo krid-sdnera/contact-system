@@ -60,6 +60,9 @@ class RolesController extends AbstractController implements RolesApiInterface
 
         $newRole = new Role();
         $newRole->setName($roleInput->getName());
+        $newRole->setExternalID($roleInput->getExternalID());
+        $newRole->setClassId($roleInput->getClassId());
+        $newRole->setNormalisedClassId($roleInput->getNormalisedClassId());
         $newRole->setSection($section);
 
         $entityManager->persist($newRole);

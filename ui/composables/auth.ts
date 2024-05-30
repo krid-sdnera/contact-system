@@ -5,6 +5,15 @@ interface AuthToken {
   tokens: { auth: string; refresh: string } | null;
 }
 
+// It is not recommended to call `useRoute()` from within nuxt middleware.
+export function useMiddlewareAuth() {
+  const authToken = useStorage<AuthToken>('authToken', { tokens: null });
+
+  return {
+    isLoggedIn: computed(() => authToken.value.tokens !== null),
+  };
+}
+
 export function useAuth() {
   const authToken = useStorage<AuthToken>('authToken', { tokens: null });
   const route = useRoute();
@@ -98,6 +107,12 @@ export function useAuth() {
     },
     doLogout() {
       authToken.value.tokens = null;
+      router.replace({
+        path: `/login`,
+        query: {
+          from: router.currentRoute.value.fullPath,
+        },
+      });
     },
     requireAuthElseRedirect() {
       if (authToken.value === null) {

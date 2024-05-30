@@ -358,7 +358,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
 
         $contactToUpdate->setState($contactInput->getState());
 
-        $overrides = $contactToUpdate->getOverrides();
+        $overrides = $contactInput->getOverrides();
         $contactToUpdate->setOverrides([
             'firstname' => $overrides->isFirstname(),
             'lastname' => $overrides->isLastname(),

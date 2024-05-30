@@ -1,8 +1,22 @@
-import Vue from 'vue';
-import { AddressData } from '@api/models';
+import { type AddressData } from '~/server/types/address';
 import { DateTime, Duration } from 'luxon';
 
-const dateHelper = (inDate: Date | string | undefined): DateTime | string => {
+export default defineNuxtPlugin(() => {
+  return {
+    provide: {
+      filters: {
+        date,
+        duration,
+        capitalize,
+        address,
+        googleMapsLink,
+        phone,
+      },
+    },
+  };
+});
+
+function dateHelper(inDate: Date | string | undefined): DateTime | string {
   if (!inDate) {
     return '';
   }
@@ -17,11 +31,11 @@ const dateHelper = (inDate: Date | string | undefined): DateTime | string => {
     }
   }
   return dt;
-};
+}
 
-Vue.filter('date', function (
+function date(
   inDate: Date | string | undefined,
-  format: 'ymd' | 'dmy'
+  format: 'ymd' | 'dmy' = 'dmy'
 ) {
   const dt: DateTime | string = dateHelper(inDate);
   if (typeof dt === 'string') {
@@ -34,12 +48,9 @@ Vue.filter('date', function (
     default:
       return dt.toLocaleString(DateTime.DATE_SHORT);
   }
-});
+}
 
-Vue.filter('duration', function (
-  inDate: string | Date,
-  niceText: boolean = true
-) {
+function duration(inDate: Date | string | undefined, niceText: boolean = true) {
   const dt: DateTime | string = dateHelper(inDate);
   if (typeof dt === 'string') {
     return dt;
@@ -85,31 +96,46 @@ Vue.filter('duration', function (
     pp.push('ago');
   }
   return pp.join(' ');
-});
+}
 
-Vue.filter('capitalize', function (value: string | undefined) {
+function capitalize(value: string | undefined) {
   if (!value) {
     return '';
   }
   value = value.toString();
   return value.charAt(0).toUpperCase() + value.slice(1);
-});
+}
 
-Vue.filter('address', function (address: AddressData) {
+function address(address: AddressData | undefined) {
   if (!address) {
     return '';
   }
 
-  const street1 = address.street1 || '';
-  const street2 = address.street2 || '';
-  const city = address.city || '';
-  const state = address.state || '';
-  const postcode = address.postcode || '';
+  const arr = [];
 
-  return `${street1} ${street2} ${city} ${state} ${postcode}`.trim();
-});
+  if (address?.street1 || address?.street2) {
+    arr.push(`${address?.street1} ${address?.street2}`.trim());
+  }
+  if (address?.city || address?.state) {
+    arr.push(`${address?.city} ${address?.state}`.trim());
+  }
+  if (address?.postcode) {
+    arr.push(`${address?.postcode}`.trim());
+  }
+  return arr.join(`,\n`);
+}
 
-Vue.filter('phone', function (inPhone: string | undefined) {
+function googleMapsLink(addressData: AddressData | undefined) {
+  const place = address(addressData);
+
+  if (!place) {
+    return '';
+  }
+
+  return `https://google.com.au/maps?q=${place.replaceAll(' ', '+')}`;
+}
+
+function phone(inPhone: string | undefined) {
   if (!inPhone) {
     return '';
   }
@@ -128,4 +154,4 @@ Vue.filter('phone', function (inPhone: string | undefined) {
   if (inPhone.length === 11) {
     return inPhone.replace(/61(\d{3})(\d{3})(\d{3})/, '+61$1 $2 $3');
   }
-});
+}

@@ -116,7 +116,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
 
         return [
             'success' => true,
-            'role' => $roleRelation->toMemberRoleData(),
+            'memberRole' => $roleRelation->toMemberRoleData(),
         ];
     }
 
@@ -152,6 +152,8 @@ class MembersController extends AbstractController implements MembersApiInterfac
             'state' => $member->getAddress()->getState(),
             'postcode' => $member->getAddress()->getPostcode(),
         ]);
+
+        $newMember->setAutoUpgradeEnabled(false);
 
         // $errors = $validator->validate($product);
         // if (count($errors) > 0) {

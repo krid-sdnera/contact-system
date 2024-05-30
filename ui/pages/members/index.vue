@@ -1,31 +1,21 @@
+<script setup lang="ts">
+useHead({
+  title: 'Members',
+});
+
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumbs: useBuildBreadcrumbs([
+    { to: `/`, label: `Home` },
+    { to: `/members`, label: `Members` },
+  ]),
+});
+</script>
+
 <template>
   <v-row>
     <v-col>
-      <members-table allow-creation searchable></members-table>
+      <MembersList allow-creation searchable></MembersList>
     </v-col>
   </v-row>
 </template>
-
-<script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import {
-  AppBreadcrumbOptions,
-  setBreadcrumbs,
-} from '~/common/helper-factories';
-import MemberTableComponent from '~/components/tables/member-roles-table.vue';
-
-@Component({ components: { MemberTableComponent } })
-export default class MembersListPage extends Vue {
-  get breadcrumbs(): AppBreadcrumbOptions[] {
-    return [
-      { to: '/', label: 'Dashboard' },
-      { to: null, label: 'Members' },
-    ];
-  }
-
-  @Watch('breadcrumbs', { immediate: true })
-  watchBreadcrumbs() {
-    setBreadcrumbs(this.$store, this.breadcrumbs);
-  }
-}
-</script>

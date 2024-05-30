@@ -1,31 +1,21 @@
+<script setup lang="ts">
+useHead({
+  title: 'Roles',
+});
+
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumbs: useBuildBreadcrumbs([
+    { to: `/`, label: `Home` },
+    { to: `/roles`, label: `Roles` },
+  ]),
+});
+</script>
+
 <template>
   <v-row>
     <v-col>
-      <roles-table allow-creation searchable></roles-table>
+      <RolesList allow-creation searchable></RolesList>
     </v-col>
   </v-row>
 </template>
-
-<script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import {
-  AppBreadcrumbOptions,
-  setBreadcrumbs,
-} from '~/common/helper-factories';
-import RoleTableComponent from '~/components/tables/roles-table.vue';
-
-@Component({ components: { RoleTableComponent } })
-export default class RolesListPage extends Vue {
-  get breadcrumbs(): AppBreadcrumbOptions[] {
-    return [
-      { to: '/', label: 'Dashboard' },
-      { to: null, label: 'Roles' },
-    ];
-  }
-
-  @Watch('breadcrumbs', { immediate: true })
-  watchBreadcrumbs() {
-    setBreadcrumbs(this.$store, this.breadcrumbs);
-  }
-}
-</script>
