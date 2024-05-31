@@ -9,15 +9,18 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class ExtranetSyncCommand extends Command
 {
     protected static $defaultName = 'app:extranetsync';
+    protected $projectDir;
 
-    public function __construct(ExtranetService $extranetService)
+    public function __construct(ExtranetService $extranetService, KernelInterface $kernel)
     {
         parent::__construct();
         $this->extranetService = $extranetService;
+        $this->projectDir = $kernel->getProjectDir();
     }
 
     protected function configure()
@@ -47,9 +50,11 @@ class ExtranetSyncCommand extends Command
 
         $this->cache = ($input->getArgument('cache') === 'use-cache');
 
+        chdir($this->projectDir);
+
         $this->extranetService
             ->setLogger($logger)
-            ->setCacheDirectory('api/var/cache/')
+            ->setCacheDirectory('./var/cache/')
             ->setCredentials($username, $password)
             ->useCache($this->cache)
             ->doExtract();

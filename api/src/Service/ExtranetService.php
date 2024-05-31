@@ -514,7 +514,7 @@ class ExtranetService
 
         // Check for the existance of the successful login style redirect
         preg_match(
-            '|<body onLoad="javascript:window.location.replace\(\'/portal/Interface/mainPage.php\?var=(\d+)\'\)"></body>|',
+            '|<body onLoad="javascript:window.location.replace\(\'/portal/Interface/mainPage.php\?var=(\d+)\'\);">|',
             $content,
             $matches
         );
@@ -653,7 +653,7 @@ class ExtranetService
         if (count($matches) === 2) {
             // Extract each row
             preg_match_all(
-                '|<td>(.+?) \((.+?)\).*?</td>|',
+                '|<td>(.+?) \((.+?)\).*?</td><td>[\d-]+?</td>|',
                 $matches[1],
                 $matchGroups,
                 PREG_SET_ORDER

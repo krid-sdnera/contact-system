@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use \DateTime;
+
 class ExtranetMember
 {
     private $membershipNumber;
@@ -415,7 +417,8 @@ class ExtranetMember
         $member->setFirstname($data['Firstname']);
         $member->setNickname($data['Preferedname']);
         $member->setLastname($data['Surname']);
-        $member->setDateOfBirth($data['DOB']);
+        // $member->setDateOfBirth($data['DOB']);
+        $member->setDateOfBirth((new DateTime('now'))->modify('-' . floor($data['Age'] * 365.25) . ' day')->format('Y-m-d'));
         $member->setHomeAddress($data['HomeAddress']);
         $member->setHomeSuburb($data['HomeSuburb']);
         $member->setHomeState($data['HomeState']);

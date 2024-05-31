@@ -47,6 +47,7 @@ COPY --from=deps /app/vendor/ /app/vendor
 COPY --from=node /home/node/app/api/lib /app/lib
 
 RUN php bin/console cache:clear
+RUN chmod 777 /app/var/cache
 
 ENV APACHE_DOCUMENT_ROOT /app/public
 
