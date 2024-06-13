@@ -12,8 +12,8 @@ rm -fr api/lib/ContactSystem/Api/*
 rm -fr ui/lib/ContactSystem/Client/*
 
 echo "> Generate Client using openapi-generator generate"
-yarn install
-yarn run openapi-generator-cli  generate
+npm install
+npm run openapi-generator-cli  generate
 
 echo "> Upgrade Composer dependacies"
 sed $SEDOPTION -e 's/"jms\/serializer-bundle": "^2.0"/"jms\/serializer-bundle": "^3.0"/' api/lib/ContactSystem/Api/composer.json
