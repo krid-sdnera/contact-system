@@ -5,12 +5,31 @@ interface AsyncDataExecuteOptions {
   dedupe?: boolean | 'cancel' | 'defer';
 }
 
-export const usePageControls = () => {
+interface SortBy {
+  key: string;
+  order: 'asc' | 'desc';
+}
+
+export const usePageControls = (defaults?: { sortBy?: SortBy[] }) => {
   const currentPage = ref(1);
   const pageSize = useStorage<number>('pageSize', 10);
+  const sortBy = ref<SortBy[]>(defaults?.sortBy ?? []);
 
   return {
     currentPage,
+    apiSortBy: computed(() => {
+      if (!sortBy.value) {
+        return '';
+      }
+
+      const sort = sortBy.value;
+      if (sort.length < 1) {
+        return '';
+      }
+
+      // TODO: Support multiple orders? API doesnt support it yet.
+      return `${sort[0].key}:${sort[0].order}`;
+    }),
     pageSize,
     useUiPageControls(opts: {
       status: Ref<AsyncDataRequestStatus>;
@@ -23,6 +42,7 @@ export const usePageControls = () => {
       return {
         currentPage,
         pageSize,
+        sortBy: sortBy,
         loading,
         refresh: opts.refresh,
         maxPages: opts.maxPages,
@@ -46,9 +66,9 @@ export const usePageControls = () => {
         // },
         updateOptions(update) {
           currentPage.value = update.page;
+          sortBy.value = update.sortBy;
           // update.itemsPerPage not reqired to update as it is already v-model'ed.
 
-          // TODO Sort
           // TODO Group by
 
           opts.refresh();
@@ -61,6 +81,7 @@ export const usePageControls = () => {
 export interface UiPageControls {
   currentPage: Ref<number>;
   pageSize: Ref<number>;
+  sortBy: Ref<SortBy[]>;
   loading: ComputedRef<boolean>;
   refresh: (opt?: AsyncDataExecuteOptions) => Promise<void>;
   maxPages: ComputedRef<number>;
@@ -73,7 +94,7 @@ export interface UiPageControls {
   updateOptions: (update: {
     page: number;
     itemsPerPage: number;
-    sortBy: any;
+    sortBy: SortBy[];
     groupBy: any;
     search: any;
   }) => void;

@@ -59,6 +59,11 @@ const items = [
     title: 'Lists',
     to: '/lists',
   },
+  {
+    icon: 'mdi-sine-wave',
+    title: 'Audit',
+    to: '/audits',
+  },
 ];
 </script>
 

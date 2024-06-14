@@ -2,6 +2,13 @@
 # https://github.com/openapitools/openapi-generator
 # Do not edit the class manually.
 
+# audits
+open_api_server_audits_getaudits:
+    path:     /audits
+    methods:  [GET]
+    defaults:
+        _controller: open_api_server.controller.audits:getAuditsAction
+
 # auth
 open_api_server_auth_getjwt:
     path:     /auth/token

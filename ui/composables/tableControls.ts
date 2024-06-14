@@ -17,7 +17,7 @@ interface Header {
   // sortRaw
   // filter
   readonly mobile?: boolean;
-  // children
+  children?: Header[];
 }
 
 type HeaderWithKey = Header & Required<Pick<Header, 'key'>>;

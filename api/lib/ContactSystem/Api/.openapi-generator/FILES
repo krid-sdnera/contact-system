@@ -4,6 +4,7 @@
 .php_cs.dist
 .travis.yml
 Api/ApiServer.php
+Api/AuditsApiInterface.php
 Api/AuthApiInterface.php
 Api/ContactsApiInterface.php
 Api/ListsApiInterface.php
@@ -11,6 +12,7 @@ Api/MembersApiInterface.php
 Api/RolesApiInterface.php
 Api/ScoutGroupsApiInterface.php
 Api/SectionsApiInterface.php
+Controller/AuditsController.php
 Controller/AuthController.php
 Controller/ContactsController.php
 Controller/Controller.php
@@ -23,6 +25,8 @@ DependencyInjection/Compiler/OpenAPIServerApiPass.php
 DependencyInjection/OpenAPIServerExtension.php
 Model/AddressData.php
 Model/ApiResponse.php
+Model/AuditData.php
+Model/Audits.php
 Model/ContactData.php
 Model/ContactInput.php
 Model/ContactOverrideData.php
@@ -65,10 +69,12 @@ Model/SectionData.php
 Model/SectionInput.php
 Model/SectionResponse.php
 Model/Sections.php
+Model/UserData.php
 OpenAPIServerBundle.php
 README.md
 Resources/config/routing.yml
 Resources/config/services.yml
+Resources/docs/Api/AuditsApiInterface.md
 Resources/docs/Api/AuthApiInterface.md
 Resources/docs/Api/ContactsApiInterface.md
 Resources/docs/Api/ListsApiInterface.md
@@ -78,6 +84,8 @@ Resources/docs/Api/ScoutGroupsApiInterface.md
 Resources/docs/Api/SectionsApiInterface.md
 Resources/docs/Model/AddressData.md
 Resources/docs/Model/ApiResponse.md
+Resources/docs/Model/AuditData.md
+Resources/docs/Model/Audits.md
 Resources/docs/Model/ContactData.md
 Resources/docs/Model/ContactInput.md
 Resources/docs/Model/ContactOverrideData.md
@@ -120,12 +128,14 @@ Resources/docs/Model/SectionData.md
 Resources/docs/Model/SectionInput.md
 Resources/docs/Model/SectionResponse.md
 Resources/docs/Model/Sections.md
+Resources/docs/Model/UserData.md
 Service/JmsSerializer.php
 Service/SerializerInterface.php
 Service/StrictJsonDeserializationVisitor.php
 Service/SymfonyValidator.php
 Service/TypeMismatchException.php
 Service/ValidatorInterface.php
+Tests/Api/AuditsApiInterfaceTest.php
 Tests/Api/AuthApiInterfaceTest.php
 Tests/Api/ContactsApiInterfaceTest.php
 Tests/Api/ListsApiInterfaceTest.php
@@ -137,6 +147,8 @@ Tests/AppKernel.php
 Tests/Controller/ControllerTest.php
 Tests/Model/AddressDataTest.php
 Tests/Model/ApiResponseTest.php
+Tests/Model/AuditDataTest.php
+Tests/Model/AuditsTest.php
 Tests/Model/ContactDataTest.php
 Tests/Model/ContactInputTest.php
 Tests/Model/ContactOverrideDataTest.php
@@ -179,6 +191,7 @@ Tests/Model/SectionDataTest.php
 Tests/Model/SectionInputTest.php
 Tests/Model/SectionResponseTest.php
 Tests/Model/SectionsTest.php
+Tests/Model/UserDataTest.php
 Tests/test_config.yml
 autoload.php
 composer.json

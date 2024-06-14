@@ -1,6 +1,6 @@
 import type { AsyncDataRequestStatus } from '#app';
-import type { ModelApiResponse } from '~/lib/ContactSystem/Client/src';
 import {
+  AuditsApi,
   AuthApi,
   ContactsApi,
   ListsApi,
@@ -8,6 +8,7 @@ import {
   RolesApi,
   ScoutGroupsApi,
   SectionsApi,
+  type AuditsApiInterface,
   type AuthApiInterface,
   type ContactsApiInterface,
   type ListsApiInterface,
@@ -103,6 +104,7 @@ export function useApi(): AllApiInterface {
     globalPending,
     globalError,
     auth: new AuthApi(configuration),
+    audits: new AuditsApi(configuration),
     contacts: new ContactsApi(configuration),
     scoutGroups: new ScoutGroupsApi(configuration),
     lists: new ListsApi(configuration),
@@ -116,6 +118,7 @@ export interface AllApiInterface {
   globalPending: Ref<boolean>;
   globalError: Ref<boolean>;
   auth: AuthApiInterface;
+  audits: AuditsApiInterface;
   contacts: ContactsApiInterface;
   scoutGroups: ScoutGroupsApiInterface;
   lists: ListsApiInterface;

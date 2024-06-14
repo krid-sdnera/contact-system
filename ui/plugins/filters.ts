@@ -6,6 +6,7 @@ export default defineNuxtPlugin(() => {
     provide: {
       filters: {
         date,
+        datetime,
         duration,
         capitalize,
         address,
@@ -47,6 +48,20 @@ function date(
       return dt.toISODate();
     default:
       return dt.toLocaleString(DateTime.DATE_SHORT);
+  }
+}
+
+function datetime(inDate: Date | string | undefined, format: 'dmy' = 'dmy') {
+  const dt: DateTime | string = dateHelper(inDate);
+  if (typeof dt === 'string') {
+    return dt;
+  }
+
+  switch (format) {
+    // case 'ymd':
+    // return dt.toISODate();
+    default:
+      return dt.toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
   }
 }
 

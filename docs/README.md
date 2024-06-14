@@ -3,7 +3,7 @@
 ```
 npx nuxt prepare
 
-docker run --mount=type=bind,source=./contact-system/api/,target=/app/ -it composer:lts composer install --no-interaction --no-scripts --ignore-platform-reqs
+docker run --mount=type=bind,source=./api/,target=/app/ -it composer:lts composer install --no-interaction --no-scripts --ignore-platform-reqs
 ```
 
 # Copy generated API clients from containers

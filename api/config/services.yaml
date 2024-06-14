@@ -61,3 +61,8 @@ services:
         class: App\Controller\ListsController
         tags:
             - { name: "open_api_server.api", api: "lists" }
+
+    contact_system.controller.audits:
+        class: App\Controller\AuditsController
+        tags:
+            - { name: "open_api_server.api", api: "audits" }

@@ -20,15 +20,20 @@ export type Relation =
   | { type: 'scoutGroup'; entity: ScoutGroupData }
   | null;
 
+const pathMap: Record<string, string> = {
+  Contact: 'contacts',
+  Member: 'members',
+  Role: 'roles',
+  Section: 'sections',
+  ScoutGroup: 'groups',
+};
+
 export function relationPath(relationType: string): string {
-  const pathMap: Record<string, string> = {
-    Contact: 'contacts',
-    Member: 'members',
-    Role: 'roles',
-    Section: 'sections',
-    ScoutGroup: 'groups',
-  };
   return pathMap[relationType];
+}
+
+export function relationLinkable(relationType: string): boolean {
+  return relationType in pathMap;
 }
 
 export function useRuleRelation<T extends RuleRelationProp>(relationProp: T) {

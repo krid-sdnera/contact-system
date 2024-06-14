@@ -104,7 +104,13 @@ class Member
             $member->setLastname($extranetMember->getLastname());
         }
         if ($member->overridable('dateOfBirth')) {
-            $member->setDateOfBirth(new DateTime($extranetMember->getDateOfBirth()));
+
+            if (!$member->getDateOfBirth()) {
+                // Date of Birth has been previously set.
+                // Because Extranet no longer exposes the exact DOB, set it intitally
+                // but then dont update it in the future.
+                $member->setDateOfBirth(new DateTime($extranetMember->getDateOfBirth()));
+            }
         }
         if ($member->overridable('gender')) {
             $member->setGender($extranetMember->getGender());
@@ -115,13 +121,15 @@ class Member
 
         // Update address        
         if ($member->overridable('address')) {
-            $member->setAddress(array(
-                'street1' => $extranetMember->getHomeAddress(),
-                'street2' => '',
-                'city' => $extranetMember->getHomeSuburb(),
-                'state' => $extranetMember->getHomeState(),
-                'postcode' => $extranetMember->getHomePostcode(),
-            ));
+            $member->setAddress(
+                array(
+                    'street1' => $extranetMember->getHomeAddress(),
+                    'street2' => '',
+                    'city' => $extranetMember->getHomeSuburb(),
+                    'state' => $extranetMember->getHomeState(),
+                    'postcode' => $extranetMember->getHomePostcode(),
+                )
+            );
         }
 
         // Update contact details
@@ -283,25 +291,25 @@ class Member
                 //Remove {CUB}" SCOUT" & {JOEY}" SCOUT"
                 $normalisedSection = preg_replace('/(.+?)(?: SCOUT)?/', '$1', $normalisedSection);
                 //Remove {VENT}"URER"
-                $normalisedSection = preg_replace('/(.+?)(?:URER)?/',   '$1', $normalisedSection);
+                $normalisedSection = preg_replace('/(.+?)(?:URER)?/', '$1', $normalisedSection);
             } else {
                 $normalisedSection = 'GROUP';
             }
 
             // Generate sections
             $nameMapping = array(
-                'JOEY'  => '-JOEY SCOUT MOB 1',
-                'CUB'   => '-CUB SCOUT PACK 1',
+                'JOEY' => '-JOEY SCOUT MOB 1',
+                'CUB' => '-CUB SCOUT PACK 1',
                 'SCOUT' => '-SCOUT TROOP 1',
-                'VENT'  => '-VENTURER UNIT 1',
+                'VENT' => '-VENTURER UNIT 1',
                 'ROVER' => '-ROVER CREW 1',
                 'GROUP' => ''
             );
             $idMapping = array(
-                'JOEY'  => 'M1',
-                'CUB'   => 'P1',
+                'JOEY' => 'M1',
+                'CUB' => 'P1',
                 'SCOUT' => 'T1',
-                'VENT'  => 'U1',
+                'VENT' => 'U1',
                 'ROVER' => 'C1',
                 'GROUP' => ''
             );

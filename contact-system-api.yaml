@@ -45,6 +45,8 @@ tags:
     description: Everything you need to handle `groups`
   - name: Lists
     description: Everything you need to handle `lists`
+  - name: Audits
+    description: Everything you need to handle `audits`
 paths:
   /members:
     get:
@@ -2046,6 +2048,63 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
       security: []
+  /audits:
+    get:
+      operationId: getAudits
+      summary: Get Audits
+      description: Get Audits
+      tags: [Audits]
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: query
+        - schema:
+            type: string
+          in: query
+          name: sort
+        - schema:
+            type: integer
+          in: query
+          name: pageSize
+        - schema:
+            type: integer
+          in: query
+          name: page
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Audits
+                description: A list of audits
+                type: object
+                properties:
+                  totalItems:
+                    description: Total number of items
+                    type: integer
+                  totalPages:
+                    description: Total number of pages
+                    type: integer
+                  page:
+                    description: Current page number
+                    type: integer
+                  pageSize:
+                    description: Number of items in this page
+                    type: integer
+                  audits:
+                    description: Array containg the list
+                    type: array
+                    uniqueItems: true
+                    items:
+                      $ref: "#/components/schemas/AuditData"
+                required:
+                  - audits
+                  - totalItems
+                  - totalPages
+                  - page
+                  - pageSize
 components:
   responses:
     UnauthorizedError:
@@ -2700,6 +2759,49 @@ components:
         - relationName
         - useMember
         - useContact
+    AuditData:
+      title: AuditData
+      type: object
+      properties:
+        id:
+          type: integer
+        entityType:
+          type: string
+        entityId:
+          type: string
+        createdAt:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$"
+        user:
+          $ref: "#/components/schemas/UserData"
+        action:
+          type: string
+        requestRoute:
+          type: string
+          nullable: true
+        ipAddress:
+          type: string
+          nullable: true
+        eventData:
+          type: string
+      required:
+        - id
+        - entityType
+        - entityId
+        - createdAt
+        - action
+        - eventData
+    UserData:
+      title: UserData
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+      required:
+        - id
+        - username
   securitySchemes:
     contact_auth:
       type: apiKey
