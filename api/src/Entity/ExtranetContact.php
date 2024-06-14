@@ -14,8 +14,8 @@ class ExtranetContact
     public $occupation;
     public $relationship;
 
-    public $phoneHome;
-    public $phoneWork;
+    public $homePhone;
+    public $workPhone;
     public $mobile;
     public $email;
 

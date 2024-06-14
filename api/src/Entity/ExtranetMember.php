@@ -39,6 +39,7 @@ class ExtranetMember
     private $contacts = [];
     private $role;
     private $subsidiarySections = [];
+    private $memberUpdateLink;
     private $position;
 
     private $metaInvite = [];
