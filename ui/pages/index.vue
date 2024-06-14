@@ -4,6 +4,7 @@ useHead({
 });
 
 definePageMeta({
+  middleware: ['auth'],
   breadcrumbs: useBuildBreadcrumbs([{ to: `/`, label: `Home` }]),
 });
 </script>
