@@ -102,19 +102,18 @@ const headers: TableControlsHeader[] = [
     key: 'autoUpgradeEnabled',
     value: (item: MemberData) => (item.autoUpgradeEnabled ? 'Yes' : 'No'),
   },
-  { title: 'Actions', key: 'actions', sortable: false, fixed: true },
+  { title: 'Actions', key: 'actionButtons', sortable: false },
 ];
 const { shownHeaders, useUiTableControls } = useTableControls(
   'memberListColumns',
   headers,
   [
-    'id',
-    'firstname',
+    'firstname', //wrap
     'lastname',
     'email',
     'gender',
     'membershipNumber',
-    'actions',
+    'actionButtons',
   ]
 );
 const uiTableControls = useUiTableControls();
@@ -228,7 +227,7 @@ const itemsPerPageOptions = [
         </v-chip>
       </template>
 
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:item.actionButtons="{ item }">
         <v-btn variant="text" icon="mdi-eye" :to="`/members/${item.id}`" />
         <v-btn variant="text" icon="mdi-pencil" @click="itemUpdate(item)" />
         <v-btn variant="text" icon="mdi-delete" @click="itemDelete(item)" />

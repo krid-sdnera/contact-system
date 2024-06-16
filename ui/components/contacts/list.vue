@@ -82,19 +82,18 @@ const headers: TableControlsHeader[] = [
   { title: 'Work Phone', key: 'phoneWork' },
   { title: 'Relationship', key: 'relationship' },
   { title: 'Occupation', key: 'occupation' },
-  { title: 'Actions', key: 'actions', sortable: false, fixed: true },
+  { title: 'Actions', key: 'actionButtons', sortable: false },
 ];
 const { shownHeaders, useUiTableControls } = useTableControls(
   'contactListColumns',
   headers,
   [
-    'id',
-    'firstname',
+    'firstname', //wrap
     'lastname',
     'relatioship',
     'state',
     'managementState',
-    'actions',
+    'actionButtons',
   ]
 );
 const uiTableControls = useUiTableControls();
@@ -208,7 +207,7 @@ const itemsPerPageOptions = [
         </v-chip>
       </template>
 
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:item.actionButtons="{ item }">
         <v-btn variant="text" icon="mdi-eye" :to="`/contacts/${item.id}`" />
         <v-btn variant="text" icon="mdi-pencil" @click="itemUpdate(item)" />
         <v-btn variant="text" icon="mdi-delete" @click="itemDelete(item)" />

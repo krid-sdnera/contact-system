@@ -37,7 +37,13 @@ const headers: TableControlsHeader[] = [
 const { shownHeaders, useUiTableControls } = useTableControls(
   'auditListColumns',
   headers,
-  ['id', 'entity', 'createdAt', 'actor', 'action', 'eventData']
+  [
+    'entity', //wrap
+    'createdAt',
+    'actor',
+    'action',
+    'eventData',
+  ]
 );
 const uiTableControls = useUiTableControls();
 const tableControlDialog = ref<boolean>(false);

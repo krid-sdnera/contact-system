@@ -77,20 +77,19 @@ const headers: TableControlsHeader[] = [
   { title: 'Linked to', key: 'relation' },
   { title: 'Use Member', key: 'useMember' },
   { title: 'Use Contact', key: 'useContact' },
-  { title: 'Actions', key: 'actions', sortable: false, fixed: true },
+  { title: 'Actions', key: 'actionButtons', sortable: false },
 ];
 const { shownHeaders, useUiTableControls } = useTableControls(
   'listRuleListColumns',
   headers,
   [
-    'id',
-    'label',
+    'label', //wrap
     'comment',
     'list',
     'relation',
     'useMember',
     'useContact',
-    'actions',
+    'actionButtons',
   ]
 );
 const uiTableControls = useUiTableControls();
@@ -221,8 +220,7 @@ const itemsPerPageOptions = [
         <v-icon v-else colour="red" icon="mdi-close" />
       </template>
 
-      <template v-slot:item.actions="{ item }">
-        <v-btn variant="text" icon="mdi-eye" :to="`/listRules/${item.id}`" />
+      <template v-slot:item.actionButtons="{ item }">
         <v-btn variant="text" icon="mdi-pencil" @click="itemUpdate(item)" />
         <v-btn variant="text" icon="mdi-delete" @click="itemDelete(item)" />
       </template>

@@ -84,7 +84,13 @@ const headers: TableControlsHeader[] = [
 const { shownHeaders, useUiTableControls } = useTableControls(
   'listListMemberListColumns',
   headers,
-  ['id', 'type', 'name', 'address', 'list', 'contributingRuleIds']
+  [
+    'type', //wrap
+    'name',
+    'address',
+    'list',
+    'contributingRuleIds',
+  ]
 );
 const uiTableControls = useUiTableControls();
 const tableControlDialog = ref<boolean>(false);
@@ -166,11 +172,6 @@ const { getListRule } = useListRule();
         </span>
       </template>
 
-      <!-- <template v-slot:item.actions="{ item }">
-        <v-btn variant="text" icon="mdi-eye" :to="`/listListMembers/${item.id}`" />
-        <v-btn variant="text" icon="mdi-pencil" @click="itemUpdate(item)" />
-        <v-btn variant="text" icon="mdi-delete" @click="itemDelete(item)" />
-      </template> -->
       <template v-slot:no-data>
         <v-btn color="primary"> No Data? </v-btn>
       </template>

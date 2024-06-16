@@ -89,12 +89,18 @@ const headers: TableControlsHeader[] = [
   { title: 'Mobile Phone', key: 'phoneMobile' },
   { title: 'Work Phone', key: 'phoneWork' },
   { title: 'Type', key: 'type', fixed: true },
-  { title: 'Actions', key: 'actions', sortable: false, fixed: true },
+  { title: 'Actions', key: 'actionButtons', sortable: false },
 ];
 const { shownHeaders, useUiTableControls } = useTableControls(
   'searchListColumns',
   headers,
-  ['id', 'firstname', 'lastname', 'email', 'gender', 'membershipNumber']
+  [
+    'firstname', //wrap
+    'lastname',
+    'email',
+    'gender',
+    'membershipNumber',
+  ]
 );
 const uiTableControls = useUiTableControls();
 const tableControlDialog = ref<boolean>(false);
@@ -167,7 +173,7 @@ const displayItems = computed(() => {
         </NuxtLink>
       </template>
 
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:item.actionButtons="{ item }">
         <v-btn
           v-if="item.type === 'member'"
           variant="text"

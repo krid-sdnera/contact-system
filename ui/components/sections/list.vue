@@ -66,12 +66,16 @@ const headers: TableControlsHeader[] = [
   { title: 'ID', key: 'id', fixed: true },
   { title: 'Name', key: 'name' },
   { title: 'Group', key: 'scoutGroup.name' },
-  { title: 'Actions', key: 'actions', sortable: false, fixed: true },
+  { title: 'Actions', key: 'actionButtons', sortable: false },
 ];
 const { shownHeaders, useUiTableControls } = useTableControls(
   'sectionListColumns',
   headers,
-  ['id', 'name', 'scoutGroup.name', 'actions']
+  [
+    'name', //wrap
+    'scoutGroup.name',
+    'actionButtons',
+  ]
 );
 const uiTableControls = useUiTableControls();
 const tableControlDialog = ref<boolean>(false);
@@ -167,7 +171,7 @@ const itemsPerPageOptions = [
         <NuxtLink :to="`/sections/${item.id}`">{{ item.id }}</NuxtLink>
       </template>
 
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:item.actionButtons="{ item }">
         <v-btn variant="text" icon="mdi-eye" :to="`/sections/${item.id}`" />
         <v-btn variant="text" icon="mdi-pencil" @click="itemUpdate(item)" />
         <v-btn variant="text" icon="mdi-delete" @click="itemDelete(item)" />

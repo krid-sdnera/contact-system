@@ -34,9 +34,7 @@ export function useTableControls<H extends HeaderWithKey>(
     return acc;
   }, {} as Record<string, boolean>);
 
-  const fixedColumns = headers
-    .filter((h) => h.fixed === true)
-    .map((h) => h.key);
+  const fixedColumns = ['actionButtons'];
 
   const columnDisplayMap = useStorage<Record<string, boolean>>(
     tableControlsKey,
@@ -54,7 +52,7 @@ export function useTableControls<H extends HeaderWithKey>(
     useUiTableControls(): UiTableControls {
       return {
         availableColumns: headers
-          .filter((h) => h.fixed !== true)
+          .filter((h) => !fixedColumns.includes(h.key))
           .map((h) => ({
             key: h.key,
             title: h.title || '',
