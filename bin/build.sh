@@ -16,6 +16,7 @@ npm install
 npm run openapi-generator-cli  generate
 
 echo "> Upgrade Composer dependacies"
+sed $SEDOPTION -e 's/"php": "^7.1.3"/"php": "^8.2"/' api/lib/ContactSystem/Api/composer.json
 sed $SEDOPTION -e 's/"jms\/serializer-bundle": "^2.0"/"jms\/serializer-bundle": "^3.0"/' api/lib/ContactSystem/Api/composer.json
 sed $SEDOPTION -e 's/"symfony\/framework-bundle": "^4.4.8"/"symfony\/framework-bundle": "^4.4.8|^5.0"/' api/lib/ContactSystem/Api/composer.json
 

@@ -30,13 +30,13 @@ COPY ./api .
 COPY --from=node /home/node/app/api/lib ./lib
 
 RUN --mount=type=cache,target=/tmp/cache \
-    composer install --no-interaction --no-scripts --ignore-platform-reqs
+    composer install --no-interaction
 
 RUN --mount=type=cache,target=/tmp/cache \
     composer dump-autoload
 
 
-FROM php:7.4-apache as final
+FROM php:8.2-apache as final
 RUN docker-php-ext-install pdo pdo_mysql
 RUN a2enmod rewrite
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"

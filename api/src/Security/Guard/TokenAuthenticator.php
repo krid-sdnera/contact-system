@@ -85,7 +85,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     /**
      * Called when authentication is needed, but it's not sent
      */
-    public function start(Request $request, AuthenticationException $authException = null)
+    public function start(Request $request, AuthenticationException|null $authException = null)
     {
         $data = [
             // you might translate this message
