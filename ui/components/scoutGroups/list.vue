@@ -126,14 +126,14 @@ const itemsPerPageOptions = [
       </template>
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>ScoutGroups</v-toolbar-title>
+          <v-toolbar-title>Groups</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
 
           <v-text-field
             v-if="props.searchable"
             v-model="search"
-            label="Find ScoutGroup"
+            label="Find Group"
             single-line
             hide-details
             clearable
@@ -144,8 +144,8 @@ const itemsPerPageOptions = [
           <v-btn
             v-if="props.allowCreation"
             color="success"
-            icon="mdi-account-plus"
-            v-tooltip="'Create local scoutGroup'"
+            icon="mdi-office-building-plus"
+            v-tooltip="'Create local group'"
             @click="itemCreate"
           ></v-btn>
 
@@ -172,12 +172,16 @@ const itemsPerPageOptions = [
       </template>
 
       <template v-slot:item.actionButtons="{ item }">
-        <v-btn variant="text" icon="mdi-eye" :to="`/groups/${item.id}`" />
-        <v-btn variant="text" icon="mdi-pencil" @click="itemUpdate(item)" />
-        <v-btn variant="text" icon="mdi-delete" @click="itemDelete(item)" />
+        <TableActionButtons
+          :view="relationUrl('ScoutGroup', item.id)"
+          update
+          @update="itemUpdate(item)"
+          delete
+          @delete="itemDelete(item)"
+        ></TableActionButtons>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary"> No Data? </v-btn>
+        <v-btn color="primary" @click="refresh">No Data: Refresh</v-btn>
       </template>
     </v-data-table-server>
   </div>

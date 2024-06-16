@@ -226,7 +226,7 @@ function forceFileDownload(data: string, title: string) {
         small
         v-bind="props"
         icon="mdi-export"
-        label="Export"
+        v-tooltip="'Export a list of Members'"
       />
     </template>
     <v-card style="max-height: 90vh">

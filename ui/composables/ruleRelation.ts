@@ -20,7 +20,7 @@ export type Relation =
   | { type: 'scoutGroup'; entity: ScoutGroupData }
   | null;
 
-const pathMap: Record<string, string> = {
+const pathMap = {
   Contact: 'contacts',
   Member: 'members',
   MemberRole: 'members',
@@ -29,9 +29,9 @@ const pathMap: Record<string, string> = {
   ScoutGroup: 'groups',
   EmailList: 'lists',
   EmailListRule: 'lists',
-};
+} as const;
 
-export function relationPath(relationType: string): string {
+export function relationPath(relationType: keyof typeof pathMap): string {
   return pathMap[relationType];
 }
 
@@ -39,7 +39,10 @@ export function relationLinkable(relationType: string): boolean {
   return relationType in pathMap;
 }
 
-export function relationUrl(relationType: string, id: string | number): string {
+export function relationUrl(
+  relationType: keyof typeof pathMap,
+  id: string | number
+): string {
   if (relationType === 'MemberRole') {
     const memberId = String(id).split('-', 1)[0];
     return `/${relationPath('Member')}/${memberId}`;

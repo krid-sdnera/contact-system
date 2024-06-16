@@ -8,7 +8,11 @@ const props = defineProps<{
 <template>
   <v-dialog v-model="model" scrollable max-width="600px">
     <template v-slot:activator="{ props: activatorProps }">
-      <v-btn v-bind="activatorProps" icon="mdi-cog"></v-btn>
+      <v-btn
+        v-bind="activatorProps"
+        icon="mdi-cog"
+        v-tooltip="'Configure table fields'"
+      ></v-btn>
     </template>
     <v-card style="max-height: 90vh">
       <v-card-title

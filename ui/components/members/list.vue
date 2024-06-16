@@ -228,12 +228,16 @@ const itemsPerPageOptions = [
       </template>
 
       <template v-slot:item.actionButtons="{ item }">
-        <v-btn variant="text" icon="mdi-eye" :to="`/members/${item.id}`" />
-        <v-btn variant="text" icon="mdi-pencil" @click="itemUpdate(item)" />
-        <v-btn variant="text" icon="mdi-delete" @click="itemDelete(item)" />
+        <TableActionButtons
+          :view="relationUrl('Member', item.id)"
+          update
+          @update="itemUpdate(item)"
+          delete
+          @delete="itemDelete(item)"
+        ></TableActionButtons>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary"> No Data? </v-btn>
+        <v-btn color="primary" @click="refresh">No Data: Refresh</v-btn>
       </template>
     </v-data-table-server>
   </div>

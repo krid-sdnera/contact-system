@@ -149,7 +149,7 @@ const itemsPerPageOptions = [
       </template>
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>ListRules</v-toolbar-title>
+          <v-toolbar-title>List Rules</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
 
@@ -167,8 +167,8 @@ const itemsPerPageOptions = [
           <v-btn
             v-if="props.allowCreation"
             color="success"
-            icon="mdi-account-plus"
-            v-tooltip="'Create local listRule'"
+            icon="mdi-sign-direction-plus"
+            v-tooltip="'Create local list rule'"
             @click="itemCreate"
           ></v-btn>
 
@@ -221,11 +221,15 @@ const itemsPerPageOptions = [
       </template>
 
       <template v-slot:item.actionButtons="{ item }">
-        <v-btn variant="text" icon="mdi-pencil" @click="itemUpdate(item)" />
-        <v-btn variant="text" icon="mdi-delete" @click="itemDelete(item)" />
+        <TableActionButtons
+          update
+          @update="itemUpdate(item)"
+          delete
+          @delete="itemDelete(item)"
+        ></TableActionButtons>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary"> No Data? </v-btn>
+        <v-btn color="primary" @click="refresh">No Data: Refresh</v-btn>
       </template>
     </v-data-table-server>
   </div>

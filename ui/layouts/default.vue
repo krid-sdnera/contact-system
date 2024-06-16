@@ -45,12 +45,12 @@ const items = [
     to: '/roles',
   },
   {
-    icon: 'mdi-account-supervisor-circle',
+    icon: 'mdi-account-multiple',
     title: 'Sections',
     to: '/sections',
   },
   {
-    icon: 'mdi-account-group',
+    icon: 'mdi-office-building',
     title: 'Groups',
     to: '/groups',
   },
@@ -97,7 +97,6 @@ const items = [
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
 
-      <!-- <v-toolbar-title >Contact System</v-toolbar-title> -->
       <v-toolbar-items>
         <Breadcrumbs></Breadcrumbs>
       </v-toolbar-items>

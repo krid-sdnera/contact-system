@@ -173,7 +173,7 @@ const { getListRule } = useListRule();
       </template>
 
       <template v-slot:no-data>
-        <v-btn color="primary"> No Data? </v-btn>
+        <v-btn color="primary" @click="refresh">No Data: Refresh</v-btn>
       </template>
     </v-data-table-server>
   </div>
