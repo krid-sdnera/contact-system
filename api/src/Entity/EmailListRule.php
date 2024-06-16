@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use OpenAPI\Server\Model\ListRuleData;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EmailListRuleRepository")
@@ -68,26 +69,31 @@ class EmailListRule
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Contact")
+     * @MaxDepth(1)
      */
     private $contact;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Member")
+     * @MaxDepth(1)
      */
     private $member;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role")
+     * @MaxDepth(1)
      */
     private $role;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Section")
+     * @MaxDepth(1)
      */
     private $section;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ScoutGroup")
+     * @MaxDepth(1)
      */
     private $scoutGroup;
 

@@ -10,6 +10,7 @@ use OpenAPI\Server\Model\AddressData;
 use OpenAPI\Server\Model\ContactData;
 use OpenAPI\Server\Model\ContactOverrideData;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
@@ -110,13 +111,15 @@ class Contact
 
         // Update address        
         if ($contact->overridable('address')) {
-            $contact->setAddress(array(
-                'street1' => $extranetContact->getHomeAddress(),
-                'street2' => '',
-                'city' => $extranetContact->getHomeSuburb(),
-                'state' => $extranetContact->getHomeState(),
-                'postcode' => $extranetContact->getHomePostcode(),
-            ));
+            $contact->setAddress(
+                array(
+                    'street1' => $extranetContact->getHomeAddress(),
+                    'street2' => '',
+                    'city' => $extranetContact->getHomeSuburb(),
+                    'state' => $extranetContact->getHomeState(),
+                    'postcode' => $extranetContact->getHomePostcode(),
+                )
+            );
         }
 
         // Update contact details
@@ -241,6 +244,7 @@ class Contact
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="contacts", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $member;
 

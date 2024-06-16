@@ -9,6 +9,7 @@ use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\MemberRoleData;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRoleRepository")
@@ -107,6 +108,7 @@ class MemberRole
     /**
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Member",  inversedBy="roles")
+     * @MaxDepth(1)
      */
     private $member;
 
@@ -114,6 +116,7 @@ class MemberRole
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Role",  inversedBy="members")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $role;
 

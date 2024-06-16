@@ -10,6 +10,8 @@ use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\RoleData;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RoleRepository")
@@ -104,6 +106,7 @@ class Role
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Section", cascade={"persist"}, inversedBy="roles")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $section;
 
@@ -124,6 +127,8 @@ class Role
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\MemberRole", mappedBy="role")
+     * @MaxDepth(1)
+     * @Ignore()
      */
     private $members;
 

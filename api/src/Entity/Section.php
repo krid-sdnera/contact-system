@@ -10,6 +10,8 @@ use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\SectionData;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SectionRepository")
@@ -103,6 +105,7 @@ class Section
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ScoutGroup", cascade={"persist"}, inversedBy="sections")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $scoutGroup;
 
@@ -113,6 +116,8 @@ class Section
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Role", mappedBy="section")
+     * @MaxDepth(1)
+     * @Ignore()
      */
     private $roles;
 

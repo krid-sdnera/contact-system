@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use OpenAPI\Server\Model\ListData;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EmailListRepository")
@@ -45,6 +47,8 @@ class EmailList
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EmailListRule", mappedBy="emailList", orphanRemoval=true)
+     * @MaxDepth(1)
+     * @Ignore()
      */
     private $rules;
 

@@ -16,6 +16,8 @@ use OpenAPI\Server\Model\MemberOverrideData;
 use OpenAPI\Server\Model\MemberData;
 use OpenAPI\Server\Model\MemberMetaInviteData;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
@@ -486,11 +488,15 @@ class Member
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\MemberRole", mappedBy="member", cascade={"persist"})
+     * @MaxDepth(1)
+     * @Ignore()
      */
     private $roles;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="member", cascade={"persist"})
+     * @MaxDepth(1)
+     * @Ignore()
      */
     private $contacts;
 

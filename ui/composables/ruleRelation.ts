@@ -23,9 +23,12 @@ export type Relation =
 const pathMap: Record<string, string> = {
   Contact: 'contacts',
   Member: 'members',
+  MemberRole: 'members',
   Role: 'roles',
   Section: 'sections',
   ScoutGroup: 'groups',
+  EmailList: 'lists',
+  EmailListRule: 'lists',
 };
 
 export function relationPath(relationType: string): string {
@@ -34,6 +37,19 @@ export function relationPath(relationType: string): string {
 
 export function relationLinkable(relationType: string): boolean {
   return relationType in pathMap;
+}
+
+export function relationUrl(relationType: string, id: string | number): string {
+  if (relationType === 'MemberRole') {
+    const memberId = String(id).split('-', 1)[0];
+    return `/${relationPath('Member')}/${memberId}`;
+  }
+  if (relationType === 'EmailListRule') {
+    const emailId = String(id).split('-', 1)[0];
+    return `/${relationPath('EmailList')}/${emailId}`;
+  }
+
+  return `/${relationPath(relationType)}/${id}`;
 }
 
 export function useRuleRelation<T extends RuleRelationProp>(relationProp: T) {

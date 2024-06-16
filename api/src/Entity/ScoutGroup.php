@@ -10,6 +10,7 @@ use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenAPI\Server\Model\ScoutGroupData;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ScoutGroupRepository")
@@ -101,6 +102,7 @@ class ScoutGroup
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Section", mappedBy="scoutGroup")
+     * @MaxDepth(1)
      */
     private $sections;
 

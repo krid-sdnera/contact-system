@@ -65,14 +65,33 @@ function getActionColor(action: string): string {
     }[action] ?? 'primary'
   );
 }
+type EventDataSource = Record<string, { from: any; to: any } | string>;
 
 type EventData = Record<string, { from: any; to: any }>;
 
-function parseEventData(eventData: string): EventData {
+function parseEventData(eventData: string, action: string): EventData {
   try {
-    const json = JSON.parse(eventData);
+    const json = JSON.parse(eventData) as EventDataSource;
 
-    return json ?? { empty: { from: '', to: '' } };
+    if (!json) {
+      return { empty: { from: '', to: '' } };
+    }
+
+    if (action === 'create' || action === 'delete') {
+      const formattedJson: EventData = {};
+      for (const field in json) {
+        const change = json[field];
+
+        formattedJson[field] = {
+          from: action === 'delete' ? change : undefined,
+          to: action === 'create' ? change : undefined,
+        };
+      }
+
+      return formattedJson;
+    }
+
+    return json as EventData;
   } catch {
     return { error: { from: '', to: '' } };
   }
@@ -103,7 +122,22 @@ function renderValue(value: any): string {
     return String(value.date);
   }
 
-  return JSON.stringify(value, null, 2);
+  return JSON.stringify(value, replacerFn, 2);
+}
+
+/**
+ * Display top level key, value pairs of JSON objects
+ *
+ * The top level object will have no key, so it's always simply returned.
+ * Anything that is not a "number" on the next level will be casted to a string,
+ * incl. a special case for arrays, otherwise those would be exposed further more.
+ */
+function replacerFn(k: string, v: any) {
+  return k && v && typeof v !== 'number'
+    ? Array.isArray(v)
+      ? '[object Array]'
+      : '' + v
+    : v;
 }
 </script>
 
@@ -154,7 +188,7 @@ function renderValue(value: any): string {
         <br />
         <NuxtLink
           v-if="relationLinkable(item.entityType)"
-          :to="`/${relationPath(item.entityType)}/${item.entityId}`"
+          :to="relationUrl(item.entityType, item.entityId)"
         >
           {{ item.entityId }}
         </NuxtLink>
@@ -175,14 +209,25 @@ function renderValue(value: any): string {
       <template v-slot:item.eventData="{ item }">
         <v-row
           dense
-          v-for="(change, field, index) in parseEventData(item.eventData)"
+          v-for="(change, field, index) in parseEventData(
+            item.eventData,
+            item.action
+          )"
           :class="{ 'border-t-sm': index !== 0 }"
         >
           <v-col cols="4" class="text-right">{{ field }}</v-col>
 
-          <v-col cols="8" class="text-left">
-            <pre class="text-red">- {{ renderValue(change.from) }}</pre>
-            <pre class="text-green">+ {{ renderValue(change.to) }}</pre>
+          <v-col cols="8" class="text-left change-block">
+            <pre
+              class="text-red"
+              v-if="item.action !== 'create'"
+              v-text="`- ${renderValue(change?.from)}`"
+            ></pre>
+            <pre
+              class="text-green"
+              v-if="item.action !== 'delete'"
+              v-text="`+ ${renderValue(change?.to)}`"
+            ></pre>
           </v-col>
         </v-row>
       </template>
@@ -193,3 +238,11 @@ function renderValue(value: any): string {
     </v-data-table-server>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.change-block {
+  max-height: 5rem;
+  overflow: scroll;
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+</style>

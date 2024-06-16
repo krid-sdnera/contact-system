@@ -7,6 +7,8 @@ use App\Service\AuditLogger;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -29,6 +31,27 @@ class AuditSubscriber implements EventSubscriberInterface
                 '__isInitialized__',
             ]
     ];
+
+    static function NORMALIZE_CONTEXT()
+    {
+        return [
+            self::IGNORED_ATTRIBUTES_CONTEXT,
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractObjectNormalizer::MAX_DEPTH_HANDLER => function ($object, $format, $context) {
+                $entityClass = get_class($object);
+                $entityType = str_replace('App\Entity\\', '', $entityClass);
+
+                return "[{$entityType}] limitReached";
+            },
+            AbstractNormalizer::CIRCULAR_REFERENCE_LIMIT => 1,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                $entityClass = get_class($object);
+                $entityType = str_replace('App\Entity\\', '', $entityClass);
+
+                return "[{$entityType}] limitReached";
+            },
+        ];
+    }
 
     // Thanks to PHP 8's constructor property promotion and 8.1's readonly properties, we can
     // simply declare our class properties here in the constructor parameter list! 
@@ -74,7 +97,7 @@ class AuditSubscriber implements EventSubscriberInterface
     public function preRemove(LifecycleEventArgs $args): void
     {
         $entity = $args->getObject();
-        $this->removals[] = $this->serializer->normalize($entity, null, self::IGNORED_ATTRIBUTES_CONTEXT);
+        $this->removals[] = $this->serializer->normalize($entity, null, self::NORMALIZE_CONTEXT());
     }
 
     public function postRemove(LifecycleEventArgs $args): void
@@ -103,7 +126,7 @@ class AuditSubscriber implements EventSubscriberInterface
             $entityId = $entityData['id'];
         } elseif ($action === 'create') {
             // For insertions, we convert the entity to an array.
-            $entityData = $this->serializer->normalize($entity, null, self::IGNORED_ATTRIBUTES_CONTEXT);
+            $entityData = $this->serializer->normalize($entity, null, self::NORMALIZE_CONTEXT());
         } else {
             // For updates, we get the change set from Doctrine's Unit of Work manager.
             // This gives an array which contains only the fields which have
@@ -113,10 +136,10 @@ class AuditSubscriber implements EventSubscriberInterface
             foreach ($entityData as $field => $change) {
 
                 if (is_object($change[0])) {
-                    $entityData[$field][0] = $this->serializer->normalize($change[0], null, self::IGNORED_ATTRIBUTES_CONTEXT);
+                    $entityData[$field][0] = $this->serializer->normalize($change[0], null, self::NORMALIZE_CONTEXT());
                 }
                 if (is_object($change[1])) {
-                    $entityData[$field][1] = $this->serializer->normalize($change[1], null, self::IGNORED_ATTRIBUTES_CONTEXT);
+                    $entityData[$field][1] = $this->serializer->normalize($change[1], null, self::NORMALIZE_CONTEXT());
                 }
 
                 $entityData[$field] = [
