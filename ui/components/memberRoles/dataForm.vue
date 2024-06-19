@@ -65,6 +65,8 @@ const roleOptions = computed(() => {
       ></v-select>
     </v-row>
 
+    <!-- // TODO: Add subtitles // TODO: Add checkbox to restict roles to ones from
+    the current sections -->
     <small>*indicates required field</small>
   </v-container>
 </template>

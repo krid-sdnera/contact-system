@@ -10,11 +10,8 @@ const emit = defineEmits<{
   update: [];
   delete: [];
 }>();
-
-console.log(props.view);
-console.log(props.update);
-console.log(props.delete);
 </script>
+
 <template>
   <div class="action-buttons d-flex flex-nowrap">
     <v-btn

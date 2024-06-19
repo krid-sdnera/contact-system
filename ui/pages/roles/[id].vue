@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { RoleData } from '~/server/types/role';
-
 useHead({
   title: 'Roles',
 });
@@ -28,103 +26,61 @@ const roleId = Number(
 );
 
 const { useFetchRole } = useRole();
-const { role, status } = useFetchRole(roleId);
+const { role: roleRef, status } = useFetchRole(roleId);
 
-const section = computed(() => role.value?.section);
-const scoutGroup = computed(() => role.value?.section.scoutGroup);
-
-const dialogUpdate = ref<boolean>(false);
-function itemUpdate() {
-  dialogUpdate.value = true;
-}
-function itemUpdated(id: number) {
-  dialogUpdate.value = false;
-}
+const role = computed(() =>
+  status.value === 'success' ? roleRef.value : null
+);
 </script>
 
 <template>
-  <div v-if="role && section && scoutGroup && status === 'success'">
-    <RolesUpdate
-      v-model="dialogUpdate"
-      @updated="itemUpdated"
-      :role="role"
-    ></RolesUpdate>
-
-    <v-row>
-      <v-col cols="12" sm="6" md="4">
-        <!-- Role Details -->
-        <v-card class="mb-6">
-          <OverridableTitle label="Role">
-            {{ role.name }}
-          </OverridableTitle>
-
-          <v-card-text>
-            <OverridableText label="Section" :to="`/sections/${section.id}`">
-              {{ section.name }}
-            </OverridableText>
-            <OverridableText label="Group" :to="`/groups/${scoutGroup.id}`">
-              {{ scoutGroup.name }}
-            </OverridableText>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn icon="mdi-pencil" @click="itemUpdate()"></v-btn>
-          </v-card-actions>
-        </v-card>
+  <div>
+    <v-row class="flex-row-reverse">
+      <v-col cols="12" sm="3">
+        <v-row>
+          <v-col cols="12">
+            <CardSectionJump
+              :jumps="[
+                { label: 'Members', hash: '#members' },
+                { label: 'List Rules', hash: '#list-rules' },
+              ]"
+            ></CardSectionJump>
+          </v-col>
+          <v-col cols="12">
+            <RolesCardAdmin :role="role"></RolesCardAdmin>
+          </v-col>
+        </v-row>
       </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <!-- Scout Group Details -->
-        <v-card class="mb-6">
-          <OverridableTitle label="Extranet"> Advanced </OverridableTitle>
-          <v-card-text>
-            <OverridableText label="Role Id">
-              {{ role.externalId }}
-            </OverridableText>
-            <OverridableText label="Class Id">
-              {{ role.classId }}
-            </OverridableText>
-            <OverridableText label="Normalised Class Id">
-              {{ role.normalisedClassId }}
-            </OverridableText>
-            <OverridableText label="Section Id">
-              {{ section.externalId }}
-            </OverridableText>
-            <OverridableText label="Group Id">
-              {{ scoutGroup.externalId }}
-            </OverridableText>
-          </v-card-text>
-        </v-card>
+
+      <v-col cols="12" sm="9">
+        <v-row>
+          <v-col cols="12" sm="6">
+            <RolesCardDetails :role="role"></RolesCardDetails>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <RolesCardExtranet :role="role"></RolesCardExtranet>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
+
+    <v-row id="members">
+      <v-col v-if="role">
         <MembersList :role="role" searchable></MembersList>
       </v-col>
+      <v-col v-else>
+        <v-skeleton-loader type="table"></v-skeleton-loader>
+      </v-col>
     </v-row>
-    <v-row>
-      <v-col>
+
+    <v-row id="list-rules">
+      <v-col v-if="role">
         <!-- Email Rules Table -->
         <ListRulesList :relation="{ role }" allow-creation></ListRulesList>
       </v-col>
-    </v-row>
-  </div>
-  <div v-else-if="status === 'pending'">
-    <!-- Skeletons -->
-    <v-row>
-      <v-col cols="12" sm="6" md="8">
-        <v-skeleton-loader type="article"></v-skeleton-loader>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <v-skeleton-loader type="article"></v-skeleton-loader>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
+      <v-col v-else>
         <v-skeleton-loader type="table"></v-skeleton-loader>
       </v-col>
     </v-row>
   </div>
-  <div v-else>{{ status }}</div>
-  <!-- <error-display v-else :error="'unknown''"></error-display> -->
 </template>

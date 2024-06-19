@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { ContactData, ContactOverrideData } from '~/server/types/contact';
 import type { MemberData } from '~/server/types/member';
 
 useHead({
@@ -29,205 +28,63 @@ const contactId = Number(
 );
 
 const { useFetchContact } = useContact();
-const { contact, status } = useFetchContact(contactId);
+const { contact: contactRef, status } = useFetchContact(contactId);
+
+const contact = computed(() =>
+  status.value === 'success' ? contactRef.value : null
+);
 
 const { getMember, useFetchMember } = useMember();
-const unwatchContact = watch(contact, () => {
-  if (contact.value) {
+const unwatchContact = watch(contactRef, () => {
+  if (contactRef.value) {
     unwatchContact();
-    const { status } = useFetchMember(contact.value.memberId);
+    const { status } = useFetchMember(contactRef.value.memberId);
   }
 });
 const member = computed((): MemberData | null => {
   return contact.value ? getMember(contact.value?.memberId).value : null;
 });
-
-function isOverridden(field: string | string[]): boolean {
-  const fields = typeof field === 'string' ? [field] : field;
-
-  return fields.some(
-    (field) =>
-      contact.value?.overrides?.[field as keyof ContactOverrideData] === true
-  );
-}
-
-const dialogUpdate = ref<boolean>(false);
-function itemUpdate() {
-  dialogUpdate.value = true;
-}
-function itemUpdated(id: number) {
-  dialogUpdate.value = false;
-}
 </script>
 
 <template>
-  <div v-if="contact && status === 'success'">
-    <ContactsUpdate
-      v-model="dialogUpdate"
-      @updated="itemUpdated"
-      :contact="contact"
-    ></ContactsUpdate>
-
-    <v-row>
-      <v-col cols="12" sm="6" md="4">
-        <!-- Contact Details -->
-        <v-card class="mb-6">
-          <OverridableTitle
-            label="Contact"
-            :overridden="isOverridden(['firstname', 'nickname', 'lastname'])"
-          >
-            {{ contact.firstname }} {{ contact.lastname }}
-          </OverridableTitle>
-
-          <v-card-text>
-            <OverridableText
-              label="Extranet Parent Id"
-              :overridden="isOverridden('parentId')"
-            >
-              {{ contact.parentId }}
-            </OverridableText>
-
-            <OverridableText
-              label="Primary Contact"
-              :overridden="isOverridden('primaryContact')"
-            >
-              {{ contact.primaryContact ? 'Yes' : 'No' }}
-            </OverridableText>
-
-            <OverridableText
-              label="Relationship Contact"
-              :overridden="isOverridden('relationship')"
-            >
-              {{ contact.relationship }}
-            </OverridableText>
-
-            <OverridableText
-              label="Occupation"
-              :overridden="isOverridden('occupation')"
-            >
-              {{ contact.occupation }}
-            </OverridableText>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn icon="mdi-pencil" @click="itemUpdate()"></v-btn>
-          </v-card-actions>
-        </v-card>
-
-        <!-- Contact Management -->
-        <v-card>
-          <v-card-title>Advanced</v-card-title>
-          <v-card-text>
-            <v-chip class="mb-1" :class="{ red: contact.state === 'disabled' }">
-              {{ $filters.capitalize(contact.state) }}
-            </v-chip>
-            <v-chip class="mb-1">
-              {{ $filters.capitalize(contact.managementState) }}
-            </v-chip>
-            <v-chip v-if="contact.expiry" class="mb-1">{{
-              contact.expiry
-            }}</v-chip>
-          </v-card-text>
-        </v-card>
+  <div>
+    <v-row class="flex-row-reverse">
+      <v-col cols="12" sm="3">
+        <v-row>
+          <v-col cols="12">
+            <CardSectionJump
+              :jumps="[{ label: 'List Rules', hash: '#list-rules' }]"
+            ></CardSectionJump>
+          </v-col>
+          <v-col cols="12">
+            <ContactsCardAdmin :contact="contact"></ContactsCardAdmin>
+          </v-col>
+        </v-row>
       </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <!-- Contact Details -->
-        <v-card>
-          <OverridableTitle
-            :label="`${contact.firstname} ${contact.lastname}'${
-              contact.lastname.endsWith('s') ? '' : 's'
-            }`"
-          >
-            Contact Details
-          </OverridableTitle>
 
-          <v-card-text>
-            <OverridableText
-              label="Address"
-              :overridden="isOverridden('address')"
-              :to="$filters.googleMapsLink(contact.address)"
-            >
-              {{ $filters.address(contact.address) }}
-            </OverridableText>
-
-            <OverridableText label="Email" :overridden="isOverridden('email')">
-              {{ contact.email }}
-            </OverridableText>
-
-            <OverridableText
-              label="Homephone"
-              :overridden="isOverridden('phoneHome')"
-            >
-              {{ $filters.phone(contact.phoneHome) }}
-            </OverridableText>
-            <OverridableText
-              label="Workphone"
-              :overridden="isOverridden('phoneWork')"
-            >
-              {{ $filters.phone(contact.phoneWork) }}
-            </OverridableText>
-            <OverridableText
-              label="Mobile"
-              :overridden="isOverridden('phoneMobile')"
-            >
-              {{ $filters.phone(contact.phoneMobile) }}
-            </OverridableText>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <!-- Contact member details -->
-        <v-card v-if="member">
-          <OverridableTitle
-            label="Child / Spouse"
-            :to="`/members/${member.id}`"
-          >
-            {{ member.firstname }} {{ member.lastname }}
-          </OverridableTitle>
-
-          <v-card-text>
-            <OverridableText
-              label="Address"
-              :to="$filters.googleMapsLink(member.address)"
-            >
-              {{ $filters.address(contact.address) }}
-            </OverridableText>
-            <OverridableText label="Email">
-              {{ member.email }}
-            </OverridableText>
-            <OverridableText label="Homephone">
-              {{ $filters.phone(contact.phoneHome) }}
-            </OverridableText>
-            <OverridableText label="Workphone">
-              {{ $filters.phone(contact.phoneWork) }}
-            </OverridableText>
-            <OverridableText label="Mobile">
-              {{ $filters.phone(contact.phoneMobile) }}
-            </OverridableText>
-          </v-card-text>
-        </v-card>
+      <v-col cols="12" sm="9">
+        <v-row>
+          <v-col cols="12" sm="6">
+            <ContactsCardDetails :contact="contact"></ContactsCardDetails>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <ContactsCardContact :contact="contact"></ContactsCardContact>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <ContactsCardMember :member="member"></ContactsCardMember>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
 
-    <v-row>
-      <v-col>
+    <v-row id="list-rules">
+      <v-col v-if="contact">
         <!-- Email Rules Table -->
         <ListRulesList :relation="{ contact }" allow-creation></ListRulesList>
       </v-col>
-    </v-row>
-  </div>
-  <div v-else-if="status === 'pending'">
-    <!-- Skeletons -->
-    <v-row>
-      <v-col cols="12" sm="6" md="4">
-        <v-skeleton-loader type="article" class="mb-6"></v-skeleton-loader>
-        <v-skeleton-loader type="article"></v-skeleton-loader>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <v-skeleton-loader type="article"></v-skeleton-loader>
+      <v-col v-else>
+        <v-skeleton-loader type="table"></v-skeleton-loader>
       </v-col>
     </v-row>
   </div>
-  <div v-else>{{ status }}</div>
-  <!-- <error-display v-else :error="'unknown''"></error-display> -->
 </template>

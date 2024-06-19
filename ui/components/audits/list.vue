@@ -71,35 +71,45 @@ function getActionColor(action: string): string {
     }[action] ?? 'primary'
   );
 }
+
+type AuditAction = 'create' | 'update' | 'delete';
 type EventDataSource = Record<string, { from: any; to: any } | string>;
 
-type EventData = Record<string, { from: any; to: any }>;
+type EventData<AA extends AuditAction> = AA extends 'create'
+  ? Record<string, string>
+  : AA extends 'update'
+  ? Record<string, { from: any; to: any }>
+  : AA extends 'delete'
+  ? Record<string, string>
+  : {};
 
-function parseEventData(eventData: string, action: string): EventData {
+function parseEventData<AA extends AuditAction>(
+  eventData: string,
+  action: AA
+): EventData<AA> {
   try {
     const json = JSON.parse(eventData) as EventDataSource;
 
     if (!json) {
-      return { empty: { from: '', to: '' } };
+      return {} as EventData<AA>;
     }
 
-    if (action === 'create' || action === 'delete') {
-      const formattedJson: EventData = {};
-      for (const field in json) {
-        const change = json[field];
-
-        formattedJson[field] = {
-          from: action === 'delete' ? change : undefined,
-          to: action === 'create' ? change : undefined,
-        };
+    switch (action) {
+      case 'create': {
+        return json as EventData<AA>;
       }
-
-      return formattedJson;
+      case 'update': {
+        return json as EventData<AA>;
+      }
+      case 'delete': {
+        return json as EventData<AA>;
+      }
+      default: {
+        return {} as EventData<AA>;
+      }
     }
-
-    return json as EventData;
   } catch {
-    return { error: { from: '', to: '' } };
+    return {} as EventData<AA>;
   }
 }
 
@@ -213,7 +223,30 @@ function replacerFn(k: string, v: any) {
       </template>
 
       <template v-slot:item.eventData="{ item }">
+        <v-row v-if="item.action === 'create'" dense>
+          <v-col cols="8" offset="4" class="text-left">
+            <input
+              type="checkbox"
+              :id="`audit-${item.id}-change-create`"
+              class="audit-change-revealer"
+            />
+            <div class="change-block">
+              <label :for="`audit-${item.id}-change-create`">
+                <pre
+                  class="text-green"
+                  v-text="
+                    `+ ${renderValue(
+                      parseEventData(item.eventData, item.action)
+                    )}`
+                  "
+                ></pre>
+              </label>
+            </div>
+          </v-col>
+        </v-row>
+
         <v-row
+          v-else-if="item.action === 'update'"
           dense
           v-for="(change, field, index) in parseEventData(
             item.eventData,
@@ -223,17 +256,47 @@ function replacerFn(k: string, v: any) {
         >
           <v-col cols="4" class="text-right">{{ field }}</v-col>
 
-          <v-col cols="8" class="text-left change-block">
-            <pre
-              class="text-red"
-              v-if="item.action !== 'create'"
-              v-text="`- ${renderValue(change?.from)}`"
-            ></pre>
-            <pre
-              class="text-green"
-              v-if="item.action !== 'delete'"
-              v-text="`+ ${renderValue(change?.to)}`"
-            ></pre>
+          <v-col cols="8" class="text-left">
+            <input
+              type="checkbox"
+              :id="`audit-${item.id}-change-${index}`"
+              class="audit-change-revealer"
+            />
+
+            <div class="change-block">
+              <label :for="`audit-${item.id}-change-${index}`">
+                <pre
+                  class="text-red"
+                  v-text="`- ${renderValue(change?.from)}`"
+                ></pre>
+                <pre
+                  class="text-green"
+                  v-text="`+ ${renderValue(change?.to)}`"
+                ></pre>
+              </label>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row v-else-if="item.action === 'delete'" dense>
+          <v-col cols="8" offset="4" class="text-left">
+            <input
+              type="checkbox"
+              :id="`audit-${item.id}-change-delete`"
+              class="audit-change-revealer"
+            />
+            <div class="change-block">
+              <label :for="`audit-${item.id}-change-delete`">
+                <pre
+                  class="text-red"
+                  v-text="
+                    `- ${renderValue(
+                      parseEventData(item.eventData, item.action)
+                    )}`
+                  "
+                ></pre>
+              </label>
+            </div>
           </v-col>
         </v-row>
       </template>
@@ -249,6 +312,14 @@ function replacerFn(k: string, v: any) {
 .change-block {
   max-height: 5rem;
   overflow: scroll;
-  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+}
+
+.audit-change-revealer {
+  display: none;
+}
+.audit-change-revealer:checked ~ .change-block {
+  max-height: 25rem;
+  mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
 }
 </style>

@@ -1,0 +1,60 @@
+<script setup lang="ts">
+import type { ListData } from '~/server/types/list';
+
+const props = defineProps<{
+  list: ListData | null;
+}>();
+
+const dialogUpdate = ref<boolean>(false);
+function itemUpdate() {
+  dialogUpdate.value = true;
+}
+function itemUpdated(id: number) {
+  dialogUpdate.value = false;
+}
+
+const dialogDelete = ref<boolean>(false);
+function itemDelete() {
+  dialogDelete.value = true;
+}
+function itemDeleted(id: number) {
+  dialogDelete.value = false;
+}
+</script>
+
+<template>
+  <v-card v-if="props.list">
+    <ListsUpdate
+      v-model="dialogUpdate"
+      @updated="itemUpdated"
+      :list="props.list"
+    ></ListsUpdate>
+
+    <ListsDelete
+      v-model="dialogDelete"
+      @updated="itemDeleted"
+      :list="props.list"
+    ></ListsDelete>
+
+    <v-card-title>Admin Actions</v-card-title>
+
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+        variant="tonal"
+        icon="mdi-pencil"
+        color="warning"
+        @click="itemUpdate()"
+      ></v-btn>
+      <v-btn
+        variant="tonal"
+        icon="mdi-delete"
+        color="error"
+        @click="itemDelete()"
+      ></v-btn>
+    </v-card-actions>
+  </v-card>
+
+  <!-- Loading Skeleton -->
+  <v-skeleton-loader v-else type="article"></v-skeleton-loader>
+</template>

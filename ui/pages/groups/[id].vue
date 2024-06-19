@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { ScoutGroupData } from '~/server/types/scoutGroup';
-
 useHead({
   title: 'ScoutGroups',
 });
@@ -28,90 +26,71 @@ const scoutGroupId = Number(
 );
 
 const { useFetchScoutGroup } = useScoutGroup();
-const { scoutGroup, status } = useFetchScoutGroup(scoutGroupId);
+const { scoutGroup: scoutGroupRef, status } = useFetchScoutGroup(scoutGroupId);
 
-const dialogUpdate = ref<boolean>(false);
-function itemUpdate() {
-  dialogUpdate.value = true;
-}
-function itemUpdated(id: number) {
-  dialogUpdate.value = false;
-}
+const scoutGroup = computed(() =>
+  status.value === 'success' ? scoutGroupRef.value : null
+);
 </script>
 
 <template>
-  <div v-if="scoutGroup && status === 'success'">
-    <ScoutGroupsUpdate
-      v-model="dialogUpdate"
-      @updated="itemUpdated"
-      :scoutGroup="scoutGroup"
-    ></ScoutGroupsUpdate>
-
-    <v-row>
-      <v-col cols="12" sm="6" md="4">
-        <!-- ScoutGroup Details -->
-        <v-card class="mb-6">
-          <OverridableTitle label="Group">
-            {{ scoutGroup.name }}
-          </OverridableTitle>
-
-          <v-card-text></v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn icon="mdi-pencil" @click="itemUpdate()"></v-btn>
-          </v-card-actions>
-        </v-card>
+  <div>
+    <v-row class="flex-row-reverse">
+      <v-col cols="12" sm="3">
+        <v-row>
+          <v-col cols="12">
+            <CardSectionJump
+              :jumps="[
+                { label: 'Sections', hash: '#sections' },
+                { label: 'List Rules', hash: '#list-rules' },
+              ]"
+            ></CardSectionJump>
+          </v-col>
+          <v-col cols="12">
+            <ScoutGroupsCardAdmin
+              :scoutGroup="scoutGroup"
+            ></ScoutGroupsCardAdmin>
+          </v-col>
+        </v-row>
       </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <!-- Jumps -->
-        <v-card class="mb-6">
-          <OverridableTitle label="Jump to"></OverridableTitle>
 
-          <v-card-text>
-            <OverridableText :to="{ hash: '#sections' }">
-              Sections
-            </OverridableText>
-            <OverridableText :to="{ hash: '#list-rules' }">
-              List Rules
-            </OverridableText>
-          </v-card-text>
-        </v-card>
+      <v-col cols="12" sm="9">
+        <v-row>
+          <v-col cols="12" sm="6">
+            <ScoutGroupsCardDetails
+              :scoutGroup="scoutGroup"
+            ></ScoutGroupsCardDetails>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <ScoutGroupsCardExtranet
+              :scoutGroup="scoutGroup"
+            ></ScoutGroupsCardExtranet>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
+
     <v-row id="sections">
-      <v-col>
+      <v-col v-if="scoutGroup">
         <!-- Sections Table -->
         <SectionsList :scout-group="scoutGroup" allow-creation></SectionsList>
+      </v-col>
+      <v-col v-else>
+        <v-skeleton-loader type="table"></v-skeleton-loader>
       </v-col>
     </v-row>
 
     <v-row id="list-rules">
-      <v-col>
+      <v-col v-if="scoutGroup">
         <!-- Email Rules Table -->
         <ListRulesList
           :relation="{ scoutGroup }"
           allow-creation
         ></ListRulesList>
       </v-col>
-    </v-row>
-  </div>
-  <div v-else-if="status === 'pending'">
-    <!-- Skeletons -->
-    <v-row>
-      <v-col cols="12" sm="6" md="8">
-        <v-skeleton-loader type="article"></v-skeleton-loader>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <v-skeleton-loader type="article"></v-skeleton-loader>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
+      <v-col v-else>
         <v-skeleton-loader type="table"></v-skeleton-loader>
       </v-col>
     </v-row>
   </div>
-  <div v-else>{{ status }}</div>
-  <!-- <error-display v-else :error="'unknown''"></error-display> -->
 </template>

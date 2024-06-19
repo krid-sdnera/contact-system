@@ -27,72 +27,54 @@ const listId = Number(
 
 const { useFetchList } = useList();
 const { list, status } = useFetchList(listId);
-
-const dialogUpdate = ref<boolean>(false);
-function itemUpdate() {
-  dialogUpdate.value = true;
-}
-function itemUpdated(id: number) {
-  dialogUpdate.value = false;
-}
 </script>
 
 <template>
-  <div v-if="list && status === 'success'">
-    <ListsUpdate
-      v-model="dialogUpdate"
-      @updated="itemUpdated"
-      :list="list"
-    ></ListsUpdate>
+  <div>
+    <v-row class="flex-row-reverse">
+      <v-col cols="12" sm="3">
+        <v-row>
+          <v-col cols="12">
+            <CardSectionJump
+              :jumps="[
+                { label: 'Rules', hash: '#list-rules' },
+                { label: 'Recipients', hash: '#recipients' },
+              ]"
+            ></CardSectionJump>
+          </v-col>
+          <v-col cols="12">
+            <ListsCardAdmin :list="list"></ListsCardAdmin>
+          </v-col>
+        </v-row>
+      </v-col>
 
-    <v-row>
-      <v-col cols="12" sm="6" md="4">
-        <!-- List Details -->
-        <v-card class="mb-6">
-          <OverridableTitle label="List">
-            {{ list.name }}
-          </OverridableTitle>
-
-          <v-card-text>
-            <OverridableText label="Address">
-              {{ list.address }}
-            </OverridableText>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn icon="mdi-pencil" @click="itemUpdate()"></v-btn>
-          </v-card-actions>
-        </v-card>
+      <v-col cols="12" sm="9">
+        <v-row>
+          <v-col cols="12" sm="6">
+            <ListsCardDetails :list="list"></ListsCardDetails>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
 
-    <v-row>
-      <v-col>
+    <v-row id="list-rules">
+      <v-col v-if="list">
         <!-- Rules Table -->
         <ListRulesList :list="list" searchable></ListRulesList>
       </v-col>
+      <v-col v-else>
+        <v-skeleton-loader type="table"></v-skeleton-loader>
+      </v-col>
     </v-row>
 
-    <v-row>
-      <v-col>
+    <v-row id="recipients">
+      <v-col v-if="list">
         <!-- Members Table -->
         <ListMembersList :list="list" searchable></ListMembersList>
       </v-col>
-    </v-row>
-  </div>
-  <div v-else-if="status === 'pending'">
-    <!-- Skeletons -->
-    <v-row>
-      <v-col cols="12" sm="6" md="4">
-        <v-skeleton-loader type="article" class="mb-6"></v-skeleton-loader>
-        <v-skeleton-loader type="article"></v-skeleton-loader>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <v-skeleton-loader type="article"></v-skeleton-loader>
+      <v-col v-else>
+        <v-skeleton-loader type="table"></v-skeleton-loader>
       </v-col>
     </v-row>
   </div>
-  <div v-else>{{ status }}</div>
-  <!-- <error-display v-else :error="'unknown''"></error-display> -->
 </template>

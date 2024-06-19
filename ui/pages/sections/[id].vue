@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { SectionData } from '~/server/types/section';
-
 useHead({
   title: 'Sections',
 });
@@ -28,129 +26,73 @@ const sectionId = Number(
 );
 
 const { useFetchSection } = useSection();
-const { section, status } = useFetchSection(sectionId);
+const { section: sectionRef, status } = useFetchSection(sectionId);
 
-const scoutGroup = computed(() => section.value?.scoutGroup);
-
-const dialogUpdate = ref<boolean>(false);
-function itemUpdate() {
-  dialogUpdate.value = true;
-}
-function itemUpdated(id: number) {
-  dialogUpdate.value = false;
-}
+const section = computed(() =>
+  status.value === 'success' ? sectionRef.value : null
+);
 </script>
 
 <template>
-  <div v-if="section && scoutGroup && status === 'success'">
-    <SectionsUpdate
-      v-model="dialogUpdate"
-      @updated="itemUpdated"
-      :section="section"
-    ></SectionsUpdate>
-
-    <v-row>
-      <v-col cols="12" sm="6" md="4">
-        <!-- Section Details -->
-        <v-card class="mb-6">
-          <OverridableTitle label="section">
-            {{ section.name }}
-          </OverridableTitle>
-
-          <v-card-text>
-            <OverridableText label="Group" :to="`/groups/${scoutGroup.id}`">
-              {{ scoutGroup.name }}
-            </OverridableText>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn icon="mdi-pencil" @click="itemUpdate()"></v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <!-- Scout Group Details -->
-        <v-card class="mb-6">
-          <OverridableTitle label="Extranet"> Advanced </OverridableTitle>
-
-          <v-card-text>
-            <OverridableText label="Section Id">
-              {{ section.externalId }}
-            </OverridableText>
-            <OverridableText label="Group Id">
-              {{ scoutGroup.externalId }}
-            </OverridableText>
-          </v-card-text>
-        </v-card>
+  <div>
+    <v-row class="flex-row-reverse">
+      <v-col cols="12" sm="3">
+        <v-row>
+          <v-col cols="12">
+            <CardSectionJump
+              :jumps="[
+                { label: 'Roles', hash: '#roles' },
+                { label: 'Members', hash: '#members' },
+                { label: 'List Rules', hash: '#list-rules' },
+              ]"
+            ></CardSectionJump>
+          </v-col>
+          <v-col cols="12">
+            <SectionsCardAdmin :section="section"></SectionsCardAdmin>
+          </v-col>
+        </v-row>
       </v-col>
 
-      <v-col cols="12" sm="6" md="4">
-        <!-- Jumps -->
-        <v-card class="mb-6">
-          <OverridableTitle label="Jump to"></OverridableTitle>
-
-          <v-card-text>
-            <OverridableText :to="{ hash: '#roles' }"> Roles </OverridableText>
-            <OverridableText :to="{ hash: '#members' }">
-              Members
-            </OverridableText>
-            <OverridableText :to="{ hash: '#list-rules' }">
-              List Rules
-            </OverridableText>
-          </v-card-text>
-        </v-card>
-
-        <!-- Advanced Details -->
-        <v-card class="mb-6">
-          <OverridableTitle label="Extranet">Advanced</OverridableTitle>
-
-          <v-card-text>
-            <OverridableText label="Section Id">
-              {{ section.externalId }}
-            </OverridableText>
-          </v-card-text>
-        </v-card>
+      <v-col cols="12" sm="9">
+        <v-row>
+          <v-col cols="12" sm="6">
+            <SectionsCardDetails :section="section"></SectionsCardDetails>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <SectionsCardExtranet :section="section"></SectionsCardExtranet>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
 
     <v-row id="roles">
-      <v-col>
+      <v-col v-if="section">
         <!-- Roles Table -->
         <RolesList :section="section" allow-creation></RolesList>
+      </v-col>
+      <v-col v-else>
+        <v-skeleton-loader type="table"></v-skeleton-loader>
       </v-col>
     </v-row>
 
     <v-row id="members">
-      <v-col>
+      <v-col v-if="section">
         <!-- Members Table -->
         <MembersList :section="section" searchable></MembersList>
+      </v-col>
+      <v-col v-else>
+        <v-skeleton-loader type="table"></v-skeleton-loader>
       </v-col>
     </v-row>
 
     <v-row id="list-rules">
-      <v-col>
+      <v-col v-if="section">
         <!-- Email Rules Table -->
         <ListRulesList :relation="{ section }" allow-creation></ListRulesList>
       </v-col>
-    </v-row>
-  </div>
-  <div v-else-if="status === 'pending'">
-    <!-- Skeletons -->
-    <v-row>
-      <v-col cols="12" sm="6" md="8">
-        <v-skeleton-loader type="article"></v-skeleton-loader>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <v-skeleton-loader type="article"></v-skeleton-loader>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
+      <v-col v-else>
         <v-skeleton-loader type="table"></v-skeleton-loader>
       </v-col>
     </v-row>
   </div>
-  <div v-else>{{ status }}</div>
-  <!-- <error-display v-else :error="'unknown''"></error-display> -->
 </template>
