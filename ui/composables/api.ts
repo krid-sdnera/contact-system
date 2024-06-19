@@ -22,7 +22,7 @@ import {
   type ResponseContext,
 } from '~/lib/ContactSystem/Client/src/runtime';
 
-const { tokens, refreshToken } = useAuth();
+const { tokens, refreshToken, doLogout } = useAuth();
 
 const globalPending = ref<boolean>(false);
 const globalError = ref<boolean>(false);
@@ -37,6 +37,10 @@ export function useApi(): AllApiInterface {
       }
 
       const token = tokens.value.auth || '';
+
+      if (!token) {
+        doLogout();
+      }
 
       console.debug(`token:${token}`);
       return token;
