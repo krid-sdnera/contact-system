@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Repository\PageFetcherTrait;
+use App\Repository\ExpiryFetcherTrait;
 
 /**
  * @method Contact|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,7 @@ use App\Repository\PageFetcherTrait;
 class ContactRepository extends ServiceEntityRepository
 {
     use PageFetcherTrait;
+    use ExpiryFetcherTrait;
 
     public function __construct(ManagerRegistry $registry)
     {

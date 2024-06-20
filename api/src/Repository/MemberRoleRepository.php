@@ -5,7 +5,9 @@ namespace App\Repository;
 use App\Entity\MemberRole;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+
 use App\Repository\PageFetcherTrait;
+use App\Repository\ExpiryFetcherTrait;
 
 /**
  * @method MemberRole|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,6 +18,7 @@ use App\Repository\PageFetcherTrait;
 class MemberRoleRepository extends ServiceEntityRepository
 {
     use PageFetcherTrait;
+    use ExpiryFetcherTrait;
 
     public function __construct(ManagerRegistry $registry)
     {

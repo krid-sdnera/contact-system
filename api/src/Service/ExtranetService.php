@@ -3,13 +3,10 @@
 namespace App\Service;
 
 use Exception;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Psr\Log\LoggerInterface;
 
-use League\Csv\Reader;
 
 use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
@@ -20,8 +17,10 @@ use App\Entity\MemberRole;
 use App\Entity\Role;
 use App\Entity\Section;
 use App\Entity\ScoutGroup;
-use App\Entity\ExtranetMember;
-use App\Entity\ExtranetContact;
+
+use App\Repository\MemberRepository;
+use App\Repository\ContactRepository;
+use App\Repository\MemberRoleRepository;
 
 class ExtranetService
 {
@@ -110,12 +109,7 @@ class ExtranetService
         $convertedExtranetEntities = $this->convertExtranetObjectsToDBEntities();
 
         // TODO: Rename to something like `difflocalandextranettogetalistofupdates()`
-        $this->stopwatch->start('analyse-management-state');
         $membersToPersist = $this->unmanageEntities($convertedExtranetEntities);
-        $this->stopwatch->stop('analyse-management-state');
-        $this->logger->debug(
-            $this->loopLoggerHelper('analyse-management-state', 1)
-        );
 
         $this->stopwatch->start('persist-data');
         foreach ($membersToPersist as $i => $member) {
@@ -128,7 +122,22 @@ class ExtranetService
             $this->loopLoggerHelper('persist-data', count($membersToPersist))
         );
 
+        $this->expireEntities();
+
         $this->stopwatch->stopSection('extranet-sync');
+    }
+
+    private function getExtranetData()
+    {
+        $this->stopwatch->start('fetch-data-from-extranet');
+        $this->extranetMembersArray = $this->extranetMembers->getExtranetMembers();
+        $this->stopwatch->stop('fetch-data-from-extranet');
+
+        $this->logger->debug(
+            $this->loopLoggerHelper('fetch-data-from-extranet', count($this->extranetMembersArray))
+        );
+
+        $this->logger->info("Extranet member data dumped");
     }
 
     private function convertExtranetObjectsToDBEntities()
@@ -155,22 +164,9 @@ class ExtranetService
         return $members;
     }
 
-    private function getExtranetData()
-    {
-        $this->stopwatch->start('fetch-data-from-extranet');
-        $this->extranetMembersArray = $this->extranetMembers->getExtranetMembers();
-        $this->stopwatch->stop('fetch-data-from-extranet');
-
-        $this->logger->debug(
-            $this->loopLoggerHelper('fetch-data-from-extranet', count($this->extranetMembersArray))
-        );
-
-        $this->logger->info("Extranet member data dumped");
-    }
-
-
     private function unmanageEntities(array $convertedExtranetEntities)
     {
+        $this->stopwatch->start('analyse-management-state');
 
         /** @var MemberRepository */
         $memberRepo = $this->em->getRepository(Member::class);
@@ -239,6 +235,11 @@ class ExtranetService
                 $updatedMembers[] = $member;
             }
         }
+
+        $this->stopwatch->stop('analyse-management-state');
+        $this->logger->debug(
+            $this->loopLoggerHelper('analyse-management-state', 1)
+        );
 
         return $convertedExtranetEntities + $updatedMembers;
 
@@ -326,6 +327,46 @@ class ExtranetService
         // compare ids of processed, vs not processed
         // loop
         //   if not processed, then set to unmanaged and expiry
+    }
+
+    function expireEntities()
+    {
+        $this->stopwatch->start('analyse-expired-entities');
+
+        /** @var MemberRepository */
+        $memberRepo = $this->em->getRepository(Member::class);
+        /** @var ContactRepository */
+        $contactRepo = $this->em->getRepository(Contact::class);
+        /** @var MemberRoleRepository */
+        $memberRoleRepo = $this->em->getRepository(MemberRole::class);
+
+        $repos = [
+            // Order is important. Must delete in this order to avoid constraint issues.
+            'memberRole' => ['repo' => $memberRoleRepo, 'interval' => '-1 day'],
+            'contact' => ['repo' => $contactRepo, 'interval' => '-7 day'],
+            'member' => ['repo' => $memberRepo, 'interval' => '-14 day'],
+        ];
+        foreach ($repos as $repoName => $obj) {
+            $expiredEntities = $obj['repo']->findExpiredEntities($obj['interval']);
+
+            foreach ($expiredEntities as $j => $entity) {
+                $logPrefix = "[{$repoName} id={$entity->getId()}]";
+
+                $this->logger->notice("{$logPrefix} Unmanaged {$repoName} expired, deleting");
+
+                try {
+                    $this->em->remove($entity);
+                    $this->em->flush();
+                } catch (Exception $e) {
+                    $this->logger->notice("{$logPrefix} Unmanaged {$repoName} expired, deletion failed " . $e);
+                }
+            }
+        }
+
+        $this->stopwatch->stop('analyse-expired-entities');
+        $this->logger->debug(
+            $this->loopLoggerHelper('analyse-expired-entities', 1)
+        );
     }
 
     function loopLoggerHelper(string $eventName, int $entityCount, $options = [])

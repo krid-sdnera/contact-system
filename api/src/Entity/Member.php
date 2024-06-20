@@ -190,8 +190,10 @@ class Member
 
             // No this role is not in extranet
             $relatioshipEntity->setManagementState(MemberRole::ManagementStateUnmanaged);
-            // TODO: Check if the expiry date is already set
+
+            if ($relatioshipEntity->getExpiry() === null) {
             $relatioshipEntity->setExpiry(new DateTime());
+            }
         }
 
         /**
@@ -224,8 +226,9 @@ class Member
 
             // No this contact is not in extranet
             $contact->setManagementState(Contact::ManagementStateUnmanaged);
-            // TODO: Check if the expiry date is already set
+            if ($contact->getExpiry() === null) {
             $contact->setExpiry(new DateTime());
+            }
         }
 
         self::$logger->info("{$logPrefix} Always manage member");

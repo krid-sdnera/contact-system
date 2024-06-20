@@ -8,6 +8,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Repository\PageFetcherTrait;
+use App\Repository\ExpiryFetcherTrait;
 use Doctrine\ORM\Query\Expr\Join;
 
 /**
@@ -19,6 +20,7 @@ use Doctrine\ORM\Query\Expr\Join;
 class MemberRepository extends ServiceEntityRepository
 {
     use PageFetcherTrait;
+    use ExpiryFetcherTrait;
 
     public function __construct(ManagerRegistry $registry)
     {
