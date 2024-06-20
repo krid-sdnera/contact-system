@@ -34,7 +34,7 @@ class ExtranetSyncCommand extends Command
             ->addArgument('cache', InputArgument::OPTIONAL, 'Use cache instead of fetching data from extranet again');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (!isset($_ENV['EXTRANET_USERNAME'])) {
             throw new Exception('Missing env var EXTRANET_USERNAME');
