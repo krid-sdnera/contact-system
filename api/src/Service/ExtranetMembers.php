@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use Exception;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Psr\Log\LoggerInterface;
@@ -39,34 +40,36 @@ class ExtranetMembers
     // I don't really want to assume but... VicScouts likes javascript ambiguities
     const MemberContactHeaders = ['Relationship', 'Title', 'Firstname', 'Surname', 'Preferedname', 'Occupation', 'Contact', 'Address', 'PrimaryContact'];
 
+    private $cacheDirectory;
+    private $cacheExtranetDir;
 
     public function __construct(
+        KernelInterface $kernel,
         Stopwatch $stopwatch,
-        EntityManagerInterface $extranetLogger,
+        LoggerInterface $extranetLogger,
         ExtranetLogin $extranetLogin,
 
     ) {
         $this->stopwatch = $stopwatch;
         $this->logger = $extranetLogger;
         $this->extranetLogin = $extranetLogin;
+
+        $this->cacheDirectory = $kernel->getCacheDir();
+        $this->cacheExtranetDir = $this->cacheDirectory . '/extranet/';
+
+        if (!is_dir($this->cacheExtranetDir) && !mkdir($this->cacheExtranetDir, 0777, true)) {
+            die('Failed to create dir: ' . $this->cacheExtranetDir);
+        }
     }
 
 
     private $_useCache = false;
-    private $cacheDirectory;
-
-    public function setCacheDirectory($cacheDirectory): self
-    {
-        $this->cacheDirectory = $cacheDirectory;
-        return $this;
-    }
 
     public function useCache(bool $cache = false)
     {
         $this->_useCache = $cache;
         return $this;
     }
-
 
     public function setCredentials($username, $password): self
     {
@@ -80,22 +83,100 @@ class ExtranetMembers
         $this->client = $client;
     }
 
+    private function cacheable($filename, $callback)
+    {
+        $cachePath = $this->cacheExtranetDir . $filename;
+
+        if ($this->_useCache) {
+            try {
+                $content = file_get_contents($cachePath);
+
+                if ($content !== false) {
+                    return $content;
+                }
+                // else run the callback
+
+            } catch (Exception $e) {
+                // on error, run the callback
+            }
+        }
+
+
+        $content = $callback();
+
+        file_put_contents($cachePath, $content);
+
+        return $content;
+    }
 
     public function getExtranetMembers()
     {
-
-        $this->setClient($this->extranetLogin->doExtranetLogin());
+        if (!$this->_useCache) {
+            $this->setClient($this->extranetLogin->doExtranetLogin());
+        }
 
         $this->getExtranetReport('total_grand');
         $this->getExtranetReport('as');
 
         $this->getExtranetInvitation('active');
         $this->getExtranetInvitation('approving');
+
+        // Update data dump.
+        file_put_contents(
+            $this->cacheDirectory . '/extranet-data-dump.json',
+            json_encode(
+                array_map(
+                    function ($member) {
+                        return $member->toArray();
+                    },
+                    array_values($this->extranetMembers)
+                ),
+                JSON_PRETTY_PRINT
+            )
+        );
+
+        // If we ever want to read the dumped data.
+        // $data = json_decode(file_get_contents($this->cacheDirectory . '/extranet-data.json'), true);
+        // $this->extranetMembersArray = array_map(
+        //     function ($member) {
+        //         return ExtranetMember::fromArray($member);
+        //     },
+        //     $data
+        // );
+
+        return $this->extranetMembers;
     }
 
-
-
     public function getExtranetReport($reportName)
+    {
+        $content = $this->cacheable($reportName . '.csv', function () use ($reportName) {
+            return $this->fetchReportCSV($reportName);
+        });
+
+        $csv = Reader::createFromString($content);
+        $csv->setHeaderOffset(0);
+
+        $expectedCSVRowCount = substr_count($content, "\n") - 1; // minus the header
+
+        // $header = $csv->getHeader();
+        $records = $csv->getRecords();
+
+        $this->stopwatch->start('fetch-record');
+        foreach ($records as $i => $record) {
+            $this->processReportRecord($record);
+            $this->stopwatch->lap('fetch-record');
+            $this->logger->debug(
+                $this->loopLoggerHelper('fetch-record', $expectedCSVRowCount, ["lap" => true, "approx" => true])
+            );
+        }
+
+        $this->stopwatch->stop('fetch-record');
+        $this->logger->debug(
+            $this->loopLoggerHelper('fetch-record', count($this->extranetMembers))
+        );
+    }
+
+    private function fetchReportCSV($reportName)
     {
         $this->stopwatch->start('fetch-report-' . $reportName);
         $this->logger->info('Begin report ' . $reportName);
@@ -134,42 +215,13 @@ class ExtranetMembers
 
         $response = $this->client->request('GET', '/portal/Interface/Include/getCSV2.php?f=/data/apache/www.vicscouts.asn.au/root/portal/PDF/csv' . $matches[1] . '.csv');
         $content = $response->getContent();
-        $expectedCSVRowCount = substr_count($content, "\n") - 1; // minus the header
 
-        // Update Cache
-        file_put_contents(
-            $this->cacheDirectory . $reportName . '.csv',
-            $content
-        );
-
-        $csv = Reader::createFromString($content);
-        $csv->setHeaderOffset(0);
-
-        // $header = $csv->getHeader();
-        $records = $csv->getRecords();
         $this->stopwatch->stop('fetch-report-' . $reportName);
         $this->logger->debug(
             $this->loopLoggerHelper('fetch-report-' . $reportName, 1)
         );
 
-        $this->stopwatch->start('fetch-record');
-        foreach ($records as $i => $record) {
-            if ($record['RegID'] !== '8106128') {
-                continue;
-            }
-
-
-            $this->processReportRecord($record);
-            $this->stopwatch->lap('fetch-record');
-            $this->logger->debug(
-                $this->loopLoggerHelper('fetch-record', $expectedCSVRowCount, ["lap" => true, "approx" => true])
-            );
-        }
-
-        $this->stopwatch->stop('fetch-record');
-        $this->logger->debug(
-            $this->loopLoggerHelper('fetch-record', count($this->extranetMembers))
-        );
+        return $content;
     }
 
     private function processReportRecord($record)
@@ -203,14 +255,19 @@ class ExtranetMembers
 
     private function getMemberDetailPage(ExtranetMember $extranetMember)
     {
-        // Fetch additional data from member detail page
-        $response = $this->client->request('GET', '/portal/Interface/Report/showMemDetail.php', [
-            'query' => [
-                'regg' => $extranetMember->getMembershipNumber()
-            ]
-        ]);
+        $content = $this->cacheable(
+            'member-detail-' . $extranetMember->getMembershipNumber() . '.html',
+            function () use ($extranetMember) {
+                // Fetch additional data from member detail page
+                $response = $this->client->request('GET', '/portal/Interface/Report/showMemDetail.php', [
+                    'query' => [
+                        'regg' => $extranetMember->getMembershipNumber()
+                    ]
+                ]);
 
-        $content = $response->getContent();
+                return $response->getContent();
+            }
+        );
 
         // Extract the member's gender
         preg_match(
@@ -258,12 +315,18 @@ class ExtranetMembers
 
     private function getMemberUpdateLink(ExtranetMember $extranetMember)
     {
-        // Downloading: Member Update Link
-        $response = $this->client->request('POST', '/portal/membership/get-member-key', [
-            'query' => ['regid' => $extranetMember->getMembershipNumber()],
-            'headers' => ['X-Requested-With: XMLHttpRequest']
-        ]);
-        $content = $response->getContent();
+        $content = $this->cacheable(
+            'member-update-link-' . $extranetMember->getMembershipNumber() . '.html',
+            function () use ($extranetMember) {
+                // Downloading: Member Update Link
+                $response = $this->client->request('POST', '/portal/membership/get-member-key', [
+                    'query' => ['regid' => $extranetMember->getMembershipNumber()],
+                    'headers' => ['X-Requested-With: XMLHttpRequest']
+                ]);
+
+                return $response->getContent();
+            }
+        );
 
         $memberUpdateLink = (preg_match('|/memberportal/vic/|', $content)) ? $content : null;
         $extranetMember->setMemberUpdateLink($memberUpdateLink);
@@ -271,16 +334,21 @@ class ExtranetMembers
 
     private function getMemberEditPage(ExtranetMember $extranetMember)
     {
-        // Downloading: Member Edit Page
-        $response = $this->client->request('POST', '/portal/Interface/Report/editMemDetail.php', [
-            "body" => [
-                "CourseID" => "",
-                "RegID" => $extranetMember->getMembershipNumber(),
-                "mainWindow" => "showMemDetail.php"
-            ]
-        ]);
-        $content = $response->getContent();
-        // $this->logger->info($content);
+        $content = $this->cacheable(
+            'member-edit-' . $extranetMember->getMembershipNumber() . '.html',
+            function () use ($extranetMember) {
+                // Downloading: Member Edit Page
+                $response = $this->client->request('POST', '/portal/Interface/Report/editMemDetail.php', [
+                    "body" => [
+                        "CourseID" => "",
+                        "RegID" => $extranetMember->getMembershipNumber(),
+                        "mainWindow" => "showMemDetail.php"
+                    ]
+                ]);
+                return $response->getContent();
+            }
+        );
+
         // Extract the member's auto upgrade status.
         // The HTML is invalid! Attributes use single quotes!
         preg_match(
@@ -296,22 +364,28 @@ class ExtranetMembers
 
     private function getMemberContacts(ExtranetMember $extranetMember)
     {
+        $content = $this->cacheable(
+            'member-contacts-' . $extranetMember->getMembershipNumber() . '.json',
+            function () use ($extranetMember) {
+                // Downloading: Parent Data
+                $response = $this->client->request('POST', '/portal/Interface/Leader/editParentalDetail_Controller.php', [
+                    'body' => [
+                        'page' => 1,
+                        'rp' => 10,
+                        'sortname' => 'parentFirstname',
+                        'sortorder' => 'asc',
+                        'query' => '',
+                        'qtype' => '',
+                        'action' => 'retrieve_parent_by_child',
+                        'regid' => $extranetMember->getMembershipNumber(),
+                    ],
+                    'headers' => ['X-Requested-With: XMLHttpRequest']
+                ]);
 
-        // Downloading: Parent Data
-        $response = $this->client->request('POST', '/portal/Interface/Leader/editParentalDetail_Controller.php', [
-            'body' => [
-                'page' => 1,
-                'rp' => 10,
-                'sortname' => 'parentFirstname',
-                'sortorder' => 'asc',
-                'query' => '',
-                'qtype' => '',
-                'action' => 'retrieve_parent_by_child',
-                'regid' => $extranetMember->getMembershipNumber(),
-            ],
-            'headers' => ['X-Requested-With: XMLHttpRequest']
-        ]);
-        $content = $response->getContent();
+                return $response->getContent();
+            }
+        );
+
         $parentData = json_decode($content, true);
 
         if (empty($parentData['rows'])) {
@@ -362,13 +436,22 @@ class ExtranetMembers
 
     private function getExtranetInvitation($type)
     {
+        $content = $this->cacheable(
+            'invite-' . $type . '.json',
+            function () use ($type) {
+                if ($type === 'active') {
+                    $response = $this->client->request('GET', '/portal/membership/ajax-get-invitation-list/type/' . $type);
+                } else if ($type === 'approving') {
+                    $response = $this->client->request('GET', '/portal/membership/ajax-get-approval-list/type/' . $type);
+                }
+
+                return $response->getContent();
+            }
+        );
+
         $this->logger->info('Begin invitation - ' . $type);
-        if ($type === 'active') {
-            $response = $this->client->request('GET', '/portal/membership/ajax-get-invitation-list/type/' . $type);
-        } else if ($type === 'approving') {
-            $response = $this->client->request('GET', '/portal/membership/ajax-get-approval-list/type/' . $type);
-        }
-        $content = json_decode($response->getContent(), true);
+
+        $content = json_decode($content, true);
 
         foreach ($content as $i => $record) {
             $this->logger->info('Processing ' . $record['id']);
@@ -378,8 +461,6 @@ class ExtranetMembers
             $this->extranetMembers[$extranetMember->getMembershipNumber()] = $extranetMember;
         }
     }
-
-
 
     function loopLoggerHelper(string $eventName, int $entityCount, $options = [])
     {

@@ -54,8 +54,6 @@ class ExtranetSyncCommand extends Command
         chdir($this->projectDir);
 
         $this->extranetService
-            ->setLogger($this->logger)
-            ->setCacheDirectory('./var/cache/')
             ->setCredentials($username, $password)
             ->useCache($cache)
             ->doExtract();

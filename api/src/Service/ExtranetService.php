@@ -86,12 +86,6 @@ class ExtranetService
         return $this;
     }
 
-    public function setClient(HttpClientInterface $client)
-    {
-        $this->client = $client;
-        $this->extranetMembers->setClient($client);
-    }
-
     public function doExtract()
     {
 
