@@ -144,7 +144,7 @@ class ExtranetMembers
         //     $data
         // );
 
-        return $this->extranetMembers;
+        return array_values($this->extranetMembers);
     }
 
     public function getExtranetReport($reportName)
@@ -238,16 +238,16 @@ class ExtranetMembers
         // TODO: Roles and section
         // TODO: Map remaining csv keys
 
-        // if (isset($this->extranetMembers[$extranetMember->getMembershipNumber()])) {
-        //     // hol' up.
-        //     // This member was processed in a previous report set.
-        //     // Merge and discard new record.
-        //     $existingExtranetMember = $this->extranetMembers[$extranetMember->getMembershipNumber()];
+        if (isset($this->extranetMembers[$extranetMember->getMembershipNumber()])) {
+            // hol' up.
+            // This member was processed in a previous report set.
+            // Merge and discard new record.
+            $existingExtranetMember = $this->extranetMembers[$extranetMember->getMembershipNumber()];
 
-        //     $existingExtranetMember->merge($extranetMember);
-        // } else {
-        //     $this->extranetMembers[$extranetMember->getMembershipNumber()] = $extranetMember;
-        // }
+            $existingExtranetMember->merge($extranetMember);
+        } else {
+            $this->extranetMembers[$extranetMember->getMembershipNumber()] = $extranetMember;
+        }
 
         $this->extranetMembers[] = $extranetMember;
 

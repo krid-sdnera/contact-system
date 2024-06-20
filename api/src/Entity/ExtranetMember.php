@@ -41,6 +41,7 @@ class ExtranetMember
     private $subsidiarySections = [];
     private $memberUpdateLink;
     private $position;
+    private $roleStrings;
 
     private $metaInvite = [];
 
@@ -358,6 +359,20 @@ class ExtranetMember
         return $this;
     }
 
+    public function getRoleStrings(): array
+    {
+        return $this->roleStrings;
+    }
+
+    public function addRoleString($type, $roleName): self
+    {
+        if (!empty($roleName)) {
+            $this->roleStrings[] = $type . ":" . $roleName;
+        }
+
+        return $this;
+    }
+
     // Relationships
 
     public function getSubsidiarySections(): array
@@ -430,12 +445,16 @@ class ExtranetMember
         $member->setEmail($data['Email']);
         $member->setSchoolName($data['SchoolName']);
 
+        $member->addRoleString('ClassID', $data['ClassID']);
         if (isset($data['Role'])) {
             $member->setRole($data['Role']);
+            $member->addRoleString('Role', $data['Role']);
         }
         if (isset($data['Position'])) {
             $member->setPosition($data['Position']);
+            $member->addRoleString('Position', $data['Position']);
         }
+
         // These values are not in the csv but will be added later
         // $member->setGender($data['Gender']);
         // $member->setSchoolYearLevel($data['SchoolYearLevel']);
@@ -445,6 +464,18 @@ class ExtranetMember
 
 
         return $member;
+    }
+
+    public function merge(ExtranetMember $otherMember): ExtranetMember
+    {
+
+        $this->setClassId($this->getClassId() . "," . $otherMember->getClassId());
+
+        foreach ($otherMember->getRoleStrings() as $i => $value) {
+            $this->roleStrings[] = $value;
+        }
+
+        return $this;
     }
 
     public static function fromExtranetInvitation($data, $type)

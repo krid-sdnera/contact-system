@@ -192,7 +192,7 @@ class Member
             $relatioshipEntity->setManagementState(MemberRole::ManagementStateUnmanaged);
 
             if ($relatioshipEntity->getExpiry() === null) {
-            $relatioshipEntity->setExpiry(new DateTime());
+                $relatioshipEntity->setExpiry(new DateTime());
             }
         }
 
@@ -227,7 +227,7 @@ class Member
             // No this contact is not in extranet
             $contact->setManagementState(Contact::ManagementStateUnmanaged);
             if ($contact->getExpiry() === null) {
-            $contact->setExpiry(new DateTime());
+                $contact->setExpiry(new DateTime());
             }
         }
 
@@ -271,79 +271,103 @@ class Member
         // Special handling for 15th essendon sea scouts
         $extranetMember->setGroupName(str_replace(' SEA SCOUTS', '', $extranetMember->getGroupName()));
 
-        if (in_array($extranetMember->getClassId(), $youthClassIds)) {
-            self::$logger->info("{$logPrefix} Generating role: classIdYouth");
-            $roles[] = new ExtranetRole(
-                'Youth',
-                'youth-classIdYouth',
-                $extranetMember->getClassId(),
-                $extranetMember->getClassId(),
-                $extranetMember->getSectionName(),
-                $extranetMember->getSectionId(),
-                $extranetMember->getGroupName(),
-                $extranetMember->getGroupId()
-            );
-        } elseif ($extranetMember->getClassId() === 'LDR') {
-            self::$logger->info("{$logPrefix} Generating role: classIdLeader");
-            preg_match(
-                '/(?:A-Z\s)?(JOEY SCOUT|CUB SCOUT|SCOUT|VENTURER|ROVER|GROUP)\s+(?:LDR|LEADER)/',
-                $extranetMember->getRole(),
-                $matches
-            );
+        foreach ($extranetMember->getRoleStrings() as $i => $roleString) {
+            $stringParts = explode(":", $roleString);
+            $origin = $stringParts[0];
+            $roleNames = $stringParts[1];
+            $roleNameParts = explode(",", $roleNames);
 
-            if (count($matches) == 2) {
-                $normalisedSection = $matches[1];
-                //Remove {CUB}" SCOUT" & {JOEY}" SCOUT"
-                $normalisedSection = preg_replace('/(.+?)(?: SCOUT)?/', '$1', $normalisedSection);
-                //Remove {VENT}"URER"
-                $normalisedSection = preg_replace('/(.+?)(?:URER)?/', '$1', $normalisedSection);
-            } else {
-                $normalisedSection = 'GROUP';
-            }
+            self::$logger->info("{$logPrefix} Generating role: {$roleString}");
 
-            // Generate sections
-            $nameMapping = array(
-                'JOEY' => '-JOEY SCOUT MOB 1',
-                'CUB' => '-CUB SCOUT PACK 1',
-                'SCOUT' => '-SCOUT TROOP 1',
-                'VENT' => '-VENTURER UNIT 1',
-                'ROVER' => '-ROVER CREW 1',
-                'GROUP' => ''
-            );
-            $idMapping = array(
-                'JOEY' => 'M1',
-                'CUB' => 'P1',
-                'SCOUT' => 'T1',
-                'VENT' => 'U1',
-                'ROVER' => 'C1',
-                'GROUP' => ''
-            );
+            foreach ($roleNameParts as $i => $roleName) {
+                $role = trim($roleName);
 
-            $sectionName = $extranetMember->getGroupName() . $nameMapping[$normalisedSection];
-            $sectionId = $extranetMember->getGroupId() . $idMapping[$normalisedSection];
+                if ($origin === 'ClassID') {
 
-            $roles[] = new ExtranetRole(
-                ucwords(strtolower($extranetMember->getRole())),
-                str_replace(' ', '-', strtolower($extranetMember->getRole())) . '-classIdLeader',
-                $extranetMember->getClassId(),
-                $normalisedSection,
-                $sectionName,
-                $sectionId,
-                $extranetMember->getGroupName(),
-                $extranetMember->getGroupId()
-            );
-        } elseif ($extranetMember->getClassId() === 'AS') {
-            self::$logger->info("{$logPrefix} Generating role: classIdAdultSupporter");
-            // Convert Position to Roles
-            $positions = $extranetMember->getPosition();
+                    if (in_array($extranetMember->getClassId(), $youthClassIds)) {
+                        self::$logger->info("{$logPrefix} Generating role: {$origin} {$role}");
+                        $roles[] = new ExtranetRole(
+                            'Youth',
+                            'youth-classIdYouth',
+                            $extranetMember->getClassId(),
+                            $extranetMember->getClassId(),
+                            $extranetMember->getSectionName(),
+                            $extranetMember->getSectionId(),
+                            $extranetMember->getGroupName(),
+                            $extranetMember->getGroupId()
+                        );
+                    } elseif ($extranetMember->getClassId() === 'AH') {
+                        self::$logger->info("{$logPrefix} Generating role: {$origin} {$role}");
+                        $roles[] = new ExtranetRole(
+                            'Adult Helper',
+                            'adult-helper-classIdAdultHelper',
+                            $extranetMember->getClassId(),
+                            $extranetMember->getClassId(),
+                            $extranetMember->getGroupName(),
+                            $extranetMember->getGroupId(),
+                            $extranetMember->getGroupName(),
+                            $extranetMember->getGroupId()
+                        );
+                    }
+                    // Else they are a leader and handled by their role value.
 
-            if ($positions) {
-                $positionArray = preg_split('/,\s*/', $positions);
+                } elseif ($origin === 'Role') {
+                    self::$logger->info("{$logPrefix} Generating role: {$origin} {$role}");
+                    preg_match(
+                        '/(?:A-Z\s)?(JOEY SCOUT|CUB SCOUT|SCOUT|VENTURER|ROVER|GROUP)\s+(?:LDR|LEADER)/',
+                        $role,
+                        $matches
+                    );
 
-                foreach ($positionArray as $i => $position) {
+                    if (count($matches) == 2) {
+                        $normalisedSection = $matches[1];
+                        //Remove {CUB}" SCOUT" & {JOEY}" SCOUT"
+                        $normalisedSection = preg_replace('/(.+?)(?: SCOUT)?/', '$1', $normalisedSection);
+                        //Remove {VENT}"URER"
+                        $normalisedSection = preg_replace('/(.+?)(?:URER)?/', '$1', $normalisedSection);
+                    } else {
+                        $normalisedSection = 'GROUP';
+                    }
+
+                    // Generate sections
+                    $nameMapping = array(
+                        'JOEY' => '-JOEY SCOUT MOB 1',
+                        'CUB' => '-CUB SCOUT PACK 1',
+                        'SCOUT' => '-SCOUT TROOP 1',
+                        'VENT' => '-VENTURER UNIT 1',
+                        'ROVER' => '-ROVER CREW 1',
+                        'GROUP' => ''
+                    );
+                    $idMapping = array(
+                        'JOEY' => 'M1',
+                        'CUB' => 'P1',
+                        'SCOUT' => 'T1',
+                        'VENT' => 'U1',
+                        'ROVER' => 'C1',
+                        'GROUP' => ''
+                    );
+
+                    $sectionName = $extranetMember->getGroupName() . $nameMapping[$normalisedSection];
+                    $sectionId = $extranetMember->getGroupId() . $idMapping[$normalisedSection];
+
                     $roles[] = new ExtranetRole(
-                        $position,
-                        str_replace(' ', '-', strtolower($position)) . '-classIdAdultSupporter',
+                        ucwords(strtolower($role)),
+                        str_replace(' ', '-', strtolower($role)) . '-classIdLeader',
+                        $extranetMember->getClassId(),
+                        $normalisedSection,
+                        $sectionName,
+                        $sectionId,
+                        $extranetMember->getGroupName(),
+                        $extranetMember->getGroupId()
+                    );
+
+                } elseif ($origin === 'Position') {
+                    self::$logger->info("{$logPrefix} Generating role: {$origin} {$role}");
+
+                    // Convert Position to Roles
+                    $roles[] = new ExtranetRole(
+                        $role,
+                        str_replace(' ', '-', strtolower($role)) . '-classIdAdultSupporter',
                         $extranetMember->getClassId(),
                         $extranetMember->getClassId(),
                         $extranetMember->getGroupName(),
@@ -351,20 +375,9 @@ class Member
                         $extranetMember->getGroupName(),
                         $extranetMember->getGroupId()
                     );
+
                 }
             }
-        } elseif ($extranetMember->getClassId() === 'AH') {
-            self::$logger->info("{$logPrefix} Generating role: classIdAdultHelper");
-            $roles[] = new ExtranetRole(
-                'Adult Helper',
-                'adult-helper-classIdAdultHelper',
-                $extranetMember->getClassId(),
-                $extranetMember->getClassId(),
-                $extranetMember->getGroupName(),
-                $extranetMember->getGroupId(),
-                $extranetMember->getGroupName(),
-                $extranetMember->getGroupId()
-            );
         }
 
         // Convert Subsidiary Sections to Roles
