@@ -39,7 +39,7 @@ class ContactRepository extends ServiceEntityRepository
                 return $contact->toContactData();
             },
             'contacts',
-            "%${query}%",
+            "%{$query}%",
             $sort,
             $pageSize,
             $page

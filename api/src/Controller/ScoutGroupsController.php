@@ -70,7 +70,7 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Group (${groupId}) not found"
+                'message' => "Group ({$groupId}) not found"
             ]);
         }
 
@@ -81,7 +81,7 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Group has section',
-                'message' => "Group (${groupId}) was not deleted because Section records still reference this group."
+                'message' => "Group ({$groupId}) was not deleted because Section records still reference this group."
             ]);
         }
 
@@ -91,7 +91,7 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
         return new ApiResponse([
             'code' => 200,
             'type' => 'Group Deleted',
-            'message' => "Group (${groupId}) was deleted"
+            'message' => "Group ({$groupId}) was deleted"
         ]);
     }
 
@@ -109,7 +109,7 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Section (${groupId}) not found"
+                'message' => "Section ({$groupId}) not found"
             ]);
         }
 
@@ -217,7 +217,7 @@ class ScoutGroupsController extends AbstractController implements ScoutGroupsApi
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Group (${groupId}) not found"
+                'message' => "Group ({$groupId}) not found"
             ]);
         }
 

@@ -60,7 +60,7 @@ class EmailListRuleRepository extends ServiceEntityRepository
                 return $emailListMem->toListRuleData();
             },
             'rules',
-            "%${query}%",
+            "%{$query}%",
             $sort,
             $pageSize,
             $page,

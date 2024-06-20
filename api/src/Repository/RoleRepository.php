@@ -35,7 +35,7 @@ class RoleRepository extends ServiceEntityRepository
                 return $role->toRoleData();
             },
             'roles',
-            "%${query}%",
+            "%{$query}%",
             $sort,
             $pageSize,
             $page

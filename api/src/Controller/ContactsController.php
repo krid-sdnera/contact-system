@@ -54,7 +54,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Constraint not met',
-                'message' => "Member (${memberId}) required for contact creation and was not found"
+                'message' => "Member ({$memberId}) required for contact creation and was not found"
             ]);
         }
 
@@ -106,7 +106,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Contact (${contactId}) not found"
+                'message' => "Contact ({$contactId}) not found"
             ]);
         }
 
@@ -118,7 +118,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
         return new ApiResponse([
             'code' => 200,
             'type' => 'Contact Deleted',
-            'message' => "Contact (${contactId}) was deleted"
+            'message' => "Contact ({$contactId}) was deleted"
         ]);
     }
 
@@ -136,7 +136,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Contact (${contactId}) not found"
+                'message' => "Contact ({$contactId}) not found"
             ]);
         }
 
@@ -226,7 +226,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Contact (${contactId}) not found"
+                'message' => "Contact ({$contactId}) not found"
             ]);
         }
 
@@ -241,7 +241,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
                 return new ApiResponse([
                     'code' => 500,
                     'type' => 'Constraint not met',
-                    'message' => "Member (${memberId}) required for updating and was not found"
+                    'message' => "Member ({$memberId}) required for updating and was not found"
                 ]);
             }
 
@@ -338,7 +338,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Contact (${contactId}) not found"
+                'message' => "Contact ({$contactId}) not found"
             ]);
         }
 
@@ -352,7 +352,7 @@ class ContactsController extends AbstractController implements ContactsApiInterf
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Constraint not met',
-                'message' => "Member (${memberId}) required for updating and was not found"
+                'message' => "Member ({$memberId}) required for updating and was not found"
             ]);
         }
 

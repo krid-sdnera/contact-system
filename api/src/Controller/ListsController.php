@@ -60,7 +60,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Address not Unique',
-                'message' => "Email List address (${emailAddress}) already exists and can not be created again"
+                'message' => "Email List address ({$emailAddress}) already exists and can not be created again"
             ]);
         }
 
@@ -94,7 +94,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Email List address (${listId}) does not exist"
+                'message' => "Email List address ({$listId}) does not exist"
             ]);
         }
 
@@ -134,7 +134,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 400,
                 'type' => 'Bad Request',
-                'message' => "${entityType} (${entityId}) does not exist. Failed to create list rule with invalid relation"
+                'message' => "{$entityType} ({$entityId}) does not exist. Failed to create list rule with invalid relation"
             ]);
         }
 
@@ -189,7 +189,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "List (${listId}) not found"
+                'message' => "List ({$listId}) not found"
             ]);
         }
 
@@ -201,7 +201,7 @@ class ListsController extends AbstractController implements ListsApiInterface
         return new ApiResponse([
             'code' => 200,
             'type' => 'List Deleted',
-            'message' => "List (${listId}) was deleted"
+            'message' => "List ({$listId}) was deleted"
         ]);
     }
 
@@ -221,7 +221,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Email List (${listId}) does not exist"
+                'message' => "Email List ({$listId}) does not exist"
             ]);
         }
 
@@ -234,7 +234,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Email List Rule (${ruleId}) not found"
+                'message' => "Email List Rule ({$ruleId}) not found"
             ]);
         }
 
@@ -246,7 +246,7 @@ class ListsController extends AbstractController implements ListsApiInterface
         return new ApiResponse([
             'code' => 200,
             'type' => 'List Rule Deleted',
-            'message' => "List Rule (${ruleId}) was deleted"
+            'message' => "List Rule ({$ruleId}) was deleted"
         ]);
     }
 
@@ -264,7 +264,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "List (${listId}) not found"
+                'message' => "List ({$listId}) not found"
             ]);
         }
 
@@ -288,7 +288,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 401,
                 'type' => 'Multiple Lists found',
-                'message' => "Multiple lists found for (${listAddress})"
+                'message' => "Multiple lists found for ({$listAddress})"
             ]);
         }
 
@@ -297,7 +297,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "List (${listAddress}) not found"
+                'message' => "List ({$listAddress}) not found"
             ]);
         }
 
@@ -322,7 +322,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "List (${listId}) not found"
+                'message' => "List ({$listId}) not found"
             ]);
         }
         /** @var MemberRepository */
@@ -487,7 +487,7 @@ class ListsController extends AbstractController implements ListsApiInterface
                     return $recipient->toListRecipientData($emailList, $contributingRuleIds);
                 },
                 'recipients',
-                "%${query}%",
+                "%{$query}%",
                 $sort,
                 $pageSize,
                 $page,
@@ -521,7 +521,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "List Rule (${ruleId}) not found"
+                'message' => "List Rule ({$ruleId}) not found"
             ]);
         }
 
@@ -530,7 +530,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "List Rule (${ruleId}) not found for List (${listId})"
+                'message' => "List Rule ({$ruleId}) not found for List ({$listId})"
             ]);
         }
 
@@ -612,7 +612,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Email List (${listId}) not found"
+                'message' => "Email List ({$listId}) not found"
             ]);
         }
 
@@ -626,7 +626,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Address not Unique',
-                'message' => "Email List address (${emailAddress}) already exists and can not be created again"
+                'message' => "Email List address ({$emailAddress}) already exists and can not be created again"
             ]);
         }
 
@@ -658,7 +658,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Email List (${listId}) does not exist"
+                'message' => "Email List ({$listId}) does not exist"
             ]);
         }
 
@@ -671,7 +671,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Email List Rule (${ruleId}) not found"
+                'message' => "Email List Rule ({$ruleId}) not found"
             ]);
         }
 
@@ -711,7 +711,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             return new ApiResponse([
                 'code' => 400,
                 'type' => 'Bad Request',
-                'message' => "${entityType} (${entityId}) does not exist. Failed to create list rule with invalid relation"
+                'message' => "{$entityType} ({$entityId}) does not exist. Failed to create list rule with invalid relation"
             ]);
         }
 

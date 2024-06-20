@@ -54,7 +54,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Constraint not met',
-                'message' => "Group (${groupId}) required for section creation and was not found"
+                'message' => "Group ({$groupId}) required for section creation and was not found"
             ]);
         }
 
@@ -86,7 +86,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Section (${sectionId}) not found"
+                'message' => "Section ({$sectionId}) not found"
             ]);
         }
 
@@ -97,7 +97,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Section has roles',
-                'message' => "Section (${sectionId}) was not deleted because Role records still reference this section."
+                'message' => "Section ({$sectionId}) was not deleted because Role records still reference this section."
             ]);
         }
 
@@ -107,7 +107,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
         return new ApiResponse([
             'code' => 200,
             'type' => 'Section Deleted',
-            'message' => "Section (${sectionId}) was deleted"
+            'message' => "Section ({$sectionId}) was deleted"
         ]);
     }
 
@@ -153,7 +153,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Section (${sectionId}) not found"
+                'message' => "Section ({$sectionId}) not found"
             ]);
         }
 
@@ -263,7 +263,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Section (${sectionId}) not found"
+                'message' => "Section ({$sectionId}) not found"
             ]);
         }
 
@@ -277,7 +277,7 @@ class SectionsController extends AbstractController implements SectionsApiInterf
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Constraint not met',
-                'message' => "Group (${groupId}) required for section creation and was not found"
+                'message' => "Group ({$groupId}) required for section creation and was not found"
             ]);
         }
 

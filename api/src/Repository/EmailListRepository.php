@@ -34,7 +34,7 @@ class EmailListRepository extends ServiceEntityRepository
                 return $emailList->toListData();
             },
             'lists',
-            "%${query}%",
+            "%{$query}%",
             $sort,
             $pageSize,
             $page

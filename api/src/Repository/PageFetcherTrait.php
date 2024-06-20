@@ -58,18 +58,18 @@ trait PageFetcherTrait
             $qb->setMaxResults($pageSize);
 
             foreach ($sortComputed as $sortKey => $sortDirection) {
-                $qb->orderBy("e.${sortKey}", $sortDirection);
+                $qb->orderBy("e.{$sortKey}", $sortDirection);
             }
 
             $result = $qb->getQuery()->getResult();
 
-            $cloned->select("count(e.${countAggregateField})");
+            $cloned->select("count(e.{$countAggregateField})");
             $total = $cloned->getQuery()->getSingleScalarResult();
         } catch (ORMException $e) {
             if (strpos($e->getMessage(), "Unrecognized field") === 0) {
                 $keys = implode(',', array_keys($sortComputed));
 
-                throw new SortKeyNotFound("Sort field (${keys}) is not found");
+                throw new SortKeyNotFound("Sort field ({$keys}) is not found");
             }
 
             throw $e;

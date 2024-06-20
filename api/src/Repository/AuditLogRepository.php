@@ -36,7 +36,7 @@ class AuditLogRepository extends ServiceEntityRepository
                 return $audit->toAuditData();
             },
             'audits',
-            "%${query}%",
+            "%{$query}%",
             $sort,
             $pageSize,
             $page

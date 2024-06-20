@@ -37,7 +37,7 @@ class SectionRepository extends ServiceEntityRepository
                 return $section->toSectionData();
             },
             'sections',
-            "%${query}%",
+            "%{$query}%",
             $sort,
             $pageSize,
             $page

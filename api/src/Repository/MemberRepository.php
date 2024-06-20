@@ -57,7 +57,7 @@ class MemberRepository extends ServiceEntityRepository
                 return $member->toMemberData();
             },
             'members',
-            "%${query}%",
+            "%{$query}%",
             $sort,
             $pageSize,
             $page,

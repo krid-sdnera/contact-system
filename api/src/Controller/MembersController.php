@@ -59,7 +59,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Member (${memberId}) not found"
+                'message' => "Member ({$memberId}) not found"
             ]);
         }
 
@@ -80,7 +80,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
                 return new ApiResponse([
                     'code' => 500,
                     'type' => 'Server Error',
-                    'message' => "Role (${roleId}) not found but orphaned relation still exists."
+                    'message' => "Role ({$roleId}) not found but orphaned relation still exists."
                 ]);
             }
 
@@ -89,7 +89,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Role (${roleId}) not found"
+                'message' => "Role ({$roleId}) not found"
             ]);
         }
 
@@ -184,7 +184,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Member (${memberId}) not found"
+                'message' => "Member ({$memberId}) not found"
             ]);
         }
 
@@ -195,7 +195,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
         return new ApiResponse([
             'code' => 200,
             'type' => 'Member Deleted',
-            'message' => "Member (${memberId}) was deleted"
+            'message' => "Member ({$memberId}) was deleted"
         ]);
     }
 
@@ -214,7 +214,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Member (${memberId}) not found"
+                'message' => "Member ({$memberId}) not found"
             ]);
         }
 
@@ -384,7 +384,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Member (${memberId}) not found"
+                'message' => "Member ({$memberId}) not found"
             ]);
         }
 
@@ -491,7 +491,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Member (${memberId}) not found"
+                'message' => "Member ({$memberId}) not found"
             ]);
         }
 
@@ -504,7 +504,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Relationship (Member: ${memberId}, Role: ${roleId}) not found"
+                'message' => "Relationship (Member: {$memberId}, Role: {$roleId}) not found"
             ]);
         }
 
@@ -517,7 +517,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
         return new ApiResponse([
             'code' => 200,
             'type' => 'Relationship Deleted',
-            'message' => "Relationship (Member: ${memberId}, Role: ${roleId}) was deleted"
+            'message' => "Relationship (Member: {$memberId}, Role: {$roleId}) was deleted"
         ]);
     }
 
@@ -537,7 +537,7 @@ class MembersController extends AbstractController implements MembersApiInterfac
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Member (${memberId}) not found"
+                'message' => "Member ({$memberId}) not found"
             ]);
         }
 

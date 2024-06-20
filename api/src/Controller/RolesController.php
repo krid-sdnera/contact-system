@@ -54,7 +54,7 @@ class RolesController extends AbstractController implements RolesApiInterface
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Constraint not met',
-                'message' => "Section (${sectionId}) required for role creation and was not found"
+                'message' => "Section ({$sectionId}) required for role creation and was not found"
             ]);
         }
 
@@ -88,7 +88,7 @@ class RolesController extends AbstractController implements RolesApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Role (${roleId}) not found"
+                'message' => "Role ({$roleId}) not found"
             ]);
         }
 
@@ -99,7 +99,7 @@ class RolesController extends AbstractController implements RolesApiInterface
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Role has members',
-                'message' => "Role (${roleId}) was not deleted because Member records still reference this role."
+                'message' => "Role ({$roleId}) was not deleted because Member records still reference this role."
             ]);
         }
 
@@ -109,7 +109,7 @@ class RolesController extends AbstractController implements RolesApiInterface
         return new ApiResponse([
             'code' => 200,
             'type' => 'Role Deleted',
-            'message' => "Role (${roleId}) was deleted"
+            'message' => "Role ({$roleId}) was deleted"
         ]);
     }
 
@@ -184,7 +184,7 @@ class RolesController extends AbstractController implements RolesApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Role (${roleId}) not found"
+                'message' => "Role ({$roleId}) not found"
             ]);
         }
 
@@ -244,7 +244,7 @@ class RolesController extends AbstractController implements RolesApiInterface
             return new ApiResponse([
                 'code' => 404,
                 'type' => 'Not Found',
-                'message' => "Section (${roleId}) not found"
+                'message' => "Section ({$roleId}) not found"
             ]);
         }
 
@@ -259,7 +259,7 @@ class RolesController extends AbstractController implements RolesApiInterface
             return new ApiResponse([
                 'code' => 500,
                 'type' => 'Constraint not met',
-                'message' => "Section (${sectionId}) required for updating and was not found"
+                'message' => "Section ({$sectionId}) required for updating and was not found"
             ]);
         }
 

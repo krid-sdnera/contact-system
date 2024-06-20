@@ -37,7 +37,7 @@ class ScoutGroupRepository extends ServiceEntityRepository
                 return $scoutGroup->toScoutGroupData();
             },
             'scoutGroups',
-            "%${query}%",
+            "%{$query}%",
             $sort,
             $pageSize,
             $page
