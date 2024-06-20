@@ -5,6 +5,7 @@ namespace App\EventSubscriber;
 
 use App\Service\AuditLogger;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
+use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -38,14 +39,14 @@ class AuditSubscriber implements EventSubscriberInterface
             self::IGNORED_ATTRIBUTES_CONTEXT,
             AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
             AbstractObjectNormalizer::MAX_DEPTH_HANDLER => function ($object, $format, $context) {
-                $entityClass = get_class($object);
+                $entityClass = ClassUtils::getClass($object);
                 $entityType = str_replace('App\Entity\\', '', $entityClass);
 
                 return "[{$entityType}] limitReached";
             },
             AbstractNormalizer::CIRCULAR_REFERENCE_LIMIT => 1,
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                $entityClass = get_class($object);
+                $entityClass = ClassUtils::getClass($object);
                 $entityType = str_replace('App\Entity\\', '', $entityClass);
 
                 return "[{$entityType}] limitReached";
@@ -111,7 +112,7 @@ class AuditSubscriber implements EventSubscriberInterface
     // the call to `AuditLogger::log()` with the appropriate parameters.
     private function log($entity, string $action, EntityManagerInterface $em): void
     {
-        $entityClass = get_class($entity);
+        $entityClass = ClassUtils::getClass($entity);
         // If the class is AuditLog entity, ignore. We don't want to audit our own audit logs!
         if ($entityClass === 'App\Entity\AuditLog') {
             return;
