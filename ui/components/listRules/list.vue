@@ -113,26 +113,26 @@ const itemsPerPageOptions = [
 
 <template>
   <div>
-    <ListRulesCreate
+    <ListRulesDialogCreate
       v-if="props.allowCreation"
       v-model="dialogCreate"
       @created="itemCreated"
       :relation="props.relation"
-    ></ListRulesCreate>
+    ></ListRulesDialogCreate>
 
-    <ListRulesUpdate
+    <ListRulesDialogUpdate
       v-if="itemToUpdate !== null"
       v-model="dialogUpdate"
       @updated="itemUpdated"
       :listRule="itemToUpdate"
-    ></ListRulesUpdate>
+    ></ListRulesDialogUpdate>
 
-    <ListRulesDelete
+    <ListRulesDialogDelete
       v-if="itemToDelete !== null"
       v-model="dialogDelete"
       @deleted="itemDeleted"
       :listRule="itemToDelete"
-    ></ListRulesDelete>
+    ></ListRulesDialogDelete>
 
     <v-data-table-server
       :headers="shownHeaders"

@@ -117,25 +117,25 @@ const itemsPerPageOptions = [
 
 <template>
   <div>
-    <ContactsCreate
+    <ContactsDialogCreate
       v-if="props.allowCreation"
       v-model="dialogCreate"
       @created="itemCreated"
-    ></ContactsCreate>
+    ></ContactsDialogCreate>
 
-    <ContactsUpdate
+    <ContactsDialogUpdate
       v-if="itemToUpdate !== null"
       v-model="dialogUpdate"
       @updated="itemUpdated"
       :contact="itemToUpdate"
-    ></ContactsUpdate>
+    ></ContactsDialogUpdate>
 
-    <ContactsDelete
+    <ContactsDialogDelete
       v-if="itemToDelete !== null"
       v-model="dialogDelete"
       @deleted="itemDeleted"
       :contact="itemToDelete"
-    ></ContactsDelete>
+    ></ContactsDialogDelete>
 
     <v-data-table-server
       :headers="shownHeaders"

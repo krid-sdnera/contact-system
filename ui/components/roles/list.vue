@@ -85,25 +85,25 @@ const itemsPerPageOptions = [
 
 <template>
   <div>
-    <RolesCreate
+    <RolesDialogCreate
       v-if="props.allowCreation"
       v-model="dialogCreate"
       @created="itemCreated"
-    ></RolesCreate>
+    ></RolesDialogCreate>
 
-    <RolesUpdate
+    <RolesDialogUpdate
       v-if="itemToUpdate !== null"
       v-model="dialogUpdate"
       @updated="itemUpdated"
       :role="itemToUpdate"
-    ></RolesUpdate>
+    ></RolesDialogUpdate>
 
-    <RolesDelete
+    <RolesDialogDelete
       v-if="itemToDelete !== null"
       v-model="dialogDelete"
       @deleted="itemDeleted"
       :role="itemToDelete"
-    ></RolesDelete>
+    ></RolesDialogDelete>
 
     <v-data-table-server
       :headers="shownHeaders"

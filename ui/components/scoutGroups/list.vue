@@ -91,25 +91,25 @@ const itemsPerPageOptions = [
 
 <template>
   <div>
-    <ScoutGroupsCreate
+    <ScoutGroupsDialogCreate
       v-if="props.allowCreation"
       v-model="dialogCreate"
       @created="itemCreated"
-    ></ScoutGroupsCreate>
+    ></ScoutGroupsDialogCreate>
 
-    <ScoutGroupsUpdate
+    <ScoutGroupsDialogUpdate
       v-if="itemToUpdate !== null"
       v-model="dialogUpdate"
       @updated="itemUpdated"
       :scoutGroup="itemToUpdate"
-    ></ScoutGroupsUpdate>
+    ></ScoutGroupsDialogUpdate>
 
-    <ScoutGroupsDelete
+    <ScoutGroupsDialogDelete
       v-if="itemToDelete !== null"
       v-model="dialogDelete"
       @deleted="itemDeleted"
       :scoutGroup="itemToDelete"
-    ></ScoutGroupsDelete>
+    ></ScoutGroupsDialogDelete>
 
     <v-data-table-server
       :headers="shownHeaders"

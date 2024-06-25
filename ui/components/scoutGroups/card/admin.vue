@@ -24,17 +24,17 @@ function itemDeleted(id: number) {
 
 <template>
   <v-card v-if="props.scoutGroup">
-    <ScoutGroupsUpdate
+    <ScoutGroupsDialogUpdate
       v-model="dialogUpdate"
       @updated="itemUpdated"
       :scoutGroup="props.scoutGroup"
-    ></ScoutGroupsUpdate>
+    ></ScoutGroupsDialogUpdate>
 
-    <ScoutGroupsDelete
+    <ScoutGroupsDialogDelete
       v-model="dialogDelete"
       @updated="itemDeleted"
       :scoutGroup="props.scoutGroup"
-    ></ScoutGroupsDelete>
+    ></ScoutGroupsDialogDelete>
 
     <v-card-title>Admin Actions</v-card-title>
 

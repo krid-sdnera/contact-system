@@ -24,17 +24,17 @@ function itemDeleted(id: number) {
 
 <template>
   <v-card v-if="props.role">
-    <RolesUpdate
+    <RolesDialogUpdate
       v-model="dialogUpdate"
       @updated="itemUpdated"
       :role="props.role"
-    ></RolesUpdate>
+    ></RolesDialogUpdate>
 
-    <RolesDelete
+    <RolesDialogDelete
       v-model="dialogDelete"
       @updated="itemDeleted"
       :role="props.role"
-    ></RolesDelete>
+    ></RolesDialogDelete>
 
     <v-card-title>Admin Actions</v-card-title>
 

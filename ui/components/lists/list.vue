@@ -92,25 +92,25 @@ const itemsPerPageOptions = [
 
 <template>
   <div>
-    <ListsCreate
+    <ListsDialogCreate
       v-if="props.allowCreation"
       v-model="dialogCreate"
       @created="itemCreated"
-    ></ListsCreate>
+    ></ListsDialogCreate>
 
-    <ListsUpdate
+    <ListsDialogUpdate
       v-if="itemToUpdate !== null"
       v-model="dialogUpdate"
       @updated="itemUpdated"
       :list="itemToUpdate"
-    ></ListsUpdate>
+    ></ListsDialogUpdate>
 
-    <ListsDelete
+    <ListsDialogDelete
       v-if="itemToDelete !== null"
       v-model="dialogDelete"
       @deleted="itemDeleted"
       :list="itemToDelete"
-    ></ListsDelete>
+    ></ListsDialogDelete>
 
     <v-data-table-server
       :headers="shownHeaders"

@@ -24,17 +24,17 @@ function itemDeleted(id: number) {
 
 <template>
   <v-card v-if="props.contact">
-    <ContactsUpdate
+    <ContactsDialogUpdate
       v-model="dialogUpdate"
       @updated="itemUpdated"
       :contact="props.contact"
-    ></ContactsUpdate>
+    ></ContactsDialogUpdate>
 
-    <ContactsDelete
+    <ContactsDialogDelete
       v-model="dialogDelete"
       @updated="itemDeleted"
       :contact="props.contact"
-    ></ContactsDelete>
+    ></ContactsDialogDelete>
 
     <v-card-title>Admin Actions</v-card-title>
 
