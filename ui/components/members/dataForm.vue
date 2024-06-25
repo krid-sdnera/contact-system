@@ -73,6 +73,12 @@ function buildInternalMemberData(
 
 <template>
   <v-container v-if="model">
+    <!-- State & Expiry -->
+    <DataFormState
+      v-model:state="model.state"
+      v-model:expiry="model.expiry"
+    ></DataFormState>
+
     <!-- Membership Number -->
     <OverridableTextField
       v-model="model.membershipNumber"

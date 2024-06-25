@@ -54,6 +54,12 @@ const roleOptions = computed(() => {
 
 <template>
   <v-container v-if="model">
+    <!-- State & Expiry -->
+    <DataFormState
+      v-model:state="model.state"
+      v-model:expiry="model.expiry"
+    ></DataFormState>
+
     <v-row>
       <!-- Role selection -->
       <v-select
