@@ -2,12 +2,14 @@
 const props = defineProps<{
   view?: boolean | string;
   update?: boolean | string;
+  clone?: boolean | string;
   delete?: boolean | string;
 }>();
 
 const emit = defineEmits<{
   view: [];
   update: [];
+  clone: [];
   delete: [];
 }>();
 </script>
@@ -28,6 +30,14 @@ const emit = defineEmits<{
       color="warning"
       :to="typeof props.update === 'string' ? props.update : undefined"
       @click="emit('update')"
+    />
+    <v-btn
+      v-if="props.clone"
+      variant="text"
+      icon="mdi-plus-circle-multiple-outline"
+      color="purple"
+      :to="typeof props.clone === 'string' ? props.clone : undefined"
+      @click="emit('clone')"
     />
     <v-btn
       v-if="props.delete"
