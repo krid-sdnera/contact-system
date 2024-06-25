@@ -141,12 +141,12 @@ const showMemberIdSelect = computed(() => {
     ></OverridableTextField>
 
     <!-- Primary Contact -->
-    <OverridableTextField
+    <OverridableCheckboxField
       v-model="model.primaryContact"
       v-model:overridden="model.overrides.primaryContact"
       label="Primary Contact"
       type="date"
-    ></OverridableTextField>
+    ></OverridableCheckboxField>
 
     <v-row>
       <v-col cols="4">
