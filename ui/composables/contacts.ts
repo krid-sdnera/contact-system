@@ -132,6 +132,7 @@ export const useContact = () => {
             return api.members.getMemberContactsById({
               memberId: filters.member.id,
               page: page,
+              pageSize: 50,
             });
           }
 

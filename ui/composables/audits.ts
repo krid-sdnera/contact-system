@@ -89,7 +89,7 @@ export const useAudit = () => {
             // TODO: Build search param.
           }
 
-          return api.audits.getAudits({ page: page });
+          return api.audits.getAudits({ page: page, pageSize: 50 });
         });
 
         if (!data.value) {

@@ -108,7 +108,7 @@ export const useList = () => {
 
       async function fetchListPage(page: number = 1): Promise<number[]> {
         const { data } = await useApiFetch((api) =>
-          api.lists.getLists({ page: page })
+          api.lists.getLists({ page: page, pageSize: 50 })
         );
 
         if (!data.value) {

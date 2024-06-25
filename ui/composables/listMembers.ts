@@ -162,6 +162,7 @@ export const useListMember = () => {
           api.lists.getListRecipientsByListId({
             listId: listId,
             page: page,
+            pageSize: 50,
           })
         );
 

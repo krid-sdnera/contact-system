@@ -131,6 +131,7 @@ export const useMemberRole = () => {
           api.members.getMemberRolesById({
             memberId: filters.member.id,
             page: page,
+            pageSize: 50,
           })
         );
 

@@ -128,7 +128,7 @@ export const useSection = () => {
 
       async function fetchSectionPage(page: number = 1): Promise<number[]> {
         const { data } = await useApiFetch((api) =>
-          api.sections.getSections({ page: page })
+          api.sections.getSections({ page: page, pageSize: 50 })
         );
 
         if (!data.value) {

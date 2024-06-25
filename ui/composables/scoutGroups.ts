@@ -124,7 +124,7 @@ export const useScoutGroup = () => {
 
       async function fetchScoutGroupPage(page: number = 1): Promise<number[]> {
         const { data } = await useApiFetch((api) =>
-          api.scoutGroups.getScoutGroups({ page: page })
+          api.scoutGroups.getScoutGroups({ page: page, pageSize: 50 })
         );
 
         if (!data.value) {

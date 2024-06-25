@@ -121,7 +121,7 @@ export const useRole = () => {
 
       async function fetchRolePage(page: number = 1): Promise<number[]> {
         const { data } = await useApiFetch((api) =>
-          api.roles.getRoles({ page: page })
+          api.roles.getRoles({ page: page, pageSize: 50 })
         );
 
         if (!data.value) {

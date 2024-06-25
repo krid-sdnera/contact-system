@@ -183,6 +183,7 @@ export const useListRule = () => {
           api.lists.getListRulesByListId({
             listId: filters.list.id,
             page: page,
+            pageSize: 50,
           })
         );
 

@@ -141,16 +141,19 @@ export const useMember = () => {
             return api.roles.getMembersByRoleId({
               roleId: filters.role.id,
               page: page,
+              pageSize: 50,
             });
           } else if (filters?.section) {
             return api.sections.getMembersBySectionId({
               sectionId: filters.section.id,
               page: page,
+              pageSize: 50,
             });
           }
 
           return api.members.getMembers({
             page: page,
+            pageSize: 50,
           });
         });
 
