@@ -17,6 +17,7 @@ const emit = defineEmits<{
 
 onMounted(() => {
   model.value = buildInternalMemberRoleData(props.currentMemberRole);
+  modelRole.value = props.currentMemberRole?.role;
 });
 
 function buildInternalMemberRoleData(
@@ -60,15 +61,21 @@ const roleOptions = computed(() => {
       v-model:expiry="model.expiry"
     ></DataFormState>
 
+    <!-- Role selection -->
     <v-row>
-      <!-- Role selection -->
       <v-select
         v-model="modelRole"
         label="Role"
+        item-props
         :loading="status !== 'success'"
         :items="roleOptions"
         :color="roleOptions.length == 0 ? 'error' : ''"
-      ></v-select>
+      >
+        <template v-slot:selection="{ item, index }">
+          {{ item.value.name }} ({{ item.value.section.name }} -
+          {{ item.value.section.scoutGroup.name }})
+        </template>
+      </v-select>
     </v-row>
 
     <!-- // TODO: Add subtitles // TODO: Add checkbox to restict roles to ones from
