@@ -64,7 +64,7 @@ const disableBtn = computed(
         style="position: sticky"
         class="d-flex justify-space-between align-center"
       >
-        <div>Delete {{ props.memberRole.id }}?</div>
+        <div>Delete {{ props.memberRole.id }} (mbr-role)?</div>
         <v-btn icon="mdi-close" variant="text" @click="close"></v-btn>
       </v-card-title>
 

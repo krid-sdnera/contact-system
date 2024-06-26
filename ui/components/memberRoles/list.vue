@@ -42,7 +42,7 @@ function itemUpdate(memberRole: MemberRoleData) {
   itemToUpdate.value = memberRole;
   dialogUpdate.value = true;
 }
-function itemUpdated(id: number) {
+function itemUpdated(id: string) {
   dialogUpdate.value = false;
   refresh();
 }
@@ -111,6 +111,13 @@ const itemsPerPageOptions = [
       :member="props.member"
     ></MemberRolesDialogCreate>
 
+    <MemberRolesDialogUpdate
+      v-if="itemToUpdate !== null"
+      v-model="dialogUpdate"
+      @updated="itemUpdated"
+      :memberRole="itemToUpdate"
+    ></MemberRolesDialogUpdate>
+
     <MemberRolesDialogDelete
       v-if="itemToDelete !== null"
       v-model="dialogDelete"
@@ -144,15 +151,6 @@ const itemsPerPageOptions = [
             v-tooltip="'Create local member role'"
             @click="itemCreate"
           ></v-btn>
-
-          <!-- <memberRole-export
-            :open.sync="dialogExport"
-            :api-options="apiOptions"
-            :preset-memberRole-fields="selectedHeaders"
-            :preset-contact-fields="[]"
-            :preset-role="role"
-            :preset-section="section"
-          ></memberRole-export> -->
 
           <v-btn icon="mdi-sync" v-tooltip="'Refresh'" @click="refresh"></v-btn>
 
@@ -195,8 +193,8 @@ const itemsPerPageOptions = [
 
       <template v-slot:item.actionButtons="{ item }">
         <TableActionButtons
-          update
-          @update="itemUpdate(item)"
+          clone
+          @clone="itemUpdate(item)"
           delete
           @delete="itemDelete(item)"
         ></TableActionButtons>

@@ -236,52 +236,59 @@ export const useMemberRole = () => {
         },
       };
     },
-    // useUpdateMemberRole: () => {
-    //   const updated = ref<boolean>(false);
-    //   const loading = ref<boolean>(false);
-    //   const error = ref<boolean>(false);
-    //   const errorMessage = ref<string | undefined>(undefined);
+    useUpdateMemberRole: () => {
+      const updated = ref<boolean>(false);
+      const loading = ref<boolean>(false);
+      const error = ref<boolean>(false);
+      const errorMessage = ref<string | undefined>(undefined);
 
-    //   return {
-    //     async update(
-    //       updatedMemberRole: MemberRoleInput & { id: number }
-    //     ): Promise<number | null> {
-    //       loading.value = true;
-    //       error.value = false;
-    //       errorMessage.value = undefined;
+      return {
+        async update(
+          updatedMemberRole: MemberRoleInput & {
+            memberId: number;
+            roleId: number;
+          }
+        ): Promise<string | null> {
+          loading.value = true;
+          error.value = false;
+          errorMessage.value = undefined;
 
-    //       const { data } = await useApiFetch((api) =>
-    //         api.members.updateMemberRoleById({
-    //           memberRoleId: updatedMemberRole.id,
-    //           memberRoleInput: updatedMemberRole,
-    //         })
-    //       );
+          // I'm not really happy with deleting the existing role link before adding the new one.
+          // For now, the UI will display this action as duplicating the role link.
+          // TODO: implement a replace role api handler?
+          const { data } = await useApiFetch((api) =>
+            api.members.addMemberRoleById({
+              memberId: updatedMemberRole.memberId,
+              roleId: updatedMemberRole.roleId,
+              memberRoleInput: updatedMemberRole,
+            })
+          );
 
-    //       if (!data.value || data.value?.success === false) {
-    //         loading.value = false;
-    //         error.value = true;
-    //         errorMessage.value = 'failed';
-    //         return null;
-    //       }
+          if (!data.value || data.value?.success === false) {
+            loading.value = false;
+            error.value = true;
+            errorMessage.value = 'failed';
+            return null;
+          }
 
-    //       useMemberRole().setMemberRole(data.value.memberRole);
+          useMemberRole().setMemberRole(data.value.memberRole);
 
-    //       // Set `updated` ref so update button can be disabled
-    //       // forever once we've had a successful update.
-    //       updated.value = true;
-    //       loading.value = false;
+          // Set `updated` ref so update button can be disabled
+          // forever once we've had a successful update.
+          updated.value = true;
+          loading.value = false;
 
-    //       return data.value.memberRole.id;
-    //     },
-    //     updated,
-    //     loading,
-    //     error,
-    //     errorMessage,
-    //     reset() {
-    //       updated.value = false;
-    //     },
-    //   };
-    // },
+          return data.value.memberRole.id;
+        },
+        updated,
+        loading,
+        error,
+        errorMessage,
+        reset() {
+          updated.value = false;
+        },
+      };
+    },
     useDeleteMemberRole: () => {
       const deleted = ref<boolean>(false);
       const loading = ref<boolean>(false);
