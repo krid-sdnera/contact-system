@@ -28,7 +28,9 @@ SELECT
 FROM contact
 
 DROP VIEW view_email_recipient;
+-- Suspect SQLite3 safe;
 CREATE VIEW view_email_recipient AS SELECT 'member' || member.id AS row_id, member.id AS id, member.firstname AS firstname, member.nickname AS nickname, member.lastname AS lastname, member.email AS email, 'member' AS type FROM member UNION SELECT 'contact' || contact.id AS row_id, contact.id AS id, contact.firstname AS firstname, contact.nickname AS nickname, contact.lastname AS lastname, contact.email AS email, 'contact' AS type FROM contact 
+-- MYSQL safe;
 CREATE VIEW view_email_recipient AS SELECT CONCAT('member', member.id) AS row_id, member.id AS id, member.firstname AS firstname, member.nickname AS nickname, member.lastname AS lastname, member.email AS email, 'member' AS type FROM member UNION SELECT CONCAT('contact', contact.id) AS row_id, contact.id AS id, contact.firstname AS firstname, contact.nickname AS nickname, contact.lastname AS lastname, contact.email AS email, 'contact' AS type FROM contact 
 */
 
