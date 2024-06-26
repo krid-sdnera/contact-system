@@ -20,6 +20,14 @@ function itemDelete() {
 function itemDeleted(id: number) {
   dialogDelete.value = false;
 }
+
+const dialogStateChange = ref<boolean>(false);
+function itemStateChange() {
+  dialogStateChange.value = true;
+}
+function itemStateChanged(id: number) {
+  dialogStateChange.value = false;
+}
 </script>
 
 <template>
@@ -30,6 +38,12 @@ function itemDeleted(id: number) {
       :member="props.member"
     ></MembersDialogUpdate>
 
+    <MembersDialogStateChange
+      v-model="dialogStateChange"
+      @updated="itemStateChanged"
+      :member="props.member"
+    ></MembersDialogStateChange>
+
     <MembersDialogDelete
       v-model="dialogDelete"
       @updated="itemDeleted"
@@ -39,17 +53,31 @@ function itemDeleted(id: number) {
     <v-card-title>Admin Actions</v-card-title>
 
     <v-card-text>
+      <v-btn
+        v-if="props.member?.state === 'enabled'"
+        @click="itemStateChange"
+        color="green-darken-1"
+      >
+        Member enabled
+      </v-btn>
+      <v-btn v-else @click="itemStateChange" color="red-darken-1">
+        Member disabled
+      </v-btn>
+    </v-card-text>
+
+    <v-card-text>
       <v-chip class="mb-1">
         {{ $filters.capitalize(props.member.managementState) }}
       </v-chip>
-      <v-chip v-if="props.member.expiry" class="mb-1">{{
-        props.member.expiry
-      }}</v-chip>
+      <v-chip v-if="props.member.expiry" class="mb-1">
+        {{ props.member.expiry }}
+      </v-chip>
     </v-card-text>
+
     <v-card-text>
-      <v-chip v-if="props.member.autoUpgradeEnabled === true" class="mb-1"
-        >Auto upgrade enabled</v-chip
-      >
+      <v-chip v-if="props.member.autoUpgradeEnabled === true" class="mb-1">
+        Auto upgrade enabled
+      </v-chip>
       <v-chip v-else class="mb-1 grey--text text--darken-3" color="warning">
         Auto upgrade disabled
       </v-chip>

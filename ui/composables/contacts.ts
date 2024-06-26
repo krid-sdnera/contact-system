@@ -298,6 +298,52 @@ export const useContact = () => {
         },
       };
     },
+    usePatchContact: () => {
+      const patched = ref<boolean>(false);
+      const loading = ref<boolean>(false);
+      const error = ref<boolean>(false);
+      const errorMessage = ref<string | undefined>(undefined);
+
+      return {
+        async patch(
+          patchedContact: Partial<ContactInput> & { id: number }
+        ): Promise<number | null> {
+          loading.value = true;
+          error.value = false;
+          errorMessage.value = undefined;
+
+          const { data } = await useApiFetch((api) =>
+            api.contacts.patchContactById({
+              contactId: patchedContact.id,
+              contactInput: patchedContact,
+            })
+          );
+
+          if (!data.value || data.value?.success === false) {
+            loading.value = false;
+            error.value = true;
+            errorMessage.value = 'failed';
+            return null;
+          }
+
+          useContact().setContact(data.value.contact);
+
+          // Set `patched` ref so patch button can be disabled
+          // forever once we've had a successful patch.
+          patched.value = true;
+          loading.value = false;
+
+          return data.value.contact.id;
+        },
+        patched,
+        loading,
+        error,
+        errorMessage,
+        reset() {
+          patched.value = false;
+        },
+      };
+    },
     useDeleteContact: () => {
       const deleted = ref<boolean>(false);
       const loading = ref<boolean>(false);

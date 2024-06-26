@@ -20,6 +20,14 @@ function itemDelete() {
 function itemDeleted(id: number) {
   dialogDelete.value = false;
 }
+
+const dialogStateChange = ref<boolean>(false);
+function itemStateChange() {
+  dialogStateChange.value = true;
+}
+function itemStateChanged(id: number) {
+  dialogStateChange.value = false;
+}
 </script>
 
 <template>
@@ -30,6 +38,12 @@ function itemDeleted(id: number) {
       :contact="props.contact"
     ></ContactsDialogUpdate>
 
+    <ContactsDialogStateChange
+      v-model="dialogStateChange"
+      @updated="itemStateChanged"
+      :contact="props.contact"
+    ></ContactsDialogStateChange>
+
     <ContactsDialogDelete
       v-model="dialogDelete"
       @updated="itemDeleted"
@@ -37,6 +51,19 @@ function itemDeleted(id: number) {
     ></ContactsDialogDelete>
 
     <v-card-title>Admin Actions</v-card-title>
+
+    <v-card-text>
+      <v-btn
+        v-if="props.contact?.state === 'enabled'"
+        @click="itemStateChange"
+        color="green-darken-1"
+      >
+        Contact enabled
+      </v-btn>
+      <v-btn v-else @click="itemStateChange" color="red-darken-1">
+        Contact disabled
+      </v-btn>
+    </v-card-text>
 
     <v-card-actions>
       <v-spacer></v-spacer>

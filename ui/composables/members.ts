@@ -315,6 +315,52 @@ export const useMember = () => {
         },
       };
     },
+    usePatchMember: () => {
+      const patched = ref<boolean>(false);
+      const loading = ref<boolean>(false);
+      const error = ref<boolean>(false);
+      const errorMessage = ref<string | undefined>(undefined);
+
+      return {
+        async patch(
+          patchedMember: Partial<MemberInput> & { id: number }
+        ): Promise<number | null> {
+          loading.value = true;
+          error.value = false;
+          errorMessage.value = undefined;
+
+          const { data } = await useApiFetch((api) =>
+            api.members.patchMemberById({
+              memberId: patchedMember.id,
+              memberInput: patchedMember,
+            })
+          );
+
+          if (!data.value || data.value?.success === false) {
+            loading.value = false;
+            error.value = true;
+            errorMessage.value = 'failed';
+            return null;
+          }
+
+          useMember().setMember(data.value.member);
+
+          // Set `patched` ref so patch button can be disabled
+          // forever once we've had a successful patch.
+          patched.value = true;
+          loading.value = false;
+
+          return data.value.member.id;
+        },
+        patched,
+        loading,
+        error,
+        errorMessage,
+        reset() {
+          patched.value = false;
+        },
+      };
+    },
     useDeleteMember: () => {
       const deleted = ref<boolean>(false);
       const loading = ref<boolean>(false);
