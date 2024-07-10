@@ -54,6 +54,17 @@ export function useAuth() {
     }
   });
 
+  function doLogout() {
+    authToken.value.tokens = null;
+
+    router.replace({
+      path: `/login`,
+      query: {
+        from: router.currentRoute.value.fullPath,
+      },
+    });
+  }
+
   return {
     isLoggedIn: computed(() => authToken.value.tokens !== null),
     useLogin() {
@@ -105,15 +116,7 @@ export function useAuth() {
         },
       };
     },
-    doLogout() {
-      authToken.value.tokens = null;
-      router.replace({
-        path: `/login`,
-        query: {
-          from: router.currentRoute.value.fullPath,
-        },
-      });
-    },
+    doLogout,
     requireAuthElseRedirect() {
       if (authToken.value === null) {
         router.replace({
@@ -134,7 +137,7 @@ export function useAuth() {
       console.log('Refreshing Token');
       const tokens = authToken.value.tokens;
       if (!tokens) {
-        this.doLogout();
+        doLogout();
         return;
       }
 
@@ -149,14 +152,14 @@ export function useAuth() {
             refresh: payload.refreshToken,
           };
         } else {
-          this.doLogout();
+          doLogout();
         }
 
         // Don't tell the user that we refreshed their token.
         // It should be transparent to them.
       } catch (e) {
         // Tell user that we could not refresh the token.
-        this.doLogout();
+        doLogout();
       }
     },
   };
