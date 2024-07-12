@@ -117,8 +117,11 @@ class AuditSubscriber implements EventSubscriberInterface
         if ($entityClass === 'App\Entity\AuditLog') {
             return;
         }
+
         $entityId = $entity->getId();
         $entityType = str_replace('App\Entity\\', '', $entityClass);
+        $entityType = str_replace('Gesdinet\JWTRefreshTokenBundle\Entity\\', '', $entityType);
+
         // The Doctrine unit of work keeps track of all changes made to entities.
         $uow = $em->getUnitOfWork();
         if ($action === 'delete') {
