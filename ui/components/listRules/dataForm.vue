@@ -21,14 +21,17 @@ function buildInternalListRuleData(
   currentListRule?: ListRuleData
 ): ListRuleInput {
   if (currentListRule) {
+    const relType = currentListRule.relationType;
+    const relId = currentListRule.relationId;
+
     return {
       label: currentListRule.label,
       comment: currentListRule.comment,
-      memberId: null, //currentListRule.memberId,
-      contactId: null, //currentListRule.contactId,
-      roleId: null, //currentListRule.roleId,
-      sectionId: null, //currentListRule.sectionId,
-      scoutGroupId: null, //currentListRule.scoutGroupId,
+      memberId: relType === 'Member' ? relId : null,
+      contactId: relType === 'Contact' ? relId : null,
+      roleId: relType === 'Role' ? relId : null,
+      sectionId: relType === 'Section' ? relId : null,
+      scoutGroupId: relType === 'ScoutGroup' ? relId : null,
       useMember: currentListRule.useMember,
       useContact: currentListRule.useContact,
     };
@@ -68,7 +71,7 @@ if (props.relation) {
   relation = getEntity();
 }
 
-const { lists, useListAllLists } = useList();
+const { lists, getList, useListAllLists } = useList();
 const { error, errorMessage, status } = useListAllLists();
 
 const listOptions = computed(() => {
@@ -83,6 +86,18 @@ const listOptions = computed(() => {
     subtitle: `${list.address}`,
     value: list,
   }));
+});
+
+onMounted(() => {
+  if (!props.currentListRule) {
+    return;
+  }
+  const listData = getList(props.currentListRule.listId);
+  if (!listData.value) {
+    return;
+  }
+
+  modelList.value = listData.value;
 });
 
 // const listOptions = computed((): { label: string; value: string }[] => {
@@ -113,10 +128,14 @@ const listOptions = computed(() => {
   <v-container v-if="model">
     <v-row>
       <v-col>
-        <p>
+        <p v-if="relation">
           Add a rule to bind email addresses associated with [{{
-            relation?.type
-          }}: {{ relation?.entity.id }}] with the list below.
+            relation.type
+          }}: {{ relation.entity.id }}] with the list below.
+        </p>
+        <p v-if="currentListRule">
+          Updating rule for {{ currentListRule.relationType }}:
+          {{ currentListRule.relationId }}
         </p>
       </v-col>
     </v-row>
@@ -141,12 +160,19 @@ const listOptions = computed(() => {
     <v-row>
       <!-- List Selector -->
       <v-select
+        v-if="!props.currentListRule"
         v-model="modelList"
         label="List Selector"
         :loading="status !== 'success'"
         :items="listOptions"
         :color="listOptions.length == 0 ? 'error' : ''"
       ></v-select>
+      <v-col v-else>
+        <p>
+          Rule linked with
+          <code class="text-red-darken-1">{{ modelList?.address }}</code>
+        </p>
+      </v-col>
     </v-row>
     <v-row>
       <!-- Use Member Checkbox -->

@@ -653,7 +653,7 @@ class ListsController extends AbstractController implements ListsApiInterface
             ->getRepository(EmailList::class)
             ->find($listId);
 
-        if ($emailList) {
+        if (!$emailList) {
             $responseCode = 404;
             return new ApiResponse([
                 'code' => 404,
