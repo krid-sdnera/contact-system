@@ -173,7 +173,7 @@ const itemsPerPageOptions = [
 
       <template v-slot:item.actionButtons="{ item }">
         <TableActionButtons
-          :view="relationUrl('EmailList', item.id)"
+          :view="relationUrl('Section', item.id)"
           update
           @update="itemUpdate(item)"
           delete
