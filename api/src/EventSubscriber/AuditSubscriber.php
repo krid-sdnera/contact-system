@@ -39,6 +39,10 @@ class AuditSubscriber implements EventSubscriberInterface
             self::IGNORED_ATTRIBUTES_CONTEXT,
             AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
             AbstractObjectNormalizer::MAX_DEPTH_HANDLER => function ($object, $format, $context) {
+                if ($object === null) {
+                    return null;
+                }
+
                 $entityClass = ClassUtils::getClass($object);
                 $entityType = str_replace('App\Entity\\', '', $entityClass);
 
@@ -46,6 +50,10 @@ class AuditSubscriber implements EventSubscriberInterface
             },
             AbstractNormalizer::CIRCULAR_REFERENCE_LIMIT => 1,
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                if ($object === null) {
+                    return null;
+                }
+
                 $entityClass = ClassUtils::getClass($object);
                 $entityType = str_replace('App\Entity\\', '', $entityClass);
 
