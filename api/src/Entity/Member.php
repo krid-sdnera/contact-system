@@ -106,12 +106,17 @@ class Member
             $member->setLastname($extranetMember->getLastname());
         }
         if ($member->overridable('dateOfBirth')) {
+            $extranetDateOfBirth = new DateTime($extranetMember->getDateOfBirth());
 
             if (!$member->getDateOfBirth()) {
-                // Date of Birth has been previously set.
-                // Because Extranet no longer exposes the exact DOB, set it intitally
-                // but then dont update it in the future.
-                $member->setDateOfBirth(new DateTime($extranetMember->getDateOfBirth()));
+                $member->setDateOfBirth($extranetDateOfBirth);
+            } else {
+                $firstDate = $member->getDateOfBirth()->format('Y-m-d');
+                $secondDate = $extranetDateOfBirth->format('Y-m-d');
+
+                if ($firstDate != $secondDate) {
+                    $member->setDateOfBirth($extranetDateOfBirth);
+                }
             }
         }
         if ($member->overridable('gender')) {

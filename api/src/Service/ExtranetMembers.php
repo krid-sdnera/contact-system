@@ -367,6 +367,16 @@ class ExtranetMembers
         $autoUpgradeEnabled = $checked === "Y";
 
         $extranetMember->setAutoUpgradeEnabled($autoUpgradeEnabled);
+
+        // Extract the member's Date of Birth.
+        // The HTML is invalid! Attributes use single quotes!
+        preg_match(
+            "|<td class=formitem2>\s+DOB :\s+</td>\s+<td align=left>\s+(.+)\s+</td>|",
+            $content,
+            $matches
+        );
+        $dateOfBirth = (count($matches) === 2) ? $matches[1] : '';
+        $extranetMember->setDateOfBirth($dateOfBirth);
     }
 
     private function getMemberContacts(ExtranetMember $extranetMember)

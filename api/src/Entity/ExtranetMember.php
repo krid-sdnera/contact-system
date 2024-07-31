@@ -361,7 +361,7 @@ class ExtranetMember
 
     public function getRoleStrings(): array
     {
-        return $this->roleStrings;
+        return $this->roleStrings ?? [];
     }
 
     public function addRoleString($type, $roleName): self
@@ -433,8 +433,6 @@ class ExtranetMember
         $member->setFirstname($data['Firstname']);
         $member->setNickname($data['Preferedname']);
         $member->setLastname($data['Surname']);
-        // $member->setDateOfBirth($data['DOB']);
-        $member->setDateOfBirth((new DateTime('now'))->modify('-' . floor($data['Age'] * 365.25) . ' day')->format('Y-m-d'));
         $member->setHomeAddress($data['HomeAddress']);
         $member->setHomeSuburb($data['HomeSuburb']);
         $member->setHomeState($data['HomeState']);
@@ -461,6 +459,7 @@ class ExtranetMember
         // $member->setMembershipUpdateLink($data['MembershipUpdateLink']);
         // $member->addSubsidiarySection($data['SubsidiarySection']);
         // $member->addContact($data['Contact']);
+        // $member->setDateOfBirth((new DateTime('now'))->modify('-' . floor($data['Age'] * 365.25) . ' day')->format('Y-m-d'));
 
 
         return $member;
