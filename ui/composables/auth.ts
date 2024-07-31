@@ -28,7 +28,7 @@ export function useAuth() {
       }
 
       const fromQuery = Array.isArray(route.query.from)
-        ? route.query.from[0]
+        ? route.query.from.filter((x) => !x?.startsWith('/login'))[0]
         : route.query.from;
 
       if (fromQuery) {
@@ -51,6 +51,25 @@ export function useAuth() {
           from: router.currentRoute.value.fullPath,
         },
       });
+    }
+
+    // Unusual occurance.
+    // If an authToken just got set, but there was already one set, we want to redirct the user the page they were viewing.
+    if (oldVal.tokens !== null && newVal.tokens !== null) {
+      // But only if the current route is /login.
+      if (route.path !== `/login`) {
+        return;
+      }
+
+      const fromQuery = Array.isArray(route.query.from)
+        ? route.query.from.filter((x) => !x?.startsWith('/login'))[0]
+        : route.query.from;
+
+      if (fromQuery) {
+        router.replace(fromQuery);
+      } else {
+        router.replace(`/`);
+      }
     }
   });
 
