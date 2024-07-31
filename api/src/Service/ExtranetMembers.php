@@ -33,7 +33,7 @@ class ExtranetMembers
     /**
      * @var HttpClientInterface
      */
-    private $client;
+    private $httpClient;
 
     private $extranetMembers = [];
 
@@ -80,7 +80,18 @@ class ExtranetMembers
 
     public function setClient(HttpClientInterface $client)
     {
-        $this->client = $client;
+        $this->httpClient = $client;
+    }
+
+    private function client()
+    {
+        if ($this->httpClient) {
+            return $this->httpClient;
+        }
+
+        $this->setClient($this->extranetLogin->doExtranetLogin());
+
+        return $this->httpClient;
     }
 
     private function cacheable($filename, $callback)
@@ -111,10 +122,6 @@ class ExtranetMembers
 
     public function getExtranetMembers()
     {
-        if (!$this->_useCache) {
-            $this->setClient($this->extranetLogin->doExtranetLogin());
-        }
-
         $this->getExtranetReport('total_grand');
         $this->getExtranetReport('as');
 
@@ -180,7 +187,7 @@ class ExtranetMembers
     {
         $this->stopwatch->start('fetch-report-' . $reportName);
         $this->logger->info('Begin report ' . $reportName);
-        $response = $this->client->request('POST', '/portal/Interface/Report/XMLReport/Listing/listLevel.php', [
+        $response = $this->client()->request('POST', '/portal/Interface/Report/XMLReport/Listing/listLevel.php', [
             'query' => [
                 'setting' => 'activememberlisting',
                 'reportFormat' => 'hierarchy',
@@ -213,7 +220,7 @@ class ExtranetMembers
             throw new Exception('Cannot get csv link for ' . $reportName);
         }
 
-        $response = $this->client->request('GET', '/portal/Interface/Include/getCSV2.php?f=/data/apache/www.vicscouts.asn.au/root/portal/PDF/csv' . $matches[1] . '.csv');
+        $response = $this->client()->request('GET', '/portal/Interface/Include/getCSV2.php?f=/data/apache/www.vicscouts.asn.au/root/portal/PDF/csv' . $matches[1] . '.csv');
         $content = $response->getContent();
 
         $this->stopwatch->stop('fetch-report-' . $reportName);
@@ -259,7 +266,7 @@ class ExtranetMembers
             'member-detail-' . $extranetMember->getMembershipNumber() . '.html',
             function () use ($extranetMember) {
                 // Fetch additional data from member detail page
-                $response = $this->client->request('GET', '/portal/Interface/Report/showMemDetail.php', [
+                $response = $this->client()->request('GET', '/portal/Interface/Report/showMemDetail.php', [
                     'query' => [
                         'regg' => $extranetMember->getMembershipNumber()
                     ]
@@ -319,7 +326,7 @@ class ExtranetMembers
             'member-update-link-' . $extranetMember->getMembershipNumber() . '.html',
             function () use ($extranetMember) {
                 // Downloading: Member Update Link
-                $response = $this->client->request('POST', '/portal/membership/get-member-key', [
+                $response = $this->client()->request('POST', '/portal/membership/get-member-key', [
                     'query' => ['regid' => $extranetMember->getMembershipNumber()],
                     'headers' => ['X-Requested-With: XMLHttpRequest']
                 ]);
@@ -338,7 +345,7 @@ class ExtranetMembers
             'member-edit-' . $extranetMember->getMembershipNumber() . '.html',
             function () use ($extranetMember) {
                 // Downloading: Member Edit Page
-                $response = $this->client->request('POST', '/portal/Interface/Report/editMemDetail.php', [
+                $response = $this->client()->request('POST', '/portal/Interface/Report/editMemDetail.php', [
                     "body" => [
                         "CourseID" => "",
                         "RegID" => $extranetMember->getMembershipNumber(),
@@ -368,7 +375,7 @@ class ExtranetMembers
             'member-contacts-' . $extranetMember->getMembershipNumber() . '.json',
             function () use ($extranetMember) {
                 // Downloading: Parent Data
-                $response = $this->client->request('POST', '/portal/Interface/Leader/editParentalDetail_Controller.php', [
+                $response = $this->client()->request('POST', '/portal/Interface/Leader/editParentalDetail_Controller.php', [
                     'body' => [
                         'page' => 1,
                         'rp' => 10,
@@ -440,9 +447,9 @@ class ExtranetMembers
             'invite-' . $type . '.json',
             function () use ($type) {
                 if ($type === 'active') {
-                    $response = $this->client->request('GET', '/portal/membership/ajax-get-invitation-list/type/' . $type);
+                    $response = $this->client()->request('GET', '/portal/membership/ajax-get-invitation-list/type/' . $type);
                 } else if ($type === 'approving') {
-                    $response = $this->client->request('GET', '/portal/membership/ajax-get-approval-list/type/' . $type);
+                    $response = $this->client()->request('GET', '/portal/membership/ajax-get-approval-list/type/' . $type);
                 }
 
                 return $response->getContent();
