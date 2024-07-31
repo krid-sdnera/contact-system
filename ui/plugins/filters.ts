@@ -65,7 +65,12 @@ function datetime(inDate: Date | string | undefined, format: 'dmy' = 'dmy') {
   }
 }
 
-function duration(inDate: Date | string | undefined, niceText: boolean = true) {
+function duration(
+  inDate: Date | string | undefined,
+  opts?: {
+    sentanceFix?: boolean;
+  }
+) {
   const dt: DateTime | string = dateHelper(inDate);
   if (typeof dt === 'string') {
     return dt;
@@ -89,7 +94,7 @@ function duration(inDate: Date | string | undefined, niceText: boolean = true) {
   const showMinutes =
     Number(dur.minutes) > 0 && !showYears && !showMonths && !showDays;
 
-  if (future && niceText) {
+  if (future && opts?.sentanceFix) {
     pp.push('in');
   }
   if (showYears) {
@@ -107,7 +112,7 @@ function duration(inDate: Date | string | undefined, niceText: boolean = true) {
   if (showMinutes) {
     pp.push(`${dur.minutes?.toFixed(0)}m`);
   }
-  if (!future && niceText) {
+  if (!future && opts?.sentanceFix) {
     pp.push('ago');
   }
   return pp.join(' ');

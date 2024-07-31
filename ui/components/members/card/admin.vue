@@ -109,7 +109,11 @@ function itemStateChanged(id: number) {
 
           <OverridableText label="This invite will expire on">
             {{ $filters.date(props.member.metaInvite.expiryDate) }}
-            ({{ $filters.duration(props.member.metaInvite.expiryDate) }})
+            ({{
+              $filters.duration(props.member.metaInvite.expiryDate, {
+                sentanceFix: true,
+              })
+            }})
           </OverridableText>
 
           <OverridableText label="Status">
@@ -130,7 +134,11 @@ function itemStateChanged(id: number) {
 
           <OverridableText label="This invite was submitted on">
             {{ $filters.date(props.member.metaInvite.submittedDate) }}
-            ({{ $filters.duration(props.member.metaInvite.submittedDate) }})
+            ({{
+              $filters.duration(props.member.metaInvite.submittedDate, {
+                sentanceFix: true,
+              })
+            }})
           </OverridableText>
 
           <OverridableText label="Level Description">
