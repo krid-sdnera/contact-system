@@ -76,7 +76,7 @@ function duration(
     return dt;
   }
 
-  let d: Duration = dt.diffNow();
+  let d: Duration = dt.diffNow(undefined, { conversionAccuracy: 'longterm' });
 
   // Date is in the future.
   const future = d.milliseconds > 0;
