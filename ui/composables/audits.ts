@@ -29,12 +29,15 @@ export const useAudit = () => {
     removeAudit(auditId: number): void {
       delete auditsState.value[String(auditId)];
     },
-    useListAudits: (search: Ref<string>, filters?: { member?: MemberData }) => {
+    useListAudits: (
+      search: Ref<string>,
+      hardFilters?: { member?: MemberData }
+    ) => {
       const { currentPage, apiSortBy, pageSize, useUiPageControls } =
         usePageControls({ sortBy: [{ key: 'createdAt', order: 'desc' }] });
 
       const { data, refresh, status } = useApiFetch((api) => {
-        if (filters?.member) {
+        if (hardFilters?.member) {
           // TODO: Build search param.
         }
 

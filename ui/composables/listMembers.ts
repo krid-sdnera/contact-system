@@ -77,7 +77,7 @@ export const useListMember = () => {
     useListListMembers: (
       list: ListData,
       search: Ref<string>,
-      filters?: {
+      hardFilters?: {
         member?: MemberData;
         contact?: ContactData;
         role?: RoleData;
@@ -88,23 +88,23 @@ export const useListMember = () => {
       const { currentPage, pageSize, useUiPageControls } = usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
-        // if (filters?.role) {
+        // if (hardFilters?.role) {
         //   return api.roles.getListMembersByRoleId({
-        //     roleId: filters.role.id,
+        //     roleId: hardFilters.role.id,
         //     page: currentPage.value,
         //     pageSize: pageSize.value,
         //     query: search.value,
         //   });
-        // } else if (filters?.section) {
+        // } else if (hardFilters?.section) {
         //   return api.sections.getListMembersBySectionId({
-        //     sectionId: filters.section.id,
+        //     sectionId: hardFilters.section.id,
         //     page: currentPage.value,
         //     pageSize: pageSize.value,
         //     query: search.value,
         //   });
         // }
 
-        // TODO filters
+        // TODO hardFilters
 
         return api.lists.getListRecipientsByListId({
           listId: list.id,

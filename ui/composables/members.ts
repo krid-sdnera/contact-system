@@ -67,21 +67,24 @@ export const useMember = () => {
     },
     useListMembers: (
       search: Ref<string>,
-      filters?: { role?: RoleData; section?: SectionData }
+      hardFilters?: {
+        role?: RoleData;
+        section?: SectionData;
+      }
     ) => {
       const { currentPage, pageSize, useUiPageControls } = usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
-        if (filters?.role) {
+        if (hardFilters?.role) {
           return api.roles.getMembersByRoleId({
-            roleId: filters.role.id,
+            roleId: hardFilters.role.id,
             page: currentPage.value,
             pageSize: pageSize.value,
             query: search.value,
           });
-        } else if (filters?.section) {
+        } else if (hardFilters?.section) {
           return api.sections.getMembersBySectionId({
-            sectionId: filters.section.id,
+            sectionId: hardFilters.section.id,
             page: currentPage.value,
             pageSize: pageSize.value,
             query: search.value,
@@ -128,7 +131,7 @@ export const useMember = () => {
         }),
       };
     },
-    useListAllMembers: (filters?: {
+    useListAllMembers: (hardFilters?: {
       role?: RoleData;
       section?: SectionData;
     }) => {
@@ -137,15 +140,15 @@ export const useMember = () => {
 
       async function fetchMemberPage(page: number = 1): Promise<number[]> {
         const { data } = await useApiFetch((api) => {
-          if (filters?.role) {
+          if (hardFilters?.role) {
             return api.roles.getMembersByRoleId({
-              roleId: filters.role.id,
+              roleId: hardFilters.role.id,
               page: page,
               pageSize: 50,
             });
-          } else if (filters?.section) {
+          } else if (hardFilters?.section) {
             return api.sections.getMembersBySectionId({
-              sectionId: filters.section.id,
+              sectionId: hardFilters.section.id,
               page: page,
               pageSize: 50,
             });
@@ -188,7 +191,7 @@ export const useMember = () => {
           ): { memberIdsFetched: number[]; members: MemberData[] } => {
             const { members, removeMember } = useMember();
 
-            if (filters?.role || filters?.section) {
+            if (hardFilters?.role || hardFilters?.section) {
               // A filter was used.
               // Dont remove members from local cache if they were missing from this request.
             } else {

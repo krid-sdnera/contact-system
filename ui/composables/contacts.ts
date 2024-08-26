@@ -66,14 +66,14 @@ export const useContact = () => {
     },
     useListContacts: (
       search: Ref<string>,
-      filters?: { member?: MemberData }
+      hardFilters?: { member?: MemberData }
     ) => {
       const { currentPage, pageSize, useUiPageControls } = usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
-        if (filters?.member) {
+        if (hardFilters?.member) {
           return api.members.getMemberContactsById({
-            memberId: filters.member.id,
+            memberId: hardFilters.member.id,
             page: currentPage.value,
             pageSize: pageSize.value,
             // query: search.value,
@@ -122,15 +122,15 @@ export const useContact = () => {
         }),
       };
     },
-    useListAllContacts: (filters?: { member?: MemberData }) => {
+    useListAllContacts: (hardFilters?: { member?: MemberData }) => {
       const error = ref<boolean>(false);
       const errorMessage = ref<string | undefined>(undefined);
 
       async function fetchContactPage(page: number = 1): Promise<number[]> {
         const { data } = await useApiFetch((api) => {
-          if (filters?.member) {
+          if (hardFilters?.member) {
             return api.members.getMemberContactsById({
-              memberId: filters.member.id,
+              memberId: hardFilters.member.id,
               page: page,
               pageSize: 50,
             });

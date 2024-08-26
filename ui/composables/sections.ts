@@ -66,14 +66,14 @@ export const useSection = () => {
     },
     useListSections: (
       search: Ref<string>,
-      filters?: { scoutGroup?: ScoutGroupData }
+      hardFilters?: { scoutGroup?: ScoutGroupData }
     ) => {
       const { currentPage, pageSize, useUiPageControls } = usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
-        if (filters?.scoutGroup) {
+        if (hardFilters?.scoutGroup) {
           return api.scoutGroups.getScoutGroupSectionsByScoutGroupId({
-            scoutGroupId: filters.scoutGroup.id,
+            scoutGroupId: hardFilters.scoutGroup.id,
             // page: currentPage.value,
             // pageSize: pageSize.value,
             // query: search.value,

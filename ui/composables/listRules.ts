@@ -81,7 +81,7 @@ export const useListRule = () => {
     },
     useListListRules: (
       search: Ref<string>,
-      filters:
+      hardFilters:
         | {
             list: ListData;
           }
@@ -90,8 +90,8 @@ export const useListRule = () => {
       const { currentPage, pageSize, useUiPageControls } = usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
-        if ('relation' in filters) {
-          const relation = filters.relation;
+        if ('relation' in hardFilters) {
+          const relation = hardFilters.relation;
           if (relation?.member) {
             return api.members.getListRulesByMemberId({
               memberId: relation.member.id,
@@ -131,7 +131,7 @@ export const useListRule = () => {
         }
 
         return api.lists.getListRulesByListId({
-          listId: filters.list.id,
+          listId: hardFilters.list.id,
           page: currentPage.value,
           pageSize: pageSize.value,
           query: search.value,
@@ -174,14 +174,14 @@ export const useListRule = () => {
         }),
       };
     },
-    useListAllListRules: (filters: { list: ListData }) => {
+    useListAllListRules: (hardFilters: { list: ListData }) => {
       const error = ref<boolean>(false);
       const errorMessage = ref<string | undefined>(undefined);
 
       async function fetchListRulePage(page: number = 1): Promise<number[]> {
         const { data } = await useApiFetch((api) =>
           api.lists.getListRulesByListId({
-            listId: filters.list.id,
+            listId: hardFilters.list.id,
             page: page,
             pageSize: 50,
           })

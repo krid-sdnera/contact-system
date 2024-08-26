@@ -61,14 +61,14 @@ export const useRole = () => {
     },
     useListRoles: (
       search: Ref<string>,
-      filters?: { section?: SectionData }
+      hardFilters?: { section?: SectionData }
     ) => {
       const { currentPage, pageSize, useUiPageControls } = usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
-        if (filters?.section) {
+        if (hardFilters?.section) {
           return api.sections.getSectionRolesBySectionId({
-            sectionId: filters.section.id,
+            sectionId: hardFilters.section.id,
             // page: currentPage.value,
             // pageSize: pageSize.value,
             // query: search.value,

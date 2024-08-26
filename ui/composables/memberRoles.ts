@@ -72,7 +72,7 @@ export const useMemberRole = () => {
     // },
     useListMemberRoles: (
       search: Ref<string>,
-      filters: { member: MemberData }
+      hardFilters: { member: MemberData }
     ) => {
       const { currentPage, pageSize, useUiPageControls } = usePageControls();
 
@@ -80,7 +80,7 @@ export const useMemberRole = () => {
         return api.members.getMemberRolesById({
           page: currentPage.value,
           pageSize: pageSize.value,
-          memberId: filters.member.id,
+          memberId: hardFilters.member.id,
         });
       });
 
@@ -122,14 +122,14 @@ export const useMemberRole = () => {
         }),
       };
     },
-    useListAllMemberRoles: (filters: { member: MemberData }) => {
+    useListAllMemberRoles: (hardFilters: { member: MemberData }) => {
       const error = ref<boolean>(false);
       const errorMessage = ref<string | undefined>(undefined);
 
       async function fetchMemberRolePage(page: number = 1): Promise<string[]> {
         const { data } = await useApiFetch((api) =>
           api.members.getMemberRolesById({
-            memberId: filters.member.id,
+            memberId: hardFilters.member.id,
             page: page,
             pageSize: 50,
           })
