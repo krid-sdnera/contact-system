@@ -7,6 +7,7 @@ const props = withDefaults(
   defineProps<{
     allowCreation?: boolean;
     searchable?: boolean;
+    trackParams?: boolean;
 
     role?: RoleData;
     section?: SectionData;
@@ -14,12 +15,13 @@ const props = withDefaults(
   {
     allowCreation: false,
     searchable: false,
+    trackParams: false,
   }
 );
 
 const { useListLists } = useList();
 const { displayLists, uiPageControls, refresh, loading, error, errorMessage } =
-  useListLists();
+  useListLists(props.trackParams);
 
 const dialogCreate = ref(false);
 function itemCreate() {

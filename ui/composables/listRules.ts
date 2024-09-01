@@ -80,7 +80,8 @@ export const useListRule = () => {
       return fetchListRuleComposable[listRuleId];
     },
     useListListRules: (
-      hardFilters: { list: ListData } | { relation: RuleRelationProp }
+      hardFilters: { list: ListData } | { relation: RuleRelationProp },
+      trackParams: boolean = false
     ) => {
       const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
         usePageControls();
@@ -147,6 +148,7 @@ export const useListRule = () => {
         refresh,
         maxPages: computed(() => (data.value ? data.value.totalPages : 0)),
         totalItems: computed(() => (data.value ? data.value.totalItems : 0)),
+        trackParams,
       });
 
       watch(data, (value) => {

@@ -64,7 +64,10 @@ export const useSection = () => {
 
       return fetchSectionComposable[sectionId];
     },
-    useListSections: (hardFilters?: { scoutGroup?: ScoutGroupData }) => {
+    useListSections: (
+      hardFilters?: { scoutGroup?: ScoutGroupData },
+      trackParams: boolean = false
+    ) => {
       const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
         usePageControls();
 
@@ -92,6 +95,7 @@ export const useSection = () => {
         refresh,
         maxPages: computed(() => (data.value ? data.value.totalPages : 0)),
         totalItems: computed(() => (data.value ? data.value.totalItems : 0)),
+        trackParams,
       });
 
       watch(data, (value) => {

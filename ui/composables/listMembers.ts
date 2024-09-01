@@ -82,7 +82,8 @@ export const useListMember = () => {
         role?: RoleData;
         section?: SectionData;
         scoutGroup?: ScoutGroupData;
-      }
+      },
+      trackParams: boolean = false
     ) => {
       const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
         usePageControls();
@@ -122,6 +123,7 @@ export const useListMember = () => {
         refresh,
         maxPages: computed(() => (data.value ? data.value.totalPages : 0)),
         totalItems: computed(() => (data.value ? data.value.totalItems : 0)),
+        trackParams,
       });
 
       watch(data, (value) => {

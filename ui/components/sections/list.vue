@@ -6,12 +6,14 @@ const props = withDefaults(
   defineProps<{
     allowCreation?: boolean;
     searchable?: boolean;
+    trackParams?: boolean;
 
     scoutGroup?: ScoutGroupData;
   }>(),
   {
     allowCreation: false,
     searchable: false,
+    trackParams: false,
   }
 );
 
@@ -23,9 +25,12 @@ const {
   loading,
   error,
   errorMessage,
-} = useListSections({
-  scoutGroup: props.scoutGroup,
-});
+} = useListSections(
+  {
+    scoutGroup: props.scoutGroup,
+  },
+  props.trackParams
+);
 
 const dialogCreate = ref(false);
 function itemCreate() {

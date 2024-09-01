@@ -15,7 +15,7 @@ definePageMeta({
 <template>
   <v-row>
     <v-col>
-      <ScoutGroupsList allow-creation searchable></ScoutGroupsList>
+      <ScoutGroupsList allow-creation searchable track-params></ScoutGroupsList>
     </v-col>
   </v-row>
 </template>

@@ -7,6 +7,7 @@ const props = withDefaults(
   defineProps<{
     allowCreation?: boolean;
     searchable?: boolean;
+    trackParams?: boolean;
 
     role?: RoleData;
     section?: SectionData;
@@ -14,6 +15,7 @@ const props = withDefaults(
   {
     allowCreation: false,
     searchable: false,
+    trackParams: false,
   }
 );
 
@@ -25,10 +27,13 @@ const {
   loading,
   error,
   errorMessage,
-} = useListMembers({
-  role: props.role,
-  section: props.section,
-});
+} = useListMembers(
+  {
+    role: props.role,
+    section: props.section,
+  },
+  props.trackParams
+);
 
 const dialogCreate = ref(false);
 function itemCreate() {

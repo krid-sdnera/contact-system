@@ -29,7 +29,10 @@ export const useAudit = () => {
     removeAudit(auditId: number): void {
       delete auditsState.value[String(auditId)];
     },
-    useListAudits: (hardFilters?: { member?: MemberData }) => {
+    useListAudits: (
+      hardFilters?: { member?: MemberData },
+      trackParams: boolean = false
+    ) => {
       const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
         usePageControls({ sortBy: [{ key: 'createdAt', order: 'desc' }] });
 
@@ -51,6 +54,7 @@ export const useAudit = () => {
         refresh,
         maxPages: computed(() => (data.value ? data.value.totalPages : 0)),
         totalItems: computed(() => (data.value ? data.value.totalItems : 0)),
+        trackParams,
       });
 
       watch(data, (value) => {

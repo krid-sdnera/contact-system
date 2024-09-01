@@ -6,6 +6,7 @@ const props = withDefaults(
   defineProps<{
     allowCreation?: boolean;
     searchable?: boolean;
+    trackParams?: boolean;
 
     list?: ListData;
 
@@ -14,6 +15,7 @@ const props = withDefaults(
   {
     allowCreation: false,
     searchable: false,
+    trackParams: false,
   }
 );
 
@@ -26,7 +28,8 @@ const {
   error,
   errorMessage,
 } = useListListRules(
-  props.list ? { list: props.list } : { relation: props.relation ?? {} }
+  props.list ? { list: props.list } : { relation: props.relation ?? {} },
+  props.trackParams
 );
 
 const dialogCreate = ref(false);

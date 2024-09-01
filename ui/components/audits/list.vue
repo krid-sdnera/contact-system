@@ -4,15 +4,17 @@ import type { AuditData } from '~/server/types/audit';
 const props = withDefaults(
   defineProps<{
     searchable?: boolean;
+    trackParams?: boolean;
   }>(),
   {
     searchable: false,
+    trackParams: false,
   }
 );
 
 const { useListAudits } = useAudit();
 const { displayAudits, uiPageControls, refresh, loading, error, errorMessage } =
-  useListAudits();
+  useListAudits(undefined, props.trackParams);
 
 const { $filters } = useNuxtApp();
 

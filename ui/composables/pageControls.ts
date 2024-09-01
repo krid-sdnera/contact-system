@@ -33,13 +33,28 @@ export const usePageControls = (defaults?: { sortBy?: SortBy[] }) => {
       refresh: RefreshFn;
       maxPages: ComputedRef<number>;
       totalItems: ComputedRef<number>;
+      trackParams?: boolean;
     }): UiPageControls {
       const loading = computed<boolean>(() => opts.status.value === 'pending');
 
-      const { refreshDebounced } = configureSyncRefsAndParams(
-        { currentPage, pageSize, sortBy, search, filters },
-        opts.refresh
-      );
+      const refreshDebounced = useDebounceFn(opts.refresh, 1000, {
+        maxWait: 5000,
+      });
+
+      if (opts.trackParams === true) {
+        configureSyncRefsAndParams(
+          { currentPage, pageSize, sortBy, search, filters },
+          refreshDebounced
+        );
+      } else {
+        watch(
+          [currentPage, pageSize, sortBy, search, filters],
+          () => refreshDebounced(),
+          {
+            deep: true,
+          }
+        );
+      }
 
       return {
         currentPage,
@@ -100,10 +115,8 @@ const paramToString = (value: LocationQueryValue | LocationQueryValue[]) =>
 
 function configureSyncRefsAndParams(
   { currentPage, pageSize, sortBy, search, filters }: TrackableRefsAndParams,
-  refresh: RefreshFn
-): { refreshDebounced: PromisifyFn<RefreshFn> } {
-  const refreshDebounced = useDebounceFn(refresh, 1000, { maxWait: 5000 });
-
+  refresh: PromisifyFn<RefreshFn>
+): void {
   let updatingParmsLock = false;
 
   const route = useRoute();
@@ -159,7 +172,7 @@ function configureSyncRefsAndParams(
       filters.value[key] = undefined;
     }
 
-    refreshDebounced();
+    refresh();
   }
 
   function refsToUrlParams() {
@@ -179,17 +192,13 @@ function configureSyncRefsAndParams(
     });
     updatingParmsLock = false;
 
-    refreshDebounced();
+    refresh();
   }
 
   watch(() => route.fullPath, urlParamsToRefs, { immediate: true });
   watch([currentPage, pageSize, sortBy, search, filters], refsToUrlParams, {
     deep: true,
   });
-
-  return {
-    refreshDebounced,
-  };
 }
 
 class ApiSort {

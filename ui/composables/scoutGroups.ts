@@ -69,7 +69,7 @@ export const useScoutGroup = () => {
 
       return fetchScoutGroupComposable[scoutGroupId];
     },
-    useListScoutGroups: () => {
+    useListScoutGroups: (trackParams: boolean = false) => {
       const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
         usePageControls();
 
@@ -87,6 +87,7 @@ export const useScoutGroup = () => {
         refresh,
         maxPages: computed(() => (data.value ? data.value.totalPages : 0)),
         totalItems: computed(() => (data.value ? data.value.totalItems : 0)),
+        trackParams,
       });
 
       watch(data, (value) => {

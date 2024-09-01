@@ -15,7 +15,7 @@ definePageMeta({
 <template>
   <v-row>
     <v-col>
-      <AuditsList searchable></AuditsList>
+      <AuditsList searchable track-params></AuditsList>
     </v-col>
   </v-row>
 </template>

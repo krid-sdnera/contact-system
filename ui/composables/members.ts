@@ -65,10 +65,13 @@ export const useMember = () => {
 
       return fetchMemberComposable[memberId];
     },
-    useListMembers: (hardFilters?: {
-      role?: RoleData;
-      section?: SectionData;
-    }) => {
+    useListMembers: (
+      hardFilters?: {
+        role?: RoleData;
+        section?: SectionData;
+      },
+      trackParams: boolean = false
+    ) => {
       const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
         usePageControls();
 
@@ -104,6 +107,7 @@ export const useMember = () => {
         refresh,
         maxPages: computed(() => (data.value ? data.value.totalPages : 0)),
         totalItems: computed(() => (data.value ? data.value.totalItems : 0)),
+        trackParams,
       });
 
       watch(data, (value) => {

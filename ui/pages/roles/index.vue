@@ -15,7 +15,7 @@ definePageMeta({
 <template>
   <v-row>
     <v-col>
-      <RolesList allow-creation searchable></RolesList>
+      <RolesList allow-creation searchable track-params></RolesList>
     </v-col>
   </v-row>
 </template>

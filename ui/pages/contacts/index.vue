@@ -15,7 +15,7 @@ definePageMeta({
 <template>
   <v-row>
     <v-col>
-      <ContactsList allow-creation searchable></ContactsList>
+      <ContactsList allow-creation searchable track-params></ContactsList>
     </v-col>
   </v-row>
 </template>

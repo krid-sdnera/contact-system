@@ -58,7 +58,7 @@ export const useList = () => {
 
       return fetchListComposable[listId];
     },
-    useListLists: () => {
+    useListLists: (trackParams: boolean = false) => {
       const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
         usePageControls();
 
@@ -76,6 +76,7 @@ export const useList = () => {
         refresh,
         maxPages: computed(() => (data.value ? data.value.totalPages : 0)),
         totalItems: computed(() => (data.value ? data.value.totalItems : 0)),
+        trackParams,
       });
 
       watch(data, (value) => {

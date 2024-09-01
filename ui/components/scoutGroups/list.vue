@@ -5,10 +5,12 @@ const props = withDefaults(
   defineProps<{
     allowCreation?: boolean;
     searchable?: boolean;
+    trackParams?: boolean;
   }>(),
   {
     allowCreation: false,
     searchable: false,
+    trackParams: false,
   }
 );
 
@@ -20,7 +22,7 @@ const {
   loading,
   error,
   errorMessage,
-} = useListScoutGroups();
+} = useListScoutGroups(props.trackParams);
 
 const dialogCreate = ref(false);
 function itemCreate() {

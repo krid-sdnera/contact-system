@@ -6,12 +6,14 @@ const props = withDefaults(
   defineProps<{
     allowCreation?: boolean;
     searchable?: boolean;
+    trackParams?: boolean;
 
     member?: MemberData;
   }>(),
   {
     allowCreation: false,
     searchable: false,
+    trackParams: false,
   }
 );
 
@@ -23,7 +25,7 @@ const {
   loading,
   error,
   errorMessage,
-} = useListContacts({ member: props.member });
+} = useListContacts({ member: props.member }, props.trackParams);
 
 const dialogCreate = ref(false);
 function itemCreate() {

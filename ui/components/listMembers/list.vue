@@ -5,6 +5,7 @@ import type { ListMemberData } from '~/server/types/listMember';
 const props = withDefaults(
   defineProps<{
     searchable?: boolean;
+    trackParams?: boolean;
 
     list: ListData;
     // role?: RoleData;
@@ -12,6 +13,7 @@ const props = withDefaults(
   }>(),
   {
     searchable: false,
+    trackParams: false,
   }
 );
 
@@ -23,10 +25,14 @@ const {
   loading,
   error,
   errorMessage,
-} = useListListMembers(props.list, {
-  // role: props.role,
-  // section: props.section,
-});
+} = useListListMembers(
+  props.list,
+  {
+    // role: props.role,
+    // section: props.section,
+  },
+  props.trackParams
+);
 
 const dialogCreate = ref(false);
 function itemCreate() {

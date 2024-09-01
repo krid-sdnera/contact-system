@@ -5,11 +5,13 @@ import type { MemberRoleData } from '~/server/types/memberRole';
 const props = withDefaults(
   defineProps<{
     allowCreation?: boolean;
+    trackParams?: boolean;
 
     member: MemberData;
   }>(),
   {
     allowCreation: false,
+    trackParams: false,
   }
 );
 
@@ -21,7 +23,7 @@ const {
   loading,
   error,
   errorMessage,
-} = useListMemberRoles({ member: props.member });
+} = useListMemberRoles({ member: props.member }, props.trackParams);
 
 const dialogCreate = ref(false);
 function itemCreate() {
