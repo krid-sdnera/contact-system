@@ -3,6 +3,7 @@ const { isLoggedIn, doLogout } = useAuth();
 
 import { useStorage } from '@vueuse/core';
 const drawer = useStorage<boolean>('drawer', true);
+const open = ref<string[]>([]);
 
 const items = [
   {
@@ -14,6 +15,16 @@ const items = [
     icon: 'mdi-account',
     title: 'Members',
     to: '/members',
+    children: [
+      {
+        title: 'Active',
+        to: '/members?state=enabled',
+      },
+      {
+        title: 'Disabled',
+        to: '/members?state=disabled',
+      },
+    ],
   },
   {
     icon: 'mdi-account-child',
@@ -53,24 +64,45 @@ const items = [
     <v-navigation-drawer v-model="drawer">
       <!--      :location="$vuetify.display.mobile ? 'bottom' : undefined"
 -->
-      <v-list-item
-        title="Contact System"
-        subtitle="15th Essendon"
-      ></v-list-item>
-      <v-divider></v-divider>
-      <v-list-item
-        v-for="(item, i) in items"
-        :key="i"
-        nav
-        :title="item.title"
-        :to="item.to"
-        router
-        exact
-      >
-        <template v-slot:prepend>
-          <v-icon :icon="item.icon"></v-icon>
+      <v-list v-model:opened="open">
+        <v-list-item
+          title="Contact System"
+          subtitle="15th Essendon"
+        ></v-list-item>
+        <v-divider></v-divider>
+        <template v-for="(item, i) in items" :key="i">
+          <v-list-item
+            v-if="!item.children || item.children.length === 0"
+            nav
+            :title="item.title"
+            :to="item.to"
+            :prepend-icon="item.icon"
+            router
+            exact
+          ></v-list-item>
+
+          <v-list-group v-else :value="item.title">
+            <template v-slot:activator="{ props }">
+              <v-list-item
+                v-bind="props"
+                nav
+                :title="item.title"
+                :prepend-icon="item.icon"
+              ></v-list-item>
+            </template>
+
+            <v-list-item
+              v-for="(child, j) in item.children"
+              :key="j"
+              nav
+              :title="child.title"
+              :to="child.to"
+              router
+              exact
+            ></v-list-item>
+          </v-list-group>
         </template>
-      </v-list-item>
+      </v-list>
     </v-navigation-drawer>
     <v-app-bar>
       <v-app-bar-nav-icon
