@@ -59,11 +59,9 @@ export const useRole = () => {
 
       return fetchRoleComposable[roleId];
     },
-    useListRoles: (
-      search: Ref<string>,
-      hardFilters?: { section?: SectionData }
-    ) => {
-      const { currentPage, pageSize, useUiPageControls } = usePageControls();
+    useListRoles: (hardFilters?: { section?: SectionData }) => {
+      const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
+        usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
         if (hardFilters?.section) {
@@ -71,14 +69,16 @@ export const useRole = () => {
             sectionId: hardFilters.section.id,
             // page: currentPage.value,
             // pageSize: pageSize.value,
-            // query: search.value,
+            // sort: apiSortBy.value,
+            // query: apiQuery.value,
           });
         }
 
         return api.roles.getRoles({
           page: currentPage.value,
           pageSize: pageSize.value,
-          query: search.value,
+          sort: apiSortBy.value,
+          query: apiQuery.value,
         });
       });
 

@@ -65,14 +65,12 @@ export const useMember = () => {
 
       return fetchMemberComposable[memberId];
     },
-    useListMembers: (
-      search: Ref<string>,
-      hardFilters?: {
-        role?: RoleData;
-        section?: SectionData;
-      }
-    ) => {
-      const { currentPage, pageSize, useUiPageControls } = usePageControls();
+    useListMembers: (hardFilters?: {
+      role?: RoleData;
+      section?: SectionData;
+    }) => {
+      const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
+        usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
         if (hardFilters?.role) {
@@ -80,21 +78,24 @@ export const useMember = () => {
             roleId: hardFilters.role.id,
             page: currentPage.value,
             pageSize: pageSize.value,
-            query: search.value,
+            sort: apiSortBy.value,
+            query: apiQuery.value,
           });
         } else if (hardFilters?.section) {
           return api.sections.getMembersBySectionId({
             sectionId: hardFilters.section.id,
             page: currentPage.value,
             pageSize: pageSize.value,
-            query: search.value,
+            sort: apiSortBy.value,
+            query: apiQuery.value,
           });
         }
 
         return api.members.getMembers({
           page: currentPage.value,
           pageSize: pageSize.value,
-          query: search.value,
+          sort: apiSortBy.value,
+          query: apiQuery.value,
         });
       });
 

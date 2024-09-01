@@ -80,14 +80,10 @@ export const useListRule = () => {
       return fetchListRuleComposable[listRuleId];
     },
     useListListRules: (
-      search: Ref<string>,
-      hardFilters:
-        | {
-            list: ListData;
-          }
-        | { relation: RuleRelationProp }
+      hardFilters: { list: ListData } | { relation: RuleRelationProp }
     ) => {
-      const { currentPage, pageSize, useUiPageControls } = usePageControls();
+      const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
+        usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
         if ('relation' in hardFilters) {
@@ -97,44 +93,52 @@ export const useListRule = () => {
               memberId: relation.member.id,
               page: currentPage.value,
               pageSize: pageSize.value,
-              query: search.value,
+              sort: apiSortBy.value,
+              query: apiQuery.value,
             });
           } else if (relation?.contact) {
             return api.contacts.getListRulesByContactId({
               contactId: relation.contact.id,
               page: currentPage.value,
               pageSize: pageSize.value,
-              query: search.value,
+              sort: apiSortBy.value,
+              query: apiQuery.value,
             });
           } else if (relation?.role) {
             return api.roles.getListRulesByRoleId({
               roleId: relation.role.id,
               page: currentPage.value,
               pageSize: pageSize.value,
-              query: search.value,
+              sort: apiSortBy.value,
+              query: apiQuery.value,
             });
           } else if (relation?.section) {
             return api.sections.getListRulesBySectionId({
               sectionId: relation.section.id,
               page: currentPage.value,
               pageSize: pageSize.value,
-              query: search.value,
+              sort: apiSortBy.value,
+              query: apiQuery.value,
             });
           } else if (relation?.scoutGroup) {
             return api.scoutGroups.getListRulesByScoutGroupId({
               scoutGroupId: relation.scoutGroup.id,
               page: currentPage.value,
               pageSize: pageSize.value,
-              query: search.value,
+              sort: apiSortBy.value,
+              query: apiQuery.value,
             });
           }
+
+          throw new Error('[useListListRules] undefined relation');
         }
 
         return api.lists.getListRulesByListId({
           listId: hardFilters.list.id,
           page: currentPage.value,
           pageSize: pageSize.value,
-          query: search.value,
+          sort: apiSortBy.value,
+          query: apiQuery.value,
         });
       });
 

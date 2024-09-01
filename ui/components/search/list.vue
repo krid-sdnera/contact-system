@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import type { ScoutGroupData } from '~/server/types/scoutGroup';
 import type { MemberData } from '~/server/types/member';
-import { refDebounced } from '@vueuse/core';
 
-const model = defineModel<string>({ required: true });
+// const model = defineModel<string>({ required: true });
 const props = defineProps<{}>();
 const emit = defineEmits<{
   close: [];
 }>();
-
-// const debouncedModel = refDebounced(model, 1000);
 
 const { useListMembers } = useMember();
 const {
@@ -19,7 +15,7 @@ const {
   loading: loadingMembers,
   error: errorMembers,
   errorMessage: errorMessageMembers,
-} = useListMembers(model);
+} = useListMembers();
 const { useListContacts } = useContact();
 const {
   displayContacts,
@@ -28,7 +24,7 @@ const {
   loading: loadingContacts,
   error: errorContacts,
   errorMessage: errorMessageContacts,
-} = useListContacts(model);
+} = useListContacts();
 
 function uiPageControlsCombiner(
   ...uiPageControls: UiPageControls[]
@@ -42,6 +38,16 @@ function uiPageControlsCombiner(
   return {
     currentPage: computed(() => 1),
     pageSize: totalItems,
+    sortBy: computed(() => []),
+    search: computed({
+      get: () => {
+        return uiPageControls[0].search.value;
+      },
+      set: (newSearch) => {
+        uiPageControls.forEach((upc) => (upc.search.value = newSearch));
+      },
+    }),
+    filters: computed(() => ({} as Record<string, string | undefined>)),
     loading: computed(() => uiPageControls.some((upc) => upc.loading.value)),
     refresh: async () =>
       Promise.all(uiPageControls.map((upc) => upc.refresh())).then(() => {}),
@@ -60,12 +66,16 @@ function uiPageControlsCombiner(
   };
 }
 
+const hasEmptySearch = computed(() => !Boolean(uiPageControls.search.value));
+
 const uiPageControls = uiPageControlsCombiner(
   uiPageControlsMembers,
   uiPageControlsContacts
 );
 const refresh = async () => Promise.all([refreshMembers(), refreshContacts()]);
-const loading = computed(() => loadingMembers.value || loadingContacts.value);
+const loading = computed(
+  () => !hasEmptySearch.value && (loadingMembers.value || loadingContacts.value)
+);
 const error = computed(() => errorMembers.value || errorContacts.value);
 const errorMessage = computed(
   () => errorMessageMembers.value + errorMessageContacts.value
@@ -74,7 +84,7 @@ const errorMessage = computed(
 const { $filters } = useNuxtApp();
 
 const headers: TableControlsHeader[] = [
-  { title: 'ID', key: 'id', fixed: true },
+  { title: 'ID', key: 'id' },
   { title: 'Firstname', key: 'firstname' },
   { title: 'Nickname', key: 'nickname' },
   { title: 'Lastname', key: 'lastname' },
@@ -88,7 +98,7 @@ const headers: TableControlsHeader[] = [
   { title: 'Home Phone', key: 'phoneHome' },
   { title: 'Mobile Phone', key: 'phoneMobile' },
   { title: 'Work Phone', key: 'phoneWork' },
-  { title: 'Type', key: 'type', fixed: true },
+  { title: 'Type', key: 'type' },
   { title: 'Actions', key: 'actionButtons', sortable: false },
 ];
 const { shownHeaders, useUiTableControls } = useTableControls(
@@ -106,8 +116,11 @@ const uiTableControls = useUiTableControls();
 const tableControlDialog = ref<boolean>(false);
 
 const displayItems = computed(() => {
-  const arr = [];
+  if (hasEmptySearch.value) {
+    return [];
+  }
 
+  const arr = [];
   if (displayMembers.value) {
     arr.push(...displayMembers.value.map((x) => ({ ...x, type: 'member' })));
   }
@@ -117,6 +130,11 @@ const displayItems = computed(() => {
 
   return arr;
 });
+
+function close() {
+  emit('close');
+  uiPageControls.search.value = '';
+}
 </script>
 
 <template>
@@ -127,7 +145,7 @@ const displayItems = computed(() => {
       :loading="loading"
       v-model:items-per-page="uiPageControls.pageSize.value"
       :items-length="uiPageControls.totalItems.value"
-      :search="model"
+      :search="uiPageControls.search.value"
       @update:options="uiPageControls.updateOptions"
     >
       <template v-slot:loading>
@@ -139,11 +157,10 @@ const displayItems = computed(() => {
             hide-details
             label="Search"
             class="mx-4"
-            v-model="model"
+            v-model="uiPageControls.search.value"
             autofocus
             variant="plain"
           ></v-text-field>
-          <!-- <v-toolbar-title>Search</v-toolbar-title> -->
 
           <v-btn icon="mdi-sync" v-tooltip="'Refresh'" @click="refresh"></v-btn>
 
@@ -152,7 +169,7 @@ const displayItems = computed(() => {
             :controls="uiTableControls"
           ></TableControls>
 
-          <v-btn icon="mdi-close" @click="emit('close')"></v-btn>
+          <v-btn icon="mdi-close" @click="close()"></v-btn>
         </v-toolbar>
       </template>
 
@@ -160,14 +177,14 @@ const displayItems = computed(() => {
         <NuxtLink
           v-if="item.type === 'member'"
           :to="`/members/${item.id}`"
-          @click="emit('close')"
+          @click="close()"
         >
           {{ item.id }}
         </NuxtLink>
         <NuxtLink
           v-if="item.type === 'contact'"
           :to="`/contacts/${item.id}`"
-          @click="emit('close')"
+          @click="close()"
         >
           {{ item.id }}
         </NuxtLink>
@@ -179,18 +196,18 @@ const displayItems = computed(() => {
           variant="text"
           icon="mdi-eye"
           :to="`/members/${item.id}`"
-          @click="emit('close')"
+          @click="close()"
         />
         <v-btn
           v-if="item.type === 'contact'"
           variant="text"
           icon="mdi-eye"
           :to="`/contacts/${item.id}`"
-          @click="emit('close')"
+          @click="close()"
         />
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="refresh">No Data: Refresh</v-btn>
+        <v-btn color="primary" @click="refresh">Start your search</v-btn>
       </template>
 
       <template v-slot:bottom>

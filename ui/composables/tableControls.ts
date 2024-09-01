@@ -18,6 +18,9 @@ interface Header {
   // filter
   readonly mobile?: boolean;
   children?: Header[];
+
+  // Custom fields.
+  filterable?: boolean;
 }
 
 type HeaderWithKey = Header & Required<Pick<Header, 'key'>>;

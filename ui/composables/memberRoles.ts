@@ -70,17 +70,17 @@ export const useMemberRole = () => {
 
     //   return fetchMemberRoleComposable[memberRoleId];
     // },
-    useListMemberRoles: (
-      search: Ref<string>,
-      hardFilters: { member: MemberData }
-    ) => {
-      const { currentPage, pageSize, useUiPageControls } = usePageControls();
+    useListMemberRoles: (hardFilters: { member: MemberData }) => {
+      const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
+        usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
         return api.members.getMemberRolesById({
+          memberId: hardFilters.member.id,
           page: currentPage.value,
           pageSize: pageSize.value,
-          memberId: hardFilters.member.id,
+          sort: apiSortBy.value,
+          // query: apiQuery.value,
         });
       });
 

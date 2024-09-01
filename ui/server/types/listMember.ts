@@ -3,5 +3,6 @@ import { type Recipients } from '~/lib/ContactSystem/Client/src/models/Recipient
 
 export {
   type RecipientData, // wrap
+  type RecipientData as ListMemberData,
   type Recipients,
 };

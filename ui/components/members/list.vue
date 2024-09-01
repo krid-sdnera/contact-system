@@ -17,8 +17,6 @@ const props = withDefaults(
   }
 );
 
-const search = ref<string>('');
-
 const { useListMembers } = useMember();
 const {
   displayMembers,
@@ -27,7 +25,7 @@ const {
   loading,
   error,
   errorMessage,
-} = useListMembers(search, {
+} = useListMembers({
   role: props.role,
   section: props.section,
 });
@@ -68,17 +66,18 @@ const exportDialog = ref<boolean>(false);
 const { $filters } = useNuxtApp();
 
 const headers: TableControlsHeader[] = [
-  { title: 'ID', key: 'id', fixed: true },
-  { title: 'State', key: 'state' },
-  { title: 'MState', key: 'managementState' },
-  { title: 'Firstname', key: 'firstname' },
-  { title: 'Nickname', key: 'nickname' },
-  { title: 'Lastname', key: 'lastname' },
-  { title: 'Membership Number', key: 'membershipNumber' },
+  { title: 'ID', key: 'id' },
+  { title: 'State', key: 'state', filterable: true },
+  { title: 'MState', key: 'managementState', filterable: true },
+  { title: 'Firstname', key: 'firstname', filterable: true },
+  { title: 'Nickname', key: 'nickname', filterable: true },
+  { title: 'Lastname', key: 'lastname', filterable: true },
+  { title: 'Membership Number', key: 'membershipNumber', filterable: true },
   {
     title: 'Address',
     key: 'address',
     value: (item: MemberData) => $filters.address(item.address),
+    filterable: true,
   },
   {
     title: 'Date of Birth',
@@ -90,17 +89,18 @@ const headers: TableControlsHeader[] = [
     key: 'age',
     value: (item: MemberData) => $filters.duration(item.dateOfBirth),
   },
-  { title: 'Email', key: 'email' },
-  { title: 'Home Phone', key: 'phoneHome' },
-  { title: 'Mobile Phone', key: 'phoneMobile' },
-  { title: 'Work Phone', key: 'phoneWork' },
-  { title: 'Gender', key: 'gender' },
-  { title: 'School Name', key: 'schoolName' },
-  { title: 'School Year Level', key: 'schoolYearLevel' },
+  { title: 'Email', key: 'email', filterable: true },
+  { title: 'Home Phone', key: 'phoneHome', filterable: true },
+  { title: 'Mobile Phone', key: 'phoneMobile', filterable: true },
+  { title: 'Work Phone', key: 'phoneWork', filterable: true },
+  { title: 'Gender', key: 'gender', filterable: true },
+  { title: 'School Name', key: 'schoolName', filterable: true },
+  { title: 'School Year Level', key: 'schoolYearLevel', filterable: true },
   {
     title: 'Auto Upgrade Enabled',
     key: 'autoUpgradeEnabled',
     value: (item: MemberData) => (item.autoUpgradeEnabled ? 'Yes' : 'No'),
+    filterable: true,
   },
   { title: 'Actions', key: 'actionButtons', sortable: false },
 ];
@@ -163,7 +163,7 @@ const itemsPerPageOptions = [
       :loading="loading"
       v-model:items-per-page="uiPageControls.pageSize.value"
       :items-length="uiPageControls.totalItems.value"
-      :search="search"
+      :search="uiPageControls.search.value"
       @update:options="uiPageControls.updateOptions"
       :items-per-page-options="itemsPerPageOptions"
     >
@@ -178,7 +178,7 @@ const itemsPerPageOptions = [
 
           <v-text-field
             v-if="props.searchable"
-            v-model="search"
+            v-model="uiPageControls.search.value"
             label="Find Member"
             single-line
             hide-details
@@ -211,6 +211,21 @@ const itemsPerPageOptions = [
             :controls="uiTableControls"
           ></TableControls>
         </v-toolbar>
+      </template>
+
+      <template
+        v-for="(header, i) in headers"
+        v-slot:[`header.${header.key}`]="{
+          column,
+          toggleSort,
+          getSortIcon,
+          isSorted,
+        }"
+      >
+        <TableHeaderCell
+          :header="{ column, toggleSort, getSortIcon, isSorted }"
+          :filters="uiPageControls.filters"
+        ></TableHeaderCell>
       </template>
 
       <template v-slot:item.id="{ item }">

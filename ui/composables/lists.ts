@@ -58,14 +58,16 @@ export const useList = () => {
 
       return fetchListComposable[listId];
     },
-    useListLists: (search: Ref<string>) => {
-      const { currentPage, pageSize, useUiPageControls } = usePageControls();
+    useListLists: () => {
+      const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
+        usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
         return api.lists.getLists({
           page: currentPage.value,
           pageSize: pageSize.value,
-          query: search.value,
+          sort: apiSortBy.value,
+          query: apiQuery.value,
         });
       });
 

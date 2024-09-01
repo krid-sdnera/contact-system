@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\EmailListRule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Repository\PageFetcherTrait;
@@ -25,47 +26,54 @@ class EmailListRuleRepository extends ServiceEntityRepository
 
     public function findByPage($query = null, $sort = null, $pageSize = null, $page = null, $constraint = null)
     {
-        $qb = $this->createQueryBuilder('e')->select('e');
-        if ($constraint) {
+        $pageFetcher = $this->pageFetcherHelper()
+            ->processPageParameters($page, $pageSize)
+            ->processSortParameter($sort)
+            ->processQueryParameter(
+                $query,
+                function (QueryBuilder $qb, $search) {
+                    $qb->setParameter(":search", "%{$search}%");
 
-            if (array_key_exists('listId', $constraint)) {
-                $qb->where($qb->expr()->eq('e.emailList', ':list'));
-                $qb->setParameter('list', $constraint['listId']);
-            } else if (array_key_exists('contactId', $constraint)) {
-                $qb->where($qb->expr()->eq('e.contact', ':contact'));
-                $qb->setParameter('contact', $constraint['contactId']);
-            } else if (array_key_exists('memberId', $constraint)) {
-                $qb->where($qb->expr()->eq('e.member', ':member'));
-                $qb->setParameter('member', $constraint['memberId']);
-            } else if (array_key_exists('roleId', $constraint)) {
-                $qb->where($qb->expr()->eq('e.role', ':role'));
-                $qb->setParameter('role', $constraint['roleId']);
-            } else if (array_key_exists('sectionId', $constraint)) {
-                $qb->where($qb->expr()->eq('e.section', ':section'));
-                $qb->setParameter('section', $constraint['sectionId']);
-            } else if (array_key_exists('scoutGroupId', $constraint)) {
-                $qb->where($qb->expr()->eq('e.scoutGroup', ':scoutGroup'));
-                $qb->setParameter('scoutGroup', $constraint['scoutGroupId']);
-            }
-        }
+                    return $qb->expr()->orX(
+                        $qb->expr()->like('e.label', ':search'),
+                        $qb->expr()->like('e.comment', ':search'),
+                    );
+                }
+            )
+            ->addCondition(function (QueryBuilder $qb) use ($constraint) {
+                if (empty($constraint)) {
+                    return null;
+                }
 
-        $expression = $qb->expr()->orX(
-            $qb->expr()->like('e.label', ':search'),
-            $qb->expr()->like('e.comment', ':search'),
-        );
+                if (array_key_exists('listId', $constraint)) {
+                    $qb->setParameter('list', $constraint['listId']);
+                    return $qb->expr()->eq('e.emailList', ':list');
+                } else if (array_key_exists('contactId', $constraint)) {
+                    $qb->setParameter('contact', $constraint['contactId']);
+                    return $qb->expr()->eq('e.contact', ':contact');
+                } else if (array_key_exists('memberId', $constraint)) {
+                    $qb->setParameter('member', $constraint['memberId']);
+                    return $qb->expr()->eq('e.member', ':member');
+                } else if (array_key_exists('roleId', $constraint)) {
+                    $qb->setParameter('role', $constraint['roleId']);
+                    return $qb->expr()->eq('e.role', ':role');
+                } else if (array_key_exists('sectionId', $constraint)) {
+                    $qb->setParameter('section', $constraint['sectionId']);
+                    return $qb->expr()->eq('e.section', ':section');
+                } else if (array_key_exists('scoutGroupId', $constraint)) {
+                    $qb->setParameter('scoutGroup', $constraint['scoutGroupId']);
+                    return $qb->expr()->eq('e.scoutGroup', ':scoutGroup');
+                }
 
-        return $this->pageFetcherHelper(
-            $expression,
+                return null;
+            });
+
+        return $pageFetcher->run(
             function (EmailListRule $emailListMem) {
                 return $emailListMem->toListRuleData();
             },
             'rules',
-            "%{$query}%",
-            $sort,
-            $pageSize,
-            $page,
             'id',
-            $qb
         );
     }
 }

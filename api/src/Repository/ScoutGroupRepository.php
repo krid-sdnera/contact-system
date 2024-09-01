@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\ScoutGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Exception\SortKeyNotFound;
@@ -27,20 +28,27 @@ class ScoutGroupRepository extends ServiceEntityRepository
 
     public function findByPage($query = null, $sort = null, $pageSize = null, $page = null)
     {
-        $qb = $this->createQueryBuilder('e');
-        $expression = $qb->expr()->orX(
-            $qb->expr()->like('e.name', ':search')
-        );
-        return $this->pageFetcherHelper(
-            $expression,
+
+        $pageFetcher = $this->pageFetcherHelper()
+            ->processPageParameters($page, $pageSize)
+            ->processSortParameter($sort)
+            ->processQueryParameter(
+                $query,
+                function (QueryBuilder $qb, $search) {
+                    $qb->setParameter(":search", "%{$search}%");
+
+                    return $qb->expr()->orX(
+                        $qb->expr()->like('e.name', ':search')
+                    );
+                }
+            );
+
+        return $pageFetcher->run(
             function (ScoutGroup $scoutGroup) {
                 return $scoutGroup->toScoutGroupData();
             },
             'scoutGroups',
-            "%{$query}%",
-            $sort,
-            $pageSize,
-            $page
+            'id',
         );
     }
 }

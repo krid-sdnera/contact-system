@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Contact;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Repository\PageFetcherTrait;
@@ -27,41 +28,48 @@ class ContactRepository extends ServiceEntityRepository
 
     public function findByPage($query = null, $sort = null, $pageSize = null, $page = null)
     {
-        $qb = $this->createQueryBuilder('e');
-        $expression = $qb->expr()->orX(
-            $qb->expr()->like('e.firstname', ':search'),
-            $qb->expr()->like('e.lastname', ':search'),
-            $qb->expr()->like('e.email', ':search')
-        );
-        return $this->pageFetcherHelper(
-            $expression,
+        $pageFetcher = $this->pageFetcherHelper()
+            ->processPageParameters($page, $pageSize)
+            ->processSortParameter($sort)
+            ->processQueryParameter(
+                $query,
+                function (QueryBuilder $qb, $search) {
+                    $qb->setParameter(":search", "%{$search}%");
+
+                    return $qb->expr()->orX(
+                        $qb->expr()->like('e.firstname', ':search'),
+                        $qb->expr()->like('e.lastname', ':search'),
+                        $qb->expr()->like('e.email', ':search')
+                    );
+                }
+            );
+
+        return $pageFetcher->run(
             function (Contact $contact) {
                 return $contact->toContactData();
             },
             'contacts',
-            "%{$query}%",
-            $sort,
-            $pageSize,
-            $page
+            'id',
         );
     }
 
     public function findByMemberIdPage($memberId = null, $sort = null, $pageSize = null, $page = null)
     {
-        $qb = $this->createQueryBuilder('e');
-        $expression = $qb->expr()->orX(
-            $qb->expr()->eq('e.member', ':search')
-        );
-        return $this->pageFetcherHelper(
-            $expression,
+        $pageFetcher = $this->pageFetcherHelper()
+            ->processPageParameters($page, $pageSize)
+            ->processSortParameter($sort)
+            ->addCondition(function (QueryBuilder $qb) use ($memberId) {
+                $qb->setParameter(":memberId", $memberId);
+
+                return $qb->expr()->eq('e.member', ':memberId');
+            });
+
+        return $pageFetcher->run(
             function (Contact $contact) {
                 return $contact->toContactData();
             },
             'contacts',
-            $memberId,
-            $sort,
-            $pageSize,
-            $page
+            'id',
         );
     }
 }

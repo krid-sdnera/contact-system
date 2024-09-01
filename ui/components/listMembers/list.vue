@@ -15,8 +15,6 @@ const props = withDefaults(
   }
 );
 
-const search = ref<string>('');
-
 const { useListListMembers } = useListMember();
 const {
   displayListMembers,
@@ -25,7 +23,7 @@ const {
   loading,
   error,
   errorMessage,
-} = useListListMembers(props.list, search, {
+} = useListListMembers(props.list, {
   // role: props.role,
   // section: props.section,
 });
@@ -64,7 +62,7 @@ function itemDeleted(id: number) {
 const { $filters } = useNuxtApp();
 
 const headers: TableControlsHeader[] = [
-  { title: 'ID', key: 'id', fixed: true },
+  { title: 'ID', key: 'id' },
   {
     title: 'Type',
     key: 'type',
@@ -75,10 +73,11 @@ const headers: TableControlsHeader[] = [
         return 'Contact';
       }
     },
+    filterable: true,
   },
-  { title: 'Name', key: 'name' },
-  { title: 'Address', key: 'address' },
-  { title: 'List', key: 'list' },
+  { title: 'Name', key: 'name', filterable: true },
+  { title: 'Address', key: 'address', filterable: true },
+  { title: 'List', key: 'list', filterable: true },
   { title: 'Rules', key: 'contributingRuleIds' },
 ];
 const { shownHeaders, useUiTableControls } = useTableControls(
@@ -114,7 +113,7 @@ const { getListRule } = useListRule();
       :loading="loading"
       v-model:items-per-page="uiPageControls.pageSize.value"
       :items-length="uiPageControls.totalItems.value"
-      :search="search"
+      :search="uiPageControls.search.value"
       @update:options="uiPageControls.updateOptions"
       :items-per-page-options="itemsPerPageOptions"
     >
@@ -129,7 +128,7 @@ const { getListRule } = useListRule();
 
           <v-text-field
             v-if="props.searchable"
-            v-model="search"
+            v-model="uiPageControls.search.value"
             label="Find Recipient"
             single-line
             hide-details
@@ -138,15 +137,6 @@ const { getListRule } = useListRule();
             class="mr-3"
           ></v-text-field>
 
-          <!-- <listListMember-export
-            :open.sync="dialogExport"
-            :api-options="apiOptions"
-            :preset-listListMember-fields="selectedHeaders"
-            :preset-contact-fields="[]"
-            :preset-role="role"
-            :preset-section="section"
-          ></listListMember-export> -->
-
           <v-btn icon="mdi-sync" v-tooltip="'Refresh'" @click="refresh"></v-btn>
 
           <TableControls
@@ -154,6 +144,21 @@ const { getListRule } = useListRule();
             :controls="uiTableControls"
           ></TableControls>
         </v-toolbar>
+      </template>
+
+      <template
+        v-for="(header, i) in headers"
+        v-slot:[`header.${header.key}`]="{
+          column,
+          toggleSort,
+          getSortIcon,
+          isSorted,
+        }"
+      >
+        <TableHeaderCell
+          :header="{ column, toggleSort, getSortIcon, isSorted }"
+          :filters="uiPageControls.filters"
+        ></TableHeaderCell>
       </template>
 
       <template v-slot:item.list="{ item }">

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Member;
 use App\Entity\MemberRole;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Repository\PageFetcherTrait;
@@ -29,40 +30,42 @@ class MemberRepository extends ServiceEntityRepository
 
     public function findByPage($query = null, $sort = null, $pageSize = null, $page = null, $constraint = null)
     {
-        $qb = $this->createQueryBuilder('e')->select('e');
+        $customqb = $this->createQueryBuilder('e')->select('e');
         if ($constraint) {
-
             if (array_key_exists('roleId', $constraint)) {
-                $qb->join('e.roles', 'mr', Join::WITH, $qb->expr()->eq('mr.role', ':role'));
-                $qb->setParameter('role', $constraint['roleId']);
+                $customqb->join('e.roles', 'mr', Join::WITH, $customqb->expr()->eq('mr.role', ':role'));
+                $customqb->setParameter('role', $constraint['roleId']);
             } else if (array_key_exists('sectionId', $constraint)) {
-                $qb->join('e.roles', 'mr');
-                $qb->join('mr.role', 'r');
-                $qb->join('r.section', 's', Join::WITH, $qb->expr()->eq('s.id', ':section'));
-                $qb->setParameter('section', $constraint['sectionId']);
+                $customqb->join('e.roles', 'mr');
+                $customqb->join('mr.role', 'r');
+                $customqb->join('r.section', 's', Join::WITH, $customqb->expr()->eq('s.id', ':section'));
+                $customqb->setParameter('section', $constraint['sectionId']);
             }
         }
 
-        $expression = $qb->expr()->orX(
-            $qb->expr()->like('e.firstname', ':search'),
-            $qb->expr()->like('e.lastname', ':search'),
-            $qb->expr()->like('e.membershipNumber', ':search'),
-            $qb->expr()->like('e.email', ':search')
-        );
+        $pageFetcher = $this->pageFetcherHelper($customqb)
+            ->processPageParameters($page, $pageSize)
+            ->processSortParameter($sort)
+            ->processQueryParameter(
+                $query,
+                function (QueryBuilder $qb, $search) {
+                    $qb->setParameter(":search", "%{$search}%");
 
+                    return $qb->expr()->orX(
+                        $qb->expr()->like('e.firstname', ':search'),
+                        $qb->expr()->like('e.lastname', ':search'),
+                        $qb->expr()->like('e.membershipNumber', ':search'),
+                        $qb->expr()->like('e.email', ':search')
+                    );
+                }
+            );
 
-        return $this->pageFetcherHelper(
-            $expression,
+        return $pageFetcher->run(
             function (Member $member) {
                 return $member->toMemberData();
             },
             'members',
-            "%{$query}%",
-            $sort,
-            $pageSize,
-            $page,
             'id',
-            $qb
         );
     }
 

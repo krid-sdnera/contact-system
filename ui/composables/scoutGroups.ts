@@ -69,14 +69,16 @@ export const useScoutGroup = () => {
 
       return fetchScoutGroupComposable[scoutGroupId];
     },
-    useListScoutGroups: (search: Ref<string>) => {
-      const { currentPage, pageSize, useUiPageControls } = usePageControls();
+    useListScoutGroups: () => {
+      const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
+        usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) =>
         api.scoutGroups.getScoutGroups({
           page: currentPage.value,
           pageSize: pageSize.value,
-          query: search.value,
+          sort: apiSortBy.value,
+          query: apiQuery.value,
         })
       );
 

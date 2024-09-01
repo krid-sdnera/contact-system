@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\MemberRole;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Repository\PageFetcherTrait;
@@ -27,20 +28,20 @@ class MemberRoleRepository extends ServiceEntityRepository
 
     public function findByMemberIdPage($memberId = null, $sort = null, $pageSize = null, $page = null)
     {
-        $qb = $this->createQueryBuilder('e');
-        $expression = $qb->expr()->orX(
-            $qb->expr()->eq('e.member', ':search')
-        );
-        return $this->pageFetcherHelper(
-            $expression,
+        $pageFetcher = $this->pageFetcherHelper()
+            ->processPageParameters($page, $pageSize)
+            ->processSortParameter($sort)
+            ->addCondition(function (QueryBuilder $qb) use ($memberId) {
+                $qb->setParameter(":memberId", $memberId);
+
+                return $qb->expr()->eq('e.member', ':memberId');
+            });
+
+        return $pageFetcher->run(
             function (MemberRole $memberRole) {
                 return $memberRole->toMemberRoleData();
             },
             'roles',
-            $memberId,
-            $sort,
-            $pageSize,
-            $page,
             'member'
         );
     }

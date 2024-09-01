@@ -10,24 +10,23 @@ const props = withDefaults(
   }
 );
 
-const search = ref<string>('');
-
 const { useListAudits } = useAudit();
 const { displayAudits, uiPageControls, refresh, loading, error, errorMessage } =
-  useListAudits(search, {});
+  useListAudits();
 
 const { $filters } = useNuxtApp();
 
 const headers: TableControlsHeader[] = [
-  { title: 'ID', key: 'id', fixed: true },
-  { title: 'Entity', key: 'entity' },
+  { title: 'ID', key: 'id' },
+  { title: 'Entity', key: 'entity', filterable: true },
   {
     title: 'Created At',
     key: 'createdAt',
     value: (item: AuditData) => $filters.datetime(new Date(item.createdAt)),
+    filterable: true,
   },
-  { title: 'Actor', key: 'actor' },
-  { title: 'Action', key: 'action' },
+  { title: 'Actor', key: 'actor', filterable: true },
+  { title: 'Action', key: 'action', filterable: true },
   {
     title: 'Event',
     key: 'eventData',
@@ -165,7 +164,7 @@ function replacerFn(k: string, v: any) {
       :loading="loading"
       v-model:items-per-page="uiPageControls.pageSize.value"
       :items-length="uiPageControls.totalItems.value"
-      :search="search"
+      :search="uiPageControls.search.value"
       :sort-by="uiPageControls.sortBy.value"
       @update:options="uiPageControls.updateOptions"
       :items-per-page-options="itemsPerPageOptions"
@@ -181,7 +180,7 @@ function replacerFn(k: string, v: any) {
 
           <v-text-field
             v-if="props.searchable"
-            v-model="search"
+            v-model="uiPageControls.search.value"
             label="Find Audit"
             single-line
             hide-details
@@ -197,6 +196,21 @@ function replacerFn(k: string, v: any) {
             :controls="uiTableControls"
           ></TableControls>
         </v-toolbar>
+      </template>
+
+      <template
+        v-for="(header, i) in headers"
+        v-slot:[`header.${header.key}`]="{
+          column,
+          toggleSort,
+          getSortIcon,
+          isSorted,
+        }"
+      >
+        <TableHeaderCell
+          :header="{ column, toggleSort, getSortIcon, isSorted }"
+          :filters="uiPageControls.filters"
+        ></TableHeaderCell>
       </template>
 
       <template v-slot:item.entity="{ item }">

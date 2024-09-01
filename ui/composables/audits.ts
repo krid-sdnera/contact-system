@@ -29,11 +29,8 @@ export const useAudit = () => {
     removeAudit(auditId: number): void {
       delete auditsState.value[String(auditId)];
     },
-    useListAudits: (
-      search: Ref<string>,
-      hardFilters?: { member?: MemberData }
-    ) => {
-      const { currentPage, apiSortBy, pageSize, useUiPageControls } =
+    useListAudits: (hardFilters?: { member?: MemberData }) => {
+      const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
         usePageControls({ sortBy: [{ key: 'createdAt', order: 'desc' }] });
 
       const { data, refresh, status } = useApiFetch((api) => {
@@ -44,8 +41,8 @@ export const useAudit = () => {
         return api.audits.getAudits({
           page: currentPage.value,
           pageSize: pageSize.value,
-          query: search.value,
           sort: apiSortBy.value,
+          query: apiQuery.value,
         });
       });
 

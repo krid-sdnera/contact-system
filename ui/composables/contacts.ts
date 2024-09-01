@@ -64,11 +64,9 @@ export const useContact = () => {
 
       return fetchContactComposable[contactId];
     },
-    useListContacts: (
-      search: Ref<string>,
-      hardFilters?: { member?: MemberData }
-    ) => {
-      const { currentPage, pageSize, useUiPageControls } = usePageControls();
+    useListContacts: (hardFilters?: { member?: MemberData }) => {
+      const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
+        usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
         if (hardFilters?.member) {
@@ -76,14 +74,16 @@ export const useContact = () => {
             memberId: hardFilters.member.id,
             page: currentPage.value,
             pageSize: pageSize.value,
-            // query: search.value,
+            sort: apiSortBy.value,
+            // query: apiQuery.value,
           });
         }
 
         return api.contacts.getContacts({
           page: currentPage.value,
           pageSize: pageSize.value,
-          query: search.value,
+          sort: apiSortBy.value,
+          query: apiQuery.value,
         });
       });
 

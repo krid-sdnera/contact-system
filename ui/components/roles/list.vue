@@ -15,13 +15,9 @@ const props = withDefaults(
   }
 );
 
-const search = ref<string>('');
-
 const { useListRoles } = useRole();
 const { displayRoles, uiPageControls, refresh, loading, error, errorMessage } =
-  useListRoles(search, {
-    section: props.section,
-  });
+  useListRoles({ section: props.section });
 
 const dialogCreate = ref(false);
 function itemCreate() {
@@ -55,8 +51,8 @@ function itemDeleted(id: number) {
 }
 
 const headers: TableControlsHeader[] = [
-  { title: 'ID', key: 'id', fixed: true },
-  { title: 'Name', key: 'name' },
+  { title: 'ID', key: 'id' },
+  { title: 'Name', key: 'name', filterable: true },
   { title: 'Section', key: 'section.name' },
   { title: 'Group', key: 'section.scoutGroup.name' },
   { title: 'Actions', key: 'actionButtons', sortable: false },
@@ -111,7 +107,7 @@ const itemsPerPageOptions = [
       :loading="loading"
       v-model:items-per-page="uiPageControls.pageSize.value"
       :items-length="uiPageControls.totalItems.value"
-      :search="search"
+      :search="uiPageControls.search.value"
       @update:options="uiPageControls.updateOptions"
       :items-per-page-options="itemsPerPageOptions"
     >
@@ -126,7 +122,7 @@ const itemsPerPageOptions = [
 
           <v-text-field
             v-if="props.searchable"
-            v-model="search"
+            v-model="uiPageControls.search.value"
             label="Find Role"
             single-line
             hide-details
@@ -143,15 +139,6 @@ const itemsPerPageOptions = [
             @click="itemCreate"
           ></v-btn>
 
-          <!-- <role-export
-            :open.sync="dialogExport"
-            :api-options="apiOptions"
-            :preset-role-fields="selectedHeaders"
-            :preset-contact-fields="[]"
-            :preset-role="role"
-            :preset-section="section"
-          ></role-export> -->
-
           <v-btn icon="mdi-sync" v-tooltip="'Refresh'" @click="refresh"></v-btn>
 
           <TableControls
@@ -159,6 +146,21 @@ const itemsPerPageOptions = [
             :controls="uiTableControls"
           ></TableControls>
         </v-toolbar>
+      </template>
+
+      <template
+        v-for="(header, i) in headers"
+        v-slot:[`header.${header.key}`]="{
+          column,
+          toggleSort,
+          getSortIcon,
+          isSorted,
+        }"
+      >
+        <TableHeaderCell
+          :header="{ column, toggleSort, getSortIcon, isSorted }"
+          :filters="uiPageControls.filters"
+        ></TableHeaderCell>
       </template>
 
       <template v-slot:item.id="{ item }">

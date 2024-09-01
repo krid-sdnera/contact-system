@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Role;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Repository\PageFetcherTrait;
@@ -25,39 +26,46 @@ class RoleRepository extends ServiceEntityRepository
 
     public function findByPage($query = null, $sort = null, $pageSize = null, $page = null)
     {
-        $qb = $this->createQueryBuilder('e');
-        $expression = $qb->expr()->orX(
-            $qb->expr()->like('e.name', ':search')
-        );
-        return $this->pageFetcherHelper(
-            $expression,
+        $pageFetcher = $this->pageFetcherHelper()
+            ->processPageParameters($page, $pageSize)
+            ->processSortParameter($sort)
+            ->processQueryParameter(
+                $query,
+                function (QueryBuilder $qb, $search) {
+                    $qb->setParameter(":search", "%{$search}%");
+
+                    return $qb->expr()->orX(
+                        $qb->expr()->like('e.name', ':search')
+                    );
+                }
+            );
+
+        return $pageFetcher->run(
             function (Role $role) {
                 return $role->toRoleData();
             },
             'roles',
-            "%{$query}%",
-            $sort,
-            $pageSize,
-            $page
+            'id',
         );
     }
 
     public function findBySectionIdPage($sectionId = null, $sort = null, $pageSize = null, $page = null)
     {
-        $qb = $this->createQueryBuilder('e');
-        $expression = $qb->expr()->orX(
-            $qb->expr()->like('e.section', ':search')
-        );
-        return $this->pageFetcherHelper(
-            $expression,
+        $pageFetcher = $this->pageFetcherHelper()
+            ->processPageParameters($page, $pageSize)
+            ->processSortParameter($sort)
+            ->addCondition(function (QueryBuilder $qb) use ($sectionId) {
+                $qb->setParameter(":sectionId", $sectionId);
+
+                return $qb->expr()->eq('e.section', ':sectionId');
+            });
+
+        return $pageFetcher->run(
             function (Role $role) {
                 return $role->toRoleData();
             },
             'roles',
-            $sectionId,
-            $sort,
-            $pageSize,
-            $page
+            'id',
         );
     }
 

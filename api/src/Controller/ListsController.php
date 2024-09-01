@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 // use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -448,33 +449,41 @@ class ListsController extends AbstractController implements ListsApiInterface
         $memberIds = array_keys($memberToRule);
         $contactIds = array_keys($contactToRule);
 
-        $qb = $emailListRecipientRepo->createQueryBuilder('e')->select('e');
-        $qb->where(
-            $qb->expr()->orX(
-                $qb->expr()->andX(
-                    $qb->expr()->in('e.id', ':memberIds'),
-                    $qb->expr()->eq('e.type', ':memberType')
-                ),
-                $qb->expr()->andX(
-                    $qb->expr()->in('e.id', ':contactIds'),
-                    $qb->expr()->eq('e.type', ':contactType')
-                )
-            )
-        );
-        $qb->setParameter('memberIds', $memberIds);
-        $qb->setParameter('memberType', 'member');
-        $qb->setParameter('contactIds', $contactIds);
-        $qb->setParameter('contactType', 'contact');
-
-        $expression = $qb->expr()->orX(
-            $qb->expr()->like('e.firstname', ':search'),
-            $qb->expr()->like('e.lastname', ':search'),
-            $qb->expr()->like('e.membershipNumber', ':search')
-        );
-
         try {
-            $result = $emailListRecipientRepo->pageFetcherHelper(
-                $expression,
+            $pageFetcher = $emailListRecipientRepo->pageFetcherHelper()
+                ->processPageParameters($page, $pageSize)
+                ->processSortParameter($sort)
+                ->processQueryParameter(
+                    $query,
+                    function (QueryBuilder $qb, $search) {
+                        $qb->setParameter(":search", "%{$search}%");
+
+                        return $qb->expr()->orX(
+                            $qb->expr()->like('e.firstname', ':search'),
+                            $qb->expr()->like('e.lastname', ':search'),
+                            $qb->expr()->like('e.membershipNumber', ':search'),
+                        );
+                    }
+                )
+                ->addCondition(function (QueryBuilder $qb) use ($memberIds, $contactIds) {
+                    $qb->setParameter('memberIds', $memberIds);
+                    $qb->setParameter('memberType', 'member');
+                    $qb->setParameter('contactIds', $contactIds);
+                    $qb->setParameter('contactType', 'contact');
+
+                    return $qb->expr()->orX(
+                        $qb->expr()->andX(
+                            $qb->expr()->in('e.id', ':memberIds'),
+                            $qb->expr()->eq('e.type', ':memberType')
+                        ),
+                        $qb->expr()->andX(
+                            $qb->expr()->in('e.id', ':contactIds'),
+                            $qb->expr()->eq('e.type', ':contactType')
+                        )
+                    );
+                });
+
+            return $pageFetcher->run(
                 function (EmailListRecipient $recipient) use ($emailList, $memberToRule, $contactToRule) {
                     if ($recipient->getType() === 'member') {
                         $contributingRuleIds = $memberToRule[$recipient->getId()];
@@ -487,15 +496,8 @@ class ListsController extends AbstractController implements ListsApiInterface
                     return $recipient->toListRecipientData($emailList, $contributingRuleIds);
                 },
                 'recipients',
-                "%{$query}%",
-                $sort,
-                $pageSize,
-                $page,
                 'id',
-                $qb
             );
-
-            return $result;
         } catch (SortKeyNotFound $e) {
             $responseCode = 400;
             return new ApiResponse([

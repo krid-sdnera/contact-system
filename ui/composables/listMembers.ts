@@ -76,7 +76,6 @@ export const useListMember = () => {
     // },
     useListListMembers: (
       list: ListData,
-      search: Ref<string>,
       hardFilters?: {
         member?: MemberData;
         contact?: ContactData;
@@ -85,7 +84,8 @@ export const useListMember = () => {
         scoutGroup?: ScoutGroupData;
       }
     ) => {
-      const { currentPage, pageSize, useUiPageControls } = usePageControls();
+      const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
+        usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
         // if (hardFilters?.role) {
@@ -93,14 +93,16 @@ export const useListMember = () => {
         //     roleId: hardFilters.role.id,
         //     page: currentPage.value,
         //     pageSize: pageSize.value,
-        //     query: search.value,
+        //     sort: apiSortBy.value,
+        //     query: apiQuery.value,
         //   });
         // } else if (hardFilters?.section) {
         //   return api.sections.getListMembersBySectionId({
         //     sectionId: hardFilters.section.id,
         //     page: currentPage.value,
         //     pageSize: pageSize.value,
-        //     query: search.value,
+        //     sort: apiSortBy.value,
+        //     query: apiQuery.value,
         //   });
         // }
 
@@ -110,7 +112,8 @@ export const useListMember = () => {
           listId: list.id,
           page: currentPage.value,
           pageSize: pageSize.value,
-          query: search.value,
+          sort: apiSortBy.value,
+          query: apiQuery.value,
         });
       });
 

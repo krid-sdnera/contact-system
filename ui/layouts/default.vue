@@ -1,25 +1,6 @@
 <script setup lang="ts">
 const { isLoggedIn, doLogout } = useAuth();
 
-// Search related props
-const searchQuery = ref<string>('');
-const searchDialog = ref<boolean>(false);
-watch(searchQuery, (newQuery, oldQuery) => {
-  if (newQuery === '') {
-    // New query is empty, dont close or open dialog.
-    return;
-  }
-
-  if (newQuery !== '' && searchDialog.value === false) {
-    // Old query was empty, but new query has data, open dialog.
-    searchDialog.value = true;
-  }
-});
-function searchClose() {
-  searchDialog.value = false;
-  searchQuery.value = '';
-}
-
 import { useStorage } from '@vueuse/core';
 const drawer = useStorage<boolean>('drawer', true);
 
@@ -105,13 +86,7 @@ const items = [
 
       <v-spacer />
 
-      <v-text-field
-        v-model="searchQuery"
-        hide-details
-        clearable
-        label="Search"
-        class="mr-4"
-      ></v-text-field>
+      <SearchDialogSearch></SearchDialogSearch>
 
       <v-btn color="primary" v-if="!isLoggedIn" nuxt to="/login">Login</v-btn>
       <v-btn color="primary" v-else @click="doLogout">Logout</v-btn>
@@ -121,30 +96,8 @@ const items = [
       <v-container fluid>
         <slot />
       </v-container>
-
-      <v-dialog
-        content-class="dialog-position-top"
-        v-model="searchDialog"
-        :location="'top'"
-        min-height="50vh"
-      >
-        <v-card>
-          <v-card-text>
-            <SearchList
-              v-model="searchQuery"
-              @close="searchClose()"
-            ></SearchList>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
     </v-main>
 
     <AlertList />
   </v-app>
 </template>
-
-<style scoped>
-:deep(.dialog-position-top) {
-  align-self: flex-start;
-}
-</style>

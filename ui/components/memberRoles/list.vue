@@ -13,8 +13,6 @@ const props = withDefaults(
   }
 );
 
-const search = ref<string>('');
-
 const { useListMemberRoles } = useMemberRole();
 const {
   displayMemberRoles,
@@ -23,9 +21,7 @@ const {
   loading,
   error,
   errorMessage,
-} = useListMemberRoles(search, {
-  member: props.member,
-});
+} = useListMemberRoles({ member: props.member });
 
 const dialogCreate = ref(false);
 function itemCreate() {
@@ -59,11 +55,11 @@ function itemDeleted(id: string) {
 }
 
 const headers: TableControlsHeader[] = [
-  { title: 'ID', key: 'id', fixed: true },
-  { title: 'State', key: 'state' },
-  { title: 'MState', key: 'managementState' },
-  { title: 'Expiry', key: 'expiry' },
-  { title: 'Member', key: 'memberId' },
+  { title: 'ID', key: 'id' },
+  { title: 'State', key: 'state', filterable: true },
+  { title: 'MState', key: 'managementState', filterable: true },
+  { title: 'Expiry', key: 'expiry', filterable: true },
+  { title: 'Member', key: 'memberId', filterable: true },
   { title: 'Role', key: 'role' },
   { title: 'Section', key: 'section' },
   { title: 'Group', key: 'scoutGroup' },
@@ -131,7 +127,7 @@ const itemsPerPageOptions = [
       :loading="loading"
       v-model:items-per-page="uiPageControls.pageSize.value"
       :items-length="uiPageControls.totalItems.value"
-      :search="search"
+      :search="uiPageControls.search.value"
       @update:options="uiPageControls.updateOptions"
       :items-per-page-options="itemsPerPageOptions"
     >
@@ -159,6 +155,21 @@ const itemsPerPageOptions = [
             :controls="uiTableControls"
           ></TableControls>
         </v-toolbar>
+      </template>
+
+      <template
+        v-for="(header, i) in headers"
+        v-slot:[`header.${header.key}`]="{
+          column,
+          toggleSort,
+          getSortIcon,
+          isSorted,
+        }"
+      >
+        <TableHeaderCell
+          :header="{ column, toggleSort, getSortIcon, isSorted }"
+          :filters="uiPageControls.filters"
+        ></TableHeaderCell>
       </template>
 
       <template v-slot:item.state="{ item }">

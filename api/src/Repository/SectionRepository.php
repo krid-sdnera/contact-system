@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Section;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Exception\SortKeyNotFound;
@@ -27,39 +28,48 @@ class SectionRepository extends ServiceEntityRepository
 
     public function findByPage($query = null, $sort = null, $pageSize = null, $page = null)
     {
-        $qb = $this->createQueryBuilder('e');
-        $expression = $qb->expr()->orX(
-            $qb->expr()->like('e.name', ':search')
-        );
-        return $this->pageFetcherHelper(
-            $expression,
+        $pageFetcher = $this->pageFetcherHelper()
+            ->processPageParameters($page, $pageSize)
+            ->processSortParameter($sort)
+            ->processQueryParameter(
+                $query,
+                function (QueryBuilder $qb, $search) {
+                    $qb->setParameter(":search", "%{$search}%");
+
+                    return $qb->expr()->orX(
+                        $qb->expr()->like('e.name', ':search')
+                    );
+                }
+            );
+
+        return $pageFetcher->run(
             function (Section $section) {
                 return $section->toSectionData();
             },
             'sections',
-            "%{$query}%",
-            $sort,
-            $pageSize,
-            $page
+            'id',
         );
     }
 
     public function findByScoutGroupIdPage($scoutGroupId = null, $sort = null, $pageSize = null, $page = null)
     {
-        $qb = $this->createQueryBuilder('e');
-        $expression = $qb->expr()->orX(
-            $qb->expr()->eq('e.scoutGroup', ':search')
-        );
-        return $this->pageFetcherHelper(
-            $expression,
+
+        $pageFetcher = $this->pageFetcherHelper()
+            ->processPageParameters($page, $pageSize)
+            ->processSortParameter($sort)
+            ->addCondition(function (QueryBuilder $qb) use ($scoutGroupId) {
+                $qb->setParameter(":scoutGroupId", $scoutGroupId);
+
+                return $qb->expr()->eq('e.scoutGroup', ':scoutGroupId');
+            });
+
+        return $pageFetcher->run(
             function (Section $section) {
                 return $section->toSectionData();
             },
             'sections',
-            $scoutGroupId,
-            $sort,
-            $pageSize,
-            $page
+            'id',
         );
+
     }
 }

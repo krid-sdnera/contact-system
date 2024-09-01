@@ -64,11 +64,9 @@ export const useSection = () => {
 
       return fetchSectionComposable[sectionId];
     },
-    useListSections: (
-      search: Ref<string>,
-      hardFilters?: { scoutGroup?: ScoutGroupData }
-    ) => {
-      const { currentPage, pageSize, useUiPageControls } = usePageControls();
+    useListSections: (hardFilters?: { scoutGroup?: ScoutGroupData }) => {
+      const { currentPage, pageSize, apiSortBy, apiQuery, useUiPageControls } =
+        usePageControls();
 
       const { data, refresh, status } = useApiFetch((api) => {
         if (hardFilters?.scoutGroup) {
@@ -76,14 +74,16 @@ export const useSection = () => {
             scoutGroupId: hardFilters.scoutGroup.id,
             // page: currentPage.value,
             // pageSize: pageSize.value,
-            // query: search.value,
+            // sort: apiSortBy.value,
+            // query: apiQuery.value,
           });
         }
 
         return api.sections.getSections({
           page: currentPage.value,
           pageSize: pageSize.value,
-          query: search.value,
+          sort: apiSortBy.value,
+          query: apiQuery.value,
         });
       });
 

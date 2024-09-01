@@ -17,11 +17,9 @@ const props = withDefaults(
   }
 );
 
-const search = ref<string>('');
-
 const { useListLists } = useList();
 const { displayLists, uiPageControls, refresh, loading, error, errorMessage } =
-  useListLists(search);
+  useListLists();
 
 const dialogCreate = ref(false);
 function itemCreate() {
@@ -57,9 +55,9 @@ function itemDeleted(id: number) {
 const { $filters } = useNuxtApp();
 
 const headers: TableControlsHeader[] = [
-  { title: 'ID', key: 'id', fixed: true },
-  { title: 'Address', key: 'address' },
-  { title: 'Name', key: 'name' },
+  { title: 'ID', key: 'id' },
+  { title: 'Address', key: 'address', filterable: true },
+  { title: 'Name', key: 'name', filterable: true },
   { title: 'Actions', key: 'actionButtons', sortable: false },
 ];
 const { shownHeaders, useUiTableControls } = useTableControls(
@@ -118,7 +116,7 @@ const itemsPerPageOptions = [
       :loading="loading"
       v-model:items-per-page="uiPageControls.pageSize.value"
       :items-length="uiPageControls.totalItems.value"
-      :search="search"
+      :search="uiPageControls.search.value"
       @update:options="uiPageControls.updateOptions"
       :items-per-page-options="itemsPerPageOptions"
     >
@@ -133,7 +131,7 @@ const itemsPerPageOptions = [
 
           <v-text-field
             v-if="props.searchable"
-            v-model="search"
+            v-model="uiPageControls.search.value"
             label="Find List"
             single-line
             hide-details
@@ -150,15 +148,6 @@ const itemsPerPageOptions = [
             @click="itemCreate"
           ></v-btn>
 
-          <!-- <list-export
-            :open.sync="dialogExport"
-            :api-options="apiOptions"
-            :preset-list-fields="selectedHeaders"
-            :preset-contact-fields="[]"
-            :preset-role="role"
-            :preset-section="section"
-          ></list-export> -->
-
           <v-btn icon="mdi-sync" v-tooltip="'Refresh'" @click="refresh"></v-btn>
 
           <TableControls
@@ -166,6 +155,21 @@ const itemsPerPageOptions = [
             :controls="uiTableControls"
           ></TableControls>
         </v-toolbar>
+      </template>
+
+      <template
+        v-for="(header, i) in headers"
+        v-slot:[`header.${header.key}`]="{
+          column,
+          toggleSort,
+          getSortIcon,
+          isSorted,
+        }"
+      >
+        <TableHeaderCell
+          :header="{ column, toggleSort, getSortIcon, isSorted }"
+          :filters="uiPageControls.filters"
+        ></TableHeaderCell>
       </template>
 
       <template v-slot:item.id="{ item }">
