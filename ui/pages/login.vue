@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { promiseTimeout } from '@vueuse/core';
+
 useHead({
   title: 'Login',
 });
@@ -7,7 +9,7 @@ definePageMeta({
   breadcrumbs: useBuildBreadcrumbs([{ to: `/`, label: `Login` }]),
 });
 
-const { isLoggedIn, useLogin } = useAuth();
+const { isLoggedIn, useLogin, goToFromParam } = useAuth();
 const { pending, error, errorMessage, submit } = useLogin();
 
 const username = ref<string>('');
@@ -19,15 +21,32 @@ function handleLogin() {
   });
 }
 const runtime = useRuntimeConfig();
+
+watch(
+  isLoggedIn,
+  async () => {
+    if (isLoggedIn.value === true) {
+      await promiseTimeout(5000);
+      goToFromParam();
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
   <v-row>
     <v-col cols="6" md="6" offset-md="3" sm="12">
-      <v-card>
+      <v-card v-if="isLoggedIn">
+        <v-card-text>
+          <p>You are already logged in.</p>
+          <p>Redirecting you in 5 seconds.</p>
+        </v-card-text>
+      </v-card>
+
+      <v-card v-else>
         <v-card-title class="headline">Login</v-card-title>
         <v-card-text>
-          <span v-if="isLoggedIn">You are already logged in</span>
           <v-text-field
             label="Username"
             name="username"

@@ -19,69 +19,35 @@ export function useAuth() {
   const route = useRoute();
   const router = useRouter();
 
-  watch(authToken, (newVal, oldVal) => {
-    // If an authToken just got set, we want to redirct the user to the page they were viewing.
-    if (oldVal.tokens === null && newVal.tokens !== null) {
+  watch(
+    authToken,
+    (newVal, oldVal) => {
+      // If an authToken just got UNset, we want to redirct the user to the login page.
+      if (oldVal.tokens !== null && newVal.tokens === null) {
+        if (route.path === `/login`) {
+          // Current page is /login, let the user enter their details.
+          return;
+        }
+
+        goToLoginCaptureFromParam();
+      }
+
+      // The authToken value changed (newly set or overwritten), we want to redirct the user the page they were viewing.
       // But only if the current route is /login.
       if (route.path !== `/login`) {
+        // Current page is NOT /login, let the user continue browsing.
         return;
       }
 
-      const fromQuery = Array.isArray(route.query.from)
-        ? route.query.from.filter((x) => !x?.startsWith('/login'))[0]
-        : route.query.from;
-
-      if (fromQuery) {
-        router.replace(fromQuery);
-      } else {
-        router.replace(`/`);
-      }
-    }
-
-    // If an authToken just got UNset, we want to redirct the user to the login page.
-    if (oldVal.tokens !== null && newVal.tokens === null) {
-      // But only if the current route is NOT /login.
-      if (route.path === `/login`) {
-        return;
-      }
-
-      router.replace({
-        path: `/login`,
-        query: {
-          from: router.currentRoute.value.fullPath,
-        },
-      });
-    }
-
-    // Unusual occurance.
-    // If an authToken just got set, but there was already one set, we want to redirct the user the page they were viewing.
-    if (oldVal.tokens !== null && newVal.tokens !== null) {
-      // But only if the current route is /login.
-      if (route.path !== `/login`) {
-        return;
-      }
-
-      const fromQuery = Array.isArray(route.query.from)
-        ? route.query.from.filter((x) => !x?.startsWith('/login'))[0]
-        : route.query.from;
-
-      if (fromQuery) {
-        router.replace(fromQuery);
-      } else {
-        router.replace(`/`);
-      }
-    }
-  });
+      goToFromParam();
+    },
+    { deep: true }
+  );
 
   function doLogout() {
     authToken.value.tokens = null;
 
-    router.replace({
-      path: `/login`,
-      query: {
-        from: router.currentRoute.value.fullPath,
-      },
-    });
+    goToLoginCaptureFromParam();
   }
 
   return {
@@ -136,14 +102,11 @@ export function useAuth() {
       };
     },
     doLogout,
+    goToFromParam,
+    goToLoginCaptureFromParam,
     requireAuthElseRedirect() {
       if (authToken.value === null) {
-        router.replace({
-          path: `/login`,
-          query: {
-            from: router.currentRoute.value.fullPath,
-          },
-        });
+        goToLoginCaptureFromParam();
       }
     },
     tokens: computed(() => {
@@ -186,4 +149,36 @@ export function useAuth() {
 
 function isJwtData(data: JwtErrorResponse): data is JwtData {
   return 'token' in data && 'refreshToken' in data;
+}
+
+function goToFromParam() {
+  const route = useRoute();
+  const router = useRouter();
+  const fromQuery = Array.isArray(route.query.from)
+    ? route.query.from.filter((x) => !x?.startsWith('/login'))[0]
+    : route.query.from;
+
+  if (fromQuery) {
+    router.replace(fromQuery);
+  } else {
+    router.replace(`/`);
+  }
+}
+
+function goToLoginCaptureFromParam() {
+  const route = useRoute();
+  const router = useRouter();
+  // Capture the current path and store as the from param
+
+  // If the current route is /login we dont want to add any more values.
+  if (route.path === `/login`) {
+    return;
+  }
+
+  router.replace({
+    path: `/login`,
+    query: {
+      from: router.currentRoute.value.fullPath,
+    },
+  });
 }

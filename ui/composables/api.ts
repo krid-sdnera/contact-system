@@ -42,6 +42,7 @@ export function useApi(): AllApiInterface {
         doLogout();
       }
 
+      console.debug(`tokens`, tokens.value);
       console.debug(`token:${token}`);
       return token;
     },
