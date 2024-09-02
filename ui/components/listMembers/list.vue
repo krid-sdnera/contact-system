@@ -152,19 +152,11 @@ const { getListRule } = useListRule();
         </v-toolbar>
       </template>
 
-      <template
-        v-for="(header, i) in headers"
-        v-slot:[`header.${header.key}`]="{
-          column,
-          toggleSort,
-          getSortIcon,
-          isSorted,
-        }"
-      >
-        <TableHeaderCell
-          :header="{ column, toggleSort, getSortIcon, isSorted }"
+      <template v-slot:headers="{ columns, isSorted, getSortIcon, toggleSort }">
+        <TableHeaderRow
+          :header="{ columns, toggleSort, getSortIcon, isSorted }"
           :filters="uiPageControls.filters"
-        ></TableHeaderCell>
+        ></TableHeaderRow>
       </template>
 
       <template v-slot:item.list="{ item }">

@@ -18,21 +18,18 @@ const { column, toggleSort, getSortIcon, isSorted } = props.header;
       {{ column.title }}
     </span>
     <div class="d-flex flex-nowrap align-center">
-      <template v-if="column.sortable">
-        <v-icon
-          v-if="isSorted(column)"
-          :icon="getSortIcon(column)"
-          color="primary"
-        ></v-icon>
-        <v-icon v-else icon="mdi-swap-vertical"></v-icon>
-      </template>
+      <v-icon
+        v-if="column.sortable"
+        :icon="isSorted(column) ? getSortIcon(column) : 'mdi-swap-vertical'"
+        :color="isSorted(column) ? 'primary' : ''"
+        @click="() => toggleSort(column)"
+      ></v-icon>
 
-      <template v-if="column.filterable">
-        <TableHeaderCellFilter
-          :column="column"
-          :filters="props.filters"
-        ></TableHeaderCellFilter>
-      </template>
+      <TableHeaderCellFilter
+        v-if="column.filterable"
+        :column="column"
+        :filters="props.filters"
+      ></TableHeaderCellFilter>
     </div>
   </div>
 </template>
