@@ -44,7 +44,8 @@ export const usePageControls = (defaults?: { sortBy?: SortBy[] }) => {
       if (opts.trackParams === true) {
         configureSyncRefsAndParams(
           { currentPage, pageSize, sortBy, search, filters },
-          refreshDebounced
+          refreshDebounced,
+          defaults
         );
       } else {
         watch(
@@ -115,7 +116,8 @@ const paramToString = (value: LocationQueryValue | LocationQueryValue[]) =>
 
 function configureSyncRefsAndParams(
   { currentPage, pageSize, sortBy, search, filters }: TrackableRefsAndParams,
-  refresh: PromisifyFn<RefreshFn>
+  refresh: PromisifyFn<RefreshFn>,
+  defaults?: { sortBy?: SortBy[] }
 ): void {
   let updatingParmsLock = false;
 
@@ -141,7 +143,7 @@ function configureSyncRefsAndParams(
     if (route.query.sort) {
       sortBy.value = ApiSort.decode(paramToString(route.query.sort));
     } else {
-      sortBy.value = [];
+      sortBy.value = defaults?.sortBy ?? [];
     }
 
     if (route.query.search) {
