@@ -17,9 +17,14 @@ const { column, toggleSort, getSortIcon, isSorted } = props.header;
     <span class="mr-2 cursor-pointer" @click="() => toggleSort(column)">
       {{ column.title }}
     </span>
-    <div class="d-flex flex-nowrap align-center flex-column">
-      <template v-if="isSorted(column)">
-        <v-icon :icon="getSortIcon(column)"></v-icon>
+    <div class="d-flex flex-nowrap align-center">
+      <template v-if="column.sortable">
+        <v-icon
+          v-if="isSorted(column)"
+          :icon="getSortIcon(column)"
+          color="primary"
+        ></v-icon>
+        <v-icon v-else icon="mdi-swap-vertical"></v-icon>
       </template>
 
       <template v-if="column.filterable">
