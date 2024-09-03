@@ -21,6 +21,9 @@ interface Header {
 
   // Custom fields.
   filterable?: boolean;
+  typeConfig?:
+    | { type: 'boolean' }
+    | { type: 'enum'; choices: { title: string; value: string }[] };
 }
 
 type HeaderWithKey = Header & Required<Pick<Header, 'key'>>;

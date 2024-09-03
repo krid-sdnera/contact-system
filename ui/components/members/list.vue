@@ -72,8 +72,30 @@ const { $filters } = useNuxtApp();
 
 const headers: TableControlsHeader[] = [
   { title: 'ID', key: 'id' },
-  { title: 'State', key: 'state', filterable: true },
-  { title: 'MState', key: 'managementState', filterable: true },
+  {
+    title: 'State',
+    key: 'state',
+    filterable: true,
+    typeConfig: {
+      type: 'enum',
+      choices: [
+        { title: 'Enabled', value: 'enabled' },
+        { title: 'Disabled', value: 'disabled' },
+      ],
+    },
+  },
+  {
+    title: 'Managment State',
+    key: 'managementState',
+    filterable: true,
+    typeConfig: {
+      type: 'enum',
+      choices: [
+        { title: 'Unmanaged', value: 'unmanaged' },
+        { title: 'Managed', value: 'managed' },
+      ],
+    },
+  },
   { title: 'Firstname', key: 'firstname', filterable: true },
   { title: 'Nickname', key: 'nickname', filterable: true },
   { title: 'Lastname', key: 'lastname', filterable: true },
@@ -106,6 +128,13 @@ const headers: TableControlsHeader[] = [
     key: 'autoUpgradeEnabled',
     value: (item: MemberData) => (item.autoUpgradeEnabled ? 'Yes' : 'No'),
     filterable: true,
+    typeConfig: {
+      type: 'enum',
+      choices: [
+        { title: 'Yes', value: '1' },
+        { title: 'No', value: '0' },
+      ],
+    },
   },
   { title: 'Actions', key: 'actionButtons', sortable: false },
 ];

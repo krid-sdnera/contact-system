@@ -58,8 +58,30 @@ function itemDeleted(id: string) {
 
 const headers: TableControlsHeader[] = [
   { title: 'ID', key: 'id' },
-  { title: 'State', key: 'state', filterable: true },
-  { title: 'MState', key: 'managementState', filterable: true },
+  {
+    title: 'State',
+    key: 'state',
+    filterable: true,
+    typeConfig: {
+      type: 'enum',
+      choices: [
+        { title: 'Enabled', value: 'enabled' },
+        { title: 'Disabled', value: 'disabled' },
+      ],
+    },
+  },
+  {
+    title: 'Managment State',
+    key: 'managementState',
+    filterable: true,
+    typeConfig: {
+      type: 'enum',
+      choices: [
+        { title: 'Unmanaged', value: 'unmanaged' },
+        { title: 'Managed', value: 'managed' },
+      ],
+    },
+  },
   { title: 'Expiry', key: 'expiry', filterable: true },
   { title: 'Member', key: 'memberId', filterable: true },
   { title: 'Role', key: 'role' },

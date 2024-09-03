@@ -46,7 +46,7 @@ const selectedMemberFields = ref<TableControlsHeader[]>([]);
 const availableMemberFields: TableControlsHeader[] = [
   { title: 'ID', key: 'id', fixed: true },
   { title: 'State', key: 'state' },
-  { title: 'MState', key: 'managementState' },
+  { title: 'Managment State', key: 'managementState' },
   { title: 'Firstname', key: 'firstname' },
   { title: 'Nickname', key: 'nickname' },
   { title: 'Lastname', key: 'lastname' },
@@ -89,7 +89,7 @@ const selectedContactFields = ref<TableControlsHeader[]>([]);
 const availableContactFields: TableControlsHeader[] = [
   { title: 'ID', key: 'id', fixed: true },
   { title: 'State', key: 'state' },
-  { title: 'MState', key: 'managementState' },
+  { title: 'Managment State', key: 'managementState' },
   { title: 'Firstname', key: 'firstname' },
   { title: 'Nickname', key: 'nickname' },
   { title: 'Lastname', key: 'lastname' },

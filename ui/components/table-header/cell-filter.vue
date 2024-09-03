@@ -3,7 +3,7 @@ const { column, filters } = defineProps<{
   column: TableControlsHeader;
   filters: Ref<Record<string, string | undefined>>;
 }>();
-const filterValue = ref<string>('');
+const filterValue = ref<string | { label: string; value: string }>('');
 
 watch(
   filters,
@@ -16,12 +16,20 @@ watch(
 const menuOpen = ref<boolean>(false);
 function submit() {
   menuOpen.value = false;
-  filters.value[column.key] = filterValue.value;
+  filters.value[column.key] =
+    typeof filterValue.value === 'string'
+      ? filterValue.value
+      : filterValue.value.value;
 }
 function reset() {
   menuOpen.value = false;
   filterValue.value = '';
   filters.value[column.key] = undefined;
+}
+function comboboxMenuChanged(comboboxMenuOpen: boolean) {
+  if (comboboxMenuOpen === false) {
+    submit();
+  }
 }
 </script>
 
@@ -38,14 +46,28 @@ function reset() {
     </template>
     <v-card width="400" elevation="10" variant="outlined" color="light-blue">
       <v-card-text class="pb-0">
-        <v-text-field
-          v-model="filterValue"
-          type="text"
-          :label="`Filter '${column?.title}' by`"
-          :autofocus="true"
-          hide-details
-          v-on:keyup.enter="submit()"
-        ></v-text-field>
+        <template v-if="column.typeConfig?.type === 'enum'">
+          <v-combobox
+            v-model="filterValue"
+            :label="`Filter '${column?.title}' by`"
+            :autofocus="true"
+            hide-details
+            v-on:keyup.enter="submit()"
+            :items="column.typeConfig?.choices"
+            auto-select-first="exact"
+            @update:menu="comboboxMenuChanged"
+          ></v-combobox>
+        </template>
+        <template v-else>
+          <v-text-field
+            v-model="filterValue"
+            type="text"
+            :label="`Filter '${column?.title}' by`"
+            :autofocus="true"
+            hide-details
+            v-on:keyup.enter="submit()"
+          ></v-text-field>
+        </template>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
