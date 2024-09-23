@@ -289,7 +289,7 @@ class ExtranetLogin
 
         // Check for the existance of the insurance style redirect
         preg_match(
-            '|<body onLoad="javascript:window.location.replace\(\'(/portal/Controllers/controller_extranet\.php\?request\=Insurance\.Questionnaire\.Open\&FromLogin\=yes)\'\)"></body>|',
+            '|<body onLoad="javascript:window.location.replace\(\'(/portal/Controllers/controller_extranet\.php\?request\=Insurance\.Questionnaire\.Open\&FromLogin\=yes)\'\);">|',
             $content,
             $matches
         );
@@ -401,6 +401,8 @@ class ExtranetLogin
         );
 
         if (count($matches) !== 2) {
+            $this->logger->notice($content);
+
             // Unable to login
             throw new Exception('Unable to Login! Check the credentials: case basic');
         }
