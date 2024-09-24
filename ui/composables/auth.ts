@@ -5,22 +5,46 @@ interface AuthToken {
   tokens: { auth: string; refresh: string } | null;
 }
 
-// It is not recommended to call `useRoute()` from within nuxt middleware.
-export function useMiddlewareAuth() {
-  const authToken = useStorage<AuthToken>('authToken', { tokens: null });
+function useAuthStorage() {
+  const tokenStorage = useStorage<AuthToken>('authToken', { tokens: null });
 
   return {
-    isLoggedIn: computed(() => authToken.value.tokens !== null),
+    tokens: tokenStorage,
+    isLoggedIn: computed(
+      () =>
+        typeof tokenStorage.value.tokens?.auth === 'string' &&
+        typeof tokenStorage.value.tokens?.refresh === 'string'
+    ),
+    setTokens(newValues: { auth: string; refresh: string }) {
+      console.debug('AUTH STORE setting tokens');
+      tokenStorage.value.tokens = {
+        auth: newValues.auth,
+        refresh: newValues.refresh,
+      };
+    },
+    removeTokens() {
+      console.debug('AUTH STORE removing tokens');
+      tokenStorage.value.tokens = null;
+    },
+  };
+}
+
+// It is not recommended to call `useRoute()` from within nuxt middleware.
+export function useMiddlewareAuth() {
+  const authStorage = useAuthStorage();
+
+  return {
+    isLoggedIn: authStorage.isLoggedIn,
   };
 }
 
 export function useAuth() {
-  const authToken = useStorage<AuthToken>('authToken', { tokens: null });
+  const authStorage = useAuthStorage();
   const route = useRoute();
   const router = useRouter();
 
   watch(
-    authToken,
+    authStorage.tokens,
     (newVal, oldVal) => {
       // If an authToken just got UNset, we want to redirct the user to the login page.
       if (oldVal.tokens !== null && newVal.tokens === null) {
@@ -45,13 +69,15 @@ export function useAuth() {
   );
 
   function doLogout() {
-    authToken.value.tokens = null;
+    console.debug('AUTH logout, remove tokens');
+
+    authStorage.removeTokens();
 
     goToLoginCaptureFromParam();
   }
 
   return {
-    isLoggedIn: computed(() => authToken.value.tokens !== null),
+    isLoggedIn: authStorage.isLoggedIn,
     useLogin() {
       const pending = ref<boolean>(false);
       const error = ref<boolean>(false);
@@ -79,10 +105,10 @@ export function useAuth() {
                 pending.value = false;
                 error.value = false;
 
-                authToken.value.tokens = {
+                authStorage.setTokens({
                   auth: payload.token,
                   refresh: payload.refreshToken,
-                };
+                });
                 return;
               }
 
@@ -104,36 +130,33 @@ export function useAuth() {
     doLogout,
     goToFromParam,
     goToLoginCaptureFromParam,
-    requireAuthElseRedirect() {
-      if (authToken.value === null) {
-        goToLoginCaptureFromParam();
-      }
+    getAuthToken(): string | null {
+      return authStorage.tokens.value.tokens?.auth || null;
     },
-    tokens: computed(() => {
-      return {
-        auth: authToken.value.tokens?.auth || null,
-        refresh: authToken.value.tokens?.refresh || null,
-      };
-    }),
     async refreshToken() {
-      console.log('Refreshing Token');
-      const tokens = authToken.value.tokens;
-      if (!tokens) {
+      console.debug('AUTH refreshing token');
+      if (
+        !authStorage.isLoggedIn ||
+        !authStorage.tokens.value.tokens?.refresh
+      ) {
+        console.log('AUTH no token to refresh, logout');
         doLogout();
         return;
       }
 
       try {
         const payload = await useApi().auth.refreshJWT({
-          refreshToken: tokens.refresh,
+          refreshToken: authStorage.tokens.value.tokens.refresh,
         });
 
         if (isJwtData(payload)) {
-          authToken.value.tokens = {
+          console.debug('AUTH refreshed token');
+          authStorage.setTokens({
             auth: payload.token,
             refresh: payload.refreshToken,
-          };
+          });
         } else {
+          console.debug('AUTH refresh token failed, logout');
           doLogout();
         }
 

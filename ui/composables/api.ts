@@ -22,12 +22,12 @@ import {
   type ResponseContext,
 } from '~/lib/ContactSystem/Client/src/runtime';
 
-const { tokens, refreshToken, doLogout } = useAuth();
-
 const globalPending = ref<boolean>(false);
 const globalError = ref<boolean>(false);
 
 export function useApi(): AllApiInterface {
+  const { getAuthToken, refreshToken, doLogout } = useAuth();
+
   const configuration = new Configuration({
     basePath: useRuntimeConfig().public.baseApiUrl,
     accessToken: function (name?: string, _scopes?: string[]): string {
@@ -36,14 +36,15 @@ export function useApi(): AllApiInterface {
         return '';
       }
 
-      const token = tokens.value.auth || '';
+      const token = getAuthToken();
 
+      console.debug(`API using token: ${token}`);
       if (!token) {
+        console.log('API no token, logout');
         doLogout();
+        return '<no token>';
       }
 
-      console.debug(`tokens`, tokens.value);
-      console.debug(`token:${token}`);
       return token;
     },
     middleware: [

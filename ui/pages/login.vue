@@ -20,7 +20,6 @@ function handleLogin() {
     password: password.value,
   });
 }
-const runtime = useRuntimeConfig();
 
 watch(
   isLoggedIn,
