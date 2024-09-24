@@ -17,9 +17,10 @@ const dialogDelete = ref<boolean>(false);
 function itemDelete() {
   dialogDelete.value = true;
 }
-function itemDeleted(id: number) {
-  dialogDelete.value = false;
-}
+usePostDeleteAction(
+  () => props.list,
+  () => useRouter().push(`/lists`)
+);
 </script>
 
 <template>
@@ -32,7 +33,6 @@ function itemDeleted(id: number) {
 
     <ListsDialogDelete
       v-model="dialogDelete"
-      @updated="itemDeleted"
       :list="props.list"
     ></ListsDialogDelete>
 

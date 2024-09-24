@@ -17,9 +17,11 @@ const dialogDelete = ref<boolean>(false);
 function itemDelete() {
   dialogDelete.value = true;
 }
-function itemDeleted(id: number) {
-  dialogDelete.value = false;
-}
+
+usePostDeleteAction(
+  () => props.contact,
+  () => useRouter().push(`/contacts`)
+);
 
 const dialogStateChange = ref<boolean>(false);
 function itemStateChange() {
@@ -46,7 +48,6 @@ function itemStateChanged(id: number) {
 
     <ContactsDialogDelete
       v-model="dialogDelete"
-      @updated="itemDeleted"
       :contact="props.contact"
     ></ContactsDialogDelete>
 

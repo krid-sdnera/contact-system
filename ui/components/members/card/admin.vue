@@ -17,9 +17,10 @@ const dialogDelete = ref<boolean>(false);
 function itemDelete() {
   dialogDelete.value = true;
 }
-function itemDeleted(id: number) {
-  dialogDelete.value = false;
-}
+usePostDeleteAction(
+  () => props.member,
+  () => useRouter().push(`/members`)
+);
 
 const dialogStateChange = ref<boolean>(false);
 function itemStateChange() {
@@ -46,7 +47,6 @@ function itemStateChanged(id: number) {
 
     <MembersDialogDelete
       v-model="dialogDelete"
-      @updated="itemDeleted"
       :member="props.member"
     ></MembersDialogDelete>
 

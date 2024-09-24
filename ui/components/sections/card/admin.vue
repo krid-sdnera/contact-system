@@ -17,9 +17,10 @@ const dialogDelete = ref<boolean>(false);
 function itemDelete() {
   dialogDelete.value = true;
 }
-function itemDeleted(id: number) {
-  dialogDelete.value = false;
-}
+usePostDeleteAction(
+  () => props.section,
+  () => useRouter().push(`/sections`)
+);
 </script>
 
 <template>
@@ -32,7 +33,6 @@ function itemDeleted(id: number) {
 
     <SectionsDialogDelete
       v-model="dialogDelete"
-      @updated="itemDeleted"
       :section="props.section"
     ></SectionsDialogDelete>
 

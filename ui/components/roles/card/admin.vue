@@ -17,9 +17,11 @@ const dialogDelete = ref<boolean>(false);
 function itemDelete() {
   dialogDelete.value = true;
 }
-function itemDeleted(id: number) {
-  dialogDelete.value = false;
-}
+
+usePostDeleteAction(
+  () => props.role,
+  () => useRouter().push(`/roles`)
+);
 </script>
 
 <template>
@@ -32,7 +34,6 @@ function itemDeleted(id: number) {
 
     <RolesDialogDelete
       v-model="dialogDelete"
-      @updated="itemDeleted"
       :role="props.role"
     ></RolesDialogDelete>
 
