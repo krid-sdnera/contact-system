@@ -13,6 +13,9 @@ const emit = defineEmits<{
 onMounted(() => {
   model.value = buildInternalMemberData(props.currentMember);
 });
+const fieldMode = computed(() =>
+  props.currentMember === undefined ? 'create' : 'update'
+);
 
 type MemberInputWithOverride = Omit<MemberInput, 'overrides'> &
   Required<Pick<MemberInput, 'overrides'>>;
@@ -60,7 +63,7 @@ function buildInternalMemberData(
         state: '',
         postcode: '',
       },
-      dateOfBirth: '',
+      dateOfBirth: undefined,
       membershipNumber: '',
       phoneHome: '',
       phoneMobile: '',
@@ -87,6 +90,7 @@ function buildInternalMemberData(
     <OverridableTextField
       v-model="model.membershipNumber"
       label="Membership Number"
+      :mode="fieldMode"
     ></OverridableTextField>
 
     <!-- Firstname -->
@@ -94,6 +98,7 @@ function buildInternalMemberData(
       v-model="model.firstname"
       v-model:overridden="model.overrides.firstname"
       label="Firstname"
+      :mode="fieldMode"
     ></OverridableTextField>
 
     <!-- Nickname -->
@@ -101,6 +106,7 @@ function buildInternalMemberData(
       v-model="model.nickname"
       v-model:overridden="model.overrides.nickname"
       label="Nickname"
+      :mode="fieldMode"
     ></OverridableTextField>
 
     <!-- Lastname -->
@@ -108,6 +114,7 @@ function buildInternalMemberData(
       v-model="model.lastname"
       v-model:overridden="model.overrides.lastname"
       label="Lastname"
+      :mode="fieldMode"
     ></OverridableTextField>
 
     <!-- Date of birth -->
@@ -115,6 +122,7 @@ function buildInternalMemberData(
       v-model="model.dateOfBirth"
       v-model:overridden="model.overrides.dateOfBirth"
       label="Date of birth"
+      :mode="fieldMode"
     ></OverridableDateField>
 
     <v-row>
@@ -124,6 +132,7 @@ function buildInternalMemberData(
           v-model="model.phoneHome"
           v-model:overridden="model.overrides.phoneHome"
           label="Homephone"
+          :mode="fieldMode"
         ></OverridableTextField>
       </v-col>
       <v-col cols="4">
@@ -132,6 +141,7 @@ function buildInternalMemberData(
           v-model="model.phoneMobile"
           v-model:overridden="model.overrides.phoneMobile"
           label="Mobilephone"
+          :mode="fieldMode"
         ></OverridableTextField>
       </v-col>
       <v-col cols="4">
@@ -140,6 +150,7 @@ function buildInternalMemberData(
           v-model="model.phoneWork"
           v-model:overridden="model.overrides.phoneWork"
           label="Workphone"
+          :mode="fieldMode"
         ></OverridableTextField>
       </v-col>
     </v-row>
@@ -149,6 +160,7 @@ function buildInternalMemberData(
       v-model="model.schoolName"
       v-model:overridden="model.overrides.schoolName"
       label="School Name"
+      :mode="fieldMode"
     ></OverridableTextField>
 
     <!-- School Year Level -->
@@ -156,6 +168,7 @@ function buildInternalMemberData(
       v-model="model.schoolYearLevel"
       v-model:overridden="model.overrides.schoolYearLevel"
       label="School Year Level"
+      :mode="fieldMode"
     ></OverridableTextField>
 
     <!-- Email -->
@@ -163,6 +176,7 @@ function buildInternalMemberData(
       v-model="model.email"
       v-model:overridden="model.overrides.email"
       label="Email"
+      :mode="fieldMode"
     ></OverridableTextField>
 
     <!-- Address -->
@@ -170,6 +184,7 @@ function buildInternalMemberData(
       v-model="model.address"
       v-model:overridden="model.overrides.address"
       label="Address"
+      :mode="fieldMode"
     ></OverridableAddressField>
 
     <small>*indicates required field</small>
