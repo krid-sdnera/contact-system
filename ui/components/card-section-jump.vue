@@ -10,8 +10,10 @@ const props = defineProps<{
 </script>
 
 <template>
-  <v-card class="mb-6">
-    <v-card-title class="text-subtitle-1">Jump to</v-card-title>
+  <v-card>
+    <v-card-title>Jump to</v-card-title>
+
+    <v-divider></v-divider>
 
     <v-card-text>
       <div v-for="jump in props.jumps" class="text-body-1 py-2 jump-option">

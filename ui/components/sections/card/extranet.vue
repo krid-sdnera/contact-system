@@ -8,7 +8,9 @@ const props = defineProps<{
 
 <template>
   <v-card v-if="props.section">
-    <OverridableTitle label="Extranet"> Advanced </OverridableTitle>
+    <v-card-title>Extranet</v-card-title>
+
+    <v-divider></v-divider>
 
     <v-card-text>
       <OverridableText label="Section Id">

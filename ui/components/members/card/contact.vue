@@ -10,13 +10,9 @@ const { isOverridden } = useOverriddenMember(computed(() => props.member));
 
 <template>
   <v-card v-if="props.member">
-    <OverridableTitle
-      :label="`${props.member.firstname} ${props.member.lastname}'${
-        props.member.lastname.endsWith('s') ? '' : 's'
-      }`"
-    >
-      Contact Details
-    </OverridableTitle>
+    <v-card-title>Contacts</v-card-title>
+
+    <v-divider></v-divider>
 
     <v-card-text>
       <OverridableText

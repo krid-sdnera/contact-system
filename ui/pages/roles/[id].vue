@@ -35,6 +35,17 @@ const role = computed(() =>
 
 <template>
   <div>
+    <v-row>
+      <v-col>
+        <v-card v-if="role" color="light-green">
+          <OverridableTitle label="Role">
+            {{ role.name }}
+          </OverridableTitle>
+        </v-card>
+        <v-skeleton-loader v-else type="heading"></v-skeleton-loader>
+      </v-col>
+    </v-row>
+
     <v-row class="flex-row-reverse">
       <v-col cols="12" sm="3">
         <v-row>

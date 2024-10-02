@@ -8,11 +8,15 @@ const props = defineProps<{
 
 <template>
   <v-card v-if="props.section">
-    <OverridableTitle label="section">
-      {{ props.section.name }}
-    </OverridableTitle>
+    <v-card-title>Details</v-card-title>
+
+    <v-divider></v-divider>
 
     <v-card-text>
+      <OverridableText label="Name">
+        {{ props.section.name }}
+      </OverridableText>
+
       <OverridableText
         label="Group"
         :to="`/groups/${props.section.scoutGroup.id}`"

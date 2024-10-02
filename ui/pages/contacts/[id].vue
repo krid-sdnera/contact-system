@@ -44,10 +44,26 @@ const unwatchContact = watch(contactRef, () => {
 const member = computed((): MemberData | null => {
   return contact.value ? getMember(contact.value?.memberId).value : null;
 });
+
+const { isOverridden } = useOverriddenContact(contact);
 </script>
 
 <template>
   <div>
+    <v-row>
+      <v-col>
+        <v-card v-if="contact" color="red-darken-4">
+          <OverridableTitle
+            label="Contact"
+            :overridden="isOverridden(['firstname', 'nickname', 'lastname'])"
+          >
+            {{ $filters.propperName(contact) }}
+          </OverridableTitle>
+        </v-card>
+        <v-skeleton-loader v-else type="heading"></v-skeleton-loader>
+      </v-col>
+    </v-row>
+
     <v-row class="flex-row-reverse">
       <v-col cols="12" sm="3">
         <v-row>

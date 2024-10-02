@@ -10,12 +10,9 @@ const { isOverridden } = useOverriddenContact(computed(() => props.contact));
 
 <template>
   <v-card v-if="props.contact">
-    <OverridableTitle
-      label="Contact"
-      :overridden="isOverridden(['firstname', 'nickname', 'lastname'])"
-    >
-      {{ props.contact.firstname }} {{ props.contact.lastname }}
-    </OverridableTitle>
+    <v-card-title>Details</v-card-title>
+
+    <v-divider></v-divider>
 
     <v-card-text>
       <OverridableText label="Extranet Parent Id">

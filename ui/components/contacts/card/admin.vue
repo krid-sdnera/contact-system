@@ -53,6 +53,8 @@ function itemStateChanged(id: number) {
 
     <v-card-title>Admin Actions</v-card-title>
 
+    <v-divider></v-divider>
+
     <v-card-text>
       <v-btn
         v-if="props.contact?.state === 'enabled'"
@@ -65,6 +67,8 @@ function itemStateChanged(id: number) {
         Contact disabled
       </v-btn>
     </v-card-text>
+
+    <v-divider></v-divider>
 
     <v-card-actions>
       <v-spacer></v-spacer>

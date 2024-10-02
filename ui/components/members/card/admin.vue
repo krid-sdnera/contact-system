@@ -52,6 +52,8 @@ function itemStateChanged(id: number) {
 
     <v-card-title>Admin Actions</v-card-title>
 
+    <v-divider></v-divider>
+
     <v-card-text>
       <v-btn
         v-if="props.member?.state === 'enabled'"
@@ -82,6 +84,8 @@ function itemStateChanged(id: number) {
         Auto upgrade disabled
       </v-chip>
     </v-card-text>
+
+    <v-divider></v-divider>
 
     <v-card-actions>
       <v-spacer></v-spacer>

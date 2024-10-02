@@ -12,6 +12,7 @@ export default defineNuxtPlugin(() => {
         address,
         googleMapsLink,
         phone,
+        propperName,
       },
     },
   };
@@ -181,4 +182,15 @@ function phone(inPhone: string | undefined) {
   if (inPhone.length === 11) {
     return inPhone.replace(/61(\d{3})(\d{3})(\d{3})/, '+61$1 $2 $3');
   }
+}
+
+function propperName(record?: {
+  firstname: string;
+  nickname?: string;
+  lastname: string;
+}) {
+  if (!record) {
+    return '';
+  }
+  return [record.nickname ?? record.firstname, record.lastname].join(' ');
 }

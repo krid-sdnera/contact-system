@@ -8,9 +8,15 @@ const props = defineProps<{
 
 <template>
   <v-card v-if="props.scoutGroup">
-    <OverridableTitle label="Group">
-      {{ props.scoutGroup.name }}
-    </OverridableTitle>
+    <v-card-title>Details</v-card-title>
+
+    <v-divider></v-divider>
+
+    <v-card-text>
+      <OverridableText label="Name">
+        {{ props.scoutGroup.name }}
+      </OverridableText>
+    </v-card-text>
   </v-card>
 
   <!-- Loading Skeleton -->

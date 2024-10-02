@@ -46,7 +46,7 @@ function clearExpiry() {
 
 <template>
   <v-row>
-    <v-col>
+    <v-col cols="12" :md="props.management === 'managed' ? 6 : 12">
       <DataFormFieldset
         legend="State"
         variant="outlined"
@@ -69,7 +69,7 @@ function clearExpiry() {
       </DataFormFieldset>
     </v-col>
 
-    <v-col v-if="props.management === 'managed'">
+    <v-col v-if="props.management === 'managed'" cols="12" md="6">
       <DataFormFieldset
         legend="Extranet"
         variant="outlined"

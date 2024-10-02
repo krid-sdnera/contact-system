@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { MemberData, MemberOverrideData } from '~/server/types/member';
-
 useHead({
   title: 'Members',
 });
@@ -33,10 +31,26 @@ const { member: memberRef, status } = useFetchMember(memberId);
 const member = computed(() =>
   status.value === 'success' ? memberRef.value : null
 );
+
+const { isOverridden } = useOverriddenMember(member);
 </script>
 
 <template>
   <div>
+    <v-row>
+      <v-col>
+        <v-card v-if="member" color="light-blue-darken-4">
+          <OverridableTitle
+            label="Member"
+            :overridden="isOverridden(['firstname', 'nickname', 'lastname'])"
+          >
+            {{ $filters.propperName(member) }}
+          </OverridableTitle>
+        </v-card>
+        <v-skeleton-loader v-else type="heading"></v-skeleton-loader>
+      </v-col>
+    </v-row>
+
     <v-row class="flex-row-reverse">
       <v-col cols="12" sm="3">
         <v-row>

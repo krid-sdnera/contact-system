@@ -8,11 +8,15 @@ const props = defineProps<{
 
 <template>
   <v-card v-if="props.list">
-    <OverridableTitle label="List">
-      {{ props.list.name }}
-    </OverridableTitle>
+    <v-card-title>Details</v-card-title>
+
+    <v-divider></v-divider>
 
     <v-card-text>
+      <OverridableText label="Name">
+        {{ props.list.name }}
+      </OverridableText>
+
       <OverridableText label="Address">
         {{ props.list.address }}
       </OverridableText>

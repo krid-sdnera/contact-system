@@ -31,6 +31,17 @@ const { list, status } = useFetchList(listId);
 
 <template>
   <div>
+    <v-row>
+      <v-col>
+        <v-card v-if="list" color="yellow-darken-3">
+          <OverridableTitle label="List">
+            {{ list.name }}
+          </OverridableTitle>
+        </v-card>
+        <v-skeleton-loader v-else type="heading"></v-skeleton-loader>
+      </v-col>
+    </v-row>
+
     <v-row class="flex-row-reverse">
       <v-col cols="12" sm="3">
         <v-row>

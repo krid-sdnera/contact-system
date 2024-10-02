@@ -38,6 +38,8 @@ usePostDeleteAction(
 
     <v-card-title>Admin Actions</v-card-title>
 
+    <v-divider></v-divider>
+
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn

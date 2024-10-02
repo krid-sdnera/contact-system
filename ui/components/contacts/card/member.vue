@@ -8,14 +8,18 @@ const props = defineProps<{
 
 <template>
   <v-card v-if="props.member">
-    <OverridableTitle
-      label="Child / Spouse"
-      :to="`/members/${props.member.id}`"
-    >
-      {{ props.member.firstname }} {{ props.member.lastname }}
-    </OverridableTitle>
+    <v-card-title>Related Member</v-card-title>
+
+    <v-divider></v-divider>
 
     <v-card-text>
+      <OverridableText
+        label="Child / Spouse"
+        :to="`/members/${props.member.id}`"
+      >
+        {{ $filters.propperName(props.member) }}
+      </OverridableText>
+
       <OverridableText
         label="Address"
         :to="$filters.googleMapsLink(props.member.address)"
