@@ -35,7 +35,7 @@ watch(
 
 <template>
   <v-row>
-    <v-col cols="6" md="6" offset-md="3" sm="12">
+    <v-col cols="12" md="6" offset-md="3">
       <v-card v-if="isLoggedIn">
         <v-card-text>
           <p>You are already logged in.</p>
