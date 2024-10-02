@@ -152,7 +152,7 @@ class Contact
         // Check to see if there is an override defined for this field.
         $hasOverride = (isset($overrides[$overrideKey]) && $overrides[$overrideKey] === true);
 
-        // If there is an override set up. Then this field can not be overriden.
+        // If there is an override set up. Then this field can not be overridden.
         return !$hasOverride;
     }
 
