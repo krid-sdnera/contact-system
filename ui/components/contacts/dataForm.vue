@@ -56,7 +56,6 @@ function buildInternalContactData(
       expiry: undefined,
       memberId: props.member?.id,
       parentId: undefined,
-      expiry: undefined,
       firstname: '',
       nickname: '',
       lastname: '',
