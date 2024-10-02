@@ -86,6 +86,11 @@ const headers: TableControlsHeader[] = [
       ],
     },
   },
+  {
+    title: 'Expiry',
+    key: 'expiry',
+    value: (item: ContactData) => $filters.date(item.expiry),
+  },
   { title: 'Firstname', key: 'firstname', filterable: true },
   { title: 'Nickname', key: 'nickname', filterable: true },
   { title: 'Lastname', key: 'lastname', filterable: true },

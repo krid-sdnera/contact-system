@@ -86,7 +86,7 @@ if (showScoutGroupIdSelect.value === true) {
       </v-col>
     </v-row>
 
-    <DataFormFieldset legend="Unique Identifier">
+    <DataFormFieldset legend="Unique Identifier" variant="outlined">
       <v-row>
         <v-col>
           <!-- Explaination Header -->

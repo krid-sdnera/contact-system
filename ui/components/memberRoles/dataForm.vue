@@ -59,6 +59,7 @@ const roleOptions = computed(() => {
     <DataFormState
       v-model:state="model.state"
       v-model:expiry="model.expiry"
+      :management="props.currentMemberRole?.managementState"
     ></DataFormState>
 
     <!-- Role selection -->
@@ -70,7 +71,15 @@ const roleOptions = computed(() => {
         :loading="status !== 'success'"
         :items="roleOptions"
         :color="roleOptions.length == 0 ? 'error' : ''"
+        chips
       >
+        <template v-slot:chip="{ item, index }">
+          <v-chip>
+            {{ item.value.name }} ({{ item.value.section.name }} -
+            {{ item.value.section.scoutGroup.name }})
+          </v-chip>
+        </template>
+
         <template v-slot:selection="{ item, index }">
           {{ item.value.name }} ({{ item.value.section.name }} -
           {{ item.value.section.scoutGroup.name }})

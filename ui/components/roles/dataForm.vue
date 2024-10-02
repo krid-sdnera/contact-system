@@ -85,7 +85,7 @@ if (showSectionIdSelect.value === true) {
       </v-col>
     </v-row>
 
-    <DataFormFieldset legend="Unique Identifiers">
+    <DataFormFieldset legend="Unique Identifiers" variant="outlined">
       <v-row>
         <v-col>
           <!-- Explaination Header -->

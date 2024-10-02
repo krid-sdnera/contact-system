@@ -56,6 +56,8 @@ function itemDeleted(id: string) {
   refresh();
 }
 
+const { $filters } = useNuxtApp();
+
 const headers: TableControlsHeader[] = [
   { title: 'ID', key: 'id' },
   {
@@ -82,7 +84,11 @@ const headers: TableControlsHeader[] = [
       ],
     },
   },
-  { title: 'Expiry', key: 'expiry', filterable: true },
+  {
+    title: 'Expiry',
+    key: 'expiry',
+    value: (item: MemberRoleData) => $filters.date(item.expiry),
+  },
   { title: 'Member', key: 'memberId', filterable: true },
   { title: 'Role', key: 'role' },
   { title: 'Section', key: 'section' },

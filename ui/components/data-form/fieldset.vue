@@ -6,14 +6,9 @@ const props = defineProps<{
 </script>
 
 <template>
-  <v-row class="mb-4">
+  <v-row>
     <v-col>
-      <v-card
-        elevation="6"
-        variant="outlined"
-        class="pa-2"
-        :color="props.colour"
-      >
+      <v-card class="pa-2" v-bind="$attrs">
         <v-card-title v-if="props.legend">{{ props.legend }}</v-card-title>
         <v-card-text>
           <slot></slot>

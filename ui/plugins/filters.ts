@@ -24,14 +24,21 @@ function dateHelper(inDate: Date | string | undefined): DateTime | string {
   let dt: DateTime;
 
   dt = DateTime.fromJSDate(inDate as Date);
-
-  if (dt.invalidExplanation || dt.invalidReason) {
-    dt = DateTime.fromSQL(inDate as string);
-    if (dt.invalidExplanation || dt.invalidReason) {
-      return dt.invalidExplanation || dt.invalidReason || '';
-    }
+  if (!dt.invalidExplanation && !dt.invalidReason) {
+    return dt;
   }
-  return dt;
+
+  dt = DateTime.fromSQL(inDate as string);
+  if (!dt.invalidExplanation && !dt.invalidReason) {
+    return dt;
+  }
+
+  dt = DateTime.fromISO(inDate as string);
+  if (!dt.invalidExplanation && !dt.invalidReason) {
+    return dt;
+  }
+
+  return dt.invalidExplanation || dt.invalidReason || '';
 }
 
 function date(

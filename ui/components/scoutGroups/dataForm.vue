@@ -45,7 +45,7 @@ function buildInternalScoutGroupData(
         ></v-text-field>
       </v-col>
     </v-row>
-    <DataFormFieldset legend="Unique Identifier">
+    <DataFormFieldset legend="Unique Identifier" variant="outlined">
       <v-row>
         <v-col>
           <!-- Explaination Header -->

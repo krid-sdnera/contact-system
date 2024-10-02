@@ -84,6 +84,7 @@ function buildInternalMemberData(
     <DataFormState
       v-model:state="model.state"
       v-model:expiry="model.expiry"
+      :management="props.currentMember?.managementState"
     ></DataFormState>
 
     <!-- Membership Number -->

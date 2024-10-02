@@ -28,6 +28,7 @@ function buildInternalContactData(
   if (currentContact) {
     return {
       state: currentContact.state as unknown as ContactInputStateEnum,
+      expiry: currentContact.expiry?.substr(0, 10),
       firstname: currentContact.firstname,
       nickname: currentContact.nickname,
       lastname: currentContact.lastname,
@@ -52,6 +53,7 @@ function buildInternalContactData(
   } else {
     return {
       state: ContactInputStateEnum.Enabled,
+      expiry: undefined,
       memberId: props.member?.id,
       parentId: undefined,
       expiry: undefined,
@@ -122,6 +124,7 @@ if (showMemberIdSelect.value === true) {
     <DataFormState
       v-model:state="model.state"
       v-model:expiry="model.expiry"
+      :management="props.currentContact?.managementState"
     ></DataFormState>
 
     <!-- Member -->
