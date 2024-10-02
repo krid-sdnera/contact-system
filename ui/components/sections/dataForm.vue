@@ -44,44 +44,70 @@ const showScoutGroupIdSelect = computed(() => {
   // Assuming we are creating a section without a provided scoutgroup.
   return true;
 });
+
+const scoutGroupSelectModel = ref<ScoutGroupData | null>(null);
+if (showScoutGroupIdSelect.value === true) {
+  watch(scoutGroupSelectModel, () => {
+    if (!model.value) {
+      return;
+    }
+
+    model.value.scoutGroupId = scoutGroupSelectModel.value?.id ?? 0;
+  });
+}
 </script>
 
 <template>
   <v-container v-if="model">
     <v-row>
       <!-- Scout Group -->
-      <v-text-field
-        v-if="showScoutGroupIdSelect"
-        v-model="model.scoutGroupId"
-        label="Scout Group (TODO: Make a search box)"
-        type="text"
-      ></v-text-field>
+      <v-col v-if="showScoutGroupIdSelect">
+        <ScoutGroupsFieldSelect
+          v-model="scoutGroupSelectModel"
+        ></ScoutGroupsFieldSelect>
+      </v-col>
       <v-col v-else>
         Linked with
         {{
           props.scoutGroup?.name ??
-          `Scout Group #${props.currentSection?.scoutGroup.name}`
+          `Scout Group ${props.currentSection?.scoutGroup.name}`
         }}
       </v-col>
     </v-row>
 
     <v-row>
-      <!-- Name -->
-      <v-text-field
-        v-model="model.name"
-        label="Name"
-        type="text"
-      ></v-text-field>
+      <v-col>
+        <!-- Name -->
+        <v-text-field
+          v-model="model.name"
+          label="Name"
+          type="text"
+        ></v-text-field>
+      </v-col>
     </v-row>
 
-    <v-row>
-      <!-- External ID -->
-      <v-text-field
-        v-model="model.externalId"
-        label="External ID"
-        type="text"
-      ></v-text-field>
-    </v-row>
+    <DataFormFieldset legend="Unique Identifier">
+      <v-row>
+        <v-col>
+          <!-- Explaination Header -->
+          <p class="mb-6">
+            This field is used to track this section against an extranet record.
+            It is not needed for local sections.
+          </p>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <!-- External ID -->
+          <v-text-field
+            v-model="model.externalId"
+            label="External ID"
+            type="text"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </DataFormFieldset>
     <small>*indicates required field</small>
   </v-container>
 </template>

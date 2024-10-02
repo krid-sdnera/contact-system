@@ -125,11 +125,16 @@ if (showMemberIdSelect.value === true) {
     ></DataFormState>
 
     <!-- Member -->
-    <OverridableTextField
+    <OverridableFieldContainer
       v-if="showMemberIdSelect"
-      v-model="model.memberId"
-      label="Member (TODO: Make a search box)"
-    ></OverridableTextField>
+      label="Member"
+      :mode="fieldMode"
+    >
+      <MembersFieldSelect
+        v-model="memberSelectModel"
+        label="Member"
+      ></MembersFieldSelect>
+    </OverridableFieldContainer>
     <v-row v-else>
       <v-col>
         Linked with

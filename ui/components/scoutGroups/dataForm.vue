@@ -36,21 +36,37 @@ function buildInternalScoutGroupData(
 <template>
   <v-container v-if="model">
     <v-row>
-      <!-- Name -->
-      <v-text-field
-        v-model="model.name"
-        label="Name"
-        type="text"
-      ></v-text-field>
+      <v-col>
+        <!-- Name -->
+        <v-text-field
+          v-model="model.name"
+          label="Name"
+          type="text"
+        ></v-text-field>
+      </v-col>
     </v-row>
-    <v-row>
-      <!-- External ID -->
-      <v-text-field
-        v-model="model.externalId"
-        label="External ID"
-        type="text"
-      ></v-text-field>
-    </v-row>
+    <DataFormFieldset legend="Unique Identifier">
+      <v-row>
+        <v-col>
+          <!-- Explaination Header -->
+          <p class="mb-6">
+            This field is used to track this scout group against an extranet
+            record. It is not needed for local scout groups.
+          </p>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <!-- External ID -->
+          <v-text-field
+            v-model="model.externalId"
+            label="External ID"
+            type="text"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </DataFormFieldset>
     <small>*indicates required field</small>
   </v-container>
 </template>
