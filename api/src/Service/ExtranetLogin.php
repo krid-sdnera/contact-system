@@ -40,9 +40,9 @@ class ExtranetLogin
 
     public static function HttpClientFactory($cookie = ''): HttpClientInterface
     {
-        return HttpClient::createForBaseUri('https://www.vicscouts.asn.au', [
+        return HttpClient::createForBaseUri('https://extranet.scoutsvictoria.com.au', [
             'headers' => [
-                'Host' => 'www.vicscouts.asn.au',
+                'Host' => 'extranet.scoutsvictoria.com.au',
                 'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                 'Connection' => 'Keep-Alive',
                 'Content-type' => 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -216,7 +216,7 @@ class ExtranetLogin
 
         // Check for the existance of the census style redirect
         preg_match(
-            '|<body onLoad="javascript:window.location.replace\(\'(/portal/Interface/MSUCensus/CensusCount/pfcConfirmReport.php)\'\)"></body>|',
+            '|<body onLoad="javascript:window.location.replace\(\'(/portal/Interface/MSUCensus/CensusCount/pfcConfirmReport.php)\'\);?">\s*</body>|',
             $content,
             $matches
         );

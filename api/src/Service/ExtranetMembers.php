@@ -211,7 +211,7 @@ class ExtranetMembers
 
         // Extract report csv url
         preg_match(
-            '|/portal/Interface/Include/getCSV2.php\?f=/data/apache/www.vicscouts.asn.au/root/portal/PDF/csv(\d+)\.csv|',
+            '|/portal/Interface/Include/getCSV2.php\?f=/var/www/html/portal/PDF/csv(\d+)\.csv|',
             $content,
             $matches
         );
@@ -220,7 +220,7 @@ class ExtranetMembers
             throw new Exception('Cannot get csv link for ' . $reportName);
         }
 
-        $response = $this->client()->request('GET', '/portal/Interface/Include/getCSV2.php?f=/data/apache/www.vicscouts.asn.au/root/portal/PDF/csv' . $matches[1] . '.csv');
+        $response = $this->client()->request('GET', '/portal/Interface/Include/getCSV2.php?f=/var/www/html/portal/PDF/csv' . $matches[1] . '.csv');
         $content = $response->getContent();
 
         $this->stopwatch->stop('fetch-report-' . $reportName);
