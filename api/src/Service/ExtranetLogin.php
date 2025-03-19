@@ -90,12 +90,14 @@ class ExtranetLogin
         $this->do2FAActionValidate($loginResponse);
         $loginResponse = $this->do2FAConfirm($loginResponse);
 
+        if ($this->isExtranetPasswordExpiryActive($loginResponse)) {
+            $this->checkExtranetLoginPasswordExpiry();
+        }
+
         if ($this->isExtranetCensusActive($loginResponse)) {
             $this->checkExtranetLoginCensus();
         } else if ($this->isExtranetInsuranceActive($loginResponse)) {
             $this->checkExtranetLoginInsurance();
-        } else if ($this->isExtranetPasswordExpiryActive($loginResponse)) {
-            $this->checkExtranetLoginPasswordExpiry();
         } else {
             $this->checkExtranetLoginSuccessfull($loginResponse);
         }
@@ -331,12 +333,12 @@ class ExtranetLogin
 
         // Check for the existance of the password expiry style redirect
         preg_match(
-            '|<title> Password expire in \d+ days? <\/title>|',
+            '|<title>.*Password expires? in \d+ days?.*<\/title>|',
             $content,
             $matches
         );
 
-        if (count($matches) !== 2) {
+        if (count($matches) !== 1) {
             // Password has not expired
             return false;
         }
@@ -375,17 +377,6 @@ class ExtranetLogin
         }
 
         $this->logger->notice('Password updated successfully. Your password will expire in ' . $matches[1] . ' days.');
-
-        preg_match(
-            '|window\.location\.replace\(\'/portal/Interface/mainPage\.php\?var=(\d+)\'\)|',
-            $passwordChangeResponse->getContent(),
-            $matches
-        );
-
-        if (count($matches) !== 2) {
-            // Unable to login
-            throw new Exception('Unable to Login! Check the credentials: case pwd');
-        }
     }
 
     private function checkExtranetLoginSuccessfull(ResponseInterface $response): void
