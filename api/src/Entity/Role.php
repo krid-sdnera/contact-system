@@ -72,6 +72,9 @@ class Role
         $_loggableId = $role->getId() ? $role->getId() : 'known after creation';
         self::$logger->debug("{$logPrefix} Entity loaded at id: {$_loggableId}");
 
+        self::$entityManager->persist($role);
+        self::$entityManager->flush();
+
         return $role;
     }
 

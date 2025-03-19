@@ -163,6 +163,18 @@ class Member
         $member->setMembershipUpdateLink($extranetMember->getMembershipUpdateLink());
         $member->setAutoUpgradeEnabled($extranetMember->getAutoUpgradeEnabled());
 
+        self::$logger->info("{$logPrefix} Always manage member");
+
+        // Always do these fields.
+        $member->setMembershipNumber($extranetMember->getMembershipNumber());
+        $member->setManagementState(self::ManagementStateManaged);
+        $member->setExpiry(null);
+        // Do not update `state`.
+
+        // Persist member row before trying to create any referencing rows.
+        self::$entityManager->persist($member);
+        self::$entityManager->flush();
+
         self::$logger->info("{$logPrefix} Generating roles");
         $extranetRoles = Member::GenerateExpectedRole($extranetMember);
 
@@ -235,14 +247,6 @@ class Member
                 $contact->setExpiry(new DateTime());
             }
         }
-
-        self::$logger->info("{$logPrefix} Always manage member");
-
-        // Always do these fields.
-        $member->setMembershipNumber($extranetMember->getMembershipNumber());
-        $member->setManagementState(self::ManagementStateManaged);
-        $member->setExpiry(null);
-        // Do not update `state`.
 
         return $member;
     }

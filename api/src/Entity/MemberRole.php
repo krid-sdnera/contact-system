@@ -83,7 +83,7 @@ class MemberRole
         $relationshipEntity->setManagementState(self::ManagementStateManaged);
         $relationshipEntity->setExpiry(null);
 
-        self::$entityManager->persist($role);
+        self::$entityManager->persist($relationshipEntity);
         self::$entityManager->flush();
 
         return $relationshipEntity;
