@@ -30,6 +30,7 @@ class ExtranetLogin
      * @var HttpClientInterface
      */
     private $client;
+    private $lastCookie = null;
 
 
     public function __construct(Stopwatch $stopwatch, LoggerInterface $extranetLogger)
@@ -47,7 +48,7 @@ class ExtranetLogin
                 'Connection' => 'Keep-Alive',
                 'Content-type' => 'application/x-www-form-urlencoded;charset=UTF-8',
                 'Accept-Language' => 'en-US,en;q=0.5',
-                'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:51.0) Gecko/20100101 Firefox/51.0',
+                'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:136.0) Gecko/20100101 Firefox/136.0',
                 'Cookie' => $cookie
             ],
         ]);
@@ -56,6 +57,21 @@ class ExtranetLogin
     public function setClient(HttpClientInterface $client)
     {
         $this->client = $client;
+    }
+
+    public function updateCookie(ResponseInterface $response)
+    {
+        // Get cookie and regenerate Http Client
+        $headers = $response->getHeaders();
+        if (!array_key_exists('set-cookie', $headers)) {
+            return;
+        }
+
+        $cookie = $headers['set-cookie'][0];
+
+        if ($this->lastCookie !== $cookie) {
+            $this->setClient(self::HttpClientFactory($cookie));
+        }
     }
 
     public function setCredentials($username, $password): self
@@ -81,10 +97,7 @@ class ExtranetLogin
                 'form_submission' => ''
             ]
         ]);
-
-        // Get cookie and regenerate Http Client
-        $cookie = $loginResponse->getHeaders()['set-cookie'][0];
-        $this->setClient(self::HttpClientFactory($cookie));
+        $this->updateCookie($loginResponse);
 
         $this->do2FANextStep($loginResponse);
         $this->do2FAActionValidate($loginResponse);
@@ -94,13 +107,7 @@ class ExtranetLogin
             $this->checkExtranetLoginPasswordExpiry();
         }
 
-        if ($this->isExtranetCensusActive($loginResponse)) {
-            $this->checkExtranetLoginCensus();
-        } else if ($this->isExtranetInsuranceActive($loginResponse)) {
-            $this->checkExtranetLoginInsurance();
-        } else {
-            $this->checkExtranetLoginSuccessfull($loginResponse);
-        }
+        $this->checkExtranetLoginSuccessfull();
 
         $this->logger->info('Logged in');
         $this->stopwatch->stop('extranet-login');
@@ -171,6 +178,8 @@ class ExtranetLogin
                     ]
                 ]
             );
+            $this->updateCookie($_2fa_next_step);
+
         }
     }
 
@@ -192,6 +201,8 @@ class ExtranetLogin
                 ]
             ]
         );
+        $this->updateCookie($_2fa_security_question);
+
     }
 
     private function do2FAConfirm(ResponseInterface $response): ResponseInterface
@@ -207,123 +218,9 @@ class ExtranetLogin
                 ]
             ]
         );
+        $this->updateCookie($loginResponse);
 
         return $loginResponse;
-    }
-
-    private function isExtranetCensusActive(ResponseInterface $response): bool
-    {
-        $this->logger->info('Checking login for census');
-        $content = $response->getContent();
-
-        // Check for the existance of the census style redirect
-        preg_match(
-            '|<body onLoad="javascript:window.location.replace\(\'(/portal/Interface/MSUCensus/CensusCount/pfcConfirmReport.php)\'\);?">\s*</body>|',
-            $content,
-            $matches
-        );
-
-        if (count($matches) !== 2) {
-            $this->logger->info("Census not active");
-            return false;
-        }
-        return true;
-    }
-
-    private function checkExtranetLoginCensus(): void
-    {
-        // Fetch Census Report page
-        $censusResponse = $this->client->request('GET', '/portal/Interface/MSUCensus/CensusCount/pfcConfirmReport.php');
-
-        // Check for the existance of the successful login style redirect after census.
-        preg_match(
-            '|window.location.replace\(\'\..\/..\/mainPage.php\?var=(\d+)\'\)|',
-            $censusResponse->getContent(),
-            $matches
-        );
-
-        if (count($matches) === 2) {
-            // Login successful
-            return;
-        }
-
-        // Check that there is a verify button
-        preg_match(
-            "|onclick=\"verify\(false,'(\d+)','(redirect)'\)\"|",
-            $censusResponse->getContent(),
-            $matches
-        );
-
-        if (count($matches) !== 3) {
-            // There was no verify button
-            throw new Exception('Census active: verify button not found.');
-        }
-
-        // Fetch Census confirm page
-        $censusConfirmResponse = $this->client->request('GET', '/portal/Interface/MSUCensus/CensusCount/pfcConfirmAction.php', [
-            'query' => [
-                'groupID' => $matches[1],
-                'pTarget' => $matches[2],
-                'bConfirm' => 'N',
-            ]
-        ]);
-
-        $this->logger->info('Checking login for success');
-        $content = $censusConfirmResponse->getContent();
-
-        // Check for the existance of the successful login style redirect after census.
-        preg_match(
-            '|window.location.replace\(\'\..\/..\/mainPage.php\?var=(\d+)\'\)|',
-            $content,
-            $matches
-        );
-
-        if (count($matches) !== 2) {
-            // Unable to login
-            throw new Exception('Unable to Login! Check the credentials: case census');
-        }
-    }
-
-    private function isExtranetInsuranceActive(ResponseInterface $response): bool
-    {
-        $this->logger->info('Checking login for insurance');
-        $content = $response->getContent();
-
-        // Check for the existance of the insurance style redirect
-        preg_match(
-            '|<body onLoad="javascript:window.location.replace\(\'(/portal/Controllers/controller_extranet\.php\?request\=Insurance\.Questionnaire\.Open\&FromLogin\=yes)\'\);">|',
-            $content,
-            $matches
-        );
-
-        if (count($matches) !== 2) {
-            $this->logger->info("Insurance not active");
-            return false;
-        }
-        return true;
-    }
-
-    private function checkExtranetLoginInsurance(): void
-    {
-        // Fetch Insurance Questionnaire page
-        $insuranceResponse = $this->client->request('GET', '/portal/Controllers/controller_extranet.php', [
-            'query' => [
-                'request' => 'Insurance.Questionnaire.Open',
-                'FromLogin' => 'yes'
-            ]
-        ]);
-
-        // Check that there is a verify button
-        preg_match(
-            "|(Proceed to Extranet)|",
-            $insuranceResponse->getContent(),
-            $matches
-        );
-
-        if (count($matches) !== 2) {
-            // There was no verify button
-            throw new Exception('Insurance active: verify button not found.');
-        }
     }
 
     private function isExtranetPasswordExpiryActive(ResponseInterface $response): bool
@@ -348,11 +245,12 @@ class ExtranetLogin
     private function checkExtranetLoginPasswordExpiry(): void
     {
         // Set active module to the change password interface
-        $this->client->request('POST', '/portal/Interface/mainPage.php', [
+        $response = $this->client->request('POST', '/portal/Interface/mainPage.php', [
             'body' => [
                 'mainWindow' => '/Module1/memberModifyPasswordInterface.php'
             ]
         ]);
+        $this->updateCookie($response);
 
         // Change password to the existing password
         $passwordChangeResponse = $this->client->request('POST', '/portal/Interface/mainPage.php', [
@@ -363,6 +261,7 @@ class ExtranetLogin
                 'submitPass' => 'Save'
             ]
         ]);
+        $this->updateCookie($passwordChangeResponse);
 
         // Check that the password was updated
         preg_match(
@@ -379,19 +278,22 @@ class ExtranetLogin
         $this->logger->notice('Password updated successfully. Your password will expire in ' . $matches[1] . ' days.');
     }
 
-    private function checkExtranetLoginSuccessfull(ResponseInterface $response): void
+    private function checkExtranetLoginSuccessfull(): void
     {
-        $this->logger->info('Checking login for success');
-        $content = $response->getContent();
+        $this->logger->info('Checking if login was successful');
+
+        $mainPageResponse = $this->client->request('GET', '/portal/Interface/mainPage.php');
+
+        $content = $mainPageResponse->getContent();
 
         // Check for the existance of the successful login style redirect
         preg_match(
-            '|<body onLoad="javascript:window.location.replace\(\'/portal/Interface/mainPage.php\?var=(\d+)\'\);">|',
+            '|Last Login \d+.+ \w+ \d{4}|',
             $content,
             $matches
         );
 
-        if (count($matches) !== 2) {
+        if (count($matches) !== 1) {
             $this->logger->notice($content);
 
             // Unable to login
